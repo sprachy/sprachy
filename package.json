@@ -1,0 +1,41 @@
+{
+  "name": "vokabon",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "webpack serve --progress",
+    "build": "webpack --env production --progress",
+    "deploy": "rm -rf dist && webpack --env production --progress && netlify deploy --prod -d dist"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/lodash": "^4.14.169",
+    "bootstrap": "^5.0.1",
+    "bootstrap-vue": "^2.21.2",
+    "bootswatch": "^5.0.1",
+    "copy-webpack-plugin": "^9.0.0",
+    "core-js": "^3.6.5",
+    "csv-loader": "^3.0.3",
+    "firebase": "^9.0.0-beta.2",
+    "jest": "^27.0.4",
+    "lodash": "^4.17.21",
+    "mini-css-extract-plugin": "^1.6.0",
+    "sass": "^1.34.1",
+    "sass-loader": "10.1.1",
+    "ts-jest": "^27.0.2",
+    "ts-loader": "^9.2.3",
+    "tslib": "^2.2.0",
+    "vue": "^2.6.14",
+    "vue-class-component": "^7.2.3",
+    "vue-loader": "^15.9.7",
+    "vue-property-decorator": "^9.1.2",
+    "vue-router": "^3.5.2",
+    "vue-template-compiler": "^2.6.14",
+    "webpack": "^5.38.1"
+  },
+  "devDependencies": {
+    "typescript": "~4.1.5",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
