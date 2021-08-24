@@ -1,36 +1,6 @@
 <template>
 <div>
   <router-view/>
-  <!-- <main class="container">
-    <h1>vokabon!</h1>
-    <p>Learn German vocab from the roots</p>
-    <form @submit.prevent="login">
-      <h4 className="mb-4">Login</h4>
-      <div className="form-group">
-          <label for="email">Email</label>
-          <input name="email" id="email" className="form-control" placeholder="Email" required v-model="email" />
-      </div>
-      <div className="form-group">
-          <label for="password">Password</label>
-          <input name="password" id="password" type="password" className="form-control" placeholder="Password" :minLength="10" required v-model="password" />
-      </div>
-      <input type="hidden" name="then" :value="afterAuthUrl" />
-      <button type="submit" className="btn">Login</button>
-    </form>
-    <form @submit.prevent="signup">
-      <h4 className="mb-4">Create your account</h4>
-      <div className="form-group">
-          <label for="email">Email</label>
-          <input name="email" id="email" className="form-control" placeholder="Email" required v-model="email" />
-      </div>
-      <div className="form-group">
-          <label for="password">Password</label>
-          <input name="password" id="password" type="password" className="form-control" placeholder="Password" :minLength="10" required v-model="password" />
-      </div>
-      <input type="hidden" name="then" :value="afterAuthUrl" />
-      <button type="submit" className="btn">Sign up</button>
-    </form>
-  </main> -->
 </div>
 </template>
 
