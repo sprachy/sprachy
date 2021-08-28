@@ -1,68 +1,27 @@
 <template>
   <main class="container">
-    <form @submit.prevent="login">
-      <h4 className="mb-4">Login</h4>
-      <b-form-group label="Email" label-for="emailInput">
-        <b-form-input
-          name="email"
-          id="emailInput"
-          placeholder="Email"
-          required
-          autofocus
-          v-model="email"
-        />
-      </b-form-group>
-      <b-form-group label="Password" label-for="passwordInput" class="mt-2">
-        <b-form-input
-          name="password"
-          id="passwordInput"
-          type="password"
-          placeholder="Password"
-          required
-          v-model="password"  
-        />
-      </b-form-group>
-      <input type="hidden" name="then" :value="afterAuthUrl" />
-      <b-btn type="submit" class="mt-2">Login</b-btn>
-      <div v-if="errorMessage">
-        {{errorMessage}}
-      </div>
-    </form>
+    <router-link to="/login">Login</router-link> | 
+    <router-link to="/signup">Sign up</router-link>
   </main>
 </template>
 
 <script lang="ts">
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
-
-const auth = getAuth()
-
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
 @Component({
   components: {},
 })
-export default class App extends Vue {
-  email: string = ""
-  password: string = ""
-  afterAuthUrl: string = ""
-  errorMessage: string|null = null
-
-  async login() {
-    const { email, password } = this
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      )
-    } catch (err) {
-      this.errorMessage = err.message
-    }
-  }
+export default class FrontPage extends Vue {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
+a:first-child
+  margin-right: 1rem
+
+a:last-child
+  margin-left: 1rem
+
 main
   height: calc(100vh - 5rem)
   display: flex

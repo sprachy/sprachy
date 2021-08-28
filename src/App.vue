@@ -27,29 +27,6 @@ import _ from "lodash"
   components: {},
 })
 export default class App extends Vue {
-  email: string = ""
-  password: string = ""
-  afterAuthUrl: string = ""
-
-  async signup() {
-    const { email, password } = this
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    )
-    console.log(userCredential)
-  }
-
-  async login() {
-    const { email, password } = this
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    )
-    
-  }
 }
 </script>
 

@@ -1,38 +1,46 @@
 <template>
   <main class="container">
-    <form @submit.prevent="login">
-      <h4 className="mb-4">Login</h4>
-      <b-form-group label="Email" label-for="emailInput">
-        <b-form-input
+    <form @submit.prevent="signup">
+      <h4 className="mb-4">Create your account</h4>
+      <div className="form-group">
+        <label for="email">Email</label>
+        <input
           name="email"
-          id="emailInput"
+          id="email"
+          className="form-control"
           placeholder="Email"
           required
-          autofocus
           v-model="email"
         />
-      </b-form-group>
-      <b-form-group label="Password" label-for="passwordInput" class="mt-2">
-        <b-form-input
+      </div>
+      <div className="form-group">
+        <label for="password">Password</label>
+        <input
           name="password"
-          id="passwordInput"
+          id="password"
           type="password"
+          className="form-control"
           placeholder="Password"
+          :minLength="10"
           required
-          v-model="password"  
+          v-model="password"
         />
-      </b-form-group>
+      </div>
       <input type="hidden" name="then" :value="afterAuthUrl" />
-      <b-btn type="submit" class="mt-2">Login</b-btn>
+      <button type="submit" className="btn">Sign up</button>
       <div v-if="errorMessage">
-        {{errorMessage}}
+        {{ errorMessage }}
       </div>
     </form>
   </main>
 </template>
 
 <script lang="ts">
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} from "firebase/auth"
 
 const auth = getAuth()
 
@@ -41,32 +49,23 @@ import _ from "lodash"
 @Component({
   components: {},
 })
-export default class LoginPage extends Vue {
+export default class App extends Vue {
   email: string = ""
   password: string = ""
   afterAuthUrl: string = ""
-  errorMessage: string|null = null
+  errorMessage: string | null = null
 
-  async login() {
-    this.errorMessage = null
+  async signup() {
     const { email, password } = this
     try {
-      const userCredential = await signInWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       )
-      this.$app.firebaseUser = userCredential.user
-      this.postLoginRedirect()
     } catch (err) {
       this.errorMessage = err.message
     }
-  }
-
-  postLoginRedirect() {
-    this.$app.router.replace({
-      name: 'home'
-    })
   }
 }
 </script>
