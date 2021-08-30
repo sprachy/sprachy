@@ -51,13 +51,11 @@ export default class LoginPage extends Vue {
     this.errorMessage = null
     const { email, password } = this
     try {
-      const userCredential = await signInWithEmailAndPassword(
+      await signInWithEmailAndPassword(
         auth,
         email,
         password
       )
-      this.$app.firebaseUser = userCredential.user
-      this.postLoginRedirect()
     } catch (err) {
       this.errorMessage = err.message
     }

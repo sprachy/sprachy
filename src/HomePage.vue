@@ -1,16 +1,19 @@
 <template>
-  <main class="container">
-    Home!
-  </main>
+  <site-layout>
+    <main class="container">
+      Home!
+    </main>
+  </site-layout>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
+
 @Component({
   components: {},
 })
-export default class LoginPage extends Vue {
+export default class HomePage extends Vue {
 }
 </script>
 

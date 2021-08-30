@@ -19,6 +19,10 @@ initializeApp({
   measurementId: "G-96PLGCSKWE",
 })
 
+import SiteLayout from './SiteLayout.vue'
+
+Vue.component('site-layout', SiteLayout)
+
 const auth = getAuth()
 
 import { Component, Vue } from "vue-property-decorator"
@@ -31,5 +35,4 @@ export default class App extends Vue {
 </script>
 
 <style lang="sass">
-@import "node_modules/bootstrap/scss/bootstrap"
 </style>

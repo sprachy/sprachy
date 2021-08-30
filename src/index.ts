@@ -5,6 +5,8 @@ import App from './App.vue'
 import { makeRouter } from './router'
 import { VokabonApp } from './app'
 
+import './app.sass'
+
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
