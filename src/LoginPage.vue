@@ -32,12 +32,10 @@
 </template>
 
 <script lang="ts">
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
-
-const auth = getAuth()
-
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
+import { supabase } from './supabase'
+
 @Component({
   components: {},
 })
@@ -47,17 +45,20 @@ export default class LoginPage extends Vue {
   afterAuthUrl: string = ""
   errorMessage: string|null = null
 
+
   async login() {
-    this.errorMessage = null
     const { email, password } = this
-    try {
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      )
-    } catch (err) {
-      this.errorMessage = err.message
+    this.errorMessage = null
+
+    const { error, data } = await supabase.auth.signIn({
+      email: email,
+      password: password
+    })
+
+    console.log(data)
+
+    if (error) {
+      this.errorMessage = error.message
     }
   }
 

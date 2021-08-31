@@ -36,16 +36,10 @@
 </template>
 
 <script lang="ts">
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  signInWithEmailAndPassword,
-} from "firebase/auth"
-
-const auth = getAuth()
-
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
+import { supabase } from './supabase'
+
 @Component({
   components: {},
 })
@@ -57,14 +51,17 @@ export default class App extends Vue {
 
   async signup() {
     const { email, password } = this
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      )
-    } catch (err) {
-      this.errorMessage = err.message
+    this.errorMessage = null
+
+    const { error, data } = await supabase.auth.signUp({
+      email: email,
+      password: password
+    })
+
+    console.log(data)
+
+    if (error) {
+      this.errorMessage = error.message
     }
   }
 }

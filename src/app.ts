@@ -7,19 +7,9 @@ import _ from 'lodash'
  * Global store for cross-component data and caches
  */
 export class VokabonApp {
-  user: User|null = null
- 
+  user: User | null = null
+
   constructor(readonly router: VueRouter) {
-    const auth = getAuth()
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        this.user = user
-        this.navigateReplace('/home')
-      } else {
-        this.user = null
-        this.navigateReplace('/login')
-      }
-    });
   }
 
   get expectedUser() {
@@ -34,7 +24,7 @@ export class VokabonApp {
    * clicks on something that takes them to the route they're already on. This just
    * wraps it to not do that. (there's probably a better way to do this)
    */
-   async navigate(location: RawLocation, replace: boolean = false): Promise<Route> {
+  async navigate(location: RawLocation, replace: boolean = false): Promise<Route> {
     const targetRoute = this.router.resolve(location).route
     if (!_.isEqual(targetRoute, this.router.currentRoute)) {
       try {
