@@ -15,8 +15,15 @@ const router = makeRouter()
 
 const app = Vue.observable(new VokabonApp(router))
 
+/**
+ * So components can expose variables to console for debugging
+ **/
+Object.defineProperty(Vue.prototype, '$debug', {
+  get() { return window as Record<string, any> }
+})
+
 Object.defineProperty(Vue.prototype, '$app', {
-  get () { return app }
+  get() { return app }
 })
 
 new Vue({

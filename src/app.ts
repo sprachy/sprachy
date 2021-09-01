@@ -1,15 +1,31 @@
-import { signOut, User } from 'firebase/auth'
 import VueRouter, { RawLocation, Route } from 'vue-router'
-import { getAuth, onAuthStateChanged } from "firebase/auth"
 import _ from 'lodash'
+import { supabase } from './supabase'
+import { Session } from '@supabase/supabase-js'
 
 /**
  * Global store for cross-component data and caches
  */
 export class VokabonApp {
-  user: User | null = null
+  session: Session | null = null
+
+  get user() {
+    return this.session?.user
+  }
 
   constructor(readonly router: VueRouter) {
+    supabase.auth.onAuthStateChange((event, session) => {
+      this.session = session
+      if (this.session) {
+        this.navigate({
+          name: 'home'
+        })
+      } else {
+        this.navigate({
+          name: 'login'
+        })
+      }
+    })
   }
 
   get expectedUser() {
@@ -51,10 +67,6 @@ export class VokabonApp {
 
   /** Purge any auth details and return to the login screen. */
   async logout(opts: { redirectBackTo?: string } = {}) {
-    const auth = getAuth()
-    await signOut(auth)
-    this.navigate({
-      name: 'login',
-    })
+    await supabase.auth.signOut()
   }
 }
