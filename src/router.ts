@@ -4,6 +4,7 @@ import LoginPage from './LoginPage.vue'
 import FrontPage from './FrontPage.vue'
 import SignupPage from './SignupPage.vue'
 import HomePage from './HomePage.vue'
+import AdminPatternsPage from './AdminPatternsPage.vue'
 
 export function makeRouter() {
   const router = new Router({
@@ -28,6 +29,11 @@ export function makeRouter() {
         path: "/home",
         name: "home",
         component: HomePage
+      },
+      {
+        path: "/admin/patterns",
+        name: "adminPatterns",
+        component: AdminPatternsPage
       }
       // {
       //     path: '*',

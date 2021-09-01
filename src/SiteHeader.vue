@@ -13,6 +13,9 @@
 
           <!-- Right-aligned nav items -->
           <b-navbar-nav class="ml-auto">
+            <b-nav-item to="/admin/patterns" class="mr-2">
+              Admin
+            </b-nav-item>
             <b-nav-item :to="{ name: 'userSettings' }" class="mr-2">
               {{ name }}
             </b-nav-item>

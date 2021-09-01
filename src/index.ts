@@ -4,6 +4,7 @@ import BootstrapVue from 'bootstrap-vue'
 import App from './App.vue'
 import { makeRouter } from './router'
 import { VokabonApp } from './app'
+import { AdminAPI } from './AdminAPI'
 
 import './app.sass'
 
@@ -24,6 +25,11 @@ Object.defineProperty(Vue.prototype, '$debug', {
 
 Object.defineProperty(Vue.prototype, '$app', {
   get() { return app }
+})
+
+const adminApi = new AdminAPI()
+Object.defineProperty(Vue.prototype, '$adminApi', {
+  get() { return adminApi }
 })
 
 new Vue({
