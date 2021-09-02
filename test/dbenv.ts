@@ -14,46 +14,42 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js'
 // Database URL: postgres://postgres:postgres@localhost:5432/postgres
 // Email testing interface URL: http://localhost:9000
 
-const SUPABASE_URL = "http://localhost:9001"
-const SUPABASE_ANON_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTYwMzk2ODgzNCwiZXhwIjoyNTUwNjUzNjM0LCJyb2xlIjoiYW5vbiJ9.36fUebxgx1mcBo4s19v0SzqmzunP--hm_hep0uLX0ew"
-
 export type Client = { supabase: SupabaseClient }
 
-let dbenvReady: { asUser: Client, asAdmin: Client } | null = null
+let dbenvReady: { asService: Client, asUser: Client, asAdmin: Client } | null = null
 export async function dbenv() {
   if (dbenvReady) return dbenvReady
 
-  const testdb = await setupTestDb()
+  await setupTestDb()
+  const asService = { supabase: createClient(process.env.TEST_SUPABASE_URL!, process.env.TEST_SUPABASE_SECRET_KEY!) }
   const asUser = await getUserClient()
   const asAdmin = await getAdminClient()
 
-  dbenvReady = { db, asUser, asAdmin }
+  dbenvReady = { asService, asUser, asAdmin }
   return dbenvReady
 }
 
 /** Prepare a separate testing database to run tests on */
 async function setupTestDb() {
-  const realDatabaseUrl = process.env.DATABASE_URL
-  await exec(`psql ${realDatabaseUrl} -c "drop database if exists postgres;"`)
-  await exec(`psql ${realDatabaseUrl} -c "create database postgres;"`)
+  const testdb = process.env.TEST_DATABASE_URL
+  if (!testdb) {
+    throw new Error(`Can't run tests without defined TEST_DATABASE_URL`)
+  }
 
-  const { user, password, host, port } = parse(realDatabaseUrl)
-  const testdb = `postgres://${user}:${password}@${host}:${port}/postgres`
+  await exec(`psql ${testdb} -c "drop schema if exists public cascade;"`)
+  await exec(`psql ${testdb} -c "create schema public;"`)
 
   // console.info("Installing supabase schema...")
   await exec(`psql ${testdb} -f sql/supabase.sql`)
 
-  // console.info("Installing prisma schema...")
   await exec(`DATABASE_URL=${testdb} npm run migrate up`)
 
   // console.info("Applying policies.sql...")
   await exec(`psql ${testdb} -f sql/policies.sql`)
-
-  return testdb
 }
 
 async function getAdminClient() {
-  const asAdmin = { supabase: createClient(SUPABASE_URL, SUPABASE_ANON_KEY) }
+  const asAdmin = { supabase: createClient(process.env.TEST_SUPABASE_URL!, process.env.TEST_SUPABASE_ANON_KEY!) }
   const { error, data } = await asAdmin.supabase.auth.signIn({ email: "adminuser@example.com", password: "adminuser-waffles" })
   if (error?.message === "Invalid login credentials") {
     const { error, data } = await asAdmin.supabase.auth.signUp({ email: "adminuser@example.com", password: "adminuser-waffles" })
@@ -63,7 +59,7 @@ async function getAdminClient() {
 }
 
 async function getUserClient() {
-  const asUser = { supabase: createClient(SUPABASE_URL, SUPABASE_ANON_KEY) }
+  const asUser = { supabase: createClient(process.env.TEST_SUPABASE_URL!, process.env.TEST_SUPABASE_ANON_KEY!) }
   const { error, data } = await asUser.supabase.auth.signIn({ email: "testuser@example.com", password: "testuser-waffles" })
   if (error?.message === "Invalid login credentials") {
     const { error, data } = await asUser.supabase.auth.signUp({ email: "testuser@example.com", password: "testuser-waffles" })
