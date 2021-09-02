@@ -15,7 +15,19 @@ const SUPABASE_URL = "http://localhost:9001"
 const SUPABASE_ANON_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTYwMzk2ODgzNCwiZXhwIjoyNTUwNjUzNjM0LCJyb2xlIjoiYW5vbiJ9.36fUebxgx1mcBo4s19v0SzqmzunP--hm_hep0uLX0ew"
 export type Client = { supabase: SupabaseClient }
 
-let dbenvCache: { asUser: Client, prisma: PrismaClient } | null = null
+const prisma = new PrismaClient()
+
+async function getAdminClient() {
+  const asAdmin = { supabase: createClient(SUPABASE_URL, SUPABASE_ANON_KEY) }
+  const { error, data } = await asAdmin.supabase.auth.signIn({ email: "adminuser@example.com", password: "adminuser-waffles" })
+  if (error?.message === "Invalid login credentials") {
+    const { error, data } = await asAdmin.supabase.auth.signUp({ email: "adminuser@example.com", password: "adminuser-waffles" })
+    expect(error).toBe(null)
+  }
+  return asAdmin
+}
+
+let dbenvCache: { asUser: Client, asAdmin: Client, prisma: PrismaClient } | null = null
 export async function dbenv() {
   if (dbenvCache) return dbenvCache
 
@@ -26,8 +38,8 @@ export async function dbenv() {
     expect(error).toBe(null)
   }
 
-  const prisma = new PrismaClient()
+  const asAdmin = await getAdminClient()
 
-  dbenvCache = { asUser, prisma }
+  dbenvCache = { asUser, asAdmin, prisma }
   return dbenvCache
 }

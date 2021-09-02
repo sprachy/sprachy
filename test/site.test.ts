@@ -1,7 +1,7 @@
 import { dbenv } from './helpers'
 
-test('does some stuff', async () => {
-  const { prisma, asUser } = await dbenv()
+test('pattern access rules', async () => {
+  const { prisma, asUser, asAdmin } = await dbenv()
 
   await prisma.patterns.create({
     data: {

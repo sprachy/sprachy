@@ -10,16 +10,16 @@ jest.setTimeout(50000)
 beforeAll(async () => {
   const connstr = "postgres://postgres:postgres@localhost:5434/postgres"
 
-  console.info("Clearing test database...")
+  // console.info("Clearing test database...")
   await exec(`psql ${connstr} -c "drop schema public cascade; create schema public;"`)
 
-  console.info("Installing supabase schema...")
+  // console.info("Installing supabase schema...")
   await exec(`psql ${connstr} -f sql/supabase.sql`)
 
-  console.info("Installing prisma schema...")
+  // console.info("Installing prisma schema...")
   await exec(`npx prisma db push`)
 
-  console.info("Applying policies.sql...")
+  // console.info("Applying policies.sql...")
   await exec(`psql ${connstr} -f sql/policies.sql`)
 })
 
