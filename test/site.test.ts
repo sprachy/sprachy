@@ -1,8 +1,15 @@
-import { getClients } from './helpers'
+import { dbenv } from './helpers'
 
 test('does some stuff', async () => {
-  const { asUser } = await getClients()
+  const { prisma, asUser } = await dbenv()
 
-  const { error, data } = await asUser.supabase.from("patterns").insert([{}])
+  await prisma.patterns.create({
+    data: {
+      title: "die, der, das",
+      slug: "die-der-das"
+    }
+  })
+
+  const { error, data } = await asUser.supabase.from("patterns").select()
   expect(error).toBe(null)
 })

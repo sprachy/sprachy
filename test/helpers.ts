@@ -1,4 +1,5 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
+import { PrismaClient } from '@prisma/client'
 
 // const SUPABASE_URL = 'https://emiwtmbwvmyoxyxxlwbv.supabase.co'
 // const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMDQwNTM0NiwiZXhwIjoxOTQ1OTgxMzQ2fQ.F4oJH0B3Zugi7TZcq5solrKrNg_8lAp9ZHhsZ2jtFAg'
@@ -10,14 +11,13 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js'
 // Database URL: postgres://postgres:postgres@localhost:5432/postgres
 // Email testing interface URL: http://localhost:9000
 
-const SUPABASE_URL = "http://localhost:8000"
+const SUPABASE_URL = "http://localhost:9001"
 const SUPABASE_ANON_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTYwMzk2ODgzNCwiZXhwIjoyNTUwNjUzNjM0LCJyb2xlIjoiYW5vbiJ9.36fUebxgx1mcBo4s19v0SzqmzunP--hm_hep0uLX0ew"
-
 export type Client = { supabase: SupabaseClient }
 
-let clientsCache: { asUser: Client } | null = null
-export async function getClients() {
-  if (clientsCache) return clientsCache
+let dbenvCache: { asUser: Client, prisma: PrismaClient } | null = null
+export async function dbenv() {
+  if (dbenvCache) return dbenvCache
 
   const asUser = { supabase: createClient(SUPABASE_URL, SUPABASE_ANON_KEY) }
   const { error, data } = await asUser.supabase.auth.signIn({ email: "testuser@example.com", password: "testuser-waffles" })
@@ -26,6 +26,8 @@ export async function getClients() {
     expect(error).toBe(null)
   }
 
-  clientsCache = { asUser }
-  return clientsCache
+  const prisma = new PrismaClient()
+
+  dbenvCache = { asUser, prisma }
+  return dbenvCache
 }
