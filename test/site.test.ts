@@ -1,8 +1,8 @@
-import { supabase } from '../src/supabase'
+import { getClients } from './helpers'
 
-describe('testy test', () => {
-    it('does some stuff', async () => {
-      const { error, data } = await supabase.auth.signUp({ email: "waffles@mispy.me", password: "manydeliciouswaffles" })
-      expect(error).toBe(null)
-    })
+test('does some stuff', async () => {
+  const { asUser } = await getClients()
+
+  const { error, data } = await asUser.supabase.from("patterns").insert([{}])
+  expect(error).toBe(null)
 })
