@@ -1,7 +1,6 @@
 require('dotenv').config()
 
 import { exec } from 'child-process-promise'  
-const { parse } = require('pg-connection-string')
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
 // const SUPABASE_URL = 'https://emiwtmbwvmyoxyxxlwbv.supabase.co'
