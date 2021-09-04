@@ -1,8 +1,9 @@
 require('dotenv').config()
 
 import { exec } from 'child-process-promise'  
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
-
+import { createClient, Session, SupabaseClient } from '@supabase/supabase-js'
+import { UserAPI } from '../src/UserAPI'
+import { AdminAPI } from '../src/AdminAPI'
 // const SUPABASE_URL = 'https://emiwtmbwvmyoxyxxlwbv.supabase.co'
 // const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMDQwNTM0NiwiZXhwIjoxOTQ1OTgxMzQ2fQ.F4oJH0B3Zugi7TZcq5solrKrNg_8lAp9ZHhsZ2jtFAg'
 
@@ -13,16 +14,18 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js'
 // Database URL: postgres://postgres:postgres@localhost:5432/postgres
 // Email testing interface URL: http://localhost:9000
 
-export type Client = { supabase: SupabaseClient }
+export type UserClient = { api: UserAPI, db: SupabaseClient, session: Session }
+export type AdminClient = { adminApi: AdminAPI, api: UserAPI, db: SupabaseClient, session: Session }
+export type ServiceClient = { db: SupabaseClient }
 
-let dbenvReady: { asService: Client, asUser: Client, asAdmin: Client } | null = null
+let dbenvReady: { asService: ServiceClient, asUser: UserClient, asAdmin: UserClient } | null = null
 export async function dbenv() {
   if (dbenvReady) return dbenvReady
 
   await setupTestDb()
-  const asService = { supabase: createClient(process.env.TEST_SUPABASE_URL!, process.env.TEST_SUPABASE_SECRET_KEY!) }
-  const asUser = await getUserClient()
-  const asAdmin = await getAdminClient()
+  const asService = { db: createClient(process.env.TEST_SUPABASE_URL!, process.env.TEST_SUPABASE_SECRET_KEY!) }
+  const asUser = await getUserClient({ email: "testuser@example.com", password: "testuser-waffles" })
+  const asAdmin = await getAdminClient(asService, { email: "adminuser@example.com", password: "adminuser-waffles" })
 
   dbenvReady = { asService, asUser, asAdmin }
   return dbenvReady
@@ -47,22 +50,26 @@ async function setupTestDb() {
   await exec(`psql ${testdb} -f sql/policies.sql`)
 }
 
-async function getAdminClient() {
-  const asAdmin = { supabase: createClient(process.env.TEST_SUPABASE_URL!, process.env.TEST_SUPABASE_ANON_KEY!) }
-  const { error, data } = await asAdmin.supabase.auth.signIn({ email: "adminuser@example.com", password: "adminuser-waffles" })
-  if (error?.message === "Invalid login credentials") {
-    const { error, data } = await asAdmin.supabase.auth.signUp({ email: "adminuser@example.com", password: "adminuser-waffles" })
-    expect(error).toBe(null)
-  }
-  return asAdmin
+async function getUserClient({ email, password }: { email: string, password: string }): Promise<UserClient> {
+  const db = createClient(process.env.TEST_SUPABASE_URL!, process.env.TEST_SUPABASE_ANON_KEY!)
+  const api = new UserAPI(db)
+
+  const user = await api.signUp({ email, password })
+  const session = await api.signIn({ email, password })
+
+  return { api, db, session: session! }
 }
 
-async function getUserClient() {
-  const asUser = { supabase: createClient(process.env.TEST_SUPABASE_URL!, process.env.TEST_SUPABASE_ANON_KEY!) }
-  const { error, data } = await asUser.supabase.auth.signIn({ email: "testuser@example.com", password: "testuser-waffles" })
-  if (error?.message === "Invalid login credentials") {
-    const { error, data } = await asUser.supabase.auth.signUp({ email: "testuser@example.com", password: "testuser-waffles" })
-    expect(error).toBe(null)
+async function getAdminClient(asService: ServiceClient, auth: { email: string, password: string }): Promise<AdminClient> {
+  const asUser = await getUserClient(auth)
+  console.log(asUser.session)
+
+  // Make the new user an admin
+  const { error, data } = await asService.db.from("accounts").update({ is_admin: true }).match({ id: asUser.session.user!.id })
+  if (error) {
+    throw new Error(error.message)
   }
-  return asUser
+  console.log(data)
+
+  return { adminApi: new AdminAPI(asUser.db), ...asUser }
 }
