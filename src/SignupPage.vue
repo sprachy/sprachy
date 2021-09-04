@@ -58,8 +58,6 @@ export default class App extends Vue {
       password: password
     })
 
-    console.log(data)
-
     if (error) {
       this.errorMessage = error.message
     }

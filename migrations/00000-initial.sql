@@ -49,7 +49,3 @@ create table public.patterns (
     title text not null,
     published boolean default false not null
 );
-alter table public.patterns enable row level security;
-create policy "Allow admin insert access" on public.patterns for insert with check ( admin_check(auth.uid()) );
-create policy "Allow admin update access" on public.patterns for update using ( admin_check(auth.uid()) );
-create policy "Allow admin delete access" on public.patterns for delete using ( admin_check(auth.uid()) );

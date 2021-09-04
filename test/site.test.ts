@@ -20,5 +20,4 @@ test('pattern access rules', async () => {
 
   const { error, data } = await asUser.db.from("patterns").select()
   expect(error).toBe(null)
-  console.log(data)
 })

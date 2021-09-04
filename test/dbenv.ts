@@ -48,6 +48,8 @@ async function setupTestDb() {
 
   // console.info("Applying policies.sql...")
   await exec(`psql ${testdb} -f sql/policies.sql`)
+  // It's mean to be idempotent, run it twice to test that
+  await exec(`psql ${testdb} -f sql/policies.sql`)
 }
 
 async function getUserClient({ email, password }: { email: string, password: string }): Promise<UserClient> {
@@ -62,14 +64,12 @@ async function getUserClient({ email, password }: { email: string, password: str
 
 async function getAdminClient(asService: ServiceClient, auth: { email: string, password: string }): Promise<AdminClient> {
   const asUser = await getUserClient(auth)
-  console.log(asUser.session)
 
   // Make the new user an admin
   const { error, data } = await asService.db.from("accounts").update({ is_admin: true }).match({ id: asUser.session.user!.id })
   if (error) {
     throw new Error(error.message)
   }
-  console.log(data)
 
   return { adminApi: new AdminAPI(asUser.db), ...asUser }
 }

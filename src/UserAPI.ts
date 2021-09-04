@@ -17,7 +17,6 @@ export class UserAPI {
 
   async signUp({ email, password }: { email: string, password: string }): Promise<User> {
     const { user, session, error } = await this.db.auth.signUp({ email, password })
-    console.log(user, session)
     if (error) {
       throw new Error(error.message)
     } else {
@@ -28,7 +27,6 @@ export class UserAPI {
   async createPattern() {
     const { data, error } = await this.db.from('patterns').insert([{}])
 
-    console.log(data)
     if (error)
       console.error(error)
   }

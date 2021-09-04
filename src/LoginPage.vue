@@ -55,8 +55,6 @@ export default class LoginPage extends Vue {
       password: password
     })
 
-    console.log(data)
-
     if (error) {
       this.errorMessage = error.message
     }
