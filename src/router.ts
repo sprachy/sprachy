@@ -5,6 +5,8 @@ import FrontPage from './FrontPage.vue'
 import SignupPage from './SignupPage.vue'
 import HomePage from './HomePage.vue'
 import AdminPatternsPage from './AdminPatternsPage.vue'
+import EditPatternPage from './EditPatternPage.vue'
+import { expectInt } from './utils'
 
 export function makeRouter() {
   const router = new Router({
@@ -34,6 +36,17 @@ export function makeRouter() {
         path: "/admin/patterns",
         name: "adminPatterns",
         component: AdminPatternsPage
+      },
+      {
+        path: "/admin/patterns/new",
+        name: "adminPatternsNew",
+        component: EditPatternPage
+      },
+      {
+        path: "/admin/patterns/:id",
+        name: "adminPatternsEdit",
+        component: EditPatternPage,
+        props: route => ({ patternId: expectInt(route.params.id) })
       }
       // {
       //     path: '*',

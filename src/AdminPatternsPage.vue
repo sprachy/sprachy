@@ -1,6 +1,6 @@
 <template>
   <site-layout>
-    <b-btn @click="addPattern">+ Add Pattern</b-btn>
+    <b-btn to="/admin/patterns/new">+ Add Pattern</b-btn>
     <b-table-simple class="mt-2">
       <b-tr v-for="pattern in patterns" :key="pattern.name">
         <td>{{ pattern.name }}</td>
@@ -12,20 +12,13 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
-
-import patterns from '../patterns/a1'
+import { Pattern } from "./api"
 
 @Component({
   components: {},
 })
-export default class HomePage extends Vue {
-  get patterns() {
-    return patterns
-  }
-
-  addPattern() {
-    this.$adminApi.createPattern()
-  }
+export default class AdminPatternsPage extends Vue {
+  patterns: Pattern[] = []
 }
 </script>
 

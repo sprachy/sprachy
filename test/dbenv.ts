@@ -2,8 +2,7 @@ require('dotenv').config()
 
 import { exec } from 'child-process-promise'  
 import { createClient, Session, SupabaseClient } from '@supabase/supabase-js'
-import { UserAPI } from '../src/UserAPI'
-import { AdminAPI } from '../src/AdminAPI'
+import { UserAPI, AdminAPI } from '../src/api'
 // const SUPABASE_URL = 'https://emiwtmbwvmyoxyxxlwbv.supabase.co'
 // const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMDQwNTM0NiwiZXhwIjoxOTQ1OTgxMzQ2fQ.F4oJH0B3Zugi7TZcq5solrKrNg_8lAp9ZHhsZ2jtFAg'
 
