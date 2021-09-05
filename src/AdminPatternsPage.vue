@@ -6,11 +6,15 @@
         <b-tr>
           <b-th>Slug</b-th>
           <b-th>Name</b-th>
+          <b-th>Explanation</b-th>
+          <b-th>Status</b-th>
         </b-tr>
       </b-thead>
       <b-tr v-for="pattern in patterns" :key="pattern.name" @click="editPattern(pattern.id)">
         <td>{{ pattern.slug }}</td>
         <td>{{ pattern.title }}</td>
+        <td>{{ pattern.explanation }}</td>
+        <td>{{ pattern.published ? "Published" : "Draft" }}</td>
       </b-tr>
     </b-table-simple>
   </site-layout>

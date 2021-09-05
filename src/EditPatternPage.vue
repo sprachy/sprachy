@@ -13,10 +13,14 @@
         <b-textarea id="explanation" v-model="pattern.explanation" required />
       </b-form-group>
 
-      <b-btn type="submit" variant="success" size="lg" class="mb-3">
-        <template v-if="patternId"> Save pattern </template>
-        <template v-else> Create pattern </template>
-      </b-btn>
+      <div class="d-flex">
+        <b-btn type="submit" variant="success" size="lg" :disabled="saving">
+          Save pattern
+        </b-btn>
+        <b-btn variant="danger" size="lg" class="ml-auto" @click="deletePattern" :disabled="saving">
+          Delete pattern
+        </b-btn>
+      </div>
     </b-form>
   </site-layout>
 </template>
@@ -67,6 +71,15 @@ export default class EditPatternPage extends Vue {
       }
     } finally {
       this.saving = false
+    }
+  }
+
+  async deletePattern() {
+    if (!this.pattern || !this.patternId) return
+
+    if (window.confirm(`Really delete pattern ${this.pattern.slug}?`)) {
+      await this.$adminApi.deletePattern(this.patternId)
+      await this.$app.navigateReplace("/admin/patterns")
     }
   }
 }

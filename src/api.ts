@@ -1,4 +1,4 @@
-import { Session, SupabaseClient } from "@supabase/supabase-js"
+import { Session, SupabaseClient, User } from "@supabase/supabase-js"
 
 
 export type Pattern = {
@@ -26,6 +26,8 @@ export class UserAPI {
     const { user, session, error } = await this.db.auth.signUp({ email, password })
     if (error) {
       throw new Error(error.message)
+    } else if (!user) {
+      throw new Error(`Received null user from sign up`)
     } else {
       return user
     }
@@ -68,6 +70,13 @@ export class AdminAPI {
       throw new Error(error.message)
     } else {
       return data![0]
+    }
+  }
+
+  async deletePattern(patternId: number): Promise<void> {
+    const { error } = await this.db.from('patterns').delete().match({ id: patternId })
+    if (error) {
+      throw new Error(error.message)
     }
   }
 }
