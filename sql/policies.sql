@@ -22,6 +22,13 @@ $$;
 -- POLICIES
 --
 
+-- Check if a user id has admin access
+create or replace function public.admin_check(user_id uuid) returns boolean as $$
+begin
+  return (select a.is_admin from public.accounts a where a.id = admin_check.user_id);
+end;
+$$ language plpgsql security definer;
+
 -- Only service accounts can change the admin flags, for now
 alter table public.accounts enable row level security;
 
@@ -32,21 +39,11 @@ create policy "Allow admin insert access" on public.patterns for insert with che
 create policy "Allow admin update access" on public.patterns for update using ( admin_check(auth.uid()) );
 create policy "Allow admin delete access" on public.patterns for delete using ( admin_check(auth.uid()) );
 
--- Check if a user id has admin access
-create or replace function public.admin_check(user_id uuid) returns boolean as $$
-begin
-  return (select a.is_admin from public.accounts a where a.id = admin_check.user_id);
-end;
-$$ language plpgsql security definer;
-
 --
 -- TRIGGERS
 --
 
 -- Create a public.accounts entry on auth.users creation
-create trigger on_auth_user_created
-  after insert on auth.users
-  for each row execute procedure public.handle_new_user();
 create or replace function public.handle_new_user() returns trigger as $$
 begin
   insert into public.accounts (id) values (new.id);
@@ -56,3 +53,6 @@ begin
 end;
 $$ language plpgsql security definer;
 
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();

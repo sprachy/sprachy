@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
-
+const Dotenv = require('dotenv-webpack')
 const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
@@ -18,7 +18,8 @@ module.exports = env => {
       }),
       new MiniCssExtractPlugin({
         filename: 'assets/css/[name].css'
-      })
+      }),
+      new Dotenv()
     ]
   }
 

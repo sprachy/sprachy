@@ -38,7 +38,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
-import { supabase } from './supabase'
 
 @Component({
   components: {},
@@ -53,7 +52,7 @@ export default class App extends Vue {
     const { email, password } = this
     this.errorMessage = null
 
-    const { error, data } = await supabase.auth.signUp({
+    const { error, data } = await this.$db.auth.signUp({
       email: email,
       password: password
     })
