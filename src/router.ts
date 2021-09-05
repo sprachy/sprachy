@@ -55,5 +55,9 @@ export function makeRouter() {
     ]
   })
 
+  // router.beforeEach((to, from, next) => {
+
+  // })
+
   return router
 }

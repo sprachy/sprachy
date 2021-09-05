@@ -6,6 +6,7 @@ import { Session, SupabaseClient } from '@supabase/supabase-js'
  * Global store for cross-component data and caches
  */
 export class VokabonApp {
+  pending: boolean = true
   session: Session | null = null
 
   get user() {
@@ -15,15 +16,18 @@ export class VokabonApp {
   constructor(readonly db: SupabaseClient, readonly router: VueRouter) {
     db.auth.onAuthStateChange((event, session) => {
       this.session = session
-      if (this.session) {
-        this.navigate({
-          name: 'home'
-        })
-      } else {
-        this.navigate({
-          name: 'login'
-        })
+      if (!this.pending) {
+        if (this.session) {
+          this.navigate({
+            name: 'home'
+          })
+        } else {
+          this.navigate({
+            name: 'login'
+          })
+        }  
       }
+      this.pending = false
     })
   }
 

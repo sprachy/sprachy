@@ -30,21 +30,22 @@ export class UserAPI {
       return user
     }
   }
-
-  async createPattern() {
-    const { data, error } = await this.db.from('patterns').insert([{}])
-
-    if (error)
-      console.error(error)
-  }
 }
 
 export class AdminAPI {
   constructor(readonly db: SupabaseClient) {}
 
+  async listPatterns(): Promise<Pattern[]> {
+    const { data, error } = await this.db.from('patterns').select().order("id")
+    if (error) {
+      throw new Error(error.message)
+    } else {
+      return data!
+    }
+  }
+
   async createPattern(pattern: Omit<Pattern, 'id'>): Promise<Pattern> {
     const { data, error } = await this.db.from('patterns').insert(pattern)
-
     if (error) {
       throw new Error(error.message)
     } else {
