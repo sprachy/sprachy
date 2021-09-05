@@ -1,6 +1,6 @@
 <template>
   <site-layout>
-    <b-form @submit.prevent="save">
+    <b-form @submit.prevent="save" v-if="pattern">
       <b-form-group label="Title" label-for="title">
         <b-form-input id="title" v-model="pattern.title" required />
       </b-form-group>

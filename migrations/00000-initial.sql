@@ -11,8 +11,10 @@ create table if not exists public.patterns (
     id serial primary key,
     created_at timestamp with time zone default now() not null,
     updated_at timestamp with time zone default now() not null,
-    slug text not null,
+    slug text not null check (length(slug) > 0),
     title text not null,
     published boolean default false not null,
     explanation text not null
 );
+
+create unique index published_slugs_uniq on public.patterns (published) where (published = true);

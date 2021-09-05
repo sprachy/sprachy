@@ -54,7 +54,7 @@ export class AdminAPI {
   }
 
   async getPattern(patternId: number): Promise<Pattern> {
-    const { data, error } = await this.db.from('patterns').select().single()
+    const { data, error } = await this.db.from('patterns').select().match({ id: patternId }).single()
     if (error) {
       throw new Error(error.message)
     } else {
