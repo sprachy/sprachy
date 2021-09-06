@@ -6,7 +6,15 @@
       </b-form-group>
 
       <b-form-group label="Slug" label-for="slug">
-        <b-form-input id="slug" v-model="pattern.slug" required />
+        <b-form-input
+          id="slug"
+          v-model="pattern.slug"
+          required
+          :disabled="automaticSlug"
+        />
+        <b-form-checkbox v-model="automaticSlug" class="mt-2">
+          Generate from title
+        </b-form-checkbox>
       </b-form-group>
 
       <b-form-group label="Explanation" label-for="explanation">
@@ -17,7 +25,13 @@
         <b-btn type="submit" variant="success" size="lg" :disabled="saving">
           Save pattern
         </b-btn>
-        <b-btn variant="danger" size="lg" class="ml-auto" @click="deletePattern" :disabled="saving">
+        <b-btn
+          variant="danger"
+          size="lg"
+          class="ml-auto"
+          @click="deletePattern"
+          :disabled="saving"
+        >
           Delete pattern
         </b-btn>
       </div>
@@ -26,8 +40,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator"
+import { Component, Prop, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
+import slugify from 'slugify'
 
 type Pattern = {
   title: string
@@ -42,10 +57,12 @@ export default class EditPatternPage extends Vue {
   @Prop({ type: Number, default: null }) patternId!: number | null
   pattern: Pattern | null = null
   saving: boolean = false
+  automaticSlug: boolean = true
 
   async created() {
     if (this.patternId) {
       this.pattern = await this.$adminApi.getPattern(this.patternId)
+      this.automaticSlug = this.pattern.slug === this.generatedSlug
     } else {
       this.pattern = {
         title: "",
@@ -55,18 +72,27 @@ export default class EditPatternPage extends Vue {
     }
   }
 
-  async save() {
-    if (!this.pattern) return
+  get generatedSlug() {
+    return slugify(this.pattern?.title || "")
+  }
 
+  @Watch("automaticSlug")
+  @Watch("generatedSlug")
+  setGeneratedSlug() {
+    if (!this.automaticSlug || !this.pattern) return
+    this.pattern.slug = this.generatedSlug
+  }
+
+  async save() {
     this.saving = true
     try {
       if (this.patternId) {
         this.pattern = await this.$adminApi.updatePattern(
           this.patternId,
-          this.pattern
+          this.pattern!
         )
       } else {
-        const pattern = await this.$adminApi.createPattern(this.pattern)
+        const pattern = await this.$adminApi.createPattern(this.pattern!)
         await this.$app.navigateReplace(`/admin/patterns/${pattern.id}`)
       }
     } finally {
@@ -75,10 +101,8 @@ export default class EditPatternPage extends Vue {
   }
 
   async deletePattern() {
-    if (!this.pattern || !this.patternId) return
-
-    if (window.confirm(`Really delete pattern ${this.pattern.slug}?`)) {
-      await this.$adminApi.deletePattern(this.patternId)
+    if (window.confirm(`Really delete pattern ${this.pattern!.slug}?`)) {
+      await this.$adminApi.deletePattern(this.patternId!)
       await this.$app.navigateReplace("/admin/patterns")
     }
   }
@@ -86,4 +110,6 @@ export default class EditPatternPage extends Vue {
 </script>
 
 <style lang="sass">
+.custom-checkbox > *
+  cursor: pointer
 </style>
