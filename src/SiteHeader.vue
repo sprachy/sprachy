@@ -13,8 +13,8 @@
 
           <!-- Right-aligned nav items -->
           <b-navbar-nav class="ml-auto">
-            <b-nav-item to="/study" class="mr-2">
-              Study
+            <b-nav-item to="/learn" class="mr-2">
+              Learn
             </b-nav-item>
             <b-nav-item to="/review" class="mr-2">
               Review
