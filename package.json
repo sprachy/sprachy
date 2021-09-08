@@ -11,6 +11,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^1.22.4",
     "@types/lodash": "^4.14.169",
+    "accessible-nprogress": "^2.1.2",
     "bootstrap": "4.5.3",
     "bootstrap-vue": "^2.21.2",
     "bootswatch": "^5.0.1",

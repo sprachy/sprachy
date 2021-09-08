@@ -13,7 +13,6 @@ import { Pattern } from "./api"
 })
 export default class AdminPatternsPage extends Vue {
   created() {
-    
   }
 }
 </script>

@@ -37,7 +37,7 @@ export function makeRouter() {
         path: "/learn",
         name: "learn",
         component: LearnPage
-      }
+      },
       {
         path: "/admin/patterns",
         name: "adminPatterns",
