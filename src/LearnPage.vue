@@ -1,5 +1,8 @@
 <template>
   <site-layout>
+    <div v-if="pattern">
+      <h1>{{ pattern.title }}</h1>
+    </div>
   </site-layout>
 </template>
 
@@ -11,8 +14,11 @@ import { Pattern } from "./api"
 @Component({
   components: {},
 })
-export default class AdminPatternsPage extends Vue {
-  created() {
+export default class LearnPage extends Vue {
+  pattern: Pattern|null = null
+  async created() {
+    this.pattern = await this.$api.getPattern()
+    console.log(this.pattern)
   }
 }
 </script>

@@ -1,7 +1,6 @@
 import { Session, SupabaseClient, User } from "@supabase/supabase-js"
-import { SupabaseQueryBuilder } from "@supabase/supabase-js/dist/main/lib/SupabaseQueryBuilder"
 import NProgress from 'accessible-nprogress'
-import { PostgrestBuilder, PostgrestResponse, PostgrestSingleResponse } from "@supabase/postgrest-js"
+NProgress.configure({ showSpinner: false })
 
 export type Pattern = {
   id: number,
@@ -10,11 +9,26 @@ export type Pattern = {
   explanation: string
 }
 
+async function request<T extends { error: { message: string }|null, data: any }, J = T & { data: NonNullable<T['data']> }>(query: PromiseLike<T>): Promise<J> {
+  const promise = new Promise<T>((resolve, reject) => {
+    query.then(res => {
+      if (res.error) {
+        reject(res.error)
+      } else {
+        resolve(res)
+      }
+    })
+  })
+  NProgress.promise(promise)
+  return promise as any
+}
+
+
 export class UserAPI {
   constructor(readonly db: SupabaseClient) {}
 
   async signIn({ email, password }: { email: string, password: string }): Promise<Session> {
-    const { user, session, error } = await this.db.auth.signIn({ email, password })
+    const { user, session, error } = await request(this.db.auth.signIn({ email, password }))
     if (error) {
       throw new Error(error.message)
     } else if (!session) {
@@ -25,7 +39,7 @@ export class UserAPI {
   }
 
   async signUp({ email, password }: { email: string, password: string }): Promise<User> {
-    const { user, session, error } = await this.db.auth.signUp({ email, password })
+    const { user, session, error } = await request(this.db.auth.signUp({ email, password }))
     if (error) {
       throw new Error(error.message)
     } else if (!user) {
@@ -34,45 +48,37 @@ export class UserAPI {
       return user
     }
   }
+
+  async getPattern(): Promise<Pattern> {
+    const { data } = await request(this.db.from('patterns').select().single())
+    return data
+  }
 }
 
 export class AdminAPI {
   constructor(readonly db: SupabaseClient) {}
 
-  async request<T, J extends PostgrestResponse<T> | PostgrestSingleResponse<T>>(query: PromiseLike<J>): Promise<NonNullable<J['data']>> {
-    const promise = new Promise<J>((resolve, reject) => {
-      query.then(res => {
-        if (res.error) {
-          reject(res.error)
-        } else {
-          resolve(res)
-        }
-      })
-    })
-    NProgress.promise(promise)
-    const { data } = await promise
-    return data! as NonNullable<J['data']>
-  }
-
   async listPatterns(): Promise<Pattern[]> {
-    return this.request(this.db.from('patterns').select().order("id"))
+    const { data } = await request(this.db.from('patterns').select().order("id"))
+    return data
   }
 
   async createPattern(pattern: Omit<Pattern, 'id'>): Promise<Pattern> {
-    const patterns = await this.request(this.db.from('patterns').insert(pattern))
-    return patterns[0]
+    const { data } = await request(this.db.from('patterns').insert(pattern))
+    return data[0]
   }
 
   async getPattern(patternId: number): Promise<Pattern> {
-    return this.request(this.db.from('patterns').select().match({ id: patternId }).single())
+    const { data } = await request(this.db.from('patterns').select().match({ id: patternId }).single())
+    return data
   }
 
   async updatePattern(patternId: number, changes: Partial<Pattern>): Promise<Pattern> {
-    const patterns = await this.request(this.db.from('patterns').update(changes).match({ id: patternId }))
-    return patterns[0]
+    const { data } = await request(this.db.from('patterns').update(changes).match({ id: patternId }))
+    return data[0]
   }
 
   async deletePattern(patternId: number): Promise<void> {
-    await this.request(this.db.from('patterns').delete().match({ id: patternId }))
+    await request(this.db.from('patterns').delete().match({ id: patternId }))
   }
 }

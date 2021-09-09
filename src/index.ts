@@ -4,7 +4,7 @@ import BootstrapVue from 'bootstrap-vue'
 import App from './App.vue'
 import { makeRouter } from './router'
 import { VokabonApp } from './app'
-import { AdminAPI } from './api'
+import { AdminAPI, UserAPI } from './api'
 import { createClient } from '@supabase/supabase-js'
 import './app.sass'
 import { SupabaseQueryBuilder } from '@supabase/supabase-js/dist/main/lib/SupabaseQueryBuilder'
@@ -34,6 +34,10 @@ Object.defineProperty(Vue.prototype, '$app', {
   get() { return app }
 })
 
+const userApi = new UserAPI(db)
+Object.defineProperty(Vue.prototype, '$api', {
+  get() { return userApi }
+})
 
 const adminApi = new AdminAPI(db)
 Object.defineProperty(Vue.prototype, '$adminApi', {
