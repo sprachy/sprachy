@@ -36,20 +36,6 @@ export class UserAPI {
   }
 }
 
-interface Thing<T> {
-  data: T
-}
-
-interface Thing2<T> {
-  data: T[]
-}
-
-function waffle<T, J extends Thing<T> | Thing2<T>>(a: T|T[]|null): NonNullable<J['data']> {
-  return a!
-}
-
-type Response<T> = PostgrestResponse<T> | PostgrestSingleResponse<T>
-
 export class AdminAPI {
   constructor(readonly db: SupabaseClient) {}
 
@@ -65,7 +51,7 @@ export class AdminAPI {
     })
     NProgress.promise(promise)
     const { data } = await promise
-    return data!
+    return data! as NonNullable<J['data']>
   }
 
   async listPatterns(): Promise<Pattern[]> {
@@ -73,36 +59,20 @@ export class AdminAPI {
   }
 
   async createPattern(pattern: Omit<Pattern, 'id'>): Promise<Pattern> {
-    const { data, error } = await this.db.from('patterns').insert(pattern)
-    if (error) {
-      throw new Error(error.message)
-    } else {
-      return data![0]
-    }
+    const patterns = await this.request(this.db.from('patterns').insert(pattern))
+    return patterns[0]
   }
 
   async getPattern(patternId: number): Promise<Pattern> {
-    const { data, error } = await this.db.from('patterns').select().match({ id: patternId }).single()
-    if (error) {
-      throw new Error(error.message)
-    } else {
-      return data
-    }
+    return this.request(this.db.from('patterns').select().match({ id: patternId }).single())
   }
 
   async updatePattern(patternId: number, changes: Partial<Pattern>): Promise<Pattern> {
-    const { data, error } = await this.db.from('patterns').update(changes).match({ id: patternId })
-    if (error) {
-      throw new Error(error.message)
-    } else {
-      return data![0]
-    }
+    const patterns = await this.request(this.db.from('patterns').update(changes).match({ id: patternId }))
+    return patterns[0]
   }
 
   async deletePattern(patternId: number): Promise<void> {
-    const { error } = await this.db.from('patterns').delete().match({ id: patternId })
-    if (error) {
-      throw new Error(error.message)
-    }
+    await this.request(this.db.from('patterns').delete().match({ id: patternId }))
   }
 }
