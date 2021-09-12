@@ -7,6 +7,7 @@ import HomePage from './HomePage.vue'
 import AdminPatternsPage from './AdminPatternsPage.vue'
 import EditPatternPage from './EditPatternPage.vue'
 import LearnPage from './LearnPage.vue'
+import ReviewPage from './ReviewPage.vue'
 import { expectInt } from './utils'
 
 export function makeRouter() {
@@ -37,6 +38,11 @@ export function makeRouter() {
         path: "/learn",
         name: "learn",
         component: LearnPage
+      },
+      {
+        path: "/review",
+        name: "review",
+        component: ReviewPage
       },
       {
         path: "/admin/patterns",
