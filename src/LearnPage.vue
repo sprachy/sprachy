@@ -3,7 +3,7 @@
     <div v-if="pattern">
       <template v-if="!quiz">
         <h1>{{ pattern.title }}</h1>
-        <p>{{ pattern.explanation }}</p>
+        <div v-html="htmlExplain"/>
         <button class="btn btn-primary" @click="quiz = true">Continue</button>
       </template>
       <template v-if="quiz">
@@ -16,6 +16,7 @@
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
 import { Pattern } from "./api"
+import marked from 'marked'
 
 @Component({
   components: {},
@@ -26,7 +27,10 @@ export default class LearnPage extends Vue {
 
   async created() {
     this.pattern = await this.$api.getPattern()
-    console.log(this.pattern)
+  }
+
+  get htmlExplain() {
+    return marked(this.pattern.explanation)
   }
 }
 </script>
