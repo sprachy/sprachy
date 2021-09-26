@@ -39,6 +39,13 @@ create policy "Allow admin insert access" on public.patterns for insert with che
 create policy "Allow admin update access" on public.patterns for update using ( admin_check(auth.uid()) );
 create policy "Allow admin delete access" on public.patterns for delete using ( admin_check(auth.uid()) );
 
+-- Patterns are the core content of the site, they can be read by everyone but only edited by admins
+alter table public.progress enable row level security;
+create policy "Allow individual insert access" on public.progress for insert with check ( auth.uid() = user_id );
+create policy "Allow individual update access" on public.progress for update using ( auth.uid() = user_id );
+create policy "Allow individual delete access" on public.progress for delete using ( auth.uid() = user_id );
+create policy "Allow individual read access" on public.progress for select using ( auth.uid() = user_id );
+
 --
 -- TRIGGERS
 --

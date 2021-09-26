@@ -9,6 +9,14 @@ export type Pattern = {
   explanation: string
 }
 
+export type Progress = {
+  user_id: number
+  pattern_id: number
+  srs_level: number
+  initially_learned_at: number
+  last_reviewed_at: number
+}
+
 async function request<T extends { error: { message: string }|null, data: any }, J = T & { data: NonNullable<T['data']> }>(query: PromiseLike<T>): Promise<J> {
   const promise = new Promise<T>((resolve, reject) => {
     query.then(res => {
@@ -26,6 +34,10 @@ async function request<T extends { error: { message: string }|null, data: any },
 
 export class UserAPI {
   constructor(readonly db: SupabaseClient) {}
+
+  get user() {
+    return this.db.auth.user()!
+  }
 
   async signIn({ email, password }: { email: string, password: string }): Promise<Session> {
     const { user, session, error } = await request(this.db.auth.signIn({ email, password }))
@@ -51,6 +63,19 @@ export class UserAPI {
 
   async getPattern(): Promise<Pattern> {
     const { data } = await request(this.db.from('patterns').select().single())
+    return data
+  }
+
+  async setProgress(progress: { pattern_id: number, srs_level: number }): Promise<Progress> {
+    const { data } = await request(this.db.from('progress').upsert({
+      user_id: this.user.id,
+      ...progress
+    }))
+    return data[0]
+  }
+
+  async getAllProgress(): Promise<Progress[]> {
+    const { data } = await request(this.db.from('progress').select())
     return data
   }
 }
