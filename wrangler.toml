@@ -1,0 +1,14 @@
+name = "vokabon"
+type = "javascript"
+route = ''
+zone_id = ''
+account_id = '2ae5ddc12fe01a282dd014d39792077a'
+usage_model = ''
+compatibility_flags = []
+workers_dev = true
+compatibility_date = "2021-10-01"
+
+[build]
+command = "yarn build-server"
+[build.upload]
+format = "service-worker"

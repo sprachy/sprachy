@@ -164,6 +164,12 @@ module.exports = env => {
         ignored: /node_modules/,
         poll: true,
       },
+      proxy: {
+        // Proxying this avoids CORS issues in development
+        '/api': {
+          target: "http://localhost:8787"
+        }
+      },
       historyApiFallback: {
         rewrites: [
           { from: /./, to: '/index.html' }

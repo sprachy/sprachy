@@ -1,5 +1,6 @@
 import { Session, SupabaseClient, User } from "@supabase/supabase-js"
 import NProgress from 'accessible-nprogress'
+import axios, { AxiosInstance } from 'axios'
 NProgress.configure({ showSpinner: false })
 
 export type Pattern = {
@@ -81,20 +82,27 @@ export class UserAPI {
 }
 
 export class AdminAPI {
-  constructor(readonly db: SupabaseClient) {}
+  http: AxiosInstance
+  constructor(readonly db: SupabaseClient) {
+    this.http = axios.create({
+      baseURL: "http://localhost:5999",
+      timeout: 10000
+    })
+  }
 
   async listPatterns(): Promise<Pattern[]> {
-    const { data } = await request(this.db.from('patterns').select().order("id"))
+    const { data } = await this.http.get(`/api/patterns`)
+    console.log(data)
     return data
   }
 
   async createPattern(pattern: Omit<Pattern, 'id'>): Promise<Pattern> {
-    const { data } = await request(this.db.from('patterns').insert(pattern))
-    return data[0]
+    const { data } = await this.http.post(`/api/patterns`, pattern)
+    return data as any
   }
 
   async getPattern(patternId: number): Promise<Pattern> {
-    const { data } = await request(this.db.from('patterns').select().match({ id: patternId }).single())
+    const { data } = await this.http.get(`/api/patterns/${patternId}`)
     return data
   }
 

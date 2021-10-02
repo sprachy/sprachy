@@ -4,6 +4,7 @@ node_modules
 .netlify
 .parcel-cache
 data
+worker
 
 
 # local env files
@@ -22,6 +23,3 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-
-# Supabase
-.supabase

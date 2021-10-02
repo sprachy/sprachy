@@ -5,17 +5,6 @@
 </template>
 
 <script lang="ts">
-// // Initialize Firebase
-// initializeApp({
-//   apiKey: "AIzaSyAd3VXtvNoQEbX0s_PliQ8qy863xOB77r0",
-//   authDomain: "vokabon.firebaseapp.com",
-//   projectId: "vokabon",
-//   storageBucket: "vokabon.appspot.com",
-//   messagingSenderId: "1044678992358",
-//   appId: "1:1044678992358:web:4eb5b16967ac86b01ab627",
-//   measurementId: "G-96PLGCSKWE",
-// })
-
 import SiteLayout from './SiteLayout.vue'
 
 Vue.component('site-layout', SiteLayout)

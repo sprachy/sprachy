@@ -58,7 +58,7 @@ export function makeRouter() {
         path: "/admin/patterns/:id",
         name: "adminPatternsEdit",
         component: EditPatternPage,
-        props: route => ({ patternId: expectInt(route.params.id) })
+        props: route => ({ patternId: route.params.id })
       }
       // {
       //     path: '*',

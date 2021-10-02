@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "noImplicitReturns": true,
+        "allowJs": false,
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "module": "es6",
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "esnext",
+            "webworker"
+        ],
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "importsNotUsedAsValues": "error",
+        "isolatedModules": true
+    },
+    // Stop base being used directly, it should always be overridden
+    "exclude": [
+        "*"
+    ]
+}
