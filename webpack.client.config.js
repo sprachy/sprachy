@@ -48,7 +48,7 @@ module.exports = env => {
     target: 'web',
     mode: isProduction ? 'production' : 'development',
     entry: {
-      index: './src/index.ts',
+      index: './client/index.ts',
     },
     resolve: {
       extensions: ['.ts', '.js', '.vue', '.scss'],
