@@ -42,12 +42,12 @@ export function getFaunaError(error: any) {
   return { code, description, status }
 }
 
-declare const FAUNA_SECRET: string
+declare const FAUNA_ADMIN_KEY: string
 
 const router = new TypedRouter<APISchema>()
 
 const faunaClient = new faunadb.Client({
-  secret: FAUNA_SECRET,
+  secret: FAUNA_ADMIN_KEY,
   fetch: customFetch,
   domain: 'localhost',
   port: 8443,
