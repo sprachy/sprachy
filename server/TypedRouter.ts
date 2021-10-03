@@ -35,7 +35,7 @@ export class TypedRouter<APIDef extends RestypedBase> {
     method: Method,
     path: Path,
     handler: (
-      req: TypedRequest<APIDef[Path][Method]>,
+      req: ServerRequest,
       res: ServerResponse
     ) => Promise<APIDef[Path][Method]['response']>
   ) {

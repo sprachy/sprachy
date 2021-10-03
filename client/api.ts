@@ -76,7 +76,6 @@ export class UserAPI {
 }
 
 
-
 export class AdminAPI {
   http: TypedAxiosInstance<APISchema>
   constructor(readonly db: SupabaseClient) {

@@ -2,6 +2,7 @@ import { Router, listen } from 'worktop'
 import faunadb from 'faunadb'
 import { TypedRouter } from './TypedRouter'
 import type { APISchema, Pattern } from '../common/api'
+import z from 'zod'
 
 export function customFetch(url: RequestInfo, params: RequestInit | undefined) {
   const signal = params?.signal
@@ -95,8 +96,13 @@ router.add('GET', '/patterns', async (req, res) => {
   return result.data.map(flattenFauna)
 })
 
+const newPatternForm = z.object({
+  title: z.string(),
+  slug: z.string(),
+  explanation: z.string()
+})
 router.add('POST', '/patterns', async (req, res) => {
-  const data = await req.body()
+  const data = newPatternForm.parse(await req.body())
 
   const result = await faunaClient.query(
     Create(
