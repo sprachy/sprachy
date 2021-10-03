@@ -1,5 +1,5 @@
 export type Pattern = {
-  id: number,
+  id: string,
   title: string,
   slug: string,
   explanation: string
