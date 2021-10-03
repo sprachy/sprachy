@@ -40,7 +40,14 @@ export class TypedRouter<APIDef extends RestypedBase> {
     ) => Promise<APIDef[Path][Method]['response']>
   ) {
 
-    this.worktopRouter.add(method, path as string, handler)
+    console.log('/api' + path)
+
+    this.worktopRouter.add(method, '/api' + path as string, async (req, res) => {
+      const obj = await handler(req, res)
+      if (obj) {
+        res.send(200, obj)
+      }
+    })
 
     // route(path, function(req, res, next) {
     //   return handler(req, res)
