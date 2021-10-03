@@ -8,7 +8,9 @@ async function resetdb() {
   shell.exec(`fauna delete-database ${dbname}`)
   shell.exec(`fauna create-database ${dbname}`)
   shell.exec(`cat schema.fql | fauna shell ${dbname}`)
-  shell.exec(`fauna create-key ${dbname}`)
+  const output = shell.exec(`fauna create-key ${dbname} admin`)
+  const secret = output.match(/secret: (\S+)/)[1]
+  shell.exec(`sed -i '' -e 's/FAUNA_ADMIN_KEY=.*/FAUNA_ADMIN_KEY=${secret}/g' .env`)
 }
 
 async function main() {
