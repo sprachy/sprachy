@@ -1,8 +1,8 @@
-import { Router, listen } from 'worktop'
+import { listen } from 'worktop'
 import faunadb from 'faunadb'
 import { TypedRouter } from './TypedRouter'
 import type { APISchema, Pattern } from '../common/api'
-import z from 'zod'
+import * as z from 'zod'
 
 export function customFetch(url: RequestInfo, params: RequestInit | undefined) {
   const signal = params?.signal
@@ -63,19 +63,11 @@ function flattenFauna<T>(d: FaunaDocument<T>): T {
 }
 ``
 
-
 type FaunaDocument<T> = {
   ref: { value: { id: string } }
   ts: number
   data: Omit<T, 'id'|'ts'>
 }
-
-// } catch (error) {
-//   const faunaError = getFaunaError(error)
-//   res.send(faunaError.status, faunaError)
-// }
-
-
 
 router.add('GET', '/patterns/:id', async (req, res) => {
   const result = await faunaClient.query(
