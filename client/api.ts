@@ -107,11 +107,11 @@ export class AdminAPI {
   }
 
   async updatePattern(patternId: number, changes: Partial<Pattern>): Promise<Pattern> {
-    const { data } = await request(this.db.from('patterns').update(changes).match({ id: patternId }))
-    return data[0]
+    const { data } = await this.http.patch(`/api/patterns/${patternId}`, changes)
+    return data as any
   }
 
   async deletePattern(patternId: number): Promise<void> {
-    await request(this.db.from('patterns').delete().match({ id: patternId }))
+    await this.http.delete(`/api/patterns/${patternId}`)
   }
 }
