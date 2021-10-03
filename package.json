@@ -4,17 +4,19 @@
   "private": true,
   "main": "server/dist/worker.js",
   "scripts": {
+    "faunadev": "mkdir -p devdb && docker run --rm --name faunadb -p 8443:8443 -p 8084:8084 -v devdb:/var/lib/faunadb fauna/faunadb",
     "client": "webpack serve --config webpack.client.config.js",
     "server-webpack": "webpack -w --config webpack.server.config.js",
     "server-miniflare": "miniflare --watch --debug --build-command=\"\" server/devdist/worker.js",
     "server": "npm-run-all --parallel server-webpack server-miniflare",
-    "dev": "npm-run-all --parallel client server",
+    "dev": "npm-run-all --parallel faunadev client server",
     "build-client": "rm -rf client/dist/* && webpack --mode production --config webpack.client.config.js",
     "build-server": "rm -rf server/dist/* && webpack --mode production --config webpack.server.config.js",
     "build": "npm-run-all build-client build-server",
     "td": "yarn build && wrangler publish --env test",
     "deploy": "yarn typecheck && yarn test && yarn build && wrangler publish --env live",
     "typecheck": "tsc -p server/tsconfig.json --noEmit && tsc -p client/tsconfig.json --noEmit",
+    "fsm": "export $(cat .env | xargs) && fauna-schema-migrate",
     "test": "jest"
   },
   "dependencies": {

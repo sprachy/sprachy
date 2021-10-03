@@ -7,7 +7,7 @@ async function resetdb() {
   const dbname = 'vokabon_dev'
   shell.exec(`fauna delete-database ${dbname}`)
   shell.exec(`fauna create-database ${dbname}`)
-  shell.exec(`fauna eval ${dbname} --file schema.fql`)
+  shell.exec(`cat schema.fql | fauna shell ${dbname}`)
   shell.exec(`fauna create-key ${dbname}`)
 }
 

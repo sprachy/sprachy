@@ -5,6 +5,7 @@ node_modules
 .parcel-cache
 data
 worker
+devdist
 
 
 # local env files

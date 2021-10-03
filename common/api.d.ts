@@ -1,3 +1,7 @@
+export type User = {
+  email: string
+}
+
 export type Pattern = {
   id: string,
   title: string,
@@ -6,6 +10,24 @@ export type Pattern = {
 }
 
 export interface APISchema {
+  '/signup': {
+    POST: {
+      body: {
+        email: string
+        password: string
+      }
+      response: User
+    }
+  }
+  '/login': {
+    POST: {
+      body: {
+        email: string
+        password: string
+      }
+      response: User
+    }
+  }
   '/patterns': {
     GET: {
       response: Pattern[]

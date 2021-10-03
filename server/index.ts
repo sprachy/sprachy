@@ -1,7 +1,7 @@
 import { listen } from 'worktop'
-import faunadb from 'faunadb'
+import faunadb, { Login } from 'faunadb'
 import { TypedRouter } from './TypedRouter'
-import type { APISchema, Pattern } from '../common/api'
+import type { APISchema, Pattern, User } from '../common/api'
 import * as z from 'zod'
 
 export function customFetch(url: RequestInfo, params: RequestInit | undefined) {
@@ -48,7 +48,10 @@ const router = new TypedRouter<APISchema>()
 
 const faunaClient = new faunadb.Client({
   secret: FAUNA_SECRET,
-  fetch: customFetch
+  fetch: customFetch,
+  domain: 'localhost',
+  port: 8443,
+  scheme: 'http'
 })
 
 const { Create, Collection, Match, Index, Get, Ref, Documents, Paginate, Sum, Delete, Add, Select, Let, Var, Update, Map, Lambda } = faunadb.query
@@ -66,8 +69,51 @@ function flattenFauna<T>(d: FaunaDocument<T>): T {
 type FaunaDocument<T> = {
   ref: { value: { id: string } }
   ts: number
-  data: Omit<T, 'id'|'ts'>
+  data: Omit<T, 'id' | 'ts'>
 }
+
+const signupForm = z.object({
+  email: z.string().email(),
+  password: z.string()
+}).refine(d => d.password.length >= 12, {
+  message: "Password must be at least length 12",
+  path: ["password"]
+})
+
+router.add('POST', '/signup', async (req, res) => {
+  const { email, password } = signupForm.parse(await req.body())
+
+  const result = await faunaClient.query(
+    Create(
+      Collection("users"),
+      {
+        credentials: { password: password },
+        data: {
+          email: email,
+        },
+      }
+    )
+  ) as FaunaDocument<User>
+
+  return flattenFauna(result)
+})
+
+const loginForm = z.object({
+  email: z.string(),
+  password: z.string()
+})
+router.add('POST', '/login', async (req, res) => {
+  const { email, password } = loginForm.parse(await req.body())
+
+  const result = await faunaClient.query(
+    Login(
+      Match(Index("users_by_email"), email),
+      { password: password },
+    )
+  )
+
+  return flattenFauna(result)
+})
 
 router.add('GET', '/patterns/:id', async (req, res) => {
   const result = await faunaClient.query(

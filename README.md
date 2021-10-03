@@ -2,6 +2,11 @@
 
 Vokabon runs on Cloudflare Workers and FaunaDB, a combination of services that allows it to be globally distributed and infinitely scalable.
 
+```
+fauna add-endpoint http://localhost:8443/ --alias localhost --key secret
+fauna default-endpoint localhost
+```
+
 1. You will need [node](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/getting-started/install).
 
 2. Inside the repo, run yarn to install dependencies.
