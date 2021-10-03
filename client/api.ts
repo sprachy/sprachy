@@ -1,14 +1,8 @@
-import { Session, SupabaseClient, User } from "@supabase/supabase-js"
+import type { Session, SupabaseClient, User } from "@supabase/supabase-js"
 import NProgress from 'accessible-nprogress'
-import axios, { AxiosInstance } from 'axios'
 NProgress.configure({ showSpinner: false })
-
-export type Pattern = {
-  id: number,
-  title: string,
-  slug: string,
-  explanation: string
-}
+import axios, { TypedAxiosInstance } from 'restyped-axios'
+import type {APISchema, Pattern} from '../common/api'
 
 export type Progress = {
   user_id: number
@@ -81,37 +75,38 @@ export class UserAPI {
   }
 }
 
+
+
 export class AdminAPI {
-  http: AxiosInstance
+  http: TypedAxiosInstance<APISchema>
   constructor(readonly db: SupabaseClient) {
     this.http = axios.create({
-      baseURL: "http://localhost:5999",
+      baseURL: "http://localhost:5999/api",
       timeout: 10000
     })
   }
 
   async listPatterns(): Promise<Pattern[]> {
-    const { data } = await this.http.get(`/api/patterns`)
-    console.log(data)
+    const { data } = await this.http.get(`/patterns`)
     return data
   }
 
   async createPattern(pattern: Omit<Pattern, 'id'>): Promise<Pattern> {
-    const { data } = await this.http.post(`/api/patterns`, pattern)
-    return data as any
+    const { data } = await this.http.post(`/patterns`, pattern)
+    return data
   }
 
   async getPattern(patternId: number): Promise<Pattern> {
-    const { data } = await this.http.get(`/api/patterns/${patternId}`)
+    const { data } = await this.http.get<`/patterns/:id`>(`/patterns/${patternId}`)
     return data
   }
 
   async updatePattern(patternId: number, changes: Partial<Pattern>): Promise<Pattern> {
-    const { data } = await this.http.patch(`/api/patterns/${patternId}`, changes)
-    return data as any
+    const { data } = await this.http.patch<`/patterns/:id`>(`/patterns/${patternId}`, changes)
+    return data
   }
 
   async deletePattern(patternId: number): Promise<void> {
-    await this.http.delete(`/api/patterns/${patternId}`)
+    await this.http.delete<`/patterns/:id`>(`/patterns/${patternId}`)
   }
 }

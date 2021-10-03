@@ -1,5 +1,7 @@
 import { Router, listen } from 'worktop'
 import faunadb from 'faunadb'
+import { TypedRouter } from './TypedRouter'
+import type { APISchema } from '../common/api'
 
 export function customFetch(url: RequestInfo, params: RequestInit | undefined) {
   const signal = params?.signal
@@ -41,7 +43,7 @@ export function getFaunaError(error: any) {
 
 declare const FAUNA_SECRET: string
 
-const router = new Router()
+const router = new TypedRouter<APISchema>()
 
 const faunaClient = new faunadb.Client({
   secret: FAUNA_SECRET,
@@ -59,80 +61,58 @@ function flattenFauna(d: any) {
 }
 ``
 
-router.add('GET', '/api/patterns/:id', async (req, res) => {
-  try {
-    const result = await faunaClient.query(
-      Get(Ref(Collection("patterns"), req.params.id))
-    )
+// } catch (error) {
+//   const faunaError = getFaunaError(error)
+//   res.send(faunaError.status, faunaError)
+// }
 
-    res.send(200, flattenFauna((result as any)))
-  } catch (error) {
-    const faunaError = getFaunaError(error)
-    res.send(faunaError.status, faunaError)
-  }
+router.add('GET', '/patterns/:id', async (req, res) => {
+  const result = await faunaClient.query(
+    Get(Ref(Collection("patterns"), req.params.id))
+  )
+
+  return flattenFauna((result as any))
 })
 
-router.add('GET', '/api/patterns', async (request, response) => {
-  try {
-
-    const result = await faunaClient.query(
-      Map(
-        Paginate(Documents(Collection("patterns"))),
-        Lambda("id", Get(Var("id")))
-      )
+router.add('GET', '/patterns', async (req, res) => {
+  const result = await faunaClient.query(
+    Map(
+      Paginate(Documents(Collection("patterns"))),
+      Lambda("id", Get(Var("id")))
     )
+  )
 
-    response.send(200, (result as any).data.map(flattenFauna))
-  } catch (error) {
-    const faunaError = getFaunaError(error)
-    response.send(faunaError.status, faunaError)
-  }
+  return (result as any).data.map(flattenFauna)
 })
 
-router.add('POST', '/api/patterns', async (request, response) => {
-  try {
-    const { title, slug, explanation } = await request.body() as any
+router.add('POST', '/patterns', async (req, res) => {
+  const data = await req.body()
 
-    const result = await faunaClient.query(
-      Create(
-        Collection('patterns'),
-        {
-          data: {
-            title,
-            slug,
-            explanation
-          }
-        }
-      )
+  const result = await faunaClient.query(
+    Create(
+      Collection('patterns'),
+      {
+        data: data
+      }
     )
+  )
 
-
-    response.send(200, { patternId: (result as any).ref.id })
-  } catch (error) {
-    const faunaError = getFaunaError(error)
-    response.send(faunaError.status, faunaError)
-  }
+  return { id: (result as any).ref.id, ...data }
 })
 
-router.add('PATCH', '/api/patterns/:id', async (req, res) => {
-  try {
-    const changes = await req.body() as any
+router.add('PATCH', '/patterns/:id', async (req, res) => {
+  const changes = await req.body() as any
 
-    const result = await faunaClient.query(
-      Update(
-        Ref(Collection('patterns'), req.params.id),
-        {
-          data: changes
-        }
-      )
+  const result = await faunaClient.query(
+    Update(
+      Ref(Collection('patterns'), req.params.id),
+      {
+        data: changes
+      }
     )
+  )
 
-
-    res.send(200, flattenFauna(result as any))
-  } catch (error) {
-    const faunaError = getFaunaError(error)
-    res.send(faunaError.status, faunaError)
-  }
+  return flattenFauna(result as any)
 })
 
-listen(router.run)
+listen(router.worktopRouter.run)

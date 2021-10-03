@@ -16,6 +16,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^1.24.0",
     "@types/lodash": "^4.14.169",
     "@types/marked": "^3.0.1",
     "accessible-nprogress": "^2.1.2",
@@ -34,6 +35,7 @@
     "marked": "^3.0.4",
     "mini-css-extract-plugin": "^1.6.0",
     "postgres": "^1.0.2",
+    "restyped-axios": "^2.0.0",
     "sass": "^1.34.1",
     "sass-loader": "10.1.1",
     "slugify": "^1.6.0",
