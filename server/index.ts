@@ -87,10 +87,12 @@ router.add('POST', '/signup', async (req, res) => {
     Create(
       Collection("users"),
       {
-        credentials: { password: password },
+        credentials: { 
+          password: password 
+        },
         data: {
           email: email,
-        },
+        }
       }
     )
   ) as FaunaDocument<User>

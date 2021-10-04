@@ -50,15 +50,11 @@ export default class App extends Vue {
 
   async signup() {
     const { email, password } = this
-    this.errorMessage = null
 
-    const { error, data } = await this.$db.auth.signUp({
-      email: email,
-      password: password
-    })
-
-    if (error) {
-      this.errorMessage = error.message
+    try {
+      await this.$api.signUp({ email, password })
+    } catch (err) {
+      this.errorMessage = err.message
     }
   }
 }

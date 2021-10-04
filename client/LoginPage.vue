@@ -44,18 +44,14 @@ export default class LoginPage extends Vue {
   afterAuthUrl: string = ""
   errorMessage: string|null = null
 
-
   async login() {
     const { email, password } = this
     this.errorMessage = null
 
-    const { error, data } = await this.$db.auth.signIn({
-      email: email,
-      password: password
-    })
-
-    if (error) {
-      this.errorMessage = error.message
+    try {
+      await this.$api.signIn({ email, password })
+    } catch (err) {
+      this.errorMessage = err.message
     }
   }
 

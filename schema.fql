@@ -1,6 +1,7 @@
 CreateCollection({ name: "patterns" })
 
 CreateCollection({ name: "users" })
+
 CreateIndex({
   name: "users_by_email",
   permissions: { read: "public" },

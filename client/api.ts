@@ -28,32 +28,42 @@ async function request<T extends { error: { message: string }|null, data: any },
 
 
 export class UserAPI {
-  constructor(readonly db: SupabaseClient) {}
+  http: TypedAxiosInstance<APISchema>
+  constructor(readonly db: SupabaseClient) {
+    this.http = axios.create({
+      baseURL: "http://localhost:5999/api",
+      timeout: 10000
+    })
+  }
 
   get user() {
     return this.db.auth.user()!
   }
 
-  async signIn({ email, password }: { email: string, password: string }): Promise<Session> {
-    const { user, session, error } = await request(this.db.auth.signIn({ email, password }))
-    if (error) {
-      throw new Error(error.message)
-    } else if (!session) {
-      throw new Error(`Received null Session from sign in`)
-    } else {
-      return session
-    }
+  async signIn({ email, password }: { email: string, password: string }) {
+    const res = await this.http.post(`/login`, { email, password })
+    console.log(res)
+    // const { user, session, error } = await request(this.db.auth.signIn({ email, password }))
+    // if (error) {
+    //   throw new Error(error.message)
+    // } else if (!session) {
+    //   throw new Error(`Received null Session from sign in`)
+    // } else {
+    //   return session
+    // }
   }
 
-  async signUp({ email, password }: { email: string, password: string }): Promise<User> {
-    const { user, session, error } = await request(this.db.auth.signUp({ email, password }))
-    if (error) {
-      throw new Error(error.message)
-    } else if (!user) {
-      throw new Error(`Received null user from sign up`)
-    } else {
-      return user
-    }
+  async signUp({ email, password }: { email: string, password: string }) {
+    const res = await this.http.post(`/signup`, { email, password })
+    console.log(res)
+    // const { user, session, error } = await request(this.db.auth.signUp({ email, password }))
+    // if (error) {
+    //   throw new Error(error.message)
+    // } else if (!user) {
+    //   throw new Error(`Received null user from sign up`)
+    // } else {
+    //   return user
+    // }
   }
 
   async getPattern(): Promise<Pattern> {
@@ -78,7 +88,7 @@ export class UserAPI {
 
 export class AdminAPI {
   http: TypedAxiosInstance<APISchema>
-  constructor(readonly db: SupabaseClient) {
+  constructor() {
     this.http = axios.create({
       baseURL: "http://localhost:5999/api",
       timeout: 10000

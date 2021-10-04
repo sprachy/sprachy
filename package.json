@@ -16,7 +16,6 @@
     "td": "yarn build && wrangler publish --env test",
     "deploy": "yarn typecheck && yarn test && yarn build && wrangler publish --env live",
     "typecheck": "tsc -p server/tsconfig.json --noEmit && tsc -p client/tsconfig.json --noEmit",
-    "fsm": "export $(cat .env | xargs) && fauna-schema-migrate",
     "test": "jest"
   },
   "dependencies": {
