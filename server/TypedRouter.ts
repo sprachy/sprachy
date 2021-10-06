@@ -2,6 +2,17 @@ import type {RestypedBase, RestypedRoute} from 'restyped'
 import { Router } from 'worktop'
 import type { ServerRequest } from 'worktop/request'
 import type { ServerResponse } from 'worktop/response'
+import type { User } from '../common/api'
+import type { Session } from './sessions'
+
+export type SessionRequest = ServerRequest & {
+  session: Session
+  user: User
+}
+
+export type AdminRequest = SessionRequest & {
+  user: { admin: true }
+}
 
 export interface TypedRequest<T extends RestypedRoute> extends ServerRequest {
   body: {
@@ -27,6 +38,7 @@ type HTTPMethod =
 
 export class TypedRouter<APIDef extends RestypedBase> {
   worktopRouter = new Router()
+  before: (req, res, next) => void = ()
 
   add<
     Path extends keyof APIDef,
@@ -48,15 +60,9 @@ export class TypedRouter<APIDef extends RestypedBase> {
         res.send(200, obj)
       }
     })
+  }
 
-    // route(path, function(req, res, next) {
-    //   return handler(req, res)
-    //     .then(result => {
-    //       if (!res.headersSent) {
-    //         res.send(result)
-    //       }
-    //     })
-    //     .catch(err => next(err))
-    // })
+  include(otherRouter: TypedRouter) {
+    
   }
 }

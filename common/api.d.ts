@@ -1,5 +1,8 @@
+import type {RestypedBase} from 'restyped'
+
 export type User = {
   email: string
+  isAdmin: boolean
 }
 
 export type Pattern = {
@@ -9,8 +12,8 @@ export type Pattern = {
   explanation: string
 }
 
-export interface APISchema {
-  '/signup': {
+export interface APISchema extends RestypedBase {
+  '/api/signup': {
     POST: {
       body: {
         email: string
@@ -19,16 +22,16 @@ export interface APISchema {
       response: User
     }
   }
-  '/login': {
+  '/api/login': {
     POST: {
       body: {
         email: string
         password: string
       }
-      response: User
+      response: { sessionKey: string }
     }
   }
-  '/patterns': {
+  '/api/admin/patterns': {
     GET: {
       response: Pattern[]
     }
@@ -37,7 +40,7 @@ export interface APISchema {
       response: Pattern
     }
   }
-  '/patterns/:id': {
+  '/api/admin/patterns/:id': {
     GET: {
       params: { id: string }
       response: Pattern
