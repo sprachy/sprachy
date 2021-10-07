@@ -17,7 +17,8 @@ export default class ExerciseView extends Vue {
 
   get exerciseHtml() {
     return this.exercise.content.replace(/\[.+?\]/, (substring) => {
-      return substring.slice(1, -1)
+      const alternatives = substring.slice(1, -1).split("|")
+      return alternatives[0] ? '_'.repeat(alternatives[0].length) : ""
     })
   }
 
