@@ -54,7 +54,7 @@ export default class App extends Vue {
     try {
       await this.$api.signUp({ email, password })
     } catch (err) {
-      this.errorMessage = err.message
+      throw err
     }
   }
 }

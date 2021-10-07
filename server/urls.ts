@@ -8,8 +8,8 @@ export const api = new BaseRouter()
 api.add('POST', '/api/signup', signup)
 api.add('POST', '/api/login', login)
 
-
 const userApi = new RequireLoginRouter(api)
+
 
 const adminApi = new AdminRouter(userApi)
 adminApi.add('GET', '/api/admin/patterns/:id', getPattern)
