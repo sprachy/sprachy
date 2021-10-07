@@ -1,9 +1,28 @@
-import faunadb, { Collection, Create, Get, Index, Login, Match, Ref, Update } from 'faunadb'
+import faunadb, { Collection, Create, Expr, Get, Index, Login, Match, Ref, Update } from 'faunadb'
 import type { Pattern, User } from '../common/api'
 import _ from 'lodash'
 import { FAUNA_ADMIN_KEY } from './secrets'
 
+
+export type FaunaDocument<T> = {
+  ref: { value: { id: string } }
+  ts: number
+  data: Omit<T, 'id' | 'ts'>
+}
+
 export namespace db {
+  export async function querySingle<T>(expr: Expr) {
+    return flattenFauna(
+      await fauna.query(expr) as FaunaDocument<T>
+    )
+  }
+
+  export async function query<T extends any[]>(expr: Expr) {
+    const res = await fauna.query(expr) as { data: FaunaDocument<T[0]>[] }
+    return res.data.map(flattenFauna)
+  }
+
+  
   function customFetch(url: RequestInfo, params: RequestInit | undefined) {
     const signal = params?.signal
     delete params?.signal
@@ -51,12 +70,6 @@ export namespace db {
   }
   ``
 
-  export type FaunaDocument<T> = {
-    ref: { value: { id: string } }
-    ts: number
-    data: Omit<T, 'id' | 'ts'>
-  }
-
   export const fauna = new faunadb.Client({
     secret: FAUNA_ADMIN_KEY,
     fetch: typeof fetch === 'undefined' ? undefined : customFetch,
@@ -69,27 +82,22 @@ export namespace db {
 
   export namespace users {
     export async function get(userId: string): Promise<User> {
-      const result = await fauna.query(
+      return await db.querySingle<User>(
         Get(Ref(Collection("users"), userId))
-      ) as FaunaDocument<User>
-
-      return flattenFauna(result)
-    }
-
-    export async function getByEmail(email: string): Promise<User> {
-      return flattenFauna(
-        await fauna.query(
-          Get(Match(Index("users_by_email"), email))
-        ) as FaunaDocument<User>
       )
     }
 
+    export async function getByEmail(email: string): Promise<User> {
+      return await db.querySingle<User>(
+          Get(Match(Index("users_by_email"), email))
+      )
+    }
 
     /**
      * Create a new user. Will fail if email is taken, due to faunadb unique constraint.
      */
     export async function create(data: Omit<User, 'id'> & { password: string }): Promise<User> {
-      const result = await fauna.query(
+      return await db.querySingle<User>(
         Create(
           Collection("users"),
           {
@@ -99,22 +107,18 @@ export namespace db {
             data: _.omit(data, 'password')
           }
         )
-      ) as FaunaDocument<User>
-
-      return flattenFauna(result)
+      )
     }
 
     export async function update(userId: string, changes: Partial<Omit<User, 'id'>>): Promise<User> {
-      const result = await fauna.query(
+      return await db.querySingle<User>(
         Update(
           Ref(Collection('users'), userId),
           {
             data: changes
           }
         )
-      ) as FaunaDocument<User>
-
-      return flattenFauna(result)
+      ) 
     }
   }
 }

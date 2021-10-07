@@ -3,7 +3,7 @@ import type { ServerRequest } from 'worktop/request'
 import type { ServerResponse } from 'worktop/response'
 import type { APISchema, User } from '../common/api'
 import { Session, sessions } from './sessions'
-import * as db from './db'
+import { db } from './db'
 import * as cookie from "cookie"
 
 class HTTPError extends Error {

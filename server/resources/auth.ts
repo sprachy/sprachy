@@ -3,8 +3,7 @@ import { Collection, Create, Index, Login, Match } from "faunadb"
 import * as z from 'zod'
 
 import type { User } from "../../common/api"
-import * as db from '../db'
-import { fauna, FaunaDocument, flattenFauna } from "../db"
+import { db } from "../db"
 import { sessions } from "../sessions"
 import type { ServerResponse } from "worktop/response"
 
@@ -39,7 +38,7 @@ const loginForm = z.object({
 export async function login(req: ServerRequest, res: ServerResponse): Promise<User> {
   const { email, password } = loginForm.parse(await req.body())
 
-  const result = await fauna.query(
+  const result = await db.fauna.query(
     Login(
       Match(Index("users_by_email"), email),
       { password: password },
