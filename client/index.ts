@@ -7,7 +7,6 @@ import { VokabonApp } from './app'
 import { AdminAPI, UserAPI } from './api'
 import { createClient } from '@supabase/supabase-js'
 import './app.sass'
-import { SupabaseQueryBuilder } from '@supabase/supabase-js/dist/main/lib/SupabaseQueryBuilder'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -28,18 +27,18 @@ Object.defineProperty(Vue.prototype, '$db', {
   get() { return db }
 })
 
-const app = Vue.observable(new VokabonApp(db, router))
+const app = Vue.observable(new VokabonApp(router))
 
 Object.defineProperty(Vue.prototype, '$app', {
   get() { return app }
 })
 
-const userApi = new UserAPI(db)
+const userApi = new UserAPI()
 Object.defineProperty(Vue.prototype, '$api', {
   get() { return userApi }
 })
 
-const adminApi = new AdminAPI(db)
+const adminApi = new AdminAPI()
 Object.defineProperty(Vue.prototype, '$adminApi', {
   get() { return adminApi }
 })

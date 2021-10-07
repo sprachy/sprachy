@@ -1,6 +1,7 @@
 import type {RestypedBase} from 'restyped'
 
 export type User = {
+  id: string
   email: string
   isAdmin: boolean
 }

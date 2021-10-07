@@ -52,13 +52,14 @@ export class BaseRouter {
           res.send(200, obj)
         }
       } catch (err: any) {
+        console.error(err)
         if (err instanceof HTTPError) {
           res.send(err.code, err.message)
         } else if ('requestResult' in err) {
           const faunaErr = db.getFaunaError(err)
           res.send(faunaErr.status, faunaErr)
         } else {
-          throw err
+          res.send(500, err.stack)
         }
       }
     })

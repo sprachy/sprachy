@@ -68,10 +68,11 @@ module.exports = env => {
       rules: [
         { // TypeScript loader!
           test: /\.ts$/,
+          // TODO use webpack 5 resolve.restrictions for server when it's available
+          exclude: /server|node_modules/,
           use: [
             {
               loader: 'ts-loader',
-              // exclude: /node_modules/,
               options: {
                 transpileOnly: true,
                 appendTsSuffixTo: [/\.vue$/],

@@ -52,7 +52,8 @@ export default class App extends Vue {
     const { email, password } = this
 
     try {
-      await this.$api.signUp({ email, password })
+      const user = await this.$api.signUp({ email, password })
+      this.$app.user = user
     } catch (err) {
       throw err
     }

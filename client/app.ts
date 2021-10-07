@@ -1,35 +1,16 @@
-import VueRouter, { RawLocation, Route } from 'vue-router'
+import type VueRouter from 'vue-router'
+import type { RawLocation, Route } from 'vue-router'
 import _ from 'lodash'
-import { Session, SupabaseClient } from '@supabase/supabase-js'
+import type { User } from '../common/api'
 
 /**
  * Global store for cross-component data and caches
  */
 export class VokabonApp {
   pending: boolean = true
-  session: Session | null = null
+  user: User | null = null
 
-  get user() {
-    return this.session?.user
-  }
-
-  constructor(readonly db: SupabaseClient, readonly router: VueRouter) {
-    db.auth.onAuthStateChange((event, session) => {
-      this.session = session
-      if (!this.pending) {
-        if (this.session) {
-          this.navigate({
-            name: 'home'
-          })
-        } else {
-          this.navigate({
-            name: 'login'
-          })
-        }  
-      }
-      this.pending = false
-    })
-  }
+  constructor(readonly router: VueRouter) {}
 
   get expectedUser() {
     if (!this.user) {
@@ -70,6 +51,7 @@ export class VokabonApp {
 
   /** Purge any auth details and return to the login screen. */
   async logout(opts: { redirectBackTo?: string } = {}) {
-    await this.db.auth.signOut()
+    // TODO
+    this.user = null
   }
 }

@@ -49,7 +49,9 @@ export default class LoginPage extends Vue {
     this.errorMessage = null
 
     try {
-      await this.$api.signIn({ email, password })
+      const user = await this.$api.signIn({ email, password })
+      this.$app.user = user
+      this.$app.navigate("/home")
     } catch (err) {
       if (err?.response?.data?.code === "authentication failed") {
         this.errorMessage = "Invalid email or password"
