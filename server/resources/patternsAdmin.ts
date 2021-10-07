@@ -26,7 +26,10 @@ export async function listPatterns(req: AdminRequest): Promise<Pattern[]> {
 const newPatternForm = z.object({
   title: z.string(),
   slug: z.string(),
-  explanation: z.string()
+  explanation: z.string(),
+  exercises: z.array(z.object({
+    content: z.string()
+  }))
 })
 export async function createPattern(req: AdminRequest) {
   const data = newPatternForm.parse(await req.body())
