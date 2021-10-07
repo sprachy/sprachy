@@ -43,6 +43,14 @@ Object.defineProperty(Vue.prototype, '$adminApi', {
   get() { return adminApi }
 })
 
+Object.defineProperty(Vue.prototype, '$user', {
+  get() { return app.expectedUser }
+})
+
+Object.defineProperty(Vue.prototype, '$admin', {
+  get() { return app.user && app.user.isAdmin }
+})
+
 new Vue({
   render: h => h(App),
   router: router

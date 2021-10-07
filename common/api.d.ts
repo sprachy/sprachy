@@ -7,11 +7,16 @@ export type User = {
 }
 
 export type Pattern = {
-  id: string,
-  title: string,
-  slug: string,
+  id: string
+  title: string
+  slug: string
   explanation: string
+  exercises: {
+    content: string
+  }[]
 }
+
+export type Exercise = Pattern['exercises'][0]
 
 export interface APISchema extends RestypedBase {
   '/api/signup': {

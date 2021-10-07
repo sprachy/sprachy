@@ -15,7 +15,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
-import { Pattern } from "./api"
+import type { Pattern } from "../common/api"
 import marked from 'marked'
 
 @Component({

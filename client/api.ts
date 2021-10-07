@@ -31,7 +31,7 @@ export class UserAPI {
   }
 
   // async getPattern(): Promise<Pattern> {
-  //   const { data } = await request(this.db.from('patterns').select().single())
+  //   const { data } = await this.http.get()
   //   return data
   // }
 
@@ -69,17 +69,17 @@ export class AdminAPI {
     return data
   }
 
-  async getPattern(patternId: number): Promise<Pattern> {
+  async getPattern(patternId: string): Promise<Pattern> {
     const { data } = await this.http.get<`/patterns/:id`>(`/patterns/${patternId}`)
     return data
   }
 
-  async updatePattern(patternId: number, changes: Partial<Pattern>): Promise<Pattern> {
+  async updatePattern(patternId: string, changes: Partial<Pattern>): Promise<Pattern> {
     const { data } = await this.http.patch<`/patterns/:id`>(`/patterns/${patternId}`, changes)
     return data
   }
 
-  async deletePattern(patternId: number): Promise<void> {
+  async deletePattern(patternId: string): Promise<void> {
     await this.http.delete<`/patterns/:id`>(`/patterns/${patternId}`)
   }
 }

@@ -21,6 +21,20 @@
         <b-textarea id="explanation" v-model="pattern.explanation" required />
       </b-form-group>
 
+      <h4>Exercises</h4>
+      <div :key="i" v-for="(exercise, i) in pattern.exercises">
+        <h5>Exercise {{i+1}}</h5>
+        <b-row>
+          <b-col>
+            <b-textarea v-model="exercise.content"/>
+          </b-col>
+          <b-col>
+            <exercise-view :exercise="exercise"/>
+          </b-col>
+        </b-row>
+      </div>
+      <b-btn @click="addExercise">Add Exercise</b-btn>
+
       <div class="d-flex">
         <b-btn type="submit" variant="success" size="lg" :disabled="saving">
           Save pattern
@@ -42,32 +56,38 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
-import slugify from 'slugify'
+import slugify from "slugify"
+import type { Pattern } from "../common/api"
+import ExerciseView from "./ExerciseView.vue"
 
-type Pattern = {
-  title: string
-  slug: string
-  explanation: string
-}
+type EditingPattern = Omit<Pattern, "id">
 
 @Component({
-  components: {},
+  components: {
+    ExerciseView
+  },
 })
 export default class EditPatternPage extends Vue {
-  @Prop({ type: Number, default: null }) patternId!: number | null
-  pattern: Pattern | null = null
+  @Prop({ type: String, default: null }) patternId!: string | null
+  pattern: EditingPattern | null = null
   saving: boolean = false
   automaticSlug: boolean = true
 
   async created() {
+    this.$debug.editPatternPage = this
+
     if (this.patternId) {
       this.pattern = await this.$adminApi.getPattern(this.patternId)
+      if (!this.pattern.exercises) {
+        this.$set(this.pattern, 'exercises', [])
+      }
       this.automaticSlug = this.pattern.slug === this.generatedSlug
     } else {
       this.pattern = {
         title: "",
         slug: "",
         explanation: "",
+        exercises: []
       }
     }
   }
@@ -81,6 +101,12 @@ export default class EditPatternPage extends Vue {
   setGeneratedSlug() {
     if (!this.automaticSlug || !this.pattern) return
     this.pattern.slug = this.generatedSlug
+  }
+
+  addExercise() {
+    this.pattern!.exercises.push({
+      content: ""
+    })
   }
 
   async save() {
