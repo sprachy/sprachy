@@ -42,7 +42,10 @@
 
       <section class="exercises">
         <div class="exercise" :key="i" v-for="(exercise, i) in pattern.exercises">
-          <h5>Exercise {{ i + 1 }}</h5>
+          <div class="d-flex">
+            <h5>Exercise {{ i + 1 }}</h5>
+            <b-btn class="ml-auto" variant="none" @click.prevent="removeExercise(exercise)">✕</b-btn>
+          </div>
           <b-row>
             <b-col>
               <b-form-group label="Deutsch" label-for="content">
@@ -91,7 +94,7 @@
 import { Component, Prop, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
 import slugify from "slugify"
-import type { Pattern } from "../common/api"
+import type { Exercise, Pattern } from "../common/api"
 import ExerciseView from "./ExerciseView.vue"
 import marked from "marked"
 
@@ -143,6 +146,10 @@ export default class EditPatternPage extends Vue {
       content: "",
       translation: "",
     })
+  }
+
+  removeExercise(exercise: Exercise) {
+    this.pattern!.exercises = this.pattern!.exercises.filter(ex => ex !== exercise)
   }
 
   get explanationPreview() {

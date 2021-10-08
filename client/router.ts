@@ -9,7 +9,6 @@ import EditPatternPage from './EditPatternPage.vue'
 import AdminUsersPage from './AdminUsersPage.vue'
 import LearnPage from './LearnPage.vue'
 import ReviewPage from './ReviewPage.vue'
-import { expectInt } from './utils'
 
 export function makeRouter() {
   const router = new Router({
