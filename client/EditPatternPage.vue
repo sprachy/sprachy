@@ -23,13 +23,19 @@
 
       <h4>Exercises</h4>
       <div :key="i" v-for="(exercise, i) in pattern.exercises">
-        <h5>Exercise {{i+1}}</h5>
+        <h5>Exercise {{ i + 1 }}</h5>
         <b-row>
           <b-col>
-            <b-textarea v-model="exercise.content"/>
+            <b-form-group label="Deutsch" label-for="content">
+              <b-input id="content" v-model="exercise.content" required />
+            </b-form-group>
+
+            <b-form-group label="English" label-for="translation">
+              <b-input id="translation" v-model="exercise.translation" required />
+            </b-form-group>
           </b-col>
           <b-col>
-            <exercise-view :exercise="exercise"/>
+            <exercise-view :exercise="exercise" />
           </b-col>
         </b-row>
       </div>
@@ -64,7 +70,7 @@ type EditingPattern = Omit<Pattern, "id">
 
 @Component({
   components: {
-    ExerciseView
+    ExerciseView,
   },
 })
 export default class EditPatternPage extends Vue {
@@ -79,7 +85,7 @@ export default class EditPatternPage extends Vue {
     if (this.patternId) {
       this.pattern = await this.$adminApi.getPattern(this.patternId)
       if (!this.pattern.exercises) {
-        this.$set(this.pattern, 'exercises', [])
+        this.$set(this.pattern, "exercises", [])
       }
       this.automaticSlug = this.pattern.slug === this.generatedSlug
     } else {
@@ -87,7 +93,7 @@ export default class EditPatternPage extends Vue {
         title: "",
         slug: "",
         explanation: "",
-        exercises: []
+        exercises: [],
       }
     }
   }
@@ -105,7 +111,7 @@ export default class EditPatternPage extends Vue {
 
   addExercise() {
     this.pattern!.exercises.push({
-      content: ""
+      content: "",
     })
   }
 

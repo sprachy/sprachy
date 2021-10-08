@@ -30,10 +30,10 @@ export class UserAPI {
     return data
   }
 
-  // async getPattern(): Promise<Pattern> {
-  //   const { data } = await this.http.get()
-  //   return data
-  // }
+  async getNextPattern(): Promise<Pattern> {
+    const { data } = await this.http.get(`/progress/nextLesson`)
+    return data
+  }
 
   // async setProgress(progress: { pattern_id: number, srs_level: number }): Promise<Progress> {
   //   const { data } = await request(this.db.from('progress').upsert({

@@ -7,6 +7,7 @@
         <button class="btn btn-primary" @click="quiz = true">Continue</button>
       </template>
       <template v-if="quiz">
+        <exercise-view :exercise="exercise"/>
       </template>
     </div>
   </site-layout>
@@ -17,20 +18,27 @@ import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
 import type { Pattern } from "../common/api"
 import marked from 'marked'
+import ExerciseView from './ExerciseView.vue'
 
 @Component({
-  components: {},
+  components: {
+    ExerciseView
+  },
 })
 export default class LearnPage extends Vue {
   pattern: Pattern|null = null
-  quiz: boolean = false
+  quiz: boolean = true
 
   async created() {
-    this.pattern = await this.$api.getPattern()
+    this.pattern = await this.$api.getNextPattern()
+  }
+
+  get exercise() {
+    return this.pattern!.exercises[0]
   }
 
   get htmlExplain() {
-    return marked(this.pattern.explanation)
+    return marked(this.pattern!.explanation)
   }
 }
 </script>

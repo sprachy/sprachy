@@ -13,6 +13,7 @@ export type Pattern = {
   explanation: string
   exercises: {
     content: string
+    translation: string
   }[]
 }
 
@@ -34,7 +35,12 @@ export interface APISchema extends RestypedBase {
         email: string
         password: string
       }
-      response: { sessionKey: string }
+      response: User
+    }
+  }
+  '/api/progress/nextLesson': {
+    GET: {
+      response: Pattern
     }
   }
   '/api/admin/patterns': {

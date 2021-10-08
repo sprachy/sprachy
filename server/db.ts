@@ -1,4 +1,4 @@
-import faunadb, { Collection, Create, Expr, Get, Index, Login, Match, Ref, Update } from 'faunadb'
+import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete } from 'faunadb'
 import type { Pattern, User } from '../common/api'
 import _ from 'lodash'
 import { FAUNA_ADMIN_KEY } from './secrets'
@@ -22,7 +22,7 @@ export namespace db {
     return res.data.map(flattenFauna)
   }
 
-  
+
   function customFetch(url: RequestInfo, params: RequestInit | undefined) {
     const signal = params?.signal
     delete params?.signal
@@ -68,7 +68,6 @@ export namespace db {
       ...d.data
     } as any
   }
-  ``
 
   export const fauna = new faunadb.Client({
     secret: FAUNA_ADMIN_KEY,
@@ -89,8 +88,18 @@ export namespace db {
 
     export async function getByEmail(email: string): Promise<User> {
       return await db.querySingle<User>(
-          Get(Match(Index("users_by_email"), email))
+        Get(Match(Index("users_by_email"), email))
       )
+    }
+
+    export async function listAll(): Promise<User[]> {
+      // TODO handle pagination
+      return await db.query<User[]>(
+        Map(
+          Paginate(Documents(Collection("users"))),
+          Lambda("id", Get(Var("id")))
+        )
+      )  
     }
 
     /**
@@ -118,7 +127,52 @@ export namespace db {
             data: changes
           }
         )
-      ) 
+      )
+    }
+  }
+
+
+  export namespace patterns {
+    export async function get(patternId: string): Promise<Pattern> {
+      return await db.querySingle<Pattern>(
+        Get(Ref(Collection("patterns"), patternId))
+      )    
+    }
+
+    export async function listAll(): Promise<Pattern[]> {
+      // TODO handle pagination
+      return await db.query<Pattern[]>(
+        Map(
+          Paginate(Documents(Collection("patterns"))),
+          Lambda("id", Get(Var("id")))
+        )
+      )
+    }
+
+    export async function create(data: Omit<Pattern, 'id'>): Promise<Pattern> {
+      return await db.querySingle<Pattern>(
+        Create(
+          Collection('patterns'),
+          { data: data }
+        )
+      )
+    }
+
+    export async function update(patternId: string, changes: Partial<Omit<Pattern, 'id'>>): Promise<Pattern> {
+      return await db.querySingle<Pattern>(
+        Update(
+          Ref(Collection('patterns'), patternId),
+          { data: changes }
+        )
+      )
+    }
+
+    export async function destroy(patternId: string) {
+      await db.fauna.query(
+        Delete(
+          Ref(Collection('patterns'), patternId)
+        )
+      )    
     }
   }
 }
