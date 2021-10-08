@@ -17,28 +17,53 @@
         </b-form-checkbox>
       </b-form-group>
 
-      <b-form-group label="Explanation" label-for="explanation">
-        <b-textarea id="explanation" v-model="pattern.explanation" required />
-      </b-form-group>
-
-      <h4>Exercises</h4>
-      <div :key="i" v-for="(exercise, i) in pattern.exercises">
-        <h5>Exercise {{ i + 1 }}</h5>
-        <b-row>
+      <b-form-group>
+        <b-row class="explanationEditor">
           <b-col>
-            <b-form-group label="Deutsch" label-for="content">
-              <b-input id="content" v-model="exercise.content" required />
-            </b-form-group>
-
-            <b-form-group label="English" label-for="translation">
-              <b-input id="translation" v-model="exercise.translation" required />
+            <b-form-group label="Explanation" label-for="explanation">
+              <b-textarea
+                id="explanation"
+                v-model="pattern.explanation"
+                required
+              />
             </b-form-group>
           </b-col>
           <b-col>
-            <exercise-view :exercise="exercise" />
+            <b-form-group label="Preview">
+              <b-card>
+                <div v-html="explanationPreview" />
+              </b-card>
+            </b-form-group>
           </b-col>
         </b-row>
-      </div>
+      </b-form-group>
+
+      <b-form-group>
+        <h4>Exercises</h4>
+        <div :key="i" v-for="(exercise, i) in pattern.exercises">
+          <h5>Exercise {{ i + 1 }}</h5>
+          <b-row>
+            <b-col>
+              <b-form-group label="Deutsch" label-for="content">
+                <b-input id="content" v-model="exercise.content" required />
+              </b-form-group>
+
+              <b-form-group label="English" label-for="translation">
+                <b-input
+                  id="translation"
+                  v-model="exercise.translation"
+                  required
+                />
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group label="Preview">
+                <exercise-view :exercise="exercise" />
+              </b-form-group>
+            </b-col>
+          </b-row>
+        </div>
+      </b-form-group>
       <b-btn @click="addExercise">Add Exercise</b-btn>
 
       <div class="d-flex">
@@ -65,6 +90,7 @@ import _ from "lodash"
 import slugify from "slugify"
 import type { Pattern } from "../common/api"
 import ExerciseView from "./ExerciseView.vue"
+import marked from "marked"
 
 type EditingPattern = Omit<Pattern, "id">
 
@@ -112,7 +138,12 @@ export default class EditPatternPage extends Vue {
   addExercise() {
     this.pattern!.exercises.push({
       content: "",
+      translation: "",
     })
+  }
+
+  get explanationPreview() {
+    return marked(this.pattern!.explanation)
   }
 
   async save() {
@@ -144,4 +175,20 @@ export default class EditPatternPage extends Vue {
 <style lang="sass">
 .custom-checkbox > *
   cursor: pointer
+
+form
+  margin-bottom: 3rem
+
+.explanationEditor
+  .form-group
+    height: 100%
+    min-height: 200px
+    display: flex
+    flex-direction: column
+
+    > div
+      flex-grow: 1
+      
+    > div > textarea, .card
+      height: 100%
 </style>
