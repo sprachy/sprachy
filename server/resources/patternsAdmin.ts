@@ -1,9 +1,7 @@
-import type { ServerRequest } from "worktop/request"
 import type { Pattern } from "../../common/api"
 import { db } from '../db'
 import * as z from 'zod'
-
-type AdminRequest = ServerRequest
+import type { AdminRequest } from "../routers"
 
 export async function getPattern(req: AdminRequest) {
   return await db.patterns.get(req.params.id as string)

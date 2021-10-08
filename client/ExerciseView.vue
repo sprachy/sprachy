@@ -1,15 +1,13 @@
 <template>
-  <div class="exercise">
-    <b-card>
-      <div>
-        <span>{{ parts.before }}</span>
-        <span class="cloze" :style="{ minWidth: clozeWidth+'px' }">{{ attempt }}&nbsp;</span>
-        <span>{{ parts.after }}</span>
-      </div>
-      <div v-html="translationHtml"/>
-      <input type="text" v-model="attempt"/>
-    </b-card>
-  </div>
+  <b-card class="exerciseCard">
+    <div>
+      <span>{{ parts.before }}</span>
+      <span class="cloze" :style="{ minWidth: clozeWidth+'px' }">{{ attempt }}&nbsp;</span>
+      <span>{{ parts.after }}</span>
+    </div>
+    <div v-html="translationHtml"/>
+    <input type="text" v-model="attempt"/>
+  </b-card>
 </template>
 
 <script lang="ts">
@@ -48,8 +46,8 @@ export default class ExerciseView extends Vue {
 }
 </script>
 
-<style lang="sass">
-.exercise
+<style lang="sass" scoped>
+.exerciseCard
   text-align: center
 
 strong

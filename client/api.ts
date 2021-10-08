@@ -54,32 +54,37 @@ export class AdminAPI {
   http: TypedAxiosInstance<APISchema>
   constructor() {
     this.http = axios.create({
-      baseURL: "http://localhost:5999/api/admin",
+      baseURL: "http://localhost:5999/api",
       timeout: 10000
     })
   }
 
   async listPatterns(): Promise<Pattern[]> {
-    const { data } = await this.http.get(`/patterns`)
+    const { data } = await this.http.get(`/admin/patterns`)
     return data
   }
 
   async createPattern(pattern: Omit<Pattern, 'id'>): Promise<Pattern> {
-    const { data } = await this.http.post(`/patterns`, pattern)
+    const { data } = await this.http.post(`/admin/patterns`, pattern)
     return data
   }
 
   async getPattern(patternId: string): Promise<Pattern> {
-    const { data } = await this.http.get<`/patterns/:id`>(`/patterns/${patternId}`)
+    const { data } = await this.http.get<`/admin/patterns/:id`>(`/admin/patterns/${patternId}`)
     return data
   }
 
   async updatePattern(patternId: string, changes: Partial<Pattern>): Promise<Pattern> {
-    const { data } = await this.http.patch<`/patterns/:id`>(`/patterns/${patternId}`, changes)
+    const { data } = await this.http.patch<`/admin/patterns/:id`>(`/admin/patterns/${patternId}`, changes)
     return data
   }
 
   async deletePattern(patternId: string): Promise<void> {
-    await this.http.delete<`/patterns/:id`>(`/patterns/${patternId}`)
+    await this.http.delete<`/admin/patterns/:id`>(`/admin/patterns/${patternId}`)
+  }
+
+  async listUsers(): Promise<User[]> {
+    const { data } = await this.http.get(`/admin/users`)
+    return data
   }
 }

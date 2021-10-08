@@ -67,6 +67,11 @@ export interface APISchema extends RestypedBase {
       response: void
     }
   }
+  '/api/admin/users': {
+    GET: {
+      response: User[]
+    }
+  }
 }
 
 

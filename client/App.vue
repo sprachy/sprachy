@@ -11,10 +11,12 @@
 
 <script lang="ts">
 import SiteLayout from "./SiteLayout.vue"
+import AdminLayout from "./AdminLayout.vue"
 import { globalErrorHandler } from "./globalErrorHandling"
 import UnexpectedErrorModal from "./UnexpectedErrorModal.vue"
 
 Vue.component("site-layout", SiteLayout)
+Vue.component("admin-layout", AdminLayout)
 
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"

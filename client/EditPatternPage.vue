@@ -1,26 +1,28 @@
 <template>
-  <site-layout>
+  <admin-layout>
     <b-form @submit.prevent="save" v-if="pattern">
-      <b-form-group label="Title" label-for="title">
-        <b-form-input id="title" v-model="pattern.title" required />
-      </b-form-group>
+      <section class="meta">
+        <b-form-group label="Title" label-for="title">
+          <b-form-input id="title" v-model="pattern.title" required />
+        </b-form-group>
 
-      <b-form-group label="Slug" label-for="slug">
-        <b-form-input
-          id="slug"
-          v-model="pattern.slug"
-          required
-          :disabled="automaticSlug"
-        />
-        <b-form-checkbox v-model="automaticSlug" class="mt-2">
-          Generate from title
-        </b-form-checkbox>
-      </b-form-group>
+        <b-form-group label="Slug" label-for="slug">
+          <b-form-input
+            id="slug"
+            v-model="pattern.slug"
+            required
+            :disabled="automaticSlug"
+          />
+          <b-form-checkbox v-model="automaticSlug" class="mt-2">
+            Generate from title
+          </b-form-checkbox>
+        </b-form-group>
+      </section>
 
-      <b-form-group>
-        <b-row class="explanationEditor">
+      <section class="explanation">
+        <b-row>
           <b-col>
-            <b-form-group label="Explanation" label-for="explanation">
+            <b-form-group label="Explanation" label-for="explanation" description="Supports markdown">
               <b-textarea
                 id="explanation"
                 v-model="pattern.explanation"
@@ -36,11 +38,10 @@
             </b-form-group>
           </b-col>
         </b-row>
-      </b-form-group>
+      </section>
 
-      <b-form-group>
-        <h4>Exercises</h4>
-        <div :key="i" v-for="(exercise, i) in pattern.exercises">
+      <section class="exercises">
+        <div class="exercise" :key="i" v-for="(exercise, i) in pattern.exercises">
           <h5>Exercise {{ i + 1 }}</h5>
           <b-row>
             <b-col>
@@ -63,8 +64,10 @@
             </b-col>
           </b-row>
         </div>
-      </b-form-group>
-      <b-btn @click="addExercise">Add Exercise</b-btn>
+  
+        <b-btn @click="addExercise">Add Exercise</b-btn>
+      </section>
+  
 
       <div class="d-flex">
         <b-btn type="submit" variant="success" size="lg" :disabled="saving">
@@ -81,7 +84,7 @@
         </b-btn>
       </div>
     </b-form>
-  </site-layout>
+  </admin-layout>
 </template>
 
 <script lang="ts">
@@ -172,23 +175,33 @@ export default class EditPatternPage extends Vue {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 .custom-checkbox > *
   cursor: pointer
 
 form
   margin-bottom: 3rem
 
-.explanationEditor
-  .form-group
+section
+  margin-bottom: 2rem
+
+section.explanation
+  .form-group ::v-deep
     height: 100%
     min-height: 200px
     display: flex
     flex-direction: column
 
     > div
+      display: flex
+      flex-direction: column
       flex-grow: 1
       
     > div > textarea, .card
-      height: 100%
+      flex-grow: 1
+
+section.exercises
+  .exercise
+    margin-top: 1rem
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <site-layout>
+  <admin-layout>
     <b-btn to="/admin/patterns/new">+ Add Pattern</b-btn>
     <b-table-simple class="mt-2">
       <b-thead>
@@ -17,13 +17,13 @@
         <td>{{ pattern.published ? "Published" : "Draft" }}</td>
       </b-tr>
     </b-table-simple>
-  </site-layout>
+  </admin-layout>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
-import { Pattern } from "./api"
+import type { Pattern } from "../common/api"
 
 @Component({
   components: {},

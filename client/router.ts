@@ -6,6 +6,7 @@ import SignupPage from './SignupPage.vue'
 import HomePage from './HomePage.vue'
 import AdminPatternsPage from './AdminPatternsPage.vue'
 import EditPatternPage from './EditPatternPage.vue'
+import AdminUsersPage from './AdminUsersPage.vue'
 import LearnPage from './LearnPage.vue'
 import ReviewPage from './ReviewPage.vue'
 import { expectInt } from './utils'
@@ -59,7 +60,12 @@ export function makeRouter() {
         name: "adminPatternsEdit",
         component: EditPatternPage,
         props: route => ({ patternId: route.params.id })
-      }
+      },
+      {
+        path: "/admin/users",
+        name: "adminUsers",
+        component: AdminUsersPage
+      },
       // {
       //     path: '*',
       //     component: PageNotFound
