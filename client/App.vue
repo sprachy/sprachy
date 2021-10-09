@@ -18,7 +18,7 @@ import UnexpectedErrorModal from "./UnexpectedErrorModal.vue"
 Vue.component("site-layout", SiteLayout)
 Vue.component("admin-layout", AdminLayout)
 
-import { Component, Vue } from "vue-property-decorator"
+import { Component, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
 @Component({
   components: {
@@ -26,11 +26,10 @@ import _ from "lodash"
   },
 })
 export default class App extends Vue {
-  created() {
+  async created() {
     globalErrorHandler.init({
       sentryScoper: (scope) => {
         // const { user } = app.state
-
         // if (user) {
         //   const userDetails: Record<string, any> = {
         //     name: user.name,
@@ -38,16 +37,37 @@ export default class App extends Vue {
         //     id: user.id.toString(),
         //     role: user.role,
         //   }
-
         //   if (user.email) userDetails.email = user.email
         //   scope.setUser(userDetails)
         // }
       },
     })
+    
+    try {
+      const user = JSON.parse(localStorage.getItem('user')!)
+      this.$app.user = user
+    } catch (err) {}
+
+    const { user } = await this.$api.getStatus()
+    this.$app.user = user
+    localStorage.setItem('user', JSON.stringify(user))
   }
+
   get unexpectedError() {
     return globalErrorHandler.lastGlobalError
   }
+
+  @Watch("unexpectedError", { immediate: true })
+  logoutOn401() {
+    const err = this.unexpectedError as any
+    if (err && 'response' in err && err.response?.status === 401) {
+      globalErrorHandler.dismissError()
+      this.$app.user = null
+      localStorage.removeItem('user')
+      this.$app.navigate("/login")
+    }
+  }
+
 
   onDismissError() {
     globalErrorHandler.dismissError()

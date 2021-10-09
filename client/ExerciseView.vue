@@ -50,7 +50,7 @@ export default class ExerciseView extends Vue {
 .exerciseCard
   text-align: center
 
-strong
+::v-deep strong
   color: #64b5f6
 
 .cloze

@@ -48,10 +48,4 @@ export class VokabonApp {
   async navigateReplace(location: RawLocation): Promise<Route> {
     return this.navigate(location, true)
   }
-
-  /** Purge any auth details and return to the login screen. */
-  async logout(opts: { redirectBackTo?: string } = {}) {
-    // TODO
-    this.user = null
-  }
 }

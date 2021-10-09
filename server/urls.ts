@@ -9,8 +9,10 @@ import { BaseRouter, RequireLoginRouter, AdminRouter } from './routers'
 export const api = new BaseRouter()
 api.add('POST', '/api/signup', auth.signup)
 api.add('POST', '/api/login', auth.login)
+api.add('POST', '/api/logout', auth.logout)
 
 const userApi = new RequireLoginRouter(api)
+userApi.add('GET', '/api/status', progress.getStatus)
 userApi.add('GET', '/api/progress/nextLesson', progress.getNextLesson)
 
 const adminApi = new AdminRouter(userApi)

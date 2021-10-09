@@ -19,7 +19,7 @@
             <b-nav-item to="/review" class="mr-2">
               Review
             </b-nav-item>
-            <b-nav-item to="/admin/patterns" class="mr-2">
+            <b-nav-item v-if="$admin" to="/admin/patterns" class="mr-2">
               Admin
             </b-nav-item>
             <b-nav-item :to="{ name: 'userSettings' }" class="mr-2">
@@ -48,8 +48,11 @@ export default class SiteHeader extends Vue {
     return this.$app.user?.email
   }
 
-  logout() {
-    this.$app.logout()
+  async logout() {
+    await this.$api.logout()
+    this.$app.user = null
+    localStorage.removeItem("user")
+    this.$app.navigate("/login")
   }
 }
 </script>

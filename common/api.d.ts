@@ -20,6 +20,11 @@ export type Pattern = {
 export type Exercise = Pattern['exercises'][0]
 
 export interface APISchema extends RestypedBase {
+  '/api/status': {
+    GET: {
+      response: { user: User }
+    }
+  }
   '/api/signup': {
     POST: {
       body: {
@@ -36,6 +41,11 @@ export interface APISchema extends RestypedBase {
         password: string
       }
       response: User
+    }
+  }
+  '/api/logout': {
+    POST: {
+      response: void
     }
   }
   '/api/progress/nextLesson': {

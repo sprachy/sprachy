@@ -6,6 +6,7 @@ import type { User } from "../../common/api"
 import { db } from "../db"
 import { sessions } from "../sessions"
 import type { ServerResponse } from "worktop/response"
+import type { BaseRequest } from "../routers"
 
 const signupForm = z.object({
   email: z.string().email(),
@@ -51,4 +52,9 @@ export async function login(req: ServerRequest, res: ServerResponse): Promise<Us
   const sessionKey = await sessions.create(user.id)
   res.headers.set('Set-Cookie', sessions.asCookie(sessionKey))
   return user
+}
+
+export async function logout(req: BaseRequest): Promise<void> {
+  if (!req.session) return
+  await sessions.expire(req.session.key)
 }

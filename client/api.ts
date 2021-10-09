@@ -30,8 +30,17 @@ export class UserAPI {
     return data
   }
 
+  async logout(): Promise<void> {
+    await this.http.post(`/logout`)
+  }
+
   async getNextPattern(): Promise<Pattern> {
     const { data } = await this.http.get(`/progress/nextLesson`)
+    return data
+  }
+
+  async getStatus(): Promise<{ user: User }> {
+    const { data } = await this.http.get(`/status`)
     return data
   }
 
