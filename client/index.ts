@@ -4,7 +4,7 @@ import BootstrapVue from 'bootstrap-vue'
 import App from './App.vue'
 import { makeRouter } from './router'
 import { VokabonApp } from './app'
-import { AdminAPI, UserAPI } from './api'
+import { AdminAPI, HTTPProvider, UserAPI } from './api'
 import { createClient } from '@supabase/supabase-js'
 import './app.sass'
 
@@ -33,14 +33,15 @@ Object.defineProperty(Vue.prototype, '$app', {
   get() { return app }
 })
 
-const userApi = new UserAPI()
+const userApi = new UserAPI(new HTTPProvider())
 Object.defineProperty(Vue.prototype, '$api', {
   get() { return userApi }
 })
 
-const adminApi = new AdminAPI()
-Object.defineProperty(Vue.prototype, '$adminApi', {
-  get() { return adminApi }
+// This api won't be watched by App.vue to provide loading indicator
+const backgroundApi = new UserAPI(new HTTPProvider())
+Object.defineProperty(Vue.prototype, '$backgroundApi', {
+  get() { return backgroundApi }
 })
 
 Object.defineProperty(Vue.prototype, '$user', {

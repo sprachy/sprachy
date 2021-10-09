@@ -27,7 +27,7 @@ export default class AdminUsersPage extends Vue {
   users: User[] = []
 
   async mounted() {
-    this.users = await this.$adminApi.listUsers()
+    this.users = await this.$api.admin.listUsers()
   }
 
   async editUser(userId: string) {

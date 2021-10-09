@@ -32,7 +32,7 @@ export default class AdminPatternsPage extends Vue {
   patterns: Pattern[] = []
 
   async mounted() {
-    this.patterns = await this.$adminApi.listPatterns()
+    this.patterns = await this.$api.admin.listPatterns()
   }
 
   async editPattern(patternId: number) {

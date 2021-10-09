@@ -115,7 +115,7 @@ export default class EditPatternPage extends Vue {
     this.$debug.editPatternPage = this
 
     if (this.patternId) {
-      this.pattern = await this.$adminApi.getPattern(this.patternId)
+      this.pattern = await this.$api.admin.getPattern(this.patternId)
       if (!this.pattern.exercises) {
         this.$set(this.pattern, "exercises", [])
       }
@@ -160,12 +160,12 @@ export default class EditPatternPage extends Vue {
     this.saving = true
     try {
       if (this.patternId) {
-        this.pattern = await this.$adminApi.updatePattern(
+        this.pattern = await this.$api.admin.updatePattern(
           this.patternId,
           this.pattern!
         )
       } else {
-        const pattern = await this.$adminApi.createPattern(this.pattern!)
+        const pattern = await this.$api.admin.createPattern(this.pattern!)
         await this.$app.navigateReplace(`/admin/patterns/${pattern.id}`)
       }
     } finally {
@@ -175,7 +175,7 @@ export default class EditPatternPage extends Vue {
 
   async deletePattern() {
     if (window.confirm(`Really delete pattern ${this.pattern!.slug}?`)) {
-      await this.$adminApi.deletePattern(this.patternId!)
+      await this.$api.admin.deletePattern(this.patternId!)
       await this.$app.navigateReplace("/admin/patterns")
     }
   }

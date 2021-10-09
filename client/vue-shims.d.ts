@@ -9,6 +9,6 @@ declare module 'vue/types/vue' {
     $user: User
     $admin: boolean
     $api: UserAPI
-    $adminApi: AdminAPI
+    $backgroundApi: UserAPI
   }
 }

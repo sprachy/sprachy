@@ -1,5 +1,3 @@
-import type {RestypedBase} from 'restyped'
-
 export type User = {
   id: string
   email: string
@@ -18,71 +16,3 @@ export type Pattern = {
 }
 
 export type Exercise = Pattern['exercises'][0]
-
-export interface APISchema extends RestypedBase {
-  '/api/status': {
-    GET: {
-      response: { user: User }
-    }
-  }
-  '/api/signup': {
-    POST: {
-      body: {
-        email: string
-        password: string
-      }
-      response: User
-    }
-  }
-  '/api/login': {
-    POST: {
-      body: {
-        email: string
-        password: string
-      }
-      response: User
-    }
-  }
-  '/api/logout': {
-    POST: {
-      response: void
-    }
-  }
-  '/api/progress/nextLesson': {
-    GET: {
-      response: Pattern
-    }
-  }
-  '/api/admin/patterns': {
-    GET: {
-      response: Pattern[]
-    }
-    POST: {
-      body: Omit<Pattern, 'id'>
-      response: Pattern
-    }
-  }
-  '/api/admin/patterns/:id': {
-    GET: {
-      params: { id: string }
-      response: Pattern
-    }
-    PATCH: {
-      params: { id: string }
-      body: Partial<Omit<Pattern, 'id'>>
-      response: Pattern
-    }
-    DELETE: {
-      params: { id: string }
-      response: void
-    }
-  }
-  '/api/admin/users': {
-    GET: {
-      response: User[]
-    }
-  }
-}
-
-
-
