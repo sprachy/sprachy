@@ -18,7 +18,7 @@ const newPatternForm = z.object({
   exercises: z.array(z.object({
     content: z.string(),
     translation: z.string()
-  }))
+  })).min(1)
 })
 export async function createPattern(req: AdminRequest) {
   const data = newPatternForm.parse(await req.body())

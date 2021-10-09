@@ -4,6 +4,7 @@ import LoginPage from './LoginPage.vue'
 import FrontPage from './FrontPage.vue'
 import SignupPage from './SignupPage.vue'
 import HomePage from './HomePage.vue'
+import SettingsPage from './SettingsPage.vue'
 import AdminPatternsPage from './AdminPatternsPage.vue'
 import EditPatternPage from './EditPatternPage.vue'
 import AdminUsersPage from './AdminUsersPage.vue'
@@ -43,6 +44,11 @@ export function makeRouter() {
         path: "/review",
         name: "review",
         component: ReviewPage
+      },
+      {
+        path: "/settings",
+        name: "settings",
+        component: SettingsPage
       },
       {
         path: "/admin/patterns",

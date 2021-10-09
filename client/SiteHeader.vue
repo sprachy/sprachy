@@ -22,7 +22,7 @@
             <b-nav-item v-if="$admin" to="/admin/patterns" class="mr-2">
               Admin
             </b-nav-item>
-            <b-nav-item :to="{ name: 'userSettings' }" class="mr-2">
+            <b-nav-item to="/settings" class="mr-2">
               {{ name }}
             </b-nav-item>
             <b-nav-item @click="logout"> Log out </b-nav-item>
