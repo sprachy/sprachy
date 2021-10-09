@@ -3,7 +3,6 @@ import type { Pattern, User } from '../common/api'
 import _ from 'lodash'
 import { FAUNA_ADMIN_KEY } from './secrets'
 
-
 export type FaunaDocument<T> = {
   ref: { value: { id: string } }
   ts: number
