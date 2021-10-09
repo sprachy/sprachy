@@ -95,14 +95,14 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
 import slugify from "slugify"
 import type { Exercise, Pattern } from "../common/api"
-import ExerciseView from "./ExerciseView.vue"
+import FillblankCard from "./FillblankCard.vue"
 import marked from "marked"
 
 type EditingPattern = Omit<Pattern, "id">
 
 @Component({
   components: {
-    ExerciseView,
+    FillblankCard,
   },
 })
 export default class EditPatternPage extends Vue {

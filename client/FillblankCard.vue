@@ -1,0 +1,135 @@
+<template>
+  <div class="FillblankCard">
+    <b-card>
+      <div class="filling">
+        <div class="content">
+          <span>{{ parts.before }}</span>
+          <span class="fillblank" :style="{ minWidth: clozeWidth + 'px' }">&#8203;{{
+            attempt
+          }}&#8203;</span>
+          <span>{{ parts.after }}</span>
+        </div>
+        <div class="translation" v-html="translationHtml" />
+      </div>
+      <fieldset>
+        <input type="text" v-model="attempt" placeholder="Your Answer" />
+        <!-- <button>
+        <FontAwesomeIcon icon="faChevronRight" />
+      </button> -->
+      </fieldset>
+    </b-card>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator"
+import _ from "lodash"
+import type { Exercise } from "../common/api"
+
+@Component({
+  components: {},
+})
+export default class FillblankCard extends Vue {
+  @Prop({ type: Object, required: true }) exercise!: Exercise
+  attempt: string = ""
+
+  get parts() {
+    const [before, altstr, after] = this.exercise.content.split(/\[(.+?)\]/)
+    return {
+      before: before || "",
+      alternatives: (altstr || "").split("|"),
+      after: after || "",
+    }
+  }
+
+  get clozeWidth() {
+    const longestAnswer = _.sortBy(this.parts.alternatives, (s) => -s.length)[0]
+    return longestAnswer ? longestAnswer.length * 9 : 0
+  }
+
+  get translationHtml() {
+    return this.exercise.translation.replace(/\[.+?\]/, (substring) => {
+      const highlight = substring.slice(1, -1)
+      return `<strong>${highlight}</strong>`
+    })
+  }
+}
+</script>
+
+<style lang="sass" scoped>
+.FillblankCard::v-deep
+  margin: auto
+  max-width: 400px
+  text-align: center
+
+  // @media (max-width: $mobile)
+  //   padding-left: 5vw
+  //   padding-right: 5vw
+
+.card
+  box-shadow: 0 7px 50px rgba(46,10,99,.05), 0 1px 1px 0.6px rgba(46,10,99,.1)
+  border-radius: 8px
+
+.card-body
+  padding: 0
+
+.filling
+  padding: 2rem
+  font-size: 1.05rem
+  line-height: 2rem
+  white-space: pre-wrap
+
+  // @media (max-width: $mobile)
+  //   padding: 1.5rem
+
+span.fillblank
+  color: #64b5f6
+  border-bottom: 2px solid #5f6368
+  min-width: 20px
+  display: inline-block
+  text-align: center
+  line-height: 1.5rem
+
+.translation ::v-deep
+  strong
+    color: #64b5f6
+
+input
+  width: 100%
+  padding: 1rem
+  border: 0
+  text-align: center
+  border-radius: 0 0 8px 8px
+  // https://thingsthemselves.com/no-input-zoom-in-safari-on-iphone-the-pixel-perfect-way/
+  font-size: 16px
+
+input:focus
+  outline: none
+
+fieldset
+  position: relative
+
+  fieldset button
+    position: absolute
+    padding: 0 20px
+    right: 5px
+    height: 100%
+    font-size: 1.3em
+    line-height: 1em
+    border: none
+    background: none
+
+.FillblankCard.incorrect
+  span.fillblank
+    color: rgba(255, 77, 77, 0.8)
+
+    input
+      background: rgba(255, 77, 77, 0.8)
+
+    input, fieldset svg
+      color: white
+
+    .reviseFeedback
+      margin-top: 1rem
+      text-align: center
+</style>

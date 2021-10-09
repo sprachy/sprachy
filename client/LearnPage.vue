@@ -18,11 +18,11 @@ import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
 import type { Pattern } from "../common/api"
 import marked from 'marked'
-import ExerciseView from './ExerciseView.vue'
+import FillblankCard from './FillblankCard.vue'
 
 @Component({
   components: {
-    ExerciseView
+    FillblankCard
   },
 })
 export default class LearnPage extends Vue {
