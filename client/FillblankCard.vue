@@ -1,37 +1,81 @@
 <template>
   <div class="FillblankCard">
     <b-card>
-      <div class="filling">
-        <div class="content">
-          <span>{{ parts.before }}</span>
-          <span class="fillblank" :style="{ minWidth: clozeWidth + 'px' }">&#8203;{{
-            attempt
-          }}&#8203;</span>
-          <span>{{ parts.after }}</span>
+      <b-form @submit.prevent="checkAnswer">
+        <div class="filling">
+          <div class="content">
+            <span>{{ parts.before }}</span>
+            <span class="fillblank" :style="{ minWidth: clozeWidth + 'px' }">&#8203;{{
+              attempt
+            }}&#8203;</span>
+            <span>{{ parts.after }}</span>
+          </div>
+          <div class="translation" v-html="translationHtml" />
         </div>
-        <div class="translation" v-html="translationHtml" />
-      </div>
-      <fieldset>
-        <input type="text" v-model="attempt" placeholder="Your Answer" />
-        <!-- <button>
-        <FontAwesomeIcon icon="faChevronRight" />
-      </button> -->
-      </fieldset>
+        <fieldset>
+          <input type="text" v-model="attempt" placeholder="Your Answer" ref="attemptInput"/>
+          <!-- <button>
+          <FontAwesomeIcon icon="faChevronRight" />
+        </button> -->
+        </fieldset>
+      </b-form>
     </b-card>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator"
+import { Component, Prop, Ref, Vue } from "vue-property-decorator"
 import _ from "lodash"
 import type { Exercise } from "../common/api"
+import { levenshtein } from './levenshtein'
+import { CanvasEffects } from './CanvasEffects'
+
+/** Tolerate more egregious typos in longer answers */
+function distanceTolerance(s: string) {
+    switch (s.length) {
+        case 1:
+        case 2:
+        case 3:
+            return 0
+        case 4:
+        case 5:
+            return 1
+        case 6:
+        case 7:
+            return 2
+        default:
+            return 2 + 1 * Math.floor(s.length / 7)
+    }
+}
+
+export function matchesAnswerPermissively(attempt: string, correctAnswer: string): boolean {
+    attempt = attempt.toLowerCase()
+    correctAnswer = correctAnswer.toLowerCase()
+
+    if (attempt === correctAnswer) {
+        return true
+    } else {
+        const tolerance = distanceTolerance(correctAnswer)
+        return levenshtein(attempt, correctAnswer) <= tolerance
+    }
+}
+
 
 @Component({
   components: {},
 })
 export default class FillblankCard extends Vue {
   @Prop({ type: Object, required: true }) exercise!: Exercise
+  @Ref("attemptInput") attemptInput!: HTMLInputElement
   attempt: string = ""
+  effects: CanvasEffects = new CanvasEffects()
+
+  checkAnswer() {
+    const match = this.possibleAnswers.find(ans => matchesAnswerPermissively(this.attempt, ans))
+    if (match) {
+      this.effects.spawnParticlesAt(this.attemptInput)
+    }
+  }
 
   get parts() {
     const [before, altstr, after] = this.exercise.content.split(/\[(.+?)\]/)
@@ -40,6 +84,10 @@ export default class FillblankCard extends Vue {
       alternatives: (altstr || "").split("|"),
       after: after || "",
     }
+  }
+
+  get possibleAnswers() {
+    return this.parts.alternatives
   }
 
   get clozeWidth() {

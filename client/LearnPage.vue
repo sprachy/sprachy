@@ -7,7 +7,7 @@
         <button class="btn btn-primary" @click="quiz = true">Continue</button>
       </template>
       <template v-if="quiz">
-        <exercise-view :exercise="exercise"/>
+        <fillblank-card :exercise="exercise"/>
       </template>
     </div>
   </site-layout>

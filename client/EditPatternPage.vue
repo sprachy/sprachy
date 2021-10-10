@@ -62,7 +62,7 @@
             </b-col>
             <b-col>
               <b-form-group label="Preview">
-                <exercise-view :exercise="exercise" />
+                <fillblank-card :exercise="exercise" />
               </b-form-group>
             </b-col>
           </b-row>
