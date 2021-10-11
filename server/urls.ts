@@ -14,6 +14,8 @@ api.add('POST', '/api/logout', auth.logout)
 const userApi = new RequireLoginRouter(api)
 userApi.add('GET', '/api/status', progress.getStatus)
 userApi.add('GET', '/api/progress/nextLesson', progress.getNextLesson)
+userApi.add('POST', '/api/progress/learn/:patternId', progress.setLearned)
+
 
 const adminApi = new AdminRouter(userApi)
 adminApi.add('GET', '/api/admin/patterns/:id', patternsAdmin.getPattern)

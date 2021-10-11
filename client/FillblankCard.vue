@@ -74,6 +74,7 @@ export default class FillblankCard extends Vue {
     const match = this.possibleAnswers.find(ans => matchesAnswerPermissively(this.attempt, ans))
     if (match) {
       this.effects.spawnParticlesAt(this.attemptInput)
+      this.$emit('correct')
     }
   }
 

@@ -96,6 +96,10 @@ export class UserAPI {
     return data
   }
 
+  async setLearned(patternId: string) {
+    await this.http.post(`/progress/learn/${patternId}`)
+  }
+
   // async setProgress(progress: { pattern_id: number, srs_level: number }): Promise<Progress> {
   //   const { data } = await request(this.db.from('progress').upsert({
   //     user_id: this.user.id,

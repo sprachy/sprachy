@@ -7,7 +7,7 @@
         <button class="btn btn-primary" @click="quiz = true">Continue</button>
       </template>
       <template v-if="quiz">
-        <fillblank-card :exercise="exercise"/>
+        <fillblank-card :exercise="exercise" @correct="nextExercise"/>
       </template>
     </div>
   </site-layout>
@@ -28,13 +28,22 @@ import FillblankCard from './FillblankCard.vue'
 export default class LearnPage extends Vue {
   pattern: Pattern|null = null
   quiz: boolean = true
+  exerciseIndex: number = 0
 
   async created() {
     this.pattern = await this.$api.getNextPattern()
   }
 
   get exercise() {
-    return this.pattern!.exercises[0]
+    return this.pattern!.exercises[this.exerciseIndex]
+  }
+
+  async nextExercise() {
+    if (this.exerciseIndex+1 >= this.pattern!.exercises.length) {
+      await this.$api.setLearned(this.pattern!.id)
+    } else {
+      this.exerciseIndex += 1
+    }
   }
 
   get htmlExplain() {

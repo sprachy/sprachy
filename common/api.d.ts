@@ -15,4 +15,11 @@ export type Pattern = {
   }[]
 }
 
+export type Progress = {
+  userId: string
+  patternId: string
+  initiallyLearnedAt: number
+  lastReviewedAt: number
+}
+
 export type Exercise = Pattern['exercises'][0]

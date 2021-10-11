@@ -1,5 +1,5 @@
-import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete } from 'faunadb'
-import type { Pattern, User } from '../common/api'
+import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now } from 'faunadb'
+import type { Pattern, Progress, User } from '../common/api'
 import _ from 'lodash'
 import { FAUNA_ADMIN_KEY } from './secrets'
 
@@ -98,7 +98,7 @@ export namespace db {
           Paginate(Documents(Collection("users"))),
           Lambda("id", Get(Var("id")))
         )
-      )  
+      )
     }
 
     /**
@@ -130,12 +130,11 @@ export namespace db {
     }
   }
 
-
   export namespace patterns {
     export async function get(patternId: string): Promise<Pattern> {
       return await db.querySingle<Pattern>(
         Get(Ref(Collection("patterns"), patternId))
-      )    
+      )
     }
 
     export async function listAll(): Promise<Pattern[]> {
@@ -171,7 +170,48 @@ export namespace db {
         Delete(
           Ref(Collection('patterns'), patternId)
         )
-      )    
+      )
+    }
+  }
+
+  export namespace progress {
+    function MatchByUserAndPattern(userId: string, patternId: string) {
+      return Match(Index("progress_by_user_and_pattern"), [
+        Ref(Collection("users"), userId),
+        Ref(Collection("patterns"), patternId)
+      ])
+    }
+
+    export async function get(userId: string, patternId: string): Promise<Progress | null> {
+      try {
+        return await db.querySingle<Progress>(Get(MatchByUserAndPattern(userId, patternId)))
+      } catch (err) {
+        if ((err as any).code === "document not found") {
+          return null
+        } else {
+          throw err
+        }
+      }
+    }
+
+    export async function learnPattern(userId: string, patternId: string): Promise<Progress> {
+      const query = Let(
+        { pattern: MatchByUserAndPattern(userId, patternId) },
+        If(
+          Exists(Var("pattern")),
+          Get(Var("pattern")),
+          Create(Collection("patterns"), {
+            data: {
+              userRef: Ref(Collection("users"), userId),
+              patternRef: Ref(Collection("patterns"), patternId),
+              initiallyLearnedAt: Now(),
+              lastReviewedAt: Now()
+            }
+          })
+        )
+      )
+
+      return await db.querySingle<Progress>(query)
     }
   }
 }
