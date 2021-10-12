@@ -1,4 +1,4 @@
-import { Miniflare } from 'miniflare'
+import { testenv } from './testenv'
 
 // async function canSeePattern(patternId: number, asClient: UserClient) {
 //   const { data } = await asClient.db.from("patterns").select().match({ id: patternId })
@@ -18,28 +18,30 @@ import { Miniflare } from 'miniflare'
 //   return data!.length === 0
 // }
 
-import { UserAPI, HTTPProvider } from '../client/api'
-import { TEST_USER_EMAIL, TEST_USER_PASSWORD } from './constants'
+import { TEST_USER_EMAIL } from './constants'
 
 test('pattern access rules', async () => {
-  const mf = new Miniflare({
-    scriptPath: "./server/devdist/worker.js",
-    buildCommand: "",
-    kvNamespaces: ["STORE"]
-  })
+  const { asUser } = await testenv()
 
-  mf.createServer().listen(5998)
-
-  const api = new UserAPI(new HTTPProvider({ baseURL: "http://localhost:5998/api" }))
-
-  const user = await api.signIn({
-    email: TEST_USER_EMAIL,
-    password: TEST_USER_PASSWORD
-  })
-  console.log(user)
+  const { user } = await asUser.api.getStatus()
   expect(user.email).toEqual(TEST_USER_EMAIL)
+  // const mf = new Miniflare({
+  //   scriptPath: "./server/devdist/worker.js",
+  //   buildCommand: "",
+  //   kvNamespaces: ["STORE"]
+  // })
+
+  // mf.createServer().listen(5998)
+
+  // const api = new UserAPI(new HTTPProvider({ baseURL: "http://localhost:5998/api" }))
+
+  // const user = await api.signIn({
+  //   email: TEST_USER_EMAIL,
+  //   password: TEST_USER_PASSWORD
+  // })
+  // console.log(user)
   
-  await mf.dispose()
+  // await mf.dispose()
 
   // const { asService, asUser, asAdmin } = await dbenv()
 
