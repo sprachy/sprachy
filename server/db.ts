@@ -12,17 +12,17 @@ export type FaunaDocument<T> = {
 export namespace db {
   export async function querySingle<T>(expr: Expr) {
     return flattenFauna(
-      await fauna.query(expr) as FaunaDocument<T>
+      await fauna.client.query(expr) as FaunaDocument<T>
     )
   }
 
   export async function query<T extends any[]>(expr: Expr) {
-    const res = await fauna.query(expr) as { data: FaunaDocument<T[0]>[] }
+    const res = await fauna.client.query(expr) as { data: FaunaDocument<T[0]>[] }
     return res.data.map(flattenFauna)
   }
 
 
-  function customFetch(url: RequestInfo, params: RequestInit | undefined) {
+  export function customFetch(url: RequestInfo, params: RequestInit | undefined) {
     const signal = params?.signal
     delete params?.signal
 
@@ -68,13 +68,15 @@ export namespace db {
     } as any
   }
 
-  export const fauna = new faunadb.Client({
-    secret: FAUNA_ADMIN_KEY,
-    fetch: typeof fetch === 'undefined' ? undefined : customFetch,
-    domain: 'localhost',
-    port: 8443,
-    scheme: 'http'
-  })
+  export const fauna = {
+    client: new faunadb.Client({
+      secret: FAUNA_ADMIN_KEY,
+      fetch: typeof fetch === 'undefined' ? undefined : customFetch,
+      domain: 'localhost',
+      port: 8443,
+      scheme: 'http'
+    })
+  } 
 
   export const fql = faunadb.query
 
@@ -170,7 +172,7 @@ export namespace db {
     }
 
     export async function destroy(patternId: string) {
-      await db.fauna.query(
+      await db.fauna.client.query(
         Delete(
           Ref(Collection('patterns'), patternId)
         )

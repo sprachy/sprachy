@@ -4,13 +4,13 @@
       <template v-if="state === 'initial'">
         <h1>{{ pattern.title }}</h1>
         <div v-html="htmlExplain"/>
-        <button class="btn btn-primary" @click="quiz = true">Continue</button>
+        <button class="btn btn-primary" @click="state = 'quiz'">Continue</button>
       </template>
       <template v-else-if="state === 'quiz'">
         <fillblank-card :exercise="exercise" @correct="nextExercise"/>
       </template>
       <template v-else-if="state === 'complete'">
-
+        <p>Nice work! This pattern will become available for review in 4 hours.</p>
       </template>
     </div>
   </site-layout>

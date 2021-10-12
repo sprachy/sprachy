@@ -1,47 +1,53 @@
 require('dotenv').config()
-import { exec } from 'child-process-promise'  
-import { createClient } from '@supabase/supabase-js'
-import { TEST_USER_EMAIL, TEST_USER_PASSWORD, TEST_ADMIN_EMAIL, TEST_ADMIN_PASSWORD } from './constants'
-
-async function makeAccount(email: string, password: string) {
-  const db = createClient(process.env.TEST_SUPABASE_URL!, process.env.TEST_SUPABASE_ANON_KEY!)
-  const { user, error } = await db.auth.signUp({ email, password })
-  if (error) {
-    throw error
-  }
-  return user!
-}
+import { TEST_DBNAME, TEST_USER_EMAIL, TEST_USER_PASSWORD, TEST_ADMIN_EMAIL, TEST_ADMIN_PASSWORD } from './constants'
+import { db } from '../server/db'
+import shell from 'shelljs'
+import fs from 'fs'
+import faunadb from 'faunadb'
 
 /**
  * Jest runs all test files in parallel; this file is run before
  * any of them, so we want to set up the test database here.
  */
 export default async function globalSetup() {
-  const testdb = process.env.TEST_DATABASE_URL
-  if (!testdb) {
-    throw new Error(`Can't run tests without defined TEST_DATABASE_URL`)
+  shell.exec(`fauna delete-database ${TEST_DBNAME}`)
+  shell.exec(`fauna create-database ${TEST_DBNAME}`)
+
+  // Fauna cli is dumb and doesn't know how to like, split queries, so we do it with line breaks
+  const fql = fs.readFileSync(`./schema.fql`, 'utf-8')
+  const queries = fql.split("\n\n")
+  for (const query of queries) {
+    fs.writeFileSync(`/tmp/query.fql`, query)
+    shell.exec(`fauna eval ${TEST_DBNAME} --file=/tmp/query.fql`)
   }
 
-  // Drop and recreate public schema
-  // This leaves the supabase "auth" schema unchanged between tests
-  await exec(`echo "drop schema if exists public cascade; create schema public;" | psql ${testdb}`)
+  const output = shell.exec(`fauna create-key ${TEST_DBNAME} admin`)
+  const secret = output.match(/secret: (\S+)/)[1]
+  // shell.exec(`sed -i '' -e 's/TEST_FAUNA_ADMIN_KEY=.*/TEST_FAUNA_ADMIN_KEY=${secret}/g' .env`)
 
-  // Add base supabase schema
-  await exec(`psql ${testdb} -f sql/supabase.sql`)
-
-  // Run migrations
-  await exec(`DATABASE_URL=${testdb} npm run migrate up`)
-
-  // It's mean to be idempotent, so run policies.sql twice to test that
-  await exec(`psql ${testdb} -f sql/policies.sql && psql ${testdb} -f sql/policies.sql`)
+  db.fauna.client = new faunadb.Client({
+    secret: secret,
+    fetch: typeof fetch === 'undefined' ? undefined : db.customFetch,
+    domain: 'localhost',
+    port: 8443,
+    scheme: 'http'
+  })
 
   // Create test accounts
   const [user, adminUser] = await Promise.all([
-    makeAccount(TEST_USER_EMAIL, TEST_USER_PASSWORD),
-    makeAccount(TEST_ADMIN_EMAIL, TEST_ADMIN_PASSWORD)
+    db.users.create({
+      email: TEST_USER_EMAIL,
+      password: TEST_USER_PASSWORD,
+      isAdmin: false
+    }),
+    db.users.create({
+      email: TEST_ADMIN_EMAIL,
+      password: TEST_ADMIN_PASSWORD,
+      isAdmin: true
+    })
   ])
 
   // Make admin user an admin
-  const db = createClient(process.env.TEST_SUPABASE_URL!, process.env.TEST_SUPABASE_SECRET_KEY!)
-  await db.from("accounts").update({ is_admin: true }).match({ id: adminUser.id })
+  // const db = createClient(process.env.TEST_SUPABASE_URL!, process.env.TEST_SUPABASE_SECRET_KEY!)
+  // await db.from("accounts").update({ is_admin: true }).match({ id: adminUser.id })
 }

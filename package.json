@@ -69,6 +69,8 @@
     "@types/cookie": "^0.4.1",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.10.3",
+    "@types/sade": "^1.7.3",
+    "@types/shelljs": "^0.8.9",
     "babel-jest": "^27.1.0",
     "child-process-promise": "^2.2.1",
     "dotenv": "^10.0.0",
