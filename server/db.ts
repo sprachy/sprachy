@@ -131,6 +131,10 @@ export namespace db {
   }
 
   export namespace patterns {
+    export async function RefPattern(patternId: string) {
+      return Ref(Collection("patterns"), patternId)
+    }
+
     export async function get(patternId: string): Promise<Pattern> {
       return await db.querySingle<Pattern>(
         Get(Ref(Collection("patterns"), patternId))
@@ -142,7 +146,7 @@ export namespace db {
       return await db.query<Pattern[]>(
         Map(
           Paginate(Documents(Collection("patterns"))),
-          Lambda("id", Get(Var("id")))
+          Lambda("ref", Get(Var("ref")))
         )
       )
     }
@@ -194,18 +198,23 @@ export namespace db {
       }
     }
 
+    /**
+     * Mark a pattern as "learned", meaning a user has done the initial exercises for it.
+     * Idempotent; no effect if already learned.
+     */
     export async function learnPattern(userId: string, patternId: string): Promise<Progress> {
       const query = Let(
-        { pattern: MatchByUserAndPattern(userId, patternId) },
+        { progress: MatchByUserAndPattern(userId, patternId) },
         If(
-          Exists(Var("pattern")),
-          Get(Var("pattern")),
-          Create(Collection("patterns"), {
+          Exists(Var("progress")),
+          Get(Var("progress")),
+          Create(Collection("progress"), {
             data: {
               userRef: Ref(Collection("users"), userId),
               patternRef: Ref(Collection("patterns"), patternId),
               initiallyLearnedAt: Now(),
-              lastReviewedAt: Now()
+              lastReviewedAt: Now(),
+              srsLevel: 1
             }
           })
         )

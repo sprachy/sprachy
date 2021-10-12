@@ -1,13 +1,16 @@
 <template>
   <site-layout>
     <div v-if="pattern">
-      <template v-if="!quiz">
+      <template v-if="state === 'initial'">
         <h1>{{ pattern.title }}</h1>
         <div v-html="htmlExplain"/>
         <button class="btn btn-primary" @click="quiz = true">Continue</button>
       </template>
-      <template v-if="quiz">
+      <template v-else-if="state === 'quiz'">
         <fillblank-card :exercise="exercise" @correct="nextExercise"/>
+      </template>
+      <template v-else-if="state === 'complete'">
+
       </template>
     </div>
   </site-layout>
@@ -26,8 +29,8 @@ import FillblankCard from './FillblankCard.vue'
   },
 })
 export default class LearnPage extends Vue {
+  state: 'initial'|'quiz'|'complete' = 'initial'
   pattern: Pattern|null = null
-  quiz: boolean = true
   exerciseIndex: number = 0
 
   async created() {
@@ -40,7 +43,8 @@ export default class LearnPage extends Vue {
 
   async nextExercise() {
     if (this.exerciseIndex+1 >= this.pattern!.exercises.length) {
-      await this.$api.setLearned(this.pattern!.id)
+      this.$api.setLearned(this.pattern!.id)
+      this.state = 'complete'
     } else {
       this.exerciseIndex += 1
     }

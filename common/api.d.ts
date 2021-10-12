@@ -20,6 +20,7 @@ export type Progress = {
   patternId: string
   initiallyLearnedAt: number
   lastReviewedAt: number
+  srsLevel: number
 }
 
 export type Exercise = Pattern['exercises'][0]
