@@ -1,9 +1,7 @@
 require('dotenv').config()
 import { TEST_DBNAME, TEST_USER_EMAIL, TEST_USER_PASSWORD, TEST_ADMIN_EMAIL, TEST_ADMIN_PASSWORD } from './constants'
-import { db } from '../server/db'
 import shell from 'shelljs'
 import fs from 'fs'
-import faunadb from 'faunadb'
 
 /**
  * Jest runs all test files in parallel; this file is run before
@@ -25,16 +23,11 @@ export default async function globalSetup() {
   const secret = output.match(/secret: (\S+)/)[1]
   // shell.exec(`sed -i '' -e 's/TEST_FAUNA_ADMIN_KEY=.*/TEST_FAUNA_ADMIN_KEY=${secret}/g' .env`)
 
-  db.fauna.client = new faunadb.Client({
-    secret: secret,
-    fetch: typeof fetch === 'undefined' ? undefined : db.customFetch,
-    domain: 'localhost',
-    port: 8443,
-    scheme: 'http'
-  })
+  process.env.FAUNA_ADMIN_KEY = secret
+  const { db } = require('../server/db')
 
   // Create test accounts
-  const [user, adminUser] = await Promise.all([
+  await Promise.all([
     db.users.create({
       email: TEST_USER_EMAIL,
       password: TEST_USER_PASSWORD,
@@ -46,8 +39,4 @@ export default async function globalSetup() {
       isAdmin: true
     })
   ])
-
-  // Make admin user an admin
-  // const db = createClient(process.env.TEST_SUPABASE_URL!, process.env.TEST_SUPABASE_SECRET_KEY!)
-  // await db.from("accounts").update({ is_admin: true }).match({ id: adminUser.id })
 }

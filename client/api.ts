@@ -20,9 +20,9 @@ async function delay(amount: number) {
 export class HTTPProvider {
   axios: AxiosInstance
   ongoingRequests: Promise<any>[] = []
-  constructor() {
+  constructor(config: { baseURL?: string } = {}) {
     this.axios = axios.create({
-      baseURL: API_BASE_URL,
+      baseURL: config.baseURL || API_BASE_URL,
       timeout: 10000
     })
 

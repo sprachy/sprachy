@@ -2,7 +2,7 @@
 module.exports = {
     roots: ["test"],
 
-    testEnvironment: 'jsdom',
+    testEnvironment: 'node',
     globalSetup: "./test/globalSetup.ts",
     setupFilesAfterEnv: ["<rootDir>/test/setupTests.ts"],
     moduleNameMapper: {

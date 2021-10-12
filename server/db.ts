@@ -1,84 +1,27 @@
-import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now } from 'faunadb'
+import { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now } from 'faunadb'
 import type { Pattern, Progress, User } from '../common/api'
 import _ from 'lodash'
 import { FAUNA_ADMIN_KEY } from './secrets'
-
-export type FaunaDocument<T> = {
-  ref: { value: { id: string } }
-  ts: number
-  data: Omit<T, 'id' | 'ts'>
-}
+import { FaunaDocument, flattenFauna, makeFaunaClient } from './faunaUtil'
 
 export namespace db {
+  export const fauna = makeFaunaClient({
+    secret: FAUNA_ADMIN_KEY,
+    domain: 'localhost',
+    port: 8443,
+    scheme: 'http'
+  })
+
   export async function querySingle<T>(expr: Expr) {
     return flattenFauna(
-      await fauna.client.query(expr) as FaunaDocument<T>
+      await fauna.query(expr) as FaunaDocument<T>
     )
   }
 
   export async function query<T extends any[]>(expr: Expr) {
-    const res = await fauna.client.query(expr) as { data: FaunaDocument<T[0]>[] }
+    const res = await fauna.query(expr) as { data: FaunaDocument<T[0]>[] }
     return res.data.map(flattenFauna)
   }
-
-
-  export function customFetch(url: RequestInfo, params: RequestInit | undefined) {
-    const signal = params?.signal
-    delete params?.signal
-
-    const abortPromise: Promise<Response> = new Promise((resolve) => {
-      if (signal) {
-        signal.onabort = resolve as any
-      }
-    })
-
-    return Promise.race([abortPromise, fetch(url, params)])
-  }
-
-  export function getFaunaError(error: any) {
-    const { code, description } = error.requestResult.responseContent.errors[0]
-    let status
-
-    switch (code) {
-      case 'instance not found':
-        status = 404
-        break
-      case 'instance not unique':
-        status = 409
-        break
-      case 'permission denied':
-        status = 403
-        break
-      case 'unauthorized':
-      case 'authentication failed':
-        status = 401
-        break
-      default:
-        status = 500
-    }
-
-    return { code, description, status }
-  }
-
-  export function flattenFauna<T>(d: FaunaDocument<T>): T {
-    return {
-      id: d.ref.value.id,
-      ts: d.ts,
-      ...d.data
-    } as any
-  }
-
-  export const fauna = {
-    client: new faunadb.Client({
-      secret: FAUNA_ADMIN_KEY,
-      fetch: typeof fetch === 'undefined' ? undefined : customFetch,
-      domain: 'localhost',
-      port: 8443,
-      scheme: 'http'
-    })
-  } 
-
-  export const fql = faunadb.query
 
   export namespace users {
     export async function get(userId: string): Promise<User> {
@@ -172,7 +115,7 @@ export namespace db {
     }
 
     export async function destroy(patternId: string) {
-      await db.fauna.client.query(
+      await db.fauna.query(
         Delete(
           Ref(Collection('patterns'), patternId)
         )

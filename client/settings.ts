@@ -13,4 +13,4 @@ export const IS_PRODUCTION: boolean = process.env.NODE_ENV === 'production' ? tr
  * We make that work by proxying with Netlify _redirects (in production), or with
  * webpack devServer configuration (in development).
  **/
-export const API_BASE_URL: string = window.location.origin + '/api'
+export const API_BASE_URL: string = typeof window !== "undefined" ? window.location.origin + '/api' : ""

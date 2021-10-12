@@ -1,10 +1,11 @@
 import { Router } from 'worktop'
 import type { ServerRequest } from 'worktop/request'
 import type { ServerResponse } from 'worktop/response'
-import type { APISchema, User } from '../common/api'
+import type { User } from '../common/api'
 import { Session, sessions } from './sessions'
 import { db } from './db'
 import * as cookie from "cookie"
+import { getFaunaError } from './faunaUtil'
 
 class HTTPError extends Error {
   constructor(readonly code: number, message: string) {
@@ -56,7 +57,7 @@ export class BaseRouter {
         if (err instanceof HTTPError) {
           res.send(err.code, err.message)
         } else if ('requestResult' in err) {
-          const faunaErr = db.getFaunaError(err)
+          const faunaErr = getFaunaError(err)
           res.send(faunaErr.status, faunaErr)
         } else {
           res.send(500, err.stack)
