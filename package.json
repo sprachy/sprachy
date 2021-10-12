@@ -19,7 +19,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@fauna-labs/fauna-schema-migrate": "^2.1.5",
     "@sentry/browser": "^6.13.3",
     "@supabase/supabase-js": "^1.24.0",
     "@types/lodash": "^4.14.169",
@@ -43,8 +42,6 @@
     "marked": "^3.0.4",
     "mini-css-extract-plugin": "^2.4.2",
     "node-repl-await": "^0.1.2",
-    "postgres": "^1.0.2",
-    "restyped-axios": "^2.0.0",
     "sass": "^1.34.1",
     "sass-loader": "10.1.1",
     "shelljs": "^0.8.4",
@@ -76,11 +73,9 @@
     "dotenv": "^10.0.0",
     "ifdef-loader": "^2.3.0",
     "jest": "^27.1.0",
-    "ley": "^0.7.1",
     "miniflare": "^1.4.1",
     "npm-run-all": "^4.1.5",
     "prompt-confirm": "^2.0.4",
-    "supabase": "^0.5.0",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.2",
     "webpack-cli": "^4.7.2",
