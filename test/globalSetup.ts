@@ -1,32 +1,54 @@
 require('dotenv').config()
-import { TEST_DBNAME, TEST_USER_EMAIL, TEST_USER_PASSWORD, TEST_ADMIN_EMAIL, TEST_ADMIN_PASSWORD } from './constants'
-import shell from 'shelljs'
-import fs from 'fs'
+import { TEST_USER_EMAIL, TEST_USER_PASSWORD, TEST_ADMIN_EMAIL, TEST_ADMIN_PASSWORD } from './constants'
+import faunadb, { CreateDatabase, CreateKey, Database, Delete, Do, Exists, If } from 'faunadb'
+import * as schema from '../server/schema'
+import { db } from '../server/db'
 
 /**
  * Jest runs all test files in parallel; this file is run before
  * any of them, so we want to set up the test database here.
  */
 export default async function globalSetup() {
-  shell.exec(`fauna delete-database ${TEST_DBNAME}`)
-  shell.exec(`fauna create-database ${TEST_DBNAME}`)
+  const devFauna = new faunadb.Client({
+    secret: process.env.FAUNA_ADMIN_KEY,
+    domain: 'localhost',
+    port: 8443,
+    scheme: 'http'
+  })
 
-  // Fauna cli is dumb and doesn't know how to like, split queries, so we do it with line breaks
-  const fql = fs.readFileSync(`./schema.fql`, 'utf-8')
-  const queries = fql.split("\n\n")
-  for (const query of queries) {
-    fs.writeFileSync(`/tmp/query.fql`, query)
-    shell.exec(`fauna eval ${TEST_DBNAME} --file=/tmp/query.fql`)
-  }
+  // Create test db as a child database of the development db
+  const { secret } = await devFauna.query(
+    Do(
+      If(
+        Exists(Database("test")),
+        Delete(Database("test")),
+        null
+      ),
+      CreateDatabase({
+        name: "test"
+      }),
+      CreateKey({
+        database: Database("test"),
+        role: "admin"
+      })
+    )
+  ) as { secret: string }
 
-  const output = shell.exec(`fauna create-key ${TEST_DBNAME} admin`)
-  const secret = output.match(/secret: (\S+)/)[1]
-  // shell.exec(`sed -i '' -e 's/TEST_FAUNA_ADMIN_KEY=.*/TEST_FAUNA_ADMIN_KEY=${secret}/g' .env`)
+  // Apply the schema
+  const fauna = new faunadb.Client({
+    secret: secret,
+    domain: 'localhost',
+    port: 8443,
+    scheme: 'http'
+  })
 
+  await fauna.query(schema.collections)
+  await fauna.query(schema.indexes)
+
+  // Set admin key for tests and create test accounts
   process.env.FAUNA_ADMIN_KEY = secret
-  const { db } = require('../server/db')
+  db.fauna.client = fauna
 
-  // Create test accounts
   await Promise.all([
     db.users.create({
       email: TEST_USER_EMAIL,

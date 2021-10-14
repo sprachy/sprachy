@@ -5,21 +5,22 @@ import { FAUNA_ADMIN_KEY } from './secrets'
 import { FaunaDocument, flattenFauna, makeFaunaClient } from './faunaUtil'
 
 export namespace db {
-  export const fauna = makeFaunaClient({
+  // This allows the client to be changed e.g. by tests
+  export const fauna = { client: makeFaunaClient({
     secret: FAUNA_ADMIN_KEY,
     domain: 'localhost',
     port: 8443,
     scheme: 'http'
-  })
+  }) }
 
   export async function querySingle<T>(expr: Expr) {
     return flattenFauna(
-      await fauna.query(expr) as FaunaDocument<T>
+      await fauna.client.query(expr) as FaunaDocument<T>
     )
   }
 
   export async function query<T extends any[]>(expr: Expr) {
-    const res = await fauna.query(expr) as { data: FaunaDocument<T[0]>[] }
+    const res = await fauna.client.query(expr) as { data: FaunaDocument<T[0]>[] }
     return res.data.map(flattenFauna)
   }
 
@@ -115,7 +116,7 @@ export namespace db {
     }
 
     export async function destroy(patternId: string) {
-      await db.fauna.query(
+      await db.fauna.client.query(
         Delete(
           Ref(Collection('patterns'), patternId)
         )

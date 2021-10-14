@@ -39,7 +39,7 @@ const loginForm = z.object({
 export async function login(req: ServerRequest, res: ServerResponse): Promise<User> {
   const { email, password } = loginForm.parse(await req.body())
 
-  const result = await db.fauna.query(
+  const result = await db.fauna.client.query(
     Login(
       Match(Index("users_by_email"), email),
       { password: password },
