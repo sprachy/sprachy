@@ -24,9 +24,7 @@ module.exports = env => {
   }
 
   function devPlugins() {
-    return commonPlugins().concat([
-      new webpack.HotModuleReplacementPlugin()
-    ])
+    return commonPlugins()
   }
 
   function productionPlugins() {
@@ -159,11 +157,8 @@ module.exports = env => {
       host: 'localhost',
       hot: true,
       port: 5999,
-      contentBase: path.resolve(__dirname, './public/'),
-      watchContentBase: true,
-      watchOptions: {
-        ignored: /node_modules/,
-        poll: true,
+      static: {
+        directory: path.resolve(__dirname, './public/')
       },
       proxy: {
         // Proxying this avoids CORS issues in development
