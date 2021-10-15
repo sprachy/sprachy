@@ -3,10 +3,15 @@ import { TEST_USER_EMAIL, TEST_USER_PASSWORD, TEST_ADMIN_EMAIL, TEST_ADMIN_PASSW
 import faunadb, { CreateDatabase, CreateKey, Database, Delete, Do, Exists, If } from 'faunadb'
 import * as schema from '../server/schema'
 import { db } from '../server/db'
+import { Miniflare } from 'miniflare'
+import { Server } from 'http'
+
+declare const global: { miniflareServer: Server }
 
 /**
  * Jest runs all test files in parallel; this file is run before
- * any of them, so we want to set up the test database here.
+ * any of them, so we want to set up the test database here and
+ * open the miniflare server.
  */
 export default async function globalSetup() {
   const devFauna = new faunadb.Client({
@@ -61,4 +66,17 @@ export default async function globalSetup() {
       isAdmin: true
     })
   ])
+
+  // Start test server
+  const mf = new Miniflare({
+    scriptPath: "./server/devdist/worker.js",
+    buildCommand: "",
+    kvNamespaces: ["STORE"],
+    bindings: {
+      FAUNA_ADMIN_KEY: secret
+    }
+  })
+  
+  global.miniflareServer = mf.createServer()
+  global.miniflareServer.listen(5998)
 }

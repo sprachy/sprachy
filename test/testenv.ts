@@ -56,7 +56,6 @@ export class TestHTTPProvider implements HTTPProvider {
 
 
 type TestEnv = {
-  mf: Miniflare
   asUser: { api: UserAPI }
   // asAdmin: UserAPI
 }
@@ -64,24 +63,13 @@ type TestEnv = {
 let testenvReady: TestEnv|null = null
 
 async function setupTestEnv(): Promise<TestEnv> {
-  const mf = new Miniflare({
-    scriptPath: "./server/devdist/worker.js",
-    buildCommand: "",
-    kvNamespaces: ["STORE"],
-    bindings: {
-      FAUNA_ADMIN_KEY: process.env.FAUNA_ADMIN_KEY
-    }
-  })
-  
-  mf.createServer().listen(5998)
-
   const asUser = { api: new UserAPI(new TestHTTPProvider()) }
   await asUser.api.signIn({
     email: TEST_USER_EMAIL,
     password: TEST_USER_PASSWORD
   })
   
-  return { mf, asUser }
+  return { asUser }
 }
 
 export async function testenv() {
