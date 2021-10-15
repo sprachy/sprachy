@@ -4,8 +4,7 @@
 //   const session = await api.signIn({ email, password })
 
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios"
-import { Miniflare } from "miniflare"
-import { HTTPProvider, UserAPI } from "../client/api"
+import { HTTPProvider, UserAPI } from "../client/ClientAPI"
 import { TEST_USER_EMAIL, TEST_USER_PASSWORD } from "./constants"
 import { wrapper } from 'axios-cookiejar-support'
 import { CookieJar } from 'tough-cookie'

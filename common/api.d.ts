@@ -16,6 +16,7 @@ export type Pattern = {
 }
 
 export type Progress = {
+  id: string
   userId: string
   patternId: string
   initiallyLearnedAt: number

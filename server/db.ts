@@ -1,22 +1,39 @@
-import { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now } from 'faunadb'
+import { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now, Difference, Select, Filter, Not } from 'faunadb'
 import type { Pattern, Progress, User } from '../common/api'
 import _ from 'lodash'
 import { FAUNA_ADMIN_KEY } from './secrets'
 import { FaunaDocument, flattenFauna, makeFaunaClient } from './faunaUtil'
+import * as time from '../common/time'
 
 export namespace db {
   // This allows the client to be changed e.g. by tests
-  export const fauna = { client: makeFaunaClient({
-    secret: FAUNA_ADMIN_KEY,
-    domain: 'localhost',
-    port: 8443,
-    scheme: 'http'
-  }) }
+  export const fauna = {
+    client: makeFaunaClient({
+      secret: FAUNA_ADMIN_KEY,
+      domain: 'localhost',
+      port: 8443,
+      scheme: 'http'
+    })
+  }
+
+  export function GetIfExists(expr: Expr) {
+    return Let(
+      { obj: expr },
+      If(
+        Exists(Var("obj")),
+        Get(Var("obj")),
+        null
+      )
+    )
+  }
 
   export async function querySingle<T>(expr: Expr) {
-    return flattenFauna(
-      await fauna.client.query(expr) as FaunaDocument<T>
-    )
+    const res = await fauna.client.query(expr)
+
+    if (res === null)
+      return res
+
+    return flattenFauna(res as FaunaDocument<T>)
   }
 
   export async function query<T extends any[]>(expr: Expr) {
@@ -76,9 +93,87 @@ export namespace db {
     }
   }
 
+
+  export namespace progress {
+    function MatchByUserAndPattern(userId: string, patternId: string) {
+      return Match(Index("progress_by_user_and_pattern"), [
+        Ref(Collection("users"), userId),
+        Ref(Collection("patterns"), patternId)
+      ])
+    }
+
+    export async function get(userId: string, patternId: string): Promise<Progress | null> {
+      return await db.querySingle<Progress | null>(
+        GetIfExists(MatchByUserAndPattern(userId, patternId))
+      )
+    }
+
+    /**
+     * Called when a user has completed an SRS review for a given pattern.
+     * Only updates srs level if it is the correct time to do so.
+     */
+    export async function recordReview(userId: string, patternId: string, remembered: boolean): Promise<Progress> {
+      const progress = await db.progress.get(userId, patternId)
+      if (!progress) {
+        // Initial review
+        return await db.querySingle<Progress>(
+          Create(Collection("progress"), {
+            data: {
+              userRef: Ref(Collection("users"), userId),
+              patternRef: Ref(Collection("patterns"), patternId),
+              initiallyLearnedAt: Now(),
+              lastReviewedAt: Now(),
+              srsLevel: 1
+            }
+          })
+        )
+      }
+
+      const nextReviewAt = progress.lastReviewedAt + time.toNextSRSLevel(progress.srsLevel)
+      if (time.now() < nextReviewAt) {
+        // Not time for review yet, ignore this one
+        return progress
+      } else {
+        return await db.querySingle<Progress>(
+          Update(
+            Ref(Collection('progress'), progress.id),
+            {
+              data: {
+                lastReviewedAt: Now(),
+                srsLevel: progress.srsLevel + (remembered ? 1 : -1)
+              }
+            }
+          )
+        )
+      }
+    }
+  }
+
   export namespace patterns {
-    export async function RefPattern(patternId: string) {
-      return Ref(Collection("patterns"), patternId)
+    export function NotLearnedByUser(userId: string) {
+      return Filter(
+        Match(Index("all_patterns")),
+        Lambda(
+          "patternRef",
+          Not(Exists(Match(Index("progress_by_user_and_pattern"), [
+            Ref(Collection("users"), userId),
+            Var("patternRef")
+          ])))
+        )
+      )
+    }
+
+    export async function nextPatternFor(userId: string): Promise<Pattern | null> {
+      return await db.querySingle<Pattern>(
+        Let(
+          { patterns: NotLearnedByUser(userId) },
+          If(
+            Exists(Var("patterns")),
+            Get(Var("patterns")),
+            null
+          )
+        )
+      )
     }
 
     export async function get(patternId: string): Promise<Pattern> {
@@ -91,7 +186,7 @@ export namespace db {
       // TODO handle pagination
       return await db.query<Pattern[]>(
         Map(
-          Paginate(Documents(Collection("patterns"))),
+          Paginate(Match(Index("all_patterns"))),
           Lambda("ref", Get(Var("ref")))
         )
       )
@@ -121,52 +216,6 @@ export namespace db {
           Ref(Collection('patterns'), patternId)
         )
       )
-    }
-  }
-
-  export namespace progress {
-    function MatchByUserAndPattern(userId: string, patternId: string) {
-      return Match(Index("progress_by_user_and_pattern"), [
-        Ref(Collection("users"), userId),
-        Ref(Collection("patterns"), patternId)
-      ])
-    }
-
-    export async function get(userId: string, patternId: string): Promise<Progress | null> {
-      try {
-        return await db.querySingle<Progress>(Get(MatchByUserAndPattern(userId, patternId)))
-      } catch (err) {
-        if ((err as any).code === "document not found") {
-          return null
-        } else {
-          throw err
-        }
-      }
-    }
-
-    /**
-     * Mark a pattern as "learned", meaning a user has done the initial exercises for it.
-     * Idempotent; no effect if already learned.
-     */
-    export async function learnPattern(userId: string, patternId: string): Promise<Progress> {
-      const query = Let(
-        { progress: MatchByUserAndPattern(userId, patternId) },
-        If(
-          Exists(Var("progress")),
-          Get(Var("progress")),
-          Create(Collection("progress"), {
-            data: {
-              userRef: Ref(Collection("users"), userId),
-              patternRef: Ref(Collection("patterns"), patternId),
-              initiallyLearnedAt: Now(),
-              lastReviewedAt: Now(),
-              srsLevel: 1
-            }
-          })
-        )
-      )
-
-      return await db.querySingle<Progress>(query)
     }
   }
 }

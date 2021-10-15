@@ -6,14 +6,18 @@
     <div v-else-if="pattern">
       <template v-if="state === 'initial'">
         <h1>{{ pattern.title }}</h1>
-        <div v-html="htmlExplain"/>
-        <button class="btn btn-primary" @click="state = 'quiz'">Continue</button>
+        <div v-html="htmlExplain" />
+        <button class="btn btn-primary" @click="state = 'quiz'">
+          Continue
+        </button>
       </template>
       <template v-else-if="state === 'quiz'">
-        <fillblank-card :exercise="exercise" @correct="nextExercise"/>
+        <fillblank-card :exercise="exercise" @correct="nextExercise" />
       </template>
       <template v-else-if="state === 'complete'">
-        <p>Nice work! This pattern will become available for review in 4 hours.</p>
+        <p>
+          Nice work! This pattern will become available for review in 4 hours.
+        </p>
       </template>
     </div>
   </site-layout>
@@ -23,24 +27,24 @@
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
 import type { Pattern } from "../common/api"
-import marked from 'marked'
-import FillblankCard from './FillblankCard.vue'
+import marked from "marked"
+import FillblankCard from "./FillblankCard.vue"
 
 @Component({
   components: {
-    FillblankCard
+    FillblankCard,
   },
 })
 export default class LearnPage extends Vue {
-  state: 'nonetolearn'|'initial'|'quiz'|'complete' = 'initial'
-  pattern: Pattern|null = null
+  state: "nonetolearn" | "initial" | "quiz" | "complete" = "initial"
+  pattern: Pattern | null = null
   exerciseIndex: number = 0
 
   async created() {
     this.$debug.LearnPage = this
     this.pattern = await this.$api.getNextPattern()
     if (this.pattern === null) {
-      this.state = 'nonetolearn'
+      this.state = "nonetolearn"
     }
   }
 
@@ -49,9 +53,9 @@ export default class LearnPage extends Vue {
   }
 
   async nextExercise() {
-    if (this.exerciseIndex+1 >= this.pattern!.exercises.length) {
-      this.$api.setLearned(this.pattern!.id)
-      this.state = 'complete'
+    if (this.exerciseIndex + 1 >= this.pattern!.exercises.length) {
+      this.$api.recordReview(this.pattern!.id, true)
+      this.state = "complete"
     } else {
       this.exerciseIndex += 1
     }

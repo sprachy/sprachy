@@ -22,7 +22,7 @@ Vue.component("admin-layout", AdminLayout)
 
 import { Component, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
-import type { HTTPProvider } from "./api"
+import type { HTTPProvider } from "./ClientAPI"
 @Component({
   components: {
     UnexpectedErrorModal,

@@ -1,4 +1,4 @@
-import { AdminAPI, UserAPI } from './api'
+import { AdminAPI, UserAPI } from './ClientAPI'
 import { VokabonApp } from './app'
 import { User } from '../common/api'
 

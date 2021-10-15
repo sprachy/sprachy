@@ -4,7 +4,7 @@ import BootstrapVue from 'bootstrap-vue'
 import App from './App.vue'
 import { makeRouter } from './router'
 import { VokabonApp } from './app'
-import { AdminAPI, HTTPProvider, UserAPI } from './api'
+import { HTTPProvider, UserAPI } from './ClientAPI'
 import { createClient } from '@supabase/supabase-js'
 import './app.sass'
 

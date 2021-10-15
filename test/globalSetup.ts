@@ -50,7 +50,7 @@ export default async function globalSetup() {
   await fauna.query(schema.collections)
   await fauna.query(schema.indexes)
 
-  // Set admin key for tests and create test accounts
+  // Set admin key for tests and create some test data
   process.env.FAUNA_ADMIN_KEY = secret
   db.fauna.client = fauna
 
@@ -64,7 +64,25 @@ export default async function globalSetup() {
       email: TEST_ADMIN_EMAIL,
       password: TEST_ADMIN_PASSWORD,
       isAdmin: true
-    })
+    }),
+    db.patterns.create({
+      slug: "die-der-das",
+      title: "Die, der, das",
+      explanation: "stuff!",
+      exercises: [{
+        content: "[die] Katze",
+        translation: "[the] cat"
+      }]
+    }),
+    db.patterns.create({
+      slug: "der-norden",
+      title: "Der Norden",
+      explanation: "stuff!",
+      exercises: [{
+        content: "[die] Katze",
+        translation: "[the] cat"
+      }]
+    }),
   ])
 
   // Start test server

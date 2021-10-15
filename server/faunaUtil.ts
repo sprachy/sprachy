@@ -32,6 +32,7 @@ export function getFaunaError(error: any) {
     case 'authentication failed':
       status = 401
       break
+
     default:
       status = 500
   }

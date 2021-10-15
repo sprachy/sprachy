@@ -1,15 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import _ from 'lodash'
-import type {Pattern, User} from '../common/api'
+import type { Progress, Pattern, User } from '../common/api'
 import { API_BASE_URL, IS_PRODUCTION } from './settings'
-
-export type Progress = {
-  user_id: number
-  pattern_id: number
-  srs_level: number
-  initially_learned_at: number
-  last_reviewed_at: number
-}
 
 async function delay(amount: number) {
   return new Promise(resolve => {
@@ -34,7 +26,7 @@ export class HTTPProvider {
         // a similar kind of loading indicator to us
         await delay(_.random(200, 700))
         return response
-      })  
+      })
     }
   }
 
@@ -70,7 +62,7 @@ export class HTTPProvider {
 
 export class UserAPI {
   admin: AdminAPI = new AdminAPI(this.http)
-  constructor(readonly http: HTTPProvider) {}
+  constructor(readonly http: HTTPProvider) { }
 
   async signIn({ email, password }: { email: string, password: string }): Promise<User> {
     const { data } = await this.http.post(`/login`, { email, password })
@@ -86,7 +78,7 @@ export class UserAPI {
     await this.http.post(`/logout`)
   }
 
-  async getNextPattern(): Promise<Pattern|null> {
+  async getNextPattern(): Promise<Pattern | null> {
     const { data } = await this.http.get(`/progress/nextLesson`)
     return data
   }
@@ -96,8 +88,9 @@ export class UserAPI {
     return data
   }
 
-  async setLearned(patternId: string) {
-    await this.http.post(`/progress/learn/${patternId}`)
+  async recordReview(patternId: string, remembered: boolean): Promise<Progress> {
+    const { data } = await this.http.post(`/progress`, { patternId, remembered })
+    return data
   }
 
   // async setProgress(progress: { pattern_id: number, srs_level: number }): Promise<Progress> {
@@ -116,7 +109,7 @@ export class UserAPI {
 
 
 export class AdminAPI {
-  constructor(readonly http: HTTPProvider) {}
+  constructor(readonly http: HTTPProvider) { }
 
   async listPatterns(): Promise<Pattern[]> {
     const { data } = await this.http.get(`/admin/patterns`)

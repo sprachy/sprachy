@@ -26,9 +26,9 @@ export async function signup(req: ServerRequest, res: ServerResponse): Promise<U
 }
 
 type FaunaLoginToken = {
-  ref: { value: { id: string }} // Token ref
+  ref: { value: { id: string } } // Token ref
   ts: number
-  instance: { value: { id: string }} // User ref
+  instance: { value: { id: string } } // User ref
   secret: string
 }
 

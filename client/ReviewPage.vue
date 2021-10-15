@@ -7,7 +7,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
-import { Pattern } from "./api"
+import { Pattern } from "./ClientAPI"
 
 @Component({
   components: {},
