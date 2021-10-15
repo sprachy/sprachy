@@ -86,7 +86,7 @@ export class UserAPI {
     await this.http.post(`/logout`)
   }
 
-  async getNextPattern(): Promise<Pattern> {
+  async getNextPattern(): Promise<Pattern|null> {
     const { data } = await this.http.get(`/progress/nextLesson`)
     return data
   }

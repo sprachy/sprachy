@@ -33,12 +33,7 @@ export type BaseRequest = ServerRequest & {
 export class BaseRouter {
   worktopRouter: Router = new Router()
 
-  add<Path extends keyof APISchema, Method extends HTTPMethod>(
-    method: Method,
-    path: Path,
-    handler: (req: BaseRequest, res: ServerResponse) => Promise<APISchema[Path][Method]['response']>
-  ) {
-
+  add(method: HTTPMethod, path: string, handler: (req: BaseRequest, res: ServerResponse) => Promise<any>) {
     this.worktopRouter.add(method, path as string, async (req, res) => {
       const cookies = cookie.parse(req.headers.get('cookie') || '')
       const sessionKey = cookies['sessionKey']
@@ -49,8 +44,8 @@ export class BaseRouter {
 
       try {
         const obj = await handler(baseReq, res)
-        if (obj) {
-          res.send(200, obj)
+        if (obj !== undefined) {
+          res.send(200, JSON.stringify(obj))
         }
       } catch (err: any) {
         console.error(err)
@@ -77,13 +72,8 @@ export type SessionRequest = ServerRequest & {
 export class RequireLoginRouter {
   constructor(readonly parentRouter: BaseRouter) {}
 
-  add<Path extends keyof APISchema, Method extends HTTPMethod>(
-    method: Method,
-    path: Path,
-    handler: (req: SessionRequest, res: ServerResponse) => Promise<APISchema[Path][Method]['response']>
-  ) {
-
-    this.parentRouter.add(method, path as string, async (req, res) => {
+  add(method: HTTPMethod, path: string, handler: (req: SessionRequest, res: ServerResponse) => Promise<any>) {
+    this.parentRouter.add(method, path, async (req, res) => {
       if (!req.session) {
         throw new HTTPError(401, "Login required")
       }
@@ -103,13 +93,8 @@ export type AdminRequest = SessionRequest & {
 export class AdminRouter {
   constructor(readonly parentRouter: RequireLoginRouter) {}
 
-  add<Path extends keyof APISchema, Method extends HTTPMethod>(
-    method: Method,
-    path: Path,
-    handler: (req: AdminRequest, res: ServerResponse) => Promise<APISchema[Path][Method]['response']>
-  ) {
-
-    this.parentRouter.add(method, path as string, async (req, res) => {
+  add(method: HTTPMethod, path: string, handler: (req: AdminRequest, res: ServerResponse) => Promise<any>) {
+    this.parentRouter.add(method, path, async (req, res) => {
       const user = await db.users.get(req.session.userId)
       if (!user || !user.isAdmin) {
         throw new HTTPError(403, "Forbidden")

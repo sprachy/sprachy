@@ -9,8 +9,9 @@ export async function getStatus(req: SessionRequest): Promise<{ user: User }> {
   }
 }
 
-export async function getNextLesson(req: SessionRequest): Promise<Pattern> {
-  return (await db.patterns.listAll())[0]!
+export async function getNextLesson(req: SessionRequest): Promise<Pattern|null> {
+  const patterns = await db.patterns.listAll()
+  return patterns[0] || null
 }
 
 export async function setLearned(req: SessionRequest): Promise<Progress> {

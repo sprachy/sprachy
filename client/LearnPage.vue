@@ -1,6 +1,9 @@
 <template>
   <site-layout>
-    <div v-if="pattern">
+    <template v-if="state === 'nonetolearn'">
+      <p>You've learned all available patterns, congrats!</p>
+    </template>
+    <div v-else-if="pattern">
       <template v-if="state === 'initial'">
         <h1>{{ pattern.title }}</h1>
         <div v-html="htmlExplain"/>
@@ -29,12 +32,16 @@ import FillblankCard from './FillblankCard.vue'
   },
 })
 export default class LearnPage extends Vue {
-  state: 'initial'|'quiz'|'complete' = 'initial'
+  state: 'nonetolearn'|'initial'|'quiz'|'complete' = 'initial'
   pattern: Pattern|null = null
   exerciseIndex: number = 0
 
   async created() {
+    this.$debug.LearnPage = this
     this.pattern = await this.$api.getNextPattern()
+    if (this.pattern === null) {
+      this.state = 'nonetolearn'
+    }
   }
 
   get exercise() {
