@@ -108,6 +108,18 @@ export namespace db {
       )
     }
 
+    export async function update(progressId: string, changes: Partial<Omit<Progress, 'id' | 'userId' | 'patternId'>>): Promise<Progress> {
+      return await db.querySingle<Progress>(
+        Update(
+          Ref(Collection('progress'), progressId),
+          {
+            data: changes
+          }
+        )
+      )
+    }
+
+
     /**
      * Called when a user has completed an SRS review for a given pattern.
      * Only updates srs level if it is the correct time to do so.
