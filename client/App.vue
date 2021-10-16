@@ -1,7 +1,8 @@
 <template>
   <div>
+    <page-not-found v-if="is404" :on-dismiss="onDismissError" />
     <unexpected-error-modal
-      v-if="unexpectedError"
+      v-else-if="unexpectedError"
       :error="unexpectedError"
       :on-dismiss="onDismissError"
     />
@@ -14,6 +15,7 @@ import SiteLayout from "./SiteLayout.vue"
 import AdminLayout from "./AdminLayout.vue"
 import { globalErrorHandler } from "./globalErrorHandling"
 import UnexpectedErrorModal from "./UnexpectedErrorModal.vue"
+import PageNotFound from "./PageNotFound.vue"
 import NProgress from "accessible-nprogress"
 NProgress.configure({ showSpinner: false })
 
@@ -25,6 +27,7 @@ import _ from "lodash"
 import type { HTTPProvider } from "./ClientAPI"
 @Component({
   components: {
+    PageNotFound,
     UnexpectedErrorModal,
   },
 })
@@ -62,6 +65,11 @@ export default class App extends Vue {
 
   get unexpectedError() {
     return globalErrorHandler.lastGlobalError
+  }
+
+  get is404(): boolean {
+    const err = this.unexpectedError as any
+    return !!(err && "response" in err && err.response?.status === 404)
   }
 
   @Watch("unexpectedError", { immediate: true })

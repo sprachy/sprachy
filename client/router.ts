@@ -10,6 +10,7 @@ import EditPatternPage from './EditPatternPage.vue'
 import AdminUsersPage from './AdminUsersPage.vue'
 import LearnPage from './LearnPage.vue'
 import ReviewPage from './ReviewPage.vue'
+import PageNotFound from './PageNotFound.vue'
 
 export function makeRouter() {
   const router = new Router({
@@ -71,10 +72,10 @@ export function makeRouter() {
         name: "adminUsers",
         component: AdminUsersPage
       },
-      // {
-      //     path: '*',
-      //     component: PageNotFound
-      // }
+      {
+        path: '*',
+        component: PageNotFound
+      }
     ]
   })
 
