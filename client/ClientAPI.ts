@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import _ from 'lodash'
 import type { Progress, Pattern, User } from '../common/api'
-import { API_BASE_URL, IS_PRODUCTION } from './settings'
+import { IS_PRODUCTION } from './settings'
 
 async function delay(amount: number) {
   return new Promise(resolve => {
@@ -14,7 +14,7 @@ export class HTTPProvider {
   ongoingRequests: Promise<any>[] = []
   constructor(config: { baseURL?: string } = {}) {
     this.axios = axios.create({
-      baseURL: config.baseURL || API_BASE_URL,
+      baseURL: config.baseURL || '/api',
       timeout: 10000
     })
 

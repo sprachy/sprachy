@@ -19,13 +19,13 @@
           type="password"
           placeholder="Password"
           required
-          v-model="password"  
+          v-model="password"
         />
       </b-form-group>
       <input type="hidden" name="then" :value="afterAuthUrl" />
       <b-btn type="submit" class="mt-2">Login</b-btn>
       <div v-if="errorMessage">
-        {{errorMessage}}
+        {{ errorMessage }}
       </div>
     </form>
   </main>
@@ -42,7 +42,7 @@ export default class LoginPage extends Vue {
   email: string = ""
   password: string = ""
   afterAuthUrl: string = ""
-  errorMessage: string|null = null
+  errorMessage: string | null = null
 
   async login() {
     const { email, password } = this
@@ -51,6 +51,7 @@ export default class LoginPage extends Vue {
     try {
       const user = await this.$api.signIn({ email, password })
       this.$app.user = user
+      localStorage.setItem("user", JSON.stringify(user))
       this.$app.navigate("/home")
     } catch (err) {
       if (err?.response?.data?.code === "authentication failed") {
@@ -63,7 +64,7 @@ export default class LoginPage extends Vue {
 
   postLoginRedirect() {
     this.$app.router.replace({
-      name: 'home'
+      name: "home",
     })
   }
 }

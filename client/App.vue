@@ -14,7 +14,7 @@ import SiteLayout from "./SiteLayout.vue"
 import AdminLayout from "./AdminLayout.vue"
 import { globalErrorHandler } from "./globalErrorHandling"
 import UnexpectedErrorModal from "./UnexpectedErrorModal.vue"
-import NProgress from 'accessible-nprogress'
+import NProgress from "accessible-nprogress"
 NProgress.configure({ showSpinner: false })
 
 Vue.component("site-layout", SiteLayout)
@@ -47,16 +47,17 @@ export default class App extends Vue {
         // }
       },
     })
-    
 
     try {
-      const user = JSON.parse(localStorage.getItem('user')!)
+      const user = JSON.parse(localStorage.getItem("user")!)
       this.$app.user = user
     } catch (err) {}
 
-    const { user } = await this.$backgroundApi.getStatus()
-    this.$app.user = user
-    localStorage.setItem('user', JSON.stringify(user))
+    if (this.$app.user) {
+      const { user } = await this.$backgroundApi.getStatus()
+      this.$app.user = user
+      localStorage.setItem("user", JSON.stringify(user))
+    }
   }
 
   get unexpectedError() {
@@ -66,10 +67,10 @@ export default class App extends Vue {
   @Watch("unexpectedError", { immediate: true })
   logoutOn401() {
     const err = this.unexpectedError as any
-    if (err && 'response' in err && err.response?.status === 401) {
+    if (err && "response" in err && err.response?.status === 401) {
       globalErrorHandler.dismissError()
       this.$app.user = null
-      localStorage.removeItem('user')
+      localStorage.removeItem("user")
       this.$app.navigate("/login")
     }
   }
@@ -84,7 +85,6 @@ export default class App extends Vue {
       NProgress.promise(req)
     }
   }
-
 
   onDismissError() {
     globalErrorHandler.dismissError()

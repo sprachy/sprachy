@@ -7,8 +7,8 @@ const CopyPlugin = require('copy-webpack-plugin')
 // const BundleAnalyzerPlugin   = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const sass = require('sass')
 
-module.exports = env => {
-  const isProduction = env && env.production
+module.exports = (env, argv) => {
+  const isProduction = argv.mode === 'production'
 
   function commonPlugins() {
     return [
@@ -33,7 +33,15 @@ module.exports = env => {
         patterns: [
           {
             from: 'public/**/*',
-            to: '[name][ext]'
+            to: '[name][ext]',
+            transform: (content, filepath) => {
+              if (filepath.includes("_redirects")) {
+                // Write the Netlify _redirects file, with the api url proxy defined by environment
+                return content.toString().replace("{{API_BASE_URL}}", process.env.API_BASE_URL)
+              } else {
+                return content
+              }
+            }
           },
         ]
       })
@@ -58,7 +66,7 @@ module.exports = env => {
 
     output: {
       filename: 'assets/js/[name].js',
-      path: path.resolve(__dirname, './dist/'),
+      path: path.resolve(__dirname, './client/dist/'),
       publicPath: '/'
     },
 

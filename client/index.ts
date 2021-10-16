@@ -5,7 +5,6 @@ import App from './App.vue'
 import { makeRouter } from './router'
 import { VokabonApp } from './app'
 import { HTTPProvider, UserAPI } from './ClientAPI'
-import { createClient } from '@supabase/supabase-js'
 import './app.sass'
 
 Vue.config.productionTip = false
@@ -19,12 +18,6 @@ const router = makeRouter()
  **/
 Object.defineProperty(Vue.prototype, '$debug', {
   get() { return window as Record<string, any> }
-})
-
-const db = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!)
-
-Object.defineProperty(Vue.prototype, '$db', {
-  get() { return db }
 })
 
 const app = Vue.observable(new VokabonApp(router))

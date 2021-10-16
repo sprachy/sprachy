@@ -42,7 +42,7 @@ import _ from "lodash"
 @Component({
   components: {},
 })
-export default class App extends Vue {
+export default class SignupPage extends Vue {
   email: string = ""
   password: string = ""
   afterAuthUrl: string = ""
@@ -54,6 +54,7 @@ export default class App extends Vue {
     try {
       const user = await this.$api.signUp({ email, password })
       this.$app.user = user
+      localStorage.setItem("user", JSON.stringify(user))
     } catch (err) {
       throw err
     }

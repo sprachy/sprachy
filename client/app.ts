@@ -10,7 +10,7 @@ export class VokabonApp {
   pending: boolean = true
   user: User | null = null
 
-  constructor(readonly router: VueRouter) {}
+  constructor(readonly router: VueRouter) { }
 
   get expectedUser() {
     if (!this.user) {
@@ -32,7 +32,7 @@ export class VokabonApp {
           return await this.router.replace(location)
         else
           return await this.router.push(location)
-      } catch (err) {
+      } catch (err: any) {
         // Handle strange vue-router behavior https://github.com/vuejs/vue-router/issues/2932#issuecomment-532810521
         // And also ignore multiple-redirect errors https://stackoverflow.com/a/65326844/1983739
         if (err && !err.message.includes("navigation guard"))

@@ -12,7 +12,7 @@ export const indexes = [
   CreateIndex({
     name: "users_by_email",
     source: Collection("users"),
-    terms: [{field: ["data", "email"]}],
+    terms: [{ field: ["data", "email"] }],
     unique: true,
   }),
   CreateIndex({
@@ -22,13 +22,12 @@ export const indexes = [
   CreateIndex({
     name: "progress_by_user_and_pattern",
     source: Collection("progress"),
-    terms: [{field: ["data", "userRef"] }, {field: ["data", "patternRef"]}],
+    terms: [{ field: ["data", "userRef"] }, { field: ["data", "patternRef"] }],
     unique: true,
   }),
   CreateIndex({
     name: "progress_by_user",
     source: Collection("progress"),
-    terms: [{field: ["data", "userRef"] }]
-  }),
-  
+    terms: [{ field: ["data", "userRef"] }]
+  })
 ]

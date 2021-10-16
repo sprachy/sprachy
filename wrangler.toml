@@ -1,4 +1,3 @@
-name = "vokabon"
 type = "javascript"
 route = ''
 zone_id = ''
@@ -9,6 +8,22 @@ workers_dev = true
 compatibility_date = "2021-10-01"
 
 [build]
-command = "yarn build-server"
+command = ""
 [build.upload]
 format = "service-worker"
+
+[env.staging]
+workers_dev = true
+name = "vokabon-staging"
+kv_namespaces = [ 
+	 { binding = "STORE", id = "99e36b1dbda843e08b6c7a037630cb2b" }
+]
+
+[env.live]
+workers_dev = true
+# zone_id = "4bdba9fdefc31627b48f4d841744ccd4"
+# route = "https://vokabon.com/*"
+name = "vokabon"
+kv_namespaces = [ 
+  { binding = "STORE", id = "7f90360a04d84ce88a6ec09878f20d9f" }
+]

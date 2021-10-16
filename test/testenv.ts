@@ -59,7 +59,7 @@ type TestEnv = {
   // asAdmin: UserAPI
 }
 
-let testenvReady: TestEnv|null = null
+let testenvReady: TestEnv | null = null
 
 async function setupTestEnv(): Promise<TestEnv> {
   const asUser = { api: new UserAPI(new TestHTTPProvider()) }
@@ -67,7 +67,7 @@ async function setupTestEnv(): Promise<TestEnv> {
     email: TEST_USER_EMAIL,
     password: TEST_USER_PASSWORD
   })
-  
+
   return { asUser }
 }
 
