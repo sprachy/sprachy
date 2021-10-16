@@ -9,6 +9,7 @@ const sass = require('sass')
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production'
+  console.log(process.env.API_BASE_URL)
 
   function commonPlugins() {
     return [

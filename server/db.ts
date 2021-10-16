@@ -1,18 +1,20 @@
-import { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now, Difference, Select, Filter, Not } from 'faunadb'
+import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now, Difference, Select, Filter, Not } from 'faunadb'
 import type { Pattern, Progress, User } from '../common/api'
 import _ from 'lodash'
+import { IS_PRODUCTION } from './settings'
 import { FAUNA_ADMIN_KEY } from './secrets'
-import { FaunaDocument, flattenFauna, makeFaunaClient } from './faunaUtil'
+import { FaunaDocument, flattenFauna, customFetch } from './faunaUtil'
 import * as time from '../common/time'
 
 export namespace db {
   // This allows the client to be changed e.g. by tests
   export const fauna = {
-    client: makeFaunaClient({
+    client: new faunadb.Client({
       secret: FAUNA_ADMIN_KEY,
-      domain: 'localhost',
+      domain: IS_PRODUCTION ? 'db.fauna.com' : 'localhost',
       port: 8443,
-      scheme: 'http'
+      scheme: IS_PRODUCTION ? 'https' : 'http',
+      fetch: typeof fetch === 'undefined' ? undefined : customFetch,
     })
   }
 
@@ -67,15 +69,15 @@ export namespace db {
     /**
      * Create a new user. Will fail if email is taken, due to faunadb unique constraint.
      */
-    export async function create(data: Omit<User, 'id'> & { password: string }): Promise<User> {
+    export async function create(data: Omit<User, 'id'>, password: string): Promise<User> {
       return await db.querySingle<User>(
         Create(
           Collection("users"),
           {
             credentials: {
-              password: data.password
+              password: password
             },
-            data: _.omit(data, 'password')
+            data: data
           }
         )
       )
