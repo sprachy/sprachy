@@ -15,7 +15,7 @@
     "build-server": "rm -rf server/dist/* && webpack --mode production --config webpack.server.config.js",
     "build-live": "npm-run-all build-live-client build-server",
     "td": "yarn build && wrangler publish --env test",
-    "deploy": "yarn typecheck && yarn test && yarn build && yarn deploy-server && yarn deploy-client",
+    "deploy": "yarn typecheck && yarn test && yarn build-live && yarn deploy-server && yarn deploy-client",
     "deploy-server": "wrangler publish --env live",
     "deploy-client": "netlify deploy -d client/dist --prod",
     "typecheck": "tsc -p server/tsconfig.json --noEmit && tsc -p client/tsconfig.json --noEmit",

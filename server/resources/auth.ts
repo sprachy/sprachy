@@ -18,7 +18,7 @@ const signupForm = z.object({
 export async function signup(req: ServerRequest, res: ServerResponse): Promise<User> {
   const { email, password } = signupForm.parse(await req.body())
 
-  const user = await db.users.create({ email, isAdmin: false }, password)
+  const user = await db.users.create({ email, password, isAdmin: false })
 
   const sessionKey = await sessions.create(user.id)
   res.headers.set('Set-Cookie', sessions.asCookie(sessionKey))

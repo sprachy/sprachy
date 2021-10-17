@@ -94,7 +94,7 @@ export default async function globalSetup() {
       FAUNA_ADMIN_KEY: secret
     }
   })
-  
+
   global.miniflareServer = mf.createServer()
   global.miniflareServer.listen(5998)
 }
