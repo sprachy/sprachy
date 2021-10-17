@@ -1,10 +1,9 @@
 <template>
   <main class="container">
     <form @submit.prevent="signup">
-      <h4 className="mb-4">Create your account</h4>
-      <div className="form-group">
-        <label for="email">Email</label>
-        <input
+      <h4 class="mb-4">Create your account</h4>
+      <b-form-group label="Email">
+        <b-input
           name="email"
           id="email"
           className="form-control"
@@ -12,10 +11,9 @@
           required
           v-model="email"
         />
-      </div>
-      <div className="form-group">
-        <label for="password">Password</label>
-        <input
+      </b-form-group>
+      <b-form-group label="Password">
+        <b-input
           name="password"
           id="password"
           type="password"
@@ -25,12 +23,14 @@
           required
           v-model="password"
         />
-      </div>
+      </b-form-group>
       <input type="hidden" name="then" :value="afterAuthUrl" />
-      <button type="submit" className="btn">Sign up</button>
+      <b-btn type="submit" className="btn">Sign up</b-btn>
       <div v-if="errorMessage">
         {{ errorMessage }}
       </div>
+      <hr />
+      <router-link to="/login">Sign in</router-link>
     </form>
   </main>
 </template>
@@ -48,6 +48,10 @@ export default class SignupPage extends Vue {
   afterAuthUrl: string = ""
   errorMessage: string | null = null
 
+  created() {
+    document.title = "Signup - Vokabon"
+  }
+
   async signup() {
     const { email, password } = this
 
@@ -55,6 +59,7 @@ export default class SignupPage extends Vue {
       const user = await this.$api.signUp({ email, password })
       this.$app.user = user
       localStorage.setItem("user", JSON.stringify(user))
+      this.$app.navigate("/home")
     } catch (err) {
       throw err
     }
@@ -62,7 +67,7 @@ export default class SignupPage extends Vue {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 main
   height: calc(100vh - 5rem)
   display: flex

@@ -1,7 +1,6 @@
 <template>
   <main class="container">
-    <form @submit.prevent="login">
-      <h4 className="mb-4">Login</h4>
+    <b-form @submit.prevent="login">
       <b-form-group label="Email" label-for="emailInput">
         <b-form-input
           name="email"
@@ -23,11 +22,13 @@
         />
       </b-form-group>
       <input type="hidden" name="then" :value="afterAuthUrl" />
-      <b-btn type="submit" class="mt-2">Login</b-btn>
+      <b-btn type="submit" class="mt-2">Sign in</b-btn>
       <div v-if="errorMessage">
         {{ errorMessage }}
       </div>
-    </form>
+      <hr />
+      <router-link to="/signup">Sign up</router-link>
+    </b-form>
   </main>
 </template>
 
@@ -43,6 +44,10 @@ export default class LoginPage extends Vue {
   password: string = ""
   afterAuthUrl: string = ""
   errorMessage: string | null = null
+
+  created() {
+    document.title = "Login - Vokabon"
+  }
 
   async login() {
     const { email, password } = this
@@ -70,7 +75,7 @@ export default class LoginPage extends Vue {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 main
   height: calc(100vh - 5rem)
   display: flex
