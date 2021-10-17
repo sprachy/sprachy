@@ -10,15 +10,10 @@
         </b-navbar-brand>
 
         <b-collapse id="nav_collapse" is-nav>
-
           <!-- Right-aligned nav items -->
           <b-navbar-nav class="ml-auto">
-            <b-nav-item to="/learn" class="mr-2">
-              Learn
-            </b-nav-item>
-            <b-nav-item to="/review" class="mr-2">
-              Review
-            </b-nav-item>
+            <b-nav-item to="/learn" class="mr-2"> Learn </b-nav-item>
+            <b-nav-item to="/review" class="mr-2"> Review </b-nav-item>
             <b-nav-item v-if="$admin" to="/admin/patterns" class="mr-2">
               Admin
             </b-nav-item>
@@ -36,12 +31,13 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
+import { IS_PRODUCTION } from "./settings"
 @Component({
   components: {},
 })
 export default class SiteHeader extends Vue {
   get isDev() {
-    return true
+    return !IS_PRODUCTION
   }
 
   get name() {
