@@ -18,7 +18,11 @@ test('srs progress updates', async () => {
   const pattern2 = await asUser.api.getNextPattern()
   expect(pattern2.slug).not.toEqual("die-der-das")
 
-  // It's not time to review yet; recording review does nothing
+  // It's not time to review yet; shouldn't see any reviews
+  const status = await asUser.api.getStatus()
+  expect(status.reviews).toEqual([])
+
+  // Recording review does nothing
   const progress2 = await asUser.api.recordReview(pattern.id, true)
   expect(progress2.srsLevel === 1)
 
@@ -27,7 +31,11 @@ test('srs progress updates', async () => {
     lastReviewedAt: progress2.lastReviewedAt - time.hours(4)
   })
 
-  // Now we can make review progress
+  // Now we get a review
+  const status2 = await asUser.api.getStatus()
+  expect(status.reviews.length).toEqual(1)
+
+  // And we can record progress
   const progress3 = await asUser.api.recordReview(pattern.id, true)
   expect(progress3.srsLevel === 2)
 

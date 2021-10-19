@@ -5,9 +5,11 @@ import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match,
 import * as z from 'zod'
 
 export async function getStatus(req: SessionRequest): Promise<{ user: User }> {
-  return {
-    user: await db.users.get(req.session.userId)
-  }
+  const [user, reviews] = await Promise.all([
+    db.users.get(req.session.userId),
+    db.progress.getReviewsFor(req.session.userId)
+  ])
+  return { user, reviews }
 }
 
 export async function getNextLesson(req: SessionRequest): Promise<Pattern | null> {

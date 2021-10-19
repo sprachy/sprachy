@@ -121,9 +121,14 @@ export namespace db {
       )
     }
 
+    /**
+     * 
+     */
+    export async function getReviews() {
+    }
 
     /**
-     * Called when a user has completed an SRS review for a given pattern.
+     * Call when a user has completed an SRS review for a given pattern.
      * Only updates srs level if it is the correct time to do so.
      */
     export async function recordReview(userId: string, patternId: string, remembered: boolean): Promise<Progress> {
