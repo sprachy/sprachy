@@ -24,4 +24,9 @@ export type Progress = {
   srsLevel: number
 }
 
+export type Review = {
+  pattern: Pattern
+  progress: Progress
+}
+
 export type Exercise = Pattern['exercises'][0]

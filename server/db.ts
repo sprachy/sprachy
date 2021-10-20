@@ -1,5 +1,5 @@
 import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now, Difference, Select, Filter, Not } from 'faunadb'
-import type { Pattern, Progress, User } from '../common/api'
+import type { Pattern, Progress, Review, User } from '../common/api'
 import _ from 'lodash'
 import { IS_PRODUCTION } from './settings'
 import { FAUNA_ADMIN_KEY } from './secrets'
@@ -122,9 +122,31 @@ export namespace db {
     }
 
     /**
-     * 
+     * This method of retrieval won't scale, but suffices for now
+     * The whole calculation can potentially be done using Fauna query/index
      */
-    export async function getReviews() {
+    export async function getReviewsFor(userId: string) {
+      const allProgress = await db.query<Progress[]>(
+        Map(
+          Paginate(Match(Index("progress_by_user"), Ref(Collection("users"), userId))),
+          Lambda("ref", Get(Var("ref")))
+        )
+      )
+
+      const allPatterns = await db.patterns.listAll()
+      const patternsById = _.keyBy(allPatterns, p => p.id)
+
+      const reviews: Review[] = []
+      for (const progress of allProgress) {
+        const nextReviewAt = progress.lastReviewedAt + time.toNextSRSLevel(progress.srsLevel)
+        if (time.now() < nextReviewAt) {
+          reviews.push({
+            progress: progress,
+            pattern: patternsById[progress.patternId]!
+          })
+        }
+      }
+      return reviews
     }
 
     /**
