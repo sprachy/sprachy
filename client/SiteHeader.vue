@@ -13,7 +13,9 @@
           <!-- Right-aligned nav items -->
           <b-navbar-nav class="ml-auto">
             <b-nav-item to="/learn" class="mr-2"> Learn </b-nav-item>
-            <b-nav-item to="/review" class="mr-2"> Review </b-nav-item>
+            <b-nav-item to="/review" class="mr-2">
+              Review{{ numReviews ? `: ${numReviews}` : "" }}
+            </b-nav-item>
             <b-nav-item v-if="$admin" to="/admin/patterns" class="mr-2">
               Admin
             </b-nav-item>
@@ -36,6 +38,28 @@ import { IS_PRODUCTION } from "./settings"
   components: {},
 })
 export default class SiteHeader extends Vue {
+  pollingInterval: number | null = null
+  numReviews: number | null = null
+
+  created() {
+    if (this.$app.user) {
+      this.pollStatus()
+      this.pollingInterval = window.setInterval(this.pollStatus, 60000)
+    }
+  }
+
+  deactivated() {
+    if (this.pollingInterval !== null) clearInterval(this.pollingInterval)
+  }
+
+  async pollStatus() {
+    const { user, numReviews } = await this.$backgroundApi.getStatus()
+    console.log(numReviews)
+    this.$app.user = user
+    localStorage.setItem("user", JSON.stringify(user))
+    this.numReviews = numReviews
+  }
+
   get isDev() {
     return !IS_PRODUCTION
   }

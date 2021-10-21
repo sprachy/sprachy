@@ -1,4 +1,4 @@
-import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now, Difference, Select, Filter, Not } from 'faunadb'
+import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now, Difference, Select, Filter, Not, Time } from 'faunadb'
 import type { Pattern, Progress, Review, User } from '../common/api'
 import _ from 'lodash'
 import { IS_PRODUCTION } from './settings'
@@ -121,17 +121,21 @@ export namespace db {
       )
     }
 
-    /**
-     * This method of retrieval won't scale, but suffices for now
-     * The whole calculation can potentially be done using Fauna query/index
-     */
-    export async function getReviewsFor(userId: string) {
-      const allProgress = await db.query<Progress[]>(
+    export async function listAllFor(userId: string) {
+      return await db.query<Progress[]>(
         Map(
           Paginate(Match(Index("progress_by_user"), Ref(Collection("users"), userId))),
           Lambda("ref", Get(Var("ref")))
         )
       )
+    }
+
+    /**
+     * This method of retrieval won't scale, but suffices for now
+     * The whole calculation can potentially be done using Fauna query/index
+     */
+    export async function getReviewsFor(userId: string) {
+      const allProgress = await db.progress.listAllFor(userId)
 
       const allPatterns = await db.patterns.listAll()
       const patternsById = _.keyBy(allPatterns, p => p.id)
@@ -147,6 +151,11 @@ export namespace db {
         }
       }
       return reviews
+    }
+
+
+    export async function countReviewsFor(userId: string): Promise<number> {
+      return (await db.progress.getReviewsFor(userId)).length
     }
 
     /**

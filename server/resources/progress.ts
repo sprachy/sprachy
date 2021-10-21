@@ -1,15 +1,15 @@
-import type { Pattern, Progress, User } from "../../common/api"
+import type { Pattern, Progress, Review, User } from "../../common/api"
 import type { SessionRequest } from "../routers"
 import { db } from "../db"
 import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now } from 'faunadb'
 import * as z from 'zod'
 
-export async function getStatus(req: SessionRequest): Promise<{ user: User }> {
-  const [user, reviews] = await Promise.all([
+export async function getStatus(req: SessionRequest): Promise<{ user: User, numReviews: number }> {
+  const [user, numReviews] = await Promise.all([
     db.users.get(req.session.userId),
-    db.progress.getReviewsFor(req.session.userId)
+    db.progress.countReviewsFor(req.session.userId)
   ])
-  return { user, reviews }
+  return { user, numReviews }
 }
 
 export async function getNextLesson(req: SessionRequest): Promise<Pattern | null> {

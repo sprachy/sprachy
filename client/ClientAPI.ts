@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import _ from 'lodash'
-import type { Progress, Pattern, User } from '../common/api'
+import type { Progress, Pattern, User, Review } from '../common/api'
 import { IS_PRODUCTION } from './settings'
 
 async function delay(amount: number) {
@@ -83,7 +83,7 @@ export class UserAPI {
     return data
   }
 
-  async getStatus(): Promise<{ user: User }> {
+  async getStatus(): Promise<{ user: User, numReviews: number }> {
     const { data } = await this.http.get(`/status`)
     return data
   }

@@ -55,12 +55,6 @@ export default class App extends Vue {
       const user = JSON.parse(localStorage.getItem("user")!)
       this.$app.user = user
     } catch (err) {}
-
-    if (this.$app.user) {
-      const { user } = await this.$backgroundApi.getStatus()
-      this.$app.user = user
-      localStorage.setItem("user", JSON.stringify(user))
-    }
   }
 
   get unexpectedError() {

@@ -20,7 +20,7 @@ test('srs progress updates', async () => {
 
   // It's not time to review yet; shouldn't see any reviews
   const status = await asUser.api.getStatus()
-  expect(status.reviews).toEqual([])
+  expect(status.numReviews).toBe(0)
 
   // Recording review does nothing
   const progress2 = await asUser.api.recordReview(pattern.id, true)
@@ -33,7 +33,7 @@ test('srs progress updates', async () => {
 
   // Now we get a review
   const status2 = await asUser.api.getStatus()
-  expect(status.reviews.length).toEqual(1)
+  expect(status.numReviews).toBe(1)
 
   // And we can record progress
   const progress3 = await asUser.api.recordReview(pattern.id, true)

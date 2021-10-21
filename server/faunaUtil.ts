@@ -1,4 +1,4 @@
-import faunadb from 'faunadb'
+import faunadb, { Expr } from 'faunadb'
 import type { ClientConfig } from 'faunadb'
 
 export function customFetch(url: RequestInfo, params: RequestInit | undefined) {
@@ -40,12 +40,39 @@ export function getFaunaError(error: any) {
   return { code, description, status }
 }
 
+
+function deserializeFauna(prop: any): any {
+  if (prop instanceof Expr && 'date' in prop) {
+    // Convert fauna datetimes to integer timestamps
+    return (prop as any).date.getTime()
+  } else if (prop instanceof Expr && 'id' in prop) {
+    // Refs to string ids
+    return (prop as any).id
+  } else if (typeof prop === 'object') {
+    const newObj: any = {}
+
+    for (const key in prop) {
+      const m = key.match(/^(.+)Ref$/)
+      if (m) {
+        newObj[m[1] + 'Id'] = deserializeFauna(prop[key])
+      } else if (key === 'ref') {
+        newObj.id = deserializeFauna(prop[key])
+      } else if (key === 'data') {
+        Object.assign(newObj, deserializeFauna(prop.data))
+      } else {
+        newObj[key] = deserializeFauna(prop[key])
+      }
+    }
+
+    return newObj
+  } else {
+    return prop
+  }
+}
+
 export function flattenFauna<T>(d: FaunaDocument<T>): T {
-  return {
-    id: d.ref.value.id,
-    ts: d.ts,
-    ...d.data
-  } as any
+  console.log(d, deserializeFauna(d))
+  return deserializeFauna(d)
 }
 
 export type FaunaDocument<T> = {
