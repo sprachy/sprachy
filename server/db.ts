@@ -136,14 +136,13 @@ export namespace db {
      */
     export async function getReviewsFor(userId: string) {
       const allProgress = await db.progress.listAllFor(userId)
-
       const allPatterns = await db.patterns.listAll()
       const patternsById = _.keyBy(allPatterns, p => p.id)
 
       const reviews: Review[] = []
       for (const progress of allProgress) {
         const nextReviewAt = progress.lastReviewedAt + time.toNextSRSLevel(progress.srsLevel)
-        if (time.now() < nextReviewAt) {
+        if (time.now() >= nextReviewAt) {
           reviews.push({
             progress: progress,
             pattern: patternsById[progress.patternId]!

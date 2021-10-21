@@ -71,7 +71,6 @@ function deserializeFauna(prop: any): any {
 }
 
 export function flattenFauna<T>(d: FaunaDocument<T>): T {
-  console.log(d, deserializeFauna(d))
   return deserializeFauna(d)
 }
 
