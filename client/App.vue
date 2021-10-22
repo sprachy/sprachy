@@ -6,7 +6,11 @@
       :error="unexpectedError"
       :on-dismiss="onDismissError"
     />
-    <router-view />
+    <keep-alive :max="10">
+      <router-view
+        :key="$route.fullPath + ($app.user ? `user-${$app.user.id}` : '')"
+      />
+    </keep-alive>
   </div>
 </template>
 

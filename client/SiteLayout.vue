@@ -1,7 +1,7 @@
 <!-- Default app layout for logged in users: Navbar, container with router view -->
 <template>
   <div>
-    <site-header/>
+    <site-header />
 
     <template v-if="noContainer">
       <slot />
@@ -15,13 +15,13 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
-import SiteHeader from './SiteHeader.vue'
+import { Vue, Component, Prop } from "vue-property-decorator"
+import SiteHeader from "./SiteHeader.vue"
 
 @Component({
   components: {
-    SiteHeader
-  }
+    SiteHeader,
+  },
 })
 export default class SiteLayout extends Vue {
   @Prop({ type: Boolean, default: false }) noContainer!: boolean

@@ -9,6 +9,7 @@ import type { User } from '../common/api'
 export class VokabonApp {
   pending: boolean = true
   user: User | null = null
+  numReviews: number | null = null
 
   constructor(readonly router: VueRouter) { }
 

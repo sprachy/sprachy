@@ -39,7 +39,6 @@ import { IS_PRODUCTION } from "./settings"
 })
 export default class SiteHeader extends Vue {
   pollingInterval: number | null = null
-  numReviews: number | null = null
 
   created() {
     if (this.$app.user) {
@@ -54,10 +53,13 @@ export default class SiteHeader extends Vue {
 
   async pollStatus() {
     const { user, numReviews } = await this.$backgroundApi.getStatus()
-    console.log(numReviews)
     this.$app.user = user
+    this.$app.numReviews = numReviews
     localStorage.setItem("user", JSON.stringify(user))
-    this.numReviews = numReviews
+  }
+
+  get numReviews() {
+    return this.$app.numReviews
   }
 
   get isDev() {

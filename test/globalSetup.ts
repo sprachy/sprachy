@@ -65,25 +65,26 @@ export default async function globalSetup() {
       password: TEST_ADMIN_PASSWORD,
       isAdmin: true
     }),
-    db.patterns.create({
-      slug: "die-der-das",
-      title: "Die, der, das",
-      explanation: "stuff!",
-      exercises: [{
-        content: "[die] Katze",
-        translation: "[the] cat"
-      }]
-    }),
-    db.patterns.create({
-      slug: "der-norden",
-      title: "Der Norden",
-      explanation: "stuff!",
-      exercises: [{
-        content: "[die] Katze",
-        translation: "[the] cat"
-      }]
-    }),
   ])
+
+  await db.patterns.create({
+    slug: "die-der-das",
+    title: "Die, der, das",
+    explanation: "stuff!",
+    exercises: [{
+      content: "[die] Katze",
+      translation: "[the] cat"
+    }]
+  })
+  await db.patterns.create({
+    slug: "der-norden",
+    title: "Der Norden",
+    explanation: "stuff!",
+    exercises: [{
+      content: "[die] Katze",
+      translation: "[the] cat"
+    }]
+  })
 
   // Start test server
   const mf = new Miniflare({

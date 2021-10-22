@@ -7,12 +7,17 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
+import type { Review } from "../common/api"
 
 @Component({
   components: {},
 })
 export default class ReviewPage extends Vue {
-  async created() {}
+  reviews: Review[]
+  async created() {
+    const { reviews } = await this.$api.getReviews()
+    this.reviews = reviews
+  }
 }
 </script>
 

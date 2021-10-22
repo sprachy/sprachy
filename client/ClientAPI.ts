@@ -83,6 +83,11 @@ export class UserAPI {
     return data
   }
 
+  async getReviews(): Promise<{ reviews: Review[] }> {
+    const { data } = await this.http.get(`/progress/reviews`)
+    return data
+  }
+
   async getStatus(): Promise<{ user: User, numReviews: number }> {
     const { data } = await this.http.get(`/status`)
     return data
