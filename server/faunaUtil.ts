@@ -48,6 +48,8 @@ function deserializeFauna(prop: any): any {
   } else if (prop instanceof Expr && 'id' in prop) {
     // Refs to string ids
     return (prop as any).id
+  } else if (Array.isArray(prop)) {
+    return prop.map(deserializeFauna)
   } else if (typeof prop === 'object') {
     const newObj: any = {}
 

@@ -32,8 +32,8 @@ test('srs progress updates', async () => {
   })
 
   // Now we get a review
-  const status2 = await asUser.api.getStatus()
-  expect(status2.numReviews).toBe(1)
+  const { reviews } = await asUser.api.getReviews()
+  expect(reviews.length).toBe(1)
 
   // And we can record progress
   const progress3 = await asUser.api.recordReview(pattern.id, true)
