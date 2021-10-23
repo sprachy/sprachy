@@ -4,7 +4,7 @@
       <b-container>
         <b-navbar-toggle target="nav_collapse" />
 
-        <b-navbar-brand href="/">
+        <b-navbar-brand to="/">
           Sprachy
           <span v-if="isDev" class="envbadge dev">dev</span>
         </b-navbar-brand>
@@ -40,7 +40,7 @@ import { IS_PRODUCTION } from "./settings"
 export default class SiteHeader extends Vue {
   pollingInterval: number | null = null
 
-  created() {
+  activated() {
     if (this.$app.user) {
       this.pollStatus()
       this.pollingInterval = window.setInterval(this.pollStatus, 60000)

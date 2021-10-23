@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import _ from 'lodash'
-import type { Progress, Pattern, User, Review } from '../common/api'
+import type { Progress, Pattern, User, Review, ProgressWithNextReview } from '../common/api'
 import { IS_PRODUCTION } from './settings'
 
 async function delay(amount: number) {
@@ -95,6 +95,11 @@ export class UserAPI {
 
   async recordReview(patternId: string, remembered: boolean): Promise<Progress> {
     const { data } = await this.http.post(`/progress`, { patternId, remembered })
+    return data
+  }
+
+  async getProgressOverview(): Promise<{ patterns: Pattern[], progress: ProgressWithNextReview[] }> {
+    const { data } = await this.http.get(`/progress/overview`)
     return data
   }
 

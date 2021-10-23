@@ -1,5 +1,5 @@
 import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now, Difference, Select, Filter, Not, Time } from 'faunadb'
-import type { Pattern, Progress, Review, User } from '../common/api'
+import type { Pattern, Progress, ProgressWithNextReview, Review, User } from '../common/api'
 import _ from 'lodash'
 import { IS_PRODUCTION } from './settings'
 import { FAUNA_ADMIN_KEY } from './secrets'
@@ -128,6 +128,16 @@ export namespace db {
           Lambda("ref", Get(Var("ref")))
         )
       )
+    }
+
+    export async function withNextReviewTime(userId: string): Promise<ProgressWithNextReview[]> {
+      const allProgress = await db.progress.listAllFor(userId)
+
+      return allProgress.map(prog => {
+        return Object.assign(prog, {
+          nextReviewAt: prog.lastReviewedAt + time.toNextSRSLevel(prog.srsLevel)
+        })
+      })
     }
 
     /**

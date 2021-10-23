@@ -14,6 +14,14 @@ const userApi = new RequireLoginRouter(api)
 userApi.add('GET', '/api/status', progress.getStatus)
 userApi.add('GET', '/api/progress/nextLesson', progress.getNextLesson)
 userApi.add('POST', '/api/progress', progress.recordReview)
+
+userApi.add('GET', '/api/progress/overview', async req => {
+  return {
+    patterns: await db.patterns.listAll(),
+    progress: await db.progress.withNextReviewTime(req.session.userId)
+  }
+})
+
 userApi.add('GET', '/api/progress/reviews', async req => {
   return {
     reviews: await db.progress.getReviewsFor(req.session.userId)

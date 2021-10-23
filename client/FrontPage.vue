@@ -12,7 +12,7 @@ import _ from "lodash"
   components: {},
 })
 export default class FrontPage extends Vue {
-  created() {
+  activated() {
     if (this.$app.user) {
       this.$app.navigateReplace("/home")
     }

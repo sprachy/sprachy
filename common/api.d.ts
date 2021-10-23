@@ -24,6 +24,10 @@ export type Progress = {
   srsLevel: number
 }
 
+export type ProgressWithNextReview = Progress & {
+  nextReviewAt: number
+}
+
 export type Review = {
   pattern: Pattern
   progress: Progress
