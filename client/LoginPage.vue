@@ -46,7 +46,7 @@ export default class LoginPage extends Vue {
   errorMessage: string | null = null
 
   created() {
-    document.title = "Login - Vokabon"
+    document.title = "Login - Sprachy"
   }
 
   async login() {

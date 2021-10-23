@@ -6,7 +6,7 @@ import type { User } from '../common/api'
 /**
  * Global store for cross-component data and caches
  */
-export class VokabonApp {
+export class SprachyApp {
   pending: boolean = true
   user: User | null = null
   numReviews: number | null = null

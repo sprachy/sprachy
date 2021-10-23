@@ -2,7 +2,7 @@ import shell from 'shelljs'
 import fs from 'fs'
 
 export async function resetdb() {
-  const dbname = 'vokabon_dev'
+  const dbname = 'sprachy_dev'
   shell.exec(`fauna delete-database ${dbname}`)
   shell.exec(`fauna create-database ${dbname}`)
 
@@ -11,7 +11,7 @@ export async function resetdb() {
   const queries = fql.split("\n\n")
   for (const query of queries) {
     fs.writeFileSync(`/tmp/query.fql`, query)
-    shell.exec(`fauna eval vokabon_dev --file=/tmp/query.fql`)
+    shell.exec(`fauna eval sprachy_dev --file=/tmp/query.fql`)
   }
 
   const output = shell.exec(`fauna create-key ${dbname} admin`)

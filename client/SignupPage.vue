@@ -49,7 +49,7 @@ export default class SignupPage extends Vue {
   errorMessage: string | null = null
 
   created() {
-    document.title = "Signup - Vokabon"
+    document.title = "Signup - Sprachy"
   }
 
   async signup() {

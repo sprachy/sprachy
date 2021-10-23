@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
 import App from './App.vue'
 import { makeRouter } from './router'
-import { VokabonApp } from './app'
+import { SprachyApp } from './app'
 import { HTTPProvider, UserAPI } from './ClientAPI'
 import './app.sass'
 
@@ -20,7 +20,7 @@ Object.defineProperty(Vue.prototype, '$debug', {
   get() { return window as Record<string, any> }
 })
 
-const app = Vue.observable(new VokabonApp(router))
+const app = Vue.observable(new SprachyApp(router))
 
 Object.defineProperty(Vue.prototype, '$app', {
   get() { return app }

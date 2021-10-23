@@ -1,5 +1,5 @@
 {
-  "name": "vokabon",
+  "name": "sprachy",
   "version": "0.1.0",
   "private": true,
   "main": "server/dist/worker.js",
@@ -10,8 +10,8 @@
     "server-miniflare": "miniflare --kv=STORE --watch --debug --build-command=\"\" server/devdist/worker.js",
     "server": "npm-run-all --parallel server-webpack server-miniflare",
     "dev": "npm-run-all --parallel faunadev client server",
-    "build-live-client": "rm -rf client/dist/* && API_BASE_URL=https://vokabon.suns.workers.dev webpack --mode production --config webpack.client.config.js",
-    "build-staging-client": "rm -rf client/dist/* && API_BASE_URL=https://vokabon-staging.suns.workers.dev webpack --mode production --config webpack.client.config.js",
+    "build-live-client": "rm -rf client/dist/* && API_BASE_URL=https://sprachy.suns.workers.dev webpack --mode production --config webpack.client.config.js",
+    "build-staging-client": "rm -rf client/dist/* && API_BASE_URL=https://sprachy-staging.suns.workers.dev webpack --mode production --config webpack.client.config.js",
     "build-server": "rm -rf server/dist/* && webpack --mode production --config webpack.server.config.js",
     "build-live": "npm-run-all build-live-client build-server",
     "td": "yarn build && wrangler publish --env test",

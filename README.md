@@ -1,6 +1,6 @@
-# Vokabon
+# Sprachy
 
-Vokabon runs on Cloudflare Workers and FaunaDB, a combination of services that allows it to be globally distributed and infinitely scalable.
+Sprachy runs on Cloudflare Workers and FaunaDB, a combination of services that allows it to be globally distributed and infinitely scalable.
 
 ```
 fauna add-endpoint http://localhost:8443/ --alias localhost --key secret

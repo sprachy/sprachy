@@ -5,7 +5,7 @@
         <b-navbar-toggle target="nav_collapse" />
 
         <b-navbar-brand href="/">
-          Vokabon
+          Sprachy
           <span v-if="isDev" class="envbadge dev">dev</span>
         </b-navbar-brand>
 
