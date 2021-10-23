@@ -1,6 +1,6 @@
 <template>
   <main class="container">
-    <router-link to="/login">Login</router-link> | 
+    <router-link to="/login">Login</router-link> |
     <router-link to="/signup">Sign up</router-link>
   </main>
 </template>
@@ -12,6 +12,11 @@ import _ from "lodash"
   components: {},
 })
 export default class FrontPage extends Vue {
+  created() {
+    if (this.$app.user) {
+      this.$app.navigateReplace("/home")
+    }
+  }
 }
 </script>
 
