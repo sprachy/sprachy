@@ -74,7 +74,7 @@ export default class SiteHeader extends Vue {
     await this.$api.logout()
     this.$app.user = null
     localStorage.removeItem("user")
-    this.$app.navigate("/login")
+    this.$app.navigate("/")
   }
 }
 </script>
