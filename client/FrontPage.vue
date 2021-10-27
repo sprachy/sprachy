@@ -62,7 +62,7 @@
                 v-model="password"
               />
             </b-form-group>
-            <b-btn type="submit" className="btn">Sign up for Sprachy</b-btn>
+            <b-btn size="lg" type="submit">Sign up for Sprachy</b-btn>
           </form>
         </b-col>
         <b-col> </b-col>
@@ -121,4 +121,8 @@ main.container
 
   h1
     font-size: 3.3rem
+
+  .btn
+    background-color: #cd5527
+    border-color: #cd5527
 </style>

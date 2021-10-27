@@ -14,6 +14,7 @@ export function customFetch(url: RequestInfo, params: RequestInit | undefined) {
   return Promise.race([abortPromise, fetch(url, params)])
 }
 
+
 export function getFaunaError(error: any) {
   const { code, description } = error.requestResult.responseContent.errors[0]
   let status
