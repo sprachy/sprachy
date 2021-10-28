@@ -13,16 +13,6 @@
           <b-collapse id="nav_collapse" is-nav>
             <!-- Right-aligned nav items -->
             <b-navbar-nav class="ml-auto">
-              <b-nav-item to="/learn" class="mr-2"> Learn </b-nav-item>
-              <b-nav-item to="/review" class="mr-2">
-                Review{{ numReviews ? `: ${numReviews}` : "" }}
-              </b-nav-item>
-              <b-nav-item v-if="$admin" to="/admin/patterns" class="mr-2">
-                Admin
-              </b-nav-item>
-              <b-nav-item to="/settings" class="mr-2">
-                {{ name }}
-              </b-nav-item>
               <b-nav-item to="/login">Sign in</b-nav-item>
             </b-navbar-nav>
           </b-collapse>
@@ -78,9 +68,25 @@ import _ from "lodash"
   components: {},
 })
 export default class FrontPage extends Vue {
+  email: string = ""
+  password: string = ""
+
   activated() {
     if (this.$app.user) {
       this.$app.navigateReplace("/home")
+    }
+  }
+
+  async signup() {
+    const { email, password } = this
+
+    try {
+      const user = await this.$api.signUp({ email, password })
+      this.$app.user = user
+      localStorage.setItem("user", JSON.stringify(user))
+      this.$app.navigate("/home")
+    } catch (err) {
+      throw err
     }
   }
 }

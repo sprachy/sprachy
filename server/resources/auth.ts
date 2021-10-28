@@ -7,6 +7,7 @@ import { db } from "../db"
 import { sessions } from "../sessions"
 import type { ServerResponse } from "worktop/response"
 import type { BaseRequest } from "../routers"
+import { getFaunaError } from "../faunaUtil"
 
 const signupForm = z.object({
   email: z.string().email(),
@@ -18,7 +19,24 @@ const signupForm = z.object({
 export async function signup(req: ServerRequest, res: ServerResponse): Promise<User> {
   const { email, password } = signupForm.parse(await req.body())
 
-  const user = await db.users.create({ email, password, isAdmin: false })
+  let user: User
+  try {
+    user = await db.users.create({ email, password, isAdmin: false })
+  } catch (err: any) {
+    const faunaErr = getFaunaError(err)
+    if (faunaErr && faunaErr.code === "instance not unique") {
+      // If the user already exists, try just signing in
+      const res = await db.fauna.client.query(
+        Login(
+          Match(Index("users_by_email"), email),
+          { password: password },
+        )
+      ) as FaunaLoginToken
+      user = await db.users.get(res.instance.value.id)
+    } else {
+      throw err
+    }
+  }
 
   const sessionKey = await sessions.create(user.id)
   res.headers.set('Set-Cookie', sessions.asCookie(sessionKey))
