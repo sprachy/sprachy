@@ -1,21 +1,26 @@
 import shell from 'shelljs'
-import fs from 'fs'
+import faunadb from 'faunadb'
+import * as schema from '../server/schema'
 
 export async function resetdb() {
   const dbname = 'sprachy_dev'
-  shell.exec(`fauna delete-database ${dbname}`)
-  shell.exec(`fauna create-database ${dbname}`)
-
-  // Fauna cli is dumb and doesn't know how to like, split queries, so we do it with line breaks
-  const fql = fs.readFileSync(`./schema.fql`, 'utf-8')
-  const queries = fql.split("\n\n")
-  for (const query of queries) {
-    fs.writeFileSync(`/tmp/query.fql`, query)
-    shell.exec(`fauna eval sprachy_dev --file=/tmp/query.fql`)
-  }
-
-  const output = shell.exec(`fauna create-key ${dbname} admin`)
+  shell.exec(`yarn fauna delete-database --domain=localhost --port=8443 --secret=secret --scheme=http ${dbname}`)
+  shell.exec(`yarn fauna create-database --domain=localhost --port=8443 --secret=secret --scheme=http ${dbname}`)
+  const output = shell.exec(`yarn fauna create-key --domain=localhost --port=8443 --secret=secret --scheme=http ${dbname} admin`)
   const secret = output.match(/secret: (\S+)/)[1]
+
+  // Apply the schema
+  const fauna = new faunadb.Client({
+    secret: secret,
+    domain: 'localhost',
+    port: 8443,
+    scheme: 'http'
+  })
+
+  await fauna.query(schema.collections)
+  await fauna.query(schema.indexes)
+
+  // Put the secret in .env
   shell.exec(`sed -i '' -e 's/FAUNA_ADMIN_KEY=.*/FAUNA_ADMIN_KEY=${secret}/g' .env`)
 }
 

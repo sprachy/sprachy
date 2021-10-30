@@ -82,10 +82,3 @@ export type FaunaDocument<T> = {
   ts: number
   data: Omit<T, 'id' | 'ts'>
 }
-
-export function makeFaunaClient(config: Omit<ClientConfig, 'fetch'>) {
-  return new faunadb.Client({
-    fetch: typeof fetch === 'undefined' ? undefined : customFetch,
-    ...config
-  })
-}

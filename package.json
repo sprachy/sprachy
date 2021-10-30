@@ -38,6 +38,7 @@
     "csv-loader": "^3.0.3",
     "d3-ease": "^3.0.1",
     "dotenv-webpack": "^7.0.3",
+    "fauna-shell": "^0.12.6",
     "faunadb": "^4.4.1",
     "lodash": "^4.17.21",
     "marked": "^3.0.4",

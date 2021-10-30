@@ -5,10 +5,7 @@
         <b-container>
           <b-navbar-toggle target="nav_collapse" />
 
-          <b-navbar-brand to="/">
-            Sprachy
-            <span v-if="isDev" class="envbadge dev">dev</span>
-          </b-navbar-brand>
+          <b-navbar-brand to="/"> Sprachy </b-navbar-brand>
 
           <b-collapse id="nav_collapse" is-nav>
             <!-- Right-aligned nav items -->
