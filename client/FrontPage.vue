@@ -83,7 +83,7 @@ export default class FrontPage extends Vue {
       localStorage.setItem("user", JSON.stringify(user))
       this.$app.navigate("/home")
     } catch (err) {
-      throw err
+      console.error(err)
     }
   }
 }
