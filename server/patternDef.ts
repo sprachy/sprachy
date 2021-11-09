@@ -1,4 +1,4 @@
-import type { PatternDef } from "./types"
+import type { PatternDef } from "../common/types"
 
 export function definePattern(def: PatternDef): PatternDef {
   return def

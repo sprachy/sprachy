@@ -5,7 +5,7 @@
       <ul>
         <li v-for="pattern in patternProgress" :key="pattern.id">
           {{ pattern.title }}
-          <div class="ml-auto">
+          <div class="ml-auto" v-if="pattern.progress">
             <mastery-progress-bar :progress="pattern.progress" />
           </div>
         </li>

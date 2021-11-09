@@ -1,4 +1,4 @@
-import { definePattern, md } from '../common/patternDef'
+import { definePattern, md } from '../server/patternDef'
 
 export default definePattern({
   id: 'die-der-das',
