@@ -26,43 +26,17 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
-import type { Pattern } from "../common/api"
-import marked from "marked"
-import FillblankCard from "./FillblankCard.vue"
 
-@Component({
-  components: {
-    FillblankCard,
-  },
-})
+@Component
 export default class LearnPage extends Vue {
-  state: "nonetolearn" | "initial" | "quiz" | "complete" = "initial"
-  pattern: Pattern | null = null
-  exerciseIndex: number = 0
+  noNewPatterns: boolean = false
 
   async created() {
     this.$debug.LearnPage = this
-    this.pattern = await this.$api.getNextPattern()
-    if (this.pattern === null) {
-      this.state = "nonetolearn"
+    const pattern = await this.$api.getNextPattern()
+    if (pattern === null) {
+      this.noNewPatterns = true
     }
-  }
-
-  get exercise() {
-    return this.pattern!.exercises[this.exerciseIndex]
-  }
-
-  async nextExercise() {
-    if (this.exerciseIndex + 1 >= this.pattern!.exercises.length) {
-      this.$api.recordReview(this.pattern!.id, true)
-      this.state = "complete"
-    } else {
-      this.exerciseIndex += 1
-    }
-  }
-
-  get htmlExplain() {
-    return marked(this.pattern!.explanation)
   }
 }
 </script>

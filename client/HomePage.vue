@@ -4,7 +4,9 @@
       Sprachy is a thingy for learning German with patterns!
       <ul>
         <li v-for="pattern in patternProgress" :key="pattern.id">
-          {{ pattern.title }}
+          <router-link :to="`/pattern/${pattern.slug}`">{{
+            pattern.title
+          }}</router-link>
           <div class="ml-auto" v-if="pattern.progress">
             <mastery-progress-bar :progress="pattern.progress" />
           </div>

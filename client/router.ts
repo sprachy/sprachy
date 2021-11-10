@@ -5,8 +5,7 @@ import FrontPage from './FrontPage.vue'
 import SignupPage from './SignupPage.vue'
 import HomePage from './HomePage.vue'
 import SettingsPage from './SettingsPage.vue'
-import AdminPatternsPage from './AdminPatternsPage.vue'
-import EditPatternPage from './EditPatternPage.vue'
+import PatternPage from './PatternPage.vue'
 import AdminUsersPage from './AdminUsersPage.vue'
 import LearnPage from './LearnPage.vue'
 import ReviewPage from './ReviewPage.vue'
@@ -52,20 +51,10 @@ export function makeRouter() {
         component: SettingsPage
       },
       {
-        path: "/admin/patterns",
-        name: "adminPatterns",
-        component: AdminPatternsPage
-      },
-      {
-        path: "/admin/patterns/new",
-        name: "adminPatternsNew",
-        component: EditPatternPage
-      },
-      {
-        path: "/admin/patterns/:id",
-        name: "adminPatternsEdit",
-        component: EditPatternPage,
-        props: route => ({ patternId: route.params.id })
+        path: "/pattern/:slug",
+        name: "pattern",
+        component: PatternPage,
+        props: route => ({ slug: route.params.slug })
       },
       {
         path: "/admin/users",

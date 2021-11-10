@@ -28,6 +28,10 @@ userApi.add('GET', '/api/progress/reviews', async req => {
   }
 })
 
+userApi.add('GET', '/api/pattern/:slug', async req => {
+  return await db.patterns.get(req.params.slug as string)
+})
+
 const adminApi = new AdminRouter(userApi)
 adminApi.add('GET', '/api/admin/patterns/:id', patternsAdmin.getPattern)
 adminApi.add('GET', '/api/admin/patterns', patternsAdmin.listPatterns)

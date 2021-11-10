@@ -19,12 +19,11 @@
     <main class="container">
       <b-row>
         <b-col>
-          <h1>Learn German with Sprachy</h1>
+          <h1>Learn German the weird and dorky way</h1>
           <p>
-            Sprachy helps you learn German using the
-            <em>patterns</em> in the structure of the language. No random
-            memorization: learn with context and connections between concepts,
-            and practice producing real grammar.
+            Language-learning apps too often focus on boring, everyday examples.
+            Sprachy guarantees the involvement of 100% more cute squirrels
+            plotting world domination.
           </p>
           <form @submit.prevent="signup">
             <b-form-group label="Email">
