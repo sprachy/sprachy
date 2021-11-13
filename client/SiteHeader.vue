@@ -14,7 +14,7 @@
           <b-navbar-nav class="ml-auto">
             <b-nav-item to="/learn" class="mr-2"> Learn </b-nav-item>
             <b-nav-item to="/review" class="mr-2">
-              Review{{ numReviews ? `: ${numReviews}` : "" }}
+              Practice{{ numReviews ? `: ${numReviews}` : "" }}
             </b-nav-item>
             <b-nav-item v-if="$admin" to="/admin/patterns" class="mr-2">
               Admin

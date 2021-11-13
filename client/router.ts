@@ -6,6 +6,7 @@ import SignupPage from './SignupPage.vue'
 import HomePage from './HomePage.vue'
 import SettingsPage from './SettingsPage.vue'
 import PatternPage from './PatternPage.vue'
+import PracticePage from './PracticePage.vue'
 import AdminUsersPage from './AdminUsersPage.vue'
 import LearnPage from './LearnPage.vue'
 import ReviewPage from './ReviewPage.vue'
@@ -49,6 +50,12 @@ export function makeRouter() {
         path: "/settings",
         name: "settings",
         component: SettingsPage
+      },
+      {
+        path: "/pattern/:slug/practice",
+        name: "practice",
+        component: PracticePage,
+        props: route => ({ slug: route.params.slug })
       },
       {
         path: "/pattern/:slug",

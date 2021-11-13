@@ -1,25 +1,8 @@
 <template>
   <site-layout>
-    <template v-if="state === 'nonetolearn'">
+    <template v-if="noNewPatterns">
       <p>You've learned all available patterns, congrats!</p>
     </template>
-    <div v-else-if="pattern">
-      <template v-if="state === 'initial'">
-        <h1>{{ pattern.title }}</h1>
-        <div v-html="htmlExplain" />
-        <button class="btn btn-primary" @click="state = 'quiz'">
-          Continue
-        </button>
-      </template>
-      <template v-else-if="state === 'quiz'">
-        <fillblank-card :exercise="exercise" @correct="nextExercise" />
-      </template>
-      <template v-else-if="state === 'complete'">
-        <p>
-          Nice work! This pattern will become available for review in 4 hours.
-        </p>
-      </template>
-    </div>
   </site-layout>
 </template>
 
@@ -36,7 +19,10 @@ export default class LearnPage extends Vue {
     const pattern = await this.$api.getNextPattern()
     if (pattern === null) {
       this.noNewPatterns = true
+      return
     }
+
+    this.$app.navigateReplace(`/pattern/${pattern.slug}`)
   }
 }
 </script>

@@ -18,6 +18,7 @@
             v-model="attempt"
             placeholder="Your Answer"
             ref="attemptInput"
+            autofocus
           />
           <!-- <button>
           <FontAwesomeIcon icon="faChevronRight" />

@@ -1,11 +1,14 @@
 <template>
   <site-layout>
     <div v-if="pattern">
-      <h1>{{ pattern.title }}</h1>
-      <div v-html="htmlExplain" />
-      <b-btn variant="primary" :to="`/pattern/${pattern.slug}/practice`">
-        Practice
-      </b-btn>
+      <template v-if="!complete">
+        <fillblank-card :exercise="exercise" @correct="nextExercise" />
+      </template>
+      <template v-else>
+        <p>
+          Nice work! This pattern will become available for review in 4 hours.
+        </p>
+      </template>
     </div>
   </site-layout>
 </template>
@@ -23,9 +26,14 @@ import FillblankCard from "./FillblankCard.vue"
   },
 })
 export default class LearnPage extends Vue {
+  state: "initial" | "quiz" | "complete" = "initial"
   @Prop({ type: String, required: true }) slug!: string
   pattern: Pattern | null = null
   exerciseIndex: number = 0
+
+  activated() {
+    this.state = "initial"
+  }
 
   async created() {
     this.$debug.patternPage = this
@@ -34,6 +42,19 @@ export default class LearnPage extends Vue {
   @Watch("slug", { immediate: true })
   async loadPattern() {
     this.pattern = await this.$api.getPattern(this.slug)
+  }
+
+  get exercise() {
+    return this.pattern!.exercises[this.exerciseIndex]
+  }
+
+  async nextExercise() {
+    if (this.exerciseIndex + 1 >= this.pattern!.exercises.length) {
+      this.$api.recordReview(this.pattern!.id, true)
+      this.state = "complete"
+    } else {
+      this.exerciseIndex += 1
+    }
   }
 
   get htmlExplain() {
