@@ -6,10 +6,12 @@ import { makeRouter } from './router'
 import { SprachyApp } from './app'
 import { HTTPProvider, UserAPI } from './ClientAPI'
 import './app.sass'
+import Dialogue from './Dialogue.vue'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
+Vue.component('dialogue', Dialogue)
 
 const router = makeRouter()
 

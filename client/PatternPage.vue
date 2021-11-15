@@ -2,7 +2,7 @@
   <site-layout>
     <div v-if="pattern">
       <h1>{{ pattern.title }}</h1>
-      <div v-html="htmlExplain" />
+      <runtime-template-compiler :template="template" />
       <b-btn variant="primary" :to="`/pattern/${pattern.slug}/practice`">
         Practice
       </b-btn>
@@ -16,10 +16,13 @@ import _ from "lodash"
 import type { Pattern } from "../common/api"
 import marked from "marked"
 import FillblankCard from "./FillblankCard.vue"
+// @ts-ignore
+import { RuntimeTemplateCompiler } from "vue-runtime-template-compiler"
 
 @Component({
   components: {
     FillblankCard,
+    RuntimeTemplateCompiler,
   },
 })
 export default class LearnPage extends Vue {
@@ -36,8 +39,8 @@ export default class LearnPage extends Vue {
     this.pattern = await this.$api.getPattern(this.slug)
   }
 
-  get htmlExplain() {
-    return marked(this.pattern!.explanation)
+  get template() {
+    return `<div>` + marked(this.pattern!.explanation) + `</div>`
   }
 }
 </script>

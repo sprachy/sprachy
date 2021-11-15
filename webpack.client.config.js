@@ -59,9 +59,9 @@ module.exports = (env, argv) => {
     resolve: {
       extensions: ['.ts', '.js', '.vue', '.scss'],
       alias: {
-        // Use runtime-only vue to reduce bundle size https://medium.com/@joanxie/utilize-webpacks-tree-shaking-in-your-vue-application-a0dc63c0dfac
-        'vue$': 'vue/dist/vue.runtime.esm.js'
-      },
+        // We need the full vue build to compile pattern templates from the server
+        'vue$': 'vue/dist/vue.esm.js'
+      }
     },
 
     output: {
