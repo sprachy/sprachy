@@ -7,13 +7,15 @@ export default definePattern({
   explanation: md`
 Die, der, and das are the three ways of saying _the_ in German. Which one you use depends on the grammatical gender of the noun that follows. For example:
 
-<dialogue>
+<dialogue by="human">
 Das Eichhörnchen ist sehr süß.
 The squirrel is very cute.
 </dialogue>
 
+<dialogue by="squirrel">
 S-süß?! Ich bin die Leere zwischen Leeren, aus der Götter fliehen. Verspotte mich auf deine Gefahr.
 Cute?! I am the void between voids from which gods flee. Mock me at your peril.
+</dialogue>
 
 Here we can see the noun _Eichhörnchen_ uses "das", the neuter form, while _Leere_ uses the feminine "die". 
 
