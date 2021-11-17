@@ -10,15 +10,19 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
 // @ts-ignore
 import squirrel from "./img/squirrel.png"
+// @ts-ignore
+import boy from "./img/boy.png"
 
 @Component
 export default class Dialogue extends Vue {
+  @Prop({ type: String, default: "squirrel" }) by!: string
+
   get text() {
     return (this.$slots.default![0]?.text || "").trim()
   }
 
   get icon() {
-    return squirrel
+    return this.by === "squirrel" ? squirrel : boy
   }
 
   get original() {
