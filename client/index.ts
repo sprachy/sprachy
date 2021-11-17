@@ -7,11 +7,13 @@ import { SprachyApp } from './app'
 import { HTTPProvider, UserAPI } from './ClientAPI'
 import './app.sass'
 import Dialogue from './Dialogue.vue'
+import DLine from './DLine.vue'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.component('dialogue', Dialogue)
+Vue.component('dline', DLine)
 
 const router = makeRouter()
 
