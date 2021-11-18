@@ -1,4 +1,4 @@
-# Sprachy
+# Sprachy 🇩🇪🐿
 
 Sprachy runs on Cloudflare Workers and FaunaDB, a combination of services that allows it to be globally distributed and infinitely scalable.
 
