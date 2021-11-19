@@ -37,17 +37,17 @@ import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
 
 @Component({
-  components: {},
+  metaInfo() {
+    return {
+      title: "Login - Sprachy",
+    }
+  },
 })
 export default class LoginPage extends Vue {
   email: string = ""
   password: string = ""
   afterAuthUrl: string = ""
   errorMessage: string | null = null
-
-  created() {
-    document.title = "Login - Sprachy"
-  }
 
   async login() {
     const { email, password } = this
@@ -58,7 +58,7 @@ export default class LoginPage extends Vue {
       this.$app.user = user
       localStorage.setItem("user", JSON.stringify(user))
       this.$app.navigate("/home")
-    } catch (err) {
+    } catch (err: any) {
       if (err?.response?.data?.code === "authentication failed") {
         this.errorMessage = "Invalid email or password"
       } else {

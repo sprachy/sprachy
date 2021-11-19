@@ -19,10 +19,15 @@ import FillblankCard from "./FillblankCard.vue"
 // @ts-ignore
 import { RuntimeTemplateCompiler } from "vue-runtime-template-compiler"
 
-@Component({
+@Component<LearnPage>({
   components: {
     FillblankCard,
     RuntimeTemplateCompiler,
+  },
+  metaInfo() {
+    return {
+      title: this.pattern?.title ? this.pattern?.title + " - Sprachy" : null,
+    }
   },
 })
 export default class LearnPage extends Vue {

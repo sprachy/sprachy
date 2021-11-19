@@ -12,3 +12,9 @@ declare module 'vue/types/vue' {
     $backgroundApi: UserAPI
   }
 }
+
+declare module "vue/types/options" {
+  interface ComponentOptions<V extends Vue> {
+    metaInfo?: (this: V) => any
+  }
+}

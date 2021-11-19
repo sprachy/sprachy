@@ -34,6 +34,11 @@ import type { HTTPProvider } from "./ClientAPI"
     PageNotFound,
     UnexpectedErrorModal,
   },
+  metaInfo() {
+    return {
+      title: "Sprachy",
+    }
+  },
 })
 export default class App extends Vue {
   http: HTTPProvider = this.$api.http

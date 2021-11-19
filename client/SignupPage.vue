@@ -40,17 +40,17 @@ import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
 
 @Component({
-  components: {},
+  metaInfo() {
+    return {
+      title: "Signup - Sprachy",
+    }
+  },
 })
 export default class SignupPage extends Vue {
   email: string = ""
   password: string = ""
   afterAuthUrl: string = ""
   errorMessage: string | null = null
-
-  created() {
-    document.title = "Signup - Sprachy"
-  }
 
   async signup() {
     const { email, password } = this

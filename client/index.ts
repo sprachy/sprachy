@@ -8,14 +8,21 @@ import { HTTPProvider, UserAPI } from './ClientAPI'
 import './app.sass'
 import Dialogue from './Dialogue.vue'
 import DLine from './DLine.vue'
+import { Component } from "vue-property-decorator"
+import VueMeta from 'vue-meta'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
+Vue.use(VueMeta)
 Vue.use(BootstrapVue)
 Vue.component('dialogue', Dialogue)
 Vue.component('dline', DLine)
 
 const router = makeRouter()
+
+Component.registerHooks([
+  'metaInfo'
+])
 
 /**
  * So components can expose variables to console for debugging
