@@ -8,7 +8,7 @@ export default definePattern({
 Die, der, and das are the three ways of saying _the_ in German. Which one you use depends on the grammatical gender of the noun that follows. For example:
 
 <dialogue>
-<dline by="boy">
+<dline by="lukas">
 Das Eichhörnchen ist sehr süß!
 The squirrel is very cute!
 </dline>
