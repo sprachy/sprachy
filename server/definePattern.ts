@@ -1,4 +1,17 @@
-import type { PatternDef } from "../common/types"
+import type { IconDefinition } from "@fortawesome/fontawesome-common-types"
+
+export type PatternDef = {
+  id: string
+  title: string
+  slug: string
+  shortdesc: string
+  icon: IconDefinition
+  explanation: string
+  exercises: {
+    content: string
+    translation: string
+  }[]
+}
 
 export function definePattern(def: PatternDef): PatternDef {
   return def

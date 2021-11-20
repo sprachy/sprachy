@@ -10,13 +10,19 @@ import Dialogue from './Dialogue.vue'
 import DLine from './DLine.vue'
 import { Component } from "vue-property-decorator"
 import VueMeta from 'vue-meta'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(VueMeta)
 Vue.use(BootstrapVue)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('dialogue', Dialogue)
 Vue.component('dline', DLine)
+
+library.add(fas)
 
 const router = makeRouter()
 

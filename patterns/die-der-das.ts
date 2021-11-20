@@ -1,9 +1,12 @@
-import { definePattern, md } from '../server/patternDef'
+import { faVenusMars } from '@fortawesome/free-solid-svg-icons'
+import { definePattern, md } from '../server/definePattern'
 
 export default definePattern({
   id: 'die-der-das',
   slug: 'die-der-das',
   title: "Die, der, das",
+  shortdesc: "Ah yes, the three genders",
+  icon: faVenusMars,
   explanation: md`
 Die, der, and das are the three ways of saying _the_ in German. Which one you use depends on the grammatical gender of the noun that follows. For example:
 
