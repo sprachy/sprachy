@@ -1,4 +1,4 @@
 import intro from './intro'
 import diederdas from './die-der-das'
-import dernordern from './der-nordern'
-export default [intro, diederdas, dernordern]
+import daschen from './das-chen'
+export default [intro, diederdas, daschen]
