@@ -26,12 +26,18 @@ Here we can see the noun _Eichhörnchen_ uses "das", the neuter form, while _Lee
 
 There's no thematic or aesthetic reason for this; it's not that squirrels are particularly androgynous, or that terrifying voids in space are particularly girly. That's simply the _grammatical_ gender those nouns happen to have.
 
-However, the genders are not totally _random_ either. All nouns using the diminutive form _-chen_ are neuter and use _das_. We'll learn various other patterns like this we can use to help predict noun gender!
+However, the genders are not totally _random_ either. We'll learn some patterns later we can use to predict noun gender for certain groups of words.
 `,
   exercises: [
     {
-      content: "[Die] Katze",
-      translation: "[The] cat"
+      content: md`
+<dialogue>
+<dline by="lukas">
+Ich mag [die] Katze.
+I like [the] cat.
+</dline>
+</dialogue>
+`
     }
   ]
 })

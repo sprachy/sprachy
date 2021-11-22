@@ -11,7 +11,6 @@ export type Pattern = {
   explanation: string
   exercises: {
     content: string
-    translation: string
   }[]
 }
 

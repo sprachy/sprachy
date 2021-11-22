@@ -32,8 +32,13 @@ Greetings. I am Töskirelon, Master of the Ninth Esper Art and Imperator of the 
 `,
   exercises: [
     {
-      content: "[Die] Katze",
-      translation: "[The] cat"
+      content: md`
+<dialogue>
+<dline by="">
+</dline>
+
+</dialogue>
+`
     }
   ]
 })

@@ -4,13 +4,13 @@
       <b-form @submit.prevent="checkAnswer">
         <div class="filling">
           <div class="content">
-            <span>{{ parts.before }}</span>
+            <runtime-template-compiler :template="parts.content" />
+            <!-- <span>{{ parts.before }}</span>
             <span class="fillblank" :style="{ minWidth: clozeWidth + 'px' }"
               >&#8203;{{ attempt }}&#8203;</span
             >
-            <span>{{ parts.after }}</span>
+            <span>{{ parts.after }}</span> -->
           </div>
-          <div class="translation" v-html="translationHtml" />
         </div>
         <fieldset>
           <input
@@ -35,6 +35,8 @@ import _ from "lodash"
 import type { Exercise } from "../common/api"
 import { levenshtein } from "./levenshtein"
 import { CanvasEffects } from "./CanvasEffects"
+// @ts-ignore
+import { RuntimeTemplateCompiler } from "vue-runtime-template-compiler"
 
 /** Tolerate more egregious typos in longer answers */
 function distanceTolerance(s: string) {
@@ -70,7 +72,9 @@ export function matchesAnswerPermissively(
 }
 
 @Component({
-  components: {},
+  components: {
+    RuntimeTemplateCompiler,
+  },
 })
 export default class FillblankCard extends Vue {
   @Prop({ type: Object, required: true }) exercise!: Exercise
@@ -91,29 +95,41 @@ export default class FillblankCard extends Vue {
   }
 
   get parts() {
-    const [before, altstr, after] = this.exercise.content.split(/\[(.+?)\]/)
-    return {
-      before: before || "",
-      alternatives: (altstr || "").split("|"),
-      after: after || "",
-    }
+    let alternatives: string[] = []
+    let translation = ""
+    const content = this.exercise.content.replace(
+      /\[(.+?)\]/,
+      (match, inner) => {
+        if (!alternatives) {
+          alternatives = inner.split("|")
+          const longestAnswer = _.sortBy(alternatives, (s) => -s.length)[0]
+          const width = longestAnswer ? longestAnswer.length * 9 : 0
+          //   return `
+          //   <span class="fillblank" :style="{ minWidth: ${width} + 'px' }">&#8203;{{ attempt }}&#8203;</span>
+          // `
+          return inner
+        } else {
+          translation = inner
+          return `<strong>${translation}</strong>`
+        }
+      }
+    )
+
+    console.log(content)
+
+    return { content, translation, alternatives }
   }
 
   get possibleAnswers() {
     return this.parts.alternatives
   }
 
-  get clozeWidth() {
-    const longestAnswer = _.sortBy(this.parts.alternatives, (s) => -s.length)[0]
-    return longestAnswer ? longestAnswer.length * 9 : 0
-  }
-
-  get translationHtml() {
-    return this.exercise.translation.replace(/\[.+?\]/, (substring) => {
-      const highlight = substring.slice(1, -1)
-      return `<strong>${highlight}</strong>`
-    })
-  }
+  // get translationHtml() {
+  //   return this.exercise.translation.replace(/\[.+?\]/, (substring) => {
+  //     const highlight = substring.slice(1, -1)
+  //     return `<strong>${highlight}</strong>`
+  //   })
+  // }
 }
 </script>
 

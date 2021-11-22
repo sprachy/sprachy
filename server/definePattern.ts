@@ -9,7 +9,6 @@ export type PatternDef = {
   explanation: string
   exercises: {
     content: string
-    translation: string
   }[]
 }
 

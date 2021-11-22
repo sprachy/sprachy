@@ -17,13 +17,29 @@ import lukas from "./img/lukas.png"
 import anna from "./img/anna.png"
 // @ts-ignore
 import squirrel from "./img/squirrel.png"
+import type { VNode } from "vue"
 
 @Component
 export default class DLine extends Vue {
   @Prop({ type: String, default: "squirrel" }) by!: string
 
+  get lines(): [string, string] {
+    console.log(this.$slots)
+    const lines: VNode[][] = []
+    let line = ""
+    for (const slot of this.$slots.default!) {
+      console.log(slot)
+      line += slot.text!
+      if (slot.text!.endsWith("\n")) {
+        lines.push(line)
+        line = ""
+      }
+    }
+    return lines as [string, string]
+  }
+
   get text() {
-    return (this.$slots.default![0]?.text || "").trim()
+    return this.lines[0].trim()
   }
 
   get icon() {
