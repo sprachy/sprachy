@@ -8,6 +8,7 @@ import { HTTPProvider, UserAPI } from './ClientAPI'
 import './app.sass'
 import Dialogue from './Dialogue.vue'
 import DLine from './DLine.vue'
+import Sprachdown from './Sprachdown.vue'
 import { Component } from "vue-property-decorator"
 import VueMeta from 'vue-meta'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -21,6 +22,7 @@ Vue.use(BootstrapVue)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('dialogue', Dialogue)
 Vue.component('dline', DLine)
+Vue.component('sprachdown', Sprachdown)
 
 library.add(fas)
 

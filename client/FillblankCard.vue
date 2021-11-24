@@ -4,18 +4,13 @@
       <b-form @submit.prevent="checkAnswer">
         <div class="filling">
           <div class="content">
-            <runtime-template-compiler :template="parts.content" />
-            <!-- <span>{{ parts.before }}</span>
-            <span class="fillblank" :style="{ minWidth: clozeWidth + 'px' }"
-              >&#8203;{{ attempt }}&#8203;</span
-            >
-            <span>{{ parts.after }}</span> -->
+            <runtime-template-compiler :template="exercise.content" />
           </div>
         </div>
         <fieldset>
           <input
             type="text"
-            v-model="attempt"
+            v-model="exerciseContext.attempt"
             placeholder="Your Answer"
             ref="attemptInput"
             autofocus
@@ -30,11 +25,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Ref, Vue } from "vue-property-decorator"
+import { Component, Prop, Provide, Ref, Vue } from "vue-property-decorator"
 import _ from "lodash"
 import type { Exercise } from "../common/api"
 import { levenshtein } from "./levenshtein"
 import { CanvasEffects } from "./CanvasEffects"
+import type { ExerciseContext } from "./types"
 // @ts-ignore
 import { RuntimeTemplateCompiler } from "vue-runtime-template-compiler"
 
@@ -79,12 +75,16 @@ export function matchesAnswerPermissively(
 export default class FillblankCard extends Vue {
   @Prop({ type: Object, required: true }) exercise!: Exercise
   @Ref("attemptInput") attemptInput!: HTMLInputElement
-  attempt: string = ""
   effects: CanvasEffects = new CanvasEffects()
 
+  @Provide("exerciseContext") exerciseContext: ExerciseContext = {
+    attempt: "",
+    alternatives: [],
+  }
+
   checkAnswer() {
-    const match = this.possibleAnswers.find((ans) =>
-      matchesAnswerPermissively(this.attempt, ans)
+    const match = this.exerciseContext.alternatives.find((ans) =>
+      matchesAnswerPermissively(this.exerciseContext.attempt, ans)
     )
     if (match) {
       this.effects.spawnParticlesAt(this.attemptInput)
@@ -93,43 +93,6 @@ export default class FillblankCard extends Vue {
       this.$emit("answer", false)
     }
   }
-
-  get parts() {
-    let alternatives: string[] = []
-    let translation = ""
-    const content = this.exercise.content.replace(
-      /\[(.+?)\]/,
-      (match, inner) => {
-        if (!alternatives) {
-          alternatives = inner.split("|")
-          const longestAnswer = _.sortBy(alternatives, (s) => -s.length)[0]
-          const width = longestAnswer ? longestAnswer.length * 9 : 0
-          //   return `
-          //   <span class="fillblank" :style="{ minWidth: ${width} + 'px' }">&#8203;{{ attempt }}&#8203;</span>
-          // `
-          return inner
-        } else {
-          translation = inner
-          return `<strong>${translation}</strong>`
-        }
-      }
-    )
-
-    console.log(content)
-
-    return { content, translation, alternatives }
-  }
-
-  get possibleAnswers() {
-    return this.parts.alternatives
-  }
-
-  // get translationHtml() {
-  //   return this.exercise.translation.replace(/\[.+?\]/, (substring) => {
-  //     const highlight = substring.slice(1, -1)
-  //     return `<strong>${highlight}</strong>`
-  //   })
-  // }
 }
 </script>
 
@@ -158,14 +121,6 @@ export default class FillblankCard extends Vue {
 
   // @media (max-width: $mobile)
   //   padding: 1.5rem
-
-span.fillblank
-  color: #64b5f6
-  border-bottom: 2px solid #5f6368
-  min-width: 20px
-  display: inline-block
-  text-align: center
-  line-height: 1.5rem
 
 .translation ::v-deep
   strong

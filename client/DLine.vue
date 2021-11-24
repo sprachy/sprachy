@@ -2,14 +2,23 @@
   <div class="dline">
     <img class="avatar" :src="icon" />
     <div class="quote">
-      <div>{{ original }}</div>
-      <div class="translation">{{ translation }}</div>
+      <template v-if="exerciseContext">
+        <span>{{ parts.before }}</span>
+        <span class="fillblank" :style="{ minWidth: clozeWidth + 'px' }"
+          >&#8203;{{ exerciseContext.attempt }}&#8203;</span
+        >
+        <span>{{ parts.after }}</span>
+      </template>
+      <template v-else>
+        <div v-html="original" />
+      </template>
+      <div class="translation" v-html="translation" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator"
+import { Component, Inject, Prop, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
 // @ts-ignore
 import lukas from "./img/lukas.png"
@@ -17,41 +26,59 @@ import lukas from "./img/lukas.png"
 import anna from "./img/anna.png"
 // @ts-ignore
 import squirrel from "./img/squirrel.png"
-import type { VNode } from "vue"
+import marked from "marked"
+import type { ExerciseContext } from "./types"
 
 @Component
 export default class DLine extends Vue {
   @Prop({ type: String, default: "squirrel" }) by!: string
+  @Inject("exerciseContext") exerciseContext?: ExerciseContext
 
-  get lines(): [string, string] {
-    console.log(this.$slots)
-    const lines: VNode[][] = []
-    let line = ""
-    for (const slot of this.$slots.default!) {
-      console.log(slot)
-      line += slot.text!
-      if (slot.text!.endsWith("\n")) {
-        lines.push(line)
-        line = ""
-      }
-    }
-    return lines as [string, string]
+  created() {
+    this.$debug.dline = this
   }
 
-  get text() {
-    return this.lines[0].trim()
+  get parts() {
+    const text = this.$slots.default![0]!.text!
+    const lines = text.trim().split("\n")
+    const original = lines[0]!
+    const translation = lines[1]!
+
+    const [before, altstr, after] = original!.split(/\[(.+?)\]/)
+    return {
+      original,
+      translation,
+      before: before || "",
+      alternatives: (altstr || "").split("|"),
+      after: after || "",
+    }
+  }
+
+  @Watch("parts", { immediate: true })
+  updateContext() {
+    if (this.exerciseContext) {
+      this.exerciseContext.alternatives = this.parts.alternatives
+    }
+  }
+
+  get clozeWidth() {
+    const longestAnswer = _.sortBy(this.parts.alternatives, (s) => -s.length)[0]
+    return longestAnswer ? longestAnswer.length * 9 : 0
+  }
+
+  get original() {
+    return this.parts.original
+  }
+
+  get translation() {
+    return this.parts.translation.replace(/\[.+?\]/, (substring) => {
+      const highlight = substring.slice(1, -1)
+      return `<strong>${highlight}</strong>`
+    })
   }
 
   get icon() {
     return { lukas, anna, squirrel }[this.by]
-  }
-
-  get original() {
-    return this.text.split("\n")[0]
-  }
-
-  get translation() {
-    return this.text.split("\n")[1]
   }
 }
 </script>
@@ -96,4 +123,15 @@ export default class DLine extends Vue {
   .translation
     color: #777
     font-size: 0.9rem
+
+  ::v-deep p
+    margin: 0
+
+  span.fillblank
+    color: #64b5f6
+    border-bottom: 2px solid #5f6368
+    min-width: 20px
+    display: inline-block
+    text-align: center
+    line-height: 1.5rem
 </style>

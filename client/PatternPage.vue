@@ -2,7 +2,7 @@
   <site-layout>
     <div v-if="pattern">
       <h1>{{ pattern.title }}</h1>
-      <runtime-template-compiler :template="template" />
+      <sprachdown :content="pattern.explanation" />
       <b-btn variant="primary" :to="`/pattern/${pattern.slug}/practice`">
         Practice
       </b-btn>
@@ -42,10 +42,6 @@ export default class LearnPage extends Vue {
   @Watch("slug", { immediate: true })
   async loadPattern() {
     this.pattern = await this.$api.getPattern(this.slug)
-  }
-
-  get template() {
-    return `<div>` + marked(this.pattern!.explanation) + `</div>`
   }
 }
 </script>
