@@ -20,7 +20,8 @@ const progressReport = z.object({
   patternId: z.string(),
   remembered: z.boolean()
 })
-export async function recordReview(req: SessionRequest): Promise<Progress> {
+export async function recordReview(req: SessionRequest): Promise<void> {
   const { patternId, remembered } = progressReport.parse(await req.body())
-  return await db.progress.recordReview(req.session.userId, patternId, remembered)
+  if (remembered)
+    await db.progress.levelUp(req.session.userId, patternId)
 }

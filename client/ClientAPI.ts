@@ -98,9 +98,8 @@ export class UserAPI {
     return data
   }
 
-  async recordReview(patternId: string, remembered: boolean): Promise<Progress> {
-    const { data } = await this.http.post(`/progress`, { patternId, remembered })
-    return data
+  async recordReview(patternId: string, remembered: boolean): Promise<void> {
+    await this.http.post(`/progress`, { patternId, remembered })
   }
 
   async getProgressOverview(): Promise<{ patterns: Pattern[], progress: ProgressWithNextReview[] }> {
