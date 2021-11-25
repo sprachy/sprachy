@@ -174,6 +174,7 @@ export namespace db {
      */
     export async function recordReview(userId: string, patternId: string, remembered: boolean): Promise<Progress> {
       const progress = await db.progress.get(userId, patternId)
+      console.log(progress)
       if (!progress) {
         // Initial review
         return await db.querySingle<Progress>(

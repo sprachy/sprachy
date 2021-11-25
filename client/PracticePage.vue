@@ -32,7 +32,7 @@ export default class PracticePage extends Vue {
   complete: boolean = false
   mistakes: number = 0
 
-  exercises: { content: string; translation: string }[] = []
+  exercises: { content: string }[] = []
 
   async created() {
     this.$debug.patternPage = this

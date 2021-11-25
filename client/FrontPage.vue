@@ -22,8 +22,8 @@
           <h1>Learn German the weird and dorky way</h1>
           <p>
             Language-learning apps too often focus on boring, everyday examples.
-            Sprachy guarantees the involvement of 100% more cute squirrels
-            plotting world domination.
+            Sprachy guarantees the involvement of 100% more cute psychic
+            squirrels from beyond the interdimensional veil.
           </p>
           <form @submit.prevent="signup">
             <b-form-group label="Email">
