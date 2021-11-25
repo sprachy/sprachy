@@ -4,7 +4,7 @@
   "private": true,
   "main": "server/dist/worker.js",
   "scripts": {
-    "faunadev": "mkdir -p devdb && docker run --rm --name faunadb -p 8443:8443 -p 8084:8084 -v /tmp/devdb:/var/lib/faunadb fauna/faunadb",
+    "faunadev": "mkdirp devdb && docker run --rm --name faunadb -p 8443:8443 -p 8084:8084 -v /tmp/devdb:/var/lib/faunadb fauna/faunadb",
     "client": "webpack serve --config webpack.client.config.js",
     "server-webpack": "webpack -w --config webpack.server.config.js",
     "server-miniflare": "miniflare --kv=STORE --watch --debug --build-command=\"\" server/devdist/worker.js",
@@ -89,6 +89,7 @@
     "ifdef-loader": "^2.3.0",
     "jest": "^27.1.0",
     "miniflare": "^1.4.1",
+    "mkdirp": "^1.0.4",
     "npm-run-all": "^4.1.5",
     "prompt-confirm": "^2.0.4",
     "tough-cookie": "^4.0.0",
