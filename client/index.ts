@@ -14,11 +14,16 @@ import VueMeta from 'vue-meta'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
+// @ts-ignore
+import VueTimeago from "vue-timeago"
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(VueMeta)
 Vue.use(BootstrapVue)
+Vue.use(VueTimeago, {
+  locale: 'en'
+})
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('dialogue', Dialogue)
 Vue.component('dline', DLine)

@@ -24,7 +24,10 @@
               <div class="shortdesc">
                 {{ pattern.shortdesc }}
               </div>
-              <div></div>
+              <div class="timetolevel" v-if="pattern.progress">
+                Can be leveled in
+                <timeago :datetime="pattern.progress.nextReviewAt" />
+              </div>
             </div>
           </router-link>
           <!-- <div class="ml-auto" v-if="pattern.progress">
@@ -97,4 +100,16 @@ li.pattern
     color: white
     width: 32px
     height: 32px
+
+  h6
+    font-size: 1.1rem
+    margin-bottom: 0.1rem
+
+  .shortdesc
+    margin-bottom: 0.1rem
+
+  .timetolevel
+    font-style: italic
+    color: #666
+    font-size: 0.9rem
 </style>
