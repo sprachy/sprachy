@@ -26,13 +26,13 @@ import lukas from "./img/lukas.png"
 import anna from "./img/anna.png"
 // @ts-ignore
 import squirrel from "./img/squirrel.png"
-import marked from "marked"
 import type { ExerciseContext } from "./types"
 
 @Component
 export default class DLine extends Vue {
   @Prop({ type: String, default: "squirrel" }) by!: string
-  @Inject("exerciseContext") exerciseContext?: ExerciseContext
+  @Inject({ from: "exerciseContext", default: null })
+  exerciseContext!: ExerciseContext | null
 
   created() {
     this.$debug.dline = this
