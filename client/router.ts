@@ -5,6 +5,7 @@ import FrontPage from './FrontPage.vue'
 import SignupPage from './SignupPage.vue'
 import HomePage from './HomePage.vue'
 import SettingsPage from './SettingsPage.vue'
+import FAQPage from './FAQPage.vue'
 import PatternPage from './PatternPage.vue'
 import PracticePage from './PracticePage.vue'
 import AdminUsersPage from './AdminUsersPage.vue'
@@ -50,6 +51,11 @@ export function makeRouter() {
         path: "/settings",
         name: "settings",
         component: SettingsPage
+      },
+      {
+        path: "/faq",
+        name: "faq",
+        component: FAQPage
       },
       {
         path: "/pattern/:slug/practice",

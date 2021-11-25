@@ -16,6 +16,7 @@
             <b-nav-item to="/review" class="mr-2">
               Practice{{ numReviews ? `: ${numReviews}` : "" }}
             </b-nav-item>
+            <b-nav-item to="/faq" class="mr-2"> FAQ </b-nav-item>
             <b-nav-item v-if="$admin" to="/admin/patterns" class="mr-2">
               Admin
             </b-nav-item>
