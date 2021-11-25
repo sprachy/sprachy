@@ -37,7 +37,7 @@ export class CanvasEffects {
     this.canvas.id = "effectCanvas"
     document.body.appendChild(this.canvas)
     this.ctx = this.canvas.getContext("2d")!
-    window.addEventListener("resize", this.resize)
+    window.addEventListener("resize", this.resize.bind(this))
     this.resize()
 
     this.canvas.style.position = "fixed"
