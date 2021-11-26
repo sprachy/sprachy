@@ -1,19 +1,15 @@
-import type { Pattern, Progress, Review, User } from "../../common/api"
+import type { Progress, ProgressSummary, Review, User } from "../../common/api"
 import type { SessionRequest } from "../middleware"
 import { db } from "../db"
 import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now } from 'faunadb'
 import * as z from 'zod'
 
-export async function getStatus(req: SessionRequest): Promise<{ user: User, numReviews: number }> {
-  const [user, numReviews] = await Promise.all([
+export async function getSummary(req: SessionRequest): Promise<ProgressSummary> {
+  const [user, progressItems] = await Promise.all([
     db.users.get(req.session.userId),
-    db.progress.countReviewsFor(req.session.userId)
+    db.progress.listAllFor(req.session.userId)
   ])
-  return { user, numReviews }
-}
-
-export async function getNextLesson(req: SessionRequest): Promise<Pattern | null> {
-  return await db.patterns.nextPatternFor(req.session.userId)
+  return { user, progressItems }
 }
 
 const progressReport = z.object({

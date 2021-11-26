@@ -1,10 +1,13 @@
-import { AdminAPI, UserAPI } from './ClientAPI'
-import { SprachyApp } from './app'
-import { User } from '../common/api'
+import type { AdminAPI, UserAPI } from './ClientAPI'
+import type { SprachyApp } from './app'
+import type { ProgressSummary, User } from '../common/api'
+import type { SprachyRouter } from './router'
 
 declare module 'vue/types/vue' {
   interface Vue {
     $app: SprachyApp
+    $initApp: (summary: ProgressSummary) => void
+    $closeApp: () => void
     $debug: Record<string, any>
     $user: User
     $admin: boolean

@@ -185,6 +185,7 @@ export namespace db {
               userRef: Ref(Collection("users"), userId),
               patternId: patternId,
               initiallyLearnedAt: Now(),
+              lastLeveledAt: Now(),
               lastReviewedAt: Now(),
               srsLevel: 1
             }
@@ -192,23 +193,25 @@ export namespace db {
         )
       }
 
-      const nextReviewAt = progress.lastReviewedAt + time.toNextSRSLevel(progress.srsLevel)
-      if (time.now() < nextReviewAt) {
-        // Not time for review yet, ignore this one
-        return progress
-      } else {
-        return await db.querySingle<Progress>(
-          Update(
-            Ref(Collection('progress'), progress.id),
-            {
-              data: {
-                lastReviewedAt: Now(),
-                srsLevel: progress.srsLevel + 1
-              }
-            }
-          )
-        )
+      const levelableAt = progress.lastLeveledAt + time.toNextSRSLevel(progress.srsLevel)
+
+      let progressChanges: any = { lastReviewedAt: Now() }
+      if (time.now() <= levelableAt) {
+        progressChanges = {
+          lastReviewedAt: Now(),
+          lastLeveledAt: Now(),
+          srsLevel: progress.srsLevel + 1
+        }
       }
+
+      return await db.querySingle<Progress>(
+        Update(
+          Ref(Collection('progress'), progress.id),
+          {
+            data: progressChanges
+          }
+        )
+      )
     }
   }
 

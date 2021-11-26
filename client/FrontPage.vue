@@ -68,7 +68,7 @@ export default class FrontPage extends Vue {
   password: string = ""
 
   activated() {
-    if (this.$app.user) {
+    if (this.$user) {
       this.$router.navigateReplace("/home")
     }
   }
@@ -77,9 +77,8 @@ export default class FrontPage extends Vue {
     const { email, password } = this
 
     try {
-      const user = await this.$api.signUp({ email, password })
-      this.$app.user = user
-      localStorage.setItem("user", JSON.stringify(user))
+      const summary = await this.$api.signUp({ email, password })
+      this.$initApp(summary)
       this.$router.navigate("/home")
     } catch (err) {
       console.error(err)

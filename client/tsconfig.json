@@ -1,20 +1,22 @@
 {
-    "extends": "../tsconfig-base.json",
-    "include": [
-        "**/*",
-        "../common"
-    ],
-    "exclude": [],
-    "compilerOptions": {
-        "outDir": "./dist/",
-        "lib": [
-            "dom",
-            "es6",
-            "esnext.asynciterable"
-        ]
-    },
-    "files": [
-      "./sfc.d.ts",
-      "./vue-shims.d.ts"
+  "extends": "../tsconfig-base.json",
+  "include": [
+    "**/*",
+    "../common"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "lib": [
+      "dom",
+      "es6",
+      "esnext.asynciterable"
     ]
+  },
+  "files": [
+    "./sfc.d.ts",
+    "./vue-shims.d.ts"
+  ]
 }

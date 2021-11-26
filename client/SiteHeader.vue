@@ -13,15 +13,13 @@
           <!-- Right-aligned nav items -->
           <b-navbar-nav class="ml-auto">
             <b-nav-item to="/learn" class="mr-2"> Learn </b-nav-item>
-            <b-nav-item to="/review" class="mr-2">
-              Practice{{ numReviews ? `: ${numReviews}` : "" }}
-            </b-nav-item>
+            <b-nav-item to="/review" class="mr-2"> Practice </b-nav-item>
             <b-nav-item to="/faq" class="mr-2"> FAQ </b-nav-item>
             <b-nav-item v-if="$admin" to="/admin/patterns" class="mr-2">
               Admin
             </b-nav-item>
-            <b-nav-item to="/settings" class="mr-2">
-              {{ name }}
+            <b-nav-item v-if="$user" to="/settings" class="mr-2">
+              {{ $user.email }}
             </b-nav-item>
             <b-nav-item @click="logout"> Log out </b-nav-item>
           </b-navbar-nav>
@@ -39,43 +37,14 @@ import { IS_PRODUCTION } from "./settings"
   components: {},
 })
 export default class SiteHeader extends Vue {
-  pollingInterval: number | null = null
-
-  activated() {
-    if (this.$app.user) {
-      this.pollStatus()
-      this.pollingInterval = window.setInterval(this.pollStatus, 60000)
-    }
-  }
-
-  deactivated() {
-    if (this.pollingInterval !== null) clearInterval(this.pollingInterval)
-  }
-
-  async pollStatus() {
-    const { user, numReviews } = await this.$backgroundApi.getStatus()
-    this.$app.user = user
-    this.$app.numReviews = numReviews
-    localStorage.setItem("user", JSON.stringify(user))
-  }
-
-  get numReviews() {
-    return this.$app.numReviews
-  }
-
   get isDev() {
     return !IS_PRODUCTION
   }
 
-  get name() {
-    return this.$app.user?.email
-  }
-
   async logout() {
     await this.$api.logout()
-    this.$app.user = null
-    localStorage.removeItem("user")
-    this.$app.navigate("/")
+    this.$closeApp()
+    this.$router.navigate("/")
   }
 }
 </script>

@@ -9,7 +9,7 @@
       </b-thead>
       <b-tr v-for="user in users" :key="user.name" @click="editUser(user.id)">
         <td>{{ user.email }}</td>
-        <td>{{ user.isAdmin ? 'Admin' : 'User' }}</td>
+        <td>{{ user.isAdmin ? "Admin" : "User" }}</td>
       </b-tr>
     </b-table-simple>
   </admin-layout>
@@ -31,7 +31,7 @@ export default class AdminUsersPage extends Vue {
   }
 
   async editUser(userId: string) {
-    await this.$app.navigate(`/admin/users/${userId}`)
+    await this.$router.navigate(`/admin/users/${userId}`)
   }
 }
 </script>

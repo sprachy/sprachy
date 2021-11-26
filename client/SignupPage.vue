@@ -56,10 +56,9 @@ export default class SignupPage extends Vue {
     const { email, password } = this
 
     try {
-      const user = await this.$api.signUp({ email, password })
-      this.$app.user = user
-      localStorage.setItem("user", JSON.stringify(user))
-      this.$app.navigate("/home")
+      const summary = await this.$api.signUp({ email, password })
+      this.$initApp(summary)
+      this.$router.navigate("/home")
     } catch (err) {
       throw err
     }

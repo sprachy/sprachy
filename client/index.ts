@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
 import App from './App.vue'
 import { SprachyRouter } from './router'
@@ -16,9 +15,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 // @ts-ignore
 import VueTimeago from "vue-timeago"
+import type { ProgressSummary } from '../common/api'
 
 Vue.config.productionTip = false
-Vue.use(VueRouter)
+Vue.use(SprachyRouter)
 Vue.use(VueMeta)
 Vue.use(BootstrapVue)
 Vue.use(VueTimeago, {
@@ -44,7 +44,24 @@ Object.defineProperty(Vue.prototype, '$debug', {
   get() { return window as Record<string, any> }
 })
 
-const app = Vue.observable(new SprachyApp(router))
+let app: SprachyApp | null = null
+
+Object.defineProperty(Vue.prototype, '$initApp', {
+  get() {
+    return (summary: ProgressSummary) => {
+      app = Vue.observable(new SprachyApp(userApi, summary))
+    }
+  }
+})
+
+Object.defineProperty(Vue.prototype, '$closeApp', {
+  get() {
+    return () => {
+      localStorage.removeItem("summary")
+      app = null
+    }
+  }
+})
 
 Object.defineProperty(Vue.prototype, '$app', {
   get() { return app }
@@ -62,11 +79,11 @@ Object.defineProperty(Vue.prototype, '$backgroundApi', {
 })
 
 Object.defineProperty(Vue.prototype, '$user', {
-  get() { return app.expectedUser }
+  get() { return app?.user }
 })
 
 Object.defineProperty(Vue.prototype, '$admin', {
-  get() { return app.user && app.user.isAdmin }
+  get() { return app?.user && app?.user.isAdmin }
 })
 
 new Vue({

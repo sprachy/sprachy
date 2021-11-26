@@ -14,17 +14,15 @@ export type Pattern = {
   }[]
 }
 
-export type Progress = {
+
+export type ProgressItem = {
   id: string
   userId: string
   patternId: string
   initiallyLearnedAt: number
+  lastLeveledAt: number
   lastReviewedAt: number
   srsLevel: number
-}
-
-export type ProgressWithNextReview = Progress & {
-  nextReviewAt: number
 }
 
 export type Review = {
@@ -34,4 +32,11 @@ export type Review = {
 
 export type Exercise = Pattern['exercises'][0]
 
-export type ProgressOverview = { patterns: Pattern[], progress: ProgressWithNextReview[] }
+/**
+ * Package of initial information sent to the frontend
+ * on login/signup
+ */
+export type ProgressSummary = {
+  user: User
+  progressItems: ProgressItem[]
+}

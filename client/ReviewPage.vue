@@ -1,6 +1,6 @@
 <template>
   <site-layout>
-    <template v-if="loaded">
+    <template>
       <template v-if="reviews.length === 0">
         <p>No reviews yet!</p>
       </template>
@@ -28,14 +28,17 @@ type ExerciseItem = Exercise & {
   },
 })
 export default class ReviewPage extends Vue {
-  loaded: boolean = false
   reviews: Review[] = []
   exerciseIndex: number = 0
 
-  async created() {
-    const { reviews } = await this.$api.getReviews()
-    this.reviews = reviews
-    this.loaded = true
+  activated() {
+    const pattern = _.sortBy(
+      this.$app.patternsWithProgress.filter((p) => p.progress),
+      (p) => p.progress!.item.lastReviewedAt
+    )[0]
+
+    if (pattern)
+      this.$router.navigateReplace(`/pattern/${pattern.slug}/practice`)
   }
 
   onAnswer(correct: boolean) {

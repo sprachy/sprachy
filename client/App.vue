@@ -7,9 +7,7 @@
       :on-dismiss="onDismissError"
     />
     <keep-alive :max="10">
-      <router-view
-        :key="$route.fullPath + ($app.user ? `user-${$app.user.id}` : '')"
-      />
+      <router-view :key="$route.fullPath + ($user ? `user-${$user.id}` : '')" />
     </keep-alive>
   </div>
 </template>
@@ -61,8 +59,11 @@ export default class App extends Vue {
     })
 
     try {
-      const user = JSON.parse(localStorage.getItem("user")!)
-      this.$app.user = user
+      const summary = JSON.parse(localStorage.getItem("summary")!)
+      if (summary) {
+        this.$initApp(summary)
+        this.$app.refreshProgress()
+      }
     } catch (err) {}
   }
 
@@ -83,9 +84,8 @@ export default class App extends Vue {
     const err = this.unexpectedError as any
     if (err && "response" in err && err.response?.status === 401) {
       globalErrorHandler.dismissError()
-      this.$app.user = null
-      localStorage.removeItem("user")
-      this.$app.navigate("/login")
+      this.$closeApp()
+      this.$router.navigate("/login")
     }
   }
 

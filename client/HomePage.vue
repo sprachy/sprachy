@@ -2,12 +2,8 @@
   <site-layout>
     <main class="container">
       Sprachy is a thingy for learning German with patterns!
-      <ul v-if="overview">
-        <li
-          class="pattern"
-          v-for="pattern in patternProgress"
-          :key="pattern.id"
-        >
+      <ul>
+        <li class="pattern" v-for="pattern in patterns" :key="pattern.id">
           <router-link :to="`/pattern/${pattern.slug}`">
             <div class="icon" :style="{ backgroundColor: '#1ba156' }">
               <font-awesome-icon :icon="pattern.icon" />
@@ -26,7 +22,7 @@
               </div>
               <div class="timetolevel" v-if="pattern.progress">
                 Can be leveled in
-                <timeago :datetime="pattern.progress.nextReviewAt" />
+                <timeago :datetime="pattern.progress.levelableAt" />
               </div>
             </div>
           </router-link>
@@ -42,33 +38,11 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
-import type { ProgressOverview } from "../common/api"
 
 @Component
 export default class HomePage extends Vue {
-  overview: ProgressOverview | null = null
-
-  activated() {
-    if (!this.$router.lastRouteChangeWasPopState) {
-      this.overview = null
-      this.loadOverview()
-    }
-  }
-
-  async loadOverview() {
-    this.overview = await this.$api.getProgressOverview()
-  }
-
-  get progressByPatternId() {
-    return _.keyBy(this.overview!.progress, (p) => p.patternId)
-  }
-
-  get patternProgress() {
-    return this.overview!.patterns.map((p) => {
-      return Object.assign({}, p, {
-        progress: this.progressByPatternId[p.id],
-      })
-    })
+  get patterns() {
+    return this.$app.patternsWithProgress
   }
 }
 </script>

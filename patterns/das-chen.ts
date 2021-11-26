@@ -1,3 +1,4 @@
+import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { definePattern, md } from '../common/definePattern'
 
 export default definePattern({
@@ -5,7 +6,7 @@ export default definePattern({
   slug: 'das-chen',
   title: "Das -chen",
   shortdesc: "",
-  icon: "",
+  icon: faAddressBook,
   explanation: md`
 `,
   exercises: [
@@ -23,7 +24,6 @@ Yes. It has become fuel for the eternal fire of my soul.
 </dline>
 </dialogue>
       `,
-      translation: "[The] cat"
     }
   ]
 })

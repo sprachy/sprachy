@@ -19,6 +19,7 @@ import _ from "lodash"
 import type { Pattern } from "../common/api"
 import marked from "marked"
 import FillblankCard from "./FillblankCard.vue"
+import { NotFoundError } from "./globalErrorHandling"
 
 @Component({
   components: {
@@ -34,18 +35,16 @@ export default class PracticePage extends Vue {
 
   exercises: { content: string }[] = []
 
-  activated() {
-    this.$debug.patternPage = this
-    if (this.pattern && !this.$app.lastRouteChangeWasPopState) {
-      this.pattern = null
-      this.loadPattern()
-    }
-  }
-
   @Watch("slug", { immediate: true })
-  async loadPattern() {
-    this.pattern = await this.$api.getPattern(this.slug)
-    this.exercises = this.pattern!.exercises
+  loadPattern() {
+    const pattern = this.$app.patternsWithProgress.find(
+      (p) => p.slug === this.slug
+    )
+    if (!pattern) {
+      throw new NotFoundError()
+    }
+    this.pattern = pattern
+    this.exercises = pattern.exercises
   }
 
   get exercise() {

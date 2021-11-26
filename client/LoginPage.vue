@@ -54,10 +54,9 @@ export default class LoginPage extends Vue {
     this.errorMessage = null
 
     try {
-      const user = await this.$api.signIn({ email, password })
-      this.$app.user = user
-      localStorage.setItem("user", JSON.stringify(user))
-      this.$app.navigate("/home")
+      const userSummary = await this.$api.signIn({ email, password })
+      this.$initApp(userSummary)
+      this.$router.navigate("/home")
     } catch (err: any) {
       if (err?.response?.data?.code === "authentication failed") {
         this.errorMessage = "Invalid email or password"
@@ -68,7 +67,7 @@ export default class LoginPage extends Vue {
   }
 
   postLoginRedirect() {
-    this.$app.router.replace({
+    this.$router.replace({
       name: "home",
     })
   }

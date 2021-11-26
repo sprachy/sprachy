@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import _ from 'lodash'
-import type { Progress, Pattern, User, Review, ProgressWithNextReview, ProgressOverview } from '../common/api'
+import type { Progress, Pattern, User, Review, ProgressSummary } from '../common/api'
 import { IS_PRODUCTION } from './settings'
 
 async function delay(amount: number) {
@@ -64,12 +64,12 @@ export class UserAPI {
   admin: AdminAPI = new AdminAPI(this.http)
   constructor(readonly http: HTTPProvider) { }
 
-  async signIn({ email, password }: { email: string, password: string }): Promise<User> {
+  async signIn({ email, password }: { email: string, password: string }): Promise<ProgressSummary> {
     const { data } = await this.http.post(`/login`, { email, password })
     return data
   }
 
-  async signUp({ email, password }: { email: string, password: string }): Promise<User> {
+  async signUp({ email, password }: { email: string, password: string }): Promise<ProgressSummary> {
     const { data } = await this.http.post(`/signup`, { email, password })
     return data
   }
@@ -78,33 +78,13 @@ export class UserAPI {
     await this.http.post(`/logout`)
   }
 
-  async getPattern(slug: string): Promise<Pattern | null> {
-    const { data } = await this.http.get(`/pattern/${slug}`)
-    return data
-  }
-
-  async getNextPattern(): Promise<Pattern | null> {
-    const { data } = await this.http.get(`/progress/nextLesson`)
-    return data
-  }
-
-  async getReviews(): Promise<{ reviews: Review[] }> {
-    const { data } = await this.http.get(`/progress/reviews`)
-    return data
-  }
-
-  async getStatus(): Promise<{ user: User, numReviews: number }> {
-    const { data } = await this.http.get(`/status`)
+  async getProgress(): Promise<ProgressSummary> {
+    const { data } = await this.http.get(`/progress`)
     return data
   }
 
   async recordReview(patternId: string, remembered: boolean): Promise<Progress | null> {
     const { data } = await this.http.post(`/progress`, { patternId, remembered })
-    return data
-  }
-
-  async getProgressOverview(): Promise<ProgressOverview> {
-    const { data } = await this.http.get(`/progress/overview`)
     return data
   }
 }

@@ -2,7 +2,7 @@ import type { ServerRequest } from "worktop/request"
 import { Collection, Create, Index, Login, Match } from "faunadb"
 import * as z from 'zod'
 
-import type { User } from "../../common/api"
+import type { User, UserSummary } from "../../common/api"
 import { db } from "../db"
 import { sessions } from "../sessions"
 import type { ServerResponse } from "worktop/response"
@@ -16,7 +16,7 @@ const signupForm = z.object({
   message: "Password must be at least length 12",
   path: ["password"]
 })
-export async function signup(req: ServerRequest, res: ServerResponse): Promise<User> {
+export async function signup(req: ServerRequest, res: ServerResponse): Promise<UserSummary> {
   const { email, password } = signupForm.parse(await req.body())
 
   let user: User
@@ -38,9 +38,11 @@ export async function signup(req: ServerRequest, res: ServerResponse): Promise<U
     }
   }
 
+  const progressItems = await db.progress.listAllFor(user.id)
+
   const sessionKey = await sessions.create(user.id)
   res.headers.set('Set-Cookie', sessions.asCookie(sessionKey))
-  return user
+  return { user, progressItems }
 }
 
 type FaunaLoginToken = {
@@ -54,7 +56,7 @@ const loginForm = z.object({
   email: z.string(),
   password: z.string()
 })
-export async function login(req: ServerRequest, res: ServerResponse): Promise<User> {
+export async function login(req: ServerRequest, res: ServerResponse): Promise<UserSummary> {
   const { email, password } = loginForm.parse(await req.body())
 
   const result = await db.fauna.client.query(
@@ -69,7 +71,10 @@ export async function login(req: ServerRequest, res: ServerResponse): Promise<Us
   const user = await db.users.get(result.instance.value.id)
   const sessionKey = await sessions.create(user.id)
   res.headers.set('Set-Cookie', sessions.asCookie(sessionKey))
-  return user
+
+  const progressItems = await db.progress.listAllFor(user.id)
+
+  return { user, progressItems }
 }
 
 export async function logout(req: BaseRequest): Promise<void> {

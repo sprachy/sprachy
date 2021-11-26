@@ -15,9 +15,8 @@ export default class LearnPage extends Vue {
   noNewPatterns: boolean = false
 
   async created() {
-    this.$debug.LearnPage = this
-    const pattern = await this.$api.getNextPattern()
-    if (pattern === null) {
+    const pattern = this.$app.nextPatternToLearn
+    if (!pattern) {
       this.noNewPatterns = true
       return
     }
