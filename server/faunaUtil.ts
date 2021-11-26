@@ -1,5 +1,4 @@
-import faunadb, { Expr } from 'faunadb'
-import type { ClientConfig } from 'faunadb'
+import { Expr } from 'faunadb'
 
 export function customFetch(url: RequestInfo, params: RequestInit | undefined) {
   const signal = params?.signal

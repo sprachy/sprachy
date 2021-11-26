@@ -23,7 +23,3 @@ export async function resetdb() {
   // Put the secret in .env
   shell.exec(`sed -i '' -e 's/FAUNA_ADMIN_KEY=.*/FAUNA_ADMIN_KEY=${secret}/g' .env`)
 }
-
-  // const prompt = new Confirm(`Really reset the public schema at DATABASE_URL ${dburl}?`)
-  // const answer = await prompt.run()
-  // if (answer)
