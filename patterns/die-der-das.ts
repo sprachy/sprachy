@@ -1,5 +1,5 @@
 import { faVenusMars } from '@fortawesome/free-solid-svg-icons'
-import { definePattern, md } from '../server/definePattern'
+import { definePattern, md } from '../common/definePattern'
 
 export default definePattern({
   id: 'die-der-das',

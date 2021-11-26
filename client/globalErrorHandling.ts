@@ -9,13 +9,20 @@ export type GlobalErrorHandlerOpts = {
   sentryScoper?: (scope: Sentry.Scope) => void
 }
 
+/** Used for SPA 404s when no actual request is involved */
+export class NotFoundError extends Error {
+  constructor() {
+    super("Not found")
+  }
+}
+
 /**
  * Global error handling when all else fails. Our last stand against the darkness.
  * This is designed to be reusable in different Vue application contexts, so it shouldn't
  * directly access stuff like user info etc.
  */
 class GlobalErrorHandler {
-  private errorStore: { lastGlobalError: Error|null } = Vue.observable({ lastGlobalError: null })
+  private errorStore: { lastGlobalError: Error | null } = Vue.observable({ lastGlobalError: null })
   opts: GlobalErrorHandlerOpts = {}
 
   get lastGlobalError() {
@@ -109,7 +116,7 @@ export const globalErrorHandler = new GlobalErrorHandler()
 
 /** Given an error of some kind, work out how best to stringify it. */
 export function extractErrorMessage(err: Error): string {
-  const resp: AxiosResponse<any>|undefined = (err as AxiosError).response
+  const resp: AxiosResponse<any> | undefined = (err as AxiosError).response
   if (resp) {
     if (resp.data.message) {
       // If the server sent an error message, that's likely the most useful one to show

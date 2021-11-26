@@ -7,11 +7,21 @@ import type { User } from '../common/api'
  * Global store for cross-component data and caches
  */
 export class SprachyApp {
+  static instance: SprachyApp
+
   pending: boolean = true
   user: User | null = null
   numReviews: number | null = null
 
-  constructor(readonly router: VueRouter) { }
+  /**
+   * True if the last page transition involved the use
+   * of the browser back or forward button.
+   */
+  lastRouteChangeWasPopState: boolean = false
+
+  constructor(readonly router: VueRouter) {
+    SprachyApp.instance = this
+  }
 
   get expectedUser() {
     if (!this.user) {

@@ -2,7 +2,7 @@
   <site-layout>
     <main class="container">
       Sprachy is a thingy for learning German with patterns!
-      <ul>
+      <ul v-if="overview">
         <li
           class="pattern"
           v-for="pattern in patternProgress"
@@ -42,32 +42,29 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
-import type { Pattern, ProgressWithNextReview } from "../common/api"
-import MasteryProgressBar from "./MasteryProgressBar.vue"
+import type { ProgressOverview } from "../common/api"
 
-@Component({
-  components: {
-    MasteryProgressBar,
-  },
-})
+@Component
 export default class HomePage extends Vue {
-  loaded: boolean = false
-  data: { patterns: Pattern[]; progress: ProgressWithNextReview[] } = {
-    patterns: [],
-    progress: [],
+  overview: ProgressOverview | null = null
+
+  activated() {
+    if (!this.$app.lastRouteChangeWasPopState) {
+      this.overview = null
+      this.loadOverview()
+    }
   }
 
-  async created() {
-    this.data = await this.$api.getProgressOverview()
-    this.loaded = true
+  async loadOverview() {
+    this.overview = await this.$api.getProgressOverview()
   }
 
   get progressByPatternId() {
-    return _.keyBy(this.data.progress, (p) => p.patternId)
+    return _.keyBy(this.overview!.progress, (p) => p.patternId)
   }
 
   get patternProgress() {
-    return this.data.patterns.map((p) => {
+    return this.overview!.patterns.map((p) => {
       return Object.assign({}, p, {
         progress: this.progressByPatternId[p.id],
       })

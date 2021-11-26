@@ -17,7 +17,7 @@
 <script lang="ts">
 import SiteLayout from "./SiteLayout.vue"
 import AdminLayout from "./AdminLayout.vue"
-import { globalErrorHandler } from "./globalErrorHandling"
+import { globalErrorHandler, NotFoundError } from "./globalErrorHandling"
 import UnexpectedErrorModal from "./UnexpectedErrorModal.vue"
 import PageNotFound from "./PageNotFound.vue"
 import NProgress from "accessible-nprogress"
@@ -72,7 +72,10 @@ export default class App extends Vue {
 
   get is404(): boolean {
     const err = this.unexpectedError as any
-    return !!(err && "response" in err && err.response?.status === 404)
+    return (
+      !!(err instanceof NotFoundError) ||
+      !!(err && "response" in err && err.response?.status === 404)
+    )
   }
 
   @Watch("unexpectedError", { immediate: true })

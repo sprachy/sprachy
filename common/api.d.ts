@@ -33,3 +33,5 @@ export type Review = {
 }
 
 export type Exercise = Pattern['exercises'][0]
+
+export type ProgressOverview = { patterns: Pattern[], progress: ProgressWithNextReview[] }

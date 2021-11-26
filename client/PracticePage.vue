@@ -34,8 +34,12 @@ export default class PracticePage extends Vue {
 
   exercises: { content: string }[] = []
 
-  async created() {
+  activated() {
     this.$debug.patternPage = this
+    if (this.pattern && !this.$app.lastRouteChangeWasPopState) {
+      this.pattern = null
+      this.loadPattern()
+    }
   }
 
   @Watch("slug", { immediate: true })

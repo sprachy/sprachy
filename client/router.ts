@@ -1,4 +1,4 @@
-import Router from 'vue-router'
+import Router, { Route } from 'vue-router'
 import _ from 'lodash'
 import LoginPage from './LoginPage.vue'
 import FrontPage from './FrontPage.vue'
@@ -12,6 +12,8 @@ import AdminUsersPage from './AdminUsersPage.vue'
 import LearnPage from './LearnPage.vue'
 import ReviewPage from './ReviewPage.vue'
 import PageNotFound from './PageNotFound.vue'
+import { globalErrorHandler } from './globalErrorHandling'
+import { SprachyApp } from './app'
 
 export function makeRouter() {
   const router = new Router({
@@ -81,9 +83,22 @@ export function makeRouter() {
     ]
   })
 
-  // router.beforeEach((to, from, next) => {
-
-  // })
+  // Some hackery here to allow page components to distinguish back/forward button
+  // navigation from other kinds of navigation
+  let sawPopState = false
+  window.addEventListener('popstate', () => {
+    sawPopState = true
+  })
+  router.beforeEach((to: Route, from: Route, next: (params?: any) => void) => {
+    globalErrorHandler.dismissError()
+    if (sawPopState) {
+      SprachyApp.instance.lastRouteChangeWasPopState = true
+      sawPopState = false
+    } else {
+      SprachyApp.instance.lastRouteChangeWasPopState = false
+    }
+    next()
+  })
 
   return router
 }

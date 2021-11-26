@@ -15,13 +15,12 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
 import type { Pattern } from "../common/api"
 import FillblankCard from "./FillblankCard.vue"
-// @ts-ignore
-import { RuntimeTemplateCompiler } from "vue-runtime-template-compiler"
+import { sprachdex } from "../common/sprachdex"
+import { NotFoundError } from "./globalErrorHandling"
 
 @Component<LearnPage>({
   components: {
     FillblankCard,
-    RuntimeTemplateCompiler,
   },
   metaInfo() {
     return {
@@ -31,16 +30,15 @@ import { RuntimeTemplateCompiler } from "vue-runtime-template-compiler"
 })
 export default class LearnPage extends Vue {
   @Prop({ type: String, required: true }) slug!: string
-  pattern: Pattern | null = null
-  exerciseIndex: number = 0
 
-  async created() {
-    this.$debug.patternPage = this
-  }
+  get pattern() {
+    const pattern = sprachdex.allPatterns.find((p) => p.slug === this.slug)
 
-  @Watch("slug", { immediate: true })
-  async loadPattern() {
-    this.pattern = await this.$api.getPattern(this.slug)
+    if (!pattern) {
+      throw new NotFoundError()
+    }
+
+    return pattern
   }
 }
 </script>
