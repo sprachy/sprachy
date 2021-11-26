@@ -15,5 +15,5 @@ workers_dev = true
 # route = "https://sprachy.com/*"
 name = "sprachy"
 kv_namespaces = [ 
-  { binding = "STORE", id = "7f90360a04d84ce88a6ec09878f20d9f" }
+  { binding = "STORE", id = "7f90360a04d84ce88a6ec09878f20d9f", preview_id = "505bcfa79fd3476f8a78f1ad4175fd97" }
 ]
