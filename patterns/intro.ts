@@ -1,16 +1,15 @@
 import { definePattern, md } from '../common/definePattern'
 import { faHandSparkles } from '@fortawesome/free-solid-svg-icons'
 
-// ["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#edc949","#af7aa1","#ff9da7","#9c755f","#bab0ab"]
-
 export default definePattern({
   id: 'intro',
   slug: 'intro',
-  title: "Einführung",
+  title: "Hallo",
   icon: faHandSparkles,
   shortdesc: "An introductory lesson, with introductions",
   explanation: md`
-Welcome to Sprachy!
+Welcome to Sprachy! As is traditional with learning languages, let's start
+by learning how to introduce yourself.
 
 <dialogue>
 <dline by="lukas">
@@ -29,15 +28,24 @@ Greetings. I am Töskirelon, Master of the Ninth Esper Art and Imperator of the 
 </dline>
 </dialogue>
 
+Like most languages, German has a variety of words with similar meanings that have subtle differences in tone, formality, or regional usage. Here are a few different ways to say hello!
+
+<ltable header="Deutsch / Meaning">
+Hallo / Hello
+Guten Morgen / Good morning
+Guten Abend / Good evening
+Grüße / Greetings (formal)
+Hallöchen / Hii~ (cutely)
+Moin moin! / Kinda like "Mornin'!", but any time of day
+</ltable>
 `,
   exercises: [
     {
       content: md`
-<dialogue>
-<dline by="">
+<dline by="lukas">
+Aww [hallöchen] kleines Eichhörnchen!
+Aww [hi] little squirrel!
 </dline>
-
-</dialogue>
 `
     }
   ]

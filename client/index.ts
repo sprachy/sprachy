@@ -7,6 +7,7 @@ import { HTTPProvider, UserAPI } from './ClientAPI'
 import './app.sass'
 import Dialogue from './Dialogue.vue'
 import DLine from './DLine.vue'
+import LTable from './LTable.vue'
 import Sprachdown from './Sprachdown.vue'
 import { Component } from "vue-property-decorator"
 import VueMeta from 'vue-meta'
@@ -27,6 +28,7 @@ Vue.use(VueTimeago, {
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('dialogue', Dialogue)
 Vue.component('dline', DLine)
+Vue.component('ltable', LTable)
 Vue.component('sprachdown', Sprachdown)
 
 library.add(fas)

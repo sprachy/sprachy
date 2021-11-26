@@ -1,6 +1,6 @@
 <template>
   <site-layout>
-    <div v-if="pattern">
+    <div v-if="pattern" class="pattern">
       <h1>{{ pattern.title }}</h1>
       <sprachdown :content="pattern.explanation" />
       <b-btn variant="primary" :to="`/pattern/${pattern.slug}/practice`">
@@ -13,7 +13,6 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
-import type { Pattern } from "../common/api"
 import FillblankCard from "./FillblankCard.vue"
 import { sprachdex } from "../common/sprachdex"
 import { NotFoundError } from "./globalErrorHandling"
@@ -43,7 +42,7 @@ export default class LearnPage extends Vue {
 }
 </script>
 
-<style lang="sass">
-tr
-  cursor: pointer
+<style lang="sass" scoped>
+.pattern
+  max-width: 800px
 </style>

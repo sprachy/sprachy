@@ -12,6 +12,4 @@ export default class Dialogue extends Vue {}
 </script>
 
 <style lang="sass" scoped>
-::v-deep .dline:not(:first-child)
-  border-top: 0px
 </style>
