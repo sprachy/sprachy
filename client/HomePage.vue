@@ -49,7 +49,7 @@ export default class HomePage extends Vue {
   overview: ProgressOverview | null = null
 
   activated() {
-    if (!this.$app.lastRouteChangeWasPopState) {
+    if (!this.$router.lastRouteChangeWasPopState) {
       this.overview = null
       this.loadOverview()
     }

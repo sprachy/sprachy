@@ -41,7 +41,7 @@ except for the final level, which can only be retried every so often.
       return
     }
 
-    this.$app.navigateReplace(`/pattern/${pattern.slug}`)
+    this.$router.navigateReplace(`/pattern/${pattern.slug}`)
   }
 }
 </script>

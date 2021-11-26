@@ -6,7 +6,7 @@ import type { User } from "../../common/api"
 import { db } from "../db"
 import { sessions } from "../sessions"
 import type { ServerResponse } from "worktop/response"
-import type { BaseRequest } from "../routers"
+import type { BaseRequest } from "../middleware"
 import { getFaunaError } from "../faunaUtil"
 
 const signupForm = z.object({

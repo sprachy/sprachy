@@ -69,7 +69,7 @@ export default class FrontPage extends Vue {
 
   activated() {
     if (this.$app.user) {
-      this.$app.navigateReplace("/home")
+      this.$router.navigateReplace("/home")
     }
   }
 
@@ -80,7 +80,7 @@ export default class FrontPage extends Vue {
       const user = await this.$api.signUp({ email, password })
       this.$app.user = user
       localStorage.setItem("user", JSON.stringify(user))
-      this.$app.navigate("/home")
+      this.$router.navigate("/home")
     } catch (err) {
       console.error(err)
     }

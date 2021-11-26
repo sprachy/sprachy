@@ -22,7 +22,7 @@ export default class LearnPage extends Vue {
       return
     }
 
-    this.$app.navigateReplace(`/pattern/${pattern.slug}`)
+    this.$router.navigateReplace(`/pattern/${pattern.slug}`)
   }
 }
 </script>

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
 import App from './App.vue'
-import { makeRouter } from './router'
+import { SprachyRouter } from './router'
 import { SprachyApp } from './app'
 import { HTTPProvider, UserAPI } from './ClientAPI'
 import './app.sass'
@@ -31,7 +31,7 @@ Vue.component('sprachdown', Sprachdown)
 
 library.add(fas)
 
-const router = makeRouter()
+const router = new SprachyRouter()
 
 Component.registerHooks([
   'metaInfo'
