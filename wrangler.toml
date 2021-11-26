@@ -1,5 +1,6 @@
 type = "javascript"
 account_id = '2ae5ddc12fe01a282dd014d39792077a'
+compatibility_date = "2021-11-26"
 
 [env.staging]
 workers_dev = true
