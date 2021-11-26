@@ -70,6 +70,7 @@ export default class PracticePage extends Vue {
     }
 
     if (this.exerciseIndex + 1 >= this.pattern!.exercises.length) {
+      this.complete = true
       const progressItem = await this.$api.recordReview(
         this.pattern!.id,
         this.mistakes === 0
@@ -77,7 +78,6 @@ export default class PracticePage extends Vue {
       if (progressItem) {
         this.$app.receiveProgressItem(progressItem)
       }
-      this.complete = true
     } else {
       this.exerciseIndex += 1
     }
