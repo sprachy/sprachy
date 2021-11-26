@@ -8,7 +8,7 @@ test('srs progress updates', async () => {
 
   // User gets their first lesson
   const pattern = await asUser.api.getNextPattern()
-  expect(pattern.slug).toEqual("die-der-das")
+  expect(pattern.explanation).toBeDefined()
 
   // User learns about the pattern
   const progress1 = await asUser.api.recordReview(pattern.id, true)
@@ -38,38 +38,4 @@ test('srs progress updates', async () => {
   // And we can record progress
   const progress3 = await asUser.api.recordReview(pattern.id, true)
   expect(progress3.srsLevel === 2)
-
-  // // User can insert a new progress item for their own id
-  // var progress = await asUser.api.setProgress({
-  //   pattern_id: pattern.id,
-  //   srs_level: 3
-  // })
-  // expect(progress.srs_level).toBe(3)
-
-  // // User can update that progress item using the same method
-  // var progress = await asUser.api.setProgress({
-  //   pattern_id: pattern.id,
-  //   srs_level: 4
-  // })
-  // expect(progress.srs_level).toBe(4)
-
-  // // User can retrieve their own progress (only)
-  // var allProgress = await asUser.api.getAllProgress()
-  // expect(allProgress.length).toBe(1)
-  // expect(allProgress[0].srs_level).toBe(4)
-
-  // var { data, error } = await asUser.db.from("progress").insert([{
-  //   user_id: asUser.session.user!.id,
-  //   pattern_id: pattern.id,
-  //   srs_level: 0
-  // }])
-  // expect(error).toBe(null)
-
-  // // User can't insert a new progress item for someone else's id
-  // var { data, error } = await asUser.db.from("progress").insert([{
-  //   user_id: asAdmin.user.id,
-  //   pattern_id: pattern.id,
-  //   srs_level: 0
-  // }])
-  // expect(error?.message).toContain("violates row-level security policy")
 })

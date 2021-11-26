@@ -107,48 +107,11 @@ export class UserAPI {
     const { data } = await this.http.get(`/progress/overview`)
     return data
   }
-
-  // async setProgress(progress: { pattern_id: number, srs_level: number }): Promise<Progress> {
-  //   const { data } = await request(this.db.from('progress').upsert({
-  //     user_id: this.user.id,
-  //     ...progress
-  //   }))
-  //   return data[0]
-  // }
-
-  // async getAllProgress(): Promise<Progress[]> {
-  //   const { data } = await request(this.db.from('progress').select())
-  //   return data
-  // }
 }
 
 
 export class AdminAPI {
   constructor(readonly http: HTTPProvider) { }
-
-  async listPatterns(): Promise<Pattern[]> {
-    const { data } = await this.http.get(`/admin/patterns`)
-    return data
-  }
-
-  async createPattern(pattern: Omit<Pattern, 'id'>): Promise<Pattern> {
-    const { data } = await this.http.post(`/admin/patterns`, pattern)
-    return data
-  }
-
-  async getPattern(patternId: string): Promise<Pattern> {
-    const { data } = await this.http.get(`/admin/patterns/${patternId}`)
-    return data
-  }
-
-  async updatePattern(patternId: string, changes: Partial<Pattern>): Promise<Pattern> {
-    const { data } = await this.http.patch(`/admin/patterns/${patternId}`, changes)
-    return data
-  }
-
-  async deletePattern(patternId: string): Promise<void> {
-    await this.http.delete(`/admin/patterns/${patternId}`)
-  }
 
   async listUsers(): Promise<User[]> {
     const { data } = await this.http.get(`/admin/users`)

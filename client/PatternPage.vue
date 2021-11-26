@@ -14,7 +14,6 @@
 import { Component, Prop, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
 import type { Pattern } from "../common/api"
-import marked from "marked"
 import FillblankCard from "./FillblankCard.vue"
 // @ts-ignore
 import { RuntimeTemplateCompiler } from "vue-runtime-template-compiler"
