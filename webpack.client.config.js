@@ -80,7 +80,7 @@ module.exports = (env, argv) => {
             {
               loader: 'ts-loader',
               options: {
-                transpileOnly: true,
+                transpileOnly: !isProduction, // Do full typechecking for production builds
                 appendTsSuffixTo: [/\.vue$/],
               }
             }
