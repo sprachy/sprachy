@@ -7,6 +7,10 @@ import type { UserAPI } from './ClientAPI'
 class PatternProgress {
   constructor(readonly pattern: Pattern, readonly item: ProgressItem) { }
 
+  get mastered() {
+    return this.item.srsLevel >= 9
+  }
+
   get levelableAt() {
     return this.item.lastLeveledAt + time.toNextSRSLevel(this.item.srsLevel)
   }
@@ -33,6 +37,18 @@ export class SprachyApp {
     this.user = summary.user
     this.progressItems = summary.progressItems
     localStorage.setItem("summary", JSON.stringify(summary))
+  }
+
+  // Update local progress with a single new item
+  receiveProgressItem(item: ProgressItem) {
+    for (let i = 0; i < this.progressItems.length; i++) {
+      if (this.progressItems[i]!.patternId === item.patternId) {
+        this.progressItems[i] = item
+        return
+      }
+    }
+
+    this.progressItems.push(item)
   }
 
   get progressItemByPatternId(): { [patternId: string]: ProgressItem | undefined } {

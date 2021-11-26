@@ -35,6 +35,13 @@ export default class PracticePage extends Vue {
 
   exercises: { content: string }[] = []
 
+  activated() {
+    if (this.pattern && !this.$router.lastRouteChangeWasPopState) {
+      this.pattern = null
+      this.loadPattern()
+    }
+  }
+
   @Watch("slug", { immediate: true })
   loadPattern() {
     const pattern = this.$app.patternsWithProgress.find(
@@ -45,6 +52,9 @@ export default class PracticePage extends Vue {
     }
     this.pattern = pattern
     this.exercises = pattern.exercises
+    this.exerciseIndex = 0
+    this.complete = false
+    this.mistakes = 0
   }
 
   get exercise() {
@@ -60,7 +70,13 @@ export default class PracticePage extends Vue {
     }
 
     if (this.exerciseIndex + 1 >= this.pattern!.exercises.length) {
-      this.$api.recordReview(this.pattern!.id, this.mistakes === 0)
+      const progressItem = await this.$api.recordReview(
+        this.pattern!.id,
+        this.mistakes === 0
+      )
+      if (progressItem) {
+        this.$app.receiveProgressItem(progressItem)
+      }
       this.complete = true
     } else {
       this.exerciseIndex += 1

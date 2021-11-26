@@ -21,8 +21,13 @@
                 {{ pattern.shortdesc }}
               </div>
               <div class="timetolevel" v-if="pattern.progress">
-                Can be leveled in
-                <timeago :datetime="pattern.progress.levelableAt" />
+                <template v-if="pattern.progress.mastered">
+                  Mastered!
+                </template>
+                <template v-else>
+                  Can be leveled in
+                  <timeago :datetime="pattern.progress.levelableAt" />
+                </template>
               </div>
             </div>
           </router-link>

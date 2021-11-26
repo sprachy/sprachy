@@ -14,7 +14,7 @@ import _ from "lodash"
 export default class LearnPage extends Vue {
   noNewPatterns: boolean = false
 
-  async created() {
+  activated() {
     const pattern = this.$app.nextPatternToLearn
     if (!pattern) {
       this.noNewPatterns = true

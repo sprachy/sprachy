@@ -32,17 +32,6 @@ previous one. You can retry for a level increase immediately if you make a mista
 except for the final level, which can only be retried every so often.
     `
   }
-
-  async created() {
-    this.$debug.LearnPage = this
-    const pattern = await this.$api.getNextPattern()
-    if (pattern === null) {
-      this.noNewPatterns = true
-      return
-    }
-
-    this.$router.navigateReplace(`/pattern/${pattern.slug}`)
-  }
 }
 </script>
 

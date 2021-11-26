@@ -131,16 +131,6 @@ export namespace db {
       )
     }
 
-    export async function withNextReviewTime(userId: string): Promise<ProgressWithNextReview[]> {
-      const allProgress = await db.progress.listAllFor(userId)
-
-      return allProgress.map(prog => {
-        return Object.assign(prog, {
-          nextReviewAt: prog.lastReviewedAt + time.toNextSRSLevel(prog.srsLevel)
-        })
-      })
-    }
-
     /**
      * This method of retrieval won't scale, but suffices for now
      * The whole calculation can potentially be done using Fauna query/index
@@ -174,8 +164,6 @@ export namespace db {
      */
     export async function recordReview(userId: string, patternId: string, remembered: boolean): Promise<Progress | null> {
       const progress = await db.progress.get(userId, patternId)
-      if (!remembered)
-        return progress
 
       if (!progress) {
         // Initial review
@@ -196,7 +184,7 @@ export namespace db {
       const levelableAt = progress.lastLeveledAt + time.toNextSRSLevel(progress.srsLevel)
 
       let progressChanges: any = { lastReviewedAt: Now() }
-      if (time.now() <= levelableAt) {
+      if (remembered && time.now() >= levelableAt) {
         progressChanges = {
           lastReviewedAt: Now(),
           lastLeveledAt: Now(),

@@ -13,7 +13,6 @@
             v-model="exerciseContext.attempt"
             placeholder="Your Answer"
             ref="attemptInput"
-            autofocus
           />
           <!-- <button>
           <FontAwesomeIcon icon="faChevronRight" />
@@ -76,6 +75,10 @@ export default class FillblankCard extends Vue {
   @Prop({ type: Object, required: true }) exercise!: Exercise
   @Ref("attemptInput") attemptInput!: HTMLInputElement
   effects: CanvasEffects = new CanvasEffects()
+
+  activated() {
+    this.attemptInput.focus()
+  }
 
   @Provide("exerciseContext") exerciseContext: ExerciseContext = {
     attempt: "",
