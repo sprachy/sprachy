@@ -1,23 +1,16 @@
 import { Expr } from 'faunadb'
 
-export function customFetch(url: RequestInfo, params: RequestInit | undefined) {
-  const signal = params?.signal
-  delete params?.signal
-
-  const abortPromise: Promise<Response> = new Promise((resolve) => {
-    if (signal) {
-      signal.onabort = resolve as any
-    }
-  })
-
-  return Promise.race([abortPromise, fetch(url, params)])
-}
-
-
 export function getFaunaError(error: any) {
-  const { code, description } = error.requestResult.responseContent.errors[0]
-  let status
+  let code: string = 'unknown error'
+  let description: string = error.message
 
+  const errors = error.requestResult?.responseContent?.errors
+  if (errors && errors.length) {
+    code = errors[0].code
+    description = errors[0].description
+  }
+
+  let status
   switch (code) {
     case 'instance not found':
       status = 404
