@@ -1,5 +1,5 @@
 import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now, Difference, Select, Filter, Not, Time } from 'faunadb'
-import type { Pattern, Progress, ProgressWithNextReview, Review, User } from '../common/api'
+import type { Pattern, ProgressItem, Review, User } from '../common/api'
 import _ from 'lodash'
 import { IS_PRODUCTION } from './settings'
 import { FAUNA_ADMIN_KEY } from './secrets'
@@ -105,14 +105,14 @@ export namespace db {
       ])
     }
 
-    export async function get(userId: string, patternId: string): Promise<Progress | null> {
-      return await db.querySingle<Progress | null>(
+    export async function get(userId: string, patternId: string): Promise<ProgressItem | null> {
+      return await db.querySingle<ProgressItem | null>(
         GetIfExists(MatchByUserAndPattern(userId, patternId))
       )
     }
 
-    export async function update(progressId: string, changes: Partial<Omit<Progress, 'id' | 'userId' | 'patternId'>>): Promise<Progress> {
-      return await db.querySingle<Progress>(
+    export async function update(progressId: string, changes: Partial<Omit<ProgressItem, 'id' | 'userId' | 'patternId'>>): Promise<ProgressItem> {
+      return await db.querySingle<ProgressItem>(
         Update(
           Ref(Collection('progress'), progressId),
           {
@@ -123,7 +123,7 @@ export namespace db {
     }
 
     export async function listAllFor(userId: string) {
-      return await db.query<Progress[]>(
+      return await db.query<ProgressItem[]>(
         Map(
           Paginate(Match(Index("progress_by_user"), Ref(Collection("users"), userId))),
           Lambda("ref", Get(Var("ref")))
@@ -162,12 +162,12 @@ export namespace db {
      * Call when a user has completed an SRS review for a given pattern.
      * Only updates srs level if it is the correct time to do so.
      */
-    export async function recordReview(userId: string, patternId: string, remembered: boolean): Promise<Progress | null> {
+    export async function recordReview(userId: string, patternId: string, remembered: boolean): Promise<ProgressItem | null> {
       const progress = await db.progress.get(userId, patternId)
 
       if (!progress) {
         // Initial review
-        return await db.querySingle<Progress>(
+        return await db.querySingle<ProgressItem>(
           Create(Collection("progress"), {
             data: {
               userRef: Ref(Collection("users"), userId),
@@ -192,7 +192,7 @@ export namespace db {
         }
       }
 
-      return await db.querySingle<Progress>(
+      return await db.querySingle<ProgressItem>(
         Update(
           Ref(Collection('progress'), progress.id),
           {

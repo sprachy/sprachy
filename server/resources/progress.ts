@@ -1,4 +1,4 @@
-import type { Progress, ProgressSummary, Review, User } from "../../common/api"
+import type { ProgressItem, ProgressSummary } from "../../common/api"
 import type { SessionRequest } from "../middleware"
 import { db } from "../db"
 import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now } from 'faunadb'
@@ -16,7 +16,7 @@ const progressReport = z.object({
   patternId: z.string(),
   remembered: z.boolean()
 })
-export async function recordReview(req: SessionRequest): Promise<Progress | null> {
+export async function recordReview(req: SessionRequest): Promise<ProgressItem | null> {
   const { patternId, remembered } = progressReport.parse(await req.body())
   return await db.progress.recordReview(req.session.userId, patternId, remembered)
 }
