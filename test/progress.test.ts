@@ -5,9 +5,9 @@ import { db } from '../server/db'
 
 test('srs progress updates', async () => {
   const { asUser } = await testenv()
+  const summary = await asUser.api.getProgress()
 
   // User gets their first lesson
-  const pattern = await asUser.api.getNextPattern()
   expect(pattern.explanation).toBeDefined()
 
   // User learns about the pattern

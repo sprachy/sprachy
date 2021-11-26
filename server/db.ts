@@ -3,7 +3,7 @@ import type { Pattern, ProgressItem, Review, User } from '../common/api'
 import _ from 'lodash'
 import { IS_PRODUCTION } from './settings'
 import { FAUNA_ADMIN_KEY } from './secrets'
-import { FaunaDocument, flattenFauna, customFetch } from './faunaUtil'
+import { FaunaDocument, flattenFauna } from './faunaUtil'
 import * as time from '../common/time'
 import allPatterns from '../patterns'
 
@@ -13,7 +13,7 @@ export namespace db {
     IS_PRODUCTION
       ? {
         client: new faunadb.Client({
-          secret: FAUNA_ADMIN_KEY,
+          secret: FAUNA_ADMIN_KEY
         })
       }
       : {
@@ -37,19 +37,7 @@ export namespace db {
   }
 
   export async function querySingle<T>(expr: Expr) {
-    console.log(expr)
-    console.log("Calling fauna...")
-    let res
-    try {
-      res = await fauna.client.query(expr)
-    } catch (err) {
-      console.log("Caught error??")
-      console.error(err)
-      throw err
-    }
-    console.log("Response?")
-    console.log(res)
-
+    const res = await fauna.client.query(expr)
     if (res === null)
       return res
 
