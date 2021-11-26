@@ -8,16 +8,22 @@ import * as time from '../common/time'
 import allPatterns from '../patterns'
 
 export namespace db {
-  // This allows the client to be changed e.g. by tests
-  export const fauna = {
-    client: new faunadb.Client({
-      secret: FAUNA_ADMIN_KEY,
-      domain: IS_PRODUCTION ? 'db.fauna.com' : 'localhost',
-      port: 8443,
-      scheme: IS_PRODUCTION ? 'https' : 'http',
-      fetch: typeof fetch === 'undefined' ? undefined : customFetch,
-    })
-  }
+  // This structure allows the client to be changed e.g. by tests
+  export const fauna =
+    IS_PRODUCTION
+      ? {
+        client: new faunadb.Client({
+          secret: FAUNA_ADMIN_KEY,
+        })
+      }
+      : {
+        client: new faunadb.Client({
+          secret: FAUNA_ADMIN_KEY,
+          domain: 'localhost',
+          port: 8443,
+          scheme: 'http'
+        })
+      }
 
   export function GetIfExists(expr: Expr) {
     return Let(
@@ -31,7 +37,18 @@ export namespace db {
   }
 
   export async function querySingle<T>(expr: Expr) {
-    const res = await fauna.client.query(expr)
+    console.log(expr)
+    console.log("Calling fauna...")
+    let res
+    try {
+      res = await fauna.client.query(expr)
+    } catch (err) {
+      console.log("Caught error??")
+      console.error(err)
+      throw err
+    }
+    console.log("Response?")
+    console.log(res)
 
     if (res === null)
       return res
