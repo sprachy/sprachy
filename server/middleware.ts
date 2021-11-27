@@ -10,8 +10,8 @@ import { ZodError } from 'zod'
 
 /**
  * Throw this to signal that request processing should
- * abort immediately and return the given http error
- * code + message
+ * abort immediately and send an error response with the given 
+ * http status code + message 
  */
 export class HTTPError extends Error {
   constructor(readonly code: number, message: string) {
@@ -56,7 +56,7 @@ export class BaseRouter {
         const responseData = await handler(baseReq, res)
 
         if (responseData !== undefined) {
-          res.send(200, JSON.stringify(responseData))
+          res.send(200, responseData)
         }
       } catch (err: any) {
         console.error(err)
