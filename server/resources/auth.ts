@@ -1,12 +1,11 @@
-import type { ServerRequest } from "worktop/request"
-import { Collection, Create, Index, Login, Match } from "faunadb"
+import type { ServerResponse } from "worktop/response"
 import * as z from 'zod'
+import { Index, Login, Match } from "faunadb"
 
 import type { User, ProgressSummary } from "../../common/api"
+import type { BaseRequest } from "../middleware"
 import { db } from "../db"
 import { sessions } from "../sessions"
-import type { ServerResponse } from "worktop/response"
-import type { BaseRequest } from "../middleware"
 import { getFaunaError } from "../faunaUtil"
 
 const signupForm = z.object({
@@ -16,7 +15,7 @@ const signupForm = z.object({
   message: "Password must be at least length 10",
   path: ["password"]
 })
-export async function signup(req: ServerRequest, res: ServerResponse): Promise<ProgressSummary> {
+export async function signup(req: BaseRequest, res: ServerResponse): Promise<ProgressSummary> {
   const { email, password } = signupForm.parse(await req.body())
 
   let user: User
@@ -56,7 +55,7 @@ const loginForm = z.object({
   email: z.string(),
   password: z.string()
 })
-export async function login(req: ServerRequest, res: ServerResponse): Promise<ProgressSummary> {
+export async function login(req: BaseRequest, res: ServerResponse): Promise<ProgressSummary> {
   const { email, password } = loginForm.parse(await req.body())
 
   const result = await db.fauna.client.query(

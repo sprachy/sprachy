@@ -1,5 +1,5 @@
 import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now, Difference, Select, Filter, Not, Time } from 'faunadb'
-import type { Pattern, ProgressItem, Review, User } from '../common/api'
+import type { ProgressItem, User } from '../common/api'
 import _ from 'lodash'
 import { IS_PRODUCTION } from './settings'
 import { FAUNA_ADMIN_KEY } from './secrets'
@@ -36,6 +36,9 @@ export namespace db {
     )
   }
 
+  /**
+   * Run a faunadb query, expecting a single document as a result.
+   */
   export async function querySingle<T>(expr: Expr) {
     const res = await fauna.client.query(expr)
     if (res === null)
@@ -44,6 +47,9 @@ export namespace db {
     return flattenFauna(res as FaunaDocument<T>)
   }
 
+  /**
+   * Run a faunadb query, expecting a list of documents as a result.
+   */
   export async function query<T extends any[]>(expr: Expr) {
     const res = await fauna.client.query(expr) as { data: FaunaDocument<T[0]>[] }
     return res.data.map(flattenFauna)
@@ -137,33 +143,6 @@ export namespace db {
     }
 
     /**
-     * This method of retrieval won't scale, but suffices for now
-     * The whole calculation can potentially be done using Fauna query/index
-     */
-    export async function getReviewsFor(userId: string) {
-      const allProgress = await db.progress.listAllFor(userId)
-      const allPatterns = await db.patterns.listAll()
-      const patternsById = _.keyBy(allPatterns, p => p.id)
-
-      const reviews: Review[] = []
-      for (const progress of allProgress) {
-        const nextReviewAt = progress.lastReviewedAt + time.toNextSRSLevel(progress.srsLevel)
-        if (time.now() >= nextReviewAt) {
-          reviews.push({
-            progress: progress,
-            pattern: patternsById[progress.patternId]!
-          })
-        }
-      }
-      return reviews
-    }
-
-
-    export async function countReviewsFor(userId: string): Promise<number> {
-      return (await db.progress.getReviewsFor(userId)).length
-    }
-
-    /**
      * Call when a user has completed an SRS review for a given pattern.
      * Only updates srs level if it is the correct time to do so.
      */
@@ -206,97 +185,5 @@ export namespace db {
         )
       )
     }
-  }
-
-  /**
-   * Patterns are currently embedded into the server code directly
-   * 
-   * They're treated as part of the database here though since we may
-   * want to move them in there once there are enough
-   */
-  export namespace patterns {
-    // export function NotLearnedByUser(userId: string) {
-    //   return Filter(
-    //     Match(Index("all_patterns")),
-    //     Lambda(
-    //       "patternRef",
-    //       Not(Exists(Match(Index("progress_by_user_and_pattern"), [
-    //         Ref(Collection("users"), userId),
-    //         Var("patternRef")
-    //       ])))
-    //     )
-    //   )
-    // }
-
-    /**
-     * Get the next pattern for a user to learn
-     */
-    export async function nextPatternFor(userId: string): Promise<Pattern | null> {
-      const allProgress = await db.progress.listAllFor(userId)
-      const progressByPatternId = _.keyBy(allProgress, p => p.patternId)
-
-      for (const pattern of allPatterns) {
-        if (!progressByPatternId[pattern.id]) {
-          return pattern
-        }
-      }
-
-      return null
-
-      // return await db.querySingle<Pattern>(
-      //   Let(
-      //     { patterns: NotLearnedByUser(userId) },
-      //     If(
-      //       Exists(Var("patterns")),
-      //       Get(Var("patterns")),
-      //       null
-      //     )
-      //   )
-      // )
-    }
-
-    export async function get(patternId: string): Promise<Pattern> {
-      return allPatterns.find(p => p.id === patternId)!
-      // return await db.querySingle<Pattern>(
-      //   Get(Ref(Collection("patterns"), patternId))
-      // )
-    }
-
-    export async function listAll(): Promise<Pattern[]> {
-      return allPatterns
-      // // TODO handle pagination
-      // return await db.query<Pattern[]>(
-      //   Map(
-      //     Paginate(Match(Index("all_patterns"))),
-      //     Lambda("ref", Get(Var("ref")))
-      //   )
-      // )
-    }
-
-    // export async function create(data: Omit<Pattern, 'id'>): Promise<Pattern> {
-    //   return await db.querySingle<Pattern>(
-    //     Create(
-    //       Collection('patterns'),
-    //       { data: data }
-    //     )
-    //   )
-    // }
-
-    // export async function update(patternId: string, changes: Partial<Omit<Pattern, 'id'>>): Promise<Pattern> {
-    //   return await db.querySingle<Pattern>(
-    //     Update(
-    //       Ref(Collection('patterns'), patternId),
-    //       { data: changes }
-    //     )
-    //   )
-    // }
-
-    // export async function destroy(patternId: string) {
-    //   await db.fauna.client.query(
-    //     Delete(
-    //       Ref(Collection('patterns'), patternId)
-    //     )
-    //   )
-    // }
   }
 }
