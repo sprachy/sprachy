@@ -1,16 +1,16 @@
 import * as auth from './resources/auth'
 import * as usersAdmin from './resources/usersAdmin'
 import * as progress from './resources/progress'
-import { BaseRouter, RequireLoginRouter, AdminRouter } from './middleware'
+import { APIMiddleware, RequireLoginMiddleware, AdminMiddleware } from './middleware'
 
-export const api = new BaseRouter()
+export const api = new APIMiddleware()
 api.add('POST', '/api/signup', auth.signup)
 api.add('POST', '/api/login', auth.login)
 api.add('POST', '/api/logout', auth.logout)
 
-const userApi = new RequireLoginRouter(api)
+const userApi = new RequireLoginMiddleware(api)
 userApi.add('GET', '/api/progress', progress.getSummary)
 userApi.add('POST', '/api/progress', progress.recordReview)
 
-const adminApi = new AdminRouter(userApi)
+const adminApi = new AdminMiddleware(userApi)
 adminApi.add('GET', '/api/admin/users', usersAdmin.listUsers)
