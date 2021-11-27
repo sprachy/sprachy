@@ -5,8 +5,8 @@ import type { User } from '../common/api'
 import { Session, sessions } from './sessions'
 import { db } from './db'
 import * as cookie from "cookie"
-import { getFaunaError } from './faunaUtil'
 import { ZodError } from 'zod'
+import { FaunaHTTPError } from './faunaUtil'
 
 /**
  * Throw this to signal that request processing should
@@ -14,7 +14,7 @@ import { ZodError } from 'zod'
  * http status code + message 
  */
 export class HTTPError extends Error {
-  constructor(readonly code: number, message: string) {
+  constructor(readonly status: number, message: string) {
     super(message)
   }
 }
@@ -63,7 +63,7 @@ export class APIMiddleware {
 
         if (err instanceof HTTPError) {
           // We intentionally threw a http error here
-          res.send(err.code, err.message)
+          res.send(err.status, err.message)
 
         } else if (err instanceof ZodError) {
           // An error from Zod means the server is working correctly, but the
@@ -73,12 +73,11 @@ export class APIMiddleware {
           // {"formErrors":[],"fieldErrors":{"email":["Invalid email"]}}
           res.send(422, err.flatten())
 
-        } else if ('requestResult' in err) {
+        } else if (err instanceof FaunaHTTPError) {
           // Various fauna query errors that we just send straight through
           // to the frontend for handling, primarily 401s and 404s
-          const faunaErr = getFaunaError(err)
-          res.send(faunaErr.status, faunaErr)
 
+          res.send(err.status, { code: err.code, message: err.message })
         } else {
           // The server is broken somehow! This should only be sent
           // if there's an actual bug involved.

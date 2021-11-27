@@ -1,36 +1,42 @@
 import { Expr } from 'faunadb'
 
-export function getFaunaError(error: any) {
-  let code: string = 'unknown error'
-  let description: string = error.message
+export class FaunaHTTPError extends Error {
+  /** HTTP status code */
+  status: number
+  /** The faunadb error code */
+  code: string
 
-  const errors = error.requestResult?.responseContent?.errors
-  if (errors && errors.length) {
-    code = errors[0].code
-    description = errors[0].description
+  constructor(err: any) {
+    let code: string = 'unknown error'
+    let message: string = err.message
+
+    const errors = err.requestResult?.responseContent?.errors
+    if (errors && errors.length) {
+      code = errors[0].code
+      message = errors[0].description
+    }
+
+    super(message)
+
+    switch (code) {
+      case 'instance not found':
+        this.status = 404
+        break
+      case 'instance not unique':
+        this.status = 409
+        break
+      case 'permission denied':
+        this.status = 403
+        break
+      case 'unauthorized':
+      case 'authentication failed':
+        this.status = 401
+        break
+      default:
+        this.status = 500
+    }
+    this.code = code
   }
-
-  let status
-  switch (code) {
-    case 'instance not found':
-      status = 404
-      break
-    case 'instance not unique':
-      status = 409
-      break
-    case 'permission denied':
-      status = 403
-      break
-    case 'unauthorized':
-    case 'authentication failed':
-      status = 401
-      break
-
-    default:
-      status = 500
-  }
-
-  return { code, description, status }
 }
 
 

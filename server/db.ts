@@ -3,7 +3,7 @@ import type { ProgressItem, User } from '../common/api'
 import _ from 'lodash'
 import { IS_PRODUCTION } from './settings'
 import { FAUNA_ADMIN_KEY } from './secrets'
-import { FaunaDocument, flattenFauna } from './faunaUtil'
+import { FaunaDocument, flattenFauna, FaunaHTTPError } from './faunaUtil'
 import * as time from '../common/time'
 import allPatterns from '../patterns'
 
@@ -37,10 +37,22 @@ export namespace db {
   }
 
   /**
-   * Run a faunadb query, expecting a single document as a result.
+   * Run a faunadb query with error handling and return the
+   * raw, unparsed result.
+   */
+  export async function faunaQuery(expr: Expr): Promise<any> {
+    try {
+      return await fauna.client.query(expr)
+    } catch (err: any) {
+      throw new FaunaHTTPError(err)
+    }
+  }
+
+  /**
+   * Run a faunadb query, retrieving a single document as a result.
    */
   export async function querySingle<T>(expr: Expr) {
-    const res = await fauna.client.query(expr)
+    const res = await faunaQuery(expr)
     if (res === null)
       return res
 
@@ -48,10 +60,10 @@ export namespace db {
   }
 
   /**
-   * Run a faunadb query, expecting a list of documents as a result.
+   * Run a faunadb query, retrieving a list of documents as a result.
    */
   export async function query<T extends any[]>(expr: Expr) {
-    const res = await fauna.client.query(expr) as { data: FaunaDocument<T[0]>[] }
+    const res = await faunaQuery(expr) as { data: FaunaDocument<T[0]>[] }
     return res.data.map(flattenFauna)
   }
 

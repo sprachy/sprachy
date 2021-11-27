@@ -3,10 +3,10 @@ import * as z from 'zod'
 import { Index, Login, Match } from "faunadb"
 
 import type { User, ProgressSummary } from "../../common/api"
-import type { BaseRequest } from "../middleware"
+import type { APIRequest } from "../middleware"
 import { db } from "../db"
 import { sessions } from "../sessions"
-import { getFaunaError } from "../faunaUtil"
+import { FaunaHTTPError } from "../faunaUtil"
 
 const signupForm = z.object({
   email: z.string().email(),
@@ -15,17 +15,16 @@ const signupForm = z.object({
   message: "Password must be at least length 10",
   path: ["password"]
 })
-export async function signup(req: BaseRequest, res: ServerResponse): Promise<ProgressSummary> {
+export async function signup(req: APIRequest, res: ServerResponse): Promise<ProgressSummary> {
   const { email, password } = signupForm.parse(await req.body())
 
   let user: User
   try {
     user = await db.users.create({ email, password, isAdmin: false })
   } catch (err: any) {
-    const faunaErr = getFaunaError(err)
-    if (faunaErr && faunaErr.code === "instance not unique") {
+    if (err instanceof FaunaHTTPError && err.code === "instance not unique") {
       // If the user already exists, try just signing in
-      const res = await db.fauna.client.query(
+      const res = await db.faunaQuery(
         Login(
           Match(Index("users_by_email"), email),
           { password: password },
@@ -55,10 +54,10 @@ const loginForm = z.object({
   email: z.string(),
   password: z.string()
 })
-export async function login(req: BaseRequest, res: ServerResponse): Promise<ProgressSummary> {
+export async function login(req: APIRequest, res: ServerResponse): Promise<ProgressSummary> {
   const { email, password } = loginForm.parse(await req.body())
 
-  const result = await db.fauna.client.query(
+  const result = await db.faunaQuery(
     Login(
       Match(Index("users_by_email"), email),
       { password: password },
@@ -76,7 +75,7 @@ export async function login(req: BaseRequest, res: ServerResponse): Promise<Prog
   return { user, progressItems }
 }
 
-export async function logout(req: BaseRequest): Promise<void> {
+export async function logout(req: APIRequest): Promise<void> {
   if (!req.session) return
   await sessions.expire(req.session.key)
 }
