@@ -2,7 +2,6 @@ import * as auth from './resources/auth'
 import * as usersAdmin from './resources/usersAdmin'
 import * as progress from './resources/progress'
 import { BaseRouter, RequireLoginRouter, AdminRouter } from './middleware'
-import { db } from './db'
 
 export const api = new BaseRouter()
 api.add('POST', '/api/signup', auth.signup)

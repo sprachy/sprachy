@@ -142,7 +142,6 @@ export namespace db {
      */
     export async function getReviewsFor(userId: string) {
       const allProgress = await db.progress.listAllFor(userId)
-      const allPatterns = await db.patterns.listAll()
       const patternsById = _.keyBy(allPatterns, p => p.id)
 
       const reviews: Review[] = []
@@ -206,97 +205,5 @@ export namespace db {
         )
       )
     }
-  }
-
-  /**
-   * Patterns are currently embedded into the server code directly
-   * 
-   * They're treated as part of the database here though since we may
-   * want to move them in there once there are enough
-   */
-  export namespace patterns {
-    // export function NotLearnedByUser(userId: string) {
-    //   return Filter(
-    //     Match(Index("all_patterns")),
-    //     Lambda(
-    //       "patternRef",
-    //       Not(Exists(Match(Index("progress_by_user_and_pattern"), [
-    //         Ref(Collection("users"), userId),
-    //         Var("patternRef")
-    //       ])))
-    //     )
-    //   )
-    // }
-
-    /**
-     * Get the next pattern for a user to learn
-     */
-    export async function nextPatternFor(userId: string): Promise<Pattern | null> {
-      const allProgress = await db.progress.listAllFor(userId)
-      const progressByPatternId = _.keyBy(allProgress, p => p.patternId)
-
-      for (const pattern of allPatterns) {
-        if (!progressByPatternId[pattern.id]) {
-          return pattern
-        }
-      }
-
-      return null
-
-      // return await db.querySingle<Pattern>(
-      //   Let(
-      //     { patterns: NotLearnedByUser(userId) },
-      //     If(
-      //       Exists(Var("patterns")),
-      //       Get(Var("patterns")),
-      //       null
-      //     )
-      //   )
-      // )
-    }
-
-    export async function get(patternId: string): Promise<Pattern> {
-      return allPatterns.find(p => p.id === patternId)!
-      // return await db.querySingle<Pattern>(
-      //   Get(Ref(Collection("patterns"), patternId))
-      // )
-    }
-
-    export async function listAll(): Promise<Pattern[]> {
-      return allPatterns
-      // // TODO handle pagination
-      // return await db.query<Pattern[]>(
-      //   Map(
-      //     Paginate(Match(Index("all_patterns"))),
-      //     Lambda("ref", Get(Var("ref")))
-      //   )
-      // )
-    }
-
-    // export async function create(data: Omit<Pattern, 'id'>): Promise<Pattern> {
-    //   return await db.querySingle<Pattern>(
-    //     Create(
-    //       Collection('patterns'),
-    //       { data: data }
-    //     )
-    //   )
-    // }
-
-    // export async function update(patternId: string, changes: Partial<Omit<Pattern, 'id'>>): Promise<Pattern> {
-    //   return await db.querySingle<Pattern>(
-    //     Update(
-    //       Ref(Collection('patterns'), patternId),
-    //       { data: changes }
-    //     )
-    //   )
-    // }
-
-    // export async function destroy(patternId: string) {
-    //   await db.fauna.client.query(
-    //     Delete(
-    //       Ref(Collection('patterns'), patternId)
-    //     )
-    //   )
-    // }
   }
 }
