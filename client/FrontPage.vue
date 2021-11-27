@@ -87,8 +87,8 @@ export default class FrontPage extends Vue {
       this.$initApp(summary)
       this.$router.navigate("/home")
     } catch (err: any) {
-      if (err?.response?.data?.code === "authentication failed") {
-        this.errorMessage = "Invalid email or password"
+      if (err?.response?.data?.code === "email not found") {
+        this.errorMessage = "Invalid email"
       } else {
         throw err
       }
