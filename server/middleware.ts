@@ -62,13 +62,26 @@ export class BaseRouter {
         console.error(err)
 
         if (err instanceof HTTPError) {
+          // We intentionally threw a http error here
           res.send(err.code, err.message)
+
         } else if (err instanceof ZodError) {
+          // An error from Zod means the server is working correctly, but the
+          // client sent something we couldn't process
+          //
+          // The flattened format goes to the frontend as e.g.
+          // {"formErrors":[],"fieldErrors":{"email":["Invalid email"]}}
           res.send(422, err.flatten())
+
         } else if ('requestResult' in err) {
+          // Various fauna query errors that we just send straight through
+          // to the frontend for handling, primarily 401s and 404s
           const faunaErr = getFaunaError(err)
           res.send(faunaErr.status, faunaErr)
+
         } else {
+          // The server is broken somehow! This should only be sent
+          // if there's an actual bug involved.
           res.send(500, err.stack)
         }
       }

@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios'
 import _ from 'lodash'
 import type { ProgressItem, User, ProgressSummary } from '../common/api'
 import { IS_PRODUCTION } from './settings'
@@ -7,6 +7,28 @@ async function delay(amount: number) {
   return new Promise(resolve => {
     _.delay(resolve, amount)
   })
+}
+
+/**
+ * Client-side representation of a Zod validation error from
+ * the server
+ */
+export class SprachyAPIValidationError extends Error {
+  formErrors: string[]
+  fieldErrors: { [key: string]: string[] }
+  constructor(data: { formErrors: string[], fieldErrors: { [key: string]: string[] } }) {
+    super(JSON.stringify(data))
+    this.formErrors = data.formErrors
+    this.fieldErrors = data.fieldErrors
+  }
+
+  get messagesByField() {
+    const messages: { [key: string]: string } = {}
+    for (const field in this.fieldErrors) {
+      messages[field] = this.fieldErrors[field]!.join(", ")
+    }
+    return messages
+  }
 }
 
 export class HTTPProvider {
@@ -31,12 +53,20 @@ export class HTTPProvider {
   }
 
   async request(config: AxiosRequestConfig): Promise<any> {
-    const promise = this.axios.request(config)
-    this.ongoingRequests.push(promise)
-
-    return promise.finally(() => {
+    const promise = this.axios.request(config).finally(() => {
       this.ongoingRequests = this.ongoingRequests.filter(r => r !== promise)
     })
+    this.ongoingRequests.push(promise)
+
+    try {
+      return await promise
+    } catch (err: any) {
+      if (err?.response?.data?.fieldErrors) {
+        throw new SprachyAPIValidationError(err.response.data)
+      } else {
+        throw err
+      }
+    }
   }
 
   async get(path: string): Promise<any> {
@@ -88,7 +118,6 @@ export class UserAPI {
     return data
   }
 }
-
 
 export class AdminAPI {
   constructor(readonly http: HTTPProvider) { }

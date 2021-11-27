@@ -44,7 +44,7 @@ import { Vue, Component, Watch, Prop } from "vue-property-decorator"
 import * as _ from "lodash"
 
 @Component
-export default class CheckerErrorModal extends Vue {
+export default class UnexpectedErrorModal extends Vue {
   @Prop({ type: Error, required: true }) error!: Error | AxiosError
   @Prop({ type: Function, required: true }) onDismiss!: () => void
   showErrorModal: boolean = true

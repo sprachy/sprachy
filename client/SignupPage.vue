@@ -59,7 +59,7 @@ export default class SignupPage extends Vue {
       const summary = await this.$api.signUp({ email, password })
       this.$initApp(summary)
       this.$router.navigate("/home")
-    } catch (err) {
+    } catch (err: any) {
       throw err
     }
   }

@@ -34,11 +34,12 @@
                 className="form-control"
                 placeholder="Email"
                 required
+                :state="errors.email ? false : null"
                 v-model="email"
               />
-              <div v-if="errorMessage">
-                {{ errorMessage }}
-              </div>
+              <b-form-invalid-feedback v-if="errors.email">
+                {{ errors.email }}
+              </b-form-invalid-feedback>
             </b-form-group>
             <b-form-group label="Password">
               <b-input
@@ -48,9 +49,13 @@
                 className="form-control"
                 placeholder="Password"
                 :minLength="10"
+                :state="errors.password ? false : null"
                 required
                 v-model="password"
               />
+              <b-form-invalid-feedback v-if="errors.password">
+                {{ errors.password }}
+              </b-form-invalid-feedback>
             </b-form-group>
             <input type="hidden" name="then" :value="afterAuthUrl" />
             <b-btn size="lg" type="submit">Sign up for Sprachy</b-btn>
@@ -65,6 +70,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import _ from "lodash"
+import { SprachyAPIValidationError } from "./ClientAPI"
 @Component({
   components: {},
 })
@@ -72,7 +78,7 @@ export default class FrontPage extends Vue {
   email: string = ""
   password: string = ""
   afterAuthUrl: string = ""
-  errorMessage: string | null = null
+  errors: SprachyAPIValidationError["messagesByField"] = {}
 
   activated() {
     if (this.$user) {
@@ -88,8 +94,8 @@ export default class FrontPage extends Vue {
       this.$initApp(summary)
       this.$router.navigate("/home")
     } catch (err: any) {
-      if (err?.response?.data?.fieldErrors?.email[0] === "Invalid email") {
-        this.errorMessage = "Invalid email"
+      if (err instanceof SprachyAPIValidationError) {
+        this.errors = err.messagesByField
       } else {
         throw err
       }
