@@ -30,11 +30,15 @@
               <b-input
                 name="email"
                 id="email"
+                type="email"
                 className="form-control"
                 placeholder="Email"
                 required
                 v-model="email"
               />
+              <div v-if="errorMessage">
+                {{ errorMessage }}
+              </div>
             </b-form-group>
             <b-form-group label="Password">
               <b-input
@@ -50,9 +54,6 @@
             </b-form-group>
             <input type="hidden" name="then" :value="afterAuthUrl" />
             <b-btn size="lg" type="submit">Sign up for Sprachy</b-btn>
-            <div v-if="errorMessage">
-              {{ errorMessage }}
-            </div>
           </form>
         </b-col>
         <b-col> </b-col>
@@ -87,9 +88,13 @@ export default class FrontPage extends Vue {
       this.$initApp(summary)
       this.$router.navigate("/home")
     } catch (err: any) {
-      if (err?.response?.data?.code === "email not found") {
+      window.err = err
+      console.log(err?.response?.data?.fieldErrors?.email[0])
+      if (err?.response?.data?.fieldErrors?.email[0] === "Invalid email") {
         this.errorMessage = "Invalid email"
+        console.log("Worked!")
       } else {
+        console.log("Didn't work!")
         throw err
       }
     }

@@ -22,7 +22,6 @@ export function getFaunaError(error: any) {
       status = 403
       break
     case 'unauthorized':
-    case 'email not found':
     case 'authentication failed':
       status = 401
       break
