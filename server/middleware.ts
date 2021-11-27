@@ -7,6 +7,11 @@ import { db } from './db'
 import * as cookie from "cookie"
 import { getFaunaError } from './faunaUtil'
 
+/**
+ * Throw this to signal that request processing should
+ * abort immediately and return the given http error
+ * code + message
+ */
 export class HTTPError extends Error {
   constructor(readonly code: number, message: string) {
     super(message)
