@@ -13,7 +13,7 @@ declare module 'vue/types/vue' {
     $admin: boolean
     $api: UserAPI
     $backgroundApi: UserAPI
-    $router: SprachyRouter
+    $routing: SprachyRouter
   }
 }
 

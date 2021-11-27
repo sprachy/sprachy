@@ -44,7 +44,7 @@ export default class SiteHeader extends Vue {
   async logout() {
     await this.$api.logout()
     this.$closeApp()
-    this.$router.navigate("/")
+    this.$routing.navigate("/")
   }
 }
 </script>

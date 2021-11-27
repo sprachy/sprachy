@@ -31,7 +31,7 @@ export default class AdminUsersPage extends Vue {
   }
 
   async editUser(userId: string) {
-    await this.$router.navigate(`/admin/users/${userId}`)
+    await this.$routing.navigate(`/admin/users/${userId}`)
   }
 }
 </script>

@@ -85,7 +85,7 @@ export default class App extends Vue {
     if (err && "response" in err && err.response?.status === 401) {
       globalErrorHandler.dismissError()
       this.$closeApp()
-      this.$router.navigate("/login")
+      this.$routing.navigate("/login")
     }
   }
 

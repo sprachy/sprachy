@@ -82,7 +82,7 @@ export default class FrontPage extends Vue {
 
   activated() {
     if (this.$user) {
-      this.$router.navigateReplace("/home")
+      this.$routing.navigateReplace("/home")
     }
   }
 
@@ -92,7 +92,7 @@ export default class FrontPage extends Vue {
     try {
       const summary = await this.$api.signUp({ email, password })
       this.$initApp(summary)
-      this.$router.navigate("/home")
+      this.$routing.navigate("/home")
     } catch (err: any) {
       if (err instanceof SprachyAPIValidationError) {
         this.errors = err.messagesByField

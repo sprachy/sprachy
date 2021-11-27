@@ -36,7 +36,7 @@ export default class PracticePage extends Vue {
   exercises: { content: string }[] = []
 
   activated() {
-    if (this.pattern && !this.$router.lastRouteChangeWasPopState) {
+    if (this.pattern && !this.$routing.lastRouteChangeWasPopState) {
       this.pattern = null
       this.loadPattern()
     }

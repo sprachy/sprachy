@@ -88,6 +88,10 @@ Object.defineProperty(Vue.prototype, '$admin', {
   get() { return app?.user && app?.user.isAdmin }
 })
 
+Object.defineProperty(Vue.prototype, '$routing', {
+  get() { return router }
+})
+
 new Vue({
   render: h => h(App),
   router: router
