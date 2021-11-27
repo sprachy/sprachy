@@ -2,7 +2,6 @@ import Router, { RawLocation, Route, RouterOptions } from 'vue-router'
 import _ from 'lodash'
 import LoginPage from './LoginPage.vue'
 import FrontPage from './FrontPage.vue'
-import SignupPage from './SignupPage.vue'
 import HomePage from './HomePage.vue'
 import SettingsPage from './SettingsPage.vue'
 import FAQPage from './FAQPage.vue'
@@ -26,11 +25,6 @@ const routerOptions: RouterOptions = {
       path: "/login",
       name: "login",
       component: LoginPage
-    },
-    {
-      path: "/signup",
-      name: "signup",
-      component: SignupPage
     },
     {
       path: "/home",
