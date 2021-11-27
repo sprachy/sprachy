@@ -23,7 +23,7 @@ Good morning. My name is Anna. I like to learn German.
 </dline>
 
 <dline by="squirrel">
-Grüße. Ich bin Töskirelon, Meister der Neunten Esperkunst und Imperator der unendlichen Ebene von Yi.
+Grüße. Ich bin Töskirelon, Meister der Neunten Esper-Kunst und Imperator der unendlichen Ebene von Yi.
 Greetings. I am Töskirelon, Master of the Ninth Esper Art and Imperator of the Infinite Plane of Yi.
 </dline>
 </dialogue>
@@ -32,11 +32,13 @@ Like most languages, German has a variety of words with similar meanings that ha
 
 <ltable header="Deutsch / Meaning">
 Hallo / Hello
+Hallihallo / Hello hello
 Guten Morgen / Good morning
 Guten Abend / Good evening
 Grüße / Greetings (formal)
 Hallöchen / Hii~ (cutely)
-Moin moin! / Kinda like "Mornin'!", but any time of day
+Moin! / Wishing the other something nice, popular in Northern Germany
+Moin moin! / Same as Moin but signaling the other you want to smalltalk
 </ltable>
 `,
   exercises: [

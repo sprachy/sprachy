@@ -19,7 +19,7 @@ Tösky, did you eat [my] bread roll?
 </dline>
 
 <dline by="squirrel">
-Jawohl. Es ist Brennstoff für das unnachgiebige Feuer meiner Seele geworden.
+Ja. Es ist zum Brennstoff für das ewige Feuer meiner Seele geworden.
 Yes. It has become fuel for the eternal fire of my soul.
 </dline>
 </dialogue>

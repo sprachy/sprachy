@@ -2,13 +2,13 @@ import { faVenusMars } from '@fortawesome/free-solid-svg-icons'
 import { definePattern, md } from '../common/definePattern'
 
 export default definePattern({
-  id: 'die-der-das',
-  slug: 'die-der-das',
-  title: "Die, der, das",
+  id: 'der-die-das',
+  slug: 'der-die-das',
+  title: "Der, die, das",
   shortdesc: "Ah yes, the three genders",
   icon: faVenusMars,
   explanation: md`
-Die, der, and das are the three ways of saying _the_ in German. Which one you use depends on the grammatical gender of the noun that follows. For example:
+Der, die, and das are the three ways of saying _the_ in German. Which one you use depends on the grammatical gender of the noun that follows. For example:
 
 <dline by="lukas">
 Das Eichhörnchen ist sehr süß!
@@ -16,7 +16,7 @@ The squirrel is very cute!
 </dline>
 
 <dline by="squirrel">
-S-süß?! Ich bin die Leere zwischen Leeren, aus der Götter fliehen. Ihr narrt auf eure eigene Gefahr, sterblicher.
+S-süß?! Ich bin die Leere zwischen den Leeren, vor denen die Götter fliehen. Ihr narrt auf eure eigene Gefahr, Sterblicher.
 Cute?! I am the void between voids from which gods flee. Mock me at your peril, mortal.
 </dline>
 

@@ -1,3 +1,3 @@
-import diederdas from './die-der-das'
+import derdiedas from './der-die-das'
 import intro from './intro'
-export default [intro, diederdas]
+export default [intro, derdiedas]
