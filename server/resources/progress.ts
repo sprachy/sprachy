@@ -1,7 +1,6 @@
 import type { ProgressItem, ProgressSummary } from "../../common/api"
 import type { SessionRequest } from "../middleware"
 import { db } from "../db"
-import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now } from 'faunadb'
 import * as z from 'zod'
 
 export async function getSummary(req: SessionRequest): Promise<ProgressSummary> {

@@ -1,5 +1,5 @@
 import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now, Difference, Select, Filter, Not, Time } from 'faunadb'
-import type { Pattern, ProgressItem, Review, User } from '../common/api'
+import type { ProgressItem, User } from '../common/api'
 import _ from 'lodash'
 import { IS_PRODUCTION } from './settings'
 import { FAUNA_ADMIN_KEY } from './secrets'
@@ -36,6 +36,9 @@ export namespace db {
     )
   }
 
+  /**
+   * Run a faunadb query, expecting a single document as a result.
+   */
   export async function querySingle<T>(expr: Expr) {
     const res = await fauna.client.query(expr)
     if (res === null)
@@ -44,6 +47,9 @@ export namespace db {
     return flattenFauna(res as FaunaDocument<T>)
   }
 
+  /**
+   * Run a faunadb query, expecting a list of documents as a result.
+   */
   export async function query<T extends any[]>(expr: Expr) {
     const res = await fauna.client.query(expr) as { data: FaunaDocument<T[0]>[] }
     return res.data.map(flattenFauna)
@@ -134,32 +140,6 @@ export namespace db {
           Lambda("ref", Get(Var("ref")))
         )
       )
-    }
-
-    /**
-     * This method of retrieval won't scale, but suffices for now
-     * The whole calculation can potentially be done using Fauna query/index
-     */
-    export async function getReviewsFor(userId: string) {
-      const allProgress = await db.progress.listAllFor(userId)
-      const patternsById = _.keyBy(allPatterns, p => p.id)
-
-      const reviews: Review[] = []
-      for (const progress of allProgress) {
-        const nextReviewAt = progress.lastReviewedAt + time.toNextSRSLevel(progress.srsLevel)
-        if (time.now() >= nextReviewAt) {
-          reviews.push({
-            progress: progress,
-            pattern: patternsById[progress.patternId]!
-          })
-        }
-      }
-      return reviews
-    }
-
-
-    export async function countReviewsFor(userId: string): Promise<number> {
-      return (await db.progress.getReviewsFor(userId)).length
     }
 
     /**

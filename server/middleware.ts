@@ -7,7 +7,7 @@ import { db } from './db'
 import * as cookie from "cookie"
 import { getFaunaError } from './faunaUtil'
 
-class HTTPError extends Error {
+export class HTTPError extends Error {
   constructor(readonly code: number, message: string) {
     super(message)
   }
@@ -24,7 +24,7 @@ type HTTPMethod =
 
 
 export type BaseRequest = ServerRequest & {
-  session: Session|null
+  session: Session | null
 }
 
 /**
@@ -70,7 +70,7 @@ export type SessionRequest = ServerRequest & {
  * Router that only allows requests with a valid session
  */
 export class RequireLoginRouter {
-  constructor(readonly parentRouter: BaseRouter) {}
+  constructor(readonly parentRouter: BaseRouter) { }
 
   add(method: HTTPMethod, path: string, handler: (req: SessionRequest, res: ServerResponse) => Promise<any>) {
     this.parentRouter.add(method, path, async (req, res) => {
@@ -91,7 +91,7 @@ export type AdminRequest = SessionRequest & {
  * Router that only allows requests from authorized admin users
  */
 export class AdminRouter {
-  constructor(readonly parentRouter: RequireLoginRouter) {}
+  constructor(readonly parentRouter: RequireLoginRouter) { }
 
   add(method: HTTPMethod, path: string, handler: (req: AdminRequest, res: ServerResponse) => Promise<any>) {
     this.parentRouter.add(method, path, async (req, res) => {

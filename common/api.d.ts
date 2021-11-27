@@ -14,7 +14,6 @@ export type Pattern = {
   }[]
 }
 
-
 export type ProgressItem = {
   id: string
   userId: string
@@ -23,11 +22,6 @@ export type ProgressItem = {
   lastLeveledAt: number
   lastReviewedAt: number
   srsLevel: number
-}
-
-export type Review = {
-  pattern: Pattern
-  progress: Progress
 }
 
 export type Exercise = Pattern['exercises'][0]
