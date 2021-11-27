@@ -6,6 +6,7 @@ import { Session, sessions } from './sessions'
 import { db } from './db'
 import * as cookie from "cookie"
 import { getFaunaError } from './faunaUtil'
+import { ZodError } from 'zod'
 
 /**
  * Throw this to signal that request processing should
@@ -62,6 +63,8 @@ export class BaseRouter {
 
         if (err instanceof HTTPError) {
           res.send(err.code, err.message)
+        } else if (err instanceof ZodError) {
+          res.send(422, err.flatten())
         } else if ('requestResult' in err) {
           const faunaErr = getFaunaError(err)
           res.send(faunaErr.status, faunaErr)
