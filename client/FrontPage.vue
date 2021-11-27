@@ -88,13 +88,9 @@ export default class FrontPage extends Vue {
       this.$initApp(summary)
       this.$router.navigate("/home")
     } catch (err: any) {
-      window.err = err
-      console.log(err?.response?.data?.fieldErrors?.email[0])
       if (err?.response?.data?.fieldErrors?.email[0] === "Invalid email") {
         this.errorMessage = "Invalid email"
-        console.log("Worked!")
       } else {
-        console.log("Didn't work!")
         throw err
       }
     }
