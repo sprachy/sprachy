@@ -12,8 +12,8 @@ import { getFaunaError } from "../faunaUtil"
 const signupForm = z.object({
   email: z.string().email(),
   password: z.string()
-}).refine(d => d.password.length >= 12, {
-  message: "Password must be at least length 12",
+}).refine(d => d.password.length >= 10, {
+  message: "Password must be at least length 10",
   path: ["password"]
 })
 export async function signup(req: ServerRequest, res: ServerResponse): Promise<ProgressSummary> {

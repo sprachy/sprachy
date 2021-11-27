@@ -48,7 +48,11 @@
                 v-model="password"
               />
             </b-form-group>
+            <input type="hidden" name="then" :value="afterAuthUrl" />
             <b-btn size="lg" type="submit">Sign up for Sprachy</b-btn>
+            <div v-if="errorMessage">
+              {{ errorMessage }}
+            </div>
           </form>
         </b-col>
         <b-col> </b-col>
@@ -66,6 +70,8 @@ import _ from "lodash"
 export default class FrontPage extends Vue {
   email: string = ""
   password: string = ""
+  afterAuthUrl: string = ""
+  errorMessage: string | null = null
 
   activated() {
     if (this.$user) {
@@ -80,8 +86,12 @@ export default class FrontPage extends Vue {
       const summary = await this.$api.signUp({ email, password })
       this.$initApp(summary)
       this.$router.navigate("/home")
-    } catch (err) {
-      console.error(err)
+    } catch (err: any) {
+      if (err?.response?.data?.code === "authentication failed") {
+        this.errorMessage = "Invalid email or password"
+      } else {
+        throw err
+      }
     }
   }
 }

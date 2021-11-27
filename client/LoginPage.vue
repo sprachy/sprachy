@@ -27,7 +27,7 @@
         {{ errorMessage }}
       </div>
       <hr />
-      <router-link to="/signup">Sign up</router-link>
+      <router-link to="/">Sign up</router-link>
     </b-form>
   </main>
 </template>
