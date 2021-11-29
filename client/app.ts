@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import type { ProgressItem, User, ProgressSummary, Pattern } from '../common/api'
-import { sprachdex } from '../common/sprachdex'
+import type { ProgressItem, User, ProgressSummary } from '../common/api'
+import { sprachdex, Pattern } from '../common/sprachdex'
 import time from '../common/time'
 import type { UserAPI } from './ClientAPI'
 

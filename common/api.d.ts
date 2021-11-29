@@ -4,16 +4,6 @@ export type User = {
   isAdmin: boolean
 }
 
-export type Pattern = {
-  id: string
-  title: string
-  slug: string
-  explanation: string
-  exercises: {
-    content: string
-  }[]
-}
-
 export type ProgressItem = {
   id: string
   userId: string
@@ -23,8 +13,6 @@ export type ProgressItem = {
   lastReviewedAt: number
   srsLevel: number
 }
-
-export type Exercise = Pattern['exercises'][0]
 
 /**
  * Package of initial information sent to the frontend

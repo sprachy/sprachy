@@ -26,7 +26,7 @@
 <script lang="ts">
 import { Component, Prop, Provide, Ref, Vue } from "vue-property-decorator"
 import _ from "lodash"
-import type { Exercise } from "../common/api"
+import type { Exercise } from "../common/sprachdex"
 import { levenshtein } from "./levenshtein"
 import { CanvasEffects } from "./CanvasEffects"
 import type { ExerciseContext } from "./types"
@@ -82,11 +82,10 @@ export default class FillblankCard extends Vue {
 
   @Provide("exerciseContext") exerciseContext: ExerciseContext = {
     attempt: "",
-    alternatives: [],
   }
 
   checkAnswer() {
-    const match = this.exerciseContext.alternatives.find((ans) =>
+    const match = [this.exercise.canonicalAnswer].find((ans) =>
       matchesAnswerPermissively(this.exerciseContext.attempt, ans)
     )
     if (match) {

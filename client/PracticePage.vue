@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
-import type { Pattern } from "../common/api"
+import type { Pattern } from "../common/sprachdex"
 import marked from "marked"
 import FillblankCard from "./FillblankCard.vue"
 import { NotFoundError } from "./globalErrorHandling"

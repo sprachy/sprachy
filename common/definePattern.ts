@@ -10,8 +10,11 @@ export type PatternDef = {
   explanation: string
   exercises: {
     content: string
+    feedback?: { [key: string]: string }
   }[]
 }
+
+export type ExerciseDef = PatternDef['exercises'][0]
 
 export function definePattern(def: PatternDef): PatternDef {
   return def

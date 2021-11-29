@@ -54,13 +54,6 @@ export default class DLine extends Vue {
     }
   }
 
-  @Watch("parts", { immediate: true })
-  updateContext() {
-    if (this.exerciseContext) {
-      this.exerciseContext.alternatives = this.parts.alternatives
-    }
-  }
-
   get clozeWidth() {
     const longestAnswer = _.sortBy(this.parts.alternatives, (s) => -s.length)[0]
     return longestAnswer ? longestAnswer.length * 9 : 0
