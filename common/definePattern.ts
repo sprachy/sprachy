@@ -10,6 +10,7 @@ export type PatternDef = {
   explanation: string
   exercises: {
     content: string
+    hint?: string
     feedback?: { [key: string]: string }
   }[]
 }

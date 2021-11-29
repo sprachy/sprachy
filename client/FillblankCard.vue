@@ -82,6 +82,7 @@ export default class FillblankCard extends Vue {
 
   @Provide("exerciseContext") exerciseContext: ExerciseContext = {
     attempt: "",
+    exercise: this.exercise,
   }
 
   checkAnswer() {

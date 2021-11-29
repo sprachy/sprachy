@@ -48,7 +48,8 @@ Moin moin! / Same as Moin but signaling the other you want to smalltalk
 Aww [hallöchen] kleines Eichhörnchen!
 Aww [hi] little squirrel!
 </dline>
-`
+`,
+      hint: "[cutely]"
     }
   ]
 })

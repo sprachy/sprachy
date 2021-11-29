@@ -4,7 +4,13 @@
     <div class="quote">
       <template v-if="exerciseContext">
         <span>{{ parts.before }}</span>
-        <span class="fillblank" :style="{ minWidth: clozeWidth + 'px' }"
+        <span
+          :class="{
+            fillblank: true,
+            hasinput: !!exerciseContext.attempt.length,
+          }"
+          :style="{ minWidth: clozeWidth + 'px' }"
+          :data-hint="exerciseContext.exercise.hint"
           >&#8203;{{ exerciseContext.attempt }}&#8203;</span
         >
         <span>{{ parts.after }}</span>
@@ -127,4 +133,23 @@ export default class DLine extends Vue {
     display: inline-block
     text-align: center
     line-height: 1.5rem
+
+  span.fillblank::after // Hint goes inside the field at first
+    color: #5f6368
+    content: attr(data-hint)
+    font-size: 80%
+    vertical-align: top
+
+  span.fillblank::before // Moves above it when there's input
+    color: #5f6368
+    content: attr(data-hint)
+    font-size: 80%
+    vertical-align: top
+    display: none
+
+  span.fillblank.hasinput::after
+    display: none
+
+  span.fillblank.hasinput::before
+    display: block
 </style>
