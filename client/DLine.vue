@@ -145,11 +145,12 @@ export default class DLine extends Vue {
     content: attr(data-hint)
     font-size: 80%
     vertical-align: top
-    display: none
+    display: block
+    opacity: 0
 
   span.fillblank.hasinput::after
     display: none
 
   span.fillblank.hasinput::before
-    display: block
+    opacity: 1
 </style>
