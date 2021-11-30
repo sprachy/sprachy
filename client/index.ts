@@ -6,10 +6,12 @@ import { SprachyApp } from './app'
 import { HTTPProvider, UserAPI } from './ClientAPI'
 import './app.sass'
 import Dialogue from './Dialogue.vue'
-import DLine from './DLine.vue'
 import Avatar from './Avatar.vue'
 import LTable from './LTable.vue'
 import Sprachdown from './Sprachdown.vue'
+import PlapperLog from './PlapperLog.vue'
+import PlapperLogMessage from './PlapperLogMessage.vue'
+import PlapperMessage from './PlapperMessage.vue'
 import { Component } from "vue-property-decorator"
 import VueMeta from 'vue-meta'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -28,9 +30,11 @@ Vue.use(VueTimeago, {
 })
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('dialogue', Dialogue)
-Vue.component('dline', DLine)
 Vue.component('avatar', Avatar)
 Vue.component('ltable', LTable)
+Vue.component('plapper-log', PlapperLog)
+Vue.component('msg', PlapperLogMessage)
+Vue.component('plapper-message', PlapperMessage)
 Vue.component('sprachdown', Sprachdown)
 
 library.add(fas)

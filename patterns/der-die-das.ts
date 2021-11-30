@@ -10,15 +10,17 @@ export default definePattern({
   explanation: md`
 Der, die, and das are the three ways of saying _the_ in German. Which one you use depends on the grammatical gender of the noun that follows. For example:
 
-<dline by="lukas">
+<plapper-log>
+<msg from="lukas">
 Das Eichhörnchen ist sehr süß!
 The squirrel is very cute!
-</dline>
+</msg>
 
-<dline by="squirrel">
+<msg from="squirrel">
 S-süß?! Ich bin die Leere zwischen den Leeren, vor denen die Götter fliehen. Ihr narrt auf eure eigene Gefahr, Sterblicher.
 Cute?! I am the void between voids from which gods flee. Mock me at your peril, mortal.
-</dline>
+</msg>
+</plapper-log>
 
 Here we can see the noun _Eichhörnchen_ uses "das", the neuter form, while _Leere_ uses the feminine "die". 
 

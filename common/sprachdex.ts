@@ -3,6 +3,7 @@ import type { ExerciseDef, PatternDef } from './definePattern'
 
 export type Exercise = {
   canonicalAnswer: string
+  validAnswers: string[]
 } & ExerciseDef
 
 export type Pattern = PatternDef & {
@@ -10,7 +11,7 @@ export type Pattern = PatternDef & {
 }
 
 function parseExercise(exerciseDef: ExerciseDef): Exercise {
-  const canonicalAnswer = exerciseDef.message?.match(/\[(.+?)\]/)[0]
+  const canonicalAnswer = exerciseDef.message?.match(/\[(.+?)\]/)![1]!
 
   return Object.assign({}, exerciseDef, {
     canonicalAnswer,

@@ -3,28 +3,22 @@
     <b-card>
       <b-form @submit.prevent="checkAnswer">
         <div class="filling">
-          <div class="message">
-            <avatar :character="exercise.from" />
-            <div>
-              <div class="username">Scientist</div>
-              <div class="quote-and-translation">
-                <div class="quote">
-                  <span>{{ parts.before }}</span>
-                  <span
-                    :class="{
-                      fillblank: true,
-                      hasinput: !!attempt.length,
-                    }"
-                    :style="{ minWidth: clozeWidth + 'px' }"
-                    :data-hint="exercise.hint"
-                    >&#8203;{{ attempt }}&#8203;</span
-                  >
-                  <span>{{ parts.after }}</span>
-                </div>
-                <div class="translation" v-html="translation" />
-              </div>
+          <plapper-message :from="exercise.from">
+            <div class="quote">
+              <span>{{ parts.before }}</span>
+              <span
+                :class="{
+                  fillblank: true,
+                  hasinput: !!attempt.length,
+                }"
+                :style="{ minWidth: clozeWidth + 'px' }"
+                :data-hint="exercise.hint"
+                >&#8203;{{ attempt }}&#8203;</span
+              >
+              <span>{{ parts.after }}</span>
             </div>
-          </div>
+            <div class="translation" v-html="translation" />
+          </plapper-message>
         </div>
         <fieldset class="input-area">
           <input
@@ -43,14 +37,7 @@
 </template>
 
 <script lang="ts">
-import {
-  Component,
-  Prop,
-  Provide,
-  Ref,
-  Vue,
-  Watch,
-} from "vue-property-decorator"
+import { Component, Prop, Ref, Vue } from "vue-property-decorator"
 import _ from "lodash"
 import type { Exercise } from "../common/sprachdex"
 import { levenshtein } from "./levenshtein"
@@ -115,10 +102,11 @@ export default class FillblankCard extends Vue {
   }
 
   get clozeWidth() {
-    const longestAnswer = _.sortBy(
-      this.exercise.validAnswers.concat([this.exercise.hint]),
-      (s) => -s.length
-    )[0]
+    const words = this.exercise.validAnswers
+    if (this.exercise.hint) {
+      words.push(this.exercise.hint)
+    }
+    const longestAnswer = _.sortBy(words, (s) => -s.length)[0]
     return longestAnswer ? longestAnswer.length * 9 : 0
   }
 
@@ -130,7 +118,7 @@ export default class FillblankCard extends Vue {
   }
 
   checkAnswer() {
-    const match = [this.exercise.canonicalAnswer].find((ans) =>
+    const match = this.exercise.validAnswers.find((ans) =>
       matchesAnswerPermissively(this.attempt, ans)
     )
     if (match) {
@@ -139,7 +127,6 @@ export default class FillblankCard extends Vue {
     } else {
       this.$emit("answer", false)
     }
-    this.attempt = ""
   }
 }
 </script>
@@ -148,10 +135,6 @@ export default class FillblankCard extends Vue {
 .FillblankCard
   margin: auto
   max-width: 600px
-
-  // @media (max-width: $mobile)
-  //   padding-left: 5vw
-  //   padding-right: 5vw
 
 .card
   box-shadow: 0 7px 50px rgba(46,10,99,.05), 0 1px 1px 0.6px rgba(46,10,99,.1)
@@ -166,38 +149,7 @@ export default class FillblankCard extends Vue {
   font-size: 1.05rem
   line-height: 2rem
 
-  // @media (max-width: $mobile)
-  //   padding: 1.5rem
-
 .message
-  display: flex
-
-  ::v-deep .avatar
-    margin-top: calc(4px - 0.125rem)
-    width: 40px
-    height: 40px
-    border-radius: 50%
-    margin-right: 15px
-
-  .username
-    font-size: 1rem
-    font-weight: 500
-    color: #fff
-    line-height: 1.375rem
-
-  .quote
-    padding: 0.3rem
-    font-size: 1.1rem
-    line-height: 1.375rem
-    color: var(--text-normal)
-    font-weight: 400
-    color: #dcddde
-
-  .translation
-    padding-top: 2rem
-    color: rgba(220, 221, 222, 0.7)
-    text-align: center
-
   .translation ::v-deep strong
     color: #86abff
 
@@ -243,9 +195,6 @@ span.fillblank.hasinput::before
     border-radius: 0 0 8px 8px
     // https://thingsthemselves.com/no-input-zoom-in-safari-on-iphone-the-pixel-perfect-way/
     font-size: 16px
-
-  // input::placeholder
-  //   color: #b5b5b5
 
   input:focus
     outline: none

@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
-import type { Pattern } from "../common/sprachdex"
+import type { Pattern, Exercise } from "../common/sprachdex"
 import marked from "marked"
 import FillblankCard from "./FillblankCard.vue"
 import { NotFoundError } from "./globalErrorHandling"
@@ -33,7 +33,7 @@ export default class PracticePage extends Vue {
   complete: boolean = false
   mistakes: number = 0
 
-  exercises: { content: string }[] = []
+  exercises: Exercise[] = []
 
   activated() {
     if (this.pattern && !this.$routing.lastRouteChangeWasPopState) {
