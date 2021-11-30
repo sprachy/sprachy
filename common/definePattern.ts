@@ -9,7 +9,9 @@ export type PatternDef = {
   icon: IconDefinition
   explanation: string
   exercises: {
-    content: string
+    from: string
+    message: string
+    translation: string
     hint?: string
     feedback?: { [key: string]: string }
   }[]

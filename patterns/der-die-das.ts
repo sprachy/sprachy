@@ -28,12 +28,10 @@ However, the genders are not totally _random_ either. We'll learn some patterns 
 `,
   exercises: [
     {
-      content: md`
-<dline by="lukas">
-Ich mag [die] Katze.
-I like [the] cat.
-</dline>
-`
-    }
+      from: 'scientist',
+      message: '[Die] Barriere wird schwächer.',
+      translation: '[The] barrier is weakening.',
+      hint: "[feminine]"
+    },
   ]
 })

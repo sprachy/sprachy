@@ -1,6 +1,6 @@
 <template>
   <div class="dline">
-    <img class="avatar" :src="icon" />
+    <avatar :character="by" />
     <div class="quote">
       <template v-if="exerciseContext">
         <span>{{ parts.before }}</span>
@@ -26,12 +26,6 @@
 <script lang="ts">
 import { Component, Inject, Prop, Vue, Watch } from "vue-property-decorator"
 import _ from "lodash"
-// @ts-ignore
-import lukas from "./img/lukas.png"
-// @ts-ignore
-import anna from "./img/anna.png"
-// @ts-ignore
-import squirrel from "./img/squirrel.png"
 import type { ExerciseContext } from "./types"
 
 @Component
@@ -50,34 +44,17 @@ export default class DLine extends Vue {
     const original = lines[0]!
     const translation = lines[1]!
 
-    const [before, altstr, after] = original!.split(/\[(.+?)\]/)
+    const [before, after] = original!.split(/____/)
     return {
       original,
       translation,
       before: before || "",
-      alternatives: (altstr || "").split("|"),
       after: after || "",
     }
   }
 
-  get clozeWidth() {
-    const longestAnswer = _.sortBy(this.parts.alternatives, (s) => -s.length)[0]
-    return longestAnswer ? longestAnswer.length * 9 : 0
-  }
-
   get original() {
     return this.parts.original
-  }
-
-  get translation() {
-    return this.parts.translation.replace(/\[.+?\]/, (substring) => {
-      const highlight = substring.slice(1, -1)
-      return `<strong>${highlight}</strong>`
-    })
-  }
-
-  get icon() {
-    return { lukas, anna, squirrel }[this.by]
   }
 }
 </script>
@@ -86,12 +63,6 @@ export default class DLine extends Vue {
 .dline
   display: flex
   margin: 24px 0
-
-  .avatar
-    width: 50px
-    height: 50px
-    padding: 3px
-    margin-right: 12px
 
   .quote::before
     border-bottom: 12px solid transparent

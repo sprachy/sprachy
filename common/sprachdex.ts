@@ -10,21 +10,12 @@ export type Pattern = PatternDef & {
 }
 
 function parseExercise(exerciseDef: ExerciseDef): Exercise {
-  let canonicalAnswer = ""
-  let translatedAnswer = ""
-  exerciseDef.content.replace(/\[(.+?)\]/g, (m, part) => {
-    if (!canonicalAnswer) {
-      canonicalAnswer = part
-      return "____"
-    } else {
-      translatedAnswer = part
-      return `**${part}**`
-    }
-  })
+  const canonicalAnswer = exerciseDef.message?.match(/\[(.+?)\]/)[0]
 
-  return Object.assign({
+  return Object.assign({}, exerciseDef, {
     canonicalAnswer,
-  }, exerciseDef)
+    validAnswers: [canonicalAnswer],
+  })
 }
 
 function parsePattern(patternDef: PatternDef): Pattern {

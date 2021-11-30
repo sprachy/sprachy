@@ -3,14 +3,33 @@
     <b-card>
       <b-form @submit.prevent="checkAnswer">
         <div class="filling">
-          <div class="content">
-            <runtime-template-compiler :template="exercise.content" />
+          <div class="message">
+            <avatar :character="exercise.from" />
+            <div>
+              <div class="username">Scientist</div>
+              <div class="quote-and-translation">
+                <div class="quote">
+                  <span>{{ parts.before }}</span>
+                  <span
+                    :class="{
+                      fillblank: true,
+                      hasinput: !!attempt.length,
+                    }"
+                    :style="{ minWidth: clozeWidth + 'px' }"
+                    :data-hint="exercise.hint"
+                    >&#8203;{{ attempt }}&#8203;</span
+                  >
+                  <span>{{ parts.after }}</span>
+                </div>
+                <div class="translation" v-html="translation" />
+              </div>
+            </div>
           </div>
         </div>
-        <fieldset>
+        <fieldset class="input-area">
           <input
             type="text"
-            v-model="exerciseContext.attempt"
+            v-model="attempt"
             placeholder="Your Answer"
             ref="attemptInput"
           />
@@ -24,12 +43,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Provide, Ref, Vue } from "vue-property-decorator"
+import {
+  Component,
+  Prop,
+  Provide,
+  Ref,
+  Vue,
+  Watch,
+} from "vue-property-decorator"
 import _ from "lodash"
 import type { Exercise } from "../common/sprachdex"
 import { levenshtein } from "./levenshtein"
 import { CanvasEffects } from "./CanvasEffects"
-import type { ExerciseContext } from "./types"
 // @ts-ignore
 import { RuntimeTemplateCompiler } from "vue-runtime-template-compiler"
 
@@ -75,19 +100,38 @@ export default class FillblankCard extends Vue {
   @Prop({ type: Object, required: true }) exercise!: Exercise
   @Ref("attemptInput") attemptInput!: HTMLInputElement
   effects: CanvasEffects = new CanvasEffects()
+  attempt: string = ""
 
   activated() {
     this.attemptInput.focus()
   }
 
-  @Provide("exerciseContext") exerciseContext: ExerciseContext = {
-    attempt: "",
-    exercise: this.exercise,
+  get parts() {
+    const [before, after] = this.exercise.message.split(/\[.+?\]/)
+    return {
+      before: before || "",
+      after: after || "",
+    }
+  }
+
+  get clozeWidth() {
+    const longestAnswer = _.sortBy(
+      this.exercise.validAnswers.concat([this.exercise.hint]),
+      (s) => -s.length
+    )[0]
+    return longestAnswer ? longestAnswer.length * 9 : 0
+  }
+
+  get translation() {
+    return this.exercise.translation.replace(/\[.+?\]/, (substring) => {
+      const highlight = substring.slice(1, -1)
+      return `<strong>${highlight}</strong>`
+    })
   }
 
   checkAnswer() {
     const match = [this.exercise.canonicalAnswer].find((ans) =>
-      matchesAnswerPermissively(this.exerciseContext.attempt, ans)
+      matchesAnswerPermissively(this.attempt, ans)
     )
     if (match) {
       this.effects.spawnParticlesAt(this.attemptInput)
@@ -95,15 +139,15 @@ export default class FillblankCard extends Vue {
     } else {
       this.$emit("answer", false)
     }
+    this.attempt = ""
   }
 }
 </script>
 
 <style lang="sass" scoped>
-.FillblankCard::v-deep
+.FillblankCard
   margin: auto
-  max-width: 400px
-  text-align: center
+  max-width: 600px
 
   // @media (max-width: $mobile)
   //   padding-left: 5vw
@@ -112,6 +156,7 @@ export default class FillblankCard extends Vue {
 .card
   box-shadow: 0 7px 50px rgba(46,10,99,.05), 0 1px 1px 0.6px rgba(46,10,99,.1)
   border-radius: 8px
+  background-color: #36393e
 
 .card-body
   padding: 0
@@ -120,51 +165,98 @@ export default class FillblankCard extends Vue {
   padding: 2rem
   font-size: 1.05rem
   line-height: 2rem
-  white-space: pre-wrap
 
   // @media (max-width: $mobile)
   //   padding: 1.5rem
 
-.translation ::v-deep
-  strong
-    color: #64b5f6
+.message
+  display: flex
 
-input
-  width: 100%
-  padding: 1rem
-  border: 0
+  ::v-deep .avatar
+    margin-top: calc(4px - 0.125rem)
+    width: 40px
+    height: 40px
+    border-radius: 50%
+    margin-right: 15px
+
+  .username
+    font-size: 1rem
+    font-weight: 500
+    color: #fff
+    line-height: 1.375rem
+
+  .quote
+    padding: 0.3rem
+    font-size: 1.1rem
+    line-height: 1.375rem
+    color: var(--text-normal)
+    font-weight: 400
+    color: #dcddde
+
+  .translation
+    padding-top: 2rem
+    color: rgba(220, 221, 222, 0.7)
+    text-align: center
+
+  .translation ::v-deep strong
+    color: #86abff
+
+span.fillblank
+  color: #64b5f6
+  border-bottom: 2px solid #dcddde
+  min-width: 20px
+  display: inline-block
   text-align: center
-  border-radius: 0 0 8px 8px
-  // https://thingsthemselves.com/no-input-zoom-in-safari-on-iphone-the-pixel-perfect-way/
-  font-size: 16px
+  line-height: 1.5rem
 
-input:focus
-  outline: none
+span.fillblank::after // Hint goes inside the field at first
+  color: #86abff
+  content: attr(data-hint)
+  font-size: 80%
+  vertical-align: top
 
-fieldset
+// span.fillblank::before // Moves above it when there's input
+//   color: #5f6368
+//   content: attr(data-hint)
+//   font-size: 80%
+//   vertical-align: top
+//   display: block
+//   opacity: 0
+
+span.fillblank.hasinput::after
+  display: none
+
+span.fillblank.hasinput::before
+  opacity: 1
+
+.input-area
   position: relative
 
-  fieldset button
-    position: absolute
-    padding: 0 20px
-    right: 5px
-    height: 100%
-    font-size: 1.3em
-    line-height: 1em
-    border: none
-    background: none
+  input
+    background-color: #40444b
+    color: #dcddde
+    caret-color: #dcddde
+    width: 100%
+    padding: 1rem
+    border: 0
+    text-align: center
+    border-radius: 0 0 8px 8px
+    // https://thingsthemselves.com/no-input-zoom-in-safari-on-iphone-the-pixel-perfect-way/
+    font-size: 16px
 
-.FillblankCard.incorrect
-  span.fillblank
-    color: rgba(255, 77, 77, 0.8)
+  // input::placeholder
+  //   color: #b5b5b5
 
-    input
-      background: rgba(255, 77, 77, 0.8)
+  input:focus
+    outline: none
 
-    input, fieldset svg
-      color: white
-
-    .reviseFeedback
-      margin-top: 1rem
-      text-align: center
+  // fieldset button
+  //   position: absolute
+  //   padding: 0 20px
+  //   right: 5px
+  //   height: 100%
+  //   font-size: 1.3em
+  //   line-height: 1em
+  //   border: none
+  //   background: none
 </style>
