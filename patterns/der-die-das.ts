@@ -31,7 +31,7 @@ However, the genders are not totally _random_ either. We'll learn some patterns 
   exercises: [
     {
       from: 'scientist',
-      message: '[Die] Barriere wird schwächer.',
+      message: '[Die] Barriere wird schwächer!',
       translation: '[The] barrier is weakening!',
       hint: "[feminine]"
     },
