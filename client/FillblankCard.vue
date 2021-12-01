@@ -26,6 +26,7 @@
             v-model="attempt"
             placeholder="Your Answer"
             ref="attemptInput"
+            autofocus
           />
           <!-- <button>
           <FontAwesomeIcon icon="faChevronRight" />
@@ -89,6 +90,10 @@ export default class FillblankCard extends Vue {
   effects: CanvasEffects = new CanvasEffects()
   attempt: string = ""
 
+  mounted() {
+    this.attemptInput.focus()
+  }
+
   activated() {
     this.attemptInput.focus()
   }
@@ -122,6 +127,7 @@ export default class FillblankCard extends Vue {
       matchesAnswerPermissively(this.attempt, ans)
     )
     if (match) {
+      this.attempt = ""
       this.effects.spawnParticlesAt(this.attemptInput)
       this.$emit("answer", true)
     } else {

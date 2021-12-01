@@ -21,6 +21,7 @@ export default class PlapperMessage extends Vue {
     return (
       {
         scientist: "Lindenbaum",
+        deer: "Eiknir",
       }[this.from] || this.from
     )
   }

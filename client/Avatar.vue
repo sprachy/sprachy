@@ -13,13 +13,15 @@ import anna from "./img/anna.png"
 import squirrel from "./img/squirrel.png"
 // @ts-ignore
 import scientist from "./img/scientist.png"
+// @ts-ignore
+import deer from "./img/deer.png"
 
 @Component
 export default class Avatar extends Vue {
   @Prop({ type: String, required: true }) character!: string
 
   get icon() {
-    return { lukas, anna, squirrel, scientist }[this.character]
+    return { lukas, anna, squirrel, scientist, deer }[this.character]
   }
 }
 </script>

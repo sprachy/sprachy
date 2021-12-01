@@ -32,8 +32,20 @@ However, the genders are not totally _random_ either. We'll learn some patterns 
     {
       from: 'scientist',
       message: '[Die] Barriere wird schwächer.',
-      translation: '[The] barrier is weakening.',
+      translation: '[The] barrier is weakening!',
       hint: "[feminine]"
+    },
+    {
+      from: 'deer',
+      message: 'Ist [der] Späher vorbereitet?',
+      translation: 'Is [the] scout prepared?',
+      hint: "[masculine]"
+    },
+    {
+      from: 'scientist',
+      message: 'Sie werden in Kürze [das] erste Proton sehen.',
+      translation: 'You will see [the] first proton momentarily.',
+      hint: "[neuter]"
     },
   ]
 })
