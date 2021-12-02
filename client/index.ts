@@ -12,6 +12,7 @@ import Sprachdown from './Sprachdown.vue'
 import PlapperLog from './PlapperLog.vue'
 import PlapperLogMessage from './PlapperLogMessage.vue'
 import PlapperMessage from './PlapperMessage.vue'
+import HoverTranslate from './HoverTranslate.vue'
 import { Component } from "vue-property-decorator"
 import VueMeta from 'vue-meta'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -35,6 +36,7 @@ Vue.component('ltable', LTable)
 Vue.component('plapper-log', PlapperLog)
 Vue.component('msg', PlapperLogMessage)
 Vue.component('plapper-message', PlapperMessage)
+Vue.component('hover-translate', HoverTranslate)
 Vue.component('sprachdown', Sprachdown)
 
 library.add(fas)

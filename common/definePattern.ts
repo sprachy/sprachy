@@ -1,5 +1,5 @@
 import type { IconDefinition } from "@fortawesome/fontawesome-common-types"
-import { md } from '../common/markdown'
+import { md } from '../common/sprachdown'
 
 export type PatternDef = {
   id: string

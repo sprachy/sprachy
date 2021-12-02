@@ -9,7 +9,9 @@
     </b-thead>
     <b-tbody>
       <b-tr v-for="(row, i) in rows" :key="i">
-        <b-td v-for="(d, j) in row" :key="j">{{ d }}</b-td>
+        <b-td v-for="(d, j) in row" :key="j">
+          <sprachdown inline :content="d" />
+        </b-td>
       </b-tr>
     </b-tbody>
   </b-table-simple>

@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator"
 import _ from "lodash"
-import marked from "marked"
+import { sprachdown } from "../common/sprachdown"
 // @ts-ignore
 import { RuntimeTemplateCompiler } from "vue-runtime-template-compiler"
 
@@ -16,9 +16,18 @@ import { RuntimeTemplateCompiler } from "vue-runtime-template-compiler"
 })
 export default class Sprachdown extends Vue {
   @Prop({ type: String, required: true }) content!: string
+  @Prop({ type: Boolean, default: false }) inline!: boolean
 
   get template() {
-    return `<div>` + marked(this.content) + `</div>`
+    // const content = this.content.replace(/=(.+?)=/g, (m, original) => {
+    //   return `<hover-translate>${original}</hover-translate>`
+    // })
+
+    if (this.inline) {
+      return `<span>` + sprachdown.parseInline(this.content) + `</span>`
+    } else {
+      return `<div>` + sprachdown.parse(this.content) + `</div>`
+    }
   }
 }
 </script>

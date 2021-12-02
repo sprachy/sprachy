@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
-import { md } from "../common/markdown"
+import { md } from "../common/sprachdown"
 import _ from "lodash"
 
 @Component({
