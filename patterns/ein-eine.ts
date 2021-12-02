@@ -8,7 +8,7 @@ export default definePattern({
   shortdesc: "Gendered variations of 'a'",
   icon: faListOl,
   explanation: md`
-In English, we use choose to use either _a_ or _an_ depending on the following word. Similarly, German switches between =ein= and =eine= depending on the grammatical gender of the noun being referred to.
+In English, we choose to use either _a_ or _an_ depending on the following word. Similarly, German switches between =ein= and =eine= depending on the grammatical gender of the noun being referred to.
 
 <ltable header="Gender / Noun">
 masculine / =der Späher=, =ein Späher=
@@ -16,17 +16,17 @@ feminine / =die Barriere=, =eine Barriere=
 neuter / =das Proton=, =ein Proton=
 </ltable>
 
-Note that the masculine and neuter forms of =ein= are the same, unlike with =der= and =das=.
+Note that the masculine and neuter forms of ein are the same, unlike with der and das.
 
 Various other words follow the same inflection pattern as ein/eine:
 
 <ltable header="Deutsch / Meaning">
-=ein Proton= / a proton
-=mein Proton= / my proton
-=dein Proton= / your proton
-=eine Barriere= / a barrier
-=meine Barriere= / my barrier
-=deine Barriere= / your barrier
+ein Proton / a proton
+mein Proton / my proton
+dein Proton / your proton
+eine Barriere / a barrier
+meine Barriere / my barrier
+deine Barriere / your barrier
 </ltable>
 `,
   exercises: [

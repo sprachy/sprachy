@@ -19,10 +19,6 @@ export default class Sprachdown extends Vue {
   @Prop({ type: Boolean, default: false }) inline!: boolean
 
   get template() {
-    // const content = this.content.replace(/=(.+?)=/g, (m, original) => {
-    //   return `<hover-translate>${original}</hover-translate>`
-    // })
-
     if (this.inline) {
       return `<span>` + sprachdown.parseInline(this.content) + `</span>`
     } else {

@@ -22,11 +22,10 @@ const hoverTranslate: TokenizerExtension = {
     }
   },
   renderer(token) {
-    return `\n<hover-translate>${this.parser.parseInline(
+    return `\n<ht>${this.parser.parseInline(
       token.ht
-    )}</hover-translate>`
-  },
-  childTokens: ["hover-translate"], // Any child tokens to be visited by walkTokens
+    )}</ht>`
+  }
 }
 
 marked.use({ extensions: [hoverTranslate] })

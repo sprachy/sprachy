@@ -36,7 +36,7 @@ Vue.component('ltable', LTable)
 Vue.component('plapper-log', PlapperLog)
 Vue.component('msg', PlapperLogMessage)
 Vue.component('plapper-message', PlapperMessage)
-Vue.component('hover-translate', HoverTranslate)
+Vue.component('ht', HoverTranslate)
 Vue.component('sprachdown', Sprachdown)
 
 library.add(fas)
