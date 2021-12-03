@@ -1,6 +1,9 @@
 <template>
   <site-layout>
-    <div v-if="pattern">
+    <template v-if="!exercises.length">
+      No exercises implemented for this pattern yet! Let's write some~
+    </template>
+    <div v-else-if="pattern">
       <template v-if="!complete">
         <fillblank-card :exercise="exercise" @answer="onAnswer" />
       </template>

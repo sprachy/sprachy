@@ -18,13 +18,11 @@ neuter / =das Proton=, =ein Proton=
 
 Note that the masculine and neuter forms of ein are the same, unlike with der and das.
 
-Various other words follow the same inflection pattern as ein/eine:
+Words like mein (my) and dein (your) follow the same inflection pattern as ein/eine:
 
 <ltable header="Deutsch / Meaning">
-ein Proton / a proton
 mein Proton / my proton
 dein Proton / your proton
-eine Barriere / a barrier
 meine Barriere / my barrier
 deine Barriere / your barrier
 </ltable>
