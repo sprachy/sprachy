@@ -5,7 +5,7 @@ export default definePattern({
   id: 'das-chen',
   slug: 'das-chen',
   title: "Das -chen",
-  shortdesc: "",
+  shortdesc: "The power of cute diminutives",
   icon: faCat,
   explanation: md`
 Some non-English languages have a standard way to modify nouns to create _diminutives_. This is a particularly wonderful feature that lets you take a word and make it more "cute", emphasizing its littleness and smallness.
@@ -13,11 +13,17 @@ Some non-English languages have a standard way to modify nouns to create _diminu
 <ltable header="Deutsch / Meaning">
 die Katze / the cat
 das Kätzchen / the kitten
-
-
+das Brot / the bread
+das Brötchen / the bread roll
+der Pantoffel / the slipper
+das Tier / the animal
+das Pantoffeltierchen / a unicellular ciliate protozoan of the Paramecium genus
 </ltable>
 
 Do you see the pattern? These kinds of diminutives are always neuter, no matter what gender the base word originally had. So even if you haven't seen a specific word before, you know you can use _das_ if it ends in _-chen_.
+
+
+
 
 
 `,

@@ -45,4 +45,6 @@ export default class LearnPage extends Vue {
 <style lang="sass" scoped>
 .pattern
   max-width: 800px
+  font-size: 16px
+  line-height: 24px
 </style>
