@@ -4,6 +4,10 @@ Sprachy is a web app for learning German. It focuses on explaining the _patterns
 
 We try to use some particularly dorky characters and examples, since humans are geared to remember surprising story-like things!
 
+## Reuse
+
+The code is licensed under MIT, while the content is CC-BY. If you want to make your own learny website about something else based on Sprachy code then feel free! However, we'd prefer if people didn't copy actual lesson content or custom assets. If you make use of it, please link back to us to indicate where it came from.
+
 ## Setting up for development
 
 Sprachy runs on Cloudflare Workers and FaunaDB, a nice combination of "serverless" services that allows it to be globally distributed and infinitely scalable.
