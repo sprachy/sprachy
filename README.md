@@ -1,8 +1,14 @@
 # Sprachy 🇩🇪🐿
 
-Sprachy runs on Cloudflare Workers and FaunaDB, a combination of services that allows it to be globally distributed and infinitely scalable.
+Sprachy is a web app for learning German. It focuses on explaining the _patterns_ in the language: how words are changed to make other words, how to predict grammatical gender for nouns you haven't seen before, how words are ordered to make sentences, and so on.
 
-## Installing dependencies
+Since humans are particularly geared to remember surprising story-like things, we use some dorky characters and examples!
+
+## Setting up for development
+
+Sprachy runs on Cloudflare Workers and FaunaDB, a nice combination of "serverless" services that allows it to be globally distributed and infinitely scalable.
+
+### Installing dependencies
 
 You will need [node](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/getting-started/install).
 
@@ -12,7 +18,7 @@ Inside the repo, run yarn to install dependencies.
 yarn
 ```
 
-## Environment setup
+### Environment setup
 
 Local settings for each instance of sprachy are stored in a `.env` file.
 
@@ -22,7 +28,7 @@ cp .env.example .env
 
 FAUNA_ADMIN_KEY will initially be empty, and automatically populated later.
 
-## Setting up development database
+### Setting up development database
 
 You will need [Docker](https://www.docker.com/products/docker-desktop). Then:
 
@@ -30,7 +36,7 @@ You will need [Docker](https://www.docker.com/products/docker-desktop). Then:
 docker pull fauna/faunadb:latest
 ```
 
-## Running development server
+### Running development server
 
 ```sh
 yarn dev
@@ -48,7 +54,7 @@ Underneath, `yarn dev` concurrently runs four processes: the Fauna dev docker,
 a webpack server for building the client assets, a webpack watch to build the worker,
 and miniflare for the dev worker process.
 
-## Optional: configure fauna-shell
+### Optional: configure fauna-shell
 
 You may also want to set up fauna-shell to work with the local database by default.
 
