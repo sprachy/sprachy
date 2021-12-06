@@ -1,6 +1,6 @@
 <!-- Default app layout for logged in users: Navbar, container with router view -->
 <template>
-  <div>
+  <div class="site-layout">
     <site-header />
 
     <template v-if="noContainer">

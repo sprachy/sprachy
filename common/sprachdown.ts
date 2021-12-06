@@ -1,6 +1,7 @@
 import marked, { TokenizerExtension } from "marked"
 
-const hoverTranslate: TokenizerExtension = {
+// TokenizerExtension
+const hoverTranslate: any = {
   name: "hoverTranslate",
   level: "inline",
   start(src: string) {
@@ -15,13 +16,13 @@ const hoverTranslate: TokenizerExtension = {
         // Token to generate
         type: "hoverTranslate", // Should match "name" above
         raw: match[0]!, // Text to consume from the source
-        ht: this.lexer.inlineTokens(match[1].trim()), // Additional custom properties, including
+        ht: this.lexer.inlineTokens(match[1]!.trim()), // Additional custom properties, including
       }
     } else {
       return
     }
   },
-  renderer(token) {
+  renderer(token: any) {
     return `\n<ht>${this.parser.parseInline(
       token.ht
     )}</ht>`

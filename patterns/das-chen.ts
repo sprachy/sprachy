@@ -26,20 +26,20 @@ Some words are used primarily or only in their diminutive form, while the base f
 
 `,
   exercises: [
-    {
-      content: md`
-<dialogue>
-<dline by="anna">
-Tösky, hast du [mein] Brötchen gegessen?
-Tösky, did you eat [my] bread roll? 
-</dline>
+    //     {
+    //       content: md`
+    // <dialogue>
+    // <dline by="anna">
+    // Tösky, hast du [mein] Brötchen gegessen?
+    // Tösky, did you eat [my] bread roll? 
+    // </dline>
 
-<dline by="squirrel">
-Ja. Es ist zum Brennstoff für das ewige Feuer meiner Seele geworden.
-Yes. It has become fuel for the eternal fire of my soul.
-</dline>
-</dialogue>
-      `,
-    }
+    // <dline by="squirrel">
+    // Ja. Es ist zum Brennstoff für das ewige Feuer meiner Seele geworden.
+    // Yes. It has become fuel for the eternal fire of my soul.
+    // </dline>
+    // </dialogue>
+    //       `,
+    //     }
   ]
 })
