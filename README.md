@@ -1,8 +1,8 @@
 # Sprachy 🇩🇪🐿
 
-Sprachy is a web app for learning German. It focuses on explaining the _patterns_ in the language: how words are changed to make other words, how to predict grammatical gender for nouns you haven't seen before, how words are ordered to make sentences, and so on.
+Sprachy is a web app for learning German. It focuses on explaining the _patterns_ in the language: how new words get created, predicting grammatical gender for nouns you haven't seen before, the ordering of sentences, and so on.
 
-Since humans are particularly geared to remember surprising story-like things, we use some dorky characters and examples!
+We try to use some particularly dorky characters and examples, since humans are geared to remember surprising story-like things!
 
 ## Setting up for development
 
