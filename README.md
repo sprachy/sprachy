@@ -6,7 +6,7 @@ We try to use some particularly dorky characters and examples, since humans are 
 
 ## Reuse
 
-The code is licensed under MIT, while the content is CC-BY. If you want to make your own learny website about something else based on Sprachy code then feel free! However, we'd prefer if people didn't copy actual lesson content or custom assets. If you make use of it, please link back to us to indicate where it came from.
+The code is licensed under MIT, while the content is CC-BY. If you want to make your own learny website about something else based on Sprachy code then feel free! However, we'd prefer if people didn't copy actual lesson content or custom assets. If you make use of the content, please link back to us to indicate where it came from.
 
 ## Setting up for development
 
