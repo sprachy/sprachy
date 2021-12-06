@@ -59,6 +59,12 @@
             </b-form-group>
             <input type="hidden" name="then" :value="afterAuthUrl" />
             <b-btn size="lg" type="submit">Sign up for Sprachy</b-btn>
+            <p class="text-warning mt-2">
+              <em
+                >Sprachy is still early in development; you might want to come
+                back later!</em
+              >
+            </p>
           </form>
         </b-col>
         <b-col> </b-col>
