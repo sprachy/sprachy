@@ -86,7 +86,7 @@ export namespace db {
       )
     }
 
-    export async function expectByEmail(email: string): Promise<User | null> {
+    export async function expectByEmail(email: string): Promise<User> {
       return await db.querySingle<User>(
         Get(Match(Index("users_by_email"), email))
       )
