@@ -5,7 +5,7 @@ import * as z from 'zod'
 
 export async function getSummary(req: SessionRequest): Promise<ProgressSummary> {
   const [user, progressItems] = await Promise.all([
-    db.users.get(req.session.userId),
+    db.users.expect(req.session.userId),
     db.progress.listAllFor(req.session.userId)
   ])
   return { user, progressItems }

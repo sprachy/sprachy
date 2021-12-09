@@ -30,7 +30,7 @@ export async function signup(req: APIRequest, res: ServerResponse): Promise<Prog
           { password: password },
         )
       ) as FaunaLoginToken
-      user = await db.users.get(res.instance.value.id)
+      user = await db.users.expect(res.instance.value.id)
     } else {
       throw err
     }
@@ -66,7 +66,7 @@ export async function login(req: APIRequest, res: ServerResponse): Promise<Progr
 
   // Note that we're not actually using fauna's access control here; we only ask
   // them to check the user's password, and then take it from there
-  const user = await db.users.get(result.instance.value.id)
+  const user = await db.users.expect(result.instance.value.id)
   const sessionKey = await sessions.create(user.id)
   res.headers.set('Set-Cookie', sessions.asCookie(sessionKey))
 

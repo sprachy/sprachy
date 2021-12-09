@@ -68,13 +68,25 @@ export namespace db {
   }
 
   export namespace users {
-    export async function get(userId: string): Promise<User> {
+    export async function get(userId: string): Promise<User | null> {
+      return await db.querySingle<User>(
+        GetIfExists(Ref(Collection("users"), userId))
+      )
+    }
+
+    export async function expect(userId: string): Promise<User> {
       return await db.querySingle<User>(
         Get(Ref(Collection("users"), userId))
       )
     }
 
-    export async function getByEmail(email: string): Promise<User> {
+    export async function getByEmail(email: string): Promise<User | null> {
+      return await db.querySingle<User>(
+        GetIfExists(Match(Index("users_by_email"), email))
+      )
+    }
+
+    export async function expectByEmail(email: string): Promise<User | null> {
       return await db.querySingle<User>(
         Get(Match(Index("users_by_email"), email))
       )
