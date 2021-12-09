@@ -20,22 +20,21 @@ export async function signup(req: APIRequest, res: ServerResponse): Promise<Prog
 
   let user: User
   try {
-    console.log(await db.users.getByEmail(email))
-    // If the user already exists, try just signing in
-    const res = await db.faunaQuery(
-      Login(
-        Match(Index("users_by_email"), email),
-        { password: password },
-      )
-    ) as FaunaLoginToken
-    user = await db.users.expect(res.instance.value.id)
-  } catch (err: any) {
-    if (err instanceof FaunaHTTPError && err.status == 404) {
-      user = await db.users.create({ email, password, isAdmin: false })
+    if (await db.users.getByEmail(email) != null) {
+      // If the user already exists, try just signing in
+      const res = await db.faunaQuery(
+        Login(
+          Match(Index("users_by_email"), email),
+          { password: password },
+        )
+      ) as FaunaLoginToken
+      user = await db.users.expect(res.instance.value.id)
     }
     else {
-      throw err
+      user = await db.users.create({ email, password, isAdmin: false })
     }
+  } catch (err: any) {
+    throw err
   }
 
   const progressItems = await db.progress.listAllFor(user.id)
