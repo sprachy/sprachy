@@ -14,12 +14,12 @@ Sprachy runs on Cloudflare Workers and FaunaDB, a nice combination of "serverles
 
 ### Installing dependencies
 
-You will need [node](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/getting-started/install).
+You will need [node](https://nodejs.org/en/).
 
-Inside the repo, run yarn to install dependencies.
+Inside the repo, use npm to install dependencies.
 
 ```sh
-yarn
+npm i
 ```
 
 ### Environment setup
@@ -43,7 +43,7 @@ docker pull fauna/faunadb:latest
 ### Running development server
 
 ```sh
-yarn dev
+npm run dev
 ```
 
 After this starts up the Fauna instance, populate the database schema:
@@ -54,7 +54,7 @@ After this starts up the Fauna instance, populate the database schema:
 
 And that's it! The dev server should now be available at `http://localhost:5999`.
 
-Underneath, `yarn dev` concurrently runs four processes: the Fauna dev docker,
+Underneath, `npm run dev` concurrently runs four processes: the Fauna dev docker,
 a webpack server for building the client assets, a webpack watch to build the worker,
 and miniflare for the dev worker process.
 
