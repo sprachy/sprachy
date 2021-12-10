@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Link } from "svelte-navigator"
   import _ from "lodash"
+  import { FontAwesomeIcon } from "fontawesome-svelte"
 
   import { getUserContext } from "./context"
   import SiteLayout from "./SiteLayout.svelte"
@@ -16,7 +17,7 @@
         <li class="pattern">
           <Link to="/pattern/{pattern.slug}">
             <div class="icon" style="background-color: #1ba156">
-              <!-- <font-awesome-icon :icon="pattern.icon" /> -->
+              <FontAwesomeIcon icon={pattern.icon} />
             </div>
             <div>
               <h6 style="color: #1ba156">
@@ -58,20 +59,20 @@ li.pattern:not(:first-child)
 li.pattern
   list-style-type: none
 
-  // > a
-  //   display: flex
-  //   align-items: center
-  //   padding: 1rem
-  //   color: inherit
+  > :global(a)
+    display: flex
+    align-items: center
+    padding: 1rem
+    color: inherit
 
   .icon
     padding: 0.75rem
     margin-right: 1rem
 
-  // .icon svg
-  //   color: white
-  //   width: 32px
-  //   height: 32px
+  .icon :global(svg)
+    color: white
+    width: 32px
+    height: 32px
 
   h6
     font-size: 1.1rem

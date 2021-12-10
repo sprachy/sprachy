@@ -42,12 +42,12 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand" href="/">
+        <Link class="navbar-brand" to="/">
           Sprachy
           {#if isDev}
             <span class="envbadge dev">dev</span>
           {/if}
-        </a>
+        </Link>
         <button
           class="navbar-toggler"
           type="button"

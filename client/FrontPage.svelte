@@ -1,15 +1,22 @@
 <script lang="ts">
-  import { getAnonContext, initApp } from "./context";
-  import _ from "lodash";
-  import { SprachyAPIValidationError } from "./ClientAPI";
-  import { navigate } from "svelte-navigator";
+  import { maybeUserContext, initApp } from "./context"
+  import _ from "lodash"
+  import { SprachyAPIValidationError } from "./ClientAPI"
+  import { navigate } from "svelte-navigator"
+  import { onMount } from "svelte"
 
-  let email: string = "";
-  let password: string = "";
+  let email: string = ""
+  let password: string = ""
   // let afterAuthUrl: string = "";
-  let errors: SprachyAPIValidationError["messagesByField"] = {};
+  let errors: SprachyAPIValidationError["messagesByField"] = {}
 
-  const { api } = getAnonContext();
+  const { api, user } = maybeUserContext()
+
+  onMount(() => {
+    if (user) {
+      navigate("/home")
+    }
+  })
 
   // activated() {
   //   if (this.$user) {
@@ -19,15 +26,15 @@
 
   async function signup() {
     try {
-      const summary = await api.signUp({ email, password });
-      initApp(summary);
-      navigate("/home");
+      const summary = await api.signUp({ email, password })
+      initApp(summary)
+      navigate("/home")
       // this.$routing.navigate("/home");
     } catch (err: any) {
       if (err instanceof SprachyAPIValidationError) {
-        errors = err.messagesByField;
+        errors = err.messagesByField
       } else {
-        throw err;
+        throw err
       }
     }
   }

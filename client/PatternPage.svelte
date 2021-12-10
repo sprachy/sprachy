@@ -1,8 +1,11 @@
 <script lang="ts">
   import _ from "lodash"
+  import { Link } from "svelte-navigator"
   import { sprachdex } from "../common/sprachdex"
   import { NotFoundError } from "./globalErrorHandling"
   import SiteLayout from "./SiteLayout.svelte"
+  import Test from "./Test.svelte"
+  import SvelteMarkdown from "svelte-markdown"
 
   export let slug: string
 
@@ -22,15 +25,14 @@
 </svelte:head>
 
 <SiteLayout>
-  <!-- <site-layout> -->
   <div class="pattern">
     <h1>{pattern.title}</h1>
+    <SvelteMarkdown source={pattern.explanation} renderers={{ html: Test }} />
     <!-- <sprachdown :content="pattern.explanation" /> -->
-    <!-- <b-btn variant="primary" :to="`/pattern/${pattern.slug}/practice`">
+    <Link to="/pattern/{pattern.slug}/practice" class="btn btn-primary">
       Practice
-    </b-btn> -->
+    </Link>
   </div>
-  <!-- </site-layout> -->
 </SiteLayout>
 
 <style lang="sass" scoped>
