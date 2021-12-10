@@ -1,84 +1,87 @@
 <script lang="ts">
-  import { Component, Vue } from "vue-property-decorator";
-  import _ from "lodash";
+  import { Link } from "svelte-navigator"
+  import _ from "lodash"
 
-  import { getUserContext } from "./context";
+  import { getUserContext } from "./context"
+  import SiteLayout from "./SiteLayout.svelte"
 
-  const patterns = getUserContext().app.patternsWithProgress;
+  const patterns = getUserContext().app.patternsWithProgress
 </script>
 
-<div>
-  hifdsafdsa
-  <!-- <main class="container">
+<SiteLayout>
+  <main class="container">
     Sprachy is a thingy for learning German with patterns!
     <ul>
-      <li class="pattern" v-for="pattern in patterns" :key="pattern.id">
-        <router-link :to="`/pattern/${pattern.slug}`">
-          <div class="icon" :style="{ backgroundColor: '#1ba156' }">
-            <font-awesome-icon :icon="pattern.icon" />
-          </div>
-          <div>
-            <h6 :style="{ color: '#1ba156' }">
-              {{ pattern.title }}
-              <template v-if="pattern.progress">
-                <span v-for="i in pattern.progress.srsLevel" :key="i"
-                  >⭐</span
-                >
-              </template>
-            </h6>
-            <div class="shortdesc">
-              {{ pattern.shortdesc }}
+      {#each patterns as pattern (pattern.id)}
+        <li class="pattern">
+          <Link to="/pattern/{pattern.slug}">
+            <div class="icon" style="background-color: #1ba156">
+              <!-- <font-awesome-icon :icon="pattern.icon" /> -->
             </div>
-            <div class="timetolevel" v-if="pattern.progress">
-              <template v-if="pattern.progress.mastered">
-                Mastered!
-              </template>
-              <template v-else>
-                Can be leveled in
-                <timeago :datetime="pattern.progress.levelableAt" />
-              </template>
+            <div>
+              <h6 style="color: #1ba156">
+                {pattern.title}
+                {#if pattern.progress}
+                  {#each { length: pattern.progress.item.srsLevel } as _}
+                    <span>⭐</span>
+                  {/each}
+                {/if}
+              </h6>
+              <div class="shortdesc">
+                {pattern.shortdesc}
+              </div>
+              {#if pattern.progress}
+                <div class="timetolevel">
+                  {#if pattern.progress.mastered}
+                    Mastered!
+                  {:else}
+                    Can be leveled in
+                    <!-- <timeago :datetime="pattern.progress.levelableAt" /> -->
+                  {/if}
+                </div>
+              {/if}
             </div>
-          </div>
-        </router-link>
-      </li>
+          </Link>
+        </li>
+      {/each}
     </ul>
-  </main> -->
-</div>
+  </main>
+</SiteLayout>
 
 <style lang="sass">
-// ul
-//   padding: 0
+ul
+  padding: 0
 
-// li.pattern:not(:first-child)
-//   margin-top: 1rem
+li.pattern:not(:first-child)
+  margin-top: 1rem
 
-// li.pattern
-//   list-style-type: none
+li.pattern
+  list-style-type: none
 
-//   > a
-//     display: flex
-//     align-items: center
-//     padding: 1rem
-//     color: inherit
+  // > a
+  //   display: flex
+  //   align-items: center
+  //   padding: 1rem
+  //   color: inherit
 
-//   .icon
-//     padding: 0.75rem
-//     margin-right: 1rem
+  .icon
+    padding: 0.75rem
+    margin-right: 1rem
 
-//   .icon svg
-//     color: white
-//     width: 32px
-//     height: 32px
+  // .icon svg
+  //   color: white
+  //   width: 32px
+  //   height: 32px
 
-//   h6
-//     font-size: 1.1rem
-//     margin-bottom: 0.1rem
+  h6
+    font-size: 1.1rem
+    margin-bottom: 0.1rem
 
-//   .shortdesc
-//     margin-bottom: 0.1rem
+  .shortdesc
+    margin-bottom: 0.1rem
 
-//   .timetolevel
-//     font-style: italic
-//     color: #666
-//     font-size: 0.9rem
+  .timetolevel
+    font-style: italic
+    color: #666
+    font-size: 0.9rem
 </style>
