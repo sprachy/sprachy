@@ -107,6 +107,54 @@ module.exports = (env, argv) => {
           ]
         },
         {
+          test: /\.scss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true
+              }
+            },
+
+            {
+              loader: 'sass-loader',
+              options: {
+                // Prefer `dart-sass` cos node-sass seems troublesome
+                implementation: sass,
+                sourceMap: true
+              }
+            }
+          ]
+        },
+
+        { // Custom handle the indented SASS syntax.
+          test: /\.sass$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true
+              }
+            },
+
+            {
+              loader: 'sass-loader',
+              options: {
+                implementation: sass,
+                sourceMap: true,
+                sassOptions: {
+                  indentedSyntax: true
+                }
+              }
+            }
+          ]
+        },
+
+        {
           // Images
           test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
           type: 'asset'

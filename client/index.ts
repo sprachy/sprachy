@@ -1,4 +1,4 @@
-// import './app.sass'
+import './app.sass'
 
 import App from './App.svelte'
 
