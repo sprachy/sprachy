@@ -1,16 +1,11 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
+  "javascript.format.semicolons": "remove",
+  "typescript.format.semicolons": "remove",
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
   "editor.formatOnSave": true,
   "editor.wordWrap": "on",
-  "vetur.format.defaultFormatterOptions": {
-    "prettier": {
-      "semi": false
-    }
-  },
-  "vetur.format.options.useTabs": false,
-  "vetur.format.options.tabSize": 2,
   "files.exclude": {
     "node_modules/": true,
     "tmp/": true,
@@ -18,5 +13,8 @@
     "client/devdist/": true,
     "server/dist/": true,
     "server/devdist/": true
-  }
+  },
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode"
+  },
 }

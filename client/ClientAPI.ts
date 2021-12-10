@@ -1,7 +1,45 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import _ from 'lodash'
 import type { ProgressItem, User, ProgressSummary } from '../common/api'
 import { IS_PRODUCTION } from './settings'
+
+export class UserAPI {
+  admin: AdminAPI = new AdminAPI(this.http)
+  constructor(readonly http: HTTPProvider) { }
+
+  async signIn({ email, password }: { email: string, password: string }): Promise<ProgressSummary> {
+    const { data } = await this.http.post(`/login`, { email, password })
+    return data
+  }
+
+  async signUp({ email, password }: { email: string, password: string }): Promise<ProgressSummary> {
+    const { data } = await this.http.post(`/signup`, { email, password })
+    return data
+  }
+
+  async logout(): Promise<void> {
+    await this.http.post(`/logout`)
+  }
+
+  async getProgress(): Promise<ProgressSummary> {
+    const { data } = await this.http.get(`/progress`)
+    return data
+  }
+
+  async recordReview(patternId: string, remembered: boolean): Promise<ProgressItem | null> {
+    const { data } = await this.http.post(`/progress`, { patternId, remembered })
+    return data
+  }
+}
+
+export class AdminAPI {
+  constructor(readonly http: HTTPProvider) { }
+
+  async listUsers(): Promise<User[]> {
+    const { data } = await this.http.get(`/admin/users`)
+    return data
+  }
+}
 
 async function delay(amount: number) {
   return new Promise(resolve => {
@@ -87,43 +125,5 @@ export class HTTPProvider {
 
   async delete(path: string): Promise<any> {
     return this.request({ method: 'DELETE', url: path })
-  }
-}
-
-export class UserAPI {
-  admin: AdminAPI = new AdminAPI(this.http)
-  constructor(readonly http: HTTPProvider) { }
-
-  async signIn({ email, password }: { email: string, password: string }): Promise<ProgressSummary> {
-    const { data } = await this.http.post(`/login`, { email, password })
-    return data
-  }
-
-  async signUp({ email, password }: { email: string, password: string }): Promise<ProgressSummary> {
-    const { data } = await this.http.post(`/signup`, { email, password })
-    return data
-  }
-
-  async logout(): Promise<void> {
-    await this.http.post(`/logout`)
-  }
-
-  async getProgress(): Promise<ProgressSummary> {
-    const { data } = await this.http.get(`/progress`)
-    return data
-  }
-
-  async recordReview(patternId: string, remembered: boolean): Promise<ProgressItem | null> {
-    const { data } = await this.http.post(`/progress`, { patternId, remembered })
-    return data
-  }
-}
-
-export class AdminAPI {
-  constructor(readonly http: HTTPProvider) { }
-
-  async listUsers(): Promise<User[]> {
-    const { data } = await this.http.get(`/admin/users`)
-    return data
   }
 }

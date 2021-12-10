@@ -5,7 +5,6 @@ import { IS_PRODUCTION } from './settings'
 import { FAUNA_ADMIN_KEY } from './secrets'
 import { FaunaDocument, flattenFauna, FaunaHTTPError } from './faunaUtil'
 import * as time from '../common/time'
-import allPatterns from '../patterns'
 
 export namespace db {
   // This structure allows the client to be changed e.g. by tests

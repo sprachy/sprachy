@@ -1,18 +1,17 @@
 const webpack = require('webpack')
 const path = require('path')
 const Dotenv = require('dotenv-webpack')
-const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 // const BundleAnalyzerPlugin   = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const sass = require('sass')
+const SveltePreprocess = require("svelte-preprocess")
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production'
 
   function commonPlugins() {
     return [
-      new VueLoaderPlugin(),
       new webpack.EnvironmentPlugin({
         NODE_ENV: isProduction ? 'production' : 'development'
       }),
@@ -57,11 +56,11 @@ module.exports = (env, argv) => {
       index: './client/index.ts',
     },
     resolve: {
-      extensions: ['.ts', '.js', '.vue', '.scss'],
+      extensions: ['.ts', '.js', '.vue', '.scss', '.svelte'],
       alias: {
-        // We need the full vue build to compile pattern templates from the server
-        'vue$': 'vue/dist/vue.esm.js'
-      }
+        svelte: path.resolve('node_modules', 'svelte')
+      },
+      mainFields: ['svelte', 'browser', 'module', 'main']
     },
 
     output: {
@@ -72,6 +71,18 @@ module.exports = (env, argv) => {
 
     module: {
       rules: [
+        {
+          test: /\.svelte$/,
+          use: {
+            loader: 'svelte-loader',
+            options: {
+              emitCss: true,
+              preprocess: SveltePreprocess({})
+            },
+          },
+        },
+
+
         { // TypeScript loader!
           test: /\.ts$/,
           // TODO use webpack 5 resolve.restrictions for server when it's available
@@ -80,64 +91,19 @@ module.exports = (env, argv) => {
             {
               loader: 'ts-loader',
               options: {
-                transpileOnly: !isProduction, // Do full typechecking for production builds
-                appendTsSuffixTo: [/\.vue$/],
+                transpileOnly: !isProduction // Do full typechecking for production builds
               }
             }
           ]
-        },
-
-        { // Vue loader must come after TS loader, or we get strange bug
-          // where dev server can't find vue components on reload.
-          test: /\.vue$/,
-          loader: 'vue-loader'
         },
 
         { // Process imported stylesheets as well as Vue style segments.
-          test: /\.s?css$/,
+          test: /\.css$/,
           use: [
-            isProduction ? MiniCssExtractPlugin.loader : 'vue-style-loader',
-
             {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true
-              }
+              loader: MiniCssExtractPlugin.loader
             },
-
-            {
-              loader: 'sass-loader',
-              options: {
-                // Prefer `dart-sass` cos node-sass seems troublesome
-                implementation: sass,
-                sourceMap: true
-              }
-            }
-          ]
-        },
-
-        { // Custom handle the indented SASS syntax.
-          test: /\.sass$/,
-          use: [
-            MiniCssExtractPlugin.loader,
-
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-
-            {
-              loader: 'sass-loader',
-              options: {
-                implementation: sass,
-                sourceMap: true,
-                sassOptions: {
-                  indentedSyntax: true
-                }
-              }
-            }
+            'css-loader',
           ]
         },
         {
@@ -145,14 +111,6 @@ module.exports = (env, argv) => {
           test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
           type: 'asset'
         },
-        {
-          test: /\.tsv$/,
-          loader: 'csv-loader',
-          options: {
-            skipEmptyLines: true,
-            delimiter: "\t"
-          }
-        }
       ]
     },
 
