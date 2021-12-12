@@ -7,7 +7,7 @@
   import FillblankCard from "./FillblankCard.svelte"
   import sprachy from "./sprachy"
 
-  export let slug: string
+  export let slug: string | undefined
   let exerciseIndex: number = 0
   let complete: boolean = false
   let mistakes: number = 0

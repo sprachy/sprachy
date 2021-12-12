@@ -6,7 +6,7 @@
   import SiteLayout from "./SiteLayout.svelte"
   import Sprachdown from "./Sprachdown.svelte"
 
-  export let slug: string
+  export let slug: string | undefined
 
   const pattern = sprachdex.allPatterns.find((p) => p.slug === slug)
   if (!pattern) {

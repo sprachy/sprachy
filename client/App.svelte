@@ -28,14 +28,18 @@
 
 <div class="app">
   <Router>
-    <Route path="/" component={FrontPage} />
-    <Route path="/login" component={LoginPage} />
-    <Route path="/home" component={HomePage} />
-    <Route path="/faq" component={FAQPage} />
-    <Route path="/learn" component={LearnPage} />
-    <Route path="/review" component={ReviewPage} />
-    <Route path="/settings" component={SettingsPage} />
-    <Route path="/pattern/:slug/practice" component={PracticePage} />
-    <Route path="/pattern/:slug" component={PatternPage} />
+    <Route path="/"><FrontPage /></Route>
+    <Route path="/login"><LoginPage /></Route>
+    <Route path="/home"><HomePage /></Route>
+    <Route path="/faq"><FAQPage /></Route>
+    <Route path="/learn"><LearnPage /></Route>
+    <Route path="/review"><ReviewPage /></Route>
+    <Route path="/settings"><SettingsPage /></Route>
+    <Route path="/pattern/:slug/practice" let:params>
+      <PracticePage slug={params.slug} />
+    </Route>
+    <Route path="/pattern/:slug" let:params>
+      <PatternPage slug={params.slug} />
+    </Route>
   </Router>
 </div>
