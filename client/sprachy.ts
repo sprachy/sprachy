@@ -1,14 +1,14 @@
 import type { ProgressSummary } from "../common/api"
 import { UserApp } from "./UserApp"
-import { HTTPProvider, SprachyAPIClient } from "./SprachyAPIClient"
+import { SprachyAPIClient } from "./SprachyAPIClient"
 
 /**
  * Global sprachy frontend state
  * Stuff that needs user/progress info should go in UserApp instead
  */
 export class SprachyFrontendState {
-  readonly api = new SprachyAPIClient(new HTTPProvider())
-  readonly backgroundApi = new SprachyAPIClient(new HTTPProvider())
+  readonly api = new SprachyAPIClient()
+  readonly backgroundApi = new SprachyAPIClient()
   _app: UserApp|null = null
 
   initApp(summary: ProgressSummary) {
