@@ -2,7 +2,7 @@
   import DialogueExample from "./DialogueExample.svelte"
   import LTable from "./LTable.svelte"
 
-  export let node: HTMLElement
+  export let node: Element
   let attrs: any = {}
   for (const key of node.getAttributeNames()) {
     attrs[key] = node.getAttribute(key)

@@ -1,6 +1,8 @@
 import './app.sass'
 
+// @ts-ignore
 import App from './App.svelte'
+// @ts-ignore
 import ErrorPage from './ErrorPage.svelte'
 import { GlobalErrorHandler } from './GlobalErrorHandler'
 

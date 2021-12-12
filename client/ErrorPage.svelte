@@ -1,7 +1,5 @@
 <script lang="ts">
   import type { AxiosError } from "axios"
-  import sprachy from "./sprachy"
-
   import UnexpectedErrorModal from "./UnexpectedErrorModal.svelte"
 
   export let error: Error

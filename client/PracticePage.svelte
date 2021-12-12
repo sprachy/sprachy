@@ -1,6 +1,6 @@
 <script lang="ts">
   import _ from "lodash"
-  import type { Pattern, Exercise } from "../common/sprachdex"
+  import type { Exercise } from "../common/sprachdex"
   import { NotFoundError } from "./GlobalErrorHandler"
   import type { UserApp } from "./UserApp"
   import SiteLayout from "./SiteLayout.svelte"

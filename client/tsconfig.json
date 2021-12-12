@@ -14,9 +14,5 @@
       "es6",
       "esnext.asynciterable"
     ]
-  },
-  "files": [
-    "./sfc.d.ts",
-    "./vue-shims.d.ts"
-  ]
+  }
 }

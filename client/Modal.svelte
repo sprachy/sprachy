@@ -42,7 +42,7 @@
   function onModalOpened() {
     if (keyboard) {
       _keyboardEvent = attachEvent(document, "keydown", (e) => {
-        if (event.key === "Escape") {
+        if (e.key === "Escape") {
           open = false
         }
       })

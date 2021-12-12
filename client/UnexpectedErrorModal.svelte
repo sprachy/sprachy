@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { AxiosError } from "axios"
-  import * as _ from "lodash"
+  import _ from "lodash"
   import Modal from "./Modal.svelte"
 
   export let error: Error | AxiosError

@@ -21,7 +21,6 @@
       const summary = await sprachy.api.signUp({ email, password })
       sprachy.initApp(summary)
       navigate("/home")
-      // this.$routing.navigate("/home");
     } catch (err: any) {
       if (err instanceof SprachyAPIValidationError) {
         errors = err.messagesByField
@@ -56,7 +55,11 @@
             placeholder="Email"
             required
           />
-          <!-- :state="errors.email ? false : null" -->
+          {#if errors.email}
+            <div class="invalid-feedback">
+              {errors.email}
+            </div>
+          {/if}
         </fieldset>
         <fieldset class="form-group">
           <label for="password">Password</label>
@@ -70,14 +73,12 @@
             minLength="10"
             required
           />
-          <!-- :state="errors.password ? false : null" -->
+          {#if errors.password}
+            <div class="invalid-feedback">
+              {errors.password}
+            </div>
+          {/if}
         </fieldset>
-        <!-- <b-form-invalid-feedback v-if="errors.email">
-              {{ errors.email }}
-            </b-form-invalid-feedback> -->
-        <!-- <b-form-invalid-feedback v-if="errors.password">
-              {{ errors.password }}
-            </b-form-invalid-feedback> -->
         <!-- <input type="hidden" name="then" :value="afterAuthUrl" /> -->
         <button class="btn btn-lg text-white" type="submit"
           >Sign up for Sprachy</button

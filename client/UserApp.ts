@@ -2,7 +2,7 @@ import _ from 'lodash'
 import type { ProgressItem, User, ProgressSummary } from '../common/api'
 import { sprachdex, Pattern } from '../common/sprachdex'
 import time from '../common/time'
-import type { UserAPI } from './ClientAPI'
+import type { SprachyAPIClient } from './SprachyAPIClient'
 
 /**
  * Application-wide state for when the user is signed in
@@ -11,7 +11,7 @@ import type { UserAPI } from './ClientAPI'
   user!: User
   progressItems!: ProgressItem[]
 
-  constructor(readonly api: UserAPI, summary: ProgressSummary) {
+  constructor(readonly api: SprachyAPIClient, summary: ProgressSummary) {
     this.receiveProgress(summary)
   }
 
