@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios"
-import { HTTPProvider, UserAPI } from "../client/SprachyAPIClient"
+import { HTTPProvider, SprachyAPIClient } from "../client/SprachyAPIClient"
 import { TEST_USER_EMAIL, TEST_USER_PASSWORD } from "./constants"
 import { wrapper } from 'axios-cookiejar-support'
 import { CookieJar } from 'tough-cookie'
@@ -41,14 +41,14 @@ export class TestHTTPProvider implements HTTPProvider {
 }
 
 type TestEnv = {
-  asUser: { api: UserAPI }
-  // asAdmin: UserAPI
+  asUser: { api: SprachyAPIClient }
+  // asAdmin: SprachyAPIClient
 }
 
 let testenvReady: TestEnv | null = null
 
 async function setupTestEnv(): Promise<TestEnv> {
-  const asUser = { api: new UserAPI(new TestHTTPProvider()) }
+  const asUser = { api: new SprachyAPIClient(new TestHTTPProvider()) }
   await asUser.api.signIn({
     email: TEST_USER_EMAIL,
     password: TEST_USER_PASSWORD

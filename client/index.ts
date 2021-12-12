@@ -1,19 +1,40 @@
 import './app.sass'
 
 import App from './App.svelte'
+import ErrorPage from './ErrorPage.svelte'
+import sprachy from './sprachy'
+import { GlobalErrorHandler } from './GlobalErrorHandler'
 
-const app = new App({
+let app: App;
+
+const globalErrorHandler = new GlobalErrorHandler({
+  onError: (err: Error) => {
+    // Since Svelte doesn't have component-level error handling, the
+    // best we can do is nuke the current context and show an error page.
+    try {
+      app.$destroy()
+    } catch (e) {
+      document.body.innerHTML = ''
+    }
+    new ErrorPage({
+      target: document.body,
+      props: {
+        error: err
+      }
+    })
+  }
+})
+
+app = new App({
   target: document.body
-});
-
-export default app;
+})  
 
 // import Vue from 'vue'
 // import BootstrapVue from 'bootstrap-vue'
 // import App from './App.vue'
 // import { SprachyRouter } from './router'
 // import { SprachyApp } from './app'
-// import { HTTPProvider, UserAPI } from './SprachyAPIClient'
+// import { HTTPProvider, UserAPI } from './ClientAPI'
 // import './app.sass'
 // import Dialogue from './Dialogue.vue'
 // import Avatar from './Avatar.vue'

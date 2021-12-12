@@ -2,7 +2,7 @@ import _ from 'lodash'
 import type { ProgressItem, User, ProgressSummary } from '../common/api'
 import { sprachdex, Pattern } from '../common/sprachdex'
 import time from '../common/time'
-import type { UserAPI } from './SprachyAPIClient'
+import type { UserAPI } from './ClientAPI'
 
 /**
  * Application-wide state for when the user is signed in

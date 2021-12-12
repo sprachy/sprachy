@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import * as Sentry from '@sentry/browser'
 // import { SENTRY_DSN_URL } from "~/settings"
 import axios, { AxiosError, AxiosResponse } from 'axios'
@@ -7,6 +6,7 @@ const SENTRY_DSN_URL = ''
 
 export type GlobalErrorHandlerOpts = {
   sentryScoper?: (scope: Sentry.Scope) => void
+  onError?: (error: Error) => void
 }
 
 /** Used for SPA 404s when no actual request is involved */
@@ -18,27 +18,11 @@ export class NotFoundError extends Error {
 
 /**
  * Global error handling when all else fails. Our last stand against the darkness.
- * This is designed to be reusable in different Vue application contexts, so it shouldn't
+ * This is designed to be reusable in different application contexts, so it shouldn't
  * directly access stuff like user info etc.
  */
-class GlobalErrorHandler {
-  private errorStore: { lastGlobalError: Error | null } = Vue.observable({ lastGlobalError: null })
-  opts: GlobalErrorHandlerOpts = {}
-
-  get lastGlobalError() {
-    return this.errorStore.lastGlobalError
-  }
-
-  dismissError() {
-    this.errorStore.lastGlobalError = null
-  }
-
-  /**
-   * Bind global error handling listeners to a Vue application.
-   */
-  init(opts: GlobalErrorHandlerOpts = {}) {
-    this.opts = opts
-
+export class GlobalErrorHandler {
+  constructor(readonly opts: GlobalErrorHandlerOpts = {}) {
     if (SENTRY_DSN_URL) {
       Sentry.init({
         dsn: SENTRY_DSN_URL
@@ -62,12 +46,12 @@ class GlobalErrorHandler {
     })
     // Note that we do need this as well as the global handlers
     // as by default vue will trap some errors
-    Vue.config.errorHandler = (err, vm, info) => {
-      if (this.receiveUnhandledError(err, { hideConsole: false })) {
-        const util = (Vue as any).util
-        util.warn(`Error in ${info}: "${err.toString()}"`, vm)
-      }
-    }
+    // Vue.config.errorHandler = (err, vm, info) => {
+    //   if (this.receiveUnhandledError(err, { hideConsole: false })) {
+    //     const util = (Vue as any).util
+    //     util.warn(`Error in ${info}: "${err.toString()}"`, vm)
+    //   }
+    // }
   }
 
   /**
@@ -75,10 +59,10 @@ class GlobalErrorHandler {
   */
   receiveUnhandledError(err: Error, opts: { hideConsole: boolean } = { hideConsole: false }): boolean {
     if (err instanceof axios.Cancel) {
-      if (err.message.includes("vue-component")) {
-        // Warn if it's the default cancellation behavior-- might be good to give it an explicit key
-        console.warn(err)
-      }
+      // if (err.message.includes("vue-component")) {
+      //   // Warn if it's the default cancellation behavior-- might be good to give it an explicit key
+      //   console.warn(err)
+      // }
       return false
     }
 
@@ -107,24 +91,9 @@ class GlobalErrorHandler {
 
     }
 
-    this.errorStore.lastGlobalError = err
+    if (this.opts.onError)
+      this.opts.onError(err)
+
     return true
-  }
-}
-
-export const globalErrorHandler = new GlobalErrorHandler()
-
-/** Given an error of some kind, work out how best to stringify it. */
-export function extractErrorMessage(err: Error): string {
-  const resp: AxiosResponse<any> | undefined = (err as AxiosError).response
-  if (resp) {
-    if (resp.data.message) {
-      // If the server sent an error message, that's likely the most useful one to show
-      return resp.data.message
-    } else {
-      return `${resp.status} ${resp.statusText} from ${(err as AxiosError).config.url}`
-    }
-  } else {
-    return err.message
   }
 }

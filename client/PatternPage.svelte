@@ -2,7 +2,7 @@
   import _ from "lodash"
   import { Link } from "svelte-navigator"
   import { sprachdex } from "../common/sprachdex"
-  import { NotFoundError } from "./globalErrorHandling"
+  import { NotFoundError } from "./GlobalErrorHandler"
   import SiteLayout from "./SiteLayout.svelte"
   import SprachdownNode from "./SprachdownNode.svelte"
   import SvelteMarkdown from "svelte-markdown"

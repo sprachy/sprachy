@@ -74,6 +74,13 @@
                 <Link class="nav-link" to="/settings">{sprachy.user.email}</Link
                 >
               </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="/logout"
+                  on:click|preventDefault={logout}>Log out</a
+                >
+              </li>
             {/if}
           </ul>
         </div>

@@ -4,6 +4,8 @@
   import SiteLayout from "./SiteLayout.svelte"
   import sprachy from "./sprachy"
 
+  throw new Error("oh noes")
+
   const pattern = _.sortBy(
     sprachy.app.patternsWithProgress.filter((p) => p.progress),
     (p) => p.progress!.item.lastReviewedAt
