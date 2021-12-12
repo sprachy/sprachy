@@ -12,6 +12,6 @@
 
 <img class="avatar" src={icon} alt={character} />
 
-<style lang="sass" scoped>
+<style lang="sass">
 
 </style>

@@ -61,7 +61,7 @@
   </main>
 </template>
 
-<style lang="sass" scoped>
+<style lang="sass">
 main
   height: calc(100vh - 5rem)
   display: flex

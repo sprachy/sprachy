@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .site-layout
   padding-bottom: 5rem
 

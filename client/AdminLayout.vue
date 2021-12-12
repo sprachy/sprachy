@@ -36,7 +36,7 @@ export default class AdminLayout extends Vue {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 #main
   padding-top: 1.5rem
 </style>

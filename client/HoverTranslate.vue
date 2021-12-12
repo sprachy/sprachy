@@ -22,7 +22,7 @@ export default class HoverTranslate extends Vue {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 span
   border-bottom: 1px dotted #000
 </style>

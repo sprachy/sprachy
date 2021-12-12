@@ -24,7 +24,7 @@
   </div>
 </SiteLayout>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .pattern
   max-width: 800px
   font-size: 16px

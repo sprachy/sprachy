@@ -121,7 +121,7 @@
   </div>
 </div>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .FillblankCard
   margin: auto
   max-width: 600px

@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .message
   display: flex
 

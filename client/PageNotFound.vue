@@ -37,7 +37,7 @@ export default class PageNotFound extends Vue {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 main
   background: rgb(14, 30, 37)
   position: fixed

@@ -23,7 +23,7 @@
   {/each}
 </div>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .dialogue
   box-shadow: 0 7px 50px rgba(46,10,99,.05), 0 1px 1px 0.6px rgba(46,10,99,.1)
   border-radius: 8px
