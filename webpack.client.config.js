@@ -76,7 +76,11 @@ module.exports = (env, argv) => {
           use: {
             loader: 'svelte-loader',
             options: {
-              emitCss: true,
+              compilerOptions: {
+                dev: !isProduction,
+              },
+              emitCss: isProduction,
+              hotReload: true,
               preprocess: SveltePreprocess({})
             },
           },
