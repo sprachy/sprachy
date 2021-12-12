@@ -79,7 +79,7 @@ module.exports = (env, argv) => {
               compilerOptions: {
                 dev: !isProduction,
               },
-              emitCss: isProduction,
+              emitCss: true,
               hotReload: true,
               optimistic: false,
               preprocess: SveltePreprocess({})
