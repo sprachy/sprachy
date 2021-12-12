@@ -20,6 +20,9 @@
 </div>
 
 <style lang="sass" scoped>
+.site-layout
+  padding-bottom: 5rem
+
 #main
   padding-top: 1.5rem
 </style>
