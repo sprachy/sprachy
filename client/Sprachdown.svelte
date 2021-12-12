@@ -1,14 +1,15 @@
 <script lang="ts">
   import _ from "lodash"
-  import { sprachdown } from "../common/sprachdown"
-  export let content: string
-  export let inline: boolean = false
+  import SvelteMarkdown from "svelte-markdown"
+  import SprachdownHTML from "./SprachdownHTML.svelte"
 
-  $: template = inline
-    ? `<span>` + sprachdown.parseInline(content) + `</span>`
-    : `<div>` + sprachdown.parse(content) + `</div>`
+  export let source: string
+
+  // export let inline: boolean = false
+
+  // $: template = inline
+  //   ? `<span>` + sprachdown.parseInline(content) + `</span>`
+  //   : `<div>` + sprachdown.parse(content) + `</div>`
 </script>
 
-<template>
-  {@html template}
-</template>
+<SvelteMarkdown {source} renderers={{ html: SprachdownHTML }} />

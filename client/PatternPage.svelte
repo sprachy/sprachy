@@ -4,8 +4,7 @@
   import { sprachdex } from "../common/sprachdex"
   import { NotFoundError } from "./GlobalErrorHandler"
   import SiteLayout from "./SiteLayout.svelte"
-  import SprachdownNode from "./SprachdownNode.svelte"
-  import SvelteMarkdown from "svelte-markdown"
+  import Sprachdown from "./Sprachdown.svelte"
 
   export let slug: string
 
@@ -27,11 +26,7 @@
 <SiteLayout>
   <div class="pattern">
     <h1>{pattern.title}</h1>
-    <SvelteMarkdown
-      source={pattern.explanation}
-      renderers={{ html: SprachdownNode }}
-    />
-    <!-- <sprachdown :content="pattern.explanation" /> -->
+    <Sprachdown source={pattern.explanation} />
     <Link to="/pattern/{pattern.slug}/practice" class="btn btn-primary">
       Practice
     </Link>
