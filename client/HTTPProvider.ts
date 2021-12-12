@@ -10,7 +10,7 @@ export class HTTPProvider {
 
   constructor(config: { baseURL?: string } = {}) {
     this.axios = axios.create({
-      baseURL: config.baseURL || '/api',
+      baseURL: config.baseURL || '',
       timeout: 10000
     })
 

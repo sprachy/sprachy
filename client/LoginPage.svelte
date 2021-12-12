@@ -10,7 +10,7 @@
     errorMessage = null
 
     try {
-      const userSummary = await sprachy.api.signIn({ email, password })
+      const userSummary = await sprachy.api.login({ email, password })
       sprachy.initApp(userSummary)
       navigate("/home")
     } catch (err: any) {

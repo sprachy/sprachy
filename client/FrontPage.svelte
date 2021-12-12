@@ -32,9 +32,9 @@
 </script>
 
 <div class="frontpage">
-  <header class="container">
+  <!-- <header class="container">
     <a class="logo" href="/"> Sprachy </a>
-  </header>
+  </header> -->
   <main class="container">
     <div class="w-50">
       <h1>Learn German the weird and dorky way</h1>
@@ -95,11 +95,11 @@
 </div>
 
 <style lang="sass">
-a:first-child
-  margin-right: 1rem
+// a:first-child
+//   margin-right: 1rem
 
-a:last-child
-  margin-left: 1rem
+// a:last-child
+//   margin-left: 1rem
 
 .frontpage
   height: 100vh
@@ -121,8 +121,8 @@ a:last-child
 .form-group
   margin-bottom: 1rem
 
-header
-  color: white
+// header
+//   color: white
 
 main.container
   position: relative
