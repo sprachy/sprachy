@@ -4,12 +4,14 @@ import './app.sass'
 import App from './App.svelte'
 // @ts-ignore
 import ErrorPage from './ErrorPage.svelte'
-import { GlobalErrorHandler } from './GlobalErrorHandler'
+// @ts-ignore
+import NotFoundPage from './NotFoundPage.svelte'
+import { GlobalErrorHandler, NotFoundError } from './GlobalErrorHandler'
 
 let app: App;
 
 new GlobalErrorHandler({
-  onError: (err: Error) => {
+  onError: (err: any) => {
     // Since Svelte doesn't have component-level error handling, the
     // best we can do is nuke the current context and show an error page.
     try {
@@ -17,12 +19,18 @@ new GlobalErrorHandler({
     } catch (e) {
       document.body.innerHTML = ''
     }
-    new ErrorPage({
-      target: document.body,
-      props: {
-        error: err
-      }
-    })
+    if (err instanceof NotFoundError || err.response?.status === 404) {
+      new NotFoundPage({
+        target: document.body
+      })
+    } else {
+      new ErrorPage({
+        target: document.body,
+        props: {
+          error: err
+        }
+      })  
+    }
   }
 })
 

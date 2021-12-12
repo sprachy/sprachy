@@ -1,3 +1,9 @@
+<script lang="ts">
+  window.addEventListener("popstate", () => {
+    window.location.reload()
+  })
+</script>
+
 <template>
   <main>
     <div class="card">
@@ -23,19 +29,6 @@
     </div>
   </main>
 </template>
-
-<script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator"
-
-@Component
-export default class PageNotFound extends Vue {
-  @Prop({ type: Function, default: null }) onDismiss!: () => void
-
-  beforeDestroy() {
-    if (this.onDismiss) this.onDismiss()
-  }
-}
-</script>
 
 <style lang="sass">
 main
