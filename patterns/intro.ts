@@ -11,22 +11,17 @@ export default definePattern({
 Welcome to Sprachy! As is traditional with learning languages, let's start
 by learning how to introduce yourself.
 
-<plapper-log>
-<msg from="lukas">
-Hallo! Ich heiße Lukas. Deutsch ist meine Muttersprache.
-Hello! I'm called Lukas. German is my native language.
-</msg>
-
-<msg from="anna">
-Guten Morgen. Mein Name ist Anna. Ich lerne gerne Deutsch.
-Good morning. My name is Anna. I like to learn German.
-</msg>
-
-<msg from="squirrel">
-Grüße. Ich bin Töskirelon, Meister der Neunten Esper-Kunst und Imperator der unendlichen Ebene von Yi.
-Greetings. I am Töskirelon, Master of the Ninth Esper Art and Imperator of the Infinite Plane of Yi.
-</msg>
-</plapper-log>
+<DialogueExample>
+lukas:
+  Hallo! Ich heiße Lukas. Deutsch ist meine Muttersprache.
+  Hello! I'm called Lukas. German is my native language.
+anna:
+  Guten Morgen. Mein Name ist Anna. Ich lerne gerne Deutsch.
+  Good morning. My name is Anna. I like to learn German.
+squirrel:
+  Grüße. Ich bin Töskirelon, Meister der Neunten Esper-Kunst und Imperator der unendlichen Ebene von Yi.
+  Greetings. I am Töskirelon, Master of the Ninth Esper Art and Imperator of the Infinite Plane of Yi.
+</DialogueExample>
 
 Like most languages, German has a variety of words with similar meanings that have subtle differences in tone, formality, or regional usage. Here are a few different ways to say hello!
 

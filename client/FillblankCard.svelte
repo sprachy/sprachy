@@ -4,6 +4,7 @@
   import { levenshtein } from "./levenshtein"
   import { CanvasEffects } from "./CanvasEffects"
   import { createEventDispatcher, onMount } from "svelte"
+  import Message from "./Message.svelte"
 
   export let exercise: Exercise
   let attemptInput!: HTMLInputElement
@@ -90,19 +91,19 @@
     <div class="card-body">
       <form on:submit|preventDefault={checkAnswer}>
         <div class="filling">
-          <!-- <plapper-message :from="exercise.from"> -->
-          <div class="quote">
-            <span>{parts.before}</span>
-            <span
-              class:fillblank={true}
-              class:hasInput={!!attempt.length}
-              style="minWidth: {clozeWidth + 'px'}"
-              data-hint={exercise.hint}>&#8203;{attempt}&#8203;</span
-            >
-            <span>{parts.after}</span>
-          </div>
-          <div class="translation">{@html translation}</div>
-          <!-- </plapper-message> -->
+          <Message from={exercise.from}>
+            <div class="quote">
+              <span>{parts.before}</span>
+              <span
+                class:fillblank={true}
+                class:hasInput={!!attempt.length}
+                style="min-width: {clozeWidth + 'px'}"
+                data-hint={exercise.hint}>&#8203;{attempt}&#8203;</span
+              >
+              <span>{parts.after}</span>
+            </div>
+            <div class="translation">{@html translation}</div>
+          </Message>
         </div>
         <fieldset class="input-area">
           <input
@@ -138,9 +139,13 @@
   font-size: 1.05rem
   line-height: 2rem
 
-// .message
-//   .translation ::v-deep strong
-//     color: #86abff
+.translation :global(strong)
+  color: #86abff
+
+.translation
+  padding-top: 2rem
+  color: rgba(220, 221, 222, 0.7)
+  text-align: center
 
 span.fillblank
   color: #64b5f6

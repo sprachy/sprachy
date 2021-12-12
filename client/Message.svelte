@@ -44,10 +44,6 @@
     font-weight: 400
     color: #dcddde
 
-  // .translation
-  //   padding-top: 2rem
-  //   color: rgba(220, 221, 222, 0.7)
-  //   text-align: center
 
   // .translation :global(strong)
   //   color: #86abff

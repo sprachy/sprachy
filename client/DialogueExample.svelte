@@ -1,5 +1,26 @@
+<script lang="ts">
+  import Message from "./Message.svelte"
+
+  export let text: string
+
+  const blocks = text.split(/(?=^\w+:)/gm).filter((b) => b.trim().length)
+
+  const messages = blocks.map((b) => {
+    const lines = b.split("\n")
+    return {
+      from: lines[0]!.trim().split(":")[0]!,
+      original: lines[1]!.trim(),
+      translation: lines[2]!.trim(),
+    }
+  })
+</script>
+
 <div class="dialogue">
-  <slot />
+  {#each messages as message}
+    <Message from={message.from}>
+      {message.original}
+    </Message>
+  {/each}
 </div>
 
 <style lang="sass" scoped>

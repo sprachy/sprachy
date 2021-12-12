@@ -5,7 +5,7 @@
 
   export let source: string
 
-  // export let inline: boolean = false
+  export const inline: boolean = false // SvelteMarkdown doesn't seem to support this atm, despite claiming to
 
   // $: template = inline
   //   ? `<span>` + sprachdown.parseInline(content) + `</span>`

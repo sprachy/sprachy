@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Router, Link, Route } from "svelte-navigator"
+  import { Router, Route } from "svelte-navigator"
   import sprachy from "./sprachy"
   import FAQPage from "./FAQPage.svelte"
   import FrontPage from "./FrontPage.svelte"

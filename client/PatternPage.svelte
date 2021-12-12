@@ -19,11 +19,7 @@
   $: pattern = findPattern()
 </script>
 
-<svelte:head>
-  <title>{pattern.title}</title>
-</svelte:head>
-
-<SiteLayout>
+<SiteLayout title={pattern.title}>
   <div class="pattern">
     <h1>{pattern.title}</h1>
     <Sprachdown source={pattern.explanation} />

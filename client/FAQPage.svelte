@@ -19,6 +19,6 @@ except for the final level, which can only be retried every so often.
 
 <template>
   <SiteLayout title="FAQ">
-    <Sprachdown content={faq} />
+    <Sprachdown source={faq} />
   </SiteLayout>
 </template>
