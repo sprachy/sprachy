@@ -7,8 +7,7 @@
   import deer from "./img/deer.png"
 
   export let character: string
-
-  $: icon = { lukas, anna, squirrel, scientist, deer }[character]
+  const icon = { lukas, anna, squirrel, scientist, deer }[character]
 </script>
 
 <img class="avatar" src={icon} alt={character} />

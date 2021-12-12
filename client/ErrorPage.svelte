@@ -4,9 +4,9 @@
 
   export let error: Error
 
-  $: axiosError = "response" in error && (error as AxiosError)
+  const axiosError = "response" in error && (error as AxiosError)
 
-  $: if (axiosError && axiosError.response?.status === 401) {
+  if (axiosError && axiosError.response?.status === 401) {
     // Go to login page
     localStorage.removeItem("summary")
     window.location.replace("/login")

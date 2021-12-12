@@ -6,11 +6,11 @@
   export let error: Error | AxiosError
   export let onDismiss: () => void
 
-  $: axiosError = "response" in error ? (error as AxiosError<any>) : null
+  const axiosError = "response" in error ? (error as AxiosError<any>) : null
 
-  $: serverResponse = axiosError ? axiosError.response : null
+  const serverResponse = axiosError ? axiosError.response : null
 
-  $: serverResponseHTML = serverResponse
+  const serverResponseHTML = serverResponse
     ? _.isString(serverResponse.data)
       ? serverResponse.data
       : `<pre>${JSON.stringify(serverResponse.data, null, 2)}</pre>`

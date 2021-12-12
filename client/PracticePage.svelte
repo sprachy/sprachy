@@ -11,22 +11,14 @@
   let exerciseIndex: number = 0
   let complete: boolean = false
   let mistakes: number = 0
-  let exercises: Exercise[] = []
-  let pattern: UserApp["patternsWithProgress"][0]
 
+  const pattern = sprachy.app.patternsWithProgress.find((p) => p.slug === slug)
+  if (!pattern) {
+    throw new NotFoundError()
+  }
+
+  let exercises: Exercise[] = pattern.exercises
   $: exercise = exercises[exerciseIndex]!
-
-  $: ((slug: string) => {
-    pattern = sprachy.app.patternsWithProgress.find((p) => p.slug === slug)!
-    if (!pattern) {
-      throw new NotFoundError()
-    }
-
-    exercises = pattern.exercises
-    exerciseIndex = 0
-    complete = false
-    mistakes = 0
-  })(slug)
 
   async function onAnswer(event: CustomEvent<{ correct: boolean }>) {
     if (!event.detail.correct) {

@@ -7,7 +7,7 @@
     deer: "Eiknir",
   } as Record<string, string>
 
-  $: username = names[from] || from
+  const username = names[from] || from
 </script>
 
 <div class="message">

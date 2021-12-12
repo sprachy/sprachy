@@ -8,15 +8,10 @@
 
   export let slug: string
 
-  function findPattern() {
-    const pattern = sprachdex.allPatterns.find((p) => p.slug === slug)
-    if (!pattern) {
-      throw new NotFoundError()
-    }
-    return pattern
+  const pattern = sprachdex.allPatterns.find((p) => p.slug === slug)
+  if (!pattern) {
+    throw new NotFoundError()
   }
-
-  $: pattern = findPattern()
 </script>
 
 <SiteLayout title={pattern.title}>
