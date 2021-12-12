@@ -3,6 +3,7 @@
   import _ from "lodash"
   import { FontAwesomeIcon } from "fontawesome-svelte"
   import SiteLayout from "./SiteLayout.svelte"
+  import Timeago from "./Timeago.svelte"
   import sprachy from "./sprachy"
 
   const patterns = sprachy.app.patternsWithProgress
@@ -35,8 +36,7 @@
                   {#if pattern.progress.mastered}
                     Mastered!
                   {:else}
-                    Can be leveled in
-                    <!-- <timeago :datetime="pattern.progress.levelableAt" /> -->
+                    Can be leveled <Timeago ts={pattern.progress.levelableAt} />
                   {/if}
                 </div>
               {/if}
