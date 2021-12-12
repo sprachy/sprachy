@@ -1,10 +1,14 @@
 <script lang="ts">
   import { Router, Link, Route } from "svelte-navigator"
   import { initApp } from "./context"
+  import FAQPage from "./FAQPage.svelte"
   import FrontPage from "./FrontPage.svelte"
   import { globalErrorHandler } from "./globalErrorHandling"
   import HomePage from "./HomePage.svelte"
+  import LearnPage from "./LearnPage.svelte"
+  import ReviewPage from "./ReviewPage.svelte"
   import PatternPage from "./PatternPage.svelte"
+  import PracticePage from "./PracticePage.svelte"
 
   globalErrorHandler.init({
     sentryScoper: (scope) => {
@@ -34,6 +38,10 @@
 <Router>
   <Route path="/" component={FrontPage} />
   <Route path="/home" component={HomePage} />
+  <Route path="/faq" component={FAQPage} />
+  <Route path="/learn" component={LearnPage} />
+  <Route path="/review" component={ReviewPage} />
+  <Route path="/pattern/:slug/practice" component={PracticePage} />
   <Route path="/pattern/:slug" component={PatternPage} />
 </Router>
 

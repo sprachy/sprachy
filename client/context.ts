@@ -22,6 +22,6 @@ export function maybeUserContext() {
 }
 
 /** State of things when we're logged in */
-export function getUserContext() {
+export function userContext() {
   return { api, backgroundApi, app }
 }

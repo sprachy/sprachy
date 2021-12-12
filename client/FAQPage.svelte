@@ -1,26 +1,10 @@
-<template>
-  <site-layout>
-    <sprachdown :content="faq" />
-  </site-layout>
-</template>
-
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator"
-import { md } from "../common/sprachdown"
-import _ from "lodash"
+  import { md } from "../common/sprachdown"
+  import _ from "lodash"
+  import Sprachdown from "./Sprachdown.svelte"
+  import SiteLayout from "./SiteLayout.svelte"
 
-@Component({
-  metaInfo() {
-    return {
-      title: "FAQ - Sprachy",
-    }
-  },
-})
-export default class LearnPage extends Vue {
-  noNewPatterns: boolean = false
-
-  get faq() {
-    return md`
+  const faq = md`
 # Frequently asked questions
 
 ### How do SRS levels work?
@@ -30,12 +14,11 @@ The main difference is that levels do not decrease when you make a mistake; inst
 you can only increase in level after a certain amount of time has passed since the
 previous one. You can retry for a level increase immediately if you make a mistake,
 except for the final level, which can only be retried every so often.
-    `
-  }
-}
+  `
 </script>
 
-<style lang="sass">
-tr
-  cursor: pointer
-</style>
+<template>
+  <SiteLayout title="FAQ">
+    <Sprachdown content={faq} />
+  </SiteLayout>
+</template>

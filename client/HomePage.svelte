@@ -3,10 +3,10 @@
   import _ from "lodash"
   import { FontAwesomeIcon } from "fontawesome-svelte"
 
-  import { getUserContext } from "./context"
+  import { userContext } from "./context"
   import SiteLayout from "./SiteLayout.svelte"
 
-  const patterns = getUserContext().app.patternsWithProgress
+  const patterns = userContext().app.patternsWithProgress
 </script>
 
 <SiteLayout>
