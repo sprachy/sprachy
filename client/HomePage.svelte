@@ -2,11 +2,10 @@
   import { Link } from "svelte-navigator"
   import _ from "lodash"
   import { FontAwesomeIcon } from "fontawesome-svelte"
-
-  import { userContext } from "./context"
   import SiteLayout from "./SiteLayout.svelte"
+  import sprachy from "./sprachy"
 
-  const patterns = userContext().app.patternsWithProgress
+  const patterns = sprachy.app.patternsWithProgress
 </script>
 
 <SiteLayout>

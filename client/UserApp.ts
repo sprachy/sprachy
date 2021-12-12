@@ -2,25 +2,12 @@ import _ from 'lodash'
 import type { ProgressItem, User, ProgressSummary } from '../common/api'
 import { sprachdex, Pattern } from '../common/sprachdex'
 import time from '../common/time'
-import type { UserAPI } from './ClientAPI'
-
-class PatternProgress {
-  constructor(readonly pattern: Pattern, readonly item: ProgressItem) { }
-
-  get mastered() {
-    return this.item.srsLevel >= 9
-  }
-
-  get levelableAt() {
-    return this.item.lastLeveledAt + time.toNextSRSLevel(this.item.srsLevel)
-  }
-}
+import type { UserAPI } from './SprachyAPIClient'
 
 /**
- * Global store for cross-component data and caches
+ * Application-wide state for when the user is signed in
  */
-export class SprachyApp {
-  static instance: SprachyApp
+ export class UserApp {
   user!: User
   progressItems!: ProgressItem[]
 
@@ -55,7 +42,7 @@ export class SprachyApp {
     return _.keyBy(this.progressItems, (p) => p.patternId)
   }
 
-  get patternsWithProgress() {
+  get patternsWithProgress(): PatternWithProgress[] {
     return sprachdex.allPatterns.map((p) => {
       const progressItem = this.progressItemByPatternId[p.id]
       return Object.assign({}, p, {
@@ -68,3 +55,17 @@ export class SprachyApp {
     return this.patternsWithProgress.find(p => !p.progress)
   }
 }
+
+class PatternProgress {
+  constructor(readonly pattern: Pattern, readonly item: ProgressItem) { }
+
+  get mastered() {
+    return this.item.srsLevel >= 9
+  }
+
+  get levelableAt() {
+    return this.item.lastLeveledAt + time.toNextSRSLevel(this.item.srsLevel)
+  }
+}
+
+export type PatternWithProgress = Pattern & { progress: PatternProgress|null }

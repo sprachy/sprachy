@@ -1,11 +1,10 @@
 <script lang="ts">
   import _ from "lodash"
   import { navigate } from "svelte-navigator"
-  import { userContext } from "./context"
   import SiteLayout from "./SiteLayout.svelte"
-  const { app } = userContext()
+  import sprachy from "./sprachy"
 
-  const pattern = app.nextPatternToLearn
+  const pattern = sprachy.app.nextPatternToLearn
   if (pattern) {
     navigate(`/pattern/${pattern.slug}`, { replace: true })
   }

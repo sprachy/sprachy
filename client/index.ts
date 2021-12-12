@@ -13,7 +13,7 @@ export default app;
 // import App from './App.vue'
 // import { SprachyRouter } from './router'
 // import { SprachyApp } from './app'
-// import { HTTPProvider, UserAPI } from './ClientAPI'
+// import { HTTPProvider, UserAPI } from './SprachyAPIClient'
 // import './app.sass'
 // import Dialogue from './Dialogue.vue'
 // import Avatar from './Avatar.vue'

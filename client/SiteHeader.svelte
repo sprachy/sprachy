@@ -2,15 +2,13 @@
   import _ from "lodash"
   import { IS_PRODUCTION } from "./settings"
   import { Link, navigate } from "svelte-navigator"
-  import { maybeUserContext } from "./context"
-
-  const { api, user } = maybeUserContext()
+  import sprachy from "./sprachy"
 
   const isDev = !IS_PRODUCTION
 
   async function logout() {
-    await api.logout()
-    // this.$closeApp()
+    await sprachy.api.logout()
+    sprachy.closeApp()
     navigate("/")
   }
 
@@ -71,9 +69,10 @@
             <li class="nav-item">
               <Link class="nav-link" to="/faq">FAQ</Link>
             </li>
-            {#if user}
+            {#if sprachy.user}
               <li class="nav-item">
-                <Link class="nav-link" to="/settings">{user.email}</Link>
+                <Link class="nav-link" to="/settings">{sprachy.user.email}</Link
+                >
               </li>
             {/if}
           </ul>

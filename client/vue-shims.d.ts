@@ -1,4 +1,4 @@
-import type { AdminAPI, UserAPI } from './ClientAPI'
+import type { AdminAPI, UserAPI } from './SprachyAPIClient'
 import type { SprachyApp } from './app'
 import type { ProgressSummary, User } from '../common/api'
 import type { SprachyRouter } from './router'

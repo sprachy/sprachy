@@ -3,7 +3,7 @@ import _ from 'lodash'
 import type { ProgressItem, User, ProgressSummary } from '../common/api'
 import { IS_PRODUCTION } from './settings'
 
-export class UserAPI {
+export class SprachyAPIClient {
   admin: AdminAPI = new AdminAPI(this.http)
   constructor(readonly http: HTTPProvider) { }
 

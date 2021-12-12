@@ -2,24 +2,22 @@
   import _ from "lodash"
   import type { Pattern, Exercise } from "../common/sprachdex"
   import { NotFoundError } from "./globalErrorHandling"
-  import { userContext } from "./context"
-  import type { SprachyApp } from "./app"
+  import type { UserApp } from "./UserApp"
   import SiteLayout from "./SiteLayout.svelte"
   import FillblankCard from "./FillblankCard.svelte"
-
-  const { app, api } = userContext()
+  import sprachy from "./sprachy"
 
   export let slug: string
   let exerciseIndex: number = 0
   let complete: boolean = false
   let mistakes: number = 0
   let exercises: Exercise[] = []
-  let pattern: SprachyApp["patternsWithProgress"][0]
+  let pattern: UserApp["patternsWithProgress"][0]
 
   $: exercise = exercises[exerciseIndex]!
 
   $: ((slug: string) => {
-    pattern = app.patternsWithProgress.find((p) => p.slug === slug)!
+    pattern = sprachy.app.patternsWithProgress.find((p) => p.slug === slug)!
     if (!pattern) {
       throw new NotFoundError()
     }
@@ -40,9 +38,12 @@
 
     if (exerciseIndex + 1 >= pattern!.exercises.length) {
       complete = true
-      const progressItem = await api.recordReview(pattern!.id, mistakes === 0)
+      const progressItem = await sprachy.api.recordReview(
+        pattern!.id,
+        mistakes === 0
+      )
       if (progressItem) {
-        app.receiveProgressItem(progressItem)
+        sprachy.app.receiveProgressItem(progressItem)
       }
     } else {
       exerciseIndex += 1

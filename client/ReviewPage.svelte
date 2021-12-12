@@ -1,12 +1,11 @@
 <script lang="ts">
   import _ from "lodash"
   import { navigate } from "svelte-navigator"
-  import { userContext } from "./context"
   import SiteLayout from "./SiteLayout.svelte"
-  const { app } = userContext()
+  import sprachy from "./sprachy"
 
   const pattern = _.sortBy(
-    app.patternsWithProgress.filter((p) => p.progress),
+    sprachy.app.patternsWithProgress.filter((p) => p.progress),
     (p) => p.progress!.item.lastReviewedAt
   )[0]
 

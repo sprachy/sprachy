@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { maybeUserContext, initApp } from "./context"
+  import sprachy from "./sprachy"
   import _ from "lodash"
-  import { SprachyAPIValidationError } from "./ClientAPI"
+  import { SprachyAPIValidationError } from "./SprachyAPIClient"
   import { navigate } from "svelte-navigator"
   import { onMount } from "svelte"
 
@@ -10,24 +10,16 @@
   // let afterAuthUrl: string = "";
   let errors: SprachyAPIValidationError["messagesByField"] = {}
 
-  const { api, user } = maybeUserContext()
-
   onMount(() => {
-    if (user) {
+    if (sprachy.user) {
       navigate("/home")
     }
   })
 
-  // activated() {
-  //   if (this.$user) {
-  //     this.$routing.navigateReplace("/home")
-  //   }
-  // }
-
   async function signup() {
     try {
-      const summary = await api.signUp({ email, password })
-      initApp(summary)
+      const summary = await sprachy.api.signUp({ email, password })
+      sprachy.initApp(summary)
       navigate("/home")
       // this.$routing.navigate("/home");
     } catch (err: any) {

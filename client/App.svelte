@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Router, Link, Route } from "svelte-navigator"
-  import { initApp } from "./context"
+  import sprachy from "./sprachy"
   import FAQPage from "./FAQPage.svelte"
   import FrontPage from "./FrontPage.svelte"
   import { globalErrorHandler } from "./globalErrorHandling"
@@ -9,6 +9,7 @@
   import ReviewPage from "./ReviewPage.svelte"
   import PatternPage from "./PatternPage.svelte"
   import PracticePage from "./PracticePage.svelte"
+  import SettingsPage from "./SettingsPage.svelte"
 
   globalErrorHandler.init({
     sentryScoper: (scope) => {
@@ -29,7 +30,7 @@
   try {
     const summary = JSON.parse(localStorage.getItem("summary")!)
     if (summary) {
-      const app = initApp(summary)
+      const app = sprachy.initApp(summary)
       app.refreshProgress()
     }
   } catch (err) {}
@@ -41,6 +42,7 @@
   <Route path="/faq" component={FAQPage} />
   <Route path="/learn" component={LearnPage} />
   <Route path="/review" component={ReviewPage} />
+  <Route path="/settings" component={SettingsPage} />
   <Route path="/pattern/:slug/practice" component={PracticePage} />
   <Route path="/pattern/:slug" component={PatternPage} />
 </Router>

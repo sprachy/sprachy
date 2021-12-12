@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios"
-import { HTTPProvider, UserAPI } from "../client/ClientAPI"
+import { HTTPProvider, UserAPI } from "../client/SprachyAPIClient"
 import { TEST_USER_EMAIL, TEST_USER_PASSWORD } from "./constants"
 import { wrapper } from 'axios-cookiejar-support'
 import { CookieJar } from 'tough-cookie'
