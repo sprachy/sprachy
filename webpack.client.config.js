@@ -81,6 +81,7 @@ module.exports = (env, argv) => {
               },
               emitCss: isProduction,
               hotReload: true,
+              optimistic: false,
               preprocess: SveltePreprocess({})
             },
           },

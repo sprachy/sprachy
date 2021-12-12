@@ -21,6 +21,12 @@
   window.addEventListener("popstate", () => {
     window.location.reload()
   })
+
+  // In development, force a full refresh on code
+  // change
+  ;(module as any).hot.addStatusHandler(() => {
+    window.location.reload()
+  })
 </script>
 
 <UnexpectedErrorModal {error} {onDismiss} />
