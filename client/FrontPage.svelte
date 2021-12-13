@@ -36,20 +36,24 @@
         }
       }
     } else {
-      try {
-        const summary = await sprachy.api.signUp({
-          email,
-          password,
-          confirmPassword,
-        })
-        console.log(summary)
-        sprachy.initApp(summary)
-        navigate("/home")
-      } catch (err: any) {
-        if (err instanceof SprachyAPIValidationError) {
-          errors = err.messagesByField
-        } else {
-          throw err
+      if (password != confirmPassword) {
+        errors.confirmPassword = "This doesn't match the password"
+      } else {
+        try {
+          const summary = await sprachy.api.signUp({
+            email,
+            password,
+            confirmPassword,
+          })
+          console.log(summary)
+          sprachy.initApp(summary)
+          navigate("/home")
+        } catch (err: any) {
+          if (err instanceof SprachyAPIValidationError) {
+            errors = err.messagesByField
+          } else {
+            throw err
+          }
         }
       }
     }
@@ -76,7 +80,7 @@
             name="email"
             id="email"
             type="email"
-            class="form-control"
+            class="form-control is-invalid={errors.email}"
             placeholder="Email"
             required
           />
@@ -93,7 +97,7 @@
             name="password"
             id="password"
             type="password"
-            class="form-control"
+            class="form-control is-invalid={errors.password}"
             placeholder="Password"
             minLength="10"
             required
@@ -107,26 +111,37 @@
         {#if isNewUser}
           <fieldset class="form-group">
             <label for="confirmPassword">Confirm Password</label>
-            <input
-              bind:value={confirmPassword}
-              name="confirm_password"
-              id="confirm_password"
-              type="password"
-              class="form-control"
-              placeholder="Confirm Password"
-              minLength="10"
-              required
-            />
             {#if errors.confirmPassword}
+              <input
+                bind:value={confirmPassword}
+                name="confirm_password"
+                id="confirm_password"
+                type="password"
+                class="form-control is-invalid"
+                placeholder="Confirm Password"
+                minLength="10"
+                required
+              />
               <div class="invalid-feedback">
                 {errors.confirmPassword}
               </div>
+            {:else}
+              <input
+                bind:value={confirmPassword}
+                name="confirm_password"
+                id="confirm_password"
+                type="password"
+                class="form-control"
+                placeholder="Confirm Password"
+                minLength="10"
+                required
+              />
             {/if}
           </fieldset>
         {/if}
         <!-- <input type="hidden" name="then" :value="afterAuthUrl" /> -->
         <button class="btn btn-lg text-white" type="submit"
-          >Sign up for Sprachy</button
+          >Enter Sprachy</button
         >
         <p class="text-warning mt-2">
           <em

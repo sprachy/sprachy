@@ -23,19 +23,7 @@ export async function signup(req: APIRequest, res: ServerResponse): Promise<Prog
 
   let user: User
   try {
-    if (await db.users.getByEmail(email) != null) {
-      // If the user already exists, try just signing in
-      const res = await db.faunaQuery(
-        Login(
-          Match(Index("users_by_email"), email),
-          { password: password },
-        )
-      ) as FaunaLoginToken
-      user = await db.users.expect(res.instance.value.id)
-    }
-    else {
-      user = await db.users.create({ email, password, isAdmin: false })
-    }
+    user = await db.users.create({ email, password, isAdmin: false })
   } catch (err: any) {
     throw err
   }
