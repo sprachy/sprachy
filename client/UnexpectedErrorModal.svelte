@@ -19,27 +19,29 @@
 
 <Modal open={true}>
   <div class="modal-header">
-    {#if axiosError && serverResponse}
-      <h5>
-        {serverResponse.data.message || "Server error"}
-      </h5>
-      <pre>{serverResponse.status} {serverResponse.statusText} from {axiosError
-          .config.url}</pre>
-      <p>
-        Sprachy encountered an unexpected error. Please screenshot this message
-        and report it to the development team.
-      </p>
-      <iframe
-        title="Server error details"
-        srcdoc={serverResponseHTML || undefined}
-      />
-    {:else}
-      <h5>{error.message}</h5>
-      <p>
-        Sprachy encountered an unexpected error. Please screenshot this message
-        and report it to the development team.
-      </p>
-    {/if}
+    <div>
+      {#if axiosError && serverResponse}
+        <h5>
+          {serverResponse.data.message || "Server error"}
+        </h5>
+        <pre>{serverResponse.status} {serverResponse.statusText} from {axiosError
+            .config.url}</pre>
+        <p>
+          Sprachy encountered an unexpected error. Please screenshot this
+          message and report it to the development team.
+        </p>
+        <iframe
+          title="Server error details"
+          srcdoc={serverResponseHTML || undefined}
+        />
+      {:else}
+        <h5>{error.message}</h5>
+        <p>
+          Sprachy encountered an unexpected error. Please screenshot this
+          message and report it to the development team.
+        </p>
+      {/if}
+    </div>
     <button type="button" aria-label="Close" class="close" on:click={onDismiss}>
       ×
     </button>
