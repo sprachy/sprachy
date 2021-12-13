@@ -2,28 +2,21 @@ import _ from 'lodash'
 import type { ProgressItem, User, ProgressSummary } from '../common/api'
 import { HTTPProvider } from './HTTPProvider'
 
-/**
- * Client for talking to the Sprachy backend API.
- * Makes various http requests to /api paths.
- * 
- * Each endpoint is wrapped as a method here, so
- * that the params and return type can be specified.
- */
 export class SprachyAPIClient {
   http: HTTPProvider
   admin: AdminAPI
-  constructor(http?: HTTPProvider) { 
+  constructor(http?: HTTPProvider) {
     this.http = http || new HTTPProvider()
     this.admin = new AdminAPI(this.http)
   }
 
-  async login({ email, password }: { email: string, password: string }): Promise<ProgressSummary> {
+  async login({ email, password }: { email: string, password: string }): Promise<ProgressSummary | { newUser: true }> {
     const { data } = await this.http.post(`/api/login`, { email, password })
     return data
   }
 
-  async signUp({ email, password }: { email: string, password: string }): Promise<ProgressSummary> {
-    const { data } = await this.http.post(`/api/signup`, { email, password })
+  async signUp({ email, password, confirmPassword }: { email: string, password: string, confirmPassword: string }): Promise<ProgressSummary> {
+    const { data } = await this.http.post(`/api/signup`, { email, password, confirmPassword })
     return data
   }
 

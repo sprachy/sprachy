@@ -3,7 +3,6 @@
   import sprachy from "./sprachy"
   import FAQPage from "./FAQPage.svelte"
   import FrontPage from "./FrontPage.svelte"
-  import LoginPage from "./LoginPage.svelte"
   import HomePage from "./HomePage.svelte"
   import LearnPage from "./LearnPage.svelte"
   import ReviewPage from "./ReviewPage.svelte"
@@ -29,7 +28,6 @@
 <div class="app">
   <Router>
     <Route path="/"><FrontPage /></Route>
-    <Route path="/login"><LoginPage /></Route>
     <Route path="/home"><HomePage /></Route>
     <Route path="/faq"><FAQPage /></Route>
     <Route path="/learn"><LearnPage /></Route>

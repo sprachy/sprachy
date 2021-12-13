@@ -7,6 +7,8 @@
 
   let email: string = ""
   let password: string = ""
+  let confirmPassword: string = ""
+  let isNewUser: boolean = false
   // let afterAuthUrl: string = "";
   let errors: SprachyAPIValidationError["messagesByField"] = {}
 
@@ -17,15 +19,38 @@
   })
 
   async function signup() {
-    try {
-      const summary = await sprachy.api.signUp({ email, password })
-      sprachy.initApp(summary)
-      navigate("/home")
-    } catch (err: any) {
-      if (err instanceof SprachyAPIValidationError) {
-        errors = err.messagesByField
-      } else {
-        throw err
+    if (isNewUser === false) {
+      try {
+        const summary = await sprachy.api.login({ email, password })
+        if ("newUser" in summary) {
+          isNewUser = true
+        } else {
+          sprachy.initApp(summary)
+          navigate("/home")
+        }
+      } catch (err: any) {
+        if (err instanceof SprachyAPIValidationError) {
+          errors = err.messagesByField
+        } else {
+          throw err
+        }
+      }
+    } else {
+      try {
+        const summary = await sprachy.api.signUp({
+          email,
+          password,
+          confirmPassword,
+        })
+        console.log(summary)
+        sprachy.initApp(summary)
+        navigate("/home")
+      } catch (err: any) {
+        if (err instanceof SprachyAPIValidationError) {
+          errors = err.messagesByField
+        } else {
+          throw err
+        }
       }
     }
   }
@@ -79,6 +104,26 @@
             </div>
           {/if}
         </fieldset>
+        {#if isNewUser}
+          <fieldset class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              bind:value={confirmPassword}
+              name="confirm_password"
+              id="confirm_password"
+              type="password"
+              class="form-control"
+              placeholder="Confirm Password"
+              minLength="10"
+              required
+            />
+            {#if errors.confirmPassword}
+              <div class="invalid-feedback">
+                {errors.confirmPassword}
+              </div>
+            {/if}
+          </fieldset>
+        {/if}
         <!-- <input type="hidden" name="then" :value="afterAuthUrl" /> -->
         <button class="btn btn-lg text-white" type="submit"
           >Sign up for Sprachy</button

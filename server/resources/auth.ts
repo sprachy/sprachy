@@ -7,16 +7,21 @@ import type { APIRequest } from "../middleware"
 import { db } from "../db"
 import { sessions } from "../sessions"
 import { FaunaHTTPError } from "../faunaUtil"
+import { boolean, string } from "zod"
 
 const signupForm = z.object({
   email: z.string().email(),
-  password: z.string()
+  password: z.string(),
+  confirmPassword: z.string()
 }).refine(d => d.password.length >= 10, {
   message: "Password must be at least length 10",
   path: ["password"]
+}).refine(d => d.password === d.confirmPassword, {
+  message: "Confirm password must be identical to password",
+  path: ["confirmPassword"]
 })
 export async function signup(req: APIRequest, res: ServerResponse): Promise<ProgressSummary> {
-  const { email, password } = signupForm.parse(await req.body())
+  const { email, password, confirmPassword } = signupForm.parse(await req.body())
 
   let user: User
   try {
@@ -55,8 +60,13 @@ const loginForm = z.object({
   email: z.string(),
   password: z.string()
 })
-export async function login(req: APIRequest, res: ServerResponse): Promise<ProgressSummary> {
+export async function login(req: APIRequest, res: ServerResponse): Promise<ProgressSummary | { newUser: true }> {
   const { email, password } = loginForm.parse(await req.body())
+
+  if (await db.users.getByEmail(email) == null) {
+    return ({ newUser: true })
+  }
+
 
   const result = await db.faunaQuery(
     Login(

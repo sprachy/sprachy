@@ -9,7 +9,7 @@
   if (axiosError && axiosError.response?.status === 401) {
     // Go to login page
     localStorage.removeItem("summary")
-    window.location.replace("/login")
+    window.location.replace("/")
   }
 
   function onDismiss() {
