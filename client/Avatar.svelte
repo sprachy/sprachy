@@ -7,6 +7,7 @@
   import deer from "./img/deer.png"
   import { sprachdex } from "../common/sprachdex"
   import Sprachdown from "./Sprachdown.svelte"
+  import { onDestroy, onMount } from "svelte"
 
   export let charId: string
   $: icon = { lukas, anna, squirrel, scientist, deer }[charId]
@@ -15,12 +16,28 @@
 
   let showProfile: boolean = false
 
+  let avatarEl: HTMLElement
+
+  function onClickElsewhere(ev: MouseEvent) {
+    if (ev.target instanceof Element && !avatarEl.contains(ev.target)) {
+      showProfile = false
+    }
+  }
+
   function toggleProfile() {
     showProfile = !showProfile
   }
+
+  onMount(() => {
+    window.addEventListener("click", onClickElsewhere)
+  })
+
+  onDestroy(() => {
+    window.removeEventListener("click", onClickElsewhere)
+  })
 </script>
 
-<div class="avatar">
+<div class="avatar" bind:this={avatarEl}>
   <img src={icon} alt={character.fullname} on:click={toggleProfile} />
   {#if showProfile}
     <div class="profile">
