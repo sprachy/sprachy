@@ -8,7 +8,20 @@ export default definePattern({
   shortdesc: "Gendered variations of 'a'",
   icon: faListOl,
   explanation: md`
-In English, we choose to use either _a_ or _an_ depending on the following word. Similarly, German switches between =ein= and =eine= depending on the grammatical gender of the noun being referred to.
+In English, we choose to use either _a_ or _an_ depending on the following word. Similarly, German switches between _ein_ or _eine_ depending on the grammatical gender of the noun being referred to.
+
+<DialogueExample>
+lukas:
+  Woher kommt **ein sprechendes Eichhörnchen**?
+  Where does **a talking squirrel** come from?
+squirrel:
+  **Ein Land** weit weg von hier.
+  **A land** far away from here.
+squirrel:
+  Kann ich **eine Mandel** haben?
+  Can I have **an almond**?
+
+</DialogueExample>
 
 <ltable header="Gender / Noun">
 masculine / =der Späher=, =ein Späher=

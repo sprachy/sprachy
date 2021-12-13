@@ -5,7 +5,14 @@
 
   export let source: string
 
-  export const inline: boolean = false // SvelteMarkdown doesn't seem to support this atm, despite claiming to
+  export let inline: boolean = false // SvelteMarkdown doesn't seem to support this atm, despite claiming to
 </script>
 
-<SvelteMarkdown {source} renderers={{ html: SprachdownHTML }} />
+<div class:markdown={true} class:markdown-inline={inline}>
+  <SvelteMarkdown {source} renderers={{ html: SprachdownHTML }} />
+</div>
+
+<style lang="sass">
+.markdown-inline :global(p)
+  margin: 0
+</style>

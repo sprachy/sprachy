@@ -9,32 +9,30 @@
   const rows = lines.map((l) => l.split(" / "))
 </script>
 
-<template>
-  <table class="mt-2 ltable table table-bordered">
-    {#if headerRow}
-      <thead>
-        <tr>
-          {#each headerRow as d}
-            <th>
-              {d}
-            </th>
-          {/each}
-        </tr>
-      </thead>
-    {/if}
-    <tbody>
-      {#each rows as row}
-        <tr>
-          {#each row as d}
-            <td>
-              <Sprachdown source={d} />
-            </td>
-          {/each}
-        </tr>
-      {/each}
-    </tbody>
-  </table>
-</template>
+<table class="mt-2 ltable table table-bordered">
+  {#if headerRow}
+    <thead>
+      <tr>
+        {#each headerRow as d}
+          <th>
+            {d}
+          </th>
+        {/each}
+      </tr>
+    </thead>
+  {/if}
+  <tbody>
+    {#each rows as row}
+      <tr>
+        {#each row as d}
+          <td>
+            <Sprachdown source={d} />
+          </td>
+        {/each}
+      </tr>
+    {/each}
+  </tbody>
+</table>
 
 <style lang="sass">
 .ltable

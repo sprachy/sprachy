@@ -1,6 +1,7 @@
 <script lang="ts">
   import DialogueExample from "./DialogueExample.svelte"
   import LTable from "./LTable.svelte"
+  import Tip from "./Tip.svelte"
 
   export let node: Element
   let attrs: any = {}
@@ -11,6 +12,8 @@
 
 {#if node.tagName == "DIALOGUEEXAMPLE"}
   <DialogueExample {...attrs} text={node.innerHTML} />
+{:else if node.tagName == "TIP"}
+  <Tip {...attrs} text={node.innerHTML} />
 {:else if node.tagName == "LTABLE"}
   <LTable {...attrs} text={node.innerHTML} />
 {:else}

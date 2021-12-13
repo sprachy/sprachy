@@ -1,5 +1,6 @@
 <script lang="ts">
   import Message from "./Message.svelte"
+  import Sprachdown from "./Sprachdown.svelte"
 
   export let text: string
 
@@ -18,19 +19,24 @@
 <div class="dialogue">
   {#each messages as message}
     <Message from={message.from}>
-      {message.original}
+      <Sprachdown inline source={message.original} />
+      <Sprachdown inline source={message.translation} />
     </Message>
   {/each}
 </div>
 
 <style lang="sass">
 .dialogue
-  box-shadow: 0 7px 50px rgba(46,10,99,.05), 0 1px 1px 0.6px rgba(46,10,99,.1)
-  border-radius: 8px
-  background-color: #36393e
-  padding: 2rem
   margin-bottom: 1rem
 
+    // box-shadow: 0 7px 50px rgba(46,10,99,.05), 0 1px 1px 0.6px rgba(46,10,99,.1)
+    // border-radius: 8px
+    // background-color: #36393e
+    // padding: 2rem
+
+  :global(strong)
+    color: rgb(28, 176, 246)
+
   :global(.message):not(:first-child)
-    margin-top: 20px
+    margin-top: 10px
 </style>

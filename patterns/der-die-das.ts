@@ -8,22 +8,29 @@ export default definePattern({
   shortdesc: "Ah yes, the three genders",
   icon: faVenusMars,
   explanation: md`
-Der, die, and das are the three ways of saying _the_ in German. Which one you use depends on the grammatical gender of the noun that follows. For example:
+Der, die, and das are the three ways of saying _the_ in German. Which one you use depends on the grammatical gender of the noun that follows.
 
 <DialogueExample>
-lukas:
-  Das Eichhörnchen ist sehr süß!
-  The squirrel is very cute!
 squirrel:
-  S-süß?! Ich bin die Leere zwischen den Leeren, vor denen die Götter fliehen. Ihr narrt auf eure eigene Gefahr, Sterblicher.
-  Cute?! I am the void between voids from which gods flee. Mock me at your peril, mortal.
+  Hallo, Mensch. **Der Baum** hier ist gemütlich.
+  Hello, human. **The tree** here is comfy.
+squirrel:
+  **Die Leere** empfiehlt diesen Baum sehr.
+  **The void** recommends this tree highly.
+lukas:
+  **Das Eichhörnchen**... redet mit mir?
+  **The squirrel** is... talking to me?
 </DialogueExample>
 
-Here we can see the noun _Eichhörnchen_ uses "das", the neuter form, while _Leere_ uses the feminine "die". 
+Here we can see the noun _Baum_ uses the masculine "der", _Leere_ is the feminine "die", and _Eichhörnchen_ uses the neuter form "das".
 
-There's no thematic or aesthetic reason for this; it's not that squirrels are particularly androgynous, or that terrifying voids in space are particularly girly. That's simply the _grammatical_ gender those nouns happen to have.
+There's no thematic or aesthetic reason for this; it's not that trees are particularly manly, or that terrifying voids are particularly girly. That's simply the _grammatical_ gender those nouns happen to have.
 
 However, the genders are not totally _random_ either. We'll learn some patterns later we can use to predict noun gender for certain groups of words.
+
+<Tip>
+For plurals, we always use _die_, regardless of the noun's base gender. For example, _der Baum_ becomes _die Bäume_ when talking about mulitiple trees.
+</Tip>
 `,
   exercises: [
     {
