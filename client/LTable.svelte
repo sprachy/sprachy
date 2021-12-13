@@ -1,8 +1,14 @@
 <script lang="ts">
   import _ from "lodash"
+  import LTableTranslation from "./LTableTranslation.svelte"
   import Sprachdown from "./Sprachdown.svelte"
   export let header: string | null = null
   export let text: string
+  export let translate: boolean = false
+
+  if (translate !== false) {
+    translate = true
+  }
 
   const headerRow = header?.split(" / ")
   const lines = text.trim().split("\n")
@@ -26,7 +32,11 @@
       <tr>
         {#each row as d}
           <td>
-            <Sprachdown source={d} />
+            {#if translate}
+              <LTableTranslation original={d} />
+            {:else}
+              <Sprachdown source={d} />
+            {/if}
           </td>
         {/each}
       </tr>
@@ -36,6 +46,7 @@
 
 <style lang="sass">
 .ltable
+  text-align: center
   th
     border-bottom: none
 

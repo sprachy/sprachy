@@ -2,6 +2,7 @@
   import DialogueExample from "./DialogueExample.svelte"
   import LTable from "./LTable.svelte"
   import Tip from "./Tip.svelte"
+  import InlineTranslation from "./InlineTranslation.svelte"
 
   export let node: Element
   let attrs: any = {}
@@ -16,6 +17,8 @@
   <Tip {...attrs} text={node.innerHTML} />
 {:else if node.tagName == "LTABLE"}
   <LTable {...attrs} text={node.innerHTML} />
+{:else if node.tagName == "INLINETRANSLATION"}
+  <InlineTranslation {...attrs} />
 {:else}
   {@html node.outerHTML}
 {/if}

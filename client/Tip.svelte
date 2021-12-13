@@ -10,6 +10,6 @@
 </div>
 
 <style lang="sass">
-  :global(p):last-child
+  .alert :global(p):last-child
     margin-bottom: 0
 </style>
