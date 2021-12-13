@@ -24,6 +24,8 @@
         const summary = await sprachy.api.login({ email, password })
         if ("newUser" in summary) {
           isNewUser = true
+        } else if ("wrongPassword" in summary) {
+          errors.password = "The password doesn't match the user"
         } else {
           sprachy.initApp(summary)
           navigate("/home")
@@ -75,16 +77,26 @@
       <form on:submit|preventDefault={signup}>
         <fieldset class="form-group">
           <label for="email">Email</label>
-          <input
-            bind:value={email}
-            name="email"
-            id="email"
-            type="email"
-            class="form-control is-invalid={errors.email}"
-            placeholder="Email"
-            required
-          />
-          {#if errors.email}
+          {#if !errors.email}
+            <input
+              bind:value={email}
+              name="email"
+              id="email"
+              type="email"
+              class="form-control"
+              placeholder="Email"
+              required
+            />
+          {:else}
+            <input
+              bind:value={email}
+              name="email"
+              id="email"
+              type="email"
+              class="form-control is-invalid"
+              placeholder="Email"
+              required
+            />
             <div class="invalid-feedback">
               {errors.email}
             </div>
@@ -92,17 +104,28 @@
         </fieldset>
         <fieldset class="form-group">
           <label for="password">Password</label>
-          <input
-            bind:value={password}
-            name="password"
-            id="password"
-            type="password"
-            class="form-control is-invalid={errors.password}"
-            placeholder="Password"
-            minLength="10"
-            required
-          />
-          {#if errors.password}
+          {#if !errors.password}
+            <input
+              bind:value={password}
+              name="password"
+              id="password"
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              minLength="10"
+              required
+            />
+          {:else}
+            <input
+              bind:value={password}
+              name="password"
+              id="password"
+              type="password"
+              class="form-control is-invalid"
+              placeholder="Password"
+              minLength="10"
+              required
+            />
             <div class="invalid-feedback">
               {errors.password}
             </div>
