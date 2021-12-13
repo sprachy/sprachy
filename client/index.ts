@@ -6,7 +6,7 @@ import App from './App.svelte'
 import ErrorPage from './ErrorPage.svelte'
 // @ts-ignore
 import NotFoundPage from './NotFoundPage.svelte'
-import { GlobalErrorHandler, NotFoundError } from './GlobalErrorHandler'
+import { GlobalErrorHandler, LoginRequiredError, NotFoundError } from './GlobalErrorHandler'
 
 let app: App;
 
@@ -19,7 +19,11 @@ new GlobalErrorHandler({
     } catch (e) {
       document.body.innerHTML = ''
     }
-    if (err instanceof NotFoundError || err.response?.status === 404) {
+    if (err instanceof LoginRequiredError || err.response?.status === 401) {
+      // Go to login
+      localStorage.removeItem("summary")
+      window.location.replace("/")
+    } else if (err instanceof NotFoundError || err.response?.status === 404) {
       new NotFoundPage({
         target: document.body
       })

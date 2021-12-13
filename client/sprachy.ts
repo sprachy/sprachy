@@ -1,6 +1,8 @@
 import type { ProgressSummary } from "../common/api"
 import { UserApp } from "./UserApp"
 import { SprachyAPIClient } from "./SprachyAPIClient"
+import { navigate } from "svelte-navigator"
+import { LoginRequiredError } from "./GlobalErrorHandler"
 
 /**
  * Global sprachy frontend state
@@ -26,6 +28,9 @@ export class SprachyFrontendState {
    * check if it's null every time
    */
   get app() {
+    if (!this._app) {
+      throw new LoginRequiredError()
+    }
     return this._app!
   }
 

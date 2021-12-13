@@ -16,6 +16,14 @@ export class NotFoundError extends Error {
   }
 }
 
+/** Likewise for 401s */
+export class LoginRequiredError extends Error {
+  constructor() {
+    super("Login required")
+  }
+}
+
+
 /**
  * Global error handling when all else fails. Our last stand against the darkness.
  * This is designed to be reusable in different application contexts, so it shouldn't
