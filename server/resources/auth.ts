@@ -6,8 +6,6 @@ import type { User, ProgressSummary } from "../../common/api"
 import type { APIRequest } from "../middleware"
 import { db } from "../db"
 import { sessions } from "../sessions"
-import { FaunaHTTPError } from "../faunaUtil"
-import { boolean, string } from "zod"
 
 const signupForm = z.object({
   email: z.string().email(),
