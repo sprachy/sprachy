@@ -3,9 +3,13 @@
   import Sprachdown from "./Sprachdown.svelte"
 
   export let text: string
+  export let title: string
 </script>
 
-<div class="alert alert-info d-flex">
+<div class="alert alert-info">
+  {#if title}
+    <h5>{title}</h5>
+  {/if}
   <Sprachdown source={text} />
 </div>
 

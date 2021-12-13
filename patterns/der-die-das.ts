@@ -28,7 +28,7 @@ There's no thematic or aesthetic reason for this; it's not that trees are partic
 
 However, the genders are not totally _random_ either. We'll learn some patterns later we can use to predict noun gender for certain groups of words.
 
-<Tip>
+<Tip title="Die Plurale">
 For plurals, we always use _die_, regardless of the noun's base gender. For example, _der Baum_ becomes _die Bäume_ when talking about mulitiple trees.
 </Tip>
 `,

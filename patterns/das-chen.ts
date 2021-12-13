@@ -18,7 +18,7 @@ der Pantoffel, das Tier / das Pantoffeltierchen
 
 Do you see the pattern? These kinds of diminutives are always neuter, no matter what gender the base word originally had. So even if you haven't seen a specific word before, you know you can use _das_ if it ends in _-chen_.
 
-<Tip>
+<Tip title="Smol prevalence">
 Some nouns are used mainly in their diminutive form. For example, _das Eichhörnchen_ is more common than _das Eichhorn_. _das Mädchen_ refers to a young girl, while the root _die Magd_ (the maid) would sound very archaic in comparison.
 </Tip>
 `,
