@@ -11,7 +11,7 @@
 </script>
 
 <div class="message">
-  <Avatar character={from} />
+  <Avatar charId={from} />
   <!-- <div class="username">{username}</div> -->
   <div class="quote">
     <slot />
@@ -19,15 +19,17 @@
 </div>
 
 <style lang="sass">
-.message
-  display: flex
-
-  :global(.avatar)
+:global(img)
     margin-top: calc(4px - 0.125rem)
     width: 40px
     height: 40px
     border-radius: 50%
     margin-right: 15px
+  
+.message
+  display: flex
+
+
 
   // .username
   //   font-size: 1rem

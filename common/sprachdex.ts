@@ -1,19 +1,24 @@
-import patterns from '../patterns'
-import type { ExerciseDef, PatternDef } from './definePattern'
+import patterns from "../patterns"
+import type { ExerciseDef, PatternDef } from "./definePattern"
+import characters, { Character } from "../common/characters"
 
 /**
  * Main interface for accessing sprachy content (patterns and exercises).
- * 
+ *
  * Everything is currently compiled into the code bundle, so it's all
  * synchronously available.
  */
 class Sprachdex {
-  allPatterns = patterns.map(p => parsePattern(p))
+  allPatterns = patterns.map((p) => parsePattern(p))
+
+  getCharacter(characterId: string): Character {
+    return characters.find((c) => c.id === characterId)
+  }
 }
 
 function parsePattern(patternDef: PatternDef): Pattern {
   return Object.assign({}, patternDef, {
-    exercises: patternDef.exercises.map(parseExercise)
+    exercises: patternDef.exercises.map(parseExercise),
   })
 }
 
