@@ -11,29 +11,6 @@
     sprachy.closeApp()
     navigate("/")
   }
-
-  // <b-navbar toggleable="md" type="light" variant="light">
-  //     <b-container>
-  //       <b-navbar-toggle target="nav_collapse" />
-
-  //       <b-navbar-brand to="/">
-  //       </b-navbar-brand>
-
-  //       <b-collapse id="nav_collapse" is-nav>
-  //         <!-- Right-aligned nav items -->
-  //         <b-navbar-nav class="ml-auto">
-  //           <b-nav-item to="/learn" class="mr-2"> Learn </b-nav-item>
-  //           <b-nav-item to="/review" class="mr-2"> Practice </b-nav-item>
-  //           <b-nav-item to="/faq" class="mr-2"> FAQ </b-nav-item>
-
-  //           <b-nav-item v-if="$user" to="/settings" class="mr-2">
-  //             {{ $user.email }}
-  //           </b-nav-item>
-  //           <b-nav-item @click="logout"> Log out </b-nav-item>
-  //         </b-navbar-nav>
-  //       </b-collapse>
-  //     </b-container>
-  //   </b-navbar>
 </script>
 
 <template>
@@ -69,6 +46,11 @@
             <li class="nav-item">
               <Link class="nav-link" to="/faq">FAQ</Link>
             </li>
+            {#if sprachy.admin}
+              <li class="nav-item">
+                <Link class="nav-link" to="/admin">Admin</Link>
+              </li>
+            {/if}
             {#if sprachy.user}
               <li class="nav-item">
                 <Link class="nav-link" to="/settings">{sprachy.user.email}</Link

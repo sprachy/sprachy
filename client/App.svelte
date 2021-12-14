@@ -9,6 +9,7 @@
   import PatternPage from "./PatternPage.svelte"
   import PracticePage from "./PracticePage.svelte"
   import SettingsPage from "./SettingsPage.svelte"
+  import AdminUsersPage from "./AdminUsersPage.svelte"
   import NProgress from "accessible-nprogress"
   NProgress.configure({ showSpinner: false })
 
@@ -33,6 +34,7 @@
     <Route path="/learn"><LearnPage /></Route>
     <Route path="/review"><ReviewPage /></Route>
     <Route path="/settings"><SettingsPage /></Route>
+    <Route path="/admin"><AdminUsersPage /></Route>
     <Route path="/pattern/:slug/practice" let:params>
       <PracticePage slug={params.slug} />
     </Route>

@@ -11,13 +11,13 @@ import { LoginRequiredError } from "./GlobalErrorHandler"
 export class SprachyFrontendState {
   readonly api = new SprachyAPIClient()
   readonly backgroundApi = new SprachyAPIClient()
-  _app: UserApp|null = null
+  _app: UserApp | null = null
 
   initApp(summary: ProgressSummary) {
     this._app = new UserApp(this.api, summary)
     return this._app
   }
-  
+
   closeApp() {
     this._app = null
   }
@@ -36,6 +36,10 @@ export class SprachyFrontendState {
 
   get user() {
     return this._app?.user
+  }
+
+  get admin(): boolean {
+    return !!this.user?.isAdmin
   }
 }
 

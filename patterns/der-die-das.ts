@@ -74,7 +74,6 @@ For plurals, we always use _die_, regardless of the noun's base gender. For exam
         translation: "Hello, human. [The] tree here is comfy.",
         hint: "[masculine]",
       },
-
       {
         from: "squirrel",
         message: "[Die] Nüsse auf der Erde sind sehr lecker.",

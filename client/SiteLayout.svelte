@@ -2,6 +2,7 @@
   import SiteHeader from "./SiteHeader.svelte"
 
   export let title: string | null = null
+  export let noContainer: boolean = false
 </script>
 
 <svelte:head>
@@ -14,9 +15,13 @@
 
 <div class="site-layout">
   <SiteHeader />
-  <div class="container" id="main">
+  {#if noContainer}
     <slot />
-  </div>
+  {:else}
+    <div class="container" id="main">
+      <slot />
+    </div>
+  {/if}
 </div>
 
 <style lang="sass">
