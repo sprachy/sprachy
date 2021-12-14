@@ -40,6 +40,7 @@ For plurals, we always use _die_, regardless of the noun's base gender. For exam
      * - neuter => das
      * - feminine => die
      * - plural => die
+     * - das can also mean "that"
      *
      * They aren't yet expected to actually know the gender of any specific nouns, since
      * we haven't taught them any-- so it should always be hinted in the exercise.
@@ -52,9 +53,9 @@ For plurals, we always use _die_, regardless of the noun's base gender. For exam
     [
       {
         from: "lukas",
-        message: "[Der] Garten ist heute sehr friedlich.",
-        translation: "[The] garden is very peaceful today.",
-        hint: "[masculine]",
+        message: "[Die] Welt ist heute friedlich.",
+        translation: "[The] world is peaceful today.",
+        hint: "[feminine]",
       },
       {
         from: "squirrel",
@@ -70,19 +71,13 @@ For plurals, we always use _die_, regardless of the noun's base gender. For exam
       },
       {
         from: "squirrel",
-        message: "[Der] Affe spricht auch!",
-        translation: "Hello, human. [The] tree here is comfy.",
-        hint: "[masculine]",
+        message: "[Die] Nüsse hier sind auch sehr lecker.",
+        translation: "[The] nuts here are also very tasty.",
       },
       {
-        from: "squirrel",
-        message: "[Die] Nüsse auf der Erde sind sehr lecker.",
-        translation: "[The] nuts on Earth are very tasty.",
-      },
-      {
-        from: "squirrel",
-        message: "[Die] Nüsse auf der Erde sind sehr lecker.",
-        translation: "[The] nuts on Earth are very tasty.",
+        from: "lukas",
+        message: "[Das] ist... gut zu wissen.",
+        translation: "[That] is... good to know.",
       },
     ],
 
