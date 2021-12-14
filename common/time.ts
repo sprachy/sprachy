@@ -11,16 +11,16 @@ export const now = () => {
 }
 
 const timingLookup = [
-  0,          // 0, not used
-  hours(4),   // 1
-  hours(8),   // 2
-  days(1),    // 3
-  days(2),    // 4
-  days(4),    // 5
-  weeks(2),   // 6
-  months(1),  // 7
-  months(4),  // 8
-  Infinity    // 9 / Graduated
+  0, // 0, not used
+  hours(4), // 1
+  hours(8), // 2
+  days(1), // 3
+  days(2), // 4
+  days(4), // 5
+  weeks(2), // 6
+  months(1), // 7
+  months(4), // 8
+  Infinity, // 9 / Graduated
 ]
 
 // The SRS timing function
@@ -33,5 +33,12 @@ export function toNextSRSLevel(level: number): number {
 }
 
 export default {
-  seconds, minutes, hours, days, weeks, months, now, toNextSRSLevel
+  seconds,
+  minutes,
+  hours,
+  days,
+  weeks,
+  months,
+  now,
+  toNextSRSLevel,
 }
