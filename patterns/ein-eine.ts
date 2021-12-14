@@ -10,19 +10,6 @@ export default definePattern({
   explanation: md`
 In English, we choose to use either _a_ or _an_ depending on the following word. Similarly, German switches between _ein_ or _eine_ depending on the grammatical gender of the noun being referred to.
 
-<DialogueExample>
-lukas:
-  Woher kommt **ein sprechendes Eichhörnchen**?
-  Where does **a talking squirrel** come from?
-squirrel:
-  **Ein Land** weit weg von hier.
-  **A land** far away from here.
-squirrel:
-  Kann ich **eine Mandel** haben?
-  Can I have **an almond**?
-
-</DialogueExample>
-
 <ltable header="Gender / Noun">
 masculine / =der Späher=, =ein Späher=
 feminine / =die Barriere=, =eine Barriere=
@@ -45,28 +32,40 @@ deine Barriere / your barrier
     [
       {
         from: "lukas",
-        message: "Warum bist du in [meine] Welt gekommen?",
-        translation: "Why did you come to [my] world?",
-        hint: "[feminine]",
-      },
-      {
-        from: "squirrel",
-        message: "[Dein] Universum ist sehr ruhig.",
-        translation: "[Your] universe is very quiet.",
+        message: "Woher kommt [ein] sprechendes Eichhörnchen?",
+        translation: "Where does [a] talking squirrel come from?",
         hint: "[neuter]",
       },
       {
         from: "squirrel",
-        message: "[Meine] Leute nennen es eine Toteszone.",
-        translation: "[My] people call it a deadzone.",
-        hint: "[plural]",
+        message: "[Ein] Land weit weg von hier.",
+        translation: "[A] land far away from here.",
+        hint: "[masculine]",
       },
       {
         from: "squirrel",
-        message: "Es ist [ein] guter Ort, um sich zu verstecken.",
-        translation: "It's [a] good place to hide.",
+        message: "[Deine] Welt ist sehr ruhig.",
+        translation: "[Your] world is very quiet.",
+        hint: "[feminine]",
+      },
+      {
+        from: "squirrel",
+        message: "[Meine] Leute würden es eine Toteszone nennen.",
+        translation: "[My] people would call it a deadzone.",
+      },
+      {
+        from: "squirrel",
+        message: "Für mich ist es wie [ein] ruhiger Ozean.",
+        translation: "To me it's like [a] calm ocean.",
         hint: "[masculine]",
       },
+
+      // {
+      //   from: "squirrel",
+      //   message: "Es ist [ein] guter Ort, um sich zu verstecken.",
+      //   translation: "It's [a] good place to hide.",
+      //   hint: "[masculine]",
+      // },
     ],
   ],
 })
