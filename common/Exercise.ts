@@ -6,15 +6,15 @@ export type ExerciseDef = {
   feedback?: { [key: string]: string }
 }
 
-export interface Exercise extends ExerciseDef {}
-
-export class Exercise {
+export type Exercise = ExerciseDef & {
   canonicalAnswer: string
   validAnswers: string[]
+}
 
-  constructor(readonly exerciseDef: ExerciseDef) {
-    Object.assign(this, exerciseDef)
-    this.canonicalAnswer = exerciseDef.message?.match(/\[(.+?)\]/)![1]!
-    this.validAnswers = [this.canonicalAnswer]
-  }
+export function parseExercise(exerciseDef: ExerciseDef): Exercise {
+  const canonicalAnswer = exerciseDef.message?.match(/\[(.+?)\]/)![1]!
+  return Object.assign({}, exerciseDef, {
+    canonicalAnswer: canonicalAnswer,
+    validAnswers: [canonicalAnswer],
+  })
 }

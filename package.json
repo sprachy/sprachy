@@ -19,7 +19,7 @@
     "deploy": "npm run typecheck && npm run test && npm run build-live && npm run deploy-server && npm run deploy-client",
     "deploy-server": "wrangler publish --env live",
     "deploy-client": "netlify deploy -d client/dist --prod",
-    "typecheck": "tsc -p server/tsconfig.json --noEmit && tsc -p client/tsconfig.json --noEmit && svelte-check",
+    "check": "tsc -p server/tsconfig.json --noEmit && tsc -p client/tsconfig.json --noEmit && svelte-check",
     "test": "jest"
   },
   "dependencies": {

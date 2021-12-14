@@ -2,10 +2,10 @@
   import Avatar from "./Avatar.svelte"
   export let from: string
 
-  const names = {
-    scientist: "Lindenbaum",
-    deer: "Eiknir",
-  } as Record<string, string>
+  // const names = {
+  //   scientist: "Lindenbaum",
+  //   deer: "Eiknir",
+  // } as Record<string, string>
 
   // const name = names[from] || from
 </script>

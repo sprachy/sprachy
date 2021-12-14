@@ -1,4 +1,4 @@
-import { Pattern } from "./Pattern"
+import { parsePattern } from "./Pattern"
 import characters, { Character } from "../common/characters"
 import patternDefs from "../patterns"
 
@@ -9,7 +9,7 @@ import patternDefs from "../patterns"
  * synchronously available.
  */
 class Sprachdex {
-  allPatterns = patternDefs.map((p) => new Pattern(p))
+  allPatterns = patternDefs.map((p) => parsePattern(p))
 
   getCharacter(characterId: string): Character {
     return characters.find((c) => c.id === characterId) || characters[0]!

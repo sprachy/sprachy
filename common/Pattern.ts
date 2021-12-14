@@ -1,5 +1,4 @@
-import { Exercise } from "./Exercise"
-import type { ExerciseDef } from "./Exercise"
+import { Exercise, ExerciseDef, parseExercise } from "./Exercise"
 import type { IconDefinition } from "@fortawesome/fontawesome-common-types"
 import _ from "lodash"
 
@@ -14,14 +13,14 @@ export type PatternDef = {
   exercises: ExerciseDef[][]
 }
 
-export interface Pattern extends Omit<PatternDef, "exercises"> {}
-
-export class Pattern {
+export type Pattern = Omit<PatternDef, "exercises"> & {
   levels: { exercises: Exercise[] }[]
-  constructor(readonly def: PatternDef) {
-    Object.assign(this, _.omit(def, "exercises"))
-    this.levels = def.exercises.map((exs) => ({
-      exercises: exs.map((ex) => new Exercise(ex)),
-    }))
-  }
+}
+
+export function parsePattern(patternDef: PatternDef): Pattern {
+  return Object.assign({}, patternDef, {
+    levels: patternDef.exercises.map((exs) => ({
+      exercises: exs.map((ex) => parseExercise(ex)),
+    })),
+  })
 }
