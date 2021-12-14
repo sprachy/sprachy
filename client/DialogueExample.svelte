@@ -20,7 +20,9 @@
   {#each messages as message}
     <Message from={message.from}>
       <Sprachdown inline source={message.original} />
-      <Sprachdown inline source={message.translation} />
+      <div class="translation" slot="after">
+        <Sprachdown inline source={message.translation} />
+      </div>
     </Message>
   {/each}
 </div>
@@ -34,9 +36,10 @@
     // background-color: #36393e
     // padding: 2rem
 
-  :global(strong)
-    color: rgb(28, 176, 246)
-
   :global(.message):not(:first-child)
     margin-top: 10px
+
+  .translation
+    font-size: 90%
+    color: #444
 </style>

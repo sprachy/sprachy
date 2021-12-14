@@ -27,6 +27,17 @@
 <style lang="sass">
 .pattern
   max-width: 800px
-  font-size: 16px
-  line-height: 24px
+  font-size: 17px
+  line-height: 28px
+
+  // :global(.table)
+  //   margin-top: 2.5rem
+  //   margin-bottom: 1.5rem
+
+  // :global(.dialogue)
+  //   margin-top: 2rem
+  //   margin-bottom: 1rem
+
+  :global(strong)
+    color: rgb(28, 176, 246)
 </style>

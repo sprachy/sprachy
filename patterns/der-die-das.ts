@@ -1,6 +1,8 @@
 import { faVenusMars } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "../common/definePattern"
 
+// https://german.stackexchange.com/questions/3834/what-is-the-gender-distribution-of-nouns-in-the-german-language
+
 export default definePattern({
   id: "der-die-das",
   slug: "der-die-das",
@@ -8,29 +10,28 @@ export default definePattern({
   shortdesc: "Ah yes, the three genders",
   icon: faVenusMars,
   explanation: md`
-Der, die, and das are the three ways of saying _the_ in German. Which one you use depends on the grammatical gender of the noun that follows.
+Der, die, and das are three ways of saying _the_ in German. Which one you use depends on the _grammatical gender_ of the noun that follows.
 
-<DialogueExample>
-squirrel:
-  Hallo, Mensch. **Der Baum** hier ist gemütlich.
-  Hello, human. **The tree** here is comfy.
-squirrel:
-  **Die Leere** empfiehlt diesen Baum sehr.
-  **The void** recommends this tree highly.
-lukas:
-  **Das Eichhörnchen**... redet mit mir?
-  **The squirrel** is... talking to me?
-</DialogueExample>
+<LTable header="Gender / Deutsch / Meaning">
+neuter / **das** Eichhörnchen / **the** squirrel
+masculine / **der** Baum / **the** tree
+feminine / **die** unendliche Leere / **the** infinite void
+</LTable>
 
-Here we can see the noun _Baum_ uses the masculine "der", _Leere_ is the feminine "die", and _Eichhörnchen_ uses the neuter form "das".
-
-There's no thematic or aesthetic reason for this; it's not that trees are particularly manly, or that terrifying voids are particularly girly. That's simply the _grammatical_ gender those nouns happen to have.
+The gender of a particular noun usually has nothing to do with what that word describes. It's not that trees are particularly manly, or that ominous voids are particularly girly. That's simply the _grammatical_ gender those nouns happen to have, by consensus of German speakers.
 
 However, the genders are not totally _random_ either. We'll learn some patterns later we can use to predict noun gender for certain groups of words.
 
-<Tip title="Die Plurale">
-For plurals, we always use _die_, regardless of the noun's base gender. For example, _der Baum_ becomes _die Bäume_ when talking about mulitiple trees.
-</Tip>
+Roughly speaking, around 40% of nouns are masculine, 40% are feminine, and 20% are neuter. A very small number of words have more than one gender. They're fancy and rare like
+shiny Pokémon!
+
+<DialogueExample>
+squirrel:
+  Aber **die** Plurale!
+  But **the** plurals!
+</DialogueExample>
+
+For plurals, we always use _die_, regardless of the noun's base gender. For example, _der Baum_ would become _die Bäume_ when talking about mulitiple trees.
   `,
   exercises: [
     /**

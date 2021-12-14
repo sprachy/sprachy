@@ -13,8 +13,11 @@
 <div class="message">
   <Avatar charId={from} />
   <!-- <div class="name">{name}</div> -->
-  <div class="quote">
-    <slot />
+  <div class="quoteContainer">
+    <div class="quote">
+      <slot />
+    </div>
+    <slot name="after" />
   </div>
 </div>
 
@@ -44,13 +47,16 @@
   //   font-weight: 400
   //   color: #dcddde
 
+  .quoteContainer
+    max-width: 80%
+    text-align: center
+    
   .quote
     position: relative
     background-color: #fff
     border: 2px solid #dedede
     border-radius: 14px
     border-top-left-radius: 0
-    max-width: 80%
     padding: 10px 12px
   
   .quote::before
