@@ -1,9 +1,9 @@
-import { faListOl } from '@fortawesome/free-solid-svg-icons'
-import { definePattern, md } from '../common/definePattern'
+import { faListOl } from "@fortawesome/free-solid-svg-icons"
+import { definePattern, md } from "../common/definePattern"
 
 export default definePattern({
-  id: 'ein-eine',
-  slug: 'ein-eine',
+  id: "ein-eine",
+  slug: "ein-eine",
   title: "Ein und eine",
   shortdesc: "Gendered variations of 'a'",
   icon: faListOl,
@@ -39,31 +39,34 @@ dein Proton / your proton
 meine Barriere / my barrier
 deine Barriere / your barrier
 </ltable>
-`,
+  `,
   exercises: [
-    {
-      from: 'lukas',
-      message: 'Warum bist du in [meine] Welt gekommen?',
-      translation: 'Why did you come to [my] world?',
-      hint: "[feminine]"
-    },
-    {
-      from: 'squirrel',
-      message: '[Dein] Universum ist sehr ruhig.',
-      translation: '[Your] universe is very quiet.',
-      hint: "[neuter]"
-    },
-    {
-      from: 'squirrel',
-      message: '[Meine] Leute nennen es eine Toteszone.',
-      translation: '[My] people call it a deadzone.',
-      hint: "[plural]"
-    },
-    {
-      from: 'squirrel',
-      message: 'Es ist [ein] guter Ort, um sich zu verstecken.',
-      translation: "It's [a] good place to hide.",
-      hint: "[masculine]"
-    }
-  ]
+    // LEVEL 1
+    [
+      {
+        from: "lukas",
+        message: "Warum bist du in [meine] Welt gekommen?",
+        translation: "Why did you come to [my] world?",
+        hint: "[feminine]",
+      },
+      {
+        from: "squirrel",
+        message: "[Dein] Universum ist sehr ruhig.",
+        translation: "[Your] universe is very quiet.",
+        hint: "[neuter]",
+      },
+      {
+        from: "squirrel",
+        message: "[Meine] Leute nennen es eine Toteszone.",
+        translation: "[My] people call it a deadzone.",
+        hint: "[plural]",
+      },
+      {
+        from: "squirrel",
+        message: "Es ist [ein] guter Ort, um sich zu verstecken.",
+        translation: "It's [a] good place to hide.",
+        hint: "[masculine]",
+      },
+    ],
+  ],
 })

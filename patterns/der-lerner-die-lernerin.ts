@@ -1,11 +1,11 @@
-import { faVenusMars } from '@fortawesome/free-solid-svg-icons'
-import { definePattern, md } from '../common/definePattern'
+import { faVenusMars } from "@fortawesome/free-solid-svg-icons"
+import { definePattern, md } from "../common/definePattern"
 
 // TODO: Probably some interesting social subtleties about gender that are worth discussing here (non-binary people?)
 
 export default definePattern({
-  id: 'der-lerner-die-lernerin',
-  slug: 'der-lerner-die-lernerin',
+  id: "der-lerner-die-lernerin",
+  slug: "der-lerner-die-lernerin",
   title: "Der Lerner, die Lernerin",
   shortdesc: "Grammatical gender and people",
   icon: faVenusMars,
@@ -20,7 +20,7 @@ der Paläoastrobiologe / die Paläoastrobiologin / the paleoastrobiologist
 </ltable>
 
 Pretty straightforward! Not all person words follow this pattern, though. For example, _das Mädchen_ is always neuter as a _-chen_ word, even though it refers specifically to girls. Similarly, _die Person_ and _der Mensch_ are feminine and masculine respectively, even though they both just refer to people in general.
-`,
+  `,
   exercises: [
     // {
     //   from: 'scientist',
@@ -40,5 +40,5 @@ Pretty straightforward! Not all person words follow this pattern, though. For ex
     //   translation: 'You will see [the] first proton momentarily.',
     //   hint: "[neuter]"
     // },
-  ]
+  ],
 })

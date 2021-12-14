@@ -7,12 +7,12 @@
     deer: "Eiknir",
   } as Record<string, string>
 
-  const username = names[from] || from
+  // const name = names[from] || from
 </script>
 
 <div class="message">
   <Avatar charId={from} />
-  <!-- <div class="username">{username}</div> -->
+  <!-- <div class="name">{name}</div> -->
   <div class="quote">
     <slot />
   </div>

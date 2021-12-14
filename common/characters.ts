@@ -21,7 +21,7 @@ An extradimensional squirrel-like lifeform with vast psionic power. Tösky is cu
     name: "Lukas",
     fullname: "Lukas Zweidenker",
     profile: md`
-
+TODO
     `,
   },
   {
@@ -29,7 +29,15 @@ An extradimensional squirrel-like lifeform with vast psionic power. Tösky is cu
     name: "Lindenbaum",
     fullname: "Fräulein Lindenbaum",
     profile: md`
-
+TODO
+    `,
+  },
+  {
+    id: "deer",
+    name: "???",
+    fullname: "???",
+    profile: md`
+TODO
     `,
   },
 ]

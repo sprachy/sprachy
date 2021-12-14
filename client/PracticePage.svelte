@@ -1,8 +1,6 @@
 <script lang="ts">
   import _ from "lodash"
-  import type { Exercise } from "../common/sprachdex"
   import { NotFoundError } from "./GlobalErrorHandler"
-  import type { UserApp } from "./UserApp"
   import SiteLayout from "./SiteLayout.svelte"
   import FillblankCard from "./FillblankCard.svelte"
   import sprachy from "./sprachy"
@@ -17,7 +15,7 @@
     throw new NotFoundError()
   }
 
-  let exercises: Exercise[] = pattern.exercises
+  let exercises = pattern.levels[0]!.exercises
   $: exercise = exercises[exerciseIndex]!
 
   async function onAnswer(event: CustomEvent<{ correct: boolean }>) {
@@ -28,7 +26,7 @@
       return
     }
 
-    if (exerciseIndex + 1 >= pattern!.exercises.length) {
+    if (exerciseIndex + 1 >= exercises.length) {
       complete = true
       const progressItem = await sprachy.api.recordReview(
         pattern!.id,

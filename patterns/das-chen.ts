@@ -1,9 +1,9 @@
-import { faCat } from '@fortawesome/free-solid-svg-icons'
-import { definePattern, md } from '../common/definePattern'
+import { faCat } from "@fortawesome/free-solid-svg-icons"
+import { definePattern, md } from "../common/definePattern"
 
 export default definePattern({
-  id: 'das-chen',
-  slug: 'das-chen',
+  id: "das-chen",
+  slug: "das-chen",
   title: "Das -chen",
   shortdesc: "The power of cute diminutives",
   icon: faCat,
@@ -21,25 +21,31 @@ Do you see the pattern? These kinds of diminutives are always neuter, no matter 
 <Tip title="Smol prevalence">
 Some nouns are used mainly in their diminutive form. For example, _das Eichhörnchen_ is more common than _das Eichhorn_. _das Mädchen_ refers to a young girl, while the root _die Magd_ (the maid) would sound very archaic in comparison.
 </Tip>
-`,
+  `,
   exercises: [
-    {
-      from: 'lukas',
-      message: 'Tösky, hast du [mein] Brötchen gegessen?',
-      translation: 'Tösky, did you eat [my] bread roll?'
-    },
-    {
-      from: 'squirrel',
-      message: '[Dein] Brötchen ist zum Brennstoff für das ewige Feuer meiner Seele geworden.',
-      translation: '[Your] bread roll has become fuel for the eternal fire of my soul.'
-    },
+    // LEVEL 1
+
+    [
+      {
+        from: "lukas",
+        message: "Tösky, hast du [mein] Brötchen gegessen?",
+        translation: "Tösky, did you eat [my] bread roll?",
+      },
+      {
+        from: "squirrel",
+        message:
+          "[Dein] Brötchen ist zum Brennstoff für das ewige Feuer meiner Seele geworden.",
+        translation:
+          "[Your] bread roll has become fuel for the eternal fire of my soul.",
+      },
+    ],
 
     //     {
     //       content: md`
     // <dialogue>
     // <dline by="anna">
     // Tösky, hast du [mein] Brötchen gegessen?
-    // Tösky, did you eat [my] bread roll? 
+    // Tösky, did you eat [my] bread roll?
     // </dline>
 
     // <dline by="squirrel">
@@ -49,5 +55,5 @@ Some nouns are used mainly in their diminutive form. For example, _das Eichhörn
     // </dialogue>
     //       `,
     //     }
-  ]
+  ],
 })

@@ -1,6 +1,6 @@
 <script lang="ts">
   import _ from "lodash"
-  import type { Exercise } from "../common/sprachdex"
+  import type { Exercise } from "../common/Exercise"
   import { levenshtein } from "./levenshtein"
   import { CanvasEffects } from "./CanvasEffects"
   import { createEventDispatcher, onMount } from "svelte"

@@ -1,13 +1,14 @@
-import _ from 'lodash'
-import type { ProgressItem, User, ProgressSummary } from '../common/api'
-import { sprachdex, Pattern } from '../common/sprachdex'
-import time from '../common/time'
-import type { SprachyAPIClient } from './SprachyAPIClient'
+import _ from "lodash"
+import type { ProgressItem, User, ProgressSummary } from "../common/api"
+import type { Pattern } from "../common/Pattern"
+import { sprachdex } from "../common/sprachdex"
+import time from "../common/time"
+import type { SprachyAPIClient } from "./SprachyAPIClient"
 
 /**
  * Application-wide state for when the user is signed in
  */
- export class UserApp {
+export class UserApp {
   user!: User
   progressItems!: ProgressItem[]
 
@@ -38,7 +39,9 @@ import type { SprachyAPIClient } from './SprachyAPIClient'
     this.progressItems.push(item)
   }
 
-  get progressItemByPatternId(): { [patternId: string]: ProgressItem | undefined } {
+  get progressItemByPatternId(): {
+    [patternId: string]: ProgressItem | undefined
+  } {
     return _.keyBy(this.progressItems, (p) => p.patternId)
   }
 
@@ -46,18 +49,18 @@ import type { SprachyAPIClient } from './SprachyAPIClient'
     return sprachdex.allPatterns.map((p) => {
       const progressItem = this.progressItemByPatternId[p.id]
       return Object.assign({}, p, {
-        progress: progressItem ? new PatternProgress(p, progressItem) : null
+        progress: progressItem ? new PatternProgress(p, progressItem) : null,
       })
     })
   }
 
   get nextPatternToLearn() {
-    return this.patternsWithProgress.find(p => !p.progress)
+    return this.patternsWithProgress.find((p) => !p.progress)
   }
 }
 
 class PatternProgress {
-  constructor(readonly pattern: Pattern, readonly item: ProgressItem) { }
+  constructor(readonly pattern: Pattern, readonly item: ProgressItem) {}
 
   get mastered() {
     return this.item.srsLevel >= 9
@@ -68,4 +71,4 @@ class PatternProgress {
   }
 }
 
-export type PatternWithProgress = Pattern & { progress: PatternProgress|null }
+export type PatternWithProgress = Pattern & { progress: PatternProgress | null }

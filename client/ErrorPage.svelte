@@ -1,10 +1,7 @@
 <script lang="ts">
-  import type { AxiosError } from "axios"
   import UnexpectedErrorModal from "./UnexpectedErrorModal.svelte"
 
   export let error: Error
-
-  const axiosError = "response" in error && (error as AxiosError)
 
   function onDismiss() {
     window.location.reload()
