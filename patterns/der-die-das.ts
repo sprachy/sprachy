@@ -2,7 +2,6 @@ import { faVenusMars } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "../common/definePattern"
 
 // https://german.stackexchange.com/questions/3834/what-is-the-gender-distribution-of-nouns-in-the-german-language
-
 export default definePattern({
   id: "der-die-das",
   slug: "der-die-das",
@@ -32,6 +31,10 @@ squirrel:
 </DialogueExample>
 
 For plurals, we always use _die_, regardless of the noun's base gender. For example, _der Baum_ would become _die Bäume_ when talking about mulitiple trees.
+
+<Tip>
+Unlike in English, the first letter of every noun in German is **C**apitalized. This is particularly useful when learning the language, as it makes nouns easy to identify.
+</Tip>
   `,
   exercises: [
     /**

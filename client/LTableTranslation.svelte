@@ -3,12 +3,13 @@
   export let original: string
 
   const translation = translations[original]
-  const error = !translation
 </script>
 
-<div class="cell" class:text-danger={!!error}>
+<div class="cell">
   <div class="original">{original}</div>
-  <div class="translation">{translation}</div>
+  {#if translation}
+    <div class="translation">{translation}</div>
+  {/if}
 </div>
 
 <style lang="sass">
