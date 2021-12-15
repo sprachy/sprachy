@@ -1,10 +1,9 @@
+import { testenv } from "./testenv"
+import { sprachdex } from "../common/sprachdex"
+import time from "../common/time"
+import { db } from "../server/db"
 
-import { testenv } from './testenv'
-import { sprachdex } from '../common/sprachdex'
-import time from '../common/time'
-import { db } from '../server/db'
-
-test('srs progress updates', async () => {
+test("srs progress updates", async () => {
   const { asUser } = await testenv()
 
   // Initial state, no progress recorded
@@ -23,7 +22,7 @@ test('srs progress updates', async () => {
 
   // Wait for 4 hours
   await db.progress.update(progress2.id, {
-    lastLeveledAt: progress2.lastLeveledAt - time.hours(4)
+    lastLeveledAt: progress2.lastLeveledAt - time.hours(4),
   })
 
   // Now we can level up
