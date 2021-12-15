@@ -21,7 +21,7 @@ An extradimensional squirrel-like lifeform with vast psionic power. Tösky is cu
     name: "Lukas",
     fullname: "Lukas Zweidenker",
     profile: md`
-TODO
+A student at a German university, studying science and philosophy. Likes mysterious and odd things. Totally down to hang out with an alien squirrel.
     `,
   },
   {
@@ -38,6 +38,14 @@ TODO
     fullname: "???",
     profile: md`
 TODO
+    `,
+  },
+  {
+    id: "cashier",
+    name: "Cashier",
+    fullname: "Cashier",
+    profile: md`
+A local supermarket cashier. She has no idea that fuzzy eldritch entities are browsing the snack aisle.
     `,
   },
 ]

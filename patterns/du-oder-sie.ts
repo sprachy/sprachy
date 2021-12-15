@@ -1,9 +1,9 @@
-import { faUserTie } from '@fortawesome/free-solid-svg-icons'
-import { definePattern, md } from '../common/definePattern'
+import { faUserTie } from "@fortawesome/free-solid-svg-icons"
+import { definePattern, md } from "../common/definePattern"
 
 export default definePattern({
-  id: 'du-oder-sie',
-  slug: 'du-oder-sie',
+  id: "du-oder-sie",
+  slug: "du-oder-sie",
   title: "Du oder Sie",
   shortdesc: "Casual and formal language",
   icon: faUserTie,
@@ -24,13 +24,45 @@ Vorsicht, sie ist ein furchtbarer Feind / Beware, she is a fearsome enemy
 </ltable>
 
 Similar to "they" in English, the singular _Sie_ and plural _sie_ both use _Sie sind_ like "they are". The "she" meaning of sie uses _sie ist_. This sind/ist difference, along with the casing, can help you figure out from context which of the three meanings is being used.
-`,
+  `,
   exercises: [
+    [
+      {
+        from: "cashier",
+        message: "Möchten [Sie] noch etwas anderes?",
+        translation: "Would [you] like anything else?",
+        hint: "[formal]",
+      },
+      {
+        from: "squirrel",
+        message: "Lukas, [du] musst die mit Honig gebrannten Mandeln kaufen!",
+        translation: "Lukas, [you] have to get the honey-roasted almonds!",
+        hint: "[informal]",
+      },
+      {
+        from: "cashier",
+        message: "Entschuldigung, spricht [Ihr] Rucksack?",
+        translation: "Excuse me, is [your] backpack talking?",
+        hint: "[masculine]",
+      },
+      {
+        from: "lukas",
+        message: "Pssst. [Du] wirst die Menschen verängstigen.",
+        translation: "Shhhh. [You]'ll freak out the humans.",
+        hint: "[informal]",
+      },
+      {
+        from: "lukas",
+        message: "Können [Sie] mir sagen, welche Art von Mandeln Sie haben?",
+        translation: "Could [you] tell me what kind of almonds you have?",
+        hint: "[formal]",
+      },
+    ],
     // {
     //   from: 'scientist',
     //   message: 'Sie werden in Kürze [das] erste Proton sehen.',
     //   translation: 'You will see [the] first proton momentarily.',
     //   hint: "[neuter]"
     // },
-  ]
+  ],
 })
