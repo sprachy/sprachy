@@ -22,23 +22,46 @@ der Paläoastrobiologe / die Paläoastrobiologin / the paleoastrobiologist
 Pretty straightforward! Not all person words follow this pattern, though. For example, _das Mädchen_ is always neuter as a _-chen_ word, even though it refers specifically to girls. Similarly, _die Person_ and _der Mensch_ are feminine and masculine respectively, even though they both just refer to people in general.
   `,
   exercises: [
-    // {
-    //   from: 'scientist',
-    //   message: '[Die] Barriere wird schwächer!',
-    //   translation: '[The] barrier is weakening!',
-    //   hint: "[feminine]"
-    // },
-    // {
-    //   from: 'deer',
-    //   message: 'Ist [der] Späher vorbereitet?',
-    //   translation: 'Is [the] scout prepared?',
-    //   hint: "[masculine]"
-    // },
-    // {
-    //   from: 'scientist',
-    //   message: 'Sie werden in Kürze [das] erste Proton sehen.',
-    //   translation: 'You will see [the] first proton momentarily.',
-    //   hint: "[neuter]"
-    // },
+    // LEVEL 1
+    [
+      {
+        from: "squirrel",
+        message: "Lukas, bist du [ein] Student?",
+        translation: "Lukas, are you [a] uni student?",
+      },
+      {
+        from: "lukas",
+        message: "Ja. [Meine] Biologieprofessorin würde Sie gerne mal sehen.",
+        translation:
+          "Yes. [My] biology professor would love to get a look at you.",
+      },
+      {
+        from: "lukas",
+        message: "Was bist [du] auf deiner Welt?",
+        translation: "What are [you] on your world?",
+      },
+      {
+        from: "squirrel",
+        message: "Etwas wie... [ein] Prinz?",
+        translation: "Something like... [a] prince?",
+      },
+      {
+        from: "squirrel",
+        message:
+          "[Die] Buchhalterin war nicht sehr glücklich darüber, dass ich gegangen bin.",
+        translation: "[The] accountant was not very happy I left.",
+      },
+
+      // {
+      //   from: "squirrel",
+      //   message: "Ist [deine] Schwester auch eine Studentin?",
+      //   translation: "Is [your] sister also a uni student?",
+      // },
+      // {
+      //   from: "lukas",
+      //   message: "Nein, sie ist [eine] Gymnasiastin.",
+      //   translation: "No, she is still [a] high school student.",
+      // },
+    ],
   ],
 })
