@@ -31,12 +31,12 @@
   $: exercise = exercises[exerciseIndex]!
 
   async function onAnswer(event: CustomEvent<{ correct: boolean }>) {
-    // if (!event.detail.correct) {
-    //   mistakes += 1
-    //   exercises.push(exercise)
-    //   exercises.shift()
-    //   return
-    // }
+    if (!event.detail.correct) {
+      mistakes += 1
+      // exercises.push(exercise)
+      // exercises.shift()
+      return
+    }
 
     if (exerciseIndex + 1 >= exercises.length) {
       complete = true
