@@ -50,7 +50,7 @@ deine Barriere / your barrier
       },
       {
         from: "squirrel",
-        message: "[Meine] Leute würden es eine Toteszone nennen.",
+        message: "[Meine] Leute würden es eine Todeszone nennen.",
         translation: "[My] people would call it a deadzone.",
       },
       {
@@ -59,13 +59,12 @@ deine Barriere / your barrier
         translation: "To me it's like [a] calm ocean.",
         hint: "[masculine]",
       },
-
-      // {
-      //   from: "squirrel",
-      //   message: "Es ist [ein] guter Ort, um sich zu verstecken.",
-      //   translation: "It's [a] good place to hide.",
-      //   hint: "[masculine]",
-      // },
     ],
+    // {
+    //   from: "squirrel",
+    //   message: "Es ist [ein] guter Ort, um sich zu verstecken.",
+    //   translation: "It's [a] good place to hide.",
+    //   hint: "[masculine]",
+    // },
   ],
 })

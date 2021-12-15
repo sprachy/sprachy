@@ -20,7 +20,7 @@ Note that _Sie_ when capitalized means the formal you, but the lowercase _sie_ a
 <ltable header="Deutsch / Meaning">
 Ja, Sie sind richtig / Yes, you are right (formal)
 Nein, sie sind keine Kamele / No, they are not camels
-Vorsicht, sie ist ein furchtbarer Feind / Beware, she is a fearsome enemy
+Vorsicht, sie ist eine furchtbare Feindin / Beware, she is a fearsome enemy
 </ltable>
 
 Similar to "they" in English, the singular _Sie_ and plural _sie_ both use _Sie sind_ like "they are". The "she" meaning of sie uses _sie ist_. This sind/ist difference, along with the casing, can help you figure out from context which of the three meanings is being used.
