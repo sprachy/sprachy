@@ -16,7 +16,7 @@
     "build-server": "rm -rf server/dist/* && webpack --mode production --config webpack.server.config.js",
     "build-live": "npm run build-live-client && npm run build-server",
     "td": "npm run build && wrangler publish --env test",
-    "deploy": "npm run typecheck && npm run test && npm run build-live && npm run deploy-server && npm run deploy-client",
+    "deploy": "npm run check && npm run test && npm run build-live && npm run deploy-server && npm run deploy-client",
     "deploy-server": "wrangler publish --env live",
     "deploy-client": "netlify deploy -d client/dist --prod",
     "check": "tsc -p server/tsconfig.json --noEmit && tsc -p client/tsconfig.json --noEmit && svelte-check",

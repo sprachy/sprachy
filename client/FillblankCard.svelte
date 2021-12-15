@@ -106,11 +106,13 @@
           </Message>
         </div>
         <fieldset class="input-area">
+          <!-- svelte-ignore a11y-autofocus -->
           <input
             type="text"
             placeholder="Your Answer"
             bind:value={attempt}
             bind:this={attemptInput}
+            autofocus
           />
           <!-- <button>
         <FontAwesomeIcon icon="faChevronRight" />
