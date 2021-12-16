@@ -14,7 +14,6 @@
   $: lines = story.lines.slice(0, lineIndex + 1)
   $: currentLine = lines[lines.length - 1]
 
-  let attempt: string = ""
   const dispatch = createEventDispatcher()
 
   function nextLine() {
@@ -29,11 +28,7 @@
         {#if line.type === "reading"}
           <StoryLineReading {line} />
         {:else}
-          <StoryLineFillblank
-            {line}
-            on:correct={nextLine}
-            complete={line !== currentLine}
-          />
+          <StoryLineFillblank {line} on:correct={nextLine} complete={line !== currentLine} />
         {/if}
       </div>
     {/each}

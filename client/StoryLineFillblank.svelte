@@ -5,12 +5,14 @@
   import { createEventDispatcher, onMount } from "svelte"
   import Message from "./Message.svelte"
   import type { FillblankLine } from "../common/Pattern"
+  import { matchAnswer } from "./feedback"
 
   export let line: FillblankLine
   export let complete: boolean = false
   let attemptInput!: HTMLInputElement
   let effects: CanvasEffects = new CanvasEffects()
   let attempt: string = ""
+  let feedback: string = ""
 
   const dispatch = createEventDispatcher()
 
@@ -36,51 +38,22 @@
   $: translation = ((line: FillblankLine) => {
     return line.translation.replace(/\[.+?\]/, (substring) => {
       const highlight = substring.slice(1, -1)
-      return `<strong>${highlight}</strong>`
+      return highlight
+      // return `<strong>${highlight}</strong>`
     })
   })(line)
 
-  /** Tolerate more egregious typos in longer answers */
-  function distanceTolerance(s: string) {
-    switch (s.length) {
-      case 1:
-      case 2:
-      case 3:
-        return 0
-      case 4:
-      case 5:
-        return 1
-      case 6:
-      case 7:
-        return 2
-      default:
-        return 2 + 1 * Math.floor(s.length / 7)
-    }
-  }
-
-  function matchesAnswerPermissively(
-    attempt: string,
-    correctAnswer: string
-  ): boolean {
-    attempt = attempt.toLowerCase()
-    correctAnswer = correctAnswer.toLowerCase()
-
-    if (attempt === correctAnswer) {
-      return true
-    } else {
-      const tolerance = distanceTolerance(correctAnswer)
-      return levenshtein(attempt, correctAnswer) <= tolerance
-    }
-  }
-
   function checkAnswer() {
-    const match = line.validAnswers.find((ans) =>
-      matchesAnswerPermissively(attempt, ans)
-    )
-    if (match) {
+    feedback = ""
+    const result = matchAnswer(attempt, line)
+    if (result.validAnswer) {
+      attempt = result.validAnswer
       effects.spawnParticlesAt(attemptInput)
       dispatch("correct")
     } else {
+      if (result.feedback) {
+        feedback = result.feedback
+      }
       // dispatch("answer", { correct: false })
     }
   }
@@ -89,10 +62,6 @@
 <Message from={line.from}>
   <form on:submit|preventDefault={checkAnswer}>
     <span>{parts.before}</span>
-    <!-- <span
-      class:fillblank={true}
-    > -->
-
     <!-- svelte-ignore a11y-autofocus -->
     <input
       class="fillblank"
