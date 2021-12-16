@@ -17,7 +17,11 @@
   const dispatch = createEventDispatcher()
 
   function nextLine() {
-    lineIndex += 1
+    if (lineIndex >= story.lines.length - 1) {
+      dispatch("complete")
+    } else {
+      lineIndex += 1
+    }
   }
 </script>
 
@@ -35,11 +39,7 @@
   </div>
   <hr />
   <div class="d-flex justify-content-end">
-    <button
-      class="btn btn-success"
-      on:click={nextLine}
-      disabled={lineIndex === story.lines.length - 1}>Continue</button
-    >
+    <button class="btn btn-success" on:click={nextLine}>Continue</button>
   </div>
 </div>
 
