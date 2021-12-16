@@ -4,12 +4,14 @@
   import { SprachyAPIValidationError } from "./SprachyAPIClient"
   import { navigate } from "svelte-navigator"
   import { onMount } from "svelte"
+  import SignupFormModal from "./SignupFormModal.svelte"
 
   let email: string = ""
   let password: string = ""
-  let confirmPassword: string = ""
-  let isNewUser: boolean = false
+  let showSignupModal: boolean = false
   // let afterAuthUrl: string = "";
+
+  let loading: boolean = false
   let errors: SprachyAPIValidationError["messagesByField"] = {}
 
   onMount(() => {
@@ -18,51 +20,39 @@
     }
   })
 
-  async function signup() {
-    if (isNewUser === false) {
-      try {
-        const summary = await sprachy.api.login({ email, password })
-        if ("newUser" in summary) {
-          isNewUser = true
-        } else if ("wrongPassword" in summary) {
-          errors.password = "The password doesn't match the user"
-        } else {
-          sprachy.initApp(summary)
-          navigate("/home")
-        }
-      } catch (err: any) {
-        if (err instanceof SprachyAPIValidationError) {
-          errors = err.messagesByField
-        } else {
-          throw err
-        }
-      }
-    } else {
-      if (password != confirmPassword) {
-        errors.confirmPassword = "This doesn't match the password"
+  async function login() {
+    loading = true
+    errors = {}
+    try {
+      const summary = await sprachy.api.login({ email, password })
+      if ("newUser" in summary) {
+        showSignupModal = true
+      } else if ("wrongPassword" in summary) {
+        errors.password = "The password doesn't match the user"
       } else {
-        try {
-          const summary = await sprachy.api.signUp({
-            email,
-            password,
-            confirmPassword,
-          })
-          console.log(summary)
-          sprachy.initApp(summary)
-          navigate("/home")
-        } catch (err: any) {
-          if (err instanceof SprachyAPIValidationError) {
-            errors = err.messagesByField
-          } else {
-            throw err
-          }
-        }
+        sprachy.initApp(summary)
+        navigate("/home")
       }
+    } catch (err: any) {
+      if (err instanceof SprachyAPIValidationError) {
+        errors = err.messagesByField
+      } else {
+        throw err
+      }
+    } finally {
+      loading = false
     }
+  }
+
+  function hideSignupModal() {
+    showSignupModal = false
   }
 </script>
 
 <div class="frontpage">
+  {#if showSignupModal}
+    <SignupFormModal onDismiss={hideSignupModal} {email} {password} />
+  {/if}
   <!-- <header class="container">
     <a class="logo" href="/"> Sprachy </a>
   </header> -->
@@ -70,33 +60,23 @@
     <div class="w-50">
       <h1>Learn German the weird and dorky way</h1>
       <p>
-        Language-learning apps too often focus on boring, everyday examples.
-        Sprachy guarantees the involvement of 100% more cute psychic squirrels
-        from beyond the interdimensional veil.
+        Language-learning apps too often focus on boring, everyday examples. Sprachy guarantees the
+        involvement of 100% more cute psychic squirrels from beyond the interdimensional veil.
       </p>
-      <form on:submit|preventDefault={signup}>
+      <form on:submit|preventDefault={login}>
         <fieldset class="form-group">
           <label for="email">Email</label>
-          {#if !errors.email}
-            <input
-              bind:value={email}
-              name="email"
-              id="email"
-              type="email"
-              class="form-control"
-              placeholder="Email"
-              required
-            />
-          {:else}
-            <input
-              bind:value={email}
-              name="email"
-              id="email"
-              type="email"
-              class="form-control is-invalid"
-              placeholder="Email"
-              required
-            />
+          <input
+            bind:value={email}
+            name="email"
+            id="email"
+            type="email"
+            class:form-control={true}
+            class:is-invalid={!!errors.email}
+            placeholder="Email"
+            required
+          />
+          {#if errors.email}
             <div class="invalid-feedback">
               {errors.email}
             </div>
@@ -104,73 +84,29 @@
         </fieldset>
         <fieldset class="form-group">
           <label for="password">Password</label>
-          {#if !errors.password}
-            <input
-              bind:value={password}
-              name="password"
-              id="password"
-              type="password"
-              class="form-control"
-              placeholder="Password"
-              minLength="10"
-              required
-            />
-          {:else}
-            <input
-              bind:value={password}
-              name="password"
-              id="password"
-              type="password"
-              class="form-control is-invalid"
-              placeholder="Password"
-              minLength="10"
-              required
-            />
+          <input
+            bind:value={password}
+            name="password"
+            id="password"
+            type="password"
+            class:form-control={true}
+            class:is-invalid={!!errors.password}
+            placeholder="Password"
+            minLength="10"
+            required
+          />
+          {#if errors.password}
             <div class="invalid-feedback">
               {errors.password}
             </div>
           {/if}
         </fieldset>
-        {#if isNewUser}
-          <fieldset class="form-group">
-            <label for="confirmPassword">Confirm Password</label>
-            {#if errors.confirmPassword}
-              <input
-                bind:value={confirmPassword}
-                name="confirm_password"
-                id="confirm_password"
-                type="password"
-                class="form-control is-invalid"
-                placeholder="Confirm Password"
-                minLength="10"
-                required
-              />
-              <div class="invalid-feedback">
-                {errors.confirmPassword}
-              </div>
-            {:else}
-              <input
-                bind:value={confirmPassword}
-                name="confirm_password"
-                id="confirm_password"
-                type="password"
-                class="form-control"
-                placeholder="Confirm Password"
-                minLength="10"
-                required
-              />
-            {/if}
-          </fieldset>
-        {/if}
         <!-- <input type="hidden" name="then" :value="afterAuthUrl" /> -->
-        <button class="btn btn-lg text-white" type="submit"
+        <button class="btn btn-sprachy btn-lg" type="submit" disabled={loading}
           >Enter Sprachy</button
         >
         <p class="text-warning mt-2">
-          <em
-            >Sprachy is still early in development; you might want to come back
-            later!</em
-          >
+          <em>Sprachy is still early in development; you might want to come back later!</em>
         </p>
       </form>
     </div>
@@ -216,7 +152,4 @@ main.container
   h1
     font-size: 3.3rem
 
-  .btn
-    background-color: #cd5527
-    border-color: #cd5527
 </style>
