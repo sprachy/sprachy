@@ -14,23 +14,72 @@ export type PatternDef = {
   shortdesc: string
   icon: IconDefinition
   explanation: string
-  /** Exercises by level */
-  exercises: ExerciseDef[][]
+  stories: { lines: LineDef[] }[]
 }
+
+export type LineDef = {
+  from: string
+  message: string
+  translation: string
+  hint?: string
+  feedback?: { [key: string]: string }
+}
+
+export type ReadingLine = {
+  type: 'reading'
+  from: string
+  message: string
+  translation: string
+}
+
+export type FillblankLine = {
+  type: 'fillblank'
+  from: string
+  message: string
+  translation: string
+  canonicalAnswer: string
+  validAnswers: string[]
+  hint?: string
+  feedback?: { [key: string]: string }
+}
+
+export type Line = ReadingLine | FillblankLine
+
 
 /**
  * A pattern after parsing the definition file. Structured
  * to be friendly for code use.
  */
-export type Pattern = Omit<PatternDef, "exercises"> & {
-  levels: { exercises: Exercise[] }[]
+export type Pattern = Omit<PatternDef, "stories"> & {
+  stories: { lines: Line[] }[]
 }
+
+export type Story = Pattern['stories'][0]
 
 /** Turn a PatternDef into a Pattern for use by code. */
 export function parsePattern(patternDef: PatternDef): Pattern {
   return Object.assign({}, patternDef, {
-    levels: patternDef.exercises.map((exs) => ({
-      exercises: exs.map((ex) => parseExercise(ex)),
+    stories: patternDef.stories?.map((story) => ({
+      lines: story.lines.map(parseLine)
     })),
   })
+}
+
+export function parseLine(lineDef: LineDef): Line {
+  const match = lineDef.message.match(/\[(.+?)\]/)
+  if (match) {
+    const canonicalAnswer = match[1]!
+
+    return {
+      type: 'fillblank',
+      canonicalAnswer: canonicalAnswer,
+      validAnswers: [canonicalAnswer],
+      ...lineDef
+    }
+  } else {
+    return {
+      type: 'reading',
+      ...lineDef
+    }
+  }
 }

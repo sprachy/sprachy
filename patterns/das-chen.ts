@@ -24,7 +24,7 @@ Diminutives can also end in _-lein_, which is similarly always _das_, but this i
 Some nouns are used mainly in their diminutive form. For example, _das Eichhörnchen_ is more common than _das Eichhorn_. _das Mädchen_ refers to a young girl, while the root _die Magd_ (the maid) would sound very archaic in comparison.
 </Tip>
   `,
-  exercises: [
+  stories: [
     /**
      * What is the user practicing here?
      *
@@ -35,38 +35,39 @@ Some nouns are used mainly in their diminutive form. For example, _das Eichhörn
      */
 
     // LEVEL 1
-
-    [
-      {
-        from: "lukas",
-        message: "Tösky, hast du [mein] Brötchen gegessen?",
-        translation: "Tösky, did you eat [my] bread roll?",
-      },
-      {
-        from: "squirrel",
-        message:
-          "[Dein] Brötchen ist zum Brennstoff für das ewige Feuer meiner Seele geworden.",
-        translation:
-          "[Your] bread roll has become fuel for the eternal fire of my soul.",
-      },
-      {
-        from: "lukas",
-        message: "Und was ist mit [meine] Haselnüsschen?",
-        translation: "And what about [my] little hazelnuts?",
-      },
-      {
-        from: "squirrel",
-        message:
-          "[Deine] Haselnüsschen funkeln in den Weiten des Gedankenraums.",
-        translation:
-          "[Your] little hazelnuts sparkle in the far reaches of mindspace.",
-      },
-      {
-        from: "squirrel",
-        message: "Jetzt werde ich [ein] Nickerchen machen. Gute Nacht.",
-        translation: "Now I will have [a] nap. Good night.",
-      },
-    ],
+    {
+      lines: [
+        {
+          from: "lukas",
+          message: "Tösky, hast du [mein] Brötchen gegessen?",
+          translation: "Tösky, did you eat [my] bread roll?",
+        },
+        {
+          from: "squirrel",
+          message:
+            "[Dein] Brötchen ist zum Brennstoff für das ewige Feuer meiner Seele geworden.",
+          translation:
+            "[Your] bread roll has become fuel for the eternal fire of my soul.",
+        },
+        {
+          from: "lukas",
+          message: "Und was ist mit [meine] Haselnüsschen?",
+          translation: "And what about [my] little hazelnuts?",
+        },
+        {
+          from: "squirrel",
+          message:
+            "[Deine] Haselnüsschen funkeln in den Weiten des Gedankenraums.",
+          translation:
+            "[Your] little hazelnuts sparkle in the far reaches of mindspace.",
+        },
+        {
+          from: "squirrel",
+          message: "Jetzt werde ich [ein] Nickerchen machen. Gute Nacht.",
+          translation: "Now I will have [a] nap. Good night.",
+        },
+      ]
+    },
 
     //     {
     //       content: md`

@@ -36,7 +36,7 @@ For plurals, we always use _die_, regardless of the noun's base gender. For exam
 Unlike in English, the first letter of every noun in German is **C**apitalized. This is particularly useful when learning the language, as it makes nouns easy to identify.
 </Tip>
   `,
-  exercises: [
+  stories: [
     /**
      * Since this is the first pattern, we only expect user to remember these points:
      * - word choice depends on noun gender
@@ -54,36 +54,38 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
      */
 
     // LEVEL 1
-    [
-      {
-        from: "lukas",
-        message: "[Die] Welt ist heute friedlich.",
-        translation: "[The] world is peaceful today.",
-        hint: "[feminine]",
-      },
-      {
-        from: "squirrel",
-        message: "Hallo. [Der] Baum hier ist gemütlich.",
-        translation: "Hello. [The] tree here is comfy.",
-        hint: "[masculine]",
-      },
-      {
-        from: "lukas",
-        message: "[Das] Eichhörnchen... redet mit mir?",
-        translation: "[The] squirrel... is talking to me?",
-        hint: "[neuter]",
-      },
-      {
-        from: "squirrel",
-        message: "[Die] Nüsse hier sind auch sehr lecker.",
-        translation: "[The] nuts here are also very tasty.",
-      },
-      {
-        from: "lukas",
-        message: "[Das] ist... gut zu wissen.",
-        translation: "[That] is... good to know.",
-      },
-    ],
+    {
+      lines: [
+        {
+          from: "lukas",
+          message: "[Die] Welt ist heute friedlich.",
+          translation: "[The] world is peaceful today.",
+          hint: "[feminine]",
+        },
+        {
+          from: "squirrel",
+          message: "Hallo. [Der] Baum hier ist gemütlich.",
+          translation: "Hello. [The] tree here is comfy.",
+          hint: "[masculine]",
+        },
+        {
+          from: "lukas",
+          message: "[Das] Eichhörnchen... redet mit mir?",
+          translation: "[The] squirrel... is talking to me?",
+          hint: "[neuter]",
+        },
+        {
+          from: "squirrel",
+          message: "[Die] Nüsse hier sind auch sehr lecker.",
+          translation: "[The] nuts here are also very tasty.",
+        },
+        {
+          from: "lukas",
+          message: "[Das] ist... gut zu wissen.",
+          translation: "[That] is... good to know.",
+        },
+      ]
+    }
 
     // LEVEL 2
     // {

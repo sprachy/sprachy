@@ -35,7 +35,7 @@
     <Route path="/review"><ReviewPage /></Route>
     <Route path="/settings"><SettingsPage /></Route>
     <Route path="/admin"><AdminUsersPage /></Route>
-    <Route path="/pattern/:slug/practice" let:params>
+    <Route primary={false} path="/pattern/:slug/practice" let:params>
       <PracticePage slug={params.slug} />
     </Route>
     <Route path="/pattern/:slug" let:params>
