@@ -1,6 +1,6 @@
 <script lang="ts">
   import _ from "lodash"
-  import { createEventDispatcher } from "svelte"
+  import { createEventDispatcher, onDestroy, onMount } from "svelte"
   import type { Story } from "../common/Pattern"
   import StoryLineReading from "./StoryLineReading.svelte"
   import StoryLineFillblank from "./StoryLineFillblank.svelte"
@@ -12,15 +12,40 @@
   }
 
   $: lines = story.lines.slice(0, lineIndex + 1)
-  $: currentLine = lines[lines.length - 1]
+  $: currentLine = lines[lines.length - 1]!
+  let finished: boolean = false
+
+  $: doingExercise = !finished && currentLine.type === "fillblank"
 
   const dispatch = createEventDispatcher()
 
+  onMount(() => {
+    window.addEventListener("keydown", onKeydown)
+  })
+
+  onDestroy(() => {
+    window.removeEventListener("keydown", onKeydown)
+  })
+
+  function onKeydown(e: KeyboardEvent) {
+    if (e.key === "Enter" && !doingExercise) {
+      continueStory()
+    }
+  }
+
   function nextLine() {
-    if (lineIndex >= story.lines.length - 1) {
-      dispatch("complete")
-    } else {
+    if (lineIndex < story.lines.length - 1) {
       lineIndex += 1
+    } else {
+      finished = true
+    }
+  }
+
+  function continueStory() {
+    if (lineIndex < story.lines.length - 1) {
+      nextLine()
+    } else {
+      dispatch("complete")
     }
   }
 </script>
@@ -32,14 +57,18 @@
         {#if line.type === "reading"}
           <StoryLineReading {line} />
         {:else}
-          <StoryLineFillblank {line} on:correct={nextLine} complete={line !== currentLine} />
+          <StoryLineFillblank
+            {line}
+            on:correct={nextLine}
+            complete={finished || line !== currentLine}
+          />
         {/if}
       </div>
     {/each}
   </div>
   <hr />
   <div class="d-flex justify-content-end">
-    <button class="btn btn-success" on:click={nextLine}>Continue</button>
+    <button class="btn btn-success" on:click={continueStory}>Continue</button>
   </div>
 </div>
 
