@@ -12,9 +12,9 @@
   let loading: boolean = false
   let errors: SprachyAPIValidationError["messagesByField"] = {}
 
-  $: signupEmail = email
-  $: signupPassword = password
-  $: confirmPassword = password
+  let signupEmail: string = email
+  let signupPassword: string = password
+  let confirmPassword: string = password
 
   async function signup() {
     loading = true
@@ -24,8 +24,8 @@
         errors.confirmPassword = "This doesn't match the password"
       } else {
         const summary = await sprachy.api.signUp({
-          email,
-          password,
+          email: signupEmail,
+          password: signupPassword,
           confirmPassword,
         })
         onDismiss()
