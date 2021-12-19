@@ -48,6 +48,7 @@
     "mini-css-extract-plugin": "^2.4.2",
     "miniflare": "togglydev/miniflare",
     "node-repl-await": "^0.1.2",
+    "object-to-formdata": "^4.2.2",
     "sade": "^1.7.4",
     "sass": "1.32.13",
     "sass-loader": "10.1.1",
