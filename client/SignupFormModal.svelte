@@ -3,7 +3,7 @@
   import { navigate } from "svelte-navigator"
   import Modal from "./Modal.svelte"
   import sprachy from "./sprachy"
-  import { errorsByField, UnhandledAPIError } from "./utils"
+  import { errorsByField, otherResponse } from "./utils"
 
   export let onDismiss: () => void
   export let email: string = ""
@@ -17,19 +17,19 @@
   let confirmPassword: string = password
 
   async function signup() {
-    loading = true
     errors = {}
-
     if (password != confirmPassword) {
       errors.confirmPassword = "This doesn't match the password"
       return
     }
 
+    loading = true
     const res = await sprachy.api.signUp({
       email: signupEmail,
       password: signupPassword,
       confirmPassword,
     })
+    loading = false
 
     if (res.status === 200) {
       onDismiss()
@@ -41,7 +41,7 @@
       } else if (res.code === "validation failed") {
         errors = errorsByField(res.errors)
       } else {
-        throw new UnhandledAPIError(res)
+        otherResponse(res)
       }
     }
   }

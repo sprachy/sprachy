@@ -1,6 +1,6 @@
 import { Expr } from 'faunadb'
 
-export class FaunaHTTPError extends Error {
+export class FaunaError extends Error {
   /** HTTP status code */
   status: number
   /** The faunadb error code */

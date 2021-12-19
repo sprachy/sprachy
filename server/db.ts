@@ -3,7 +3,7 @@ import type { ProgressItem, User } from '../common/api'
 import _ from 'lodash'
 import { IS_PRODUCTION } from './settings'
 import { FAUNA_ADMIN_KEY } from './secrets'
-import { FaunaDocument, flattenFauna, FaunaHTTPError } from './faunaUtil'
+import { FaunaDocument, flattenFauna, FaunaError } from './faunaUtil'
 import * as time from '../common/time'
 
 export namespace db {
@@ -43,7 +43,7 @@ export namespace db {
     try {
       return await fauna.client.query(expr)
     } catch (err: any) {
-      throw new FaunaHTTPError(err)
+      throw new FaunaError(err)
     }
   }
 

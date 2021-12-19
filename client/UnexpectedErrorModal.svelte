@@ -6,7 +6,7 @@
   export let error: Error | AxiosError
   export let onDismiss: () => void
 
-  const axiosError = "response" in error ? (error as AxiosError<any>) : null
+  const axiosError = "isAxiosError" in error ? (error as AxiosError<any>) : null
 
   const serverResponse = axiosError ? axiosError.response : null
 
@@ -17,34 +17,28 @@
     : null
 </script>
 
-<Modal open={true}>
+<Modal open={true} on:closed={onDismiss}>
   <div class="modal-header">
     <div>
       {#if axiosError && serverResponse}
         <h5>
           {serverResponse.data.message || "Server error"}
         </h5>
-        <pre>{serverResponse.status} {serverResponse.statusText} from {axiosError
-            .config.url}</pre>
+        <pre>{serverResponse.status} {serverResponse.statusText} from {axiosError.config.url}</pre>
         <p>
-          Sprachy encountered an unexpected error. Please screenshot this
-          message and report it to the development team.
+          Sprachy encountered an unexpected error. Please screenshot this message and report it to
+          the development team.
         </p>
-        <iframe
-          title="Server error details"
-          srcdoc={serverResponseHTML || undefined}
-        />
+        <iframe title="Server error details" srcdoc={serverResponseHTML || undefined} />
       {:else}
         <h5>{error.message}</h5>
         <p>
-          Sprachy encountered an unexpected error. Please screenshot this
-          message and report it to the development team.
+          Sprachy encountered an unexpected error. Please screenshot this message and report it to
+          the development team.
         </p>
       {/if}
     </div>
-    <button type="button" aria-label="Close" class="close" on:click={onDismiss}>
-      ×
-    </button>
+    <button type="button" aria-label="Close" class="close" on:click={onDismiss}> × </button>
   </div>
 
   <div class="modal-body">
@@ -52,9 +46,7 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" on:click={onDismiss}
-      >Continue</button
-    >
+    <button type="button" class="btn btn-secondary" on:click={onDismiss}>Continue</button>
   </div>
 </Modal>
 

@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { IS_PRODUCTION } from './settings'
-import { otherResponse } from './utils'
 
 export type RequestOpts = AxiosRequestConfig & { safe?: boolean }
 
@@ -80,7 +79,7 @@ export async function safeRequest(promise: Promise<any>) {
     return { status: 200, ...data }
   } catch (err: any) {
     if (err?.response?.data) {
-      return { status: err.response.status, ...err.response.data }
+      return { status: err.response.status, ...err.response.data, axiosError: err }
     } else {
       throw err
     }
