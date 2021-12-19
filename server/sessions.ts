@@ -71,7 +71,7 @@ export namespace sessions {
     await kv.putJson(
       `sessions:${sessionKey}`,
       { userId: userId },
-      { expirationTtl: weeks(5) * 1000 }
+      { expirationTtl: weeks(5) / 1000 }
     )
     return sessionKey
   }
@@ -84,7 +84,7 @@ export namespace sessions {
     return cookie.serialize("sessionKey", sessionKey, {
       httpOnly: true,
       // maxAge is in seconds
-      maxAge: weeks(4) * 1000,
+      maxAge: weeks(4) / 1000,
     })
   }
 }

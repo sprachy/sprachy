@@ -56,7 +56,7 @@ export class APIMiddleware {
         const responseData = await handler(baseReq, res)
 
         if (responseData !== undefined) {
-          res.send(200, responseData)
+          res.send(responseData.status || 200, responseData)
         }
       } catch (err: any) {
         console.error(err)
@@ -71,17 +71,17 @@ export class APIMiddleware {
           //
           // The flattened format goes to the frontend as e.g.
           // {"formErrors":[],"fieldErrors":{"email":["Invalid email"]}}
-          res.send(422, err.flatten())
+          res.send(422, { status: 422, code: "validation failed", errors: err.issues })
 
         } else if (err instanceof FaunaHTTPError) {
           // Various fauna query errors that we just send straight through
           // to the frontend for handling, primarily 401s and 404s
 
-          res.send(err.status, { code: err.code, message: err.message })
+          res.send(err.status, { statuscode: err.code, message: err.message })
         } else {
           // The server is broken somehow! This should only be sent
           // if there's an actual bug involved.
-          res.send(500, err.stack)
+          res.send(500, { status: 500, code: "unexpected error", message: err.stack })
         }
       }
     })
@@ -104,7 +104,7 @@ export class RequireLoginMiddleware {
   add(method: HTTPMethod, path: string, handler: (req: SessionRequest, res: ServerResponse) => Promise<any>) {
     this.parent.add(method, path, async (req, res) => {
       if (!req.session) {
-        throw new HTTPError(401, "Login required")
+        return { status: 401, code: "login required" }
       }
 
       return handler(req as SessionRequest, res)
@@ -129,7 +129,7 @@ export class AdminMiddleware {
     this.parent.add(method, path, async (req, res) => {
       const user = await db.users.get(req.session.userId)
       if (!user || !user.isAdmin) {
-        throw new HTTPError(403, "Forbidden")
+        return { status: 403, code: "admin only" }
       }
 
       const adminReq = req as AdminRequest

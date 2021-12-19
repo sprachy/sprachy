@@ -60,7 +60,7 @@ export class UserApp {
 }
 
 class PatternProgress {
-  constructor(readonly pattern: Pattern, readonly item: ProgressItem) {}
+  constructor(readonly pattern: Pattern, readonly item: ProgressItem) { }
 
   get mastered() {
     return this.item.srsLevel >= 9

@@ -1,6 +1,5 @@
 <script lang="ts">
   import _ from "lodash"
-  import { levenshtein } from "./levenshtein"
   import { CanvasEffects } from "./CanvasEffects"
   import { createEventDispatcher, onMount } from "svelte"
   import Message from "./Message.svelte"
@@ -80,6 +79,10 @@
     <span>{parts.after}</span>
   </form>
   <div class="translation" slot="after">{@html translation}</div>
+  {#if feedback}
+    <!-- TODO -->
+    <span>{feedback}</span>
+  {/if}
 </Message>
 
 <style lang="sass">

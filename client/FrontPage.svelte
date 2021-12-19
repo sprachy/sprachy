@@ -1,10 +1,10 @@
 <script lang="ts">
   import sprachy from "./sprachy"
   import _ from "lodash"
-  import { SprachyAPIValidationError } from "./SprachyAPIClient"
   import { navigate } from "svelte-navigator"
   import { onMount } from "svelte"
   import SignupFormModal from "./SignupFormModal.svelte"
+  import { errorsByField, otherResponse } from "./utils"
 
   let email: string = ""
   let password: string = ""
@@ -12,7 +12,7 @@
   // let afterAuthUrl: string = "";
 
   let loading: boolean = false
-  let errors: SprachyAPIValidationError["messagesByField"] = {}
+  let errors: Record<string, string> = {}
 
   onMount(() => {
     if (sprachy.user) {
@@ -23,24 +23,22 @@
   async function login() {
     loading = true
     errors = {}
-    try {
-      const summary = await sprachy.api.login({ email, password })
-      if ("newUser" in summary) {
+    const res = await sprachy.api.login({ email, password })
+    loading = false
+
+    if (res.status === 200) {
+      sprachy.initApp(res.summary)
+      navigate("/home")
+    } else {
+      if (res.code === "new user") {
         showSignupModal = true
-      } else if ("wrongPassword" in summary) {
+      } else if (res.code === "wrong password") {
         errors.password = "The password doesn't match the user"
+      } else if (res.code === "validation failed") {
+        errors = errorsByField(res.errors)
       } else {
-        sprachy.initApp(summary)
-        navigate("/home")
+        otherResponse(res)
       }
-    } catch (err: any) {
-      if (err instanceof SprachyAPIValidationError) {
-        errors = err.messagesByField
-      } else {
-        throw err
-      }
-    } finally {
-      loading = false
     }
   }
 

@@ -3,14 +3,14 @@
   import { navigate } from "svelte-navigator"
   import Modal from "./Modal.svelte"
   import sprachy from "./sprachy"
-  import { SprachyAPIValidationError } from "./SprachyAPIClient"
+  import { errorsByField, UnhandledAPIError } from "./utils"
 
   export let onDismiss: () => void
   export let email: string = ""
   export let password: string = ""
 
   let loading: boolean = false
-  let errors: SprachyAPIValidationError["messagesByField"] = {}
+  let errors: Record<string, string> = {}
 
   let signupEmail: string = email
   let signupPassword: string = password
@@ -19,27 +19,30 @@
   async function signup() {
     loading = true
     errors = {}
-    try {
-      if (password != confirmPassword) {
-        errors.confirmPassword = "This doesn't match the password"
+
+    if (password != confirmPassword) {
+      errors.confirmPassword = "This doesn't match the password"
+      return
+    }
+
+    const res = await sprachy.api.signUp({
+      email: signupEmail,
+      password: signupPassword,
+      confirmPassword,
+    })
+
+    if (res.status === 200) {
+      onDismiss()
+      sprachy.initApp(res.summary)
+      navigate("/home")
+    } else {
+      if (res.code === "user already exists") {
+        errors.email = "This email is already registered"
+      } else if (res.code === "validation failed") {
+        errors = errorsByField(res.errors)
       } else {
-        const summary = await sprachy.api.signUp({
-          email: signupEmail,
-          password: signupPassword,
-          confirmPassword,
-        })
-        onDismiss()
-        sprachy.initApp(summary)
-        navigate("/home")
+        throw new UnhandledAPIError(res)
       }
-    } catch (err: any) {
-      if (err instanceof SprachyAPIValidationError) {
-        errors = err.messagesByField
-      } else {
-        throw err
-      }
-    } finally {
-      loading = false
     }
   }
 </script>

@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import type { ProgressItem, User, ProgressSummary } from '../common/api'
-import { HTTPProvider } from './HTTPProvider'
+import type { ProgressItem, User, ProgressSummary, LoginResult, SignupResult } from '../common/api'
+import { HTTPProvider, safeRequest } from './HTTPProvider'
 
 export class SprachyAPIClient {
   http: HTTPProvider
@@ -10,28 +10,24 @@ export class SprachyAPIClient {
     this.admin = new AdminAPI(this.http)
   }
 
-  async login({ email, password }: { email: string, password: string }): Promise<ProgressSummary | { newUser: true }> {
-    const { data } = await this.http.post(`/api/login`, { email, password })
-    return data
+  async login({ email, password }: { email: string, password: string }): Promise<LoginResult> {
+    return safeRequest(this.http.post(`/api/login`, { email, password }))
   }
 
-  async signUp({ email, password, confirmPassword }: { email: string, password: string, confirmPassword: string }): Promise<ProgressSummary> {
-    const { data } = await this.http.post(`/api/signup`, { email, password, confirmPassword })
-    return data
+  async signUp({ email, password, confirmPassword }: { email: string, password: string, confirmPassword: string }): Promise<SignupResult> {
+    return safeRequest(this.http.post(`/api/signup`, { email, password, confirmPassword }))
   }
 
   async logout(): Promise<void> {
-    await this.http.post(`/api/logout`)
+    return this.http.post(`/api/logout`)
   }
 
   async getProgress(): Promise<ProgressSummary> {
-    const { data } = await this.http.get(`/api/progress`)
-    return data
+    return this.http.get(`/api/progress`)
   }
 
   async recordReview(patternId: string, remembered: boolean): Promise<ProgressItem | null> {
-    const { data } = await this.http.post(`/api/progress`, { patternId, remembered })
-    return data
+    return this.http.post(`/api/progress`, { patternId, remembered })
   }
 }
 
@@ -45,29 +41,6 @@ export class AdminAPI {
   constructor(readonly http: HTTPProvider) { }
 
   async listUsers(): Promise<User[]> {
-    const { data } = await this.http.get(`/api/admin/users`)
-    return data
-  }
-}
-
-/**
- * Client-side representation of a Zod validation error from
- * the server.
- */
-export class SprachyAPIValidationError extends Error {
-  formErrors: string[]
-  fieldErrors: { [key: string]: string[] }
-  constructor(data: { formErrors: string[], fieldErrors: { [key: string]: string[] } }) {
-    super(JSON.stringify(data))
-    this.formErrors = data.formErrors
-    this.fieldErrors = data.fieldErrors
-  }
-
-  get messagesByField() {
-    const messages: { [key: string]: string } = {}
-    for (const field in this.fieldErrors) {
-      messages[field] = this.fieldErrors[field]!.join(", ")
-    }
-    return messages
+    return this.http.get(`/api/admin/users`)
   }
 }

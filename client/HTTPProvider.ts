@@ -1,7 +1,9 @@
 import _ from 'lodash'
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { IS_PRODUCTION } from './settings'
-import { SprachyAPIValidationError } from './SprachyAPIClient'
+import { otherResponse } from './utils'
+
+export type RequestOpts = AxiosRequestConfig & { safe?: boolean }
 
 export class HTTPProvider {
   axios: AxiosInstance
@@ -26,43 +28,40 @@ export class HTTPProvider {
     }
   }
 
-  async request(config: AxiosRequestConfig): Promise<any> {
-    const promise = this.axios.request(config).finally(() => {
+  async request(opts: RequestOpts): Promise<AxiosResponse<any>> {
+    const promise = this.axios.request(opts).finally(() => {
       this.ongoingRequests = this.ongoingRequests.filter(r => r !== promise)
     })
     this.ongoingRequests.push(promise)
     if (this.onRequest)
       this.onRequest(promise)
 
-    try {
-      return await promise
-    } catch (err: any) {
-      if (err?.response?.data?.fieldErrors) {
-        throw new SprachyAPIValidationError(err.response.data)
-      } else {
-        throw err
-      }
-    }
+    return promise
   }
 
-  async get(path: string): Promise<any> {
-    return this.request({ method: 'GET', url: path })
+  async get(path: string) {
+    const { data } = await this.request({ method: 'GET', url: path })
+    return data
   }
 
-  async post(path: string, data?: any, opts: AxiosRequestConfig = {}): Promise<any> {
-    return this.request(Object.assign({ method: 'POST', url: path, data: data }, opts))
+  async post(path: string, body?: any, opts: RequestOpts = {}) {
+    const { data } = await this.request(Object.assign({ method: 'POST', url: path, data: body }, opts))
+    return data
   }
 
-  async put(path: string, data?: any): Promise<any> {
-    return this.request({ method: 'PUT', url: path, data: data })
+  async put(path: string, body?: any) {
+    const { data } = await this.request({ method: 'PUT', url: path, data: body })
+    return data
   }
 
-  async patch(path: string, data: any): Promise<any> {
-    return this.request({ method: 'PATCH', url: path, data: data })
+  async patch(path: string, body: any) {
+    const { data } = await this.request({ method: 'PATCH', url: path, data: body })
+    return data
   }
 
-  async delete(path: string): Promise<any> {
-    return this.request({ method: 'DELETE', url: path })
+  async delete(path: string) {
+    const { data } = await this.request({ method: 'DELETE', url: path })
+    return data
   }
 }
 
@@ -70,4 +69,20 @@ async function delay(amount: number) {
   return new Promise(resolve => {
     _.delay(resolve, amount)
   })
+}
+
+/**
+ * Catch any errors and return the status code
+ */
+export async function safeRequest(promise: Promise<any>) {
+  try {
+    const data = await promise
+    return { status: 200, ...data }
+  } catch (err: any) {
+    if (err?.response?.data) {
+      return { status: err.response.status, ...err.response.data }
+    } else {
+      throw err
+    }
+  }
 }

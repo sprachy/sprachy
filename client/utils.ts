@@ -1,3 +1,4 @@
+import type { ZodIssue } from "zod"
 
 /** parseInt, but throw an error if it's NaN. */
 export function expectInt(str: string): number {
@@ -8,4 +9,37 @@ export function expectInt(str: string): number {
   return val
 }
 
-export default { expectInt }
+type UnhandledAPIResponse =
+  { status: 401, code: 'login required' } |
+  { status: 403, code: 'admin only' } |
+  { status: 500, code: 'unexpected error' } |
+  never
+
+export class UnhandledAPIError extends Error {
+  status: number
+  code: string
+
+  constructor(res: { status: number, code: string }) {
+    super(res.code)
+    this.status = res.status
+    this.code = res.code
+  }
+}
+
+export function otherResponse(res: UnhandledAPIResponse): never {
+  throw new UnhandledAPIError(res)
+}
+
+/**
+ * Converts the more detailed ZodIssues into a simple
+ * mapping of field name => validation message.
+ */
+export function errorsByField(issues: ZodIssue[]) {
+  const errors: Record<string, string> = {}
+  for (const issue of issues) {
+    for (const field of issue.path) {
+      errors[field as string] = issue.message
+    }
+  }
+  return errors
+}
