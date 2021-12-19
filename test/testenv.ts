@@ -23,29 +23,34 @@ export class TestHTTPProvider implements HTTPProvider {
   }
 
   async get(path: string): Promise<any> {
-    return this.request({ method: "GET", url: path })
+    const { data } = await this.request({ method: "GET", url: path })
+    return data
   }
 
   async post(
     path: string,
-    data?: any,
+    body?: any,
     opts: AxiosRequestConfig = {}
   ): Promise<any> {
-    return this.request(
-      Object.assign({ method: "POST", url: path, data: data }, opts)
+    const { data } = await this.request(
+      Object.assign({ method: "POST", url: path, data: body }, opts)
     )
+    return data
   }
 
-  async put(path: string, data?: any): Promise<any> {
-    return this.request({ method: "PUT", url: path, data: data })
+  async put(path: string, body?: any): Promise<any> {
+    const { data } = await this.request({ method: "PUT", url: path, data: body })
+    return data
   }
 
-  async patch(path: string, data: any): Promise<any> {
-    return this.request({ method: "PATCH", url: path, data: data })
+  async patch(path: string, body: any): Promise<any> {
+    const { data } = await this.request({ method: "PATCH", url: path, data: body })
+    return data
   }
 
   async delete(path: string): Promise<any> {
-    return this.request({ method: "DELETE", url: path })
+    const { data } = await this.request({ method: "DELETE", url: path })
+    return data
   }
 }
 

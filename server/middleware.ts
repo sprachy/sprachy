@@ -6,7 +6,7 @@ import { Session, sessions } from './sessions'
 import { db } from './db'
 import * as cookie from "cookie"
 import { ZodError } from 'zod'
-import { FaunaHTTPError } from './faunaUtil'
+import { FaunaError } from './faunaUtil'
 
 /**
  * Throw this to signal that request processing should
@@ -73,7 +73,7 @@ export class APIMiddleware {
           // {"formErrors":[],"fieldErrors":{"email":["Invalid email"]}}
           res.send(422, { status: 422, code: "validation failed", errors: err.issues })
 
-        } else if (err instanceof FaunaHTTPError) {
+        } else if (err instanceof FaunaError) {
           // Various fauna query errors that we just send straight through
           // to the frontend for handling, primarily 401s and 404s
 
