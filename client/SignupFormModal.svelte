@@ -47,7 +47,7 @@
   }
 </script>
 
-<Modal open={true}>
+<Modal open={true} on:closed={onDismiss}>
   <form on:submit|preventDefault={signup}>
     <div class="modal-header">
       Create your account
