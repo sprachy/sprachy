@@ -25,13 +25,15 @@
     }
   })(line)
 
-  $: clozeWidth = ((line: FillblankLine) => {
+  // How many characters we expect to go in the input
+  // Length of the longest answer, or the hint if it's longer
+  $: inputWidthChars = ((line: FillblankLine) => {
     const words = line.validAnswers
     if (line.hint) {
       words.push(line.hint)
     }
     const longestAnswer = _.sortBy(words, (s) => -s.length)[0]
-    return longestAnswer ? longestAnswer.length * 9 : 0
+    return longestAnswer!.length
   })(line)
 
   $: translation = ((line: FillblankLine) => {
@@ -67,13 +69,12 @@
       type="text"
       bind:value={attempt}
       bind:this={attemptInput}
-      style="min-width: {clozeWidth + 'px'}"
       placeholder={line.hint}
       autocapitalize="off"
       autocomplete="off"
       autocorrect="off"
       spellcheck="false"
-      size={1}
+      size={inputWidthChars}
       disabled={complete}
     />
     <span>{parts.after}</span>

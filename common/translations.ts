@@ -1,5 +1,6 @@
 /**
- * Default translations used for hover translate
+ * General-purpose translations applied across
+ * the site
  */
 export const translations = {
   "ein": "a",
