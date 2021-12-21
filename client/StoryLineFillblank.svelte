@@ -78,11 +78,16 @@
     />
     <span>{parts.after}</span>
   </form>
-  <div class="translation" slot="after">{@html translation}</div>
-  {#if feedback}
-    <!-- TODO -->
-    <span>{feedback}</span>
-  {/if}
+  <div slot="after">
+    <div class="translation">
+      {@html translation}
+    </div>
+    {#if feedback}
+      <div class="feedback">
+        {feedback}
+      </div>
+    {/if}
+  </div>
 </Message>
 
 <style lang="sass">
@@ -113,4 +118,7 @@ input.fillblank::placeholder
 input.fillblank:disabled
   background-color: transparent
   border: 0
+
+.feedback
+  color: #0b9bc7
 </style>

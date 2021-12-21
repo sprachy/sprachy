@@ -24,8 +24,8 @@
 <style lang="sass">
 :global(img)
     margin-top: calc(4px - 0.125rem)
-    width: 40px
-    height: 40px
+    width: 50px
+    height: 50px
     border-radius: 50%
     margin-right: 15px
   
@@ -58,6 +58,7 @@
     border-radius: 14px
     border-top-left-radius: 0
     padding: 10px 12px
+    font-size: 16.5px
   
   .quote::before
     border-bottom: 12px solid transparent

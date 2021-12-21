@@ -1,6 +1,35 @@
 import type { FillblankLine } from "../common/Pattern"
 import { levenshtein } from "./levenshtein"
 
+/**
+ * Feedback to be applied across all fillblank exercises, unless
+ * overridden by the exercise-specific feedback.
+ * 
+ * Defined as: { correctAnswer: { attempt: feedbackMessage } }
+ * 
+ * Make sure to only put stuff in here if it actually makes sense
+ * for every exercise where the correct answer would apply.
+ */
+const defaultFeedback: Record<string, Record<string, string>> = {
+  ein: {
+    eine: "This is the feminine form. The noun has a different gender."
+  },
+  mein: {
+    meine: "This is the feminine form. The noun has a different gender."
+  },
+  dein: {
+    deine: "This is the feminine form. The noun has a different gender."
+  },
+  eine: {
+    ein: "This is the masculine or neuter form. The noun has a different gender."
+  },
+  meine: {
+    mein: "This is the masculine or neuter form. The noun has a different gender."
+  },
+  deine: {
+    dein: "This is the masculine or neuter form. The noun has a different gender."
+  }
+}
 
 export function matchAnswer(attempt: string, line: FillblankLine): { validAnswer?: string, feedback?: string } {
   attempt = attempt.toLowerCase()
@@ -36,7 +65,7 @@ export function matchAnswer(attempt: string, line: FillblankLine): { validAnswer
 }
 
 function feedbackCheck(attempt: string, line: FillblankLine): string | undefined {
-  for (const answer in line.validAnswers) {
+  for (const answer of line.validAnswers) {
     const ans = answer.toLowerCase()
 
     const feedback = (defaultFeedback[ans] || {})[attempt]
@@ -45,15 +74,6 @@ function feedbackCheck(attempt: string, line: FillblankLine): string | undefined
   }
 
   return undefined
-}
-
-const defaultFeedback: Record<string, Record<string, string>> = {
-  ein: {
-    eine: "This is the feminine form. The noun has a different gender."
-  },
-  eine: {
-    ein: "This would be the masculine or neuter form. The noun has a different gender."
-  },
 }
 
 /**
