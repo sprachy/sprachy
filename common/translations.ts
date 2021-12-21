@@ -19,5 +19,11 @@ export const translations = {
   "das Brot": "the bread",
   "das Brötchen": "the bread roll",
   "der Pantoffel, das Tier": "the slipper, the animal",
-  "das Pantoffeltierchen": "a unicellular protozoan of the Paramecium genus"
+  "das Pantoffeltierchen": "a unicellular protozoan of the Paramecium genus",
+  "klein": "small",
+  "lecker": "tasty",
+  "gut": "good",
+  "kleiner": "smaller",
+  "leckerer": "tastier",
+  "besser": "better"
 } as Record<string, string>
