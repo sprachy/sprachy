@@ -47,7 +47,7 @@ Keep the correct adjective endings in mind. If an adjective is in front of a mas
         {
           from: "squirrel",
           message: "Auf euren Mandelbäumen ist es aber wie im Schlaraffenland, hier ist es [ruhiger] ohne die ganzen lauten Esperkämpfer.",
-          translation: "Though on your almond trees it's like in the land of milk and honey, here it's [quieter] without all the noisy esper warriors.",
+          translation: "Though on your almond trees it's like in the land of plenty, here it's [quieter] without all the noisy esper warriors.",
           hint: "[ruhig]",
         },
       ]
