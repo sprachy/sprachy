@@ -5,6 +5,7 @@
   import Message from "./Message.svelte"
   import type { FillblankLine } from "../common/Pattern"
   import { matchAnswer } from "./feedback"
+  import Sprachdown from "./Sprachdown.svelte"
 
   export let line: FillblankLine
   export let complete: boolean = false
@@ -85,7 +86,7 @@
     </div>
     {#if feedback}
       <div class="feedback">
-        {feedback}
+        <Sprachdown inline source={feedback} />
       </div>
     {/if}
   </div>

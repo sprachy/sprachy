@@ -34,6 +34,9 @@ Similar to "they" in English, the singular _Sie_ and plural _sie_ both use _Sie 
           message: "Möchten [Sie] noch etwas anderes?",
           translation: "Would [you] like anything else?",
           hint: "[formal]",
+          feedback: {
+            "du": "_du_ is the the informal form. You want the formal one."
+          }
         },
         {
           from: "squirrel",

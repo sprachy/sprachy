@@ -68,9 +68,15 @@ function feedbackCheck(attempt: string, line: FillblankLine): string | undefined
   for (const answer of line.validAnswers) {
     const ans = answer.toLowerCase()
 
-    const feedback = (defaultFeedback[ans] || {})[attempt]
-    if (feedback)
-      return feedback
+    // Prioritize any exercise-specific feedback
+    const specificFeedback = line.feedback && line.feedback[attempt]
+    if (specificFeedback)
+      return specificFeedback
+
+    // Otherwise, we might have some general site-wide feedback
+    const generalFeedback = (defaultFeedback[ans] || {})[attempt]
+    if (generalFeedback)
+      return generalFeedback
   }
 
   return undefined
