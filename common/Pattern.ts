@@ -1,4 +1,3 @@
-import { Exercise, ExerciseDef, parseExercise } from "./Exercise"
 import type { IconDefinition } from "@fortawesome/fontawesome-common-types"
 import _ from "lodash"
 
@@ -52,6 +51,7 @@ export type Line = ReadingLine | FillblankLine
  */
 export type Pattern = Omit<PatternDef, "stories"> & {
   stories: { lines: Line[] }[]
+  maxLevel: number
 }
 
 export type Story = Pattern['stories'][0]
@@ -59,9 +59,10 @@ export type Story = Pattern['stories'][0]
 /** Turn a PatternDef into a Pattern for use by code. */
 export function parsePattern(patternDef: PatternDef): Pattern {
   return Object.assign({}, patternDef, {
-    stories: patternDef.stories?.map((story) => ({
-      lines: story.lines.map(parseLine)
+    stories: patternDef.stories.map((story) => ({
+      lines: story.lines.map(parseLine),
     })),
+    maxLevel: patternDef.stories.length
   })
 }
 

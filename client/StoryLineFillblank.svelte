@@ -9,6 +9,7 @@
 
   export let line: FillblankLine
   export let complete: boolean = false
+  let prevLine = line
   let attemptInput!: HTMLInputElement
   let effects: CanvasEffects = new CanvasEffects()
   let attempt: string = ""
@@ -17,6 +18,11 @@
   const dispatch = createEventDispatcher()
 
   onMount(() => attemptInput.focus())
+
+  $: if (line !== prevLine) {
+    attempt = ""
+    prevLine = line
+  }
 
   $: parts = ((line: FillblankLine) => {
     const [before, after] = line.message.split(/\[.+?\]/)

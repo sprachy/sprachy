@@ -41,7 +41,7 @@
               <Link class="nav-link" to="/learn">Learn</Link>
             </li>
             <li class="nav-item">
-              <Link class="nav-link" to="/review">Practice</Link>
+              <Link class="nav-link" to="/practice">Practice</Link>
             </li>
             <li class="nav-item">
               <Link class="nav-link" to="/faq">FAQ</Link>
@@ -53,15 +53,10 @@
             {/if}
             {#if sprachy.user}
               <li class="nav-item">
-                <Link class="nav-link" to="/settings">{sprachy.user.email}</Link
-                >
+                <Link class="nav-link" to="/settings">{sprachy.user.email}</Link>
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="/logout"
-                  on:click|preventDefault={logout}>Log out</a
-                >
+                <a class="nav-link" href="/logout" on:click|preventDefault={logout}>Log out</a>
               </li>
             {/if}
           </ul>

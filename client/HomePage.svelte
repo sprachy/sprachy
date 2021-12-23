@@ -6,7 +6,7 @@
   import Timeago from "./Timeago.svelte"
   import sprachy from "./sprachy"
 
-  const patterns = sprachy.app.patternsWithProgress
+  const patterns = sprachy.app.patternsAndProgress
 </script>
 
 <SiteLayout>
@@ -33,7 +33,7 @@
               </div>
               {#if pattern.progress}
                 <div class="timetolevel">
-                  {#if pattern.progress.mastered}
+                  {#if !pattern.progress.levelableAt}
                     Mastered!
                   {:else}
                     Can be leveled <Timeago ts={pattern.progress.levelableAt} />

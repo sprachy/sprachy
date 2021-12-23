@@ -9,7 +9,7 @@
   let complete: boolean = false
 
   $: pattern = ((slug: string | undefined) => {
-    const pattern = sprachy.app.patternsWithProgress.find((p) => p.slug === slug)
+    const pattern = sprachy.app.patternsAndProgress.find((p) => p.slug === slug)
     if (!pattern) {
       throw new NotFoundError()
     }
