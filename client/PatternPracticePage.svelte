@@ -16,10 +16,7 @@
     return pattern
   })(slug)
 
-  // $: level = pattern.progress?.item.srsLevel || 0
-
-  // TODO progression
-  $: story = pattern.stories[0]
+  $: story = pattern.progress.nextStory
 
   async function onCompleteStory() {
     complete = true
@@ -31,8 +28,10 @@
 </script>
 
 <SiteLayout>
-  {#if !story}
+  {#if !pattern.stories.length}
     No stories for this pattern yet! Let's write some~
+  {:else if !story}
+    <p>You've completed all the stories for this pattern!</p>
   {:else if !complete}
     <header class="story-header">
       <h3>{pattern.title}</h3>

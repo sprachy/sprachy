@@ -45,22 +45,22 @@ export class UserApp {
     return _.keyBy(this.progressItems, (p) => p.patternId)
   }
 
-  get patternsAndProgress(): MaybeLearnedPattern[] {
+  get patternsAndProgress(): PatternAndProgress[] {
     return sprachdex.allPatterns.map((p) => {
       const progressItem = this.progressItemByPatternId[p.id]
       return Object.assign({}, p, {
-        progress: progressItem ? new PatternProgress(p, progressItem) : null,
+        progress: new PatternProgress(p, progressItem)
       })
     })
   }
 
-  get nextPatternToLearn(): NotLearnedPattern | undefined {
-    return this.patternsAndProgress.find((p) => !p.progress) as NotLearnedPattern | undefined
+  get nextPatternToLearn(): PatternAndProgress | undefined {
+    return this.patternsAndProgress.find((p) => !p.progress) as PatternAndProgress | undefined
   }
 
   /** All patterns for which the user has completed at least level 1 */
-  get learnedPatterns(): LearnedPattern[] {
-    return this.patternsAndProgress.filter(p => !!p.progress) as LearnedPattern[]
+  get learnedPatterns(): PatternAndProgress[] {
+    return this.patternsAndProgress.filter(p => !!p.progress) as PatternAndProgress[]
   }
 
   /**
@@ -77,7 +77,7 @@ export class UserApp {
   get allCompletedStories() {
     const stories: Story[] = []
     for (const pattern of this.learnedPatterns) {
-      for (let i = 0; i < pattern.progress.item.srsLevel; i++) {
+      for (let i = 0; i < pattern.progress.srsLevel; i++) {
         const story = pattern.stories[i]
         if (story) {
           stories.push(story)
@@ -102,23 +102,30 @@ export class UserApp {
 }
 
 class PatternProgress {
-  constructor(readonly pattern: Pattern, readonly item: ProgressItem) { }
+  constructor(readonly pattern: Pattern, readonly item: ProgressItem | null) { }
+
+  get srsLevel() {
+    return this.item?.srsLevel || 0
+  }
 
   get mastered() {
-    return this.item.srsLevel >= this.pattern.maxLevel
+    return this.srsLevel >= this.pattern.maxLevel
   }
 
   get levelableAt(): number | null {
     if (this.mastered) {
       return null
-    } else {
+    } else if (this.item) {
       return this.item.lastLeveledAt + time.toNextSRSLevel(this.item.srsLevel)
+    } else {
+      return Date.now()
     }
+  }
+
+  get nextStory(): Story | null {
+    const story = this.pattern.stories[this.srsLevel]
+    return story || null
   }
 }
 
-export type NotLearnedPattern = Pattern & { progress: null }
-
-export type LearnedPattern = Pattern & { progress: PatternProgress }
-
-export type MaybeLearnedPattern = LearnedPattern | NotLearnedPattern
+export type PatternAndProgress = Pattern & { progress: PatternProgress }
