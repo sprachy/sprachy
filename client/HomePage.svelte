@@ -10,7 +10,13 @@
   let patterns = sprachy.app.patternsAndProgress
 
   async function debugResetProgress() {
-    const summary = await sprachy.api.debugResetProgress()
+    const summary = await sprachy.api.http.post(`/api/debug/reset-progress`)
+    sprachy.app.receiveProgress(summary)
+    patterns = sprachy.app.patternsAndProgress
+  }
+
+  async function debugSkipTime() {
+    const summary = await sprachy.api.http.post(`/api/debug/timeskip`)
     sprachy.app.receiveProgress(summary)
     patterns = sprachy.app.patternsAndProgress
   }
@@ -36,7 +42,7 @@
               <div class="shortdesc">
                 {pattern.shortdesc}
               </div>
-              {#if pattern.progress}
+              {#if pattern.progress.srsLevel > 0}
                 <div class="timetolevel">
                   {#if !pattern.progress.levelableAt}
                     Mastered!
@@ -55,6 +61,7 @@
         <button class="btn btn-outline-warning" on:click={debugResetProgress}
           >Debug: Reset Progress</button
         >
+        <button class="btn btn-outline-warning" on:click={debugSkipTime}>Debug: Skip Time</button>
       </div>
     {/if}
   </main>

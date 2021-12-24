@@ -190,7 +190,6 @@ export namespace db {
               patternId: patternId,
               initiallyLearnedAt: Now(),
               lastLeveledAt: Now(),
-              lastReviewedAt: Now(),
               srsLevel: 1
             }
           })
@@ -199,10 +198,9 @@ export namespace db {
 
       const levelableAt = progress.lastLeveledAt + time.toNextSRSLevel(progress.srsLevel)
 
-      let progressChanges: any = { lastReviewedAt: Now() }
+      let progressChanges: any = {}
       if (remembered && time.now() >= levelableAt) {
         progressChanges = {
-          lastReviewedAt: Now(),
           lastLeveledAt: Now(),
           srsLevel: progress.srsLevel + 1
         }

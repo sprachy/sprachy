@@ -24,7 +24,6 @@ export type ProgressItem = {
   patternId: string
   initiallyLearnedAt: number
   lastLeveledAt: number
-  lastReviewedAt: number
   srsLevel: number
 }
 

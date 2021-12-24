@@ -2,6 +2,7 @@ import type { ProgressItem, ProgressSummary } from "../../common/api"
 import type { SessionRequest } from "../middleware"
 import { db } from "../db"
 import * as z from 'zod'
+import time from "../../common/time"
 
 export async function getSummary(req: SessionRequest): Promise<ProgressSummary> {
   const [user, progressItems] = await Promise.all([
@@ -22,5 +23,13 @@ export async function recordReview(req: SessionRequest): Promise<ProgressItem | 
 
 export async function resetProgress(req: SessionRequest): Promise<ProgressSummary> {
   await db.progress.resetFor(req.session.userId)
+  return getSummary(req)
+}
+
+export async function debugTimeskip(req: SessionRequest): Promise<ProgressSummary> {
+  const items = await db.progress.listAllFor(req.session.userId)
+  await Promise.all(items.map(item => {
+    return db.progress.update(item.id, { lastLeveledAt: item.lastLeveledAt - time.toNextSRSLevel(item.srsLevel) })
+  }))
   return getSummary(req)
 }

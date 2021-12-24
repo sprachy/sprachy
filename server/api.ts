@@ -12,6 +12,7 @@ const userApi = new RequireLoginMiddleware(api)
 userApi.add('GET', '/api/progress', progress.getSummary)
 userApi.add('POST', '/api/progress', progress.recordReview)
 userApi.add('POST', '/api/debug/reset-progress', progress.resetProgress)
+userApi.add('POST', '/api/debug/timeskip', progress.debugTimeskip)
 
 const adminApi = new AdminMiddleware(userApi)
 adminApi.add('GET', '/api/admin/users', usersAdmin.listUsers)
