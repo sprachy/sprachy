@@ -18,8 +18,10 @@ lecker / leckerer
 
 The pattern is straightforward so you can always expect a comparative to end in _-er_. Keep in mind though that some adjectives already end in _-er_ just how we noticed on _lecker_, we simply add another _-er_ then.
 
-<Tip title="Adjective endings">
-Keep the correct adjective endings in mind. If an adjective is in front of a masculine noun like in _kleiner Baum_, it already uses an _-er_ ending which wouldn't be the comparative. To make the adjective a comparative you simply concatenate another _-er_ and you get _kleinerer Baum_.
+You also have to keep the correct adjective endings in mind. If an adjective is in front of a masculine noun like in _kleiner Baum_, it already uses an _-er_ ending which wouldn't be the comparative. To make the adjective a comparative you simply concatenate another _-er_ and you get _kleinerer Baum_. The adjective ending always appears after the comparative ending.
+
+<Tip title="Umlaut">
+It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ for example _groß_ would turn into _größer_, keep in mind though that there are many exceptions to it,
 </Tip>`,
   stories: [
 
