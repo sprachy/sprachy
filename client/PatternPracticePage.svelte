@@ -4,6 +4,7 @@
   import SiteLayout from "./SiteLayout.svelte"
   import Story from "./Story.svelte"
   import sprachy from "./sprachy"
+  import Timeago from "./Timeago.svelte"
 
   export let slug: string | undefined
   export let level: number | undefined = undefined
@@ -24,11 +25,11 @@
   $: story = pattern.stories[srsLevel]
 
   async function onCompleteStory() {
-    complete = true
     const progressItem = await sprachy.api.recordReview(pattern!.id, true)
     if (progressItem) {
       sprachy.app.receiveProgressItem(progressItem)
     }
+    complete = true
   }
 </script>
 
@@ -43,8 +44,14 @@
       <h3>Level {srsLevel + 1}</h3>
     </header>
     <Story {story} on:complete={onCompleteStory} />
+  {:else if pattern.progress.levelableAt}
+    <p>
+      Nice work! Level {pattern.progress.srsLevel + 1} will become available for review in <Timeago
+        ts={pattern.progress.levelableAt}
+      />.
+    </p>
   {:else}
-    <p>Nice work! This pattern will become available for review in 4 hours.</p>
+    <p>Nice work! You've completed all available levels of {pattern.title}!</p>
   {/if}
 </SiteLayout>
 
