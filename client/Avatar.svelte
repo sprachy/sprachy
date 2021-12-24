@@ -6,12 +6,13 @@
   import scientist from "./img/scientist.png"
   import deer from "./img/deer.png"
   import cashier from "./img/cashier.png"
+  import mirror from "./img/mirror.png"
   import { sprachdex } from "../common/sprachdex"
   import Sprachdown from "./Sprachdown.svelte"
   import { onDestroy, onMount } from "svelte"
 
   export let charId: string
-  $: icon = { lukas, anna, squirrel, scientist, deer, cashier }[charId]
+  $: icon = { lukas, anna, squirrel, scientist, deer, cashier, mirror }[charId]
 
   $: character = sprachdex.getCharacter(charId)
 

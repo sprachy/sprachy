@@ -48,6 +48,14 @@ TODO
 A local supermarket cashier. She has no idea that fuzzy eldritch entities are browsing the snack aisle.
     `,
   },
+  {
+    id: "mirror",
+    name: "Mirror",
+    fullname: "Mirror",
+    profile: md`
+Töski's mirror. Töski brought this seemingly inanimate object to life using esper powers.
+    `,
+  },
 ]
 
 export default characters

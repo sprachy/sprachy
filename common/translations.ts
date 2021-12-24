@@ -25,6 +25,11 @@ export const translations = {
   "lecker": "tasty",
   "gut": "good",
   "kleiner": "smaller",
+  "kleinst-": "smallest",
   "leckerer": "tastier",
-  "besser": "better"
+  "besser": "better",
+  "best-": "best",
+  "alt": "old",
+  "älter": "older",
+  "ältest-": "oldest",
 } as Record<string, string>
