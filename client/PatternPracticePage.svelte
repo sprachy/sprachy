@@ -35,7 +35,7 @@
   {:else if !complete}
     <header class="story-header">
       <h3>{pattern.title}</h3>
-      <h3>Level 1</h3>
+      <h3>Level {pattern.progress.srsLevel + 1}</h3>
     </header>
     <Story {story} on:complete={onCompleteStory} />
   {:else}
