@@ -19,3 +19,8 @@ export async function recordReview(req: SessionRequest): Promise<ProgressItem | 
   const { patternId, remembered } = progressReport.parse(await req.body())
   return await db.progress.recordReview(req.session.userId, patternId, remembered)
 }
+
+export async function resetProgress(req: SessionRequest): Promise<ProgressSummary> {
+  await db.progress.resetFor(req.session.userId)
+  return getSummary(req)
+}

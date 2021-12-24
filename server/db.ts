@@ -165,6 +165,15 @@ export namespace db {
       )
     }
 
+    export async function resetFor(userId: string) {
+      await db.query(
+        Map(
+          Paginate(Match(Index("progress_by_user"), Ref(Collection("users"), userId))),
+          Lambda("ref", Delete(Var("ref")))
+        )
+      )
+    }
+
     /**
      * Call when a user has completed an SRS review for a given pattern.
      * Only updates srs level if it is the correct time to do so.

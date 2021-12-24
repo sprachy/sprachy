@@ -5,8 +5,15 @@
   import SiteLayout from "./SiteLayout.svelte"
   import Timeago from "./Timeago.svelte"
   import sprachy from "./sprachy"
+  import { IS_PRODUCTION } from "./settings"
 
-  const patterns = sprachy.app.patternsAndProgress
+  let patterns = sprachy.app.patternsAndProgress
+
+  async function debugResetProgress() {
+    const summary = await sprachy.api.debugResetProgress()
+    sprachy.app.receiveProgress(summary)
+    patterns = sprachy.app.patternsAndProgress
+  }
 </script>
 
 <SiteLayout>
@@ -22,11 +29,9 @@
             <div>
               <h6 style="color: #1ba156">
                 {pattern.title}
-                {#if pattern.progress}
-                  {#each { length: pattern.progress.item.srsLevel } as _}
-                    <span>⭐</span>
-                  {/each}
-                {/if}
+                {#each { length: pattern.progress.srsLevel } as _}
+                  <span>⭐</span>
+                {/each}
               </h6>
               <div class="shortdesc">
                 {pattern.shortdesc}
@@ -45,6 +50,13 @@
         </li>
       {/each}
     </ul>
+    {#if !IS_PRODUCTION}
+      <div class="debug">
+        <button class="btn btn-outline-warning" on:click={debugResetProgress}
+          >Debug: Reset Progress</button
+        >
+      </div>
+    {/if}
   </main>
 </SiteLayout>
 

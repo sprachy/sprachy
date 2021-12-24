@@ -29,6 +29,10 @@ export class SprachyAPIClient {
   async recordReview(patternId: string, remembered: boolean): Promise<ProgressItem | null> {
     return this.http.post(`/api/progress`, { patternId, remembered })
   }
+
+  async debugResetProgress(): Promise<ProgressSummary> {
+    return this.http.post(`/api/debug/reset-progress`)
+  }
 }
 
 /**
