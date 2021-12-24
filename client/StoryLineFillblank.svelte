@@ -51,7 +51,7 @@
     })
   })(line)
 
-  function checkAnswer() {
+  export function checkAnswer() {
     feedback = ""
     const result = matchAnswer(attempt, line)
     if (result.validAnswer) {
@@ -62,6 +62,7 @@
       if (result.feedback) {
         feedback = result.feedback
       }
+      attemptInput.focus()
       // dispatch("answer", { correct: false })
     }
   }

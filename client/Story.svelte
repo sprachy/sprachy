@@ -15,6 +15,8 @@
   $: currentLine = lines[lines.length - 1]!
   let finished: boolean = false
 
+  let fillblank: StoryLineFillblank | null = null
+
   $: doingExercise = !finished && currentLine.type === "fillblank"
 
   const dispatch = createEventDispatcher()
@@ -42,7 +44,9 @@
   }
 
   function continueStory() {
-    if (lineIndex < story.lines.length - 1) {
+    if (fillblank) {
+      fillblank.checkAnswer()
+    } else if (lineIndex < story.lines.length - 1) {
       nextLine()
     } else {
       dispatch("complete")
@@ -60,6 +64,7 @@
           <StoryLineFillblank
             {line}
             on:correct={nextLine}
+            bind:this={fillblank}
             complete={finished || line !== currentLine}
           />
         {/if}

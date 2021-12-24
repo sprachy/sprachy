@@ -58,6 +58,11 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
       lines: [
         {
           from: "lukas",
+          message: "Ich glaube, ich werde spazieren gehen.",
+          translation: "I think I will go for a walk."
+        },
+        {
+          from: "lukas",
           message: "[Die] Welt ist heute friedlich.",
           translation: "[The] world is peaceful today.",
           hint: "[feminine]",
@@ -78,11 +83,6 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
           from: "squirrel",
           message: "[Die] Nüsse hier sind auch sehr lecker.",
           translation: "[The] nuts here are also very tasty.",
-        },
-        {
-          from: "lukas",
-          message: "[Das] ist... gut zu wissen.",
-          translation: "[That] is... good to know.",
         },
       ]
     },
@@ -107,7 +107,7 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
           message: "Sie werden in Kürze [das] erste Proton sehen.",
           translation: "You will see [the] first proton momentarily.",
           hint: "[neuter]",
-        },
+        }
       ]
     }
   ],
