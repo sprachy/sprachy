@@ -107,7 +107,44 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
           message: "Sie werden in Kürze [das] erste Proton sehen.",
           translation: "You will see [the] first proton momentarily.",
           hint: "[neuter]",
-        }
+        },
+
+        {
+          from: "scientist",
+          message: "[Die] Barriere wird schwächer!",
+          translation: "[The] barrier is weakening!",
+          hint: "[feminine]",
+        },
+        {
+          from: "deer",
+          message: "Ist [der] Späher vorbereitet?",
+          translation: "Is [the] scout prepared?",
+          hint: "[masculine]",
+        },
+        {
+          from: "scientist",
+          message: "Sie werden in Kürze [das] erste Proton sehen.",
+          translation: "You will see [the] first proton momentarily.",
+          hint: "[neuter]",
+        },
+        {
+          from: "scientist",
+          message: "[Die] Barriere wird schwächer!",
+          translation: "[The] barrier is weakening!",
+          hint: "[feminine]",
+        },
+        {
+          from: "deer",
+          message: "Ist [der] Späher vorbereitet?",
+          translation: "Is [the] scout prepared?",
+          hint: "[masculine]",
+        },
+        {
+          from: "scientist",
+          message: "Sie werden in Kürze [das] erste Proton sehen.",
+          translation: "You will see [the] first proton momentarily.",
+          hint: "[neuter]",
+        },
       ]
     }
   ],

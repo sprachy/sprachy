@@ -41,10 +41,12 @@
     } else {
       finished = true
     }
+
+    document.documentElement.scrollTop = document.documentElement.scrollHeight
   }
 
   function continueStory() {
-    if (fillblank) {
+    if (fillblank && false) {
       fillblank.checkAnswer()
     } else if (lineIndex < story.lines.length - 1) {
       nextLine()
@@ -71,10 +73,11 @@
       </div>
     {/each}
   </div>
-  <hr />
-  <div class="d-flex justify-content-end">
-    <button class="btn btn-success" on:click={continueStory}>Continue</button>
-  </div>
+  <footer>
+    <div class="container d-flex justify-content-end">
+      <button class="btn btn-success btn-lg" on:click={continueStory}>Continue</button>
+    </div>
+  </footer>
 </div>
 
 <style lang="sass">
@@ -82,9 +85,22 @@
   margin: auto
   max-width: 600px
 
-  .lines
-    height: 500px
-
   .line:not(:first-child)
     margin-top: 1rem
+
+  .lines
+    padding-bottom: 10rem
+
+  footer
+    border-top: 1px solid #ccc
+    position: fixed
+    height: 8rem
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+    width: 100%
+    background-color: white
+
+    > div
+      padding: 2rem
 </style>
