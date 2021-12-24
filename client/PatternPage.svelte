@@ -34,8 +34,8 @@
         Practice: Level {pattern.progress.srsLevel + 1}
       </Link>
     {/if}
-    {#each pattern.progress.completedLevels as level}
-      <Link to="/pattern/{pattern.slug}/practice/level-{level + 1}" class="btn btn-secondary">
+    {#each _.reverse(pattern.progress.completedLevels) as level}
+      <Link to="/pattern/{pattern.slug}/practice/level/{level + 1}" class="btn btn-secondary">
         Practice: Level {level + 1}
       </Link>
     {/each}
@@ -58,4 +58,7 @@
 
   :global(strong)
     color: rgb(28, 176, 246)
+
+  :global(.btn)
+    margin-right: 0.5rem
 </style>

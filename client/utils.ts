@@ -1,10 +1,9 @@
 import type { ZodIssue } from "zod"
 
-/** parseInt, but throw an error if it's NaN. */
-export function expectInt(str: string): number {
-  const val = parseInt(str)
-  if (isNaN(val)) {
-    throw new Error(`Unexpected NaN when parsing string '${str}'`)
+export function tryParseInt(thing: unknown, defaultInt: number): number {
+  const val = parseInt(thing as any)
+  if (!val || isNaN(val)) {
+    return defaultInt
   }
   return val
 }

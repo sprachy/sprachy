@@ -6,7 +6,10 @@
   import sprachy from "./sprachy"
 
   export let slug: string | undefined
+  export let level: number | undefined = undefined
   let complete: boolean = false
+
+  console.log(level)
 
   $: pattern = ((slug: string | undefined) => {
     const pattern = sprachy.app.patternsAndProgress.find((p) => p.slug === slug)
@@ -16,7 +19,9 @@
     return pattern
   })(slug)
 
-  $: story = pattern.progress.nextStory
+  $: srsLevel = level ? level - 1 : pattern.progress.srsLevel
+
+  $: story = pattern.stories[srsLevel]
 
   async function onCompleteStory() {
     complete = true
@@ -35,7 +40,7 @@
   {:else if !complete}
     <header class="story-header">
       <h3>{pattern.title}</h3>
-      <h3>Level {pattern.progress.srsLevel + 1}</h3>
+      <h3>Level {srsLevel + 1}</h3>
     </header>
     <Story {story} on:complete={onCompleteStory} />
   {:else}

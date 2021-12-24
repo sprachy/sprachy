@@ -11,6 +11,7 @@
   import SettingsPage from "./SettingsPage.svelte"
   import AdminUsersPage from "./AdminUsersPage.svelte"
   import NProgress from "accessible-nprogress"
+  import { tryParseInt } from "./utils"
   NProgress.configure({ showSpinner: false })
 
   sprachy.api.http.onRequest = (req) => {
@@ -35,6 +36,9 @@
     <Route path="/practice"><FreePracticePage /></Route>
     <Route path="/settings"><SettingsPage /></Route>
     <Route path="/admin"><AdminUsersPage /></Route>
+    <Route primary={false} path="/pattern/:slug/practice/level/:level" let:params>
+      <PatternPracticePage slug={params.slug} level={tryParseInt(params.level, 1)} />
+    </Route>
     <Route primary={false} path="/pattern/:slug/practice" let:params>
       <PatternPracticePage slug={params.slug} />
     </Route>
