@@ -122,9 +122,21 @@ class PatternProgress {
     }
   }
 
+  get readyToLevel(): boolean {
+    return !!(this.levelableAt && this.levelableAt <= Date.now())
+  }
+
   get nextStory(): Story | null {
     const story = this.pattern.stories[this.srsLevel]
     return story || null
+  }
+
+  get completedLevels() {
+    const levels: number[] = []
+    for (let i = 0; i < this.srsLevel; i++) {
+      levels.push(i)
+    }
+    return levels
   }
 }
 

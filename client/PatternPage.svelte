@@ -1,14 +1,15 @@
 <script lang="ts">
   import _ from "lodash"
   import { Link } from "svelte-navigator"
-  import { sprachdex } from "../common/sprachdex"
   import { NotFoundError } from "./GlobalErrorHandler"
   import SiteLayout from "./SiteLayout.svelte"
   import Sprachdown from "./Sprachdown.svelte"
+  import sprachy from "./sprachy"
+  import Timeago from "./Timeago.svelte"
 
   export let slug: string | undefined
 
-  const pattern = sprachdex.allPatterns.find((p) => p.slug === slug)
+  const pattern = sprachy.app.patternsAndProgress.find((p) => p.slug === slug)
   if (!pattern) {
     throw new NotFoundError()
   }
@@ -18,9 +19,26 @@
   <div class="pattern">
     <h1>{pattern.title}</h1>
     <Sprachdown source={pattern.explanation} />
-    <Link to="/pattern/{pattern.slug}/practice" class="btn btn-primary">
-      Practice
-    </Link>
+
+    {#if pattern.progress.levelableAt && pattern.progress.levelableAt > Date.now()}
+      <p class="text-secondary">
+        <em
+          >Level {pattern.progress.srsLevel + 1} unlocks in <Timeago
+            ts={pattern.progress.levelableAt}
+          /></em
+        >
+      </p>
+    {/if}
+    {#if pattern.progress.readyToLevel}
+      <Link to="/pattern/{pattern.slug}/practice" class="btn btn-primary">
+        Practice: Level {pattern.progress.srsLevel + 1}
+      </Link>
+    {/if}
+    {#each pattern.progress.completedLevels as level}
+      <Link to="/pattern/{pattern.slug}/practice/level-{level + 1}" class="btn btn-secondary">
+        Practice: Level {level + 1}
+      </Link>
+    {/each}
   </div>
 </SiteLayout>
 
