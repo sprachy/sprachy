@@ -34,9 +34,9 @@
         Practice: Level {pattern.progress.srsLevel + 1}
       </Link>
     {/if}
-    {#each _.reverse(pattern.progress.completedLevels) as level}
-      <Link to="/pattern/{pattern.slug}/practice/level/{level + 1}" class="btn btn-secondary">
-        Practice: Level {level + 1}
+    {#each _.reverse(pattern.progress.completedLevels) as srsLevel}
+      <Link to="/pattern/{pattern.slug}/practice/level/{srsLevel + 1}" class="btn btn-secondary">
+        Practice: Level {srsLevel + 1}
       </Link>
     {/each}
   </div>

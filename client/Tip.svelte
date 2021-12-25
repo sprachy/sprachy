@@ -4,7 +4,6 @@
 
   export let text: string
   export let title: string = "Tip"
-  console.log(text)
 
   const textWithTitle = `**${title}**: ${text}`
 </script>

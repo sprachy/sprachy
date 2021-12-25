@@ -2,7 +2,7 @@ import type { ZodIssue } from "zod"
 
 export function tryParseInt(thing: unknown, defaultInt: number): number {
   const val = parseInt(thing as any)
-  if (!val || isNaN(val)) {
+  if (isNaN(val)) {
     return defaultInt
   }
   return val

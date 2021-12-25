@@ -10,8 +10,6 @@
   export let level: number | undefined = undefined
   let complete: boolean = false
 
-  console.log(level)
-
   $: pattern = ((slug: string | undefined) => {
     const pattern = sprachy.app.patternsAndProgress.find((p) => p.slug === slug)
     if (!pattern) {

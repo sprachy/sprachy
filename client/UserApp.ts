@@ -102,7 +102,7 @@ export class UserApp {
 }
 
 class PatternProgress {
-  constructor(readonly pattern: Pattern, readonly item: ProgressItem | null) { }
+  constructor(readonly pattern: Pattern, readonly item?: ProgressItem) { }
 
   get srsLevel() {
     return this.item?.srsLevel || 0

@@ -46,7 +46,7 @@
   }
 
   function continueStory() {
-    if (fillblank && false) {
+    if (fillblank) {
       fillblank.checkAnswer()
     } else if (lineIndex < story.lines.length - 1) {
       nextLine()
