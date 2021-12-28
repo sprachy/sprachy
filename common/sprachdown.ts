@@ -33,12 +33,9 @@ marked.use({ extensions: [hoverTranslate] })
 
 export const sprachdown = marked
 
-
-
-
 /** 
  * This is just a reimplementation of default template literals
- * Used to inform syntax highlighting
+ * Used to inform syntax highlighting of markdown
  */
 export function md(strs: TemplateStringsArray, ...substs: any[]) {
   return substs.reduce(

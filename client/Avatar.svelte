@@ -7,12 +7,17 @@
   import deer from "./img/deer.png"
   import cashier from "./img/cashier.png"
   import mirror from "./img/mirror.png"
+  import explorer from "./img/explorer.png"
+  import robot from "./img/robot.png"
+  import reporter from "./img/reporter.png"
   import { sprachdex } from "../common/sprachdex"
   import Sprachdown from "./Sprachdown.svelte"
   import { onDestroy, onMount } from "svelte"
 
   export let charId: string
-  $: icon = { lukas, anna, squirrel, scientist, deer, cashier, mirror }[charId]
+  $: icon = { lukas, anna, squirrel, scientist, deer, cashier, mirror, explorer, robot, reporter }[
+    charId
+  ]
 
   $: character = sprachdex.getCharacter(charId)
 
@@ -21,6 +26,7 @@
   let avatarEl: HTMLElement
 
   function onClickElsewhere(ev: MouseEvent) {
+    // Hide profile popover if you click outside it
     if (ev.target instanceof Element && !avatarEl.contains(ev.target)) {
       showProfile = false
     }

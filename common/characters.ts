@@ -159,7 +159,14 @@ An interplanetary explorer. Seems to be searching for something among the ruins 
 An ancient traffic law enforcement robot. Somehow still operating despite the city it serves being long abandoned.
     `,
   },
-
+  {
+    id: "reporter",
+    name: "Reporter",
+    fullname: "Reporter",
+    profile: md`
+A reporter covering science news. He doesn't _really_ know what he's talking about, but he tries his best.
+    `,
+  },
 ]
 
 export default characters

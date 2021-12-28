@@ -21,8 +21,7 @@ The gender of a particular noun usually has nothing to do with what that word de
 
 However, the genders are not totally _random_ either. We'll learn some patterns later we can use to predict noun gender for certain groups of words.
 
-Roughly speaking, around 40% of nouns are masculine, 40% are feminine, and 20% are neuter. A very small number of words have more than one gender. They're fancy and rare like
-shiny Pokémon!
+Roughly speaking, around 40% of nouns are masculine, 40% are feminine, and 20% are neuter. A very small number of words have more than one gender. They're fancy and rare like shiny Pokémon!
 
 <DialogueExample>
 squirrel:
@@ -30,7 +29,7 @@ squirrel:
   But **the** plurals!
 </DialogueExample>
 
-For plurals, we always use _die_, regardless of the noun's base gender. For example, _der Baum_ would become _die Bäume_ when talking about mulitiple trees.
+For plurals, we always use _die_, regardless of the noun's base gender. For example, _der Baum_ would become _die Bäume_ when talking about mulitiple trees. Meanwhile, _das_ when used without a noun can also have the meaning of "that" or "it".
 
 <Tip>
 Unlike in English, the first letter of every noun in German is **C**apitalized. This is particularly useful when learning the language, as it makes nouns easy to identify.
@@ -91,59 +90,69 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
     {
       lines: [
         {
-          from: "scientist",
-          message: "[Die] Barriere wird schwächer!",
-          translation: "[The] barrier is weakening!",
-          hint: "[feminine]",
+          from: "explorer",
+          message: "[Die] Stadt ist uraslt.",
+          translation: "[The] city is ancient.",
+          hint: "[feminine]"
         },
         {
-          from: "deer",
-          message: "Ist [der] Späher vorbereitet?",
-          translation: "Is [the] scout prepared?",
-          hint: "[masculine]",
+          from: "explorer",
+          message: "[Die] Gebäude sind alle überwuchert und bröckeln.",
+          translation: "[The] buildings are all overgrown and crumbling.",
         },
         {
-          from: "scientist",
-          message: "Sie werden in Kürze [das] erste Proton sehen.",
-          translation: "You will see [the] first proton momentarily.",
-          hint: "[neuter]",
+          from: "robot",
+          message: "Verkehrsverstoß entdeckt. [Der] Verdächtige wird mit uns kommen.",
+          translation: "Traffic violation detected. [The] suspect will come with us.",
+          hint: "[masculine]"
         },
+        {
+          from: "explorer",
+          message: "[Der] antike Roboter verhaftet mich?",
+          translation: "[The] ancient robot is arresting me?",
+          hint: "[masculine]"
+        },
+        {
+          from: "robot",
+          message: "[Die] Hauptstraße ist kein geeigneter Ort für archäologische Geräte.",
+          translation: "[The] main road is not an appropriate place for archaeological equipment.",
+          hint: "[feminine]"
+        },
+      ]
+    },
 
+    // LEVEL 3
+    {
+      lines: [
         {
           from: "scientist",
-          message: "[Die] Barriere wird schwächer!",
-          translation: "[The] barrier is weakening!",
+          message: "[Die] Physik funktioniert, weil die Realität über die Zeit hinweg konsistent ist.",
+          translation: "Physics works because reality is consistent through time.",
           hint: "[feminine]",
         },
         {
-          from: "deer",
-          message: "Ist [der] Späher vorbereitet?",
-          translation: "Is [the] scout prepared?",
-          hint: "[masculine]",
-        },
-        {
           from: "scientist",
-          message: "Sie werden in Kürze [das] erste Proton sehen.",
-          translation: "You will see [the] first proton momentarily.",
-          hint: "[neuter]",
-        },
-        {
-          from: "scientist",
-          message: "[Die] Barriere wird schwächer!",
-          translation: "[The] barrier is weakening!",
+          message: "Wir können [die] Zukunft vorhersagen, weil sie sich wie die Vergangenheit verhält.",
+          translation: "We can predict [the] future because it behaves like the past.",
           hint: "[feminine]",
         },
         {
-          from: "deer",
-          message: "Ist [der] Späher vorbereitet?",
-          translation: "Is [the] scout prepared?",
-          hint: "[masculine]",
+          from: "scientist",
+          message: "Aber was passiert, wenn [die] Grundkonstanten nicht wirklich konstant sind? Meine Arbeit geht dieser Frage nach.",
+          translation: "But what happens if [the] fundamental constants are not truly constant? My work explores this.",
+          hint: "[feminine]",
+        },
+        {
+          from: "reporter",
+          message: "Warum sollte [der] Steuerzahler angesichts des Mangels an praktischen Anwendungen Ihre Studie finanzieren?",
+          translation: "Why should [the] taxpayer fund your study, given the lack of practical applications?",
+          hint: "[masculine]"
         },
         {
           from: "scientist",
-          message: "Sie werden in Kürze [das] erste Proton sehen.",
-          translation: "You will see [the] first proton momentarily.",
-          hint: "[neuter]",
+          message: "Denn [die] Forschung ist verdammt cool!",
+          translation: "Because [the] research is hecking cool!",
+          hint: "[feminine]",
         },
       ]
     }
