@@ -10,22 +10,31 @@ export default definePattern({
   explanation: md`
 In English, we choose to use either _a_ or _an_ depending on the following word. Similarly, German switches between _ein_ or _eine_ depending on the grammatical gender of the noun being referred to.
 
-<ltable translate header="Gender / The Noun / A Noun">
-masculine / der Späher / ein Späher
-feminine / die Barriere / eine Barriere
-neuter / das Proton / ein Proton
-</ltable>
+<LTable translate header="Gender / The Noun / A Noun">
+masculine / der Ort / ein Ort
+feminine / die Welt / eine Welt
+neuter / das Eichhörnchen / ein Eichhörnchen
+</LTable>
 
-Note that the masculine and neuter forms of ein are the same, unlike with der and das.
+Note that the masculine and neuter forms of ein are the same, unlike with der and das!
 
-Words like mein (my) and dein (your) follow the same inflection pattern as ein/eine:
+<DialogueExample>
+fish:
+  Der Ozean ist **mein** Ozean!
+  The ocean is **my** ocean!
+</DialogueExample>
 
-<ltable header="Deutsch / Meaning">
-mein Proton / my proton
-dein Proton / your proton
-meine Barriere / my barrier
-deine Barriere / your barrier
-</ltable>
+There are several other "ein-style" words that follow the same gendered inflection pattern as ein/eine. Keep their different meanings in mind!
+
+<LTable translate header="Noun / Mein / Dein / Sein / Kein">
+der Ozean / mein Ozean / dein Ozean / sein Ozean / kein Ozean
+die Fische / meine Fische / deine Fische / seine Fische / keine Fische
+das Problem / mein Problem / dein Problem / sein Problem / kein Problem
+</LTable>
+
+<Tip title="Deine Plurale">
+It makes no sense to say "eine Plurale" (an plurals), but words like _meine_ or _keine_ can be used for plurals. Like with _die Plurale_, they follow the feminine form, regardless of the noun's original gender.
+</Tip>
   `,
   stories: [
     // LEVEL 1
@@ -35,19 +44,19 @@ deine Barriere / your barrier
           from: "lukas",
           message: "Woher kommt [ein] sprechendes Eichhörnchen?",
           translation: "Where does [a] talking squirrel come from?",
-          hint: "[neuter]",
+          // hint: "[neuter]",
         },
         {
           from: "squirrel",
-          message: "[Ein] Land weit weg von hier.",
-          translation: "[A] land far away from here.",
-          hint: "[masculine]",
+          message: "[Ein] Ort weit weg von hier.",
+          translation: "[A] place far away from here.",
+          // hint: "[masculine]",
         },
         {
           from: "squirrel",
           message: "[Deine] Welt ist sehr ruhig.",
           translation: "[Your] world is very quiet.",
-          hint: "[feminine]",
+          // hint: "[feminine]",
         },
         {
           from: "squirrel",

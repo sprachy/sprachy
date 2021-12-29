@@ -167,6 +167,14 @@ An ancient traffic law enforcement robot. Somehow still operating despite the ci
 A reporter covering science news. He doesn't _really_ know what he's talking about, but he tries his best.
     `,
   },
+  {
+    id: "fish",
+    name: "Fish",
+    fullname: "Fish",
+    profile: md`
+A small diadromous fish-like organism. It's not entirely clear if it's intelligent or self-aware.
+    `,
+  }
 ]
 
 export default characters
