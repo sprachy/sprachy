@@ -28,7 +28,7 @@ There are several other "ein-style" words that follow the same gendered inflecti
 
 <LTable translate header="Noun / Mein / Dein / Sein / Kein">
 der Ozean / mein Ozean / dein Ozean / sein Ozean / kein Ozean
-die Fische / meine Fische / deine Fische / seine Fische / keine Fische
+die Krabbe / meine Krabbe / deine Krabbe / seine Krabbe / keine Krabbe
 das Problem / mein Problem / dein Problem / sein Problem / kein Problem
 </LTable>
 

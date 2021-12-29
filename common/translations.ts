@@ -30,12 +30,12 @@ export const translations = {
   "sein Ozean": "his ocean",
   "kein Ozean": "no ocean",
 
-  "die Fische": "the fish",
-  "eine Fische": "a fish",
-  "meine Fische": "my fish",
-  "deine Fische": "your fish",
-  "seine Fische": "his fish",
-  "keine Fische": "no fish",
+  "die Krabbe": "the crab",
+  "eine Krabbe": "a crab",
+  "meine Krabbe": "my crab",
+  "deine Krabbe": "your crab",
+  "seine Krabbe": "his crab",
+  "keine Krabbe": "no crab",
 
   "das Problem": "the problem",
   "ein Problem": "a problem",
