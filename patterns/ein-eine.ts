@@ -67,7 +67,7 @@ It makes no sense to say "eine Plurale" (an plurals), but words like _meine_ or 
           from: "squirrel",
           message: "Für mich ist es wie [ein] ruhiger Ozean.",
           translation: "To me it's like [a] calm ocean.",
-          hint: "[masculine]",
+          // hint: "[masculine]",
         },
       ]
 

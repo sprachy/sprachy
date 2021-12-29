@@ -174,6 +174,14 @@ A reporter covering science news. He doesn't _really_ know what he's talking abo
     profile: md`
 A small diadromous fish-like organism. It's not entirely clear if it's intelligent or self-aware.
     `,
+  },
+  {
+    id: "dog",
+    name: "Dog",
+    fullname: "Dog",
+    profile: md`
+A local house pet and good boy. Prepared to sacrifice his life in defense of his family, if need be.
+    `,
   }
 ]
 

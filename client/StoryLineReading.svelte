@@ -8,6 +8,11 @@
 
 <Message from={line.from}>
   {line.message}
+  <div slot="after">
+    <div class="translation">
+      {@html line.translation}
+    </div>
+  </div>
 </Message>
 
 <style lang="sass">

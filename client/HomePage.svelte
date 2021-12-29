@@ -6,6 +6,7 @@
   import Timeago from "./Timeago.svelte"
   import sprachy from "./sprachy"
   import { IS_PRODUCTION } from "./settings"
+  import Sprachdown from "./Sprachdown.svelte"
 
   let patterns = sprachy.app.patternsAndProgress
 
@@ -40,7 +41,7 @@
                 {/each}
               </h6>
               <div class="shortdesc">
-                {pattern.shortdesc}
+                <Sprachdown inline source={pattern.shortdesc} />
               </div>
               {#if pattern.progress.srsLevel > 0}
                 <div class="timetolevel">
