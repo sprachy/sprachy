@@ -35,14 +35,14 @@ TODO
           hint: "[neuter]",
         },
         {
+          from: "lukas",
+          message: "Töski, ich glaube nicht, dass er Deutsch spricht.",
+          translation: "Töski, I don't think he speaks German.",
+        },
+        {
           from: "dog",
           message: "*wuf!*",
           translation: "*woof!*",
-        },
-        {
-          from: "lukas",
-          message: "Ich glaube nicht, dass er Deutsch spricht.",
-          translation: "I don't think he speaks German.",
         },
       ]
     }
