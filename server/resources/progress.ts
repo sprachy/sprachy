@@ -14,11 +14,11 @@ export async function getSummary(req: SessionRequest): Promise<ProgressSummary> 
 
 const progressReport = z.object({
   patternId: z.string(),
-  remembered: z.boolean()
+  level: z.number()
 })
-export async function recordReview(req: SessionRequest): Promise<ProgressItem | null> {
-  const { patternId, remembered } = progressReport.parse(await req.body())
-  return await db.progress.recordReview(req.session.userId, patternId, remembered)
+export async function completeLevel(req: SessionRequest): Promise<ProgressItem | null> {
+  const { patternId, level } = progressReport.parse(await req.body())
+  return await db.progress.completeLevel(req.session.userId, patternId, level)
 }
 
 export async function resetProgress(req: SessionRequest): Promise<ProgressSummary> {

@@ -175,10 +175,10 @@ export namespace db {
     }
 
     /**
-     * Call when a user has completed an SRS review for a given pattern.
+     * Call when a user has completed the level for a given pattern.
      * Only updates srs level if it is the correct time to do so.
      */
-    export async function recordReview(userId: string, patternId: string, remembered: boolean): Promise<ProgressItem | null> {
+    export async function completeLevel(userId: string, patternId: string, completedLevel: number): Promise<ProgressItem | null> {
       const progress = await db.progress.get(userId, patternId)
 
       if (!progress) {
@@ -190,7 +190,7 @@ export namespace db {
               patternId: patternId,
               initiallyLearnedAt: Now(),
               lastLeveledAt: Now(),
-              srsLevel: 1
+              srsLevel: completedLevel
             }
           })
         )
@@ -199,10 +199,10 @@ export namespace db {
       const levelableAt = progress.lastLeveledAt + time.toNextSRSLevel(progress.srsLevel)
 
       let progressChanges: any = {}
-      if (remembered && time.now() >= levelableAt) {
+      if (completedLevel > progress.srsLevel && time.now() >= levelableAt) {
         progressChanges = {
           lastLeveledAt: Now(),
-          srsLevel: progress.srsLevel + 1
+          srsLevel: completedLevel
         }
       }
 

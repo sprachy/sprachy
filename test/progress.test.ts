@@ -13,11 +13,11 @@ test("srs progress updates", async () => {
 
   // User learns about a pattern
   const pattern = sprachdex.allPatterns[0]
-  const progress1 = await asUser.api.recordReview(pattern.id, true)
+  const progress1 = await asUser.api.completeLevel(pattern.id, 1)
   expect(progress1.srsLevel === 1)
 
   // Gotta wait before we can level again
-  const progress2 = await asUser.api.recordReview(pattern.id, true)
+  const progress2 = await asUser.api.completeLevel(pattern.id, 2)
   expect(progress2.srsLevel === 1)
 
   // Wait for 4 hours
@@ -26,10 +26,6 @@ test("srs progress updates", async () => {
   })
 
   // Now we can level up
-  const progress3 = await asUser.api.recordReview(pattern.id, true)
+  const progress3 = await asUser.api.completeLevel(pattern.id, 2)
   expect(progress3.srsLevel === 2)
-
-  // Level doesn't decrease on failure
-  const progress4 = await asUser.api.recordReview(pattern.id, false)
-  expect(progress4.srsLevel === 2)
 })

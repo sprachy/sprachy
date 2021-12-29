@@ -10,10 +10,10 @@ export default definePattern({
   explanation: md`
 In English, we choose to use either _a_ or _an_ depending on the following word. Similarly, German switches between _ein_ or _eine_ depending on the grammatical gender of the noun being referred to.
 
-<ltable header="Gender / Noun">
-masculine / der Späher, ein Späher
-feminine / die Barriere, eine Barriere
-neuter / das Proton, ein Proton
+<ltable translate header="Gender / The Noun / A Noun">
+masculine / der Späher / ein Späher
+feminine / die Barriere / eine Barriere
+neuter / das Proton / ein Proton
 </ltable>
 
 Note that the masculine and neuter forms of ein are the same, unlike with der and das.

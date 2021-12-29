@@ -26,8 +26,8 @@ export class SprachyAPIClient {
     return this.http.get(`/api/progress`)
   }
 
-  async recordReview(patternId: string, remembered: boolean): Promise<ProgressItem | null> {
-    return this.http.post(`/api/progress`, { patternId, remembered })
+  async completeLevel(patternId: string, level: number): Promise<ProgressItem | null> {
+    return this.http.post(`/api/progress`, { patternId, level })
   }
 }
 

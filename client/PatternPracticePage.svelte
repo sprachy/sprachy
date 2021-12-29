@@ -18,12 +18,12 @@
     return pattern
   })(slug)
 
-  $: srsLevel = level ? level - 1 : pattern.progress.srsLevel
+  $: storyLevel = level || pattern.progress.srsLevel + 1
 
-  $: story = pattern.stories[srsLevel]
+  $: story = pattern.stories[storyLevel - 1]
 
   async function onCompleteStory() {
-    const progressItem = await sprachy.api.recordReview(pattern!.id, true)
+    const progressItem = await sprachy.api.completeLevel(pattern!.id, storyLevel)
     if (progressItem) {
       sprachy.app.receiveProgressItem(progressItem)
     }
@@ -39,12 +39,12 @@
   {:else if !complete}
     <header class="story-header">
       <h3>{pattern.title}</h3>
-      <h3>Level {srsLevel + 1}</h3>
+      <h3>Level {storyLevel}</h3>
     </header>
     <Story {story} on:complete={onCompleteStory} />
   {:else if pattern.progress.levelableAt}
     <p>
-      Nice work! Level {pattern.progress.srsLevel + 1} will become available for review in <Timeago
+      Nice work! Level {storyLevel + 1} will become available in <Timeago
         ts={pattern.progress.levelableAt}
       />.
     </p>
