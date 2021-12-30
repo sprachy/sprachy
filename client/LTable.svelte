@@ -32,10 +32,12 @@
       <tr>
         {#each row as d}
           <td>
-            {#if translate}
-              <LTableTranslation original={d} />
-            {:else}
-              <Sprachdown source={d} />
+            {#if d !== "_"}
+              {#if translate}
+                <LTableTranslation original={d} />
+              {:else}
+                <Sprachdown source={d} />
+              {/if}
             {/if}
           </td>
         {/each}
