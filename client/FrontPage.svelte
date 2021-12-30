@@ -5,7 +5,6 @@
   import { onMount } from "svelte"
   import SignupFormModal from "./SignupFormModal.svelte"
   import { errorsByField, otherResponse } from "./utils"
-
   let email: string = ""
   let password: string = ""
   let showSignupModal: boolean = false
@@ -27,8 +26,10 @@
 
     if (res.status === 200) {
       sprachy.initApp(res.summary)
-      if (window.location.search.length > 0) {
-        navigate(window.location.search.substring(6))
+      const params = new URLSearchParams(window.location.search)
+      const afterLoginUrl = params.get("next")
+      if (afterLoginUrl) {
+        navigate(afterLoginUrl)
       } else {
         navigate("/home")
       }
