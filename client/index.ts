@@ -22,7 +22,11 @@ new GlobalErrorHandler({
     if (window.location.pathname !== "/" && (err instanceof LoginRequiredError || err.response?.status === 401)) {
       // Go to login
       localStorage.removeItem("summary")
-      window.location.replace("/?next=" + window.location.pathname)
+      if (window.location.pathname === "/home") {
+        window.location.replace("/")
+      } else {
+        window.location.replace("/?next=" + window.location.pathname)
+      }
     } else if (err instanceof NotFoundError || err.response?.status === 404) {
       new NotFoundPage({
         target: document.body
