@@ -9,7 +9,6 @@
   let email: string = ""
   let password: string = ""
   let showSignupModal: boolean = false
-  // let afterAuthUrl: string = "";
 
   let loading: boolean = false
   let errors: Record<string, string> = {}
@@ -28,7 +27,11 @@
 
     if (res.status === 200) {
       sprachy.initApp(res.summary)
-      navigate("/home")
+      if (window.location.search.length > 0) {
+        navigate(window.location.search.substring(6))
+      } else {
+        navigate("/home")
+      }
     } else {
       if (res.code === "new user") {
         showSignupModal = true
@@ -99,7 +102,6 @@
             </div>
           {/if}
         </fieldset>
-        <!-- <input type="hidden" name="then" :value="afterAuthUrl" /> -->
         <button class="btn btn-sprachy btn-lg" type="submit" disabled={loading}
           >Enter Sprachy</button
         >

@@ -34,7 +34,11 @@
     if (res.status === 200) {
       onDismiss()
       sprachy.initApp(res.summary)
-      navigate("/home")
+      if (window.location.search.length > 0) {
+        navigate(window.location.search.substring(6))
+      } else {
+        navigate("/home")
+      }
     } else {
       if (res.code === "user already exists") {
         errors.email = "This email is already registered"
@@ -111,7 +115,6 @@
           </div>
         {/if}
       </fieldset>
-      <!-- <input type="hidden" name="then" :value="afterAuthUrl" /> -->
       <button class="btn btn-lg text-white" type="submit">Enter Sprachy</button>
     </div>
     <div class="modal-footer">
