@@ -24,6 +24,14 @@ Vorsicht, sie ist eine furchtbare Feindin / Beware, she is a fearsome enemy
 </ltable>
 
 Similar to "they" in English, the singular _Sie_ and plural _sie_ both use _Sie sind_ like "they are". The "she" meaning of sie uses _sie ist_. This sind/ist difference, along with the casing, can help you figure out from context which of the three meanings is being used.
+
+<DialogueExample>
+cashier:
+  Ist das Ihr Eichhörnchen, Sir?
+  Is that your squirrel, sir?
+</DialogueExample>
+
+Note that all three forms of sie/Sie change to ihr/Ihr for the possessive!
   `,
   stories: [
     // LEVEL 1
