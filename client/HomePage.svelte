@@ -25,7 +25,6 @@
 
 <SiteLayout>
   <main class="container">
-    Sprachy is a thingy for learning German with patterns!
     <ul>
       {#each patterns as pattern (pattern.id)}
         <li class="pattern">
@@ -57,6 +56,8 @@
         </li>
       {/each}
     </ul>
+    <hr />
+    <p><em>More patterns coming soon!</em></p>
     {#if !IS_PRODUCTION}
       <div class="debug">
         <button class="btn btn-outline-warning" on:click={debugResetProgress}
@@ -82,6 +83,7 @@ li.pattern
     display: flex
     align-items: center
     padding: 1rem
+    padding-left: 0
     color: inherit
 
   .icon
