@@ -55,12 +55,12 @@ export class UserApp {
   }
 
   get nextPatternToLearn(): PatternAndProgress | undefined {
-    return this.patternsAndProgress.find((p) => !p.progress) as PatternAndProgress | undefined
+    return this.patternsAndProgress.find((p) => p.progress.srsLevel === 0) as PatternAndProgress | undefined
   }
 
   /** All patterns for which the user has completed at least level 1 */
   get learnedPatterns(): PatternAndProgress[] {
-    return this.patternsAndProgress.filter(p => !!p.progress) as PatternAndProgress[]
+    return this.patternsAndProgress.filter(p => p.progress.srsLevel > 0) as PatternAndProgress[]
   }
 
   /**
@@ -69,7 +69,7 @@ export class UserApp {
    * reviewed for the longest come first.
    */
   get patternsReadyToLevel() {
-    const patterns = this.learnedPatterns.filter(p => !!p.progress && p.progress.levelableAt && p.progress.levelableAt <= Date.now())
+    const patterns = this.learnedPatterns.filter(p => p.progress.levelableAt && p.progress.levelableAt <= Date.now())
     return _.sortBy(patterns, p => p.progress!.levelableAt)
   }
 

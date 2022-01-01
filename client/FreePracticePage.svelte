@@ -30,16 +30,20 @@
 </script>
 
 <SiteLayout>
-  <header class="practice-header">
-    <h3>Free Practice</h3>
-    <p class="text-secondary">
-      There aren't any patterns ready to level yet. If you like, you can practice random exercises
-      here.
-    </p>
-  </header>
-  <div class="exercises">
-    <StoryLineFillblank {line} on:correct={nextLine} />
-  </div>
+  {#if !line}
+    <p>You haven't learned any patterns to practice yet!</p>
+  {:else}
+    <header class="practice-header">
+      <h3>Free Practice</h3>
+      <p class="text-secondary">
+        There aren't any patterns ready to level yet. If you like, you can practice random exercises
+        here.
+      </p>
+    </header>
+    <div class="exercises">
+      <StoryLineFillblank {line} on:correct={nextLine} />
+    </div>
+  {/if}
 </SiteLayout>
 
 <style lang="sass">
