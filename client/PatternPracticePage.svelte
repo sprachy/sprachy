@@ -5,10 +5,12 @@
   import Story from "./Story.svelte"
   import sprachy from "./sprachy"
   import Timeago from "./Timeago.svelte"
+  import type { PatternAndProgress } from "./UserApp"
 
   export let slug: string | undefined
   export let level: number | undefined = undefined
   let complete: boolean = false
+  let pattern: PatternAndProgress
 
   $: pattern = ((slug: string | undefined) => {
     const pattern = sprachy.app.patternsAndProgress.find((p) => p.slug === slug)
@@ -27,6 +29,7 @@
     if (progressItem) {
       sprachy.app.receiveProgressItem(progressItem)
     }
+    pattern = sprachy.app.patternsAndProgress.find((p) => p.slug === slug)!
     complete = true
   }
 </script>
