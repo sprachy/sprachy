@@ -7,6 +7,21 @@
   const faq = md`
 # Frequently asked questions
 
+### What's the pricing model?
+
+Sprachy is free to use while it is in early development. After we add sufficient
+content, we will likely introduce a subscription fee to do exercises beyond
+a certain point. The text of patterns will remain openly accessible, so it'll always
+act as a free grammar reference/textbook of sorts.
+
+Since we're just a couple of internet friends and not a VC-backed startup, we're
+not really interested in pursuing tech company hypergrowth. It would be nice to make
+a decent income from our work, but we don't need to like, launch cars into space
+or anything.
+
+We're not interested in ad funding and won't add those, unless it's something actually
+useful like job ads for work in Germany or such.
+
 ### How do SRS levels work?
 
 Sprachy uses a slightly modified version of the traditional spaced repetition model.
