@@ -4,6 +4,7 @@ import { SprachyAPIClient } from "./SprachyAPIClient"
 import { navigate } from "svelte-navigator"
 import { LoginRequiredError } from "./GlobalErrorHandler"
 
+
 /**
  * Global sprachy frontend state
  * Stuff that needs user/progress info should go in UserApp instead
@@ -43,5 +44,10 @@ export class SprachyFrontendState {
   }
 }
 
+
 const sprachy = new SprachyFrontendState()
+
+declare const window: any
+window.sprachy = sprachy
+
 export default sprachy
