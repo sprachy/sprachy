@@ -2,7 +2,7 @@
 <script>
   import { fade, fly } from "svelte/transition"
   import { quintOut } from "svelte/easing"
-  import { createEventDispatcher } from "svelte"
+  import { createEventDispatcher, onDestroy, onMount } from "svelte"
   export let open = false
   export let dialogClasses = ""
   export let backdrop = true
@@ -63,6 +63,14 @@
       modalClose()
     }
   }
+
+  onMount(() => {
+    modalOpen()
+  })
+
+  onDestroy(() => {
+    modalClose()
+  })
 </script>
 
 {#if open}
