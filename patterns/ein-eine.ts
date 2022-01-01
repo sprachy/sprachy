@@ -70,8 +70,40 @@ It makes no sense to say "eine Plurale" (an plurals), but words like _meine_ or 
           // hint: "[masculine]",
         },
       ]
+    },
 
-      // LEVEL 2
+    // LEVEL 2
+    {
+      lines: [
+        {
+          from: "robot",
+          message: "[Ein] organischer Peer wird Ihren Fall beurteilen.",
+          translation: "[An] organic peer will judge your case.",
+          hint: "[masculine]",
+        },
+        {
+          from: "explorer",
+          message: "Organisch? Es gibt hier [keine] Menschen mehr.",
+          translation: "Organic? There are [no] people left here."
+        },
+        {
+          from: "explorer",
+          message: "Ist das [ein] Aquarium?",
+          translation: "Is that [an] aquarium?",
+          hint: "[neuter]"
+        },
+        {
+          from: "robot",
+          message: "[Ein] organische Jurymitglied wurde gefunden.",
+          translation: "[An] organic jury member has been located.",
+          hint: "[neuter]",
+        },
+        {
+          from: "fish",
+          message: "*blub*",
+          translation: "*blub*",
+        },
+      ]
     }
   ],
   // {
