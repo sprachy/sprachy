@@ -73,7 +73,8 @@ export default async function globalSetup() {
     buildCommand: "",
     kvNamespaces: ["STORE"],
     bindings: {
-      FAUNA_ADMIN_KEY: secret
+      FAUNA_ADMIN_KEY: secret,
+      IS_TESTING: true
     }
   })
 
