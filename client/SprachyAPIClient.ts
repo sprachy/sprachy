@@ -29,6 +29,10 @@ export class SprachyAPIClient {
   async completeLevel(patternId: string, level: number): Promise<ProgressItem | null> {
     return this.http.post(`/api/progress`, { patternId, level })
   }
+
+  async changeEmail(newEmail: string) {
+    return this.http.post(`/api/account/change-email`, { newEmail })
+  }
 }
 
 /**

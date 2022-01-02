@@ -1,6 +1,7 @@
 import * as auth from './resources/auth'
 import * as usersAdmin from './resources/usersAdmin'
 import * as progress from './resources/progress'
+import * as account from './resources/account'
 import { APIMiddleware, RequireLoginMiddleware, AdminMiddleware } from './middleware'
 
 export const api = new APIMiddleware()
@@ -13,6 +14,8 @@ userApi.add('GET', '/api/progress', progress.getSummary)
 userApi.add('POST', '/api/progress', progress.completeLevel)
 userApi.add('POST', '/api/debug/reset-progress', progress.resetProgress)
 userApi.add('POST', '/api/debug/timeskip', progress.debugTimeskip)
+
+userApi.add('POST', '/api/account/change-email', account.changeEmail)
 
 const adminApi = new AdminMiddleware(userApi)
 adminApi.add('GET', '/api/admin/users', usersAdmin.listUsers)
