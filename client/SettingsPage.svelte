@@ -5,8 +5,16 @@
   const { user } = sprachy.app
   let email = user.email
 
+  const errors: Record<string, string> = {}
+
   async function submitEmailChange() {
-    await sprachy.api.changeEmail(email)
+    try {
+      await sprachy.api.changeEmail(email)
+    } catch (err: any) {
+      if (err?.response?.status === 409) {
+        errors.email = "Another user already has this email!"
+      }
+    }
   }
 </script>
 
@@ -22,15 +30,21 @@
         id="email"
         type="email"
         class:form-control={true}
+        class:is-invalid={!!errors.email}
         placeholder="Email"
         required
       />
+      {#if errors.email}
+        <div class="invalid-feedback">
+          {errors.email}
+        </div>
+      {/if}
     </fieldset>
     <button
       type="submit"
       class="btn btn-primary"
       disabled={email === user.email}
-      on:click={submitEmailChange}>Change Email</button
+      on:click|preventDefault={submitEmailChange}>Change Email</button
     >
   </form>
 </SiteLayout>
