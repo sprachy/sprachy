@@ -78,6 +78,6 @@ export default async function globalSetup() {
     }
   })
 
-  global.miniflareServer = mf.createServer()
+  global.miniflareServer = await mf.createServer()
   global.miniflareServer.listen(5998)
 }
