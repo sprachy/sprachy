@@ -1,17 +1,16 @@
 <script lang="ts">
   import _ from "lodash"
-  import { CanvasEffects } from "./CanvasEffects"
   import { createEventDispatcher, onMount } from "svelte"
   import Message from "./Message.svelte"
   import type { FillblankLine } from "../common/Pattern"
   import { matchAnswer } from "./feedback"
   import Sprachdown from "./Sprachdown.svelte"
+  import sprachy from "./sprachy"
 
   export let line: FillblankLine
   export let complete: boolean = false
   let prevLine = line
   let attemptInput!: HTMLInputElement
-  let effects: CanvasEffects = new CanvasEffects()
   let attempt: string = ""
   let feedback: string = ""
 
@@ -56,7 +55,7 @@
     const result = matchAnswer(attempt, line)
     if (result.validAnswer) {
       attempt = result.validAnswer
-      effects.spawnParticlesAt(attemptInput)
+      sprachy.effects.spawnParticlesAt(attemptInput)
       dispatch("correct")
     } else {
       if (result.feedback) {

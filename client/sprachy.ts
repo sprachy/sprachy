@@ -3,6 +3,7 @@ import { UserApp } from "./UserApp"
 import { SprachyAPIClient } from "./SprachyAPIClient"
 import { navigate } from "svelte-navigator"
 import { LoginRequiredError } from "./GlobalErrorHandler"
+import { CanvasEffects } from "./CanvasEffects"
 
 
 /**
@@ -12,6 +13,12 @@ import { LoginRequiredError } from "./GlobalErrorHandler"
 export class SprachyFrontendState {
   readonly api = new SprachyAPIClient()
   readonly backgroundApi = new SprachyAPIClient()
+
+  /** 
+   * For drawing success confetti animation
+   */
+  readonly effects = new CanvasEffects()
+
   _app: UserApp | null = null
 
   initApp(summary: ProgressSummary) {
