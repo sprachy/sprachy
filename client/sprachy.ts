@@ -1,10 +1,8 @@
 import type { ProgressSummary } from "../common/api"
 import { UserApp } from "./UserApp"
 import { SprachyAPIClient } from "./SprachyAPIClient"
-import { navigate } from "svelte-navigator"
 import { LoginRequiredError } from "./GlobalErrorHandler"
 import { CanvasEffects } from "./CanvasEffects"
-
 
 /**
  * Global sprachy frontend state

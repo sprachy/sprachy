@@ -39,6 +39,37 @@ Some nouns are used mainly in their diminutive form. For example, _das Eichhörn
       lines: [
         {
           from: "lukas",
+          message: "Oh je, [das] Eichhörnchen liegt auf dem Tisch.",
+          translation: "Oh dear, [the] squirrel is on the table."
+        },
+        {
+          from: "squirrel",
+          message: "Wie nennt man diese kleine gebogene Waffe?",
+          translation: "What do you call this tiny curved weapon?"
+        },
+        {
+          from: "lukas",
+          message: "Das ist [ein] Löffelchen. Es ist ein Werkzeug zum Essen, keine Waffe.",
+          translation: "That is [a] little spoon. It's a tool for eating, not a weapon."
+        },
+        {
+          from: "squirrel",
+          message: "Und was ist diese zähflüssige alchemistische Lösung?",
+          translation: "And what is this viscous alchemical solution?"
+        },
+        {
+          from: "lukas",
+          message: "Töski, bitte steck [dein] Pfötchen nicht in die Suppe.",
+          translation: "Töski, please don't put [your] little paw in the soup."
+        }
+      ]
+    },
+
+    // LEVEL 2
+    {
+      lines: [
+        {
+          from: "lukas",
           message: "Tösky, hast du [mein] Brötchen gegessen?",
           translation: "Tösky, did you eat [my] bread roll?",
         },
