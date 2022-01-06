@@ -70,8 +70,8 @@ Some nouns are used mainly in their diminutive form. For example, _das Eichhörn
       lines: [
         {
           from: "lukas",
-          message: "Tösky, hast du [mein] Brötchen gegessen?",
-          translation: "Tösky, did you eat [my] bread roll?",
+          message: "Töski, hast du [mein] Brötchen gegessen?",
+          translation: "Töski, did you eat [my] bread roll?",
         },
         {
           from: "squirrel",
@@ -99,21 +99,5 @@ Some nouns are used mainly in their diminutive form. For example, _das Eichhörn
         },
       ]
     },
-
-    //     {
-    //       content: md`
-    // <dialogue>
-    // <dline by="anna">
-    // Tösky, hast du [mein] Brötchen gegessen?
-    // Tösky, did you eat [my] bread roll?
-    // </dline>
-
-    // <dline by="squirrel">
-    // Ja. Es ist zum Brennstoff für das ewige Feuer meiner Seele geworden.
-    // Yes. It has become fuel for the eternal fire of my soul.
-    // </dline>
-    // </dialogue>
-    //       `,
-    //     }
   ],
 })

@@ -12,6 +12,8 @@
   import reporter from "./img/reporter.png"
   import fish from "./img/fish.png"
   import dog from "./img/dog.png"
+  import leonie from "./img/leonie.png"
+  import nils from "./img/nils.png"
   import { sprachdex } from "../common/sprachdex"
   import Sprachdown from "./Sprachdown.svelte"
   import { onDestroy, onMount } from "svelte"
@@ -30,6 +32,8 @@
     reporter,
     fish,
     dog,
+    leonie,
+    nils,
   }[charId]
 
   $: character = sprachdex.getCharacter(charId)

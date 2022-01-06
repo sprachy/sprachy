@@ -182,6 +182,23 @@ A small diadromous fish-like organism. It's not entirely clear if it's intellige
     profile: md`
 A local house pet and good boy. Prepared to sacrifice his life in defense of his family, if need be.
     `,
+  },
+  {
+    id: "leonie",
+    name: "Leonie",
+    fullname: "Leonie Köhler",
+    profile: md`
+A volunteer at the local dragon reserve. She is patient and fond of nature.
+    `,
+  },
+
+  {
+    id: "nils",
+    name: "Nils",
+    fullname: "Nilkorozog the Incorrigible",
+    profile: md`
+A young dragon who lives on the dragon reserve. He recently developed an interest in human languages and culture.
+    `,
   }
 ]
 

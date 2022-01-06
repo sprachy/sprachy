@@ -44,19 +44,19 @@ It makes no sense to say "eine Plurale" (an plurals), but words like _meine_ or 
           from: "lukas",
           message: "Woher kommt [ein] sprechendes Eichhörnchen?",
           translation: "Where does [a] talking squirrel come from?",
-          // hint: "[neuter]",
+          hint: "[neuter]",
         },
         {
           from: "squirrel",
           message: "[Ein] Ort weit weg von hier.",
           translation: "[A] place far away from here.",
-          // hint: "[masculine]",
+          hint: "[masculine]",
         },
         {
           from: "squirrel",
           message: "[Deine] Welt ist sehr ruhig.",
           translation: "[Your] world is very quiet.",
-          // hint: "[feminine]",
+          hint: "[feminine]",
         },
         {
           from: "squirrel",
@@ -67,7 +67,7 @@ It makes no sense to say "eine Plurale" (an plurals), but words like _meine_ or 
           from: "squirrel",
           message: "Für mich ist es wie [ein] ruhiger Ozean.",
           translation: "To me it's like [a] calm ocean.",
-          // hint: "[masculine]",
+          hint: "[masculine]",
         },
       ]
     },
@@ -103,6 +103,41 @@ It makes no sense to say "eine Plurale" (an plurals), but words like _meine_ or 
           message: "*blub*",
           translation: "*blub*",
         },
+      ]
+    },
+
+    // LEVEL 3
+    {
+      lines: [
+        {
+          from: "leonie",
+          message: "Hallo Nils. Wie war [dein] Flug?",
+          translation: "Hello Nils. How was [your] flight?",
+          hint: "[masculine]",
+        },
+        {
+          from: "nils",
+          message: "Es war aufregend! Da war [eine] riesiger Zikade!",
+          translation: "It was exciting! There was [a] huge cicada!",
+          hint: "[feminine]"
+        },
+        {
+          from: "leonie",
+          message: "Ein riesiger Käfer? Hat es [ein] hackendes Geräusch gemacht?",
+          translation: "A huge cicada? Did it make a chopping noise?",
+          hint: "[neuter]"
+        },
+        {
+          from: "nils",
+          message: "Ja, das! Aber [meine] Mutter hat gesagt, ich darf nicht damit spielen.",
+          translation: "Yes, that! But [my] mother said I can't play with it."
+        },
+        {
+          from: "leonie",
+          message: "Das war [ein] Hubschrauber, Nils. Sie sind nicht sehr verspielt.",
+          translation: "That was [a] helicopter, Nils. They're not very playful.",
+          hint: "[masculine]"
+        }
       ]
     }
   ],
