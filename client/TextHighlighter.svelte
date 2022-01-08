@@ -2,7 +2,32 @@
   import _ from "lodash"
   import LTableTranslation from "./LTableTranslation.svelte"
   import Sprachdown from "./Sprachdown.svelte"
+  export let parts: string
   export let text: string
+
+  type TextFragment = {
+    highlight?: string
+    text: string
+  }
+
+  $: highlights = parts.split(",").map((p) => p.trim())
+
+  $: fragments = ((text: string, highlights: string[]) => {
+    const fragments: TextFragment[] = []
+    const highlightIndex = 0
+    for (const bit of text.split(/(?<=\[.+?\])|(?=\[.+?\])/g)) {
+      if (bit[0] === "[") {
+        fragments.push({
+          highlight: highlights[highlightIndex],
+          text: bit.slice(1, -1),
+        })
+      } else {
+        fragments.push({
+          text: bit,
+        })
+      }
+    }
+  })(text, highlights)
 </script>
 
 <div class="TextHighlighter">

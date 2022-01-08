@@ -199,6 +199,15 @@ A volunteer at the local dragon reserve. She is patient and fond of nature.
     profile: md`
 A young dragon who lives on the dragon reserve. He recently developed an interest in human languages and culture.
     `,
+  },
+
+  {
+    id: "anna",
+    name: "Anna",
+    fullname: "Anna Zweidenker",
+    profile: md`
+An outgoing young professional, and Lukas' older sister. She likes to tease him.
+    `,
   }
 ]
 
