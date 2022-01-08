@@ -1,42 +1,79 @@
 <script lang="ts">
   import _ from "lodash"
-  import LTableTranslation from "./LTableTranslation.svelte"
   import Sprachdown from "./Sprachdown.svelte"
   export let parts: string
   export let text: string
 
-  type TextFragment = {
-    highlight?: string
-    text: string
+  function calculateTextWidth(text: string) {
+    const element = document.createElement("canvas")
+    const ctx = element.getContext("2d")!
+    ctx.font = `17px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`
+    return ctx.measureText(text).width
   }
+
+  type TextFragment =
+    | {
+        highlight: string
+        minWidth: number
+        textOffset: number
+        text: string
+      }
+    | {
+        highlight?: undefined
+        minWidth?: undefined
+        textOffset?: undefined
+        text: string
+      }
 
   $: highlights = parts.split(",").map((p) => p.trim())
 
   $: fragments = ((text: string, highlights: string[]) => {
     const fragments: TextFragment[] = []
-    const highlightIndex = 0
+    let highlightIndex = 0
     for (const bit of text.split(/(?<=\[.+?\])|(?=\[.+?\])/g)) {
       if (bit[0] === "[") {
+        const highlight = highlights[highlightIndex]!
+        const text = bit.slice(1, -1)
+        const textWidth = calculateTextWidth(text)
+        const highlightWidth = calculateTextWidth(highlight)
+        const minWidth = Math.max(textWidth, highlightWidth)
         fragments.push({
-          highlight: highlights[highlightIndex],
-          text: bit.slice(1, -1),
+          highlight: highlight,
+          textOffset: Math.max(0, highlightWidth - textWidth) / 2,
+          minWidth: minWidth,
+          text: text,
         })
+        highlightIndex += 1
       } else {
         fragments.push({
           text: bit,
         })
       }
     }
+    return fragments
   })(text, highlights)
 </script>
 
 <div class="TextHighlighter">
-  <Sprachdown source={"<p>" + text + "</p>"} />
+  {#each fragments as fragment}
+    {#if fragment.highlight}
+      <span class={`highlight ${fragment.highlight}`} style={`min-width: ${fragment.minWidth}px`}>
+        <span style={`position: relative; left: ${fragment.textOffset}px`}>{fragment.text}</span>
+      </span>
+    {:else}
+      {fragment.text}
+    {/if}
+  {/each}
+  <!-- <Sprachdown source={"<p>" + text + "</p>"} /> -->
 </div>
 
 <style lang="sass">
 .TextHighlighter
-  margin-bottom: 2rem
+  padding-bottom: 30px
+  margin-bottom: 1rem
+
+  span.highlight
+    display: inline-block
 
   :global(span.actor)
     color: green
