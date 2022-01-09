@@ -6,7 +6,6 @@ data
 worker
 dist
 devdist
-package-lock.json
 
 # local env files
 .env
