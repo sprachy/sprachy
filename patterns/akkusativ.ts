@@ -67,7 +67,7 @@ accusative!
         },
         {
           from: "dog",
-          message: "*wuf!*",
+          message: "*wuff!*",
           translation: "*woof!*",
         },
       ]

@@ -77,7 +77,7 @@ It makes no sense to say "eine Plurale" (an plurals), but words like _meine_ or 
       lines: [
         {
           from: "robot",
-          message: "[Ein] organischer Peer wird Ihren Fall beurteilen.",
+          message: "[Ein] organischer Mitbürger wird Ihren Fall beurteilen.",
           translation: "[An] organic peer will judge your case.",
           hint: "[masculine]",
         },
@@ -123,7 +123,7 @@ It makes no sense to say "eine Plurale" (an plurals), but words like _meine_ or 
         },
         {
           from: "leonie",
-          message: "Ein riesiger Käfer? Hat es [ein] hackendes Geräusch gemacht?",
+          message: "Eine riesige Zikade? Hat es [ein] hackendes Geräusch gemacht?",
           translation: "A huge cicada? Did it make a chopping noise?",
           hint: "[neuter]"
         },

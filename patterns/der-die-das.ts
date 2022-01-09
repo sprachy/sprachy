@@ -91,7 +91,7 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
       lines: [
         {
           from: "explorer",
-          message: "[Die] Stadt ist uraslt.",
+          message: "[Die] Stadt ist uralt.",
           translation: "[The] city is ancient.",
           hint: "[feminine]"
         },
@@ -99,6 +99,7 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
           from: "explorer",
           message: "[Die] Gebäude sind alle überwuchert und bröckeln.",
           translation: "[The] buildings are all overgrown and crumbling.",
+          hint: "[plural]"
         },
         {
           from: "robot",
@@ -150,7 +151,7 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
         },
         {
           from: "scientist",
-          message: "Denn [die] Forschung ist verdammt cool!",
+          message: "Weil [die] Forschung ist verdammt cool ist!",
           translation: "Because [the] research is hecking cool!",
           hint: "[feminine]",
         },
