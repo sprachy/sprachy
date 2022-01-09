@@ -22,7 +22,7 @@ const characters = [
    * limited in their extradimensional mass. (imagine trying to build an entire body out of ink)
    * 
    * It's much easier for an esper to alter or destroy things than to create them de novo.
-   * Töski can draw an apple on the universe and get something vaguely apple-shaped, but it
+   * Töski can draw an apple in the universe and get something vaguely apple-shaped, but it
    * would be very hard to make it taste like an apple or otherwise behave like one chemically: he 
    * would need great precision in drawing all the little molecules. In this way, skilled espers
    * are similar to skilled technical artists or sculptors.

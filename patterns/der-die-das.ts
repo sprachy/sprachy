@@ -151,7 +151,7 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
         },
         {
           from: "scientist",
-          message: "Weil [die] Forschung ist verdammt cool ist!",
+          message: "Weil [die] Forschung verdammt cool ist!",
           translation: "Because [the] research is hecking cool!",
           hint: "[feminine]",
         },
