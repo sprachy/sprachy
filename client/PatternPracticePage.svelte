@@ -6,6 +6,7 @@
   import sprachy from "./sprachy"
   import Timeago from "./Timeago.svelte"
   import type { PatternAndProgress } from "./UserApp"
+  import { onDestroy, onMount } from "svelte"
 
   export let slug: string | undefined
   export let level: number | undefined = undefined
@@ -24,7 +25,25 @@
 
   $: story = pattern.stories[storyLevel - 1]
 
+  function leavingWarning(e: any) {
+    var confirmationMessage =
+      "It looks like you have been editing something. " +
+      "If you leave before saving, your changes will be lost."
+
+    ;(e || window.event).returnValue = confirmationMessage
+    return confirmationMessage
+  }
+
+  onMount(() => {
+    window.addEventListener("beforeunload", leavingWarning)
+  })
+
+  onDestroy(() => {
+    window.removeEventListener("beforeunload", leavingWarning)
+  })
+
   async function onCompleteStory() {
+    window.removeEventListener("beforeunload", leavingWarning)
     const progressItem = await sprachy.api.completeLevel(pattern!.id, storyLevel)
     if (progressItem) {
       sprachy.app.receiveProgressItem(progressItem)
