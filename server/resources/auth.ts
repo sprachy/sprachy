@@ -35,7 +35,7 @@ export async function signup(req: APIRequest, res: ServerResponse): Promise<Sign
     const params = {
       username: "SignUp",
       avatar_url: "",
-      content: "Yuh new learny person by the email **" + email + "** appeared! ❤️🐿️",
+      content: "Yuh new learny person appeared! ❤️🐿️",
     }
     http.postJson(DISCORD_SIGNUP_WEBHOOK, params)
 
