@@ -71,6 +71,15 @@ accusative!
           translation: "*woof!*",
         },
       ]
+    },
+    {
+      lines: [
+        {
+          from: "squirrel",
+          message: "",
+          translation: ""
+        },
+      ]
     }
   ]
 })

@@ -5,14 +5,17 @@
   const { user } = sprachy.app
   let email = user.email
 
-  const errors: Record<string, string> = {}
+  let errors: Record<string, string> = {}
 
   async function submitEmailChange() {
+    errors = {}
     try {
       await sprachy.api.changeEmail(email)
     } catch (err: any) {
       if (err?.response?.status === 409) {
         errors.email = "Another user already has this email!"
+      } else {
+        throw err
       }
     }
   }

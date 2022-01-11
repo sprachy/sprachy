@@ -35,7 +35,7 @@ export async function sendMail(msg: EmailMessage) {
   if (IS_TESTING) {
     testMailsSent.push(msg)
   } else if (MAILGUN_SECRET) {
-    return await http.post("https://api.mailgun.net/v3/sprachy.com/messages", body, {
+    return await http.post("https://api.mailgun.net/v3/mg.sprachy.com/messages", body, {
       headers: {
         Authorization: `Basic ${btoa(`api:${MAILGUN_SECRET}`)}`
       }
