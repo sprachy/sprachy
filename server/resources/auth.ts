@@ -7,6 +7,8 @@ import type { APIRequest } from "../middleware"
 import { db } from "../db"
 import { sessions } from "../sessions"
 import { FaunaError } from "../faunaUtil"
+import { DISCORD_SIGNUP_WEBHOOK } from '../settings'
+import http from '../http'
 
 const signupForm = z.object({
   email: z.string().email(),
@@ -28,6 +30,14 @@ export async function signup(req: APIRequest, res: ServerResponse): Promise<Sign
     const progressItems = await db.progress.listAllFor(user.id)
     const sessionKey = await sessions.create(user.id)
     res.headers.set('Set-Cookie', sessions.asCookie(sessionKey))
+
+
+    const params = {
+      username: "SignUp",
+      avatar_url: "",
+      content: "Yuh new learny person by the email **" + email + "** appeared! ❤️🐿️",
+    }
+    http.postJson(DISCORD_SIGNUP_WEBHOOK, params)
 
     return { status: 200, summary: { user, progressItems } }
   } catch (err) {
