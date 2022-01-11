@@ -29,6 +29,11 @@ The main difference is that levels do not decrease when you make a mistake; inst
 you can only increase in level after a certain amount of time has passed since the
 previous one. You can retry for a level increase immediately if you make a mistake,
 except for the final level, which can only be retried every so often.
+
+### Is there an Android or iOS app?
+
+Not yet! If the web version is successful enough and there's interest in
+a mobile app, we'll investigate building one.
   `
 </script>
 
