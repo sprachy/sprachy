@@ -4,6 +4,7 @@
   import type { Story } from "../common/Pattern"
   import StoryLineReading from "./StoryLineReading.svelte"
   import StoryLineFillblank from "./StoryLineFillblank.svelte"
+  import { fly } from "svelte/transition"
 
   export let story: Story
   let lineIndex: number
@@ -59,7 +60,7 @@
 <div class="Story">
   <div class="lines">
     {#each lines as line}
-      <div class="line">
+      <div class="line" in:fly={{ y: 20 }}>
         {#if line.type === "reading"}
           <StoryLineReading {line} />
         {:else}

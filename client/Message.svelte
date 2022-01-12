@@ -2,6 +2,15 @@
   import Avatar from "./Avatar.svelte"
   export let from: string
 
+  // function incoming(node: HTMLElement, { delay = 0, duration = 100 }) {
+  //   const o = node.clientWidth
+
+  //   return {
+  //     delay,
+  //     duration,
+  //     css: (t: number) => `transform-origin: left; transform: scaleX(${t * 100}%)`,
+  //   }
+  // }
   // const names = {
   //   scientist: "Lindenbaum",
   //   deer: "Eiknir",
