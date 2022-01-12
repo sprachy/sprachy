@@ -61,6 +61,11 @@
   }
 
   async function nextLine() {
+    if (lineRef) {
+      // This is necessary for the window keydown event listener
+      // to fire for the next line on firefox
+      lineRef.querySelector("input")?.blur()
+    }
     if (lineIndex < story.lines.length - 1) {
       lineIndex += 1
     } else {
