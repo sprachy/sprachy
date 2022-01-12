@@ -1,4 +1,4 @@
-import { easeCubicOut } from 'd3-ease'
+import { cubicOut } from 'svelte/easing'
 import * as _ from 'lodash'
 
 const confettiColors = [
@@ -63,7 +63,7 @@ export class CanvasEffects {
       ctx.beginPath()
       ctx.fillStyle = p.color
       const t = _.clamp((Date.now() - p.birth) / p.lifetime, 0, 1)
-      ctx.globalAlpha = 1 - easeCubicOut(t)
+      ctx.globalAlpha = 1 - cubicOut(t)
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
       ctx.fill()
     }

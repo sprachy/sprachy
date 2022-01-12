@@ -85,6 +85,10 @@ li.pattern
     padding: 1rem
     padding-left: 0
     color: inherit
+    text-decoration: none
+
+  > :global(a):hover
+    text-decoration: underline
 
   .icon
     padding: 0.75rem

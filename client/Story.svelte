@@ -56,7 +56,7 @@
   $: if (lineRef) {
     window.scrollTo({
       top: lineRef.offsetTop + lineRef.offsetHeight / 2 - window.innerHeight / 2,
-      behavior: "smooth",
+      behavior: lineIndex === 0 ? undefined : "smooth",
     })
   }
 
