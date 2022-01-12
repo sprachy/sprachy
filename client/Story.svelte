@@ -1,6 +1,6 @@
 <script lang="ts">
   import _ from "lodash"
-  import { createEventDispatcher, onDestroy, onMount } from "svelte"
+  import { createEventDispatcher, onDestroy, onMount, tick } from "svelte"
   import type { Line, Story } from "../common/Pattern"
   import StoryLineReading from "./StoryLineReading.svelte"
   import StoryLineFillblank from "./StoryLineFillblank.svelte"
@@ -16,7 +16,8 @@
   $: currentLine = lines[lines.length - 1]!
   let finished: boolean = false
 
-  let fillblank: StoryLineFillblank | null = null
+  let fillblankRef: StoryLineFillblank | null = null
+  let lineRef: HTMLDivElement | null = null
 
   $: doingExercise = !finished && currentLine.type === "fillblank"
 
@@ -52,18 +53,24 @@
     }
   }
 
-  function nextLine() {
+  $: if (lineRef) {
+    window.scrollTo({
+      top: lineRef.offsetTop + lineRef.offsetHeight / 2 - window.innerHeight / 2,
+      behavior: "smooth",
+    })
+  }
+
+  async function nextLine() {
     if (lineIndex < story.lines.length - 1) {
       lineIndex += 1
-      document.documentElement.scrollTop = document.documentElement.scrollHeight
     } else {
       finished = true
     }
   }
 
   function continueStory() {
-    if (doingExercise && fillblank) {
-      fillblank.checkAnswer()
+    if (doingExercise && fillblankRef) {
+      fillblankRef.checkAnswer()
     } else if (lineIndex < story.lines.length - 1) {
       nextLine()
     } else {
@@ -75,7 +82,7 @@
 <div class="Story">
   <div class="lines">
     {#each lines as line, i}
-      <div class="line" in:fly={{ y: 20 }}>
+      <div class="line" in:fly={{ y: 20 }} bind:this={lineRef}>
         {#if line.type === "reading"}
           <StoryLineReading {line} flip={lineFlips[i]} />
         {:else}
@@ -83,7 +90,7 @@
             {line}
             flip={lineFlips[i]}
             on:correct={nextLine}
-            bind:this={fillblank}
+            bind:this={fillblankRef}
             complete={finished || line !== currentLine}
           />
         {/if}
@@ -104,9 +111,6 @@
 
   .line:not(:first-child)
     margin-top: 1rem
-
-  .lines
-    padding-bottom: 10rem
 
   footer
     border-top: 1px solid #ccc

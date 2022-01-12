@@ -14,7 +14,7 @@
 </script>
 
 <template>
-  <header>
+  <header class="site-header">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
         <Link class="navbar-brand" to="/">

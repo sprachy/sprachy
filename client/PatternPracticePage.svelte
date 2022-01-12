@@ -53,31 +53,37 @@
   }
 </script>
 
-<SiteLayout>
-  {#if !pattern.stories.length}
-    No stories for this pattern yet! Let's write some~
-  {:else if !story}
-    <p>You've completed all the stories for this pattern!</p>
-  {:else if !complete}
-    <header class="story-header">
-      <h3>{pattern.title}</h3>
-      <h3>Level {storyLevel}</h3>
-    </header>
-    <Story {story} on:complete={onCompleteStory} />
-  {:else if pattern.progress.levelableAt}
-    <p>
-      Nice work! Level {storyLevel + 1} will become available in <Timeago
-        ts={pattern.progress.levelableAt}
-      />.
-    </p>
-  {:else}
-    <p>Nice work! You've completed all available levels of {pattern.title}!</p>
-  {/if}
+<SiteLayout fixedHeader>
+  <div class="story-holder">
+    {#if !pattern.stories.length}
+      No stories for this pattern yet! Let's write some~
+    {:else if !story}
+      <p>You've completed all the stories for this pattern!</p>
+    {:else if !complete}
+      <header class="story-header">
+        <h3>{pattern.title}</h3>
+        <h3>Level {storyLevel}</h3>
+      </header>
+      <Story {story} on:complete={onCompleteStory} />
+    {:else if pattern.progress.levelableAt}
+      <p>
+        Nice work! Level {storyLevel + 1} will become available in <Timeago
+          ts={pattern.progress.levelableAt}
+        />.
+      </p>
+    {:else}
+      <p>Nice work! You've completed all available levels of {pattern.title}!</p>
+    {/if}
+  </div>
 </SiteLayout>
 
 <style lang="sass">
-  .story-header
-    margin-bottom: 2rem
-    h3
-      text-align: center
+.story-holder
+  padding-top: 30vh
+  padding-bottom: 50vh
+
+.story-header
+  margin-bottom: 2rem
+  h3
+    text-align: center
 </style>
