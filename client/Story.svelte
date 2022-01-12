@@ -55,11 +55,10 @@
   function nextLine() {
     if (lineIndex < story.lines.length - 1) {
       lineIndex += 1
+      document.documentElement.scrollTop = document.documentElement.scrollHeight
     } else {
       finished = true
     }
-
-    document.documentElement.scrollTop = document.documentElement.scrollHeight
   }
 
   function continueStory() {
