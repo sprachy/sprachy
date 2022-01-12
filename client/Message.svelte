@@ -1,6 +1,7 @@
 <script lang="ts">
   import Avatar from "./Avatar.svelte"
   export let from: string
+  export let flip: boolean = false
 
   // function incoming(node: HTMLElement, { delay = 0, duration = 100 }) {
   //   const o = node.clientWidth
@@ -19,7 +20,7 @@
   // const name = names[from] || from
 </script>
 
-<div class="message">
+<div class:message={true} class:flip>
   <Avatar charId={from} />
   <!-- <div class="name">{name}</div> -->
   <div class="quoteContainer">
@@ -31,35 +32,22 @@
 </div>
 
 <style lang="sass">
-:global(img)
-    margin-top: calc(4px - 0.125rem)
-    width: 50px
-    height: 50px
-    border-radius: 50%
-    margin-right: 15px
-  
 .message
   display: flex
-
-
-
-  // .username
-  //   font-size: 1rem
-  //   font-weight: 500
-  //   color: #fff
-  //   margin-bottom: 3px
-
-  // .quote
-  //   font-size: 1.1rem
-  //   line-height: 1.4rem
-  //   color: var(--text-normal)
-  //   font-weight: 400
-  //   color: #dcddde
 
   .quoteContainer
     max-width: 80%
     text-align: center
     
+
+.message:not(.flip)
+  :global(img)
+      margin-top: calc(4px - 0.125rem)
+      width: 50px
+      height: 50px
+      border-radius: 50%
+      margin-right: 15px
+
   .quote
     position: relative
     background-color: #fff
@@ -86,8 +74,40 @@
     position: absolute
     top: 0
 
+.message.flip
+  flex-direction: row-reverse
 
+  :global(img)
+    margin-top: calc(4px - 0.125rem)
+    width: 50px
+    height: 50px
+    border-radius: 50%
+    margin-left: 15px
 
-  // .translation :global(strong)
-  //   color: #86abff
+  .quote
+    position: relative
+    background-color: #fff
+    border: 2px solid #dedede
+    border-radius: 14px
+    border-top-right-radius: 0
+    padding: 10px 12px
+    font-size: 16.5px
+
+  .quote::before
+    border-bottom: 12px solid transparent
+    border-left: 12px solid #dedede
+    border-top-right-radius: 50%
+    content: ""
+    right: -14px
+    position: absolute
+    top: -2px
+
+  .quote::after
+    border-bottom: 12px solid transparent
+    border-left: 12px solid #fff
+    content: ""
+    right: -9px
+    position: absolute
+    top: 0
+
 </style>

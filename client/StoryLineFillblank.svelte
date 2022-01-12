@@ -8,6 +8,7 @@
   import sprachy from "./sprachy"
 
   export let line: FillblankLine
+  export let flip: boolean = false
   export let complete: boolean = false
   let prevLine = line
   let attemptInput!: HTMLInputElement
@@ -67,7 +68,7 @@
   }
 </script>
 
-<Message from={line.from}>
+<Message from={line.from} {flip}>
   <form on:submit|preventDefault={checkAnswer}>
     <span>{parts.before}</span>
     <!-- svelte-ignore a11y-autofocus -->

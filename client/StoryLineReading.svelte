@@ -4,9 +4,10 @@
   import type { Line } from "../common/Pattern"
 
   export let line: Line
+  export let flip: boolean = false
 </script>
 
-<Message from={line.from}>
+<Message from={line.from} {flip}>
   {line.message}
   <div slot="after">
     <div class="translation">

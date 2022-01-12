@@ -1,7 +1,7 @@
 <script lang="ts">
   import _ from "lodash"
   import { createEventDispatcher, onDestroy, onMount } from "svelte"
-  import type { Story } from "../common/Pattern"
+  import type { Line, Story } from "../common/Pattern"
   import StoryLineReading from "./StoryLineReading.svelte"
   import StoryLineFillblank from "./StoryLineFillblank.svelte"
   import { fly } from "svelte/transition"
@@ -19,6 +19,22 @@
   let fillblank: StoryLineFillblank | null = null
 
   $: doingExercise = !finished && currentLine.type === "fillblank"
+
+  // We want to flip the line orientation each time the
+  // speaker changes
+  $: lineFlips = ((lines: Line[]) => {
+    let flip = false
+    let prevFrom = lines[0]?.from
+    const flips: boolean[] = []
+    for (const line of lines) {
+      if (line.from !== prevFrom) {
+        flip = !flip
+        prevFrom = line.from
+      }
+      flips.push(flip)
+    }
+    return flips
+  })(lines)
 
   const dispatch = createEventDispatcher()
 
@@ -59,13 +75,14 @@
 
 <div class="Story">
   <div class="lines">
-    {#each lines as line}
+    {#each lines as line, i}
       <div class="line" in:fly={{ y: 20 }}>
         {#if line.type === "reading"}
-          <StoryLineReading {line} />
+          <StoryLineReading {line} flip={lineFlips[i]} />
         {:else}
           <StoryLineFillblank
             {line}
+            flip={lineFlips[i]}
             on:correct={nextLine}
             bind:this={fillblank}
             complete={finished || line !== currentLine}
