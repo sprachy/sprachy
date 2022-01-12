@@ -22,7 +22,6 @@
   })(slug)
 
   $: storyLevel = level || pattern.progress.srsLevel + 1
-
   $: story = pattern.stories[storyLevel - 1]
 
   function leavingWarning(e: any) {
@@ -80,7 +79,7 @@
 <style lang="sass">
 .story-holder
   padding-top: 30vh
-  padding-bottom: 50vh
+  padding-bottom: calc(50vh - 5rem - 80px)
 
 .story-header
   margin-bottom: 2rem

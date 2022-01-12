@@ -55,8 +55,8 @@
 
   $: if (lineRef) {
     window.scrollTo({
-      top: lineRef.offsetTop + lineRef.offsetHeight / 2 - window.innerHeight / 2,
-      behavior: lineIndex === 0 ? undefined : "smooth",
+      top: document.body.scrollHeight,
+      behavior: "smooth",
     })
   }
 
@@ -82,7 +82,7 @@
 <div class="Story">
   <div class="lines">
     {#each lines as line, i}
-      <div class="line" in:fly={{ y: 20 }} bind:this={lineRef}>
+      <div class="line" in:fly={{ y: 20, duration: 500 }} bind:this={lineRef}>
         {#if line.type === "reading"}
           <StoryLineReading {line} flip={lineFlips[i]} />
         {:else}
