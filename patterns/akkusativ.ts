@@ -75,10 +75,33 @@ accusative!
     {
       lines: [
         {
-          from: "squirrel",
-          message: "",
-          translation: ""
+          from: "scientist",
+          message: "Unterdrücken wir [die] Gravitationswellendaten.",
+          translation: "Let's suppress [the] gravitational wave data.",
+          hint: "[feminine]"
         },
+        {
+          from: "fox",
+          message: "Sie wollen, dass ich Daten von [den] Servern von LIGO lösche?",
+          translation: "You want me to delete stuff [from] LIGO's servers?"
+        },
+        {
+          from: "fox",
+          message: "Das könnte eine Reihe von Wissenschaftlern WIRKLICH verwirren.",
+          translation: "That could REALLY confuse a bunch of scientists."
+        },
+        {
+          from: "scientist",
+          message: "Ja, aber diese Signale... es ist, als wäre [die] Erde gerade von einem Neutronenstern getroffen worden.",
+          translation: "Yeah, but these signals... it's like [the] Earth was just hit by a neutron star.",
+          hint: "[feminine]"
+        },
+        {
+          from: "scientist",
+          message: "Wir müssen zuerst [den] Ursprung finden.",
+          translation: "We have to find [the] origin first.",
+          hint: "[masculine]"
+        }
       ]
     }
   ]

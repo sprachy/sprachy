@@ -94,18 +94,6 @@ A student at a German university, studying science and philosophy. He likes tea 
     `,
   },
 
-  /**
-   * I think Lindenbaum is working on something metaphysically revolutionary in the sense
-   * that it will fundamentally change many people's lives forever. She believes this to
-   * be a positive change, and is not wrong, though she may come into conflict with others
-   * over the lengths she is willing to go to achieve her goals and the risks she is willing
-   * to take.
-   * 
-   * A possibility is that she's working on creating a new life-friendly computational
-   * universe in the style of Permutation City, together with a team from other "desert" universes
-   * similar to Earth's which consist mostly of vacuum. Unlike the "jungle" universes, Lindenbaum's
-   * would be structured from the outset to be especially friendly to cooperative, intelligent life.
-   */
   {
     id: "scientist",
     name: "Lindenbaum",
@@ -115,11 +103,11 @@ A highly energetic high-energy physicist. She works singlemindedly towards a cer
     `,
   },
   {
-    id: "deer",
-    name: "???",
-    fullname: "???",
+    id: "fox",
+    name: "Schlaufuchs",
+    fullname: "Schlaufuchs",
     profile: md`
-TODO
+An advanced artificial intelligence created by Lindenbaum. This young and mischevous entity represents himself with a fox avatar.
     `,
   },
   {
@@ -200,7 +188,6 @@ A volunteer at the local dragon reserve. She is patient and fond of nature.
 A young dragon who lives on the dragon reserve. He recently developed an interest in human languages and culture.
     `,
   },
-
   {
     id: "anna",
     name: "Anna",

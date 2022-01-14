@@ -14,6 +14,7 @@
   import dog from "./img/dog.png"
   import leonie from "./img/leonie.png"
   import nils from "./img/nils.png"
+  import fox from "./img/fox.png"
   import { sprachdex } from "../common/sprachdex"
   import Sprachdown from "./Sprachdown.svelte"
   import { onDestroy, onMount } from "svelte"
@@ -34,6 +35,7 @@
     dog,
     leonie,
     nils,
+    fox,
   }[charId]
 
   $: character = sprachdex.getCharacter(charId)
