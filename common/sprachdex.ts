@@ -13,9 +13,25 @@ import patternDefs from "../patterns"
 class Sprachdex {
   allPatterns = patternDefs.map((p) => parsePattern(p))
 
+  /** Words used in any story */
+  knownGermanWords: { [key: string]: true } = {}
+
+  constructor() {
+    for (const pattern of this.allPatterns) {
+      for (const story of pattern.stories) {
+        for (const line of story.lines) {
+          for (const word of line.message.split(/\s+/)) {
+            this.knownGermanWords[word.toLowerCase()] = true
+          }
+        }
+      }
+    }
+  }
+
   getCharacter(characterId: string): Character {
     return characters.find((c) => c.id === characterId) || characters[0]!
   }
+
 }
 
 export const sprachdex = new Sprachdex()

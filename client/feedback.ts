@@ -1,4 +1,5 @@
 import type { FillblankLine } from "../common/Pattern"
+import { sprachdex } from "../common/sprachdex"
 import { levenshtein } from "./levenshtein"
 
 /**
@@ -49,8 +50,13 @@ export function matchAnswer(attempt: string, line: FillblankLine): { validAnswer
     return { feedback }
   }
 
+  // Is the answer another actual German word? If so, it's probably
+  // not a typo, but actually a wrong answer.
+  if (sprachdex.knownGermanWords[attempt]) {
+    return {}
+  }
 
-  // If not, try to match accounting for typos
+  // Otherwise, try to match accounting for typos
   for (const ans of line.validAnswers) {
     const tolerance = distanceTolerance(ans)
     if (levenshtein(attempt, ans.toLowerCase()) <= tolerance) {

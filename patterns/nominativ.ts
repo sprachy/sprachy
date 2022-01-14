@@ -20,7 +20,7 @@ Here we can see the entire sentence using the _nominative_ case which will be us
 It's useful to visualize the sentences in their respective components, in the case of _Das Eichhörnchen ist süß_, the basic component structure would be _[article] [subject] [verb] [adjective]_. The nominative in this case affects both the article and the verb which are associated to the noun.
 
 <DialogueExample>
-scientist:
+lindenbaum:
   Wer ist Töski?
 lukas:
   Das Eichhörnchen.

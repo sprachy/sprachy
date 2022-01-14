@@ -93,9 +93,8 @@ An extradimensional squirrel-like lifeform with vast psionic power. Tösky is cu
 A student at a German university, studying science and philosophy. He likes tea and fluffy things. Totally down to hang out with an alien squirrel.
     `,
   },
-
   {
-    id: "scientist",
+    id: "lindenbaum",
     name: "Lindenbaum",
     fullname: "Fräulein Lindenbaum",
     profile: md`

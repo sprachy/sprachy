@@ -126,19 +126,19 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
     {
       lines: [
         {
-          from: "scientist",
+          from: "lindenbaum",
           message: "[Die] Physik funktioniert, weil die Realität über die Zeit hinweg konsistent ist.",
           translation: "Physics works because reality is consistent through time.",
           hint: "[feminine]",
         },
         {
-          from: "scientist",
+          from: "lindenbaum",
           message: "Wir können [die] Zukunft vorhersagen, weil sie sich wie die Vergangenheit verhält.",
           translation: "We can predict [the] future because it behaves like the past.",
           hint: "[feminine]",
         },
         {
-          from: "scientist",
+          from: "lindenbaum",
           message: "Aber was passiert, wenn [die] Grundkonstanten nicht wirklich konstant sind? Meine Arbeit geht dieser Frage nach.",
           translation: "But what happens if [the] fundamental constants are not truly constant? My work explores this.",
           hint: "[feminine]",
@@ -150,7 +150,7 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
           hint: "[masculine]"
         },
         {
-          from: "scientist",
+          from: "lindenbaum",
           message: "Weil [die] Forschung verdammt cool ist!",
           translation: "Because [the] research is hecking cool!",
           hint: "[feminine]",

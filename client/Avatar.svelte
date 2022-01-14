@@ -3,7 +3,7 @@
   import lukas from "./img/lukas.png"
   import anna from "./img/anna.png"
   import squirrel from "./img/squirrel.png"
-  import scientist from "./img/scientist.png"
+  import lindenbaum from "./img/scientist.png"
   import deer from "./img/deer.png"
   import cashier from "./img/cashier.png"
   import mirror from "./img/mirror.png"
@@ -24,7 +24,7 @@
     lukas,
     anna,
     squirrel,
-    scientist,
+    lindenbaum,
     deer,
     cashier,
     mirror,

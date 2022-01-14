@@ -70,4 +70,7 @@
 .envbadge.dev
   color: green
   font-size: 1rem
+
+.navbar-collapse
+  flex-grow: 0
 </style>
