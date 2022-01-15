@@ -19,9 +19,9 @@
   {#if noContainer}
     <slot />
   {:else}
-    <div class="container" id="main">
+    <main class="container">
       <slot />
-    </div>
+    </main>
   {/if}
 </div>
 
@@ -35,6 +35,6 @@
     z-index: 1
     width: 100%
 
-#main
+main
   padding-top: 1.5rem
 </style>

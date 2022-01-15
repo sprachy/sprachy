@@ -1,0 +1,85 @@
+<script lang="ts">
+  import { FontAwesomeIcon } from "fontawesome-svelte"
+  import { Link } from "svelte-navigator"
+
+  import Sprachdown from "./Sprachdown.svelte"
+  import sprachy from "./sprachy"
+  import Timeago from "./Timeago.svelte"
+  import type { PatternAndProgress } from "./UserApp"
+
+  export let pattern: PatternAndProgress
+  $: patternReady =
+    pattern.progress.srsLevel > 0 || pattern.id === sprachy.app.nextPatternToLearn?.id
+</script>
+
+<li class:pattern={true} class:ready={patternReady}>
+  <Link to="/pattern/{pattern.slug}">
+    <div class="icon" style="background-color: #1ba156">
+      <FontAwesomeIcon icon={pattern.icon} />
+    </div>
+    <div>
+      <h6 style="color: #1ba156">
+        {pattern.title}
+        {#each { length: pattern.progress.srsLevel } as _}
+          <span>⭐</span>
+        {/each}
+      </h6>
+      <div class="shortdesc">
+        <Sprachdown inline source={pattern.shortdesc} />
+      </div>
+      {#if pattern.progress.srsLevel > 0}
+        <div class="timetolevel">
+          {#if !pattern.progress.levelableAt}
+            Mastered!
+          {:else}
+            Can be leveled <Timeago ts={pattern.progress.levelableAt} />
+          {/if}
+        </div>
+      {/if}
+    </div>
+  </Link>
+</li>
+
+<style lang="sass">
+li.pattern:not(:first-child)
+  margin-top: 1rem
+
+li.pattern:not(.ready)
+  filter: grayscale(100%)
+
+li.pattern
+  display: flex
+  list-style-type: none
+
+  > :global(a)
+    display: flex
+    align-items: center
+    padding: 1rem
+    padding-left: 0
+    color: inherit
+    text-decoration: none
+
+  > :global(a):hover
+    text-decoration: underline
+
+  .icon
+    padding: 0.75rem
+    margin-right: 1rem
+
+  .icon :global(svg)
+    color: white
+    width: 32px
+    height: 32px
+
+  h6
+    font-size: 1.1rem
+    margin-bottom: 0.1rem
+
+  .shortdesc
+    margin-bottom: 0.1rem
+
+  .timetolevel
+    font-style: italic
+    color: #666
+    font-size: 0.9rem
+</style>
