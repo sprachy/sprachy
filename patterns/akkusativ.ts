@@ -70,6 +70,22 @@ accusative!
           message: "*wuff!*",
           translation: "*woof!*",
         },
+        {
+          from: "squirrel",
+          message: "Wart ab! Dein hinterlistiges Manöver hat [keinen] Nutzen für dich!",
+          translation: "Wait and see! Your deceitful maneuver is of no use to you!",
+          hint: "[kein- masculine]",
+        },
+        {
+          from: "dog",
+          message: "*wuff!!*",
+          translation: "*woof!!*",
+        },
+        {
+          from: "lukas",
+          message: "Bitte lass [den] Hund in Ruhe, du machst in unruhig!",
+          translation: "Please leave [the] dog alone, you make him anxious!",
+        },
       ]
     },
     {
@@ -83,7 +99,8 @@ accusative!
         {
           from: "fox",
           message: "Sie wollen, dass ich Daten von [den] Servern von LIGO lösche?",
-          translation: "You want me to delete stuff [from] LIGO's servers?"
+          translation: "You want me to delete stuff [from] LIGO's servers?",
+          hint: "[masculine]"
         },
         {
           from: "fox",
@@ -101,7 +118,31 @@ accusative!
           message: "Wir müssen zuerst [den] Ursprung finden.",
           translation: "We have to find [the] origin first.",
           hint: "[masculine]"
-        }
+        },
+        {
+          from: "fox",
+          message: "Ich habe [einen] Anruf von dem Präsidenten des Komitees für Astrophysischen Ereignisse.",
+          translation: "I have [a] call from the president of the Astrophysical Events Committee.",
+          hint: "[masculine]"
+        },
+        {
+          from: "lindenbaum",
+          message: "Merkwürdig, meine Telefonnummer sollte nicht unter [meinen] öffentlichen Kontaktdaten zu finden sein.",
+          translation: "Strange, my phone number should not be under [my] public contact information.",
+          hint: "[masculine]"
+        },
+        {
+          from: "lindenbaum",
+          message: "[Ihn] sollte mal jemand beobachten.",
+          translation: "Someone should be watching [him].",
+          hint: "[masculine]"
+        },
+        {
+          from: "lindenbaum",
+          message: "Ich habe [eine] neue Aufgabe für dich.",
+          translation: "I have [a] new task for you.",
+          hint: "[feminine]"
+        },
       ]
     }
   ]
