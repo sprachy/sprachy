@@ -46,8 +46,7 @@
   $: translation = ((line: FillblankLine) => {
     return line.translation.replace(/\[.+?\]/, (substring) => {
       const highlight = substring.slice(1, -1)
-      return highlight
-      // return `<strong>${highlight}</strong>`
+      return `<strong>${highlight}</strong>`
     })
   })(line)
 
