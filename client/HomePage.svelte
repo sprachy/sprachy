@@ -7,7 +7,6 @@
 
   let patterns = sprachy.app.patternsAndProgress
 
-  $: introPattern = patterns.find((p) => p.id === "intro")!
   $: chapter1Patterns = patterns.filter((p) => p.id !== "intro")
 
   async function debugResetProgress() {
