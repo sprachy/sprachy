@@ -1,3 +1,4 @@
+import intro from './intro'
 import derdiedas from './der-die-das'
 import eineine from './ein-eine'
 import nominativ from './nominativ'
@@ -8,4 +9,4 @@ import derlernerdielernerin from './der-lerner-die-lernerin'
 import duodersie from './du-oder-sie'
 import besser from './besser'
 import besten from './besten'
-export default [derdiedas, eineine, nominativ, daschen, akkusativ, derlernerdielernerin, duodersie, besser, besten, dativ]
+export default [intro, derdiedas, eineine, nominativ, daschen, akkusativ, derlernerdielernerin, duodersie, besser, besten, dativ]

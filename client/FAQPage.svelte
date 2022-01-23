@@ -7,6 +7,16 @@
   const faq = md`
 # Frequently asked questions
 
+### How do SRS levels work?
+
+Sprachy uses a slightly modified version of the traditional spaced repetition model.
+The main difference is that levels do not decrease when you make a mistake; instead,
+you can only increase in level after a certain amount of time has passed since the
+previous one. You can retry for a level increase immediately if you make a mistake.
+
+We may later add higher levels with more challenging exercises, which require
+consitent accuracy or speed to pass.
+
 ### What's the pricing model?
 
 Sprachy is free to use while it is in early development. After we add sufficient
@@ -21,14 +31,6 @@ or anything.
 
 We're not interested in ad funding and won't add those, unless it's something actually
 useful like job ads for work in Germany or such.
-
-### How do SRS levels work?
-
-Sprachy uses a slightly modified version of the traditional spaced repetition model.
-The main difference is that levels do not decrease when you make a mistake; instead,
-you can only increase in level after a certain amount of time has passed since the
-previous one. You can retry for a level increase immediately if you make a mistake,
-except for the final level, which can only be retried every so often.
 
 ### Is there an Android or iOS app?
 

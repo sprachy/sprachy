@@ -7,6 +7,9 @@
 
   let patterns = sprachy.app.patternsAndProgress
 
+  $: introPattern = patterns.find((p) => p.id === "intro")!
+  $: chapter1Patterns = patterns.filter((p) => p.id !== "intro")
+
   async function debugResetProgress() {
     const summary = await sprachy.api.http.post(`/api/debug/reset-progress`)
     sprachy.app.receiveProgress(summary)
@@ -21,42 +24,51 @@
 </script>
 
 <SiteLayout>
-  <section class="chapter">
-    <header>
-      <h2>Chapter 1</h2>
-      <p>Cases and noun genders</p>
-      <p>Ein mysteriöses Eichhörnchen taucht auf</p>
-    </header>
+  <div class="home">
+    <!-- <section class="chapter">
+      <header>
+        <h2>Introduction</h2>
+      </header>
+      <PatternItem pattern={introPattern} />
+    </section> -->
+    <section class="chapter">
+      <!-- <header>
+        <h2>Chapter 1</h2>
+        <p>Cases and noun genders</p>
+        <p>Ein mysteriöses Eichhörnchen taucht auf</p>
+      </header> -->
 
-    <ul>
-      {#each patterns as pattern (pattern.id)}
-        <PatternItem {pattern} />
-      {/each}
-    </ul>
-  </section>
-  <hr />
-  <p><em>More patterns coming soon!</em></p>
-  {#if !IS_PRODUCTION}
-    <div class="debug">
-      <button class="btn btn-outline-warning" on:click={debugResetProgress}
-        >Debug: Reset Progress</button
-      >
-      <button class="btn btn-outline-warning" on:click={debugSkipTime}>Debug: Skip Time</button>
-    </div>
-  {/if}
+      <ul>
+        {#each chapter1Patterns as pattern (pattern.id)}
+          <PatternItem {pattern} />
+        {/each}
+      </ul>
+    </section>
+    <section class="chapter">
+      <p><em>More patterns coming soon!</em></p>
+    </section>
+    {#if !IS_PRODUCTION}
+      <div class="debug">
+        <button class="btn btn-outline-warning" on:click={debugResetProgress}
+          >Debug: Reset Progress</button
+        >
+        <button class="btn btn-outline-warning" on:click={debugSkipTime}>Debug: Skip Time</button>
+      </div>
+    {/if}
+  </div>
 </SiteLayout>
 
 <style lang="sass">
 .chapter
+  // header
+  //   text-align: center
+
+  ul
+    padding: 0
+
+.chapter:not(:first-child)
   margin-top: 1rem
   border-top: 1px solid #ccc
   padding-top: 1rem
 
-  header
-    text-align: center
-
-  ul
-    padding: 0
-    width: fit-content
-    margin: auto
 </style>

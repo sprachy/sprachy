@@ -58,6 +58,7 @@ li.pattern
     padding-left: 0
     color: inherit
     text-decoration: none
+    flex-grow: 1
 
   > :global(a):hover
     text-decoration: underline

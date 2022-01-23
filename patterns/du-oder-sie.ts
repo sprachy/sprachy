@@ -71,19 +71,6 @@ Note that all three forms of sie/Sie change to ihr/Ihr for the possessive!
           hint: "[formal]",
         },
       ],
-    },
-    {
-      lines: [
-        {
-          from: "cashier",
-          message: "Möchten [Sie] noch etwas anderes?",
-          translation: "Would [you] like anything else?",
-          hint: "[formal]",
-          feedback: {
-            "du": "_du_ is the the informal form. You want the formal one."
-          }
-        },
-      ],
     }
   ]
 })

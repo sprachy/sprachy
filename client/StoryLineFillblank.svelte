@@ -95,6 +95,11 @@
         <Sprachdown inline source={feedback} />
       </div>
     {/if}
+    {#if line.explanation}
+      <div class="explanation">
+        <Sprachdown inline source={line.explanation} />
+      </div>
+    {/if}
   </div>
 </Message>
 
@@ -106,6 +111,12 @@
   padding-top: 0.4rem
   font-size: 90%
   color: #444
+
+.explanation
+  padding-top: 0.8rem
+  color: #444
+  font-size: 90%
+  color: #0b9bc7
 
 input.fillblank
   color: #64b5f6

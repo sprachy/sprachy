@@ -20,6 +20,7 @@ export type LineDef = {
   from: string
   message: string
   translation: string
+  explanation?: string
   hint?: string
   feedback?: { [key: string]: string }
 }
@@ -29,6 +30,7 @@ export type ReadingLine = {
   from: string
   message: string
   translation: string
+  explanation?: string
 }
 
 export type FillblankLine = {
@@ -38,6 +40,7 @@ export type FillblankLine = {
   translation: string
   canonicalAnswer: string
   validAnswers: string[]
+  explanation?: string
   hint?: string
   feedback?: { [key: string]: string }
 }

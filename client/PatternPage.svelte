@@ -45,6 +45,7 @@
 <style lang="sass">
 .pattern
   max-width: 800px
+  margin: auto
   font-size: 17px
   line-height: 28px
 

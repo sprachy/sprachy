@@ -7,6 +7,7 @@
   import Timeago from "./Timeago.svelte"
   import type { PatternAndProgress } from "./UserApp"
   import { onDestroy, onMount } from "svelte"
+  import { navigate } from "svelte-navigator"
 
   export let slug: string | undefined
   export let level: number | undefined = undefined
@@ -43,12 +44,18 @@
 
   async function onCompleteStory() {
     window.removeEventListener("beforeunload", leavingWarning)
-    const progressItem = await sprachy.api.completeLevel(pattern!.id, storyLevel)
-    if (progressItem) {
-      sprachy.app.receiveProgressItem(progressItem)
+
+    if (storyLevel <= pattern.progress.srsLevel) {
+      // User was practicing something they already did, just go back to the pattern page
+      navigate(`/pattern/${pattern.slug}`)
+    } else {
+      const progressItem = await sprachy.api.completeLevel(pattern!.id, storyLevel)
+      if (progressItem) {
+        sprachy.app.receiveProgressItem(progressItem)
+      }
+      pattern = sprachy.app.patternsAndProgress.find((p) => p.slug === slug)!
+      complete = true
     }
-    pattern = sprachy.app.patternsAndProgress.find((p) => p.slug === slug)!
-    complete = true
   }
 </script>
 
@@ -65,11 +72,13 @@
       </header>
       <Story {story} on:complete={onCompleteStory} />
     {:else if pattern.progress.levelableAt}
-      <p>
-        Nice work! Level {storyLevel + 1} will become available in <Timeago
-          ts={pattern.progress.levelableAt}
-        />.
-      </p>
+      {#if pattern.progress.readyToLevel}
+        <p>
+          Nice work! Level {storyLevel + 1} will become available in <Timeago
+            ts={pattern.progress.levelableAt}
+          />.
+        </p>
+      {/if}
     {:else}
       <p>Nice work! You've completed all available levels of {pattern.title}!</p>
     {/if}
