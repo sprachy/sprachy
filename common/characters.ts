@@ -194,6 +194,22 @@ A young dragon who lives on the dragon reserve. He recently developed an interes
     profile: md`
 An outgoing young professional, and Lukas' older sister. She likes to tease him.
     `,
+  },
+  {
+    id: "harald",
+    name: "Harald",
+    fullname: "Harald Federstrauß",
+    profile: md`
+An old man who has recently discovered his hobby in writing, though he might be a bit too overconfident.
+    `,
+  },
+  {
+    id: "klaus",
+    name: "Klaus",
+    fullname: "Klaus Maus",
+    profile: md`
+It's Harald's little rat companion, though Harald refuses to acknowledge that and considers him a mouse just so he can keep up with the rhyming name.
+    `,
   }
 ]
 

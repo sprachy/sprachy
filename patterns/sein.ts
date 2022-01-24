@@ -41,12 +41,81 @@ squirrel:
   Die Mandel ist lecker. **Sie ist** eine köstliche Mandel.
   The almond is tasty. **It is** a delicious almond.
 fox:
-  Das Meme ist alt. **Es ist** ein uraltes Mem.
+  Das Meme ist alt. **Es ist** ein uraltes Meme.
   The meme is old. **It is** an ancient meme.
 </DialogueExample>
 
 Note that _Sie sind_ (with the capital S) is special in that it can be both singular or plural (like English _they are_), and is the polite form used especially when talking with strangers. We'll learn more about it later in patterns on formal/informal language!
   `,
   stories: [
+    // LEVEL 1
+    {
+      lines: [
+        {
+          from: "harald",
+          message: "[Sein] oder Nichtsein?",
+          translation: "To be or not to be?",
+          hint: "[infinitive]",
+        },
+        {
+          from: "harald",
+          message: "Die Entscheidung [ist] mein!",
+          translation: "The decision [is] mine!",
+          hint: "[3rd person singular]",
+        },
+        {
+          from: "harald",
+          message: "Denn ich [bin] der größte Ritter.",
+          translation: "For I [am] the greatest knight.",
+          hint: "[1st person singular]",
+        },
+        {
+          from: "harald",
+          message: "Doch [Ihr] seid die kleinste Leiter.",
+          translation: "But [you] are the smallest ladder.",
+          hint: "[2nd person plural]",
+        },
+        {
+          from: "harald",
+          message: "Denn sie [ist] die Leiter zum Erfolg.",
+          translation: "For it [is] the ladder to success.",
+          hint: "[3rd person singular]",
+        },
+        {
+          from: "harald",
+          message: "So [bin] ich der größte Poet aller Zeiten.",
+          translation: "Thus I [am] the greatest poet of all time.",
+          hint: "[1st person singular]",
+        },
+        {
+          from: "klaus",
+          message: "miep.",
+          translation: "meep.",
+        },
+        {
+          from: "harald",
+          message: "Und du [bist] das kleinste Mäuschen.",
+          translation: "And you are the smallest mouse.",
+          hint: "[2st person singular]",
+        },
+        {
+          from: "harald",
+          message: "Und zusammen [sind] wir das perfekte Duo!",
+          translation: "And together we [are] the perfect duo!",
+          hint: "[1st person plural]",
+        },
+        {
+          from: "klaus",
+          message: "miep miep!",
+          translation: "meep meep!.",
+        },
+        {
+          from: "harald",
+          message: "Ach du [bist] hungrig?",
+          translation: "Oh you [are] hungry?",
+          hint: "[2nd person singular]",
+        },
+      ]
+    },
   ],
 })
