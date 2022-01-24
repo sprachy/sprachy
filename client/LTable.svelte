@@ -5,10 +5,10 @@
   export let header: string | null = null
   export let text: string
   export let translate: boolean = false
+  export let inlines: boolean = false
 
-  if (translate !== false) {
-    translate = true
-  }
+  translate = translate === false ? false : true
+  inlines = inlines === false ? false : true
 
   const headerRow = header?.split(" / ")
   const lines = text.trim().split("\n")
@@ -34,7 +34,7 @@
           <td>
             {#if d !== "_"}
               {#if translate}
-                <LTableTranslation original={d} />
+                <LTableTranslation original={d} inline={inlines} />
               {:else}
                 <Sprachdown source={d} />
               {/if}

@@ -1,18 +1,29 @@
 <script lang="ts">
   import { translations } from "../common/translations"
   export let original: string
+  export let inline: boolean = false
 
-  const translation = translations[original]
+  const m = original.match(/^(.+?) \((.+?)\)$/)
+  const deutsch = m ? m[1] : original
+  const translation = m ? m[2] : translations[original]
 </script>
 
-<div class="cell">
-  <div class="original">{original}</div>
-  {#if translation}
+<div class:cell={true} class:inline>
+  {#if inline}
+    <span class="original">{deutsch}</span>
+    <span class="translation">({translation})</span>
+  {:else}
+    <div class="original">{deutsch}</div>
     <div class="translation">{translation}</div>
   {/if}
 </div>
 
 <style lang="sass">
+.cell.inline
+  .original
+    font-style: italic
+
+.cell:not(.inline)
   .original
     font-size: 105%
 

@@ -21,7 +21,7 @@ These are all in what's called the _nominative case_, the case where we're talki
 
 The gender of a particular noun usually has nothing to do with what that word describes. It's not that trees are particularly manly, or that ominous voids are particularly girly. That's simply the _grammatical_ gender those nouns happen to have, by consensus of German speakers.
 
-Generally, you want to learn the gender together with the word. Rather than remembering that _Baum_ means tree, remember _der Baum_. However, the genders are not totally _random_ either. We'll learn some patterns later we can use to predict noun gender for certain groups of words.
+Generally, you want to learn the gender together with the word. Rather than remembering that _Baum_ means tree, try to remember _der Baum_! However, the genders are not totally _random_ either. We'll learn some patterns later we can use to predict noun gender for certain groups of words.
 
 Roughly speaking, around 40% of nouns are masculine, 40% are feminine, and 20% are neuter. A very small number of words have more than one gender. They're fancy and rare like shiny Pokémon!
 
