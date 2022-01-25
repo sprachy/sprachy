@@ -8,13 +8,16 @@ export default definePattern({
   shortdesc: "When something is _kinda_ affected by a verb",
   icon: faHandHoldingHeart,
   explanation: md`
-The dative noun case is used when referring to the _indirect object_ of a sentence. What's an indirect object? Something that is affected by a verb, but is not the direct object. Like the recipient of a gift:
+The dative noun case is used when referring to the _indirect object_ of a sentence. What's an indirect object? 
+Something that is affected by a verb, but is not the direct object. Like the recipient of a gift:
 
 <TextHighlighter parts="actor, indirectobject, directobject">
 [The boy] gives [the squirrel] [the almond].
 </TextHighlighter>
 
-In English, we know whether an object is direct or indirect by the order of the words. "the boy gives the almond the squirrel" would have a totally different meaning! In German, the word order is much more flexible, because you can tell the indirect object from the use of the dative case instead. These two sentences have the same meaning:
+In English, we know whether an object is direct or indirect by the order of the words. "the boy gives the almond 
+the squirrel" would have a totally different meaning! In German, the word order is much more flexible, because
+you can tell the indirect object from the use of the dative case instead. These two sentences have the same meaning:
 
 <TextHighlighter parts="actor, indirectobject, directobject">
 [Der Junge] gibt [dem Eichhörnchen] [die Mandel].
@@ -24,7 +27,9 @@ In English, we know whether an object is direct or indirect by the order of the 
 [Der Junge] gibt [die Mandel] [dem Eichhörnchen].
 </TextHighlighter>
 
-When referring to the indirect object, masculine and neuter nouns use the dative case _dem_. This word _dem_ is unique to the dative case, so it's great for quickly interpreting a sentence. Meanwhile, feminine nouns change from the nominative _die_ to dative _der_.
+When referring to the indirect object, masculine and neuter nouns use the dative case _dem_. This word _dem_ is 
+unique to the dative case, so it's great for quickly interpreting a sentence. Meanwhile, feminine nouns change 
+from the nominative _die_ to dative _der_.
 
 <LTable>
 _ / Masculine / Feminine / Neuter
@@ -32,7 +37,8 @@ Nominative / der / die / das
 Dative / **dem** / **der** / **dem**
 </LTable>
 
-The nominative plural _die_ become _den_ in dative, and also has the quirk that it adds an **-n** to the end of the noun, if it doesn't already have one.
+The nominative plural _die_ becomes _den_ in dative, and also has the quirk that it adds an **-n** to the end of 
+the noun, if it doesn't already have one.
 
 <DialogueExample>
 squirrel:
@@ -41,9 +47,11 @@ Let us seek more almonds among the trees.
 </DialogueExample>
 
 
-
 <Tip title="Der Frau">
-Be careful not to confuse the feminine dative _der_ with the masculine nominative _der_, or the plural dative _den_ with the masculine accusative _den_. While spelled the same, they are effectively different words.<br><br> If you know the gender/plurality of the noun you can reliably distinguish them; otherwise, you'll have to rely on contextual clues to the dativeness, e.g. the use of a transitive verb like _geben_.
+Be careful not to confuse the feminine dative _der_ with the masculine nominative _der_, or the plural dative _den_ with 
+the masculine accusative _den_. While spelled the same, they are effectively different words.<br><br> If you know the 
+gender/plurality of the noun you can reliably distinguish them; otherwise, you'll have to rely on contextual clues to 
+the dativeness, e.g. the use of a transitive verb like _geben_.
 </Tip>
   `,
   stories: [
