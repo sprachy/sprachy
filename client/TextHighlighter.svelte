@@ -7,22 +7,20 @@
   function calculateTextWidth(text: string) {
     const element = document.createElement("canvas")
     const ctx = element.getContext("2d")!
-    ctx.font = `17px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`
+    ctx.font = `16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`
     return ctx.measureText(text).width
   }
 
   type TextFragment =
     | {
         highlight: string
-        minWidth: number
-        textOffset: number
         text: string
+        minWidth?: number
       }
     | {
         highlight?: undefined
-        minWidth?: undefined
-        textOffset?: undefined
         text: string
+        minWidth?: undefined
       }
 
   $: highlights = parts.split(",").map((p) => p.trim())
@@ -34,13 +32,9 @@
       if (bit[0] === "[") {
         const highlight = highlights[highlightIndex]!
         const text = bit.slice(1, -1)
-        const textWidth = calculateTextWidth(text)
-        const highlightWidth = calculateTextWidth(highlight)
-        const minWidth = Math.max(textWidth, highlightWidth)
         fragments.push({
           highlight: highlight,
-          textOffset: Math.max(0, highlightWidth - textWidth) / 2,
-          minWidth: minWidth,
+          minWidth: highlight.length > text.length ? calculateTextWidth(highlight) : undefined,
           text: text,
         })
         highlightIndex += 1
@@ -57,8 +51,11 @@
 <div class="TextHighlighter">
   {#each fragments as fragment}
     {#if fragment.highlight}
-      <span class={`highlight ${fragment.highlight}`} style={`min-width: ${fragment.minWidth}px`}>
-        <span style={`position: relative; left: ${fragment.textOffset}px`}>{fragment.text}</span>
+      <span
+        class={`highlight ${fragment.highlight}`}
+        style={fragment.minWidth ? `min-width: ${fragment.minWidth}px` : undefined}
+      >
+        {fragment.text}
       </span>
     {:else}
       {fragment.text}
@@ -74,38 +71,35 @@
 
   span.highlight
     display: inline-block
+    font-weight: bold
+    text-align: center
+    margin-left: 0.2rem
+    margin-right: 0.2rem
+
+    &::after
+      font-weight: normal
+      font-size: 16px
+      position: absolute
+      left: 50%
+      transform: translateX(-50%)
+      top: 100%
+      white-space: nowrap
 
   :global(span.actor)
-    color: green
+    color: #a56eff
     position: relative  
     &::after
       content: "actor"
-      position: absolute
-      left: 50%
-      transform: translateX(-50%)
-      top: 100%
-      white-space: nowrap
-
 
   :global(span.indirectobject)
-    color: orange
+    color: #005d5d
     position: relative  
     &::after
       content: "indirect object"
-      position: absolute
-      left: 50%
-      transform: translateX(-50%)
-      top: 100%
-      white-space: nowrap
 
   :global(span.directobject)
-    color: red
+    color: #9f1853
     position: relative  
     &::after
       content: "direct object"
-      position: absolute
-      left: 50%
-      transform: translateX(-50%)
-      top: 100%
-      white-space: nowrap
 </style>

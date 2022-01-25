@@ -27,7 +27,7 @@ squirrel:
 </DialogueExample>
 
 This _only_ happens with masculine nouns. "die" and "das" stay the same
-in accusative mode.
+in accusative mode. That goes for the plural "die", too.
 
 <LTable>
 _ / Masculine / Feminine / Neuter

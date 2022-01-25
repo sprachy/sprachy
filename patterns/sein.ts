@@ -47,7 +47,7 @@ fox:
   **The meme** is old. **It is** an ancient meme.
 </DialogueExample>
 
-Note that _Sie sind_ (with the capital S) is special in that it can be both singular or plural (like English _they are_), 
+Note that _Sie sind_ (with the capital S) is special in that it can be both singular or plural (like English _you are_), 
 and is the polite form used especially when talking with strangers. We'll learn more about it later in patterns on 
 formal/informal language!
   `,
