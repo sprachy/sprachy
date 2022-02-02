@@ -1,4 +1,4 @@
-import { faChartLine } from "@fortawesome/free-solid-svg-icons"
+import { faMedal } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "../common/definePattern"
 
 export default definePattern({
@@ -6,7 +6,7 @@ export default definePattern({
   slug: "besten",
   title: "Das Superlativ",
   shortdesc: "For when you see the fluffiest squirrel ever",
-  icon: faChartLine,
+  icon: faMedal,
   explanation: md`
 If you want to say that something is the best you use the _superlative_ which is the highest level of the comparsion adjectives.
 

@@ -54,5 +54,64 @@ It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ fo
         },
       ]
     },
+    {
+      lines: [
+        {
+          from: "fox",
+          message: "Was ist [besser]? Kaffee oder Tee?",
+          translation: "What's [better]? Coffee or tea?"
+        },
+        {
+          from: "lindenbaum",
+          message: "Besser? Das hängt vom Kontext ab.",
+          translation: "Better? It depends on context."
+        },
+        {
+          from: "lindenbaum",
+          message: "Kaffee schmeckt [bitterer] und enthält mehr Koffein.",
+          translation: "Coffee tastes [bitterer] and has more caffeine.",
+          hint: "[bitter]"
+        },
+        {
+          from: "lindenbaum",
+          message: "Tee schmeckt [milder] und enthält den beruhigenden Stoff, L-Theanin.",
+          translation: "Tea tastes [milder] and contains a calming chemical, L-Theanine.",
+          hint: "[mild]"
+        },
+        {
+          from: "lindenbaum",
+          message: "Ich persönlich mag Kaffee [lieber].",
+          translation: "I personally like coffee more.",
+          hint: "[lieb]"
+        },
+        {
+          from: "fox",
+          message: "Hmm, also ist Kaffee besser.",
+          translation: "Hmm, so coffee is better.",
+        },
+        {
+          from: "lindenbaum",
+          message: "Nur, wenn du persönlich entscheidest, was du mir geben willst.",
+          translation: "Only if you're deciding which to give me, personally."
+        },
+        {
+          from: "fox",
+          message: "Aber Lin ist [wichtiger] als andere Menschen.",
+          translation: "But Lin is [important] than other humans.",
+          hint: "[wichtig]"
+        },
+        {
+          from: "fox",
+          message: "Deine Präferenz hat also ein [höheres] Gewicht im Gesamtumfang.",
+          translation: "So your preference carries [higher] weight in global scope.",
+          hint: "[hohe, neuter]"
+        },
+        {
+          from: "lindenbaum",
+          message: "Aha! Ich registriere das immer noch als Analysefehler, aber es ist ein sehr süßer Fehler.",
+          translation: "Hah! I'm still recording this as an analysis bug, but it's a very sweet one."
+        }
+      ]
+    },
   ],
 })

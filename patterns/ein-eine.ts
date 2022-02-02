@@ -5,7 +5,7 @@ export default definePattern({
   id: "ein-eine",
   slug: "ein-eine",
   title: "Ein und eine",
-  shortdesc: "Like a/an with more gender",
+  shortdesc: "Like a/an but with more gender",
   icon: faListOl,
   explanation: md`
 In English, we choose to use either _a_ or _an_ depending on the following word. Similarly, German switches between _ein_ or _eine_ depending on the grammatical gender of the noun being referred to.
