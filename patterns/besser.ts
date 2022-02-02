@@ -5,7 +5,7 @@ export default definePattern({
   id: "besser",
   slug: "besser",
   title: "Das Komparativ",
-  shortdesc: "The first form of the comparsion of adjectives",
+  shortdesc: "For when you have a way better idea",
   icon: faChartLine,
   explanation: md`
 Just like in English you can use comparsion to express that something is better. For now we're going to focus on the first degree of comparsions which is the _comparative_.

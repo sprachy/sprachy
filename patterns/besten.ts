@@ -5,7 +5,7 @@ export default definePattern({
   id: "besten",
   slug: "besten",
   title: "Das Superlativ",
-  shortdesc: "The second form of the comparsion of adjectives",
+  shortdesc: "For when you see the fluffiest squirrel ever",
   icon: faChartLine,
   explanation: md`
 If you want to say that something is the best you use the _superlative_ which is the highest level of the comparsion adjectives.

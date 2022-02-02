@@ -7,7 +7,7 @@ export default definePattern({
   id: "der-lerner-die-lernerin",
   slug: "der-lerner-die-lernerin",
   title: "Der Lerner, die Lernerin",
-  shortdesc: "Grammatical gender and people",
+  shortdesc: "Apparently humans have genders too",
   icon: faVenusMars,
   explanation: md`
 How does grammatical gender interact with the actual gender of individual ~~humans~~ sapient entities? Often, a noun that refers to a type of person will have both a masculine and a feminine form.

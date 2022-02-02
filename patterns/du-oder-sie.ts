@@ -5,7 +5,7 @@ export default definePattern({
   id: "du-oder-sie",
   slug: "du-oder-sie",
   title: "Du oder Sie",
-  shortdesc: "Casual and formal language",
+  shortdesc: "How to not be an overly familiar rando",
   icon: faUserTie,
   explanation: md`
 German has different ways to say _you_ depending on who you're talking to. In casual conversation, like with friends or family, you can use _du_. When talking to strangers or authority figures, it's common to use _Sie_ instead.
