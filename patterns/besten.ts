@@ -57,5 +57,35 @@ You would commonly see the word _am_ like in the phrase _am besten_ placed infro
         }
       ]
     },
+
+    // LEVEL 2
+    {
+      lines: [
+        {
+          from: "squirrel",
+          message: "Spieglein, Spieglein an der Wand, wer ist der [flauschigste] im ganzen Land?",
+          translation: "Mirror, mirror on the wall, who is the [fluffiest] of them all?",
+          hint: "[flauschig]",
+        },
+        {
+          from: "mirror",
+          message: "Das seid Ihr, mein Meister. Ihr seid das [niedlichste] Eichhörnchen der Welt.",
+          translation: "You are, my master. You are the [cutest] squirrel in the world.",
+          hint: "[niedlich]",
+        },
+        {
+          from: "squirrel",
+          message: "Und du bist mein [gehorsamster] Spiegel.",
+          translation: "And you are my [most obedient] mirror.",
+          hint: "[gehorsam]",
+        },
+        {
+          from: "squirrel",
+          message: "Am [besten] wäre jedoch ein Spiegel mit Armen und Beinen...",
+          translation: "However, the [best] would be a mirror with arms and legs....",
+          hint: "[gut]",
+        },
+      ]
+    },
   ],
 })
