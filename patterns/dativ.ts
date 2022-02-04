@@ -46,12 +46,11 @@ Lasst uns mehr Mandeln unter **den** Bäume**n** suchen.
 Let us seek more almonds among the trees.
 </DialogueExample>
 
-
 <Tip title="Der Frau">
 Be careful not to confuse the feminine dative _der_ with the masculine nominative _der_, or the plural dative _den_ with 
 the masculine accusative _den_. While spelled the same, they are effectively different words.<br><br> If you know the 
 gender/plurality of the noun you can reliably distinguish them; otherwise, you'll have to rely on contextual clues to 
-the dativeness, e.g. the use of a transitive verb like _geben_.
+the dativeness, e.g. the use of an intransitive verb like _helfen_.
 </Tip>
   `,
   stories: [
@@ -82,6 +81,55 @@ the dativeness, e.g. the use of a transitive verb like _geben_.
           from: "squirrel",
           message: "Das Eichhörnchen wird [einem] Menschen helfen, dieses eine Mal.",
           translation: "The squirrel will help [a] human, this once."
+        }
+      ]
+    },
+
+    // LEVEL 2
+    {
+      lines: [
+        {
+          from: "fox",
+          message: "Gehen wir zu [der] Konferenz?",
+          translation: "Are we going to [the] conference?",
+          hint: "[feminine]",
+        },
+        {
+          from: "lindenbaum",
+          message: "Die mit [den] nervigen alten Männern?",
+          translation: "The one with [the] annoying old men?"
+        },
+        {
+          from: "lindenbaum",
+          message: "Sie interessieren sich nur für [die] Anzahl ihrer Zitate.",
+          translation: "They're only interested in their citation counts."
+        },
+        {
+          from: "lindenbaum",
+          message: "Was wir mit [der] Gravitationsanomalie machen, könnte viel wichtiger sein.",
+          translation: "What we're doing with [the] gravitational anomaly could be way more important.",
+          hint: "[feminine]"
+        },
+        {
+          from: "fox",
+          message: "Oh! Kann ich dann [die] Projektoren hacken und rickrollen?",
+          translation: "Oh! Then can I hack [the] projectors and rickroll them?"
+        },
+        {
+          from: "lindenbaum",
+          message: "Mit [der] Quantenkryptoanalyse? Sie wollen es für _Rickrolling_ verwenden?",
+          translation: "With [the] quantum cryptanalysis? You want to use it for _rickrolling_?",
+          hint: "[feminine]"
+        },
+        {
+          from: "fox",
+          message: "Bitteeee?",
+          translation: "Pleaseeee?"
+        },
+        {
+          from: "lindenbaum",
+          message: "Natürlich, warum nicht. Ich denke, [das ist] eine gute Übung.",
+          translation: "Sure, why not. I guess [it is] good practice."
         }
       ]
     },

@@ -97,7 +97,7 @@ It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ fo
         {
           from: "fox",
           message: "Aber Lin ist [wichtiger] als andere Menschen.",
-          translation: "But Lin is [important] than other humans.",
+          translation: "But Lin is more [important] than other humans.",
           hint: "[wichtig]"
         },
         {

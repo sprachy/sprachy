@@ -18,6 +18,10 @@
 </div>
 
 <style lang="sass">
+.markdown-inline
+  display: inline
+
 .markdown-inline :global(p)
   margin: 0
+  display: inline
 </style>

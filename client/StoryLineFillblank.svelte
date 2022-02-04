@@ -46,7 +46,7 @@
   $: translation = ((line: FillblankLine) => {
     return line.translation.replace(/\[.+?\]/, (substring) => {
       const highlight = substring.slice(1, -1)
-      return `<strong>${highlight}</strong>`
+      return `**${highlight}**`
     })
   })(line)
 
@@ -69,7 +69,7 @@
 
 <Message from={line.from} {flip}>
   <form on:submit|preventDefault={checkAnswer}>
-    <span>{parts.before}</span>
+    <Sprachdown inline source={parts.before} />
     <!-- svelte-ignore a11y-autofocus -->
     <input
       class="fillblank"
@@ -84,11 +84,11 @@
       size={inputWidthChars}
       disabled={complete}
     />
-    <span>{parts.after}</span>
+    <Sprachdown inline source={parts.after} />
   </form>
   <div slot="after">
     <div class="translation">
-      {@html translation}
+      <Sprachdown inline source={translation} />
     </div>
     {#if feedback}
       <div class="feedback">
