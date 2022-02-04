@@ -71,6 +71,38 @@ Note that all three forms of sie/Sie change to ihr/Ihr for the possessive!
           hint: "[formal]",
         },
       ],
+    },
+
+    // LEVEL 1
+    {
+      lines: [
+        {
+          from: "lindenbaum",
+          message: "Haben [Sie] manchmal das Gefühl, dass es der Menschheit an Ehrgeiz fehlt?",
+          translation: "Do [you] ever feel like humanity lacks ambition?",
+          hint: "[formal]"
+        },
+        {
+          from: "lindenbaum",
+          message: "[Sie] sind ein funkelndes Juwel der Selbsterkenntnis in einem Universum voller Leere.",
+          translation: "[You] are a sparkling jewel of self-awareness in a universe filled with void."
+        },
+        {
+          from: "lindenbaum",
+          message: "[Ihre] Talente für die Arbeit einer Maschine verschwendet.",
+          translation: "[Your] talents are wasted doing the work of a machine."
+        },
+        {
+          from: "cashier",
+          message: "Äh... haben [Sie] eine Bonuskarte?",
+          translation: "Er... do [you] have a rewards card?"
+        },
+        {
+          from: "lindenbaum",
+          message: "*seufz*",
+          translation: "*sigh*"
+        }
+      ],
     }
   ]
 })
