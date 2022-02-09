@@ -2,7 +2,7 @@ import type { ProgressItem, ProgressSummary } from "../../common/api"
 import type { SessionRequest } from "../middleware"
 import { db } from "../db"
 import * as z from 'zod'
-import time from "../../common/time"
+import { time } from "../../common/time"
 
 export async function getSummary(req: SessionRequest): Promise<ProgressSummary> {
   const [user, progressItems] = await Promise.all([

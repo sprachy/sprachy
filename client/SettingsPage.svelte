@@ -7,6 +7,28 @@
 
   let errors: Record<string, string> = {}
   let confirmChangeAddress: string | null = null
+  let emailChangeConfirmed: boolean = false
+
+  const params = new URLSearchParams(window.location.search)
+  const emailConfirmToken = params.get("emailConfirmToken")
+  if (emailConfirmToken) {
+    confirmEmailChange(emailConfirmToken)
+  }
+
+  async function confirmEmailChange(token: string) {
+    try {
+      const { newEmail } = await sprachy.api.confirmEmailChange(token)
+      user.email = newEmail
+      email = newEmail
+      emailChangeConfirmed = true
+    } catch (err: any) {
+      if (err?.response?.status === 400) {
+        errors.email = err.response.data
+      } else {
+        throw err
+      }
+    }
+  }
 
   async function submitEmailChange() {
     errors = {}
@@ -44,6 +66,9 @@
           Confirmation email sent to {confirmChangeAddress}. Please click the link in the email to
           confirm the change.
         </div>
+      {/if}
+      {#if emailChangeConfirmed}
+        <div class="text-success">Email changed successfully.</div>
       {/if}
       {#if errors.email}
         <div class="invalid-feedback">

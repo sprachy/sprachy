@@ -33,6 +33,10 @@ export class SprachyAPIClient {
   async changeEmail(newEmail: string) {
     return this.http.post(`/api/account/change-email`, { newEmail })
   }
+
+  async confirmEmailChange(token: string) {
+    return this.http.post(`/api/account/confirm-email-change`, { token })
+  }
 }
 
 /**

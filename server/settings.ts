@@ -1,6 +1,8 @@
 const env: any = (typeof process !== "undefined") ? process.env : global
 
-export const IS_PRODUCTION: boolean = env.FRONTEND_BASE_URL && !env.FRONTEND_BASE_URL.includes("localhost")
+export const FRONTEND_BASE_URL: string = env.FRONTEND_BASE_URL || ""
+
+export const IS_PRODUCTION: boolean = !!FRONTEND_BASE_URL && !FRONTEND_BASE_URL.includes("localhost")
 
 // @ts-ignore
 export const IS_TESTING: boolean = env.IS_TESTING || false

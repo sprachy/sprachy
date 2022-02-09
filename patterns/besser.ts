@@ -24,7 +24,6 @@ You also have to keep the correct adjective endings in mind. If an adjective is 
 It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ for example _groß_ would turn into _größer_, keep in mind though that there are many exceptions to it,
 </Tip>`,
   stories: [
-
     // LEVEL 1
     {
       lines: [
@@ -77,6 +76,8 @@ It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ fo
         },
       ]
     },
+
+    // LEVEL 2
     {
       lines: [
         {

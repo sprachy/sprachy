@@ -40,7 +40,7 @@ export type APIRequest = ServerRequest & {
 /**
  * Router that checks for session cookie and sends json obj returns from handler
  */
-export class APIMiddleware {
+export class BaseMiddleware {
   worktopRouter: Router = new Router()
 
   add(method: HTTPMethod, path: string, handler: (req: APIRequest, res: ServerResponse) => Promise<any>) {
@@ -99,7 +99,7 @@ export type SessionRequest = ServerRequest & {
  * Router that only allows requests with a valid session
  */
 export class RequireLoginMiddleware {
-  constructor(readonly parent: APIMiddleware) { }
+  constructor(readonly parent: BaseMiddleware) { }
 
   add(method: HTTPMethod, path: string, handler: (req: SessionRequest, res: ServerResponse) => Promise<any>) {
     this.parent.add(method, path, async (req, res) => {

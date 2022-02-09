@@ -2,9 +2,9 @@ import * as auth from './resources/auth'
 import * as usersAdmin from './resources/usersAdmin'
 import * as progress from './resources/progress'
 import * as account from './resources/account'
-import { APIMiddleware, RequireLoginMiddleware, AdminMiddleware } from './middleware'
+import { BaseMiddleware, RequireLoginMiddleware, AdminMiddleware } from './middleware'
 
-export const api = new APIMiddleware()
+export const api = new BaseMiddleware()
 api.add('POST', '/api/signup', auth.signup)
 api.add('POST', '/api/login', auth.login)
 api.add('POST', '/api/logout', auth.logout)
@@ -16,6 +16,7 @@ userApi.add('POST', '/api/debug/reset-progress', progress.resetProgress)
 userApi.add('POST', '/api/debug/timeskip', progress.debugTimeskip)
 
 userApi.add('POST', '/api/account/change-email', account.changeEmail)
+userApi.add('POST', '/api/account/confirm-email-change', account.confirmEmailChange)
 
 const adminApi = new AdminMiddleware(userApi)
 adminApi.add('GET', '/api/admin/users', usersAdmin.listUsers)

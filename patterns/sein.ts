@@ -52,7 +52,7 @@ and is the polite form used especially when talking with strangers. We'll learn 
 formal/informal language!
   `,
   stories: [
-    // LEVEL 1
+    // LEVEL 2
     {
       lines: [
         {

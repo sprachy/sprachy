@@ -32,7 +32,7 @@ export function toNextSRSLevel(level: number): number {
   return time
 }
 
-export default {
+export const time = {
   seconds,
   minutes,
   hours,

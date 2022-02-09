@@ -89,8 +89,8 @@ Note that all three forms of sie/Sie change to ihr/Ihr for the possessive!
         },
         {
           from: "lindenbaum",
-          message: "[Ihre] Talente für die Arbeit einer Maschine verschwendet.",
-          translation: "[Your] talents are wasted doing the work of a machine."
+          message: "Und doch vergeuden wir [Ihre] Talente mit der Arbeit einer Maschine.",
+          translation: "Yet we waste [your] talents doing the work of a machine."
         },
         {
           from: "cashier",
