@@ -52,6 +52,29 @@ It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ fo
           translation: "Though on your almond trees it's like in the land of plenty, here it's [quieter] without all the noisy esper warriors.",
           hint: "[ruhig]",
         },
+        {
+          from: "lukas",
+          message: "Was macht denn deine Mandeln [größer]?",
+          translation: "What makes your almonds [bigger]?",
+          hint: "[groß, größe]",
+        },
+        {
+          from: "squirrel",
+          message: "Unsere Esperkünste erklauben es uns Lebewesen [eleganter] zu machen.",
+          translation: "Our Esper-Arts enables us to make living beings [more elegant].",
+          hint: "[elegant]",
+        },
+        {
+          from: "lukas",
+          message: "Machte es auch deinen Schwanz [flauschiger]?",
+          translation: "Did it make your tail [fluffier]?",
+          hint: "[flauschig]",
+        },
+        {
+          from: "squirrel",
+          message: "Mein Schwanz war schon immer flauschig!",
+          translation: "My tail was always fluffy!",
+        },
       ]
     },
     {
