@@ -40,7 +40,7 @@ export namespace sessions {
     return cookie.serialize("sessionKey", sessionKey, {
       httpOnly: true,
       // maxAge is in seconds
-      maxAge: weeks(4) / 1000,
+      maxAge: time.weeks(4) / 1000,
     })
   }
 }

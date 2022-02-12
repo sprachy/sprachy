@@ -11,15 +11,6 @@ export default definePattern({
 One of the most common German verbs is _sein_, equivalent to the English "to be". "sein" is the infinitive or dictionary
 form; you'll see it less often in practice than the conjugated forms, like _ich bin_ (I am) or _du bist_ (you are).
 
-<DialogueExample>
-squirrel:
-  **Bin ich** ein Eichhörnchen?
-  **Am I** a squirrel?
-lukas:
-  **Du bist** wie ein Eichhörnchen geformt. Vielleicht konvergente Evolution?
-  **You are** shaped like a squirrel. Maybe convergent evolution?
-</DialogueExample>
-
 Like "to be", sein is an irregular verb, meaning it doesn't share a conjugation pattern with other verbs in the language.
 It just does its own thing there. Fortunately, the different forms all show up so often that you'll come to remember them 
 pretty quickly.
@@ -51,45 +42,80 @@ Note that _Sie sind_ (with the capital S) is special in that it can be both sing
 and is the polite form used especially when talking with strangers. We'll learn more about it later in patterns on 
 formal/informal language!
   `,
+
   stories: [
+    // LEVEL 1
+    {
+      lines: [
+        {
+          from: "lukas",
+          message: "Erkennst du die Kreatur auf dem Foto? [Sie ist] ein Eichhörnchen.",
+          translation: "Do you recognize the creature in the photo? [It is] a squirrel.",
+        },
+        {
+          from: "squirrel",
+          message: "[Sie ist] mir ähnlich! Aber flach.",
+          translation: "[It is] similar to me! But flat."
+        },
+        {
+          from: "lukas",
+          message: "Oh, das Eichhörnchen [ist] nicht flach, nur das Foto, das es darstellt.",
+          translation: "Oh, the squirrel [is] not flat, only the photo that represents it."
+        },
+        {
+          from: "squirrel",
+          message: "Nein, ich meine, das Eichhörnchen ist flach. Das [ist] Lukas auch!",
+          translation: "No, I mean, the squirrel is flat. Lukas [is] flat too!"
+        },
+        {
+          from: "squirrel",
+          message: "[Ich bin] holpriger.",
+          translation: "[I am] more bumpy."
+        },
+        {
+          from: "squirrel",
+          message: "Denkst du [ich bin] ein Eichhörnchen?",
+          translation: "Do you think [I am] a squirrel?"
+        },
+        {
+          from: "lukas",
+          message: "[Du bist] wie ein Eichhörnchen geformt. Vielleicht konvergente Evolution?",
+          translation: "[You are] shaped like a squirrel. Maybe convergent evolution?"
+        }
+      ]
+    },
     // LEVEL 2
     {
       lines: [
         {
           from: "harald",
           message: "[Sein] oder Nichtsein?",
-          translation: "To be or not to be?",
-          hint: "[infinitive]",
+          translation: "[To be] or not to be?"
         },
         {
           from: "harald",
           message: "Die Entscheidung [ist] mein!",
-          translation: "The decision [is] mine!",
-          hint: "[3rd person singular]",
+          translation: "The decision [is] mine!"
         },
         {
           from: "harald",
-          message: "Denn ich [bin] der größte Ritter.",
-          translation: "For I [am] the greatest knight.",
-          hint: "[1st person singular]",
+          message: "Denn [ich bin] der größte Ritter.",
+          translation: "For [I am] the greatest knight.",
         },
         {
           from: "harald",
-          message: "Doch [Ihr] seid die kleinste Leiter.",
-          translation: "But [you] are the smallest ladder.",
-          hint: "[2nd person plural]",
+          message: "Doch Ihr [seid] die kleinste Leiter.",
+          translation: "But you [are] the smallest ladder."
         },
         {
           from: "harald",
-          message: "Denn sie [ist] die Leiter zum Erfolg.",
-          translation: "For it [is] the ladder to success.",
-          hint: "[3rd person singular]",
+          message: "Denn [sie ist] die Leiter zum Erfolg.",
+          translation: "For [it is] the ladder to success.",
         },
         {
           from: "harald",
           message: "So [bin] ich der größte Poet aller Zeiten.",
-          translation: "Thus I [am] the greatest poet of all time.",
-          hint: "[1st person singular]",
+          translation: "Thus I [am] the greatest poet of all time."
         },
         {
           from: "klaus",
@@ -99,14 +125,12 @@ formal/informal language!
         {
           from: "harald",
           message: "Und du [bist] das kleinste Mäuschen.",
-          translation: "And you are the smallest mouse.",
-          hint: "[2st person singular]",
+          translation: "And you [are] the smallest mouse.",
         },
         {
           from: "harald",
           message: "Und zusammen [sind] wir das perfekte Duo!",
           translation: "And together we [are] the perfect duo!",
-          hint: "[1st person plural]",
         },
         {
           from: "klaus",
@@ -117,7 +141,6 @@ formal/informal language!
           from: "harald",
           message: "Ach du [bist] hungrig?",
           translation: "Oh you [are] hungry?",
-          hint: "[2nd person singular]",
         },
       ]
     },
