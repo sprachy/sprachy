@@ -7,20 +7,19 @@
   const faq = md`
 # Frequently asked questions
 
-### How do SRS levels work?
+### How do the levels work?
 
-Sprachy uses a slightly modified version of the traditional spaced repetition model.
-The main difference is that levels do not decrease when you make a mistake; instead,
-you can only increase in level after a certain amount of time has passed since the
-previous one. You can retry for a level increase immediately if you make a mistake.
+Sprachy is a kind of [spaced repetition system](https://en.wikipedia.org/wiki/Spaced_repetition) for learning German.
+You can unlock the next level of a pattern a certain number of hours/days after completing the previous level.
 
+For now, levels never decrease, and you can always retry a level if you make a mistake.
 We may later add higher levels with more challenging exercises, which require
 consitent accuracy or speed to pass.
 
-### What's the pricing model?
+### What will the pricing model be?
 
 Sprachy is free to use while it is in early development. After we add sufficient
-content, we will likely introduce a subscription fee to do exercises beyond
+content, we'll likely introduce a subscription fee to do exercises beyond
 a certain point. The text of patterns will remain openly accessible, so it'll always
 act as a free grammar reference/textbook of sorts.
 
@@ -36,11 +35,26 @@ useful like job ads for work in Germany or such.
 
 Not yet! If the web version is successful enough and there's interest in
 a mobile app, we'll investigate building one.
+
+### Who made this?
+
+Sprachy is made by [Toggle](https://github.com/tgle) and [Twokay](https://github.com/two-kay)!
+Toggle wanted to learn German, and it's Twokay's native language, so we decided to team up
+and make a fancy website for it!
   `
 </script>
 
 <template>
   <SiteLayout title="FAQ">
-    <Sprachdown source={faq} />
+    <div class="faq">
+      <Sprachdown source={faq} />
+    </div>
   </SiteLayout>
 </template>
+
+<style lang="sass">
+.faq :global(h3)
+  margin-top: 1.5rem
+  margin-bottom: 0.5rem
+  font-size: 1.4rem
+</style>
