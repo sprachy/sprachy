@@ -63,4 +63,7 @@
   :global(.btn)
     margin-right: 0.5rem
 
+@media only screen and (max-width: 768px)
+  .pattern :global(table)
+    font-size: 90%
 </style>

@@ -1,4 +1,5 @@
 import './app.sass'
+import 'bootstrap/js/dist/collapse'
 
 // @ts-ignore
 import App from './App.svelte'
