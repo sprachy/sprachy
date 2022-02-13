@@ -66,6 +66,37 @@ Pretty straightforward! Not all person words follow this pattern, though. For ex
         //   translation: "No, she is still [a] high school student.",
         // },
       ],
+    },
+
+    // LEVEL 2
+    {
+      lines: [
+        {
+          from: "lindenbaum",
+          message: "Ich bin [eine] Quanteninformationstheoretikerin. Und jetzt viele andere Dinge, mit Hilfe der KI.",
+          translation: "I am [a] quantum information theorist. And now many other things, with the help of AI."
+        },
+        {
+          from: "fox",
+          message: "Ich bin [der] größte Komiker. Bitte genießen Sie meine handgefertigten Memes.",
+          translation: "I am [the] greatest comedian. Please enjoy my handcrafted memes."
+        },
+        {
+          from: "fox",
+          message: "...und ich helfe Lin als [ein] persönlicher Assistent, nehme ich an.",
+          translation: "...and I help Lin as a personal assistant, I suppose."
+        },
+        {
+          from: "leonie",
+          message: "Ich bin [eine] Ökologin und Botschafterin der Artenvielfalt. Seltsame Kreaturen sind so wunderbar!",
+          translation: "I am [an] ecologist and interspecies ambassador. Strange creatures are so wonderful!"
+        },
+        {
+          from: "nils",
+          message: "Hallo! Ich bin zehn!",
+          translation: "Hello! I'm ten!"
+        },
+      ]
     }
   ],
 })

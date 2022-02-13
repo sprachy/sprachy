@@ -178,7 +178,6 @@ A local house pet and good boy. Prepared to sacrifice his life in defense of his
 A volunteer at the local dragon reserve. She is patient and fond of nature.
     `,
   },
-
   {
     id: "nils",
     name: "Nils",
