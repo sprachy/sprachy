@@ -59,12 +59,12 @@
     <a class="logo" href="/"> Sprachy </a>
   </header> -->
   <main class="container">
-    <div class="w-50">
-      <h1>Learn German the weird and dorky way</h1>
-      <p>
-        Language-learning apps too often focus on boring, everyday examples. Sprachy guarantees the
-        involvement of 100% more cute psychic squirrels from beyond the interdimensional veil.
-      </p>
+    <div class="signup-box">
+      <h1>Learn German the clever and cute way</h1>
+      <h5>
+        Sprachy combines detailed explanations of language patterns with memorable dialogue
+        exercises. Also we have extradimensional psionic squirrels.
+      </h5>
       <form on:submit|preventDefault={login}>
         <fieldset class="form-group">
           <label for="email">Email</label>
@@ -106,9 +106,9 @@
         <button class="btn btn-sprachy btn-lg" type="submit" disabled={loading}
           >Enter Sprachy</button
         >
-        <p class="text-warning mt-2">
+        <!-- <p class="text-warning mt-2">
           <em>Sprachy is still early in development; you might want to come back later!</em>
-        </p>
+        </p> -->
       </form>
     </div>
   </main>
@@ -136,7 +136,7 @@
   left: 0
   width: 100%
   height: 100%
-  background-color: rgba(0,0,0,0.4)
+  background-color: rgba(0,0,0,0.03)
 
 .form-group
   margin-bottom: 1rem
@@ -147,10 +147,33 @@
 main.container
   position: relative
   flex-grow: 1
-  padding-top: 8rem
-  color: white
+  display: flex
+  align-items: center
+
+.signup-box
+  width: 50%
+  color: #333
 
   h1
-    font-size: 3.3rem
+    font-size: 3.5rem
+    margin-bottom: 1.5rem
+  
+  h5
+    font-size: 1.3rem
+    line-height: 1.8rem
+    margin-bottom: 1.5rem
 
+@media only screen and (max-width: 768px)
+  .signup-box
+    width: auto
+    margin: 5%
+    text-align: center
+    h1
+      font-size: 2.5rem
+    h5
+      font-size: 1rem
+
+    button
+      padding: 0.625rem 1.5625rem
+      font-weight: 700
 </style>
