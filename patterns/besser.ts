@@ -55,11 +55,11 @@ It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ fo
           from: "lukas",
           message: "Was macht denn deine Mandeln [größer]?",
           translation: "What makes your almonds [bigger]?",
-          hint: "[groß, größe]",
+          hint: "[groß]",
         },
         {
           from: "squirrel",
-          message: "Unsere Esperkünste erklauben es uns Lebewesen [eleganter] zu machen.",
+          message: "Unsere Esperkünste erlauben es uns Lebewesen [eleganter] zu machen.",
           translation: "Our Esper-Arts enables us to make living beings [more elegant].",
           hint: "[elegant]",
         },
@@ -93,7 +93,7 @@ It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ fo
         {
           from: "lindenbaum",
           message: "Kaffee schmeckt [bitterer] und enthält mehr Koffein.",
-          translation: "Coffee tastes [bitterer] and has more caffeine.",
+          translation: "Coffee tastes [more bitter] and has more caffeine.",
           hint: "[bitter]"
         },
         {
@@ -128,7 +128,7 @@ It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ fo
           from: "fox",
           message: "Deine Präferenz hat also ein [höheres] Gewicht im Gesamtumfang.",
           translation: "So your preference carries [higher] weight in global scope.",
-          hint: "[hohe, neuter]"
+          hint: "[hoch, neuter]"
         },
         {
           from: "lindenbaum",

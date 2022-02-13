@@ -82,8 +82,8 @@ Some nouns are used mainly in their diminutive form. For example, _das Eichhörn
         },
         {
           from: "lukas",
-          message: "Und was ist mit [meine] Haselnüsschen?",
-          translation: "And what about [my] little hazelnuts?",
+          message: "Und was ist mit [mein] Haselnüsschen?",
+          translation: "And what about [my] little hazelnut?",
         },
         {
           from: "squirrel",

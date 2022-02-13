@@ -112,7 +112,7 @@ the dativeness, e.g. the use of an intransitive verb like _helfen_.
         },
         {
           from: "fox",
-          message: "Oh! Kann ich dann [die] Projektoren hacken und rickrollen?",
+          message: "Oh! Kann ich dann [die] Projektoren hacken und sie rickrollen?",
           translation: "Oh! Then can I hack [the] projectors and rickroll them?"
         },
         {

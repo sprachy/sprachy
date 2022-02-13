@@ -35,6 +35,10 @@ das Problem / mein Problem / dein Problem / sein Problem / kein Problem
 <Tip title="Deine Plurale">
 It makes no sense to say "eine Plurale" (an plurals), but words like _meine_ or _keine_ can be used for plurals. Like with _die Plurale_, they follow the feminine form, regardless of the noun's original gender.
 </Tip>
+
+<Tip title="Compound words">
+When dealing with compound words, the last word within the compound word would define the gender of the noun. For instance the noun _Spiegelei_ includes the words _Spiegel_ (masculine) and _Ei_ (neuter), so in this case the ending-word of _Ei_ would be definining gender for Spiegelei.
+</Tip>
   `,
   stories: [
     // LEVEL 1
@@ -62,6 +66,7 @@ It makes no sense to say "eine Plurale" (an plurals), but words like _meine_ or 
           from: "squirrel",
           message: "[Meine] Leute würden es eine Todeszone nennen.",
           translation: "[My] people would call it a deadzone.",
+          hint: "[plural]"
         },
         {
           from: "squirrel",
@@ -94,7 +99,7 @@ It makes no sense to say "eine Plurale" (an plurals), but words like _meine_ or 
         },
         {
           from: "robot",
-          message: "[Ein] organische Jurymitglied wurde gefunden.",
+          message: "[Ein] organisches Jurymitglied wurde gefunden.",
           translation: "[An] organic jury member has been located.",
           hint: "[neuter]",
         },

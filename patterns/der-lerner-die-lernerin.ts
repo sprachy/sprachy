@@ -50,8 +50,7 @@ Pretty straightforward! Not all person words follow this pattern, though. For ex
         },
         {
           from: "squirrel",
-          message:
-            "[Die] Buchhalterin war nicht sehr glücklich darüber, dass ich gegangen bin.",
+          message: "[Die] Buchhalterin war nicht sehr glücklich darüber, dass ich gegangen bin.",
           translation: "[The] accountant was not very happy I left.",
         },
 
