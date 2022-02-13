@@ -6,6 +6,7 @@ data
 worker
 dist
 devdist
+devdb
 
 # local env files
 .env
