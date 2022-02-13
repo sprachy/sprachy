@@ -11,10 +11,10 @@
 <div class:cell={true} class:inline>
   {#if inline}
     <span class="original">{deutsch}</span>
-    <span class="translation">({translation})</span>
+    {#if translation}<span class="translation">({translation})</span>{/if}
   {:else}
     <div class="original">{deutsch}</div>
-    <div class="translation">{translation}</div>
+    {#if translation}<div class="translation">{translation}</div>{/if}
   {/if}
 </div>
 
