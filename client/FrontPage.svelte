@@ -152,7 +152,7 @@ main.container
 
 .signup-box
   width: 50%
-  color: #333
+  color: #5f2323
 
   h1
     font-size: 3.5rem
