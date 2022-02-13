@@ -35,7 +35,7 @@ You would commonly see the word _am_ like in the phrase _am besten_ placed infro
         },
         {
           from: "explorer",
-          message: "Der Fisch schein wohl nicht das [neutraliste] Jury-Mitglied zu sein...",
+          message: "Der Fisch schein wohl nicht das [neutralste] Jury-Mitglied zu sein...",
           translation: "I guess the fish didn't seem to be the most [neutral] jury member....",
           hint: "[neutral]"
         },
@@ -81,9 +81,45 @@ You would commonly see the word _am_ like in the phrase _am besten_ placed infro
         },
         {
           from: "squirrel",
-          message: "Am [besten] wäre jedoch ein Spiegel mit Armen und Beinen...",
-          translation: "However, the [best] would be a mirror with arms and legs....",
+          message: "[Am besten] wäre jedoch ein Spiegel mit Armen und Beinen...",
+          translation: "However, [the best] would be a mirror with arms and legs...",
           hint: "[gut]",
+        },
+        {
+          from: "mirror",
+          message: "Wahrlich bin ich aber [am glanzvollsten].",
+          translation: "Surely I am [the shiniest]",
+          hint: "[glanzvoll]"
+        },
+        {
+          from: "squirrel",
+          message: "Ich nutze auch mein [schönster] Glanzzauber.",
+          translation: "I'm also using my [prettiest] glitter spell.",
+          hint: "[schön]",
+        },
+        {
+          from: "squirrel",
+          message: "Sodass ich meine [niedlichste] Kante anschauen kann.",
+          translation: "So that I can see my [cutest] edge.",
+          hint: "[niedlich]",
+        },
+        {
+          from: "squirrel",
+          message: "Ein Augenschmaus für Jederman auf dem die [flachsten] Lebewesen leben.",
+          translation: "A feast for the eyes for everyone on which the [flattest] creatures live",
+          hint: "[flach]",
+        },
+        {
+          from: "mirror",
+          message: "Denkt daran euch auch andersweitig von eurer [elegantesten] Schokoladenseite zu zeigen.",
+          translation: "Remember to put your [most elegant] foot forward on other aspects as well.",
+          hint: "[elegant]"
+        },
+        {
+          from: "mirror",
+          message: "Denn Ihr seid natürlich auch das [charismatischste] Eichhörnchen.",
+          translation: "Since naturally you are the [most charismatic] squirrel.",
+          hint: "[charismatisch]"
         },
       ]
     },
