@@ -77,6 +77,7 @@ Some nouns already end in _-s_ so one might be inclined to add an apostrophe the
           from: "lindenbaum",
           message: "Und was soll ich mit [dem] LIGO Projekt, so kurz vor dem Durchbruch machen?",
           translation: "What should I do with the LIGO Project so close to breakthrough?",
+          hint: "[das Projekt]",
         },
         {
           from: "fox",
