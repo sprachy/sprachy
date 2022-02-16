@@ -56,19 +56,21 @@ export class TestHTTPProvider implements HTTPProvider {
 
 type TestEnv = {
   asUser: { api: SprachyAPIClient }
+  asRando: { api: SprachyAPIClient }
   // asAdmin: SprachyAPIClient
 }
 
 let testenvReady: TestEnv | null = null
 
 async function setupTestEnv(): Promise<TestEnv> {
+  const asRando = { api: new SprachyAPIClient(new TestHTTPProvider()) }
   const asUser = { api: new SprachyAPIClient(new TestHTTPProvider()) }
   await asUser.api.login({
     email: TEST_USER_EMAIL,
     password: TEST_USER_PASSWORD,
   })
 
-  return { asUser }
+  return { asUser, asRando }
 }
 
 export async function testenv() {

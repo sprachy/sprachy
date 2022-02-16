@@ -35,13 +35,14 @@ export async function signup(req: APIRequest, res: ServerResponse): Promise<Sign
     const sessionKey = await sessions.create(user.id)
     res.headers.set('Set-Cookie', sessions.asCookie(sessionKey))
 
-
-    const params = {
-      username: "SignUp",
-      avatar_url: "",
-      content: `Yuh new learny person **${email}** appeared! ❤️🐿️`,
+    if (DISCORD_SIGNUP_WEBHOOK) {
+      const params = {
+        username: "SignUp",
+        avatar_url: "",
+        content: `Yuh new learny person **${email}** appeared! ❤️🐿️`,
+      }
+      http.postJson(DISCORD_SIGNUP_WEBHOOK, params)
     }
-    http.postJson(DISCORD_SIGNUP_WEBHOOK, params)
 
     return { status: 200, summary: { user, progressItems } }
   } catch (err) {
