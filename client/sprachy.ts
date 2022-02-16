@@ -26,6 +26,7 @@ export class SprachyFrontendState {
 
   closeApp() {
     this._app = null
+    localStorage.removeItem("summary")
   }
 
   /**

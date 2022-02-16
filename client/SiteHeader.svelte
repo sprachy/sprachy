@@ -9,7 +9,7 @@
   async function logout() {
     await sprachy.api.logout()
     sprachy.closeApp()
-    navigate("/login")
+    navigate("/")
   }
 </script>
 
