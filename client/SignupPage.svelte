@@ -3,11 +3,13 @@
   import _ from "lodash"
   import { navigate } from "svelte-navigator"
   import { onMount } from "svelte"
-  import { errorsByField } from "./utils"
-  let email: string = ""
-  let password: string = ""
+  import { errorsByField, otherResponse } from "./utils"
   let loading: boolean = false
   let errors: Record<string, string> = {}
+
+  let email: string = ""
+  let password: string = ""
+  let confirmPassword: string = ""
 
   onMount(() => {
     if (sprachy.user) {
@@ -15,33 +17,42 @@
     }
   })
 
-  async function login() {
-    loading = true
+  async function signup() {
     errors = {}
-    const res = await sprachy.api.login({ email, password })
+    if (password != confirmPassword) {
+      errors.confirmPassword = "This doesn't match the password"
+      return
+    }
+
+    loading = true
+    const res = await sprachy.api.signUp({
+      email: email,
+      password: password,
+      confirmPassword,
+    })
     loading = false
 
     if (res.status === 200) {
       sprachy.initApp(res.summary)
-      const params = new URLSearchParams(window.location.search)
-      const afterLoginUrl = params.get("next")
-      if (afterLoginUrl) {
-        navigate(afterLoginUrl)
+      if (window.location.search.length > 0) {
+        navigate(window.location.search.substring(6))
       } else {
         navigate("/home")
       }
     } else {
-      if (res.code === "wrong password") {
-        errors.password = "The password doesn't match the user"
+      if (res.code === "user already exists") {
+        errors.email = "This email is already registered"
       } else if (res.code === "validation failed") {
         errors = errorsByField(res.errors)
+      } else {
+        otherResponse(res)
       }
     }
   }
 </script>
 
 <main>
-  <form on:submit|preventDefault={login}>
+  <form on:submit|preventDefault={signup}>
     <div class="form-header">
       <a href="/" class="header-logo">
         <svg
@@ -192,7 +203,6 @@
       </a>
     </div>
 
-    <h1>Sign in to Sprachy</h1>
     <fieldset class="form-group">
       <label for="email">Email address</label>
       <input
@@ -230,14 +240,32 @@
         </div>
       {/if}
     </fieldset>
-    <div class="forgot-password">
-      <a href="/forgot-password">Forgot password?</a>
-    </div>
+    <fieldset class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <!-- svelte-ignore a11y-autofocus -->
+      <input
+        bind:value={confirmPassword}
+        name="confirm_password"
+        id="confirm_password"
+        type="password"
+        class:form-control={true}
+        class:is-invalid={!!errors.confirmPassword}
+        placeholder="Confirm Password"
+        minLength="10"
+        required
+      />
+      {#if errors.confirmPassword}
+        <div class="invalid-feedback">
+          {errors.confirmPassword}
+        </div>
+      {/if}
+    </fieldset>
 
-    <button class="btn btn-sprachy" type="submit" disabled={loading}>Sign in</button>
+    <button class="btn btn-sprachy" type="submit" disabled={loading}>Sign up</button>
 
-    <p class="signup-callout">
-      New to Sprachy? <a href="/signup">Create an account</a>.
+    <hr />
+    <p class="callout">
+      <a href="/login">Sign in to an existing account</a>
     </p>
   </form>
 </main>
@@ -262,25 +290,14 @@ form
     text-align: center
     margin-bottom: 1rem
 
-  h1
-    font-size: 28px
-    text-align: center
+  // h1
+  //   font-size: 28px
+  //   text-align: center
 
   fieldset
     margin-top: 1rem
 
-  .forgot-password
-    font-size: 90%
-    margin-top: 0.2rem
-  
   button
     margin-top: 1rem
     width: 100%
-
-  .signup-callout
-    margin-top: 1rem
-    padding: 15px 20px
-    text-align: center
-    border: 1px solid #ccc
-    border-radius: 6px
 </style>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import sprachy from "./sprachy"
   import _ from "lodash"
-  import { navigate } from "svelte-navigator"
+  import { Link, navigate } from "svelte-navigator"
   import { onMount } from "svelte"
   import SignupFormModal from "./SignupFormModal.svelte"
   import { errorsByField, otherResponse } from "./utils"
@@ -55,9 +55,20 @@
   {#if showSignupModal}
     <SignupFormModal onDismiss={hideSignupModal} {email} {password} />
   {/if}
-  <!-- <header class="container">
-    <a class="logo" href="/"> Sprachy </a>
-  </header> -->
+  <header>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <Link class="nav-link" to="/login">Sign in</Link>
+          </li>
+          <li class="nav-item signup-link">
+            <Link class="nav-link" to="/signup">Sign up</Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
   <main class="container">
     <div class="signup-box">
       <h1>Learn German the clever and cute way</h1>
@@ -97,12 +108,6 @@
 </div>
 
 <style lang="sass">
-// a:first-child
-//   margin-right: 1rem
-
-// a:last-child
-//   margin-left: 1rem
-
 .frontpage
   height: 100vh
   background-image: url(./img/sprachy-bg.jpg)
@@ -123,8 +128,14 @@
 .form-group
   margin-bottom: 1rem
 
-// header
-//   color: white
+header
+  :global(a)
+    color: #333 !important
+
+  .signup-link
+    border: 1px solid #333
+    border-radius: 6px
+
 
 main.container
   position: relative

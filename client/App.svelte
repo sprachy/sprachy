@@ -4,6 +4,7 @@
   import FAQPage from "./FAQPage.svelte"
   import FrontPage from "./FrontPage.svelte"
   import LoginPage from "./LoginPage.svelte"
+  import SignupPage from "./SignupPage.svelte"
   import HomePage from "./HomePage.svelte"
   import LearnPage from "./LearnPage.svelte"
   import PatternPage from "./PatternPage.svelte"
@@ -32,6 +33,7 @@
   <Router>
     <Route path="/"><FrontPage /></Route>
     <Route path="/login"><LoginPage /></Route>
+    <Route path="/signup"><SignupPage /></Route>
     <Route path="/home"><HomePage /></Route>
     <Route path="/faq"><FAQPage /></Route>
     <Route path="/learn"><LearnPage /></Route>
