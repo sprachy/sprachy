@@ -14,7 +14,7 @@ const changeEmailForm = z.object({
 export async function changeEmail(req: SessionRequest): Promise<void> {
   const { newEmail } = changeEmailForm.parse(await req.body())
   const token = uuidv4()
-  await kvs.putJson(`email_confirm_tokens:${token}`, { userId: req.session.userId, email: newEmail }, { expirationTtl: time.weeks(4) })
+  await kvs.putJson(`email_confirm_tokens:${token}`, { userId: req.session.userId, email: newEmail }, { expirationTtl: time.weeks(4) / 1000 })
 
   await sendMail({
     to: newEmail,

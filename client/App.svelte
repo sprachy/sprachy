@@ -5,6 +5,8 @@
   import FrontPage from "./FrontPage.svelte"
   import LoginPage from "./LoginPage.svelte"
   import SignupPage from "./SignupPage.svelte"
+  import ResetPasswordPage from "./ResetPasswordPage.svelte"
+  import ConfirmResetPasswordPage from "./ConfirmResetPasswordPage.svelte"
   import HomePage from "./HomePage.svelte"
   import LearnPage from "./LearnPage.svelte"
   import PatternPage from "./PatternPage.svelte"
@@ -37,6 +39,10 @@
     <Route path="/"><FrontPage /></Route>
     <Route path="/login"><LoginPage /></Route>
     <Route path="/signup"><SignupPage /></Route>
+    <Route path="/reset-password/:token" let:params>
+      <ConfirmResetPasswordPage token={params.token} />
+    </Route>
+    <Route path="/reset-password"><ResetPasswordPage /></Route>
     <Route path="/home"><HomePage /></Route>
     <Route path="/faq"><FAQPage /></Route>
     <Route path="/learn"><LearnPage /></Route>

@@ -8,6 +8,8 @@ export const api = new BaseMiddleware()
 api.add('POST', '/api/signup', auth.signup)
 api.add('POST', '/api/login', auth.login)
 api.add('POST', '/api/logout', auth.logout)
+api.add('POST', '/api/reset-password', auth.sendPasswordResetEmail)
+api.add('POST', '/api/confirm-reset-password', auth.confirmPasswordReset)
 
 const userApi = new RequireLoginMiddleware(api)
 userApi.add('GET', '/api/progress', progress.getSummary)

@@ -3,12 +3,16 @@ import * as z from 'zod'
 import { Index, Login, Match } from "faunadb"
 
 import type { LoginResult, SignupResult } from "../../common/api"
-import type { APIRequest } from "../middleware"
+import { APIRequest, HTTPError } from "../middleware"
 import { db } from "../db"
 import { sessions } from "../sessions"
 import { FaunaError } from "../faunaUtil"
-import { DISCORD_SIGNUP_WEBHOOK } from '../settings'
+import { DISCORD_SIGNUP_WEBHOOK, FRONTEND_BASE_URL } from '../settings'
 import http from '../http'
+import { sendMail } from "../email"
+import { v4 as uuidv4 } from "uuid"
+import { kvs } from "../kvs"
+import { time } from "../../common/time"
 
 const signupForm = z.object({
   email: z.string().email(),
@@ -96,4 +100,49 @@ export async function login(req: APIRequest, res: ServerResponse): Promise<Login
 export async function logout(req: APIRequest): Promise<void> {
   if (!req.session) return
   await sessions.expire(req.session.key)
+}
+
+
+const resetPasswordForm = z.object({
+  email: z.string()
+})
+export async function sendPasswordResetEmail(req: APIRequest): Promise<void> {
+  const { email } = resetPasswordForm.parse(await req.body())
+
+  const user = await db.users.getByEmail(email)
+  if (user) {
+    const token = uuidv4()
+    await kvs.putJson(`reset_password_tokens:${token}`, { userId: user.id }, { expirationTtl: time.days(1) / 1000 })
+
+    await sendMail({
+      to: user.email,
+      subject: "Reset your Sprachy password",
+      text: `
+Please click here to reset your password: ${FRONTEND_BASE_URL}/reset-password?token=${token}
+      `
+    })
+  }
+}
+
+const confirmPasswordResetForm = z.object({
+  token: z.string(),
+  newPassword: z.string(),
+  confirmPassword: z.string()
+}).refine(d => d.newPassword.length >= 10, {
+  message: "Password must be at least length 10",
+  path: ["newPassword"]
+}).refine(d => d.newPassword === d.confirmPassword, {
+  message: "Confirm password must be identical to password",
+  path: ["confirmPassword"]
+})
+export async function confirmPasswordReset(req: APIRequest): Promise<void> {
+  const { token, newPassword } = confirmPasswordResetForm.parse(await req.body())
+
+  const json = await kvs.getJson<{ userId: string }>(`reset_password_tokens:${token}`)
+  const user = await db.users.get(json?.userId || "")
+  if (user) {
+    await db.users.changePassword(user.id, newPassword)
+  } else {
+    throw new HTTPError(401, "Invalid or expired token")
+  }
 }

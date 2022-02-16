@@ -37,6 +37,14 @@ export class SprachyAPIClient {
   async confirmEmailChange(token: string) {
     return this.http.post(`/api/account/confirm-email-change`, { token })
   }
+
+  async sendPasswordResetEmail(email: string) {
+    return this.http.post(`/api/reset-password`, { email })
+  }
+
+  async confirmPasswordReset({ token, newPassword, confirmPassword }: { token: string, newPassword: string, confirmPassword: string }) {
+    return this.http.post(`/api/confirm-reset-password`, { token, newPassword, confirmPassword })
+  }
 }
 
 /**

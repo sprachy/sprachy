@@ -118,6 +118,20 @@ export namespace db {
       )
     }
 
+    export async function changePassword(userId: string, newPassword: string): Promise<User> {
+      return await db.querySingle<User>(
+        Update(
+          Ref(Collection("users"), userId),
+          {
+            credentials: {
+              password: newPassword
+            }
+          }
+        )
+      )
+    }
+
+
     export async function update(userId: string, changes: Partial<Omit<User, 'id'>>): Promise<User> {
       return await db.querySingle<User>(
         Update(
