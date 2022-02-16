@@ -1,4 +1,4 @@
-import { faHandPointRight } from "@fortawesome/free-solid-svg-icons"
+import { faHandHoldingUsd } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "../common/definePattern"
 
 export default definePattern({
@@ -6,7 +6,7 @@ export default definePattern({
   slug: "genitiv",
   title: "Des Genitivs",
   shortdesc: "For _directly_ belonging to a fluffy squirrel.",
-  icon: faHandPointRight,
+  icon: faHandHoldingUsd,
   explanation: md`
 The least common shiny grammatical case is the genitive case, just like the dative case
 it comes into use in sentences which describe posessions or belongings, however in the
