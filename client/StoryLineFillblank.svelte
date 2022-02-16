@@ -52,6 +52,8 @@
 
   export function checkAnswer() {
     feedback = ""
+    if (attempt === "") return
+
     const result = matchAnswer(attempt, line)
     if (result.validAnswer) {
       attempt = result.validAnswer
