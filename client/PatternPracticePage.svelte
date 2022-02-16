@@ -59,6 +59,11 @@
       pattern = sprachy.app.patternsAndProgress.find((p) => p.slug === slug)!
       nextPattern = sprachy.app.nextPatternToLearn
       complete = true
+
+      setTimeout(() => {
+        const btn = document.querySelector(".btn-primary")! as HTMLLinkElement
+        btn.focus()
+      }, 0)
     }
   }
 </script>
