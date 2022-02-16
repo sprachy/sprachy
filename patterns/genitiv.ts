@@ -87,9 +87,9 @@ Some nouns already end in _-s_ so one might be inclined to add an apostrophe the
         },
         {
           from: "lindenbaum",
-          message: "Na dann nehmen wir ma Kontakt zum Direktor [des Insituts] für dunkle Anomalieforschung!",
+          message: "Na dann nehmen wir ma Kontakt zum Direktor [des Instituts] für dunkle Anomalieforschung!",
           translation: "Well then, let's initiate contact to the director of the institute for dark anomaly research!",
-          hint: "[das Insitut]",
+          hint: "[das Institut]",
         },
       ]
     },

@@ -9,5 +9,5 @@ import derlernerdielernerin from './der-lerner-die-lernerin'
 import duodersie from './du-oder-sie'
 import besser from './besser'
 import besten from './besten'
-import genetiv from './genetiv'
-export default [derdiedas, eineine, sein, daschen, akkusativ, derlernerdielernerin, duodersie, besser, besten, dativ, genetiv]
+import genitiv from './genitiv'
+export default [derdiedas, eineine, sein, daschen, akkusativ, derlernerdielernerin, duodersie, besser, besten, dativ, genitiv]
