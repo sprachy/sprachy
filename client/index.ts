@@ -20,7 +20,7 @@ new GlobalErrorHandler({
     } catch (e) {
       document.body.innerHTML = ''
     }
-    if (window.location.pathname !== "/" && (err instanceof LoginRequiredError || err.response?.status === 401)) {
+    if (window.location.pathname !== "/login" && (err instanceof LoginRequiredError || err.response?.status === 401)) {
       // Go to login
       localStorage.removeItem("summary")
       if (window.location.pathname === "/home") {

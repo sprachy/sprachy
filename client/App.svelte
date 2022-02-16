@@ -23,10 +23,13 @@
   try {
     const summary = JSON.parse(localStorage.getItem("summary")!)
     if (summary) {
-      const app = sprachy.initApp(summary)
-      app.refreshProgress()
+      sprachy.initApp(summary)
     }
   } catch (err) {}
+
+  if (sprachy._app) {
+    sprachy._app.refreshProgress()
+  }
 </script>
 
 <div class="app">
