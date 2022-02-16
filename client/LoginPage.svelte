@@ -195,6 +195,7 @@
     <h1>Sign in to Sprachy</h1>
     <fieldset class="form-group">
       <label for="email">Email address</label>
+      <!-- svelte-ignore a11y-autofocus -->
       <input
         bind:value={email}
         name="email"
@@ -204,6 +205,7 @@
         class:is-invalid={!!errors.email}
         placeholder="Email"
         required
+        autofocus
       />
       {#if errors.email}
         <div class="invalid-feedback">

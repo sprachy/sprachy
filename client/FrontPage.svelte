@@ -80,12 +80,16 @@
   margin-bottom: 1rem
 
 header
+  padding: 1rem
+  font-size: 110%
+
   :global(a)
     color: #333 !important
 
   .signup-link
     border: 1px solid #333
     border-radius: 6px
+    margin-left: 1rem
 
 
 main.container
