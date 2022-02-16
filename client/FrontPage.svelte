@@ -84,27 +84,9 @@
             </div>
           {/if}
         </fieldset>
-        <fieldset class="form-group">
-          <label for="password">Password</label>
-          <input
-            bind:value={password}
-            name="password"
-            id="password"
-            type="password"
-            class:form-control={true}
-            class:is-invalid={!!errors.password}
-            placeholder="Password"
-            minLength="10"
-            required
-          />
-          {#if errors.password}
-            <div class="invalid-feedback">
-              {errors.password}
-            </div>
-          {/if}
-        </fieldset>
+
         <button class="btn btn-sprachy btn-lg" type="submit" disabled={loading}
-          >Enter Sprachy</button
+          >Sign up for Sprachy</button
         >
         <!-- <p class="text-warning mt-2">
           <em>Sprachy is still early in development; you might want to come back later!</em>
