@@ -3,14 +3,7 @@
   import _ from "lodash"
   import { Link, navigate } from "svelte-navigator"
   import { onMount } from "svelte"
-  import SignupFormModal from "./SignupFormModal.svelte"
-  import { errorsByField, otherResponse } from "./utils"
   let email: string = ""
-  let password: string = ""
-  let showSignupModal: boolean = false
-
-  let loading: boolean = false
-  let errors: Record<string, string> = {}
 
   onMount(() => {
     if (sprachy.user) {
@@ -18,43 +11,12 @@
     }
   })
 
-  async function login() {
-    loading = true
-    errors = {}
-    const res = await sprachy.api.login({ email, password })
-    loading = false
-
-    if (res.status === 200) {
-      sprachy.initApp(res.summary)
-      const params = new URLSearchParams(window.location.search)
-      const afterLoginUrl = params.get("next")
-      if (afterLoginUrl) {
-        navigate(afterLoginUrl)
-      } else {
-        navigate("/home")
-      }
-    } else {
-      if (res.code === "new user") {
-        showSignupModal = true
-      } else if (res.code === "wrong password") {
-        errors.password = "The password doesn't match the user"
-      } else if (res.code === "validation failed") {
-        errors = errorsByField(res.errors)
-      } else {
-        otherResponse(res)
-      }
-    }
-  }
-
-  function hideSignupModal() {
-    showSignupModal = false
+  async function gotoSignup() {
+    navigate("/signup?email=" + encodeURIComponent(email))
   }
 </script>
 
 <div class="frontpage">
-  {#if showSignupModal}
-    <SignupFormModal onDismiss={hideSignupModal} {email} {password} />
-  {/if}
   <header>
     <nav class="navbar navbar-expand-lg">
       <div class="container">
@@ -76,7 +38,7 @@
         Sprachy combines detailed explanations of language patterns with memorable dialogue
         exercises. Also we have extradimensional psionic squirrels.
       </h5>
-      <form on:submit|preventDefault={login}>
+      <form on:submit|preventDefault={gotoSignup}>
         <fieldset class="form-group">
           <label for="email">Email</label>
           <input
@@ -85,23 +47,12 @@
             id="email"
             type="email"
             class:form-control={true}
-            class:is-invalid={!!errors.email}
             placeholder="Email"
             required
           />
-          {#if errors.email}
-            <div class="invalid-feedback">
-              {errors.email}
-            </div>
-          {/if}
         </fieldset>
 
-        <button class="btn btn-sprachy btn-lg" type="submit" disabled={loading}
-          >Sign up for Sprachy</button
-        >
-        <!-- <p class="text-warning mt-2">
-          <em>Sprachy is still early in development; you might want to come back later!</em>
-        </p> -->
+        <button class="btn btn-sprachy btn-lg" type="submit">Sign up for Sprachy</button>
       </form>
     </div>
   </main>

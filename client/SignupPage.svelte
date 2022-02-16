@@ -7,7 +7,8 @@
   let loading: boolean = false
   let errors: Record<string, string> = {}
 
-  let email: string = ""
+  const params = new URLSearchParams(window.location.search)
+  let email = params.get("email") || ""
   let password: string = ""
   let confirmPassword: string = ""
 
@@ -34,8 +35,11 @@
 
     if (res.status === 200) {
       sprachy.initApp(res.summary)
-      if (window.location.search.length > 0) {
-        navigate(window.location.search.substring(6))
+      const params = new URLSearchParams(window.location.search)
+      const afterSignupUrl = params.get("next")
+
+      if (afterSignupUrl) {
+        navigate(afterSignupUrl)
       } else {
         navigate("/home")
       }
@@ -205,6 +209,7 @@
 
     <fieldset class="form-group">
       <label for="email">Email address</label>
+      <!-- svelte-ignore a11y-autofocus -->
       <input
         bind:value={email}
         name="email"
@@ -214,6 +219,7 @@
         class:is-invalid={!!errors.email}
         placeholder="Email"
         required
+        autofocus
       />
       {#if errors.email}
         <div class="invalid-feedback">

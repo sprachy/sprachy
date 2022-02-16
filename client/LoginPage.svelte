@@ -1,7 +1,7 @@
 <script lang="ts">
   import sprachy from "./sprachy"
   import _ from "lodash"
-  import { navigate } from "svelte-navigator"
+  import { Link, navigate } from "svelte-navigator"
   import { onMount } from "svelte"
   import { errorsByField } from "./utils"
   let email: string = ""
@@ -230,14 +230,14 @@
         </div>
       {/if}
     </fieldset>
-    <div class="forgot-password">
-      <a href="/forgot-password">Forgot password?</a>
-    </div>
+    <!-- <div class="forgot-password">
+      <Link to="/forgot-password">Forgot password?</Link>
+    </div> -->
 
     <button class="btn btn-sprachy" type="submit" disabled={loading}>Sign in</button>
 
     <p class="signup-callout">
-      New to Sprachy? <a href="/signup">Create an account</a>.
+      New to Sprachy? <Link to="/signup">Create an account</Link>.
     </p>
   </form>
 </main>

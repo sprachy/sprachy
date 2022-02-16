@@ -26,7 +26,7 @@ new GlobalErrorHandler({
       if (window.location.pathname === "/home") {
         window.location.replace("/")
       } else {
-        window.location.replace("/?next=" + window.location.pathname)
+        window.location.replace("/login?next=" + window.location.pathname)
       }
     } else if (err instanceof NotFoundError || err.response?.status === 404) {
       new NotFoundPage({
