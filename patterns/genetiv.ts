@@ -2,47 +2,50 @@ import { faHandPointRight } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "../common/definePattern"
 
 export default definePattern({
-  id: "genetiv",
-  slug: "genetiv",
-  title: "Des Genetivs",
+  id: "genitiv",
+  slug: "genitiv",
+  title: "Des Genitivs",
   shortdesc: "For _directly_ belonging to a fluffy squirrel.",
   icon: faHandPointRight,
   explanation: md`
-The least common shiny grammatical case is the genetive case, just like the dative case
+The least common shiny grammatical case is the genitive case, just like the dative case
 it comes into use in sentences which describe posessions or belongings, however in the
-case of the genetive case, it's only used on combinations of two direct objects or beings,
+case of the genitive case, it's only used on combinations of two direct objects or beings,
 for instance to underline the posession of some almonds:
 
 <TextHighlighter parts="directobject, directobject">
 That is [the almond] of the [squirrel].
 </TextHighlighter>
 
-The easiest way to remember a noun in its genetive case is that its article for masculine or neuter nouns is _des_ and _eines_, whereas feminine nouns are trickier with _der_ and _einer_, sharing the same structure as the dative.
+The easiest way to remember a noun in its genitive case is that its article for masculine or neuter nouns is _des_ and _eines_, whereas feminine nouns are trickier with _der_ and _einer_, sharing the same structure as the dative.
 
 <TextHighlighter parts="directobject, directobject">
 Das ist [die Mandel] des [Eichhörnchens].
 </TextHighlighter>
 
 Notice how _das Eichhörnchen_ changes into _des Eichhörnchens_? This is because for
-polysyllabic neuter and masculine nouns end in _-s_ in the genetive case.
+polysyllabic neuter and masculine nouns end in _-s_ in the genitive case.
 
 <LTable>
 _ / Masculine / Feminine / Neuter
-Nominative / der Mond / die Schlange/ das Sauerkraut 
+Nominative / der Mond / die Schlange / das Sauerkraut 
 Dative / **des** Mond**es** / **der** Schlange / **des** Sauerkraut**s**
 </LTable>
 
 Of course there are also some exceptions in place with the polysyllabic and monosyllabic nouns mentioned before.
-For instance _des Sauerkraut_ is a polysyllabic neuter noun in its genetive form, would we take the monosyllabic variant of just "Kraut", the noun would follow with the _-es_ ending: _des Krautes_.
+For instance _des Sauerkraut_ is a polysyllabic neuter noun in its genitive form, would we take the monosyllabic variant of just "Kraut", the noun would follow with the _-es_ ending: _des Krautes_.
 
 <DialogueExample>
 lukas:
   Das ist des Krautes Saft!
+</DialogueExample>
+<DialogueExample>
+lukas:
   Das ist des Sauerkrauts Saft!
 </DialogueExample>
 
 <Tip title="es-sential vowels">
-Keep in mind that the _-es_ ending would not apply to words which already end in a vowel like in the case with _der Uhu_, a monosyllabic masculine noun. The correct genetive would be _des Uhus_ in this case.
+Keep in mind that the _-es_ ending would not apply to words which already end in a vowel like in the case with _der Uhu_, a monosyllabic masculine noun. The correct genitive would be _des Uhus_ in this case.
 </Tip>
 
 <Tip title="apostrophes?">
