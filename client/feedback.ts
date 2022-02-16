@@ -33,44 +33,22 @@ const defaultFeedback: Record<string, Record<string, string>> = {
 }
 
 export function matchAnswer(attempt: string, line: FillblankLine): { validAnswer?: string, feedback?: string } {
-  attempt = attempt.toLowerCase()
-
-  // First just see if the input exactly matches one of the answers
-  const exactAnswer = line.validAnswers.find(ans => ans.toLowerCase() === attempt)
-  if (exactAnswer) {
+  const validAnswer = line.validAnswers.find(ans => ans.toLowerCase() === attempt.toLowerCase())
+  if (validAnswer) {
     return {
-      validAnswer: exactAnswer
+      validAnswer: validAnswer
+    }
+  } else {
+    return {
+      feedback: getFeedback(attempt, line)
     }
   }
-
-  // If not, check if it's a known invalid answer with feedback
-  // We do this before typo matching so that e.g. "ein" isn't considered a typo of "eine"
-  const feedback = feedbackCheck(attempt, line)
-  if (feedback) {
-    return { feedback }
-  }
-
-  // Is the answer another actual German word? If so, it's probably
-  // not a typo, but actually a wrong answer.
-  if (sprachdex.knownGermanWords[attempt]) {
-    return {}
-  }
-
-  // Otherwise, try to match accounting for typos
-  for (const ans of line.validAnswers) {
-    const tolerance = distanceTolerance(ans)
-    if (levenshtein(attempt, ans.toLowerCase()) <= tolerance) {
-      return {
-        validAnswer: ans
-      }
-    }
-  }
-
-  // No valid answer and no feedback to give! Traurig :(
-  return {}
 }
 
-function feedbackCheck(attempt: string, line: FillblankLine): string | undefined {
+/**
+ * Get some feedback for a wrong answer to a fillblank.
+ */
+function getFeedback(attempt: string, line: FillblankLine): string | undefined {
   for (const answer of line.validAnswers) {
     const ans = answer.toLowerCase()
 
@@ -79,34 +57,26 @@ function feedbackCheck(attempt: string, line: FillblankLine): string | undefined
     if (specificFeedback)
       return specificFeedback
 
-    // Otherwise, we might have some general site-wide feedback
+    // Otherwise, we might have some general site-wide feedback for this attempt/answer pair
     const generalFeedback = (defaultFeedback[ans] || {})[attempt]
     if (generalFeedback)
       return generalFeedback
   }
 
-  return undefined
-}
+  // Did they just get the casing wrong?
+  // if (line.validAnswers.some(ans => ans.toLowerCase() === attempt.toLowerCase())) {
+  //   return "That's the right spelling, but the answer has a different capitalization."
+  // }
 
-/**
- * Given a correct answer, returns the maximum levenshtein
- * distance from that answer to consider correct (due to potential typos).
- * 
- * We're more tolerant of typos for longer words.
- */
-function distanceTolerance(s: string): number {
-  switch (s.length) {
-    case 1:
-    case 2:
-    case 3:
-      return 0
-    case 4:
-    case 5:
-      return 1
-    case 6:
-    case 7:
-      return 2
-    default:
-      return 2 + 1 * Math.floor(s.length / 7)
+  console.log(line.canonicalAnswer, attempt)
+
+  // Otherwise give some generic feedback based on character diff
+  if (line.canonicalAnswer.length < attempt.length) {
+    return "The answer is shorter."
+  } else if (line.canonicalAnswer.length > attempt.length) {
+    return "The answer is longer."
+  } else {
+    const diff = levenshtein(line.canonicalAnswer.toLowerCase(), attempt.toLowerCase())
+    return `The answer is the same length, but ${diff} character${diff == 1 ? ' is' : 's are'} different.`
   }
 }
