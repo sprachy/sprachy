@@ -13,12 +13,6 @@
   let success: boolean = false
   let errors: Record<string, string> = {}
 
-  onMount(() => {
-    if (sprachy.user) {
-      navigate("/home")
-    }
-  })
-
   async function confirmResetPassword() {
     loading = true
     try {

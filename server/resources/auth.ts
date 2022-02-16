@@ -118,7 +118,7 @@ export async function sendPasswordResetEmail(req: APIRequest): Promise<void> {
       to: user.email,
       subject: "Reset your Sprachy password",
       text: `
-Please click here to reset your password: ${FRONTEND_BASE_URL}/reset-password?token=${token}
+Please click here to reset your password: ${FRONTEND_BASE_URL}/reset-password/${token}
       `
     })
   }
