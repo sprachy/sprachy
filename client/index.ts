@@ -24,7 +24,7 @@ new GlobalErrorHandler({
       // Go to login
       localStorage.removeItem("summary")
       if (window.location.pathname === "/home") {
-        window.location.replace("/")
+        window.location.replace("/login")
       } else {
         window.location.replace("/login?next=" + window.location.pathname)
       }

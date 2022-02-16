@@ -269,9 +269,9 @@ form
   fieldset
     margin-top: 1rem
 
-  .forgot-password
-    font-size: 90%
-    margin-top: 0.2rem
+  // .forgot-password
+  //   font-size: 90%
+  //   margin-top: 0.2rem
   
   button
     margin-top: 1rem

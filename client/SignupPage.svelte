@@ -16,6 +16,11 @@
     if (sprachy.user) {
       navigate("/home")
     }
+
+    if (email) {
+      const el = document.getElementById("password")! as HTMLInputElement
+      el.focus()
+    }
   })
 
   async function signup() {
