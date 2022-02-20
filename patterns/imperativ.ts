@@ -52,10 +52,27 @@ squirrel:
   G**i**b mir die Mandel!
 </DialogueExample>
 
-The 2nd person plural verbs also retain their present tense form so 
+Now we continue with the second most usual occurance of the imperative: The 2nd person plural.
+In this case the present tense form is used for the verb and you don't have to worry about the word's stem.
 
+<DialogueExample>
+lukas:
+  Kommt her ihr Eichörnchen.
+</DialogueExample>
 
-  `,
+<Tip title="Und Sie?">
+  The formal spelling of _you_ as in _Sie_ also accounts to 2nd person plural and follows the same rules with the addition
+  that the _Sie_ always follows the first verb in the imperative form.
+</Tip>
+
+The imperative form can also be used for the 1st person plural, in this case the verb uses the present tense.
+
+<DialogueExample>
+lukas:
+  Gehen wir zum Park!
+</DialogueExample>
+`
+  ,
   stories: [
     // LEVEL 1
   ]
