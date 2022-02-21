@@ -11,6 +11,13 @@ export default definePattern({
 Just like in English, the imperative form is used to direct commands or orders at people,
 usually followed by an exclamation mark, though optional.
 
+<LTable>
+_ / Masculine / Feminine / Neuter
+infnitive / schlafen / geben / anfangen
+2nd person singular / **schlaf** / **gib** / **fang**
+2nd person plural / **schlafen** / **geben** / **fangen**
+</LTable>
+
 The sentence structure is quite similar to the English imperative form too, the sentences
 always begin with a verb, though the verb endings may differ from its original infinitive.
 
