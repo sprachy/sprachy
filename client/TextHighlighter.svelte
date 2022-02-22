@@ -28,22 +28,26 @@
   $: fragments = ((text: string, highlights: string[]) => {
     const fragments: TextFragment[] = []
     let highlightIndex = 0
-    for (const bit of text.split(/(?<=\[.+?\])|(?=\[.+?\])/g)) {
-      if (bit[0] === "[") {
-        const highlight = highlights[highlightIndex]!
-        const text = bit.slice(1, -1)
-        fragments.push({
-          highlight: highlight,
-          minWidth: highlight.length > text.length ? calculateTextWidth(highlight) : undefined,
-          text: text,
-        })
-        highlightIndex += 1
-      } else {
-        fragments.push({
-          text: bit,
-        })
-      }
+
+    const matches = [...text.matchAll(/\[.+?\]/g)]
+    let i = 0
+    for (const m of matches) {
+      if (!m || !m.index || !m[0]) continue
+      fragments.push({
+        text: text.slice(i, m.index),
+      })
+
+      const highlight = highlights[highlightIndex]!
+      const bit = m[0].slice(1, -1)
+      fragments.push({
+        highlight: highlight,
+        minWidth: highlight.length > bit.length ? calculateTextWidth(highlight) : undefined,
+        text: bit,
+      })
+      highlightIndex += 1
+      i = m.index + m[0].length
     }
+
     return fragments
   })(text, highlights)
 </script>
