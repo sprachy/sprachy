@@ -7,6 +7,7 @@ authors = ["Toggle <toggledy@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 nltk = "^3.7"
+gender-determinator = "^0.2.1"
 
 [tool.poetry.dev-dependencies]
 

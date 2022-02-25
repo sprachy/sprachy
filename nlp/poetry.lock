@@ -18,6 +18,14 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
+name = "gender-determinator"
+version = "0.2.1"
+description = "Determines the gender of german nouns and provides some convenient methods"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "joblib"
 version = "1.1.0"
 description = "Lightweight pipelining with Python functions"
@@ -74,7 +82,7 @@ telegram = ["requests"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "41f970910d9f3215b73ecab2ef9cac87c62e7d22a40d17a20112a1f3507f4e96"
+content-hash = "63d658c1c82c73adb5c6647519b1133ce5ec9bae9a3f288d420a92e42dd65810"
 
 [metadata.files]
 click = [
@@ -84,6 +92,9 @@ click = [
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
+]
+gender-determinator = [
+    {file = "gender-determinator-0.2.1.tar.gz", hash = "sha256:f11248239552602d3cccc5d4301d1b997f9bce3ab795a0ea2e0991f00f58f90a"},
 ]
 joblib = [
     {file = "joblib-1.1.0-py2.py3-none-any.whl", hash = "sha256:f21f109b3c7ff9d95f8387f752d0d9c34a02aa2f7060c2135f465da0e5160ff6"},

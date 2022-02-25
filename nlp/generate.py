@@ -1,6 +1,8 @@
 import csv
 import random
 from nltk.corpus import wordnet as wn
+from genderdeterminator import GenderDeterminator, Case
+gd = GenderDeterminator()
 
 def load_wn_german_translations():
     # NLTK wordnet doesn't have german translations by default
@@ -40,28 +42,42 @@ def deep_hyponyms(synset):
       hyponyms = next_hyponyms
   return results
 
-def terms_that_are(thing: str, pos: str = 'n'):
+def nouns_that_are(thing: str):
   syns = wn.synsets(thing)
-  pos_syns = [s for s in syns if s.pos() == pos]
+  pos_syns = [s for s in syns if s.pos() == 'n']
   hypos = deep_hyponyms(pos_syns[0])
   results = []
   for hypo in hypos:
     en = hypo.lemma_names()[0]
     de = wn_german_translations.get((hypo.pos(), hypo.offset()))
     if not de:
+      print("No German translation for", hypo)
       continue
+
+    gender = gd.get_gender(de)
+    if not gender:
+      print(f"Unknown gender for {de}")
+      continue
+
     results.append({
       'en': en.replace('_', ' '),
-      'de': de
+      'de': de,
+      'gender': gd.get_gender(de)
     })
   return results
 
 def generate_exercise():
-    nouns = terms_that_are('book', pos='n')
+    nouns = nouns_that_are('nut')
 
     for noun in nouns:
-      print(f"Ich möchte {noun['de']} essen")
-      print(f"I would like to eat {noun['en']}")
+      article = 'das'
+      if noun['gender'] == 'm':
+        article = 'der'
+      elif noun['gender'] == 'f':
+        article = 'die'
+
+      print(f"Ich möchte {article} {noun['de']} essen")
+      print(f"I would like to eat the {noun['en']}")
       print("")
 
 
