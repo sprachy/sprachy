@@ -2,7 +2,7 @@ import type { ServerResponse } from "worktop/response"
 import * as z from 'zod'
 import { Index, Login, Match } from "faunadb"
 
-import type { LoginResult, SignupResult } from "../../common/api"
+import type { ProgressSummary } from "../../common/api"
 import { APIRequest, HTTPError } from "../middleware"
 import { db } from "../db"
 import { sessions } from "../sessions"
@@ -25,7 +25,7 @@ const signupForm = z.object({
   message: "Confirm password must be identical to password",
   path: ["confirmPassword"]
 })
-export async function signup(req: APIRequest, res: ServerResponse): Promise<SignupResult> {
+export async function signup(req: APIRequest, res: ServerResponse): Promise<{ summary: ProgressSummary }> {
   const { email, password } = signupForm.parse(await req.body())
 
   try {
@@ -44,10 +44,10 @@ export async function signup(req: APIRequest, res: ServerResponse): Promise<Sign
       http.postJson(DISCORD_SIGNUP_WEBHOOK, params)
     }
 
-    return { status: 200, summary: { user, progressItems } }
+    return { summary: { user, progressItems } }
   } catch (err) {
     if (err instanceof FaunaError && err.code === "instance not unique") {
-      return { status: 409, code: "user already exists" }
+      throw new HTTPError(409, "Email already in use")
     } else {
       throw err
     }
@@ -65,13 +65,8 @@ const loginForm = z.object({
   email: z.string(),
   password: z.string()
 })
-export async function login(req: APIRequest, res: ServerResponse): Promise<LoginResult> {
+export async function login(req: APIRequest, res: ServerResponse): Promise<{ summary: ProgressSummary }> {
   const { email, password } = loginForm.parse(await req.body())
-
-  const userExists = await db.users.getByEmail(email) !== null
-  if (!userExists) {
-    return { status: 401, code: "new user" }
-  }
 
   try {
     const result = await db.faunaQuery(
@@ -88,10 +83,10 @@ export async function login(req: APIRequest, res: ServerResponse): Promise<Login
     res.headers.set('Set-Cookie', sessions.asCookie(sessionKey))
 
     const progressItems = await db.progress.listAllFor(user.id)
-    return { status: 200, summary: { user, progressItems } }
+    return { summary: { user, progressItems } }
   } catch (err) {
     if (err instanceof FaunaError && err.code === "authentication failed") {
-      return { status: 401, code: "wrong password" }
+      throw new HTTPError(401, 'Invalid email or password')
     } else {
       throw err
     }

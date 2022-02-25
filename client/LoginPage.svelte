@@ -3,8 +3,8 @@
   import _ from "lodash"
   import { Link, navigate } from "svelte-navigator"
   import { onMount } from "svelte"
-  import { errorsByField } from "./utils"
   import SprachyLogo from "./SprachyLogo.svelte"
+  import { APIValidationError } from "./HTTPProvider"
   let email: string = ""
   let password: string = ""
   let loading: boolean = false
@@ -19,11 +19,9 @@
   async function login() {
     loading = true
     errors = {}
-    const res = await sprachy.api.login({ email, password })
-    loading = false
-
-    if (res.status === 200) {
-      sprachy.initApp(res.summary)
+    try {
+      const { summary } = await sprachy.api.login({ email, password })
+      sprachy.initApp(summary)
       const params = new URLSearchParams(window.location.search)
       const afterLoginUrl = params.get("next")
       if (afterLoginUrl) {
@@ -31,13 +29,24 @@
       } else {
         navigate("/home")
       }
-    } else {
-      if (res.code === "wrong password") {
-        errors.password = "The password doesn't match the user"
-      } else if (res.code === "validation failed") {
-        errors = errorsByField(res.errors)
+    } catch (err: any) {
+      if (err instanceof APIValidationError) {
+        errors = err.errorsByField
+      } else {
+        errors.other = err.message
       }
+    } finally {
+      loading = false
     }
+
+    // if (res.status === 200) {
+    // } else {
+    //   if (res.code === "wrong password") {
+    //     errors.password = "The password doesn't match the user"
+    //   } else if (res.code === "validation failed") {
+    //     errors = errorsByField(res.errors)
+    //   }
+    // }
   }
 </script>
 
@@ -92,6 +101,12 @@
     <div class="forgot-password">
       <Link to="/reset-password">Forgot password?</Link>
     </div>
+
+    {#if errors.other}
+      <div class="text-danger">
+        {errors.other}
+      </div>
+    {/if}
 
     <button class="btn btn-sprachy" type="submit" disabled={loading}>Sign in</button>
 

@@ -11,7 +11,7 @@ import { FaunaError } from './faunaUtil'
 /**
  * Throw this to signal that request processing should
  * abort immediately and send an error response with the given 
- * http status code + message 
+ * http status + error code 
  */
 export class HTTPError extends Error {
   constructor(readonly status: number, message: string) {

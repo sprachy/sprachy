@@ -1,8 +1,29 @@
 import _ from 'lodash'
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { IS_PRODUCTION } from './settings'
+import { errorsByField } from './utils'
 
 export type RequestOpts = AxiosRequestConfig & { safe?: boolean }
+
+export class APIError extends Error {
+  response: AxiosResponse<any>
+  status: number
+
+  constructor(res: AxiosResponse<any>) {
+    super(res.data.message)
+    this.response = res
+    this.status = res.status
+  }
+}
+
+export class APIValidationError extends APIError {
+  errorsByField: Record<string, string> = {}
+
+  constructor(res: AxiosResponse<any>) {
+    super(res)
+    this.errorsByField = errorsByField(res.data.errors)
+  }
+}
 
 export class HTTPProvider {
   axios: AxiosInstance
@@ -27,7 +48,7 @@ export class HTTPProvider {
     }
   }
 
-  async request(opts: RequestOpts): Promise<AxiosResponse<any>> {
+  async unsafeRequest(opts: RequestOpts): Promise<AxiosResponse<any>> {
     const promise = this.axios.request(opts).finally(() => {
       this.ongoingRequests = this.ongoingRequests.filter(r => r !== promise)
     })
@@ -36,6 +57,23 @@ export class HTTPProvider {
       this.onRequest(promise)
 
     return promise
+  }
+
+  async request(opts: RequestOpts): Promise<AxiosResponse<any>> {
+    try {
+      return await this.unsafeRequest(opts)
+    } catch (err: any) {
+      if (err?.response?.data?.errors) {
+        // Zod validation error with errors for each form field
+        throw new APIValidationError(err.response)
+      } else if (err?.response?.data?.message) {
+        // Some other kind of API error with a message
+        throw new APIError(err.response)
+      } else {
+        // Something really unexpected happened
+        throw err
+      }
+    }
   }
 
   async get(path: string) {

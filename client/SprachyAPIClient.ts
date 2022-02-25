@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import type { ProgressItem, User, ProgressSummary, LoginResult, SignupResult } from '../common/api'
+import type { ProgressItem, User, ProgressSummary } from '../common/api'
 import { HTTPProvider, safeRequest } from './HTTPProvider'
 
 export class SprachyAPIClient {
@@ -10,12 +10,12 @@ export class SprachyAPIClient {
     this.admin = new AdminAPI(this.http)
   }
 
-  async login({ email, password }: { email: string, password: string }): Promise<LoginResult> {
-    return safeRequest(this.http.post(`/api/login`, { email, password }))
+  async login({ email, password }: { email: string, password: string }): Promise<{ summary: ProgressSummary }> {
+    return this.http.post(`/api/login`, { email, password })
   }
 
-  async signUp({ email, password, confirmPassword }: { email: string, password: string, confirmPassword: string }): Promise<SignupResult> {
-    return safeRequest(this.http.post(`/api/signup`, { email, password, confirmPassword }))
+  async signUp({ email, password, confirmPassword }: { email: string, password: string, confirmPassword: string }): Promise<{ summary: ProgressSummary }> {
+    return this.http.post(`/api/signup`, { email, password, confirmPassword })
   }
 
   async logout(): Promise<void> {

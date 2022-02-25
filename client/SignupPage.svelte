@@ -1,10 +1,10 @@
 <script lang="ts">
   import sprachy from "./sprachy"
   import _ from "lodash"
-  import { navigate } from "svelte-navigator"
+  import { Link, navigate } from "svelte-navigator"
   import { onMount } from "svelte"
-  import { errorsByField, otherResponse } from "./utils"
   import SprachyLogo from "./SprachyLogo.svelte"
+  import { APIValidationError } from "./HTTPProvider"
   let loading: boolean = false
   let errors: Record<string, string> = {}
 
@@ -31,16 +31,14 @@
       return
     }
 
-    loading = true
-    const res = await sprachy.api.signUp({
-      email: email,
-      password: password,
-      confirmPassword,
-    })
-    loading = false
+    try {
+      const { summary } = await sprachy.api.signUp({
+        email: email,
+        password: password,
+        confirmPassword,
+      })
 
-    if (res.status === 200) {
-      sprachy.initApp(res.summary)
+      sprachy.initApp(summary)
       const params = new URLSearchParams(window.location.search)
       const afterSignupUrl = params.get("next")
 
@@ -49,14 +47,14 @@
       } else {
         navigate("/home")
       }
-    } else {
-      if (res.code === "user already exists") {
-        errors.email = "This email is already registered"
-      } else if (res.code === "validation failed") {
-        errors = errorsByField(res.errors)
+    } catch (err: any) {
+      if (err instanceof APIValidationError) {
+        errors = err.errorsByField
       } else {
-        otherResponse(res)
+        errors.other = err.message
       }
+    } finally {
+      loading = false
     }
   }
 </script>
@@ -129,11 +127,16 @@
       {/if}
     </fieldset>
 
+    {#if errors.other}
+      <div class="text-danger">
+        {errors.other}
+      </div>
+    {/if}
     <button class="btn btn-sprachy" type="submit" disabled={loading}>Sign up</button>
 
     <hr />
     <p class="callout">
-      <a href="/login">Sign in to an existing account</a>
+      <Link to="/login">Sign in to an existing account</Link>
     </p>
   </form>
 </main>

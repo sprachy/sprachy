@@ -1,15 +1,15 @@
 import type { ZodIssue } from 'zod'
 
-export type LoginResult =
-  { status: 200, summary: ProgressSummary } |
-  { status: 422, code: 'validation failed', errors: ZodIssue[] } |
-  { status: 401, code: 'new user' } |
-  { status: 401, code: 'wrong password' }
+// export type LoginResult =
+//   { status: 200, summary: ProgressSummary } |
+//   { status: 422, code: 'validation failed', errors: ZodIssue[] } |
+//   { status: 401, code: 'new user' } |
+//   { status: 401, code: 'wrong password' }
 
-export type SignupResult =
-  { status: 200, summary: ProgressSummary } |
-  { status: 422, code: 'validation failed', errors: ZodIssue[] } |
-  { status: 409, code: 'user already exists' }
+// export type SignupResult =
+//   { status: 200, summary: ProgressSummary } |
+//   { status: 422, code: 'validation failed', errors: ZodIssue[] } |
+//   { status: 409, code: 'user already exists' }
 
 
 export type User = {
