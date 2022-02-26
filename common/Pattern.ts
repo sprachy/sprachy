@@ -7,6 +7,7 @@ import _ from "lodash"
  * definitions.
  */
 export type PatternDef = {
+  draft?: true
   id: string
   title: string
   slug: string

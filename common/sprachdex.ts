@@ -11,13 +11,14 @@ import patternDefs from "../patterns"
  * but we don't need to worry about it for now.
  */
 class Sprachdex {
-  allPatterns = patternDefs.map((p) => parsePattern(p))
+  patternsIncludingDrafts = patternDefs.map((p) => parsePattern(p))
+  publishedPatterns = this.patternsIncludingDrafts.filter((p) => !p.draft)
 
   /** Words used in any story */
   knownGermanWords: { [key: string]: true } = {}
 
   constructor() {
-    for (const pattern of this.allPatterns) {
+    for (const pattern of this.patternsIncludingDrafts) {
       for (const story of pattern.stories) {
         for (const line of story.lines) {
           for (const word of line.message.split(/\s+/)) {
@@ -31,7 +32,6 @@ class Sprachdex {
   getCharacter(characterId: string): Character {
     return characters.find((c) => c.id === characterId) || characters[0]!
   }
-
 }
 
 export const sprachdex = new Sprachdex()

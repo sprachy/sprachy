@@ -45,8 +45,12 @@ export class UserApp {
     return _.keyBy(this.progressItems, (p) => p.patternId)
   }
 
+  get allViewablePatterns(): Pattern[] {
+    return this.user.isAdmin ? sprachdex.patternsIncludingDrafts : sprachdex.publishedPatterns
+  }
+
   get patternsAndProgress(): PatternAndProgress[] {
-    return sprachdex.allPatterns.map((p) => {
+    return this.allViewablePatterns.map((p) => {
       const progressItem = this.progressItemByPatternId[p.id]
       return Object.assign({}, p, {
         progress: new PatternProgress(p, progressItem)

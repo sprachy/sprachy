@@ -17,7 +17,12 @@
 
 <SiteLayout title={pattern.title}>
   <div class="pattern">
-    <h1>{pattern.title}</h1>
+    <h1>
+      {pattern.title}
+      {#if pattern.draft}
+        <small class="text-danger fs-5">Draft</small>
+      {/if}
+    </h1>
     <Sprachdown source={pattern.explanation} />
 
     {#if pattern.progress.levelableAt && pattern.progress.levelableAt > Date.now()}

@@ -14,5 +14,4 @@
 <style lang="sass">
   .translation
     font-style: italic
-
 </style>

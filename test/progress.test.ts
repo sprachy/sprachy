@@ -12,7 +12,7 @@ test("srs progress updates", async () => {
   expect(summary.progressItems).toEqual([])
 
   // User learns about a pattern
-  const pattern = sprachdex.allPatterns[0]
+  const pattern = sprachdex.publishedPatterns[0]
   const progress1 = await asUser.api.completeLevel(pattern.id, 1)
   expect(progress1.srsLevel === 1)
 
