@@ -1,1 +1,16 @@
-ln -sf ~/Dropbox/Sprachy/data data
+The `nlp` directory contains natural language processing code to
+manipulate data for Sprachy. Since the datasets themselves can be quite large,
+they aren't kept in the Git repository, but rather on Dropbox.
+
+To use the data with the code, symlink it in:
+
+$ ln -sf ~/Dropbox/Sprachy/data data
+
+You will want [Poetry](https://python-poetry.org/) to install the required Python 
+packages and activate the virtualenv.
+
+$ poetry install
+$ poetry shell
+
+Try not to write too much stuff in Python-- it's nicer if it's in TS since we can
+use it in other parts of the app as well!
