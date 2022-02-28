@@ -10,12 +10,12 @@
   import HomePage from "./HomePage.svelte"
   import LearnPage from "./LearnPage.svelte"
   import PatternPage from "./PatternPage.svelte"
-  import FreePracticePage from "./FreePracticePage.svelte"
   import PatternPracticePage from "./PatternPracticePage.svelte"
   import SettingsPage from "./SettingsPage.svelte"
   import AdminUsersPage from "./AdminUsersPage.svelte"
   import NProgress from "accessible-nprogress"
   import { tryParseInt } from "./utils"
+  import PracticePage from "./PracticePage.svelte"
   NProgress.configure({ showSpinner: false })
 
   sprachy.api.http.onRequest = (req) => {
@@ -46,7 +46,7 @@
     <Route path="/home"><HomePage /></Route>
     <Route path="/faq"><FAQPage /></Route>
     <Route path="/learn"><LearnPage /></Route>
-    <Route path="/practice"><FreePracticePage /></Route>
+    <Route path="/practice"><PracticePage /></Route>
     <Route path="/settings"><SettingsPage /></Route>
     <Route path="/admin"><AdminUsersPage /></Route>
     <Route primary={false} path="/pattern/:slug/practice/level/:level" let:params>

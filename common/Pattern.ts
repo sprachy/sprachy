@@ -15,6 +15,7 @@ export type PatternDef = {
   icon: IconDefinition
   explanation: string
   stories: { lines: LineDef[] }[]
+  exercises: LineDef[]
 }
 
 export type LineDef = {
@@ -46,15 +47,18 @@ export type FillblankLine = {
   feedback?: { [key: string]: string }
 }
 
-export type Line = ReadingLine | FillblankLine
+export type StoryLine = ReadingLine | FillblankLine
 
+
+export type Exercise = FillblankLine
 
 /**
  * A pattern after parsing the definition file. Structured
  * to be friendly for code use.
  */
 export type Pattern = Omit<PatternDef, "stories"> & {
-  stories: { lines: Line[] }[]
+  stories: { lines: StoryLine[] }[]
+  exercises: Exercise[]
   maxLevel: number
 }
 
@@ -66,11 +70,12 @@ export function parsePattern(patternDef: PatternDef): Pattern {
     stories: patternDef.stories.map((story) => ({
       lines: story.lines.map(parseLine),
     })),
-    maxLevel: patternDef.stories.length
+    maxLevel: 5,
+    exercises: patternDef.exercises ? patternDef.exercises.map(parseLine) as Exercise[] : []
   })
 }
 
-export function parseLine(lineDef: LineDef): Line {
+export function parseLine(lineDef: LineDef): StoryLine {
   const match = lineDef.message.match(/\[(.+?)\]/)
   if (match) {
     const canonicalAnswer = match[1]!

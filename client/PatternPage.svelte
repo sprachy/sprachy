@@ -34,16 +34,13 @@
         >
       </p>
     {/if}
-    {#if pattern.progress.readyToLevel}
-      <Link to="/pattern/{pattern.slug}/practice" class="btn btn-primary">
-        Practice: Level {pattern.progress.srsLevel + 1}
-      </Link>
-    {/if}
-    {#each _.reverse(pattern.progress.completedLevels) as srsLevel}
-      <Link to="/pattern/{pattern.slug}/practice/level/{srsLevel + 1}" class="btn btn-secondary">
-        Practice: Level {srsLevel + 1}
-      </Link>
-    {/each}
+    <Link to="/pattern/{pattern.slug}/practice" class="btn btn-primary">
+      {#if pattern.progress.srsLevel === 0}
+        Learn this pattern
+      {:else}
+        Dialogue exercise
+      {/if}
+    </Link>
   </div>
 </SiteLayout>
 

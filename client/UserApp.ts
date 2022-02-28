@@ -1,9 +1,13 @@
 import _ from "lodash"
 import type { ProgressItem, User, ProgressSummary } from "../common/api"
-import type { FillblankLine, Pattern, Story } from "../common/Pattern"
+import type { Exercise, FillblankLine, Pattern, Story } from "../common/Pattern"
 import { sprachdex } from "../common/sprachdex"
 import { time } from "../common/time"
 import type { SprachyAPIClient } from "./SprachyAPIClient"
+
+export type Review = Exercise & {
+  pattern: PatternAndProgress
+}
 
 /**
  * Application-wide state for when the user is signed in
@@ -103,6 +107,7 @@ export class UserApp {
     }
     return lines
   }
+
 }
 
 class PatternProgress {
