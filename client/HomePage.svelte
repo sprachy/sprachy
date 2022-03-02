@@ -4,6 +4,8 @@
   import sprachy from "./sprachy"
   import { IS_PRODUCTION } from "./settings"
   import PatternItem from "./PatternItem.svelte"
+  import NextPatternHomeTile from "./NextPatternHomeTile.svelte"
+  import PracticeHomeTile from "./PracticeHomeTile.svelte"
 
   let patterns = sprachy.app.patternsAndProgress
 
@@ -24,6 +26,10 @@
 
 <SiteLayout>
   <div class="home">
+    <div class="tiles">
+      <NextPatternHomeTile />
+      <PracticeHomeTile />
+    </div>
     <!-- <section class="chapter">
       <header>
         <h2>Introduction</h2>
@@ -69,5 +75,8 @@
   margin-top: 1rem
   border-top: 1px solid #ccc
   padding-top: 1rem
+
+.tiles
+  display: flex
 
 </style>

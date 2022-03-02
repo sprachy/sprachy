@@ -78,7 +78,12 @@ export class UserApp {
    */
   get patternsReadyToLevel() {
     const patterns = this.learnedPatterns.filter(p => p.progress.levelableAt && p.progress.levelableAt <= Date.now())
-    return _.sortBy(patterns, p => p.progress!.levelableAt)
+    return _.sortBy(patterns, p => p.progress.levelableAt)
+  }
+
+  get nextLevelablePattern() {
+    const patterns = _.sortBy(this.learnedPatterns, p => p.progress.levelableAt)
+    return patterns[0]
   }
 
   /** Get all stories the user already completed, across all patterns */
@@ -108,6 +113,27 @@ export class UserApp {
     return lines
   }
 
+  /** Get reviews for all learned patterns, regardless of levelup availability */
+  get allReviews() {
+    let reviews: Review[] = []
+    for (const pattern of this.learnedPatterns) {
+      for (const exercise of pattern.exercises) {
+        reviews.push(Object.assign({}, exercise, { pattern }))
+      }
+    }
+    return reviews
+  }
+
+  /** Get reviews from patterns ready to level */
+  get reviewsForLeveling() {
+    let reviews: Review[] = []
+    for (const pattern of this.patternsReadyToLevel) {
+      for (const exercise of pattern.exercises) {
+        reviews.push(Object.assign({}, exercise, { pattern }))
+      }
+    }
+    return reviews
+  }
 }
 
 class PatternProgress {

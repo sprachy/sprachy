@@ -6,17 +6,18 @@
   import StoryLineFillblank from "./StoryLineFillblank.svelte"
   import type { PatternAndProgress } from "./UserApp"
 
+  let freePractice: boolean = false
+
   type Review = Exercise & {
     pattern: PatternAndProgress
   }
 
   let reviews: Review[] = []
-  for (const pattern of sprachy.app.patternsReadyToLevel) {
-    for (const exercise of pattern.exercises) {
-      reviews.push(Object.assign({}, exercise, { pattern }))
-      reviews = _.shuffle(reviews)
-    }
-    // const exercise = _.sample(pattern.exercises)
+  if (sprachy.app.patternsReadyToLevel.length === 0) {
+    freePractice = true
+    reviews = _.sampleSize(sprachy.app.allReviews, 10)
+  } else {
+    reviews = _.shuffle(sprachy.app.reviewsForLeveling)
   }
 
   let reviewIndex: number = 0
