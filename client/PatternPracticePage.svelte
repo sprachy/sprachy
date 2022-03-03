@@ -83,7 +83,7 @@
     <div class="complete">
       <img src={successImg} alt="Happy squirrel" />
       <p>
-        Nice work! Level {pattern.progress.srsLevel + 1} of {pattern.title} will become available in
+        Nice work! Level {pattern.progress.srsLevel + 1} of {pattern.title} will become available
         <Timeago ts={pattern.progress.levelableAt} />.
       </p>
       {#if nextPattern}
