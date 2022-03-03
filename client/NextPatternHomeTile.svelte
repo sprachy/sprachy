@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Link } from "svelte-navigator"
+  import Sprachdown from "./Sprachdown.svelte"
   import sprachy from "./sprachy"
 
   const nextPattern = sprachy.app.nextPatternToLearn
@@ -10,7 +11,7 @@
     <Link to={`/pattern/${nextPattern.slug}`}>
       <div class="card">
         <span class="card-title">Next Pattern: {nextPattern.title}</span>
-        <p>{nextPattern.shortdesc}</p>
+        <p><Sprachdown inline source={nextPattern.shortdesc} /></p>
       </div>
     </Link>
   {:else}

@@ -85,7 +85,11 @@ accusative!
     },
   ],
   exercises: [
-
+    {
+      from: "fox",
+      message: "Ich habe früher wie Sie eine Sprache gelernt. Dann bekam ich [einen] Pfeil ins Knie...",
+      translation: "I used to be a language-learner like you. Then I took [an] arrow to the knee..."
+    }
   ]
 })
 

@@ -1,4 +1,3 @@
-import intro from './intro'
 import derdiedas from './der-die-das'
 import eineine from './ein-eine'
 import sein from './sein'

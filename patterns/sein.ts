@@ -81,7 +81,26 @@ formal/informal language!
     }
   ],
   exercises: [
-
+    {
+      from: "squirrel",
+      message: "Du [bist] sehr flach. Das ist irgendwie niedlich.",
+      translation: "You [are] very flat. It's kind of cute."
+    },
+    {
+      from: "lukas",
+      message: "Er [ist] _holprig_? Was soll das bedeuten?",
+      translation: "He [is] _bumpy_? What does that mean?"
+    },
+    {
+      from: "lindenbaum",
+      message: "Ich [bin] auf das Experiment vorbereitet.",
+      translation: "I [am] prepared for the experiment."
+    },
+    {
+      from: "fox",
+      message: "Die vier Tafeln [sind] durchdacht angeordnet.",
+      translation: "The four panels [are] thoughtfully arranged."
+    }
   ]
   // LEVEL 2
   // {
