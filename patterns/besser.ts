@@ -23,119 +23,119 @@ You also have to keep the correct adjective endings in mind. If an adjective is 
 <Tip title="Umlaut">
 It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ for example _groß_ would turn into _größer_, keep in mind though that there are many exceptions to it,
 </Tip>`,
-  stories: [
+  story: [
     // LEVEL 1
     {
-      lines: [
-        {
-          from: "squirrel",
-          message: "Erdnüsse? Was für eine schandhafte Auswahl! Das kannst du [besser]!",
-          translation: "Peanuts? What a shameful choice! You could do [better]!",
-          hint: "[gut]",
-        },
-        {
-          from: "lukas",
-          message: "Was fändest du denn [leckerer]?",
-          translation: "What would you find [tastier]?",
-          hint: "[lecker]",
-        },
-        {
-          from: "squirrel",
-          message: "Ich ernähre mich von Mandeln. Die Juwelen der Natur. Jedoch sind eure [kleiner] als in meiner Welt.",
-          translation: "I feed on almonds. The jewels of nature. However, yours are [smaller] than in my world.",
-          hint: "[klein]",
-        },
-        {
-          from: "squirrel",
-          message: "Auf euren Mandelbäumen ist es aber wie im Schlaraffenland, hier ist es [ruhiger] ohne die ganzen lauten Esperkämpfer.",
-          translation: "Though on your almond trees it's like in the land of plenty, here it's [quieter] without all the noisy esper warriors.",
-          hint: "[ruhig]",
-        },
-        {
-          from: "lukas",
-          message: "Was macht denn deine Mandeln [größer]?",
-          translation: "What makes your almonds [bigger]?",
-          hint: "[groß]",
-        },
-        {
-          from: "squirrel",
-          message: "Unsere Esperkünste erlauben es uns Lebewesen [eleganter] zu machen.",
-          translation: "Our Esper-Arts enables us to make living beings [more elegant].",
-          hint: "[elegant]",
-        },
-        {
-          from: "lukas",
-          message: "Machte es auch deinen Schwanz [flauschiger]?",
-          translation: "Did it make your tail [fluffier]?",
-          hint: "[flauschig]",
-        },
-        {
-          from: "squirrel",
-          message: "Mein Schwanz war schon immer flauschig!",
-          translation: "My tail was always fluffy!",
-        },
-      ]
+      from: "squirrel",
+      message: "Erdnüsse? Was für eine schandhafte Auswahl! Das kannst du [besser]!",
+      translation: "Peanuts? What a shameful choice! You could do [better]!",
+      hint: "[gut]",
     },
-
-    // LEVEL 2
     {
-      lines: [
-        {
-          from: "fox",
-          message: "Was ist [besser]? Kaffee oder Tee?",
-          translation: "What's [better]? Coffee or tea?"
-        },
-        {
-          from: "lindenbaum",
-          message: "Besser? Das hängt vom Kontext ab.",
-          translation: "Better? It depends on context."
-        },
-        {
-          from: "lindenbaum",
-          message: "Kaffee schmeckt [bitterer] und enthält mehr Koffein.",
-          translation: "Coffee tastes [more bitter] and has more caffeine.",
-          hint: "[bitter]"
-        },
-        {
-          from: "lindenbaum",
-          message: "Tee schmeckt [milder] und enthält den beruhigenden Stoff, L-Theanin.",
-          translation: "Tea tastes [milder] and contains a calming chemical, L-Theanine.",
-          hint: "[mild]"
-        },
-        {
-          from: "lindenbaum",
-          message: "Ich persönlich mag Kaffee [lieber].",
-          translation: "I personally like coffee more.",
-          hint: "[lieb]"
-        },
-        {
-          from: "fox",
-          message: "Hmm, also ist Kaffee besser.",
-          translation: "Hmm, so coffee is better.",
-        },
-        {
-          from: "lindenbaum",
-          message: "Nur, wenn du persönlich entscheidest, was du mir geben willst.",
-          translation: "Only if you're deciding which to give me, personally."
-        },
-        {
-          from: "fox",
-          message: "Aber Lin ist [wichtiger] als andere Menschen.",
-          translation: "But Lin is more [important] than other humans.",
-          hint: "[wichtig]"
-        },
-        {
-          from: "fox",
-          message: "Deine Präferenz hat also ein [höheres] Gewicht im Gesamtumfang.",
-          translation: "So your preference carries [higher] weight in global scope.",
-          hint: "[hoch, neuter]"
-        },
-        {
-          from: "lindenbaum",
-          message: "Aha! Ich registriere das immer noch als Analysefehler, aber es ist ein sehr süßer Fehler.",
-          translation: "Hah! I'm still recording this as an analysis bug, but it's a very sweet one."
-        }
-      ]
+      from: "lukas",
+      message: "Was fändest du denn [leckerer]?",
+      translation: "What would you find [tastier]?",
+      hint: "[lecker]",
+    },
+    {
+      from: "squirrel",
+      message: "Ich ernähre mich von Mandeln. Die Juwelen der Natur. Jedoch sind eure [kleiner] als in meiner Welt.",
+      translation: "I feed on almonds. The jewels of nature. However, yours are [smaller] than in my world.",
+      hint: "[klein]",
+    },
+    {
+      from: "squirrel",
+      message: "Auf euren Mandelbäumen ist es aber wie im Schlaraffenland, hier ist es [ruhiger] ohne die ganzen lauten Esperkämpfer.",
+      translation: "Though on your almond trees it's like in the land of plenty, here it's [quieter] without all the noisy esper warriors.",
+      hint: "[ruhig]",
+    },
+    {
+      from: "lukas",
+      message: "Was macht denn deine Mandeln [größer]?",
+      translation: "What makes your almonds [bigger]?",
+      hint: "[groß]",
+    },
+    {
+      from: "squirrel",
+      message: "Unsere Esperkünste erlauben es uns Lebewesen [eleganter] zu machen.",
+      translation: "Our Esper-Arts enables us to make living beings [more elegant].",
+      hint: "[elegant]",
+    },
+    {
+      from: "lukas",
+      message: "Machte es auch deinen Schwanz [flauschiger]?",
+      translation: "Did it make your tail [fluffier]?",
+      hint: "[flauschig]",
+    },
+    {
+      from: "squirrel",
+      message: "Mein Schwanz war schon immer flauschig!",
+      translation: "My tail was always fluffy!",
     },
   ],
+  exericses: [
+
+  ]
 })
+
+
+    // // LEVEL 2
+    // {
+    //   lines: [
+    //     {
+    //       from: "fox",
+    //       message: "Was ist [besser]? Kaffee oder Tee?",
+    //       translation: "What's [better]? Coffee or tea?"
+    //     },
+    //     {
+    //       from: "lindenbaum",
+    //       message: "Besser? Das hängt vom Kontext ab.",
+    //       translation: "Better? It depends on context."
+    //     },
+    //     {
+    //       from: "lindenbaum",
+    //       message: "Kaffee schmeckt [bitterer] und enthält mehr Koffein.",
+    //       translation: "Coffee tastes [more bitter] and has more caffeine.",
+    //       hint: "[bitter]"
+    //     },
+    //     {
+    //       from: "lindenbaum",
+    //       message: "Tee schmeckt [milder] und enthält den beruhigenden Stoff, L-Theanin.",
+    //       translation: "Tea tastes [milder] and contains a calming chemical, L-Theanine.",
+    //       hint: "[mild]"
+    //     },
+    //     {
+    //       from: "lindenbaum",
+    //       message: "Ich persönlich mag Kaffee [lieber].",
+    //       translation: "I personally like coffee more.",
+    //       hint: "[lieb]"
+    //     },
+    //     {
+    //       from: "fox",
+    //       message: "Hmm, also ist Kaffee besser.",
+    //       translation: "Hmm, so coffee is better.",
+    //     },
+    //     {
+    //       from: "lindenbaum",
+    //       message: "Nur, wenn du persönlich entscheidest, was du mir geben willst.",
+    //       translation: "Only if you're deciding which to give me, personally."
+    //     },
+    //     {
+    //       from: "fox",
+    //       message: "Aber Lin ist [wichtiger] als andere Menschen.",
+    //       translation: "But Lin is more [important] than other humans.",
+    //       hint: "[wichtig]"
+    //     },
+    //     {
+    //       from: "fox",
+    //       message: "Deine Präferenz hat also ein [höheres] Gewicht im Gesamtumfang.",
+    //       translation: "So your preference carries [higher] weight in global scope.",
+    //       hint: "[hoch, neuter]"
+    //     },
+    //     {
+    //       from: "lindenbaum",
+    //       message: "Aha! Ich registriere das immer noch als Analysefehler, aber es ist ein sehr süßer Fehler.",
+    //       translation: "Hah! I'm still recording this as an analysis bug, but it's a very sweet one."
+    //     }
+    //   ]
+    // },

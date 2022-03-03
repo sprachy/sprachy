@@ -37,56 +37,80 @@ For plurals, we always use _die_, regardless of the noun's base gender. For exam
 Unlike in English, the first letter of every noun in German is **C**apitalized. This is particularly useful when learning the language, as it makes nouns easy to identify.
 </Tip>
   `,
-  stories: [
-    /**
-     * Since this is the first pattern, we only expect user to remember these points:
-     * - word choice depends on noun gender
-     * - masculine => der
-     * - neuter => das
-     * - feminine => die
-     * - plural => die
-     * - das can also mean "that"
-     *
-     * They aren't yet expected to actually know the gender of any specific nouns, since
-     * we haven't taught them any-- so it should always be hinted in the exercise.
-     *
-     * Plurals don't need to be hinted though since it's clear from the translation when
-     * a plural is being used.
-     */
-
-    // LEVEL 1
+  /**
+   * Since this is the first pattern, we only expect user to remember these points:
+   * - word choice depends on noun gender
+   * - masculine => der
+   * - neuter => das
+   * - feminine => die
+   * - plural => die
+   * - das can also mean "that"
+   *
+   * They aren't yet expected to actually know the gender of any specific nouns, since
+   * we haven't taught them any-- so it should always be hinted in the exercise.
+   *
+   * Plurals don't need to be hinted though since it's clear from the translation when
+   * a plural is being used.
+   */
+  story: [
     {
-      lines: [
-        {
-          from: "lukas",
-          message: "Ich glaube, ich werde spazieren gehen.",
-          translation: "I think I will go for a walk."
-        },
-        {
-          from: "lukas",
-          message: "[Die] Welt ist heute friedlich.",
-          translation: "[The] world is peaceful today.",
-          hint: "[feminine]",
-        },
-        {
-          from: "squirrel",
-          message: "Hallo. [Der] Baum hier ist gemütlich.",
-          translation: "Hello. [The] tree here is comfy.",
-          hint: "[masculine]",
-        },
-        {
-          from: "lukas",
-          message: "[Das] Eichhörnchen... redet mit mir?",
-          translation: "[The] squirrel... is talking to me?",
-          hint: "[neuter]",
-        },
-        {
-          from: "squirrel",
-          message: "[Die] Nüsse hier sind auch sehr lecker.",
-          translation: "[The] nuts here are also very tasty.",
-        },
-      ]
+      from: "lukas",
+      message: "Ich glaube, ich werde spazieren gehen.",
+      translation: "I think I will go for a walk."
     },
+    {
+      from: "lukas",
+      message: "[Die] Welt ist heute friedlich.",
+      translation: "[The] world is peaceful today.",
+      hint: "[feminine]",
+    },
+    {
+      from: "squirrel",
+      message: "Hallo. [Der] Baum hier ist gemütlich.",
+      translation: "Hello. [The] tree here is comfy.",
+      hint: "[masculine]",
+    },
+    {
+      from: "lukas",
+      message: "[Das] Eichhörnchen... redet mit mir?",
+      translation: "[The] squirrel... is talking to me?",
+      hint: "[neuter]",
+    },
+    {
+      from: "squirrel",
+      message: "[Die] Nüsse hier sind auch sehr lecker.",
+      translation: "[The] nuts here are also very tasty.",
+    },
+  ],
+  exercises: [
+    {
+      from: "squirrel",
+      message: "[Die] Cashew ist auf eine höhere Ebene aufgestiegen.",
+      translation: "[The] cashew has ascended to a higher plane.",
+      hint: "[feminine]"
+    },
+    {
+      from: "lukas",
+      message: "[Die] außerirdische Lebensform ist niedlich.",
+      translation: "[The] alien lifeform is cute.",
+      hint: "[feminine]"
+    },
+    {
+      from: "lindenbaum",
+      message: "[Das] Universum ist größer als wir wissen.",
+      translation: "[The] universe is vaster than we know.",
+      hint: "[neuter]"
+    },
+    {
+      from: "fox",
+      message: "[Der] Shiba Inu ist ironisch.",
+      translation: "[The] Shiba Inu is ironic.",
+      hint: "[masculine]"
+    }
+  ]
+})
+
+
 
     // LEVEL 2
     // {
@@ -159,31 +183,3 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
     //     },
     //   ]
     // }
-  ],
-  exercises: [
-    {
-      from: "squirrel",
-      message: "[Die] Cashew ist auf eine höhere Ebene aufgestiegen.",
-      translation: "[The] cashew has ascended to a higher plane.",
-      hint: "[feminine]"
-    },
-    {
-      from: "lukas",
-      message: "[Die] außerirdische Lebensform ist niedlich.",
-      translation: "[The] alien lifeform is cute.",
-      hint: "[feminine]"
-    },
-    {
-      from: "lindenbaum",
-      message: "[Das] Universum ist größer als wir wissen.",
-      translation: "[The] universe is vaster than we know.",
-      hint: "[neuter]"
-    },
-    {
-      from: "fox",
-      message: "[Der] Shiba Inu ist ironisch.",
-      translation: "[The] Shiba Inu is ironic.",
-      hint: "[masculine]"
-    }
-  ]
-})

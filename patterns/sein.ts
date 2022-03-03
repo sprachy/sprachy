@@ -43,106 +43,104 @@ and is the polite form used especially when talking with strangers. We'll learn 
 formal/informal language!
   `,
 
-  stories: [
-    // LEVEL 1
+  story: [
     {
-      lines: [
-        {
-          from: "lukas",
-          message: "Erkennst du die Kreatur auf dem Foto? [Sie ist] ein Eichhörnchen.",
-          translation: "Do you recognize the creature in the photo? [It is] a squirrel.",
-        },
-        {
-          from: "squirrel",
-          message: "[Sie ist] mir ähnlich! Aber flach.",
-          translation: "[It is] similar to me! But flat."
-        },
-        {
-          from: "lukas",
-          message: "Oh, das Eichhörnchen [ist] nicht flach, nur das Foto, das es darstellt.",
-          translation: "Oh, the squirrel [is] not flat, only the photo that represents it."
-        },
-        {
-          from: "squirrel",
-          message: "Nein, ich meine, das Eichhörnchen ist flach. Das [ist] Lukas auch!",
-          translation: "No, I mean, the squirrel is flat. Lukas [is] flat too!"
-        },
-        {
-          from: "squirrel",
-          message: "[Ich bin] holpriger.",
-          translation: "[I am] more bumpy."
-        },
-        {
-          from: "squirrel",
-          message: "Denkst du [ich bin] ein Eichhörnchen?",
-          translation: "Do you think [I am] a squirrel?"
-        },
-        {
-          from: "lukas",
-          message: "[Du bist] wie ein Eichhörnchen geformt. Vielleicht konvergente Evolution?",
-          translation: "[You are] shaped like a squirrel. Maybe convergent evolution?"
-        }
-      ]
+      from: "lukas",
+      message: "Erkennst du die Kreatur auf dem Foto? [Sie ist] ein Eichhörnchen.",
+      translation: "Do you recognize the creature in the photo? [It is] a squirrel.",
     },
-    // LEVEL 2
     {
-      lines: [
-        {
-          from: "harald",
-          message: "[Sein] oder Nichtsein?",
-          translation: "[To be] or not to be?"
-        },
-        {
-          from: "harald",
-          message: "Die Entscheidung [ist] mein!",
-          translation: "The decision [is] mine!"
-        },
-        {
-          from: "harald",
-          message: "Denn [ich bin] der größte Ritter.",
-          translation: "For [I am] the greatest knight.",
-        },
-        {
-          from: "harald",
-          message: "Doch Ihr [seid] die kleinste Leiter.",
-          translation: "But you [are] the smallest ladder."
-        },
-        {
-          from: "harald",
-          message: "Denn [sie ist] die Leiter zum Erfolg.",
-          translation: "For [it is] the ladder to success.",
-        },
-        {
-          from: "harald",
-          message: "So [bin] ich der größte Poet aller Zeiten.",
-          translation: "Thus I [am] the greatest poet of all time."
-        },
-        {
-          from: "klaus",
-          message: "miep.",
-          translation: "meep.",
-        },
-        {
-          from: "harald",
-          message: "Und du [bist] das kleinste Mäuschen.",
-          translation: "And you [are] the smallest mouse.",
-        },
-        {
-          from: "harald",
-          message: "Und zusammen [sind] wir das perfekte Duo!",
-          translation: "And together we [are] the perfect duo!",
-        },
-        {
-          from: "klaus",
-          message: "miep miep!",
-          translation: "meep meep!.",
-        },
-        {
-          from: "harald",
-          message: "Ach du [bist] hungrig?",
-          translation: "Oh you [are] hungry?",
-        },
-      ]
+      from: "squirrel",
+      message: "[Sie ist] mir ähnlich! Aber flach.",
+      translation: "[It is] similar to me! But flat."
     },
+    {
+      from: "lukas",
+      message: "Oh, das Eichhörnchen [ist] nicht flach, nur das Foto, das es darstellt.",
+      translation: "Oh, the squirrel [is] not flat, only the photo that represents it."
+    },
+    {
+      from: "squirrel",
+      message: "Nein, ich meine, das Eichhörnchen ist flach. Das [ist] Lukas auch!",
+      translation: "No, I mean, the squirrel is flat. Lukas [is] flat too!"
+    },
+    {
+      from: "squirrel",
+      message: "[Ich bin] holpriger.",
+      translation: "[I am] more bumpy."
+    },
+    {
+      from: "squirrel",
+      message: "Denkst du [ich bin] ein Eichhörnchen?",
+      translation: "Do you think [I am] a squirrel?"
+    },
+    {
+      from: "lukas",
+      message: "[Du bist] wie ein Eichhörnchen geformt. Vielleicht konvergente Evolution?",
+      translation: "[You are] shaped like a squirrel. Maybe convergent evolution?"
+    }
   ],
+  exercises: [
+
+  ]
+  // LEVEL 2
+  // {
+  //   lines: [
+  //     {
+  //       from: "harald",
+  //       message: "[Sein] oder Nichtsein?",
+  //       translation: "[To be] or not to be?"
+  //     },
+  //     {
+  //       from: "harald",
+  //       message: "Die Entscheidung [ist] mein!",
+  //       translation: "The decision [is] mine!"
+  //     },
+  //     {
+  //       from: "harald",
+  //       message: "Denn [ich bin] der größte Ritter.",
+  //       translation: "For [I am] the greatest knight.",
+  //     },
+  //     {
+  //       from: "harald",
+  //       message: "Doch Ihr [seid] die kleinste Leiter.",
+  //       translation: "But you [are] the smallest ladder."
+  //     },
+  //     {
+  //       from: "harald",
+  //       message: "Denn [sie ist] die Leiter zum Erfolg.",
+  //       translation: "For [it is] the ladder to success.",
+  //     },
+  //     {
+  //       from: "harald",
+  //       message: "So [bin] ich der größte Poet aller Zeiten.",
+  //       translation: "Thus I [am] the greatest poet of all time."
+  //     },
+  //     {
+  //       from: "klaus",
+  //       message: "miep.",
+  //       translation: "meep.",
+  //     },
+  //     {
+  //       from: "harald",
+  //       message: "Und du [bist] das kleinste Mäuschen.",
+  //       translation: "And you [are] the smallest mouse.",
+  //     },
+  //     {
+  //       from: "harald",
+  //       message: "Und zusammen [sind] wir das perfekte Duo!",
+  //       translation: "And together we [are] the perfect duo!",
+  //     },
+  //     {
+  //       from: "klaus",
+  //       message: "miep miep!",
+  //       translation: "meep meep!.",
+  //     },
+  //     {
+  //       from: "harald",
+  //       message: "Ach du [bist] hungrig?",
+  //       translation: "Oh you [are] hungry?",
+  //     },
+  //   ]
+  // },
 })

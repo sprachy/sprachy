@@ -90,12 +90,7 @@ export class UserApp {
   get allCompletedStories() {
     const stories: Story[] = []
     for (const pattern of this.learnedPatterns) {
-      for (let i = 0; i < pattern.progress.srsLevel; i++) {
-        const story = pattern.stories[i]
-        if (story) {
-          stories.push(story)
-        }
-      }
+      stories.push(pattern.story)
     }
     return stories
   }

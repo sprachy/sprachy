@@ -10,7 +10,7 @@
   import HomePage from "./HomePage.svelte"
   import LearnPage from "./LearnPage.svelte"
   import PatternPage from "./PatternPage.svelte"
-  import PatternPracticePage from "./PatternPracticePage.svelte"
+  import PatternStoryPage from "./PatternStoryPage.svelte"
   import SettingsPage from "./SettingsPage.svelte"
   import AdminUsersPage from "./AdminUsersPage.svelte"
   import NProgress from "accessible-nprogress"
@@ -50,10 +50,10 @@
     <Route path="/settings"><SettingsPage /></Route>
     <Route path="/admin"><AdminUsersPage /></Route>
     <Route primary={false} path="/pattern/:slug/practice/level/:level" let:params>
-      <PatternPracticePage slug={params.slug} level={tryParseInt(params.level, 1)} />
+      <PatternStoryPage slug={params.slug} level={tryParseInt(params.level, 1)} />
     </Route>
-    <Route primary={false} path="/pattern/:slug/practice" let:params>
-      <PatternPracticePage slug={params.slug} />
+    <Route primary={false} path="/pattern/:slug/story" let:params>
+      <PatternStoryPage slug={params.slug} />
     </Route>
     <Route path="/pattern/:slug" let:params>
       <PatternPage slug={params.slug} />

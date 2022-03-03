@@ -53,86 +53,87 @@ gender/plurality of the noun you can reliably distinguish them; otherwise, you'l
 the dativeness, e.g. the use of an intransitive verb like _helfen_.
 </Tip>
   `,
-  stories: [
+  story: [
     // LEVEL 1
     {
-      lines: [
-        {
-          from: "lukas",
-          message: "Der Junge gibt [dem] Eichhörnchen eine Mandel.",
-          translation: "The boy gives [the] squirrel an almond."
-        },
-        {
-          from: "squirrel",
-          message: "Das Eichhörnchen dankt [dem] Jungen für sein Angebot.",
-          translation: "The squirrel thanks [the] boy for his offering."
-        },
-        {
-          from: "anna",
-          message: "Willst du [der] Schwester auch eine Mandel geben?",
-          translation: "Will you give [the] sister an almond too?"
-        },
-        {
-          from: "lukas",
-          message: "Vorsicht, er ist ziemlich besitzergreifend bei [den Mandeln].",
-          translation: "Careful, he's pretty possessive with [the almonds]."
-        },
-        {
-          from: "squirrel",
-          message: "Das Eichhörnchen wird [einem] Menschen helfen, dieses eine Mal.",
-          translation: "The squirrel will help [a] human, this once."
-        }
-      ]
+      from: "lukas",
+      message: "Der Junge gibt [dem] Eichhörnchen eine Mandel.",
+      translation: "The boy gives [the] squirrel an almond."
     },
-
-    // LEVEL 2
     {
-      lines: [
-        {
-          from: "fox",
-          message: "Gehen wir zu [der] Konferenz?",
-          translation: "Are we going to [the] conference?",
-          hint: "[feminine]",
-        },
-        {
-          from: "lindenbaum",
-          message: "Die mit [den] nervigen alten Männern?",
-          translation: "The one with [the] annoying old men?"
-        },
-        {
-          from: "lindenbaum",
-          message: "Sie interessieren sich nur für [die] Anzahl ihrer Zitate.",
-          translation: "They're only interested in their citation counts."
-        },
-        {
-          from: "lindenbaum",
-          message: "Was wir mit [der] Gravitationsanomalie machen, könnte viel wichtiger sein.",
-          translation: "What we're doing with [the] gravitational anomaly could be way more important.",
-          hint: "[feminine]"
-        },
-        {
-          from: "fox",
-          message: "Oh! Kann ich dann [die] Projektoren hacken und sie rickrollen?",
-          translation: "Oh! Then can I hack [the] projectors and rickroll them?"
-        },
-        {
-          from: "lindenbaum",
-          message: "Mit [der] Quantenkryptoanalyse? Sie wollen es für _Rickrolling_ verwenden?",
-          translation: "With [the] quantum cryptanalysis? You want to use it for _rickrolling_?",
-          hint: "[feminine]"
-        },
-        {
-          from: "fox",
-          message: "Bitteeee?",
-          translation: "Pleaseeee?"
-        },
-        {
-          from: "lindenbaum",
-          message: "Natürlich, warum nicht. Ich denke, [das ist] eine gute Übung.",
-          translation: "Sure, why not. I guess [it is] good practice."
-        }
-      ]
+      from: "squirrel",
+      message: "Das Eichhörnchen dankt [dem] Jungen für sein Angebot.",
+      translation: "The squirrel thanks [the] boy for his offering."
     },
+    {
+      from: "anna",
+      message: "Willst du [der] Schwester auch eine Mandel geben?",
+      translation: "Will you give [the] sister an almond too?"
+    },
+    {
+      from: "lukas",
+      message: "Vorsicht, er ist ziemlich besitzergreifend bei [den Mandeln].",
+      translation: "Careful, he's pretty possessive with [the almonds]."
+    },
+    {
+      from: "squirrel",
+      message: "Das Eichhörnchen wird [einem] Menschen helfen, dieses eine Mal.",
+      translation: "The squirrel will help [a] human, this once."
+    }
+  ],
+  exercises: [
+
+  ]
+})
+
+  // LEVEL 2
+  // {
+  //   lines: [
+  //     {
+  //       from: "fox",
+  //       message: "Gehen wir zu [der] Konferenz?",
+  //       translation: "Are we going to [the] conference?",
+  //       hint: "[feminine]",
+  //     },
+  //     {
+  //       from: "lindenbaum",
+  //       message: "Die mit [den] nervigen alten Männern?",
+  //       translation: "The one with [the] annoying old men?"
+  //     },
+  //     {
+  //       from: "lindenbaum",
+  //       message: "Sie interessieren sich nur für [die] Anzahl ihrer Zitate.",
+  //       translation: "They're only interested in their citation counts."
+  //     },
+  //     {
+  //       from: "lindenbaum",
+  //       message: "Was wir mit [der] Gravitationsanomalie machen, könnte viel wichtiger sein.",
+  //       translation: "What we're doing with [the] gravitational anomaly could be way more important.",
+  //       hint: "[feminine]"
+  //     },
+  //     {
+  //       from: "fox",
+  //       message: "Oh! Kann ich dann [die] Projektoren hacken und sie rickrollen?",
+  //       translation: "Oh! Then can I hack [the] projectors and rickroll them?"
+  //     },
+  //     {
+  //       from: "lindenbaum",
+  //       message: "Mit [der] Quantenkryptoanalyse? Sie wollen es für _Rickrolling_ verwenden?",
+  //       translation: "With [the] quantum cryptanalysis? You want to use it for _rickrolling_?",
+  //       hint: "[feminine]"
+  //     },
+  //     {
+  //       from: "fox",
+  //       message: "Bitteeee?",
+  //       translation: "Pleaseeee?"
+  //     },
+  //     {
+  //       from: "lindenbaum",
+  //       message: "Natürlich, warum nicht. Ich denke, [das ist] eine gute Übung.",
+  //       translation: "Sure, why not. I guess [it is] good practice."
+  //     }
+  //   ]
+  // },
 
     // // LEVEL 1
     // {
@@ -165,5 +166,3 @@ the dativeness, e.g. the use of an intransitive verb like _helfen_.
     //     },
     //   ]
     // }
-  ]
-})

@@ -7,13 +7,15 @@
   import type { PatternAndProgress } from "./UserApp"
 
   let freePractice: boolean = false
+  const noPatternsYet = sprachy.app.learnedPatterns.length === 0
+  const patternsToLevel = sprachy.app.patternsReadyToLevel
 
   type Review = Exercise & {
     pattern: PatternAndProgress
   }
 
   let reviews: Review[] = []
-  if (sprachy.app.patternsReadyToLevel.length === 0) {
+  if (patternsToLevel.length === 0) {
     freePractice = true
     reviews = _.sampleSize(sprachy.app.allReviews, 10)
   } else {
@@ -53,7 +55,14 @@
 
 <SiteLayout>
   {#if !review}
-    <p>You haven't learned any patterns to practice yet!</p>
+    {#if noPatternsYet}
+      <p>You haven't learned any patterns to practice yet!</p>
+    {:else}
+      <p>
+        Missing exercise definitions for {patternsToLevel.map((p) => p.title).join(", ")}! Let's add
+        those~
+      </p>
+    {/if}
   {:else if completed}
     <p>All reviews completed!</p>
   {:else}

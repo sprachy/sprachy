@@ -40,116 +40,132 @@ It makes no sense to say "eine Plurale" (an plurals), but words like _meine_ or 
 When dealing with compound words, the last word within the compound word would define the gender of the noun. For instance the noun _Spiegelei_ includes the words _Spiegel_ (masculine) and _Ei_ (neuter), so in this case the ending-word of _Ei_ would be definining gender for Spiegelei.
 </Tip>
   `,
-  stories: [
+  story: [
     // LEVEL 1
     {
-      lines: [
-        {
-          from: "lukas",
-          message: "Woher kommt [ein] sprechendes Eichhörnchen?",
-          translation: "Where does [a] talking squirrel come from?",
-          hint: "[neuter]",
-        },
-        {
-          from: "squirrel",
-          message: "[Ein] Ort weit weg von hier.",
-          translation: "[A] place far away from here.",
-          hint: "[masculine]",
-        },
-        {
-          from: "squirrel",
-          message: "[Deine] Welt ist sehr ruhig.",
-          translation: "[Your] world is very quiet.",
-          hint: "[feminine]",
-        },
-        {
-          from: "squirrel",
-          message: "[Meine] Leute würden es eine Todeszone nennen.",
-          translation: "[My] people would call it a deadzone.",
-          hint: "[plural]"
-        },
-        {
-          from: "squirrel",
-          message: "Für mich ist es wie [ein] ruhiger Ozean.",
-          translation: "To me it's like [a] calm ocean.",
-          hint: "[masculine]",
-        },
-      ]
+      from: "lukas",
+      message: "Woher kommt [ein] sprechendes Eichhörnchen?",
+      translation: "Where does [a] talking squirrel come from?",
+      hint: "[neuter]",
     },
+    {
+      from: "squirrel",
+      message: "[Ein] Ort weit weg von hier.",
+      translation: "[A] place far away from here.",
+      hint: "[masculine]",
+    },
+    {
+      from: "squirrel",
+      message: "[Deine] Welt ist sehr ruhig.",
+      translation: "[Your] world is very quiet.",
+      hint: "[feminine]",
+    },
+    {
+      from: "squirrel",
+      message: "[Meine] Leute würden es eine Todeszone nennen.",
+      translation: "[My] people would call it a deadzone.",
+      hint: "[plural]"
+    },
+    {
+      from: "squirrel",
+      message: "Für mich ist es wie [ein] ruhiger Ozean.",
+      translation: "To me it's like [a] calm ocean.",
+      hint: "[masculine]",
+    },
+  ],
+  exercises: [
+    {
+      from: "squirrel",
+      message: `Was bedeutet es, wenn mich [ein] Mensch "flauschig" nennt?`,
+      translation: `What does it mean when [a] human calls me "fluffy"?`,
+      hint: "[masculine]"
+    },
+    {
+      from: "lukas",
+      message: "[Eine] flauschige Textur lässt das Herz vor Sanftheit singen.",
+      translation: "[A] fluffy texture makes the heart sing from softness.",
+      hint: "[feminine]"
+    },
+    {
+      from: "lindenbaum",
+      message: "The atomares Modell ist nur [eine] Abstraktion der quantenphysikalischen Realität.",
+      translation: "The atomic model is only [an] abstraction of quantum physical reality.",
+      hint: "[feminine]"
+    },
+    {
+      from: "fox",
+      message: "Warum sind [seine] Frösche so deprimiert?",
+      translation: "Why are [his] frogs so depressed?"
+    }
+  ]
+})
+
 
     // LEVEL 2
-    {
-      lines: [
-        {
-          from: "robot",
-          message: "[Ein] organischer Mitbürger wird Ihren Fall beurteilen.",
-          translation: "[An] organic peer will judge your case.",
-          hint: "[masculine]",
-        },
-        {
-          from: "explorer",
-          message: "Organisch? Es gibt hier [keine] Menschen mehr.",
-          translation: "Organic? There are [no] people left here."
-        },
-        {
-          from: "explorer",
-          message: "Ist das [ein] Aquarium?",
-          translation: "Is that [an] aquarium?",
-          hint: "[neuter]"
-        },
-        {
-          from: "robot",
-          message: "[Ein] organisches Jurymitglied wurde gefunden.",
-          translation: "[An] organic jury member has been located.",
-          hint: "[neuter]",
-        },
-        {
-          from: "fish",
-          message: "*blub*",
-          translation: "*blub*",
-        },
-      ]
-    },
+    // {
+    //   lines: [
+    //     {
+    //       from: "robot",
+    //       message: "[Ein] organischer Mitbürger wird Ihren Fall beurteilen.",
+    //       translation: "[An] organic peer will judge your case.",
+    //       hint: "[masculine]",
+    //     },
+    //     {
+    //       from: "explorer",
+    //       message: "Organisch? Es gibt hier [keine] Menschen mehr.",
+    //       translation: "Organic? There are [no] people left here."
+    //     },
+    //     {
+    //       from: "explorer",
+    //       message: "Ist das [ein] Aquarium?",
+    //       translation: "Is that [an] aquarium?",
+    //       hint: "[neuter]"
+    //     },
+    //     {
+    //       from: "robot",
+    //       message: "[Ein] organisches Jurymitglied wurde gefunden.",
+    //       translation: "[An] organic jury member has been located.",
+    //       hint: "[neuter]",
+    //     },
+    //     {
+    //       from: "fish",
+    //       message: "*blub*",
+    //       translation: "*blub*",
+    //     },
+    //   ]
+    // },
 
-    // LEVEL 3
-    {
-      lines: [
-        {
-          from: "leonie",
-          message: "Hallo Nils. Wie war [dein] Flug?",
-          translation: "Hello Nils. How was [your] flight?",
-          hint: "[masculine]",
-        },
-        {
-          from: "nils",
-          message: "Es war aufregend! Da war [eine] riesiger Zikade!",
-          translation: "It was exciting! There was [a] huge cicada!",
-          hint: "[feminine]"
-        },
-        {
-          from: "leonie",
-          message: "Eine riesige Zikade? Hat es [ein] hackendes Geräusch gemacht?",
-          translation: "A huge cicada? Did it make a chopping noise?",
-          hint: "[neuter]"
-        },
-        {
-          from: "nils",
-          message: "Ja, das! Aber [meine] Mutter hat gesagt, ich darf nicht damit spielen.",
-          translation: "Yes, that! But [my] mother said I can't play with it."
-        },
-        {
-          from: "leonie",
-          message: "Das war [ein] Hubschrauber, Nils. Sie sind nicht sehr verspielt.",
-          translation: "That was [a] helicopter, Nils. They're not very playful.",
-          hint: "[masculine]"
-        }
-      ]
-    }
-  ],
-  // {
-  //   from: "squirrel",
-  //   message: "Es ist [ein] guter Ort, um sich zu verstecken.",
-  //   translation: "It's [a] good place to hide.",
-  //   hint: "[masculine]",
-  // },
-})
+    // // LEVEL 3
+    // {
+    //   lines: [
+    //     {
+    //       from: "leonie",
+    //       message: "Hallo Nils. Wie war [dein] Flug?",
+    //       translation: "Hello Nils. How was [your] flight?",
+    //       hint: "[masculine]",
+    //     },
+    //     {
+    //       from: "nils",
+    //       message: "Es war aufregend! Da war [eine] riesiger Zikade!",
+    //       translation: "It was exciting! There was [a] huge cicada!",
+    //       hint: "[feminine]"
+    //     },
+    //     {
+    //       from: "leonie",
+    //       message: "Eine riesige Zikade? Hat es [ein] hackendes Geräusch gemacht?",
+    //       translation: "A huge cicada? Did it make a chopping noise?",
+    //       hint: "[neuter]"
+    //     },
+    //     {
+    //       from: "nils",
+    //       message: "Ja, das! Aber [meine] Mutter hat gesagt, ich darf nicht damit spielen.",
+    //       translation: "Yes, that! But [my] mother said I can't play with it."
+    //     },
+    //     {
+    //       from: "leonie",
+    //       message: "Das war [ein] Hubschrauber, Nils. Sie sind nicht sehr verspielt.",
+    //       translation: "That was [a] helicopter, Nils. They're not very playful.",
+    //       hint: "[masculine]"
+    //     }
+    //   ]
+    // }

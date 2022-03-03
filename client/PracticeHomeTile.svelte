@@ -3,8 +3,8 @@
   import sprachy from "./sprachy"
   import Timeago from "./Timeago.svelte"
 
-  const numLevelable = sprachy.app.patternsReadyToLevel.length
-  const nextLevelable = sprachy.app.nextLevelablePattern
+  $: numLevelable = sprachy.app.patternsReadyToLevel.length
+  $: nextLevelable = sprachy.app.nextLevelablePattern
 </script>
 
 <div class="home-tile">
@@ -17,7 +17,7 @@
     {:else}
       <div class="card">
         <span class="card-title">Level Practice</span>
-        <p>You can level {numLevelable} pattern{numLevelable > 1 ? "s" : ""}</p>
+        <p>You can level up {numLevelable} pattern{numLevelable > 1 ? "s" : ""}</p>
       </div>
     {/if}
   </Link>

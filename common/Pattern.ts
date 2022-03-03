@@ -14,7 +14,7 @@ export type PatternDef = {
   shortdesc: string
   icon: IconDefinition
   explanation: string
-  stories: { lines: LineDef[] }[]
+  story: LineDef[]
   exercises: LineDef[]
 }
 
@@ -56,20 +56,18 @@ export type Exercise = FillblankLine
  * A pattern after parsing the definition file. Structured
  * to be friendly for code use.
  */
-export type Pattern = Omit<PatternDef, "stories"> & {
-  stories: { lines: StoryLine[] }[]
+export type Pattern = Omit<PatternDef, "story"> & {
+  story: StoryLine[]
   exercises: Exercise[]
   maxLevel: number
 }
 
-export type Story = Pattern['stories'][0]
+export type Story = Pattern['story']
 
 /** Turn a PatternDef into a Pattern for use by code. */
 export function parsePattern(patternDef: PatternDef): Pattern {
   return Object.assign({}, patternDef, {
-    stories: patternDef.stories.map((story) => ({
-      lines: story.lines.map(parseLine),
-    })),
+    story: patternDef.story.map(parseLine),
     maxLevel: 5,
     exercises: patternDef.exercises ? patternDef.exercises.map(parseLine) as Exercise[] : []
   })

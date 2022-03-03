@@ -1,7 +1,7 @@
 <script lang="ts">
   import _ from "lodash"
   import { createEventDispatcher, onDestroy, onMount, tick } from "svelte"
-  import type { Line, Story } from "../common/Pattern"
+  import type { StoryLine, Story } from "../common/Pattern"
   import StoryLineReading from "./StoryLineReading.svelte"
   import StoryLineFillblank from "./StoryLineFillblank.svelte"
   import { fly } from "svelte/transition"
@@ -12,7 +12,7 @@
     lineIndex = 0
   }
 
-  $: lines = story.lines.slice(0, lineIndex + 1)
+  $: lines = story.slice(0, lineIndex + 1)
   $: currentLine = lines[lines.length - 1]!
   let finished: boolean = false
 
@@ -23,7 +23,7 @@
 
   // We want to flip the line orientation each time the
   // speaker changes
-  $: lineFlips = ((lines: Line[]) => {
+  $: lineFlips = ((lines: StoryLine[]) => {
     let flip = false
     let prevFrom = lines[0]?.from
     const flips: boolean[] = []
@@ -35,7 +35,7 @@
       flips.push(flip)
     }
     return flips
-  })(lines)
+  })(story)
 
   const dispatch = createEventDispatcher()
 
@@ -66,7 +66,7 @@
       // to fire for the next line on firefox
       lineRef.querySelector("input")?.blur()
     }
-    if (lineIndex < story.lines.length - 1) {
+    if (lineIndex < story.length - 1) {
       lineIndex += 1
     } else {
       finished = true
@@ -76,7 +76,7 @@
   function continueStory() {
     if (doingExercise && fillblankRef) {
       fillblankRef.checkAnswer()
-    } else if (lineIndex < story.lines.length - 1) {
+    } else if (lineIndex < story.length - 1) {
       nextLine()
     } else {
       dispatch("complete")

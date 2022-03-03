@@ -34,7 +34,7 @@
         >
       </p>
     {/if}
-    <Link to="/pattern/{pattern.slug}/practice" class="btn btn-primary">
+    <Link to="/pattern/{pattern.slug}/story" class="btn btn-primary">
       {#if pattern.progress.srsLevel === 0}
         Learn this pattern
       {:else}

@@ -11,7 +11,6 @@
   import successImg from "./img/success.jpg"
 
   export let slug: string | undefined
-  export let level: number | undefined = undefined
   let complete: boolean = false
   let pattern: PatternAndProgress
 
@@ -23,8 +22,7 @@
     return pattern
   })(slug)
 
-  $: storyLevel = level || pattern.progress.srsLevel + 1
-  $: story = pattern.stories[storyLevel - 1]
+  $: story = pattern.story
 
   function leavingWarning(e: any) {
     var confirmationMessage =
@@ -48,11 +46,11 @@
   async function onCompleteStory() {
     window.removeEventListener("beforeunload", leavingWarning)
 
-    if (storyLevel <= pattern.progress.srsLevel) {
+    if (pattern.progress.srsLevel > 0) {
       // User was practicing something they already did, just go back to the pattern page
       navigate(`/pattern/${pattern.slug}`)
     } else {
-      const progressItem = await sprachy.api.completeLevel(pattern!.id, storyLevel)
+      const progressItem = await sprachy.api.completeLevel(pattern!.id, 1)
       if (progressItem) {
         sprachy.app.receiveProgressItem(progressItem)
       }
@@ -69,13 +67,12 @@
 </script>
 
 <SiteLayout fixedHeader>
-  {#if !pattern.stories.length}
+  {#if !story}
     No stories for this pattern yet! Let's write some~
   {:else if story && !complete}
     <div class="story-holder">
       <header class="story-header">
         <h3>{pattern.title}</h3>
-        <h3>Level {storyLevel}</h3>
       </header>
       <Story {story} on:complete={onCompleteStory} />
     </div>

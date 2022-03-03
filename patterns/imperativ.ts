@@ -81,79 +81,77 @@ lukas:
 </DialogueExample>
 `
   ,
-  stories: [
-    // LEVEL 1
+  story: [
     {
-      lines: [
-        {
-          from: "lindenbaum",
-          message: "Dann [fangen] wir mal an!",
-          translation: "Well then let's [begin]!",
-          hint: "[anfangen]",
-        },
-        {
-          from: "lindenbaum",
-          message: "[Gib] mir die Koordinaten der Gravitationsanomalie!",
-          translation: "[Give] me the coordinates for the gravitational anomaly!",
-          hint: "[geben]",
-        },
-        {
-          from: "fox",
-          message: "Gravitationsanomalie ist in Sichtweite.",
-          translation: "Gravitational anomaly is in view.",
-        },
-        {
-          from: "lindenbaum",
-          message: "[Zoom] näher heran.",
-          translation: "[Zoom] closer in.",
-          hint: "[zoomen]",
-        },
-        {
-          from: "lindenbaum",
-          message: "Okay... [bleib] da!",
-          translation: "Okay... [stay] there.",
-          hint: "[bleiben]",
-        },
-        {
-          from: "lindenbaum",
-          message: "[Analysiere] die chemischen Eigenschaften des Objektes.",
-          translation: "[Analyze] the chemical properties of this object.",
-          hint: "[analysieren]",
-        },
-        {
-          from: "fox",
-          message: "Es besteht hauptsächlich aus Kohlenstoff, mit einen kleineren Anteil an Calcium, Magnesium, Eisen und Aluminium.",
-          translation: "It primarily consists of carbon, with a smaller distribution of calcium, magnesium, iron and aluminium.",
-        },
-        {
-          from: "lindenbaum",
-          message: "Also organisch! Schlaufuchs, [initiiere] einen Scan auf biologischen Eigenschaften.",
-          translation: "So it is organic! Schlaufuchs, [initiate] a scan on biological properties.",
-          hint: "[initiieren]",
-        },
-        {
-          from: "fox",
-          message: "Es scheint ein Teil eines Organs zu sein, das absichtlich abgeworfen wurde.",
-          translation: "It seems to be a part of an organ which was intentionally discarded.",
-        },
-        {
-          from: "lindenbaum",
-          message: "[Nimm] eine mikroskopische Analyse des Organs auf.",
-          translation: "[Take] on a microscopic analysis of the organ.",
-          hint: "[nehmen]",
-        },
-        {
-          from: "fox",
-          message: "Die Struktur erscheint mir als unbekannt.",
-          translation: "The structure doesn't seem familiar",
-        },
-        {
-          from: "lindenbaum",
-          message: "[Transferiere] die Daten zum LIGO server. Diese soll es dann auswerten.",
-          translation: "[Transfer] the date to the LIGO server. This should then evaluate it.",
-          hint: "[transferieren]",
-        },
-      ]
+      from: "lindenbaum",
+      message: "Dann [fangen] wir mal an!",
+      translation: "Well then let's [begin]!",
+      hint: "[anfangen]",
     },
+    {
+      from: "lindenbaum",
+      message: "[Gib] mir die Koordinaten der Gravitationsanomalie!",
+      translation: "[Give] me the coordinates for the gravitational anomaly!",
+      hint: "[geben]",
+    },
+    {
+      from: "fox",
+      message: "Gravitationsanomalie ist in Sichtweite.",
+      translation: "Gravitational anomaly is in view.",
+    },
+    {
+      from: "lindenbaum",
+      message: "[Zoom] näher heran.",
+      translation: "[Zoom] closer in.",
+      hint: "[zoomen]",
+    },
+    {
+      from: "lindenbaum",
+      message: "Okay... [bleib] da!",
+      translation: "Okay... [stay] there.",
+      hint: "[bleiben]",
+    },
+    {
+      from: "lindenbaum",
+      message: "[Analysiere] die chemischen Eigenschaften des Objektes.",
+      translation: "[Analyze] the chemical properties of this object.",
+      hint: "[analysieren]",
+    },
+    {
+      from: "fox",
+      message: "Es besteht hauptsächlich aus Kohlenstoff, mit einen kleineren Anteil an Calcium, Magnesium, Eisen und Aluminium.",
+      translation: "It primarily consists of carbon, with a smaller distribution of calcium, magnesium, iron and aluminium.",
+    },
+    {
+      from: "lindenbaum",
+      message: "Also organisch! Schlaufuchs, [initiiere] einen Scan auf biologischen Eigenschaften.",
+      translation: "So it is organic! Schlaufuchs, [initiate] a scan on biological properties.",
+      hint: "[initiieren]",
+    },
+    {
+      from: "fox",
+      message: "Es scheint ein Teil eines Organs zu sein, das absichtlich abgeworfen wurde.",
+      translation: "It seems to be a part of an organ which was intentionally discarded.",
+    },
+    {
+      from: "lindenbaum",
+      message: "[Nimm] eine mikroskopische Analyse des Organs auf.",
+      translation: "[Take] on a microscopic analysis of the organ.",
+      hint: "[nehmen]",
+    },
+    {
+      from: "fox",
+      message: "Die Struktur erscheint mir als unbekannt.",
+      translation: "The structure doesn't seem familiar",
+    },
+    {
+      from: "lindenbaum",
+      message: "[Transferiere] die Daten zum LIGO server. Diese soll es dann auswerten.",
+      translation: "[Transfer] the date to the LIGO server. This should then evaluate it.",
+      hint: "[transferieren]",
+    },
+  ],
+  exercises: [
+
   ]
 })

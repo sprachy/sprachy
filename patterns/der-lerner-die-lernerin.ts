@@ -23,79 +23,67 @@ Pretty straightforward! Not all person words follow this pattern, though. For ex
 
 
   `,
-  stories: [
-    // LEVEL 1
+  story: [
     {
-      lines: [
-        {
-          from: "squirrel",
-          message: "Lukas, bist du [ein] Student?",
-          translation: "Lukas, are you [a] uni student?",
-        },
-        {
-          from: "lukas",
-          message: "Ja. [Meine] Biologieprofessorin würde Sie gerne mal sehen.",
-          translation:
-            "Yes. [My] biology professor would love to get a look at you.",
-        },
-        {
-          from: "lukas",
-          message: "Was bist du auf deiner Welt?",
-          translation: "What are you on your world?",
-        },
-        {
-          from: "squirrel",
-          message: "Etwas wie... [ein] Prinz?",
-          translation: "Something like... [a] prince?",
-        },
-        {
-          from: "squirrel",
-          message: "[Die] Buchhalterin war nicht sehr glücklich darüber, dass ich gegangen bin.",
-          translation: "[The] accountant was not very happy I left.",
-        },
-
-        // {
-        //   from: "squirrel",
-        //   message: "Ist [deine] Schwester auch eine Studentin?",
-        //   translation: "Is [your] sister also a uni student?",
-        // },
-        // {
-        //   from: "lukas",
-        //   message: "Nein, sie ist [eine] Gymnasiastin.",
-        //   translation: "No, she is still [a] high school student.",
-        // },
-      ],
+      from: "squirrel",
+      message: "Lukas, bist du [ein] Student?",
+      translation: "Lukas, are you [a] uni student?",
     },
+    {
+      from: "lukas",
+      message: "Ja. [Meine] Biologieprofessorin würde Sie gerne mal sehen.",
+      translation:
+        "Yes. [My] biology professor would love to get a look at you.",
+    },
+    {
+      from: "lukas",
+      message: "Was bist du auf deiner Welt?",
+      translation: "What are you on your world?",
+    },
+    {
+      from: "squirrel",
+      message: "Etwas wie... [ein] Prinz?",
+      translation: "Something like... [a] prince?",
+    },
+    {
+      from: "squirrel",
+      message: "[Die] Buchhalterin war nicht sehr glücklich darüber, dass ich gegangen bin.",
+      translation: "[The] accountant was not very happy I left.",
+    },
+  ],
+  exercises: [
+
+  ]
+})
+
 
     // LEVEL 2
-    {
-      lines: [
-        {
-          from: "lindenbaum",
-          message: "Ich bin [eine] Quanteninformationstheoretikerin. Und jetzt viele andere Dinge, mit Hilfe der KI.",
-          translation: "I am [a] quantum information theorist. And now many other things, with the help of AI."
-        },
-        {
-          from: "fox",
-          message: "Ich bin [der] größte Komiker. Bitte genießen Sie meine handgefertigten Memes.",
-          translation: "I am [the] greatest comedian. Please enjoy my handcrafted memes."
-        },
-        {
-          from: "fox",
-          message: "...und ich helfe Lin als [ein] persönlicher Assistent, nehme ich an.",
-          translation: "...and I help Lin as a personal assistant, I suppose."
-        },
-        {
-          from: "leonie",
-          message: "Ich bin [eine] Ökologin und Botschafterin der Artenvielfalt. Seltsame Kreaturen sind so wunderbar!",
-          translation: "I am [an] ecologist and interspecies ambassador. Strange creatures are so wonderful!"
-        },
-        {
-          from: "nils",
-          message: "Hallo! Ich bin zehn!",
-          translation: "Hello! I'm ten!"
-        },
-      ]
-    }
-  ],
-})
+    // {
+    //   lines: [
+    //     {
+    //       from: "lindenbaum",
+    //       message: "Ich bin [eine] Quanteninformationstheoretikerin. Und jetzt viele andere Dinge, mit Hilfe der KI.",
+    //       translation: "I am [a] quantum information theorist. And now many other things, with the help of AI."
+    //     },
+    //     {
+    //       from: "fox",
+    //       message: "Ich bin [der] größte Komiker. Bitte genießen Sie meine handgefertigten Memes.",
+    //       translation: "I am [the] greatest comedian. Please enjoy my handcrafted memes."
+    //     },
+    //     {
+    //       from: "fox",
+    //       message: "...und ich helfe Lin als [ein] persönlicher Assistent, nehme ich an.",
+    //       translation: "...and I help Lin as a personal assistant, I suppose."
+    //     },
+    //     {
+    //       from: "leonie",
+    //       message: "Ich bin [eine] Ökologin und Botschafterin der Artenvielfalt. Seltsame Kreaturen sind so wunderbar!",
+    //       translation: "I am [an] ecologist and interspecies ambassador. Strange creatures are so wonderful!"
+    //     },
+    //     {
+    //       from: "nils",
+    //       message: "Hallo! Ich bin zehn!",
+    //       translation: "Hello! I'm ten!"
+    //     },
+    //   ]
+    // }

@@ -33,76 +33,75 @@ cashier:
 
 Note that all three forms of sie/Sie change to ihr/Ihr for the possessive!
   `,
-  stories: [
-    // LEVEL 1
+  story: [
     {
-      lines: [
-        {
-          from: "cashier",
-          message: "Möchten [Sie] noch etwas anderes?",
-          translation: "Would [you] like anything else?",
-          hint: "[formal]",
-          feedback: {
-            "du": "_du_ is the the informal form. You want the formal one."
-          }
-        },
-        {
-          from: "squirrel",
-          message: "Lukas, [du] musst die mit Honig gebrannten Mandeln kaufen!",
-          translation: "Lukas, [you] have to get the honey-roasted almonds!",
-          hint: "[informal]",
-        },
-        {
-          from: "cashier",
-          message: "Entschuldigung, spricht [Ihr] Rucksack?",
-          translation: "Excuse me, is [your] backpack talking?",
-          hint: "[masculine]",
-        },
-        {
-          from: "lukas",
-          message: "Pssst. [Du] wirst die Menschen verängstigen.",
-          translation: "Shhhh. [You]'ll freak out the humans.",
-          hint: "[informal]",
-        },
-        {
-          from: "lukas",
-          message: "Können [Sie] mir sagen, welche Art von Mandeln Sie haben?",
-          translation: "Could [you] tell me what kind of almonds you have?",
-          hint: "[formal]",
-        },
-      ],
+      from: "cashier",
+      message: "Möchten [Sie] noch etwas anderes?",
+      translation: "Would [you] like anything else?",
+      hint: "[formal]",
+      feedback: {
+        "du": "_du_ is the the informal form. You want the formal one."
+      }
     },
-
-    // LEVEL 1
     {
-      lines: [
-        {
-          from: "lindenbaum",
-          message: "Haben [Sie] manchmal das Gefühl, dass es der Menschheit an Ehrgeiz fehlt?",
-          translation: "Do [you] ever feel like humanity lacks ambition?",
-          hint: "[formal]"
-        },
-        {
-          from: "lindenbaum",
-          message: "[Sie] sind ein funkelndes Juwel der Selbsterkenntnis in einem Universum voller Leere.",
-          translation: "[You] are a sparkling jewel of self-awareness in a universe filled with void."
-        },
-        {
-          from: "lindenbaum",
-          message: "Und doch vergeuden wir [Ihre] Talente mit der Arbeit einer Maschine.",
-          translation: "Yet we waste [your] talents doing the work of a machine."
-        },
-        {
-          from: "cashier",
-          message: "Äh... haben [Sie] eine Bonuskarte?",
-          translation: "Er... do [you] have a rewards card?"
-        },
-        {
-          from: "lindenbaum",
-          message: "*seufz*",
-          translation: "*sigh*"
-        }
-      ],
-    }
+      from: "squirrel",
+      message: "Lukas, [du] musst die mit Honig gebrannten Mandeln kaufen!",
+      translation: "Lukas, [you] have to get the honey-roasted almonds!",
+      hint: "[informal]",
+    },
+    {
+      from: "cashier",
+      message: "Entschuldigung, spricht [Ihr] Rucksack?",
+      translation: "Excuse me, is [your] backpack talking?",
+      hint: "[masculine]",
+    },
+    {
+      from: "lukas",
+      message: "Pssst. [Du] wirst die Menschen verängstigen.",
+      translation: "Shhhh. [You]'ll freak out the humans.",
+      hint: "[informal]",
+    },
+    {
+      from: "lukas",
+      message: "Können [Sie] mir sagen, welche Art von Mandeln Sie haben?",
+      translation: "Could [you] tell me what kind of almonds you have?",
+      hint: "[formal]",
+    },
+  ],
+  exercises: [
+
   ]
 })
+
+
+    // // LEVEL 1
+    // {
+    //   lines: [
+    //     {
+    //       from: "lindenbaum",
+    //       message: "Haben [Sie] manchmal das Gefühl, dass es der Menschheit an Ehrgeiz fehlt?",
+    //       translation: "Do [you] ever feel like humanity lacks ambition?",
+    //       hint: "[formal]"
+    //     },
+    //     {
+    //       from: "lindenbaum",
+    //       message: "[Sie] sind ein funkelndes Juwel der Selbsterkenntnis in einem Universum voller Leere.",
+    //       translation: "[You] are a sparkling jewel of self-awareness in a universe filled with void."
+    //     },
+    //     {
+    //       from: "lindenbaum",
+    //       message: "Und doch vergeuden wir [Ihre] Talente mit der Arbeit einer Maschine.",
+    //       translation: "Yet we waste [your] talents doing the work of a machine."
+    //     },
+    //     {
+    //       from: "cashier",
+    //       message: "Äh... haben [Sie] eine Bonuskarte?",
+    //       translation: "Er... do [you] have a rewards card?"
+    //     },
+    //     {
+    //       from: "lindenbaum",
+    //       message: "*seufz*",
+    //       translation: "*sigh*"
+    //     }
+    //   ],
+    // }
