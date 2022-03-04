@@ -68,8 +68,6 @@ function getFeedback(attempt: string, line: FillblankLine): string | undefined {
   //   return "That's the right spelling, but the answer has a different capitalization."
   // }
 
-  console.log(line.canonicalAnswer, attempt)
-
   // Otherwise give some generic feedback based on character diff
   if (line.canonicalAnswer.length < attempt.length) {
     return "The answer is shorter."

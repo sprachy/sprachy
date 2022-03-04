@@ -52,7 +52,26 @@ Pretty straightforward! Not all person words follow this pattern, though. For ex
     },
   ],
   exercises: [
-
+    {
+      from: "squirrel",
+      message: "[Die] Zahnärztin schimpfte mich aus, weil ich zu viel an Schwertern genagt hatte.",
+      translation: "[The] dentist told me off for chewing on swords too much.",
+    },
+    {
+      from: "lukas",
+      message: "[Der] Astrobiologe muss traurig sein, denn der Himmel antwortet nie. Ich wünschte, ich könnte Sie mit ihm bekannt machen.",
+      translation: "[The] astrobiologist must be sad, since the sky never answers. I wish I could introduce you to him."
+    },
+    {
+      from: "lindenbaum",
+      message: "Es stimmt, dass [der] Biologe mehr über sein Fachgebiet weiß. Aber ich habe eine Quanten-KI.",
+      translation: "It's true that [the] biologist knows more about his field. But I have a quantum AI.",
+    },
+    {
+      from: "fox",
+      message: "[Der] Gamer trägt gerne ein Blaufuchskostüm.",
+      translation: "[The] gamer likes to wear a blue fox costume."
+    }
   ]
 })
 

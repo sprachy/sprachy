@@ -64,7 +64,26 @@ Some nouns are used mainly in their diminutive form. For example, _das Eichhörn
     },
   ],
   exercises: [
-
+    {
+      from: "squirrel",
+      message: "[Die] Nüsschen auf diesem Planeten sind besonders lecker. Zu Hause ist das ein gut gehütetes Geheimnis.",
+      translation: "[The] little nuts on this planet are especially delicious. It's a well-kept secret back home."
+    },
+    {
+      from: "lukas",
+      message: "Kann [ein] außerirdisches Eichhörnchen überhaupt die irdische Flora verdauen...?",
+      translation: "Can [an] alien squirrel even digest Earth flora...?"
+    },
+    {
+      from: "lindenbaum",
+      message: "[Das] Pantoffeltierchen hat mehrere Zellkerne. Eine große Zelle muss viele Proteine herstellen!",
+      translation: "[The] paramecium has many nuclei. A big cell must make lots of proteins!"
+    },
+    {
+      from: "fox",
+      message: "Wie kann [das] tote Mäuschen so gute Musik machen?",
+      translation: "How does [the] little dead mouse make such good music?"
+    }
   ]
 })
 

@@ -69,7 +69,6 @@ Note that all three forms of sie/Sie change to ihr/Ihr for the possessive!
     },
   ],
   exercises: [
-
   ]
 })
 
