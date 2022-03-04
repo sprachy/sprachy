@@ -16,6 +16,13 @@ export type PatternDef = {
   explanation: string
   story: LineDef[]
   exercises: LineDef[]
+  feedback?: FeedbackDef[]
+}
+
+export type FeedbackDef = {
+  answer: string
+  attempt: string
+  message: string
 }
 
 export type LineDef = {
@@ -24,7 +31,6 @@ export type LineDef = {
   translation: string
   explanation?: string
   hint?: string
-  feedback?: { [key: string]: string }
 }
 
 export type ReadingLine = {
@@ -44,7 +50,7 @@ export type FillblankLine = {
   validAnswers: string[]
   explanation?: string
   hint?: string
-  feedback?: { [key: string]: string }
+  feedback?: FeedbackDef[]
 }
 
 export type StoryLine = ReadingLine | FillblankLine
@@ -67,13 +73,13 @@ export type Story = Pattern['story']
 /** Turn a PatternDef into a Pattern for use by code. */
 export function parsePattern(patternDef: PatternDef): Pattern {
   return Object.assign({}, patternDef, {
-    story: patternDef.story.map(parseLine),
+    story: patternDef.story.map(ex => parseLine(patternDef, ex)),
     maxLevel: 5,
-    exercises: patternDef.exercises ? patternDef.exercises.map(parseLine) as Exercise[] : []
+    exercises: patternDef.exercises ? patternDef.exercises.map(ex => parseLine(patternDef, ex)) as Exercise[] : []
   })
 }
 
-export function parseLine(lineDef: LineDef): StoryLine {
+export function parseLine(patternDef: PatternDef, lineDef: LineDef): StoryLine {
   const match = lineDef.message.match(/\[(.+?)\]/)
   if (match) {
     const canonicalAnswer = match[1]!
@@ -82,6 +88,7 @@ export function parseLine(lineDef: LineDef): StoryLine {
       type: 'fillblank',
       canonicalAnswer: canonicalAnswer,
       validAnswers: [canonicalAnswer],
+      feedback: patternDef.feedback,
       ...lineDef
     }
   } else {

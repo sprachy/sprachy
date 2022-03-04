@@ -84,6 +84,28 @@ Some nouns are used mainly in their diminutive form. For example, _das Eichhörn
       message: "Wie kann [das] tote Mäuschen so gute Musik machen?",
       translation: "How does [the] little dead mouse make such good music?"
     }
+  ],
+  feedback: [
+    {
+      answer: "das",
+      attempt: "die",
+      message: "That's the feminine form. A _-chen_ word is always neuter."
+    },
+    {
+      answer: "das",
+      attempt: "der",
+      message: "That's the masculine form. A _-chen_ word is always neuter."
+    },
+    {
+      answer: "die",
+      attempt: "das",
+      message: "_das_ would be correct for the singular. However, this word is pluralized."
+    },
+    {
+      answer: "meine",
+      attempt: "mein",
+      message: "_das_ would be correct for the singular. However, this word is pluralized."
+    }
   ]
 })
 

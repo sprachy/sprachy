@@ -52,7 +52,7 @@ function getFeedback(attempt: string, line: FillblankLine): string | undefined {
   for (const answer of line.validAnswers) {
     const ans = answer.toLowerCase()
 
-    // Prioritize any exercise-specific feedback
+    // Prioritize any exercise/pattern-specific feedback
     const specificFeedback = line.feedback && line.feedback[attempt]
     if (specificFeedback)
       return specificFeedback
