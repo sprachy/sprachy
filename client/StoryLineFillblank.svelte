@@ -6,6 +6,7 @@
   import { matchAnswer } from "./feedback"
   import Sprachdown from "./Sprachdown.svelte"
   import sprachy from "./sprachy"
+  import { useFocus } from "svelte-navigator"
 
   export let line: FillblankLine
   export let flip: boolean = false
@@ -16,8 +17,11 @@
   let feedback: string = ""
 
   const dispatch = createEventDispatcher()
+  const registerFocus = useFocus()
 
-  onMount(() => attemptInput.focus())
+  onMount(() => {
+    attemptInput.focus()
+  })
 
   $: if (line !== prevLine) {
     attempt = ""
@@ -76,8 +80,9 @@
     <input
       class="fillblank"
       type="text"
-      bind:value={attempt}
       bind:this={attemptInput}
+      bind:value={attempt}
+      use:registerFocus
       placeholder={line.hint}
       autocapitalize="off"
       autocomplete="off"

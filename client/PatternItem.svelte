@@ -26,19 +26,6 @@
       <div class="shortdesc">
         <Sprachdown inline source={pattern.shortdesc} />
       </div>
-      {#if pattern.progress.srsLevel > 0}
-        <div class="timetolevel">
-          {#if !pattern.progress.levelableAt}
-            Mastered!
-          {:else}
-            Can be leveled {#if pattern.progress.levelableAt < Date.now()}
-              now
-            {:else}
-              <Timeago ts={pattern.progress.levelableAt} />
-            {/if}
-          {/if}
-        </div>
-      {/if}
     </div>
   </Link>
 </li>
@@ -96,8 +83,8 @@ li.pattern
   .shortdesc
     margin-bottom: 0.1rem
 
-  .timetolevel
-    font-style: italic
-    color: #666
-    font-size: 0.9rem
+  // .timetolevel
+  //   font-style: italic
+  //   color: #666
+  //   font-size: 0.9rem
 </style>
