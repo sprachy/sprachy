@@ -36,30 +36,27 @@
       </header>
       <PatternItem pattern={introPattern} />
     </section> -->
-    <section class="chapter">
-      <!-- <header>
-        <h2>Chapter 1</h2>
-        <p>Cases and noun genders</p>
-        <p>Ein mysteriöses Eichhörnchen taucht auf</p>
-      </header> -->
-
-      <ul>
-        {#each chapter1Patterns as pattern (pattern.id)}
-          <PatternItem {pattern} />
-        {/each}
-      </ul>
-    </section>
-    <section class="chapter">
-      <p><em>More patterns coming soon!</em></p>
-    </section>
-    {#if !IS_PRODUCTION}
-      <div class="debug">
-        <button class="btn btn-outline-warning" on:click={debugResetProgress}
-          >Debug: Reset Progress</button
-        >
-        <button class="btn btn-outline-warning" on:click={debugSkipTime}>Debug: Skip Time</button>
-      </div>
-    {/if}
+    <div class="patterns">
+      <section class="chapter">
+        <h2>All patterns</h2>
+        <ul>
+          {#each chapter1Patterns as pattern (pattern.id)}
+            <PatternItem {pattern} />
+          {/each}
+        </ul>
+      </section>
+      <section class="chapter">
+        <p><em>More patterns coming soon!</em></p>
+      </section>
+      {#if !IS_PRODUCTION}
+        <div class="debug">
+          <button class="btn btn-outline-warning" on:click={debugResetProgress}
+            >Debug: Reset Progress</button
+          >
+          <button class="btn btn-outline-warning" on:click={debugSkipTime}>Debug: Skip Time</button>
+        </div>
+      {/if}
+    </div>
   </div>
 </SiteLayout>
 
@@ -79,4 +76,17 @@
 .tiles
   display: flex
 
+.patterns
+  padding: 1rem
+
+  ul
+    display: flex
+    flex-wrap: wrap
+  
+  ul :global(li)
+    flex-basis: 50%
+
+@media only screen and (max-width: 768px)
+  .patterns ul :global(li)
+    flex-basis: 100%
 </style>
