@@ -59,7 +59,6 @@ li.pattern.learned
 li.pattern.mastered
   --pattern-color: var(--sprachy-secondary)
 
-
 li.pattern
   display: flex
   list-style-type: none
@@ -78,7 +77,7 @@ li.pattern
     text-decoration: none
     flex-grow: 1
 
-  > :global(a):hover
+  > :global(a):hover :global(h6)
     text-decoration: underline
 
   .icon
