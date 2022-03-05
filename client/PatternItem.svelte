@@ -3,26 +3,25 @@
   import { Link } from "svelte-navigator"
 
   import Sprachdown from "./Sprachdown.svelte"
-  import sprachy from "./sprachy"
   import Timeago from "./Timeago.svelte"
   import type { PatternAndProgress } from "./UserApp"
 
   export let pattern: PatternAndProgress
-  $: patternReady =
-    pattern.progress.srsLevel > 0 || pattern.id === sprachy.app.nextPatternToLearn?.id
+  $: patternLearned = pattern.progress.srsLevel > 0
+  $: patternMastered = pattern.progress.srsLevel === pattern.maxLevel
 </script>
 
-<li class:pattern={true} class:ready={patternReady}>
+<li class:pattern={true} class:learned={patternLearned} class:mastered={patternMastered}>
   <Link to="/pattern/{pattern.slug}">
-    <div class="icon" style="background-color: #1ba156">
+    <div class="icon">
       <FontAwesomeIcon icon={pattern.icon} />
     </div>
     <div>
-      <h6 style="color: #1ba156">
+      <h6>
         {pattern.title}
-        {#each { length: pattern.progress.srsLevel } as _}
+        <!-- {#each { length: pattern.progress.srsLevel } as _}
           <span>⭐</span>
-        {/each}
+        {/each} -->
       </h6>
       <div class="shortdesc">
         <Sprachdown inline source={pattern.shortdesc} />
@@ -44,12 +43,27 @@
 li.pattern:not(:first-child)
   margin-top: 1rem
 
-li.pattern:not(.ready)
-  filter: grayscale(100%)
+// li.pattern:not(.ready)
+//   filter: grayscale(100%)
+
+li.pattern
+  --pattern-color: var(--sprachy-primary)
+
+li.pattern.learned
+  --pattern-color: var(--sprachy-gradthree)
+
+li.pattern.mastered
+  --pattern-color: var(--sprachy-secondary)
+
 
 li.pattern
   display: flex
   list-style-type: none
+
+  div.icon
+    background-color: var(--pattern-color)
+  h6
+    color: var(--pattern-color)
 
   > :global(a)
     display: flex

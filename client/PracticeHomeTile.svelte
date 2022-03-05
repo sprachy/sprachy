@@ -25,25 +25,6 @@
 
 <style lang="sass">
 .home-tile
-  font-size: 1.1rem
-  flex-grow: 1
-  margin-left: 0.5rem
-
-  :global(a)
-    text-decoration: none
-    color: inherit
-
-  .card
-    padding: 1rem
-
-  .card:hover .card-title
-    text-decoration: underline
-
-  .card-title
-    color: #64b5f6
-    font-weight: bold
-    margin-bottom: 0.5rem
-
-  p
-    margin: 0
+  --tile-color: var(--sprachy-secondary)
+  color: white
 </style>

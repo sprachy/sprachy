@@ -79,6 +79,10 @@
     flex-wrap: wrap
   
   ul :global(li)
+    flex-basis: 33%
+
+@media only screen and (max-width: 1024px)
+  .patterns ul :global(li)
     flex-basis: 50%
 
 @media only screen and (max-width: 768px)
