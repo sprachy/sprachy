@@ -30,12 +30,7 @@
       <NextPatternHomeTile />
       <PracticeHomeTile />
     </div>
-    <!-- <section class="chapter">
-      <header>
-        <h2>Introduction</h2>
-      </header>
-      <PatternItem pattern={introPattern} />
-    </section> -->
+    <hr />
     <div class="patterns">
       <section class="chapter">
         <h2>All patterns</h2>
