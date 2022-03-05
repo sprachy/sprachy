@@ -151,7 +151,10 @@ lukas:
       hint: "[transferieren]",
     },
   ],
-  exercises: [
-
-  ]
+  exercises: [{
+    from: "fox",
+    message: "[Sprich] nie wieder mit mir oder meinem Sohn",
+    translation: "Don't [talk] to me or my son ever again",
+    hint: "[sprechen]"
+  }]
 })
