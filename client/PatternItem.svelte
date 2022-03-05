@@ -31,7 +31,11 @@
           {#if !pattern.progress.levelableAt}
             Mastered!
           {:else}
-            Can be leveled <Timeago ts={pattern.progress.levelableAt} />
+            Can be leveled {#if pattern.progress.levelableAt < Date.now()}
+              now
+            {:else}
+              <Timeago ts={pattern.progress.levelableAt} />
+            {/if}
           {/if}
         </div>
       {/if}

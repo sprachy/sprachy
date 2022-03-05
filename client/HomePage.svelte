@@ -81,7 +81,7 @@
   ul :global(li)
     flex-basis: 33%
 
-@media only screen and (max-width: 1024px)
+@media only screen and (max-width: 1200px)
   .patterns ul :global(li)
     flex-basis: 50%
 
