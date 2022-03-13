@@ -1,17 +1,18 @@
 <script lang="ts">
-  import _ from "lodash"
-  import { Link } from "svelte-navigator"
-  import { NotFoundError } from "./GlobalErrorHandler"
-  import SiteLayout from "./SiteLayout.svelte"
-  import Sprachdown from "./Sprachdown.svelte"
-  import sprachy from "./sprachy"
-  import Timeago from "./Timeago.svelte"
+  import _ from "lodash";
+  import { Link } from "svelte-navigator";
+  import { NotFoundError } from "../../client/GlobalErrorHandler";
+  import SiteLayout from "../../common/SiteLayout.svelte";
+  import Sprachdown from "../../common/Sprachdown.svelte";
+  import sprachy from "../../client/sprachy";
+  import Timeago from "../../common/Timeago.svelte";
+  import patterns from "../../patterns";
 
-  export let slug: string | undefined
+  export let slug: string | undefined;
 
-  const pattern = sprachy.app.patternsAndProgress.find((p) => p.slug === slug)
+  const pattern = patterns.find((p) => p.slug === slug);
   if (!pattern) {
-    throw new NotFoundError()
+    throw new NotFoundError();
   }
 </script>
 
@@ -25,7 +26,7 @@
     </h1>
     <Sprachdown source={pattern.explanation} />
 
-    {#if pattern.progress.levelableAt && pattern.progress.levelableAt > Date.now()}
+    <!-- {#if pattern.progress.levelableAt && pattern.progress.levelableAt > Date.now()}
       <p class="text-secondary">
         <em
           >Level {pattern.progress.srsLevel + 1} unlocks in <Timeago
@@ -40,7 +41,7 @@
       {:else}
         Dialogue exercise
       {/if}
-    </Link>
+    </Link> -->
   </div>
 </SiteLayout>
 

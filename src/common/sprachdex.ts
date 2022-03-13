@@ -1,5 +1,6 @@
 import { parsePattern } from "./Pattern"
-import characters, { Character } from "../common/characters"
+import characters from "../common/characters"
+import type { Character } from "../common/characters"
 import patternDefs from "../patterns"
 
 /**

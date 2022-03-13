@@ -1,22 +1,22 @@
 <script lang="ts">
-  import _ from "lodash"
-  import { IS_PRODUCTION } from "./settings"
-  import { Link, navigate } from "svelte-navigator"
-  import sprachy from "./sprachy"
+  import _ from "lodash";
+  // import { IS_PRODUCTION } from "./settings"
+  import { Link, navigate } from "svelte-navigator";
+  // import sprachy from "./sprachy"
   // @ts-ignore
-  import Dropdown from "sv-bootstrap-dropdown"
+  // import Dropdown from "sv-bootstrap-dropdown"
 
-  const patterns = sprachy.app.allViewablePatterns
+  // const patterns = sprachy.app.allViewablePatterns
 
-  let dropdownTrigger: HTMLButtonElement
+  let dropdownTrigger: HTMLButtonElement;
 
-  const isDev = !IS_PRODUCTION
+  // const isDev = !IS_PRODUCTION
 
-  async function logout() {
-    await sprachy.api.logout()
-    sprachy.closeApp()
-    navigate("/")
-  }
+  // async function logout() {
+  //   await sprachy.api.logout()
+  //   sprachy.closeApp()
+  //   navigate("/")
+  // }
 </script>
 
 <template>
@@ -25,9 +25,9 @@
       <div class="container">
         <Link class="navbar-brand" to="/">
           Sprachy
-          {#if isDev}
+          <!-- {#if isDev}
             <span class="envbadge dev">dev</span>
-          {/if}
+          {/if} -->
         </Link>
         <button
           class="navbar-toggler"
@@ -49,7 +49,7 @@
             <li class="nav-item">
               <Link class="nav-link" to="/practice">Practice</Link>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <div class="nav-link">
                 <Dropdown triggerElement={dropdownTrigger}>
                   <button class="dropdown-toggle" bind:this={dropdownTrigger}> Patterns </button>
@@ -62,11 +62,11 @@
                   </div>
                 </Dropdown>
               </div>
-            </li>
+            </li> -->
             <li class="nav-item">
               <Link class="nav-link" to="/faq">FAQ</Link>
             </li>
-            {#if sprachy.admin}
+            <!-- {#if sprachy.admin}
               <li class="nav-item">
                 <Link class="nav-link" to="/admin">Admin</Link>
               </li>
@@ -78,7 +78,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/logout" on:click|preventDefault={logout}>Log out</a>
               </li>
-            {/if}
+            {/if} -->
           </ul>
         </div>
       </div>
