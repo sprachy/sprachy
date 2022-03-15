@@ -7,6 +7,7 @@ import { db } from "../server/db"
 import { sessions } from "../server/sessions"
 import { FaunaError } from "../server/faunaUtil"
 import { ZodError } from "zod"
+import { errorsByField } from "../client/utils"
 
 const signupForm = z.object({
   email: z.string().email(),
@@ -30,6 +31,8 @@ export const post: RequestHandler<void, { email: string, password: string, confi
     const progressItems = await db.progress.listAllFor(user.id)
     const sessionKey = await sessions.create(user.id)
 
+    console.log(user)
+
     // if (DISCORD_SIGNUP_WEBHOOK) {
     //   const params = {
     //     username: "SignUp",
@@ -45,16 +48,26 @@ export const post: RequestHandler<void, { email: string, password: string, confi
         'set-cookie': sessions.asCookie(sessionKey)
       }
     }
-
     // return { summary: { user, progressItems } }
   } catch (err) {
-    if (err instanceof FaunaError && err.code === "instance not unique") {
-      return { status: 409 }
-      // throw new HTTPError(409, "Email already in use")
-    } else if (err instanceof ZodError) {
+    if (err instanceof ZodError) {
       return {
         status: 422,
-        errors: err.issues
+        body: {
+          ...data,
+          errors: errorsByField(err.issues)
+        }
+      }
+    } else if (err instanceof FaunaError && err.code === "instance not unique") {
+      console.log(err)
+      return {
+        status: 409,
+        body: {
+          ...data,
+          errors: {
+            email: "This email is already in use"
+          }
+        }
       }
     } else {
       throw err

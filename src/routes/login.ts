@@ -5,6 +5,8 @@ import { Index, Login, Match } from "faunadb"
 import { db } from "../server/db"
 import { sessions } from "../server/sessions"
 import { FaunaError } from "../server/faunaUtil"
+import { ZodError } from "zod"
+import { errorsByField } from "../client/utils"
 
 type FaunaLoginToken = {
   ref: { value: { id: string } } // Token ref
@@ -20,10 +22,10 @@ const loginForm = z.object({
 export const post: RequestHandler<void, { username: string }> = async ({ request }) => {
   // @ts-ignore
   const data = Object.fromEntries(await request.formData())
-  const { email, password } = loginForm.parse(data)
-
 
   try {
+    const { email, password } = loginForm.parse(data)
+
     const result = await db.faunaQuery(
       Login(
         Match(Index("users_by_email"), email),
@@ -44,8 +46,22 @@ export const post: RequestHandler<void, { username: string }> = async ({ request
     }
     // return { summary: { user, progressItems } }
   } catch (err) {
-    if (err instanceof FaunaError && err.code === "authentication failed") {
-      return { status: 401 }
+    if (err instanceof ZodError) {
+      return {
+        status: 422,
+        body: {
+          errors: errorsByField(err.issues)
+        }
+      }
+    } else if (err instanceof FaunaError && err.code === "authentication failed") {
+      return {
+        status: 401,
+        body: {
+          errors: {
+            password: "The password doesn't match the user"
+          }
+        }
+      }
     } else {
       throw err
     }

@@ -5,7 +5,7 @@
   let email: string = "";
   let password: string = "";
   let loading: boolean = false;
-  let errors: Record<string, string> = {};
+  export let errors: Record<string, string> = {};
 
   // onMount(() => {
   //   if (sprachy.user) {
@@ -49,6 +49,7 @@
 
 <main>
   <form method="post" action="/login">
+    <!-- <pre>{JSON.stringify(errors)}</pre> -->
     <div class="form-header">
       <a href="/" class="header-logo">
         <SprachyLogo />

@@ -1,7 +1,34 @@
-declare const STORE: KVNamespace
+class DummyStore {
+  data: Record<string, string> = {}
+
+  async get(key: string, form: "text" | "json"): Promise<any> {
+    const val = this.data[key]
+    if (val !== undefined) {
+      if (form === "json") {
+        return JSON.parse(val)
+      } else {
+        return val
+      }
+    } else {
+      return null
+    }
+  }
+
+  async put(key: string, value: string, options?: any) {
+    this.data[key] = value
+  }
+
+  async delete(key: string) {
+    delete this.data[key]
+  }
+}
+
+// declare const STORE: KVNamespace
+const STORE = new DummyStore()
 
 class KVStoreClient {
   async getText(key: string): Promise<string | null> {
+    console.log(STORE)
     return await STORE.get(key, "text")
   }
 

@@ -5,6 +5,9 @@
   import SprachyLogo from "../common//SprachyLogo.svelte";
 
   export let errors: Record<string, string> = {};
+  export let email: string = "";
+  export let password: string = "";
+  export let confirmPassword: string = "";
   // import { APIValidationError } from "../HTTPProvider";
 
   // const params = new URLSearchParams(window.location.search);
@@ -58,7 +61,7 @@
 </script>
 
 <main>
-  {JSON.stringify(errors)}
+  <!-- {JSON.stringify(errors)} -->
   <form method="post" action="/signup">
     <div class="form-header">
       <a href="/" class="header-logo">
@@ -73,6 +76,7 @@
         name="email"
         id="email"
         type="email"
+        value={email}
         class:form-control={true}
         class:is-invalid={!!errors.email}
         placeholder="Email"
@@ -91,6 +95,7 @@
         name="password"
         id="password"
         type="password"
+        value={password}
         class:form-control={true}
         class:is-invalid={!!errors.password}
         placeholder="Password"
@@ -110,6 +115,7 @@
         name="confirmPassword"
         id="confirmPassword"
         type="password"
+        value={confirmPassword}
         class:form-control={true}
         class:is-invalid={!!errors.confirmPassword}
         placeholder="Confirm Password"
