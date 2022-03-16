@@ -1,18 +1,22 @@
 <script lang="ts">
-  import { FontAwesomeIcon } from "fontawesome-svelte"
-  import { Link } from "svelte-navigator"
+  import { FontAwesomeIcon } from "fontawesome-svelte";
+  import { Link } from "svelte-navigator";
 
-  import Sprachdown from "./Sprachdown.svelte"
-  import Timeago from "./Timeago.svelte"
-  import type { PatternAndProgress } from "./UserApp"
+  import Sprachdown from "./Sprachdown.svelte";
+  import Timeago from "./Timeago.svelte";
+  import type { PatternAndProgress } from "./UserApp";
 
-  export let pattern: PatternAndProgress
-  $: patternLearned = pattern.progress.srsLevel > 0
-  $: patternMastered = pattern.progress.srsLevel === pattern.maxLevel
+  export let pattern: PatternAndProgress;
+  $: patternLearned = false; //pattern.progress.srsLevel > 0
+  $: patternMastered = false; //pattern.progress.srsLevel === pattern.maxLevel
 </script>
 
-<li class:pattern={true} class:learned={patternLearned} class:mastered={patternMastered}>
-  <Link to="/pattern/{pattern.slug}">
+<li
+  class:pattern={true}
+  class:learned={patternLearned}
+  class:mastered={patternMastered}
+>
+  <a href="/pattern/{pattern.slug}">
     <div class="icon">
       <FontAwesomeIcon icon={pattern.icon} />
     </div>
@@ -27,7 +31,7 @@
         <Sprachdown inline source={pattern.shortdesc} />
       </div>
     </div>
-  </Link>
+  </a>
 </li>
 
 <style lang="sass">

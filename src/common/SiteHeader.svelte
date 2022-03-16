@@ -23,12 +23,12 @@
   <header class="site-header">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <Link class="navbar-brand" to="/">
+        <a class="navbar-brand" href="/">
           Sprachy
           <!-- {#if isDev}
             <span class="envbadge dev">dev</span>
           {/if} -->
-        </Link>
+        </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -44,10 +44,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <Link class="nav-link" to="/learn">Learn</Link>
+              <a class="nav-link" href="/learn">Learn</a>
             </li>
             <li class="nav-item">
-              <Link class="nav-link" to="/practice">Practice</Link>
+              <a class="nav-link" href="/practice">Practice</a>
             </li>
             <!-- <li class="nav-item">
               <div class="nav-link">
@@ -64,7 +64,7 @@
               </div>
             </li> -->
             <li class="nav-item">
-              <Link class="nav-link" to="/faq">FAQ</Link>
+              <a class="nav-link" href="/faq">FAQ</a>
             </li>
             <!-- {#if sprachy.admin}
               <li class="nav-item">

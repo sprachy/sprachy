@@ -6,14 +6,9 @@
   import Sprachdown from "../../common/Sprachdown.svelte";
   import sprachy from "../../client/sprachy";
   import Timeago from "../../common/Timeago.svelte";
-  import patterns from "../../patterns";
+  import type { PatternDef } from "../../common/Pattern";
 
-  export let slug: string | undefined;
-
-  const pattern = patterns.find((p) => p.slug === slug);
-  if (!pattern) {
-    throw new NotFoundError();
-  }
+  export let pattern: PatternDef;
 </script>
 
 <SiteLayout title={pattern.title}>
