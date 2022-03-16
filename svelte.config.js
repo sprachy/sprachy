@@ -33,6 +33,12 @@ const config = {
 
         global: {}
       },
+      ssr: {
+        noExternal: ['@fortawesome/free-brands-svg-icons', '@fortawesome/free-regular-svg-icons', '@fortawesome/free-solid-svg-icons']
+      },
+      // optimizeDeps: {
+      //   include: ["@fortawesome/free-solid-svg-icons"]
+      // }
     }
   }
 }
