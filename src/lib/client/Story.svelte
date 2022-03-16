@@ -1,55 +1,55 @@
 <script lang="ts">
-  import _ from "lodash"
-  import { createEventDispatcher, onDestroy, onMount, tick } from "svelte"
-  import type { StoryLine, Story } from "$lib/Pattern"
-  import StoryLineReading from "./StoryLineReading.svelte"
-  import StoryLineFillblank from "./StoryLineFillblank.svelte"
-  import { fly } from "svelte/transition"
+  import _ from "lodash";
+  import { createEventDispatcher, onDestroy, onMount } from "svelte";
+  import type { StoryLine, Story } from "$lib/Pattern";
+  import StoryLineReading from "$lib/client/StoryLineReading.svelte";
+  import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte";
+  import { fly } from "svelte/transition";
 
-  export let story: Story
-  let lineIndex: number
+  export let story: Story;
+  let lineIndex: number;
   $: if (story) {
-    lineIndex = 0
+    lineIndex = 0;
   }
 
-  $: lines = story.slice(0, lineIndex + 1)
-  $: currentLine = lines[lines.length - 1]!
-  let finished: boolean = false
+  $: lines = story.slice(0, lineIndex + 1);
+  $: currentLine = lines[lines.length - 1]!;
+  let finished: boolean = false;
 
-  let fillblankRef: StoryLineFillblank | null = null
-  let lineRef: HTMLDivElement | null = null
+  let fillblankRef: StoryLineFillblank | null = null;
+  let lineRef: HTMLDivElement | null = null;
 
-  $: doingExercise = !finished && currentLine.type === "fillblank"
+  $: doingExercise = !finished && currentLine.type === "fillblank";
 
   // We want to flip the line orientation each time the
   // speaker changes
   $: lineFlips = ((lines: StoryLine[]) => {
-    let flip = false
-    let prevFrom = lines[0]?.from
-    const flips: boolean[] = []
+    let flip = false;
+    let prevFrom = lines[0]?.from;
+    const flips: boolean[] = [];
     for (const line of lines) {
       if (line.from !== prevFrom) {
-        flip = !flip
-        prevFrom = line.from
+        flip = !flip;
+        prevFrom = line.from;
       }
-      flips.push(flip)
+      flips.push(flip);
     }
-    return flips
-  })(story)
+    return flips;
+  })(story);
 
-  const dispatch = createEventDispatcher()
+  const dispatch = createEventDispatcher();
 
   onMount(() => {
-    window.addEventListener("keydown", onKeydown)
-  })
+    window.addEventListener("keydown", onKeydown);
+  });
 
   onDestroy(() => {
-    window.removeEventListener("keydown", onKeydown)
-  })
+    window.removeEventListener("keydown", onKeydown);
+  });
 
   function onKeydown(e: KeyboardEvent) {
     if (e.key === "Enter" && !doingExercise) {
-      continueStory()
+      continueStory();
     }
   }
 
@@ -57,29 +57,29 @@
     window.scrollTo({
       top: document.body.scrollHeight,
       behavior: "smooth",
-    })
+    });
   }
 
   async function nextLine() {
     if (lineRef) {
       // This is necessary for the window keydown event listener
       // to fire for the next line on firefox
-      lineRef.querySelector("input")?.blur()
+      lineRef.querySelector("input")?.blur();
     }
     if (lineIndex < story.length - 1) {
-      lineIndex += 1
+      lineIndex += 1;
     } else {
-      finished = true
+      finished = true;
     }
   }
 
   function continueStory() {
     if (doingExercise && fillblankRef) {
-      fillblankRef.checkAnswer()
+      fillblankRef.checkAnswer();
     } else if (lineIndex < story.length - 1) {
-      nextLine()
+      nextLine();
     } else {
-      dispatch("complete")
+      dispatch("complete");
     }
   }
 </script>
@@ -104,7 +104,9 @@
   </div>
   <footer>
     <div class="container d-flex justify-content-end">
-      <button class="btn btn-success btn-lg" on:click={continueStory}>Continue</button>
+      <button class="btn btn-success btn-lg" on:click={continueStory}
+        >Continue</button
+      >
     </div>
   </footer>
 </div>

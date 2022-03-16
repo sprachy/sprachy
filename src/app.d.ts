@@ -13,7 +13,7 @@ declare namespace App {
   // interface Platform {}
 
   interface Session {
-    userId: string
+    userId?: string
   }
 
   // interface Stuff {}

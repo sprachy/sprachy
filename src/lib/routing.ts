@@ -17,7 +17,8 @@ const authedRoutes = [
   '/learn',
   '/practice',
   '/api(.*)',
-  '/admin(.*)'
+  '/admin(.*)',
+  '/pattern/:slug/story'
 ]
 
 export function isAuthedRoute(pathname: string): boolean {

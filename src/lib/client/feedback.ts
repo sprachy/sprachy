@@ -1,6 +1,5 @@
 import type { FillblankLine } from "$lib/Pattern"
-import { sprachdex } from "$lib/sprachdex"
-import { levenshtein } from "./levenshtein"
+import { levenshtein } from "$lib/levenshtein"
 
 /**
  * Feedback to be applied across all fillblank exercises, unless

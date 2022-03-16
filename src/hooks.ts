@@ -1,8 +1,6 @@
 import cookie from 'cookie'
 import type { Handle, GetSession, HandleError } from '@sveltejs/kit'
 import { sessions } from '$lib/server/sessions'
-import { db } from '$lib/server/db'
-import { pathToRegexp } from "path-to-regexp"
 import { isAuthedRoute } from '$lib/routing'
 
 /**
@@ -27,8 +25,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     )
   }
 
-  const ssr = !isAuthedRoute(event.url.pathname)
-  const response = await resolve(event, { ssr })
+  // const ssr = !isAuthedRoute(event.url.pathname)
+  const response = await resolve(event)
   return response
 }
 

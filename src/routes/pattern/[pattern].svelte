@@ -1,9 +1,9 @@
 <script lang="ts" context="module">
   import patterns from "$lib/patterns";
-  import type { Load } from "./[slug]";
+  import type { Load } from "./[pattern]";
 
   export const load: Load = async ({ params }) => {
-    const pattern = patterns.find((p) => p.slug === params.slug);
+    const pattern = patterns.find((p) => p.slug === params.pattern);
 
     if (!pattern) {
       return { status: 404 };
@@ -21,13 +21,17 @@
 <script lang="ts">
   import _ from "lodash";
   // import { Link } from "svelte-navigator";
-  // import { NotFoundError } from "../$lib/client/GlobalErrorHandler";
   import SiteLayout from "$lib/SiteLayout.svelte";
   import Sprachdown from "$lib/Sprachdown.svelte";
-  // import Timeago from "$lib/client/Timeago.svelte";
+  import Timeago from "$lib/client/Timeago.svelte";
   import type { PatternDef } from "$lib/Pattern";
+  import { spa } from "$lib/client/spa";
 
   export let pattern: PatternDef;
+
+  const progress = spa?.patternsAndProgress.find(
+    (p) => p.id === pattern.id
+  ).progress;
 </script>
 
 <SiteLayout title={pattern.title}>
@@ -40,22 +44,28 @@
     </h1>
     <Sprachdown source={pattern.explanation} />
 
-    <!-- {#if pattern.progress.levelableAt && pattern.progress.levelableAt > Date.now()}
-      <p class="text-secondary">
-        <em
-          >Level {pattern.progress.srsLevel + 1} unlocks in <Timeago
-            ts={pattern.progress.levelableAt}
-          /></em
-        >
-      </p>
-    {/if}
-    <Link to="/pattern/{pattern.slug}/story" class="btn btn-primary">
-      {#if pattern.progress.srsLevel === 0}
-        Learn this pattern
-      {:else}
-        Dialogue exercise
+    {#if progress}
+      {#if progress.levelableAt && progress.levelableAt > Date.now()}
+        <p class="text-secondary">
+          <em
+            >Level {progress.srsLevel + 1} unlocks in <Timeago
+              ts={progress.levelableAt}
+            /></em
+          >
+        </p>
       {/if}
-    </Link> -->
+      <a
+        sveltekit:prefetch
+        href="/story/{pattern.slug}"
+        class="btn btn-primary"
+      >
+        {#if progress.srsLevel === 0}
+          Learn this pattern
+        {:else}
+          Dialogue exercise
+        {/if}
+      </a>
+    {/if}
   </div>
 </SiteLayout>
 

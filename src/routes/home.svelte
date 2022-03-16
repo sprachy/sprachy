@@ -21,25 +21,26 @@
 </script>
 
 <SiteLayout>
-  <div class="home">
-    <div class="tiles">
-      <NextPatternHomeTile />
-      <PracticeHomeTile />
-    </div>
-    <hr />
-    <div class="patterns">
-      <section class="chapter">
-        <h2>All patterns</h2>
-        <ul>
-          {#each spa.patternsAndProgress as pattern (pattern.id)}
-            <PatternItem {pattern} />
-          {/each}
-        </ul>
-      </section>
-      <section class="chapter">
-        <p><em>More patterns coming soon!</em></p>
-      </section>
-      <!-- {#if !IS_PRODUCTION}
+  {#if spa}
+    <div class="home">
+      <div class="tiles">
+        <NextPatternHomeTile />
+        <PracticeHomeTile />
+      </div>
+      <hr />
+      <div class="patterns">
+        <section class="chapter">
+          <h2>All patterns</h2>
+          <ul>
+            {#each spa.patternsAndProgress as pattern (pattern.id)}
+              <PatternItem {pattern} />
+            {/each}
+          </ul>
+        </section>
+        <section class="chapter">
+          <p><em>More patterns coming soon!</em></p>
+        </section>
+        <!-- {#if !IS_PRODUCTION}
         <div class="debug">
           <button class="btn btn-outline-warning" on:click={debugResetProgress}
             >Debug: Reset Progress</button
@@ -49,8 +50,9 @@
           >
         </div>
       {/if} -->
+      </div>
     </div>
-  </div>
+  {/if}
 </SiteLayout>
 
 <style lang="sass">

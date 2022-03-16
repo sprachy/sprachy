@@ -10,6 +10,7 @@ import type { ProgressItem, User, ProgressSummary } from "$lib/api"
 import type { Exercise, FillblankLine, Pattern, Story } from "$lib/Pattern"
 import { sprachdex } from "$lib/sprachdex"
 import { time } from "$lib/time"
+import { CanvasEffects } from "$lib/client/CanvasEffects"
 
 export type Review = Exercise & {
   pattern: PatternAndProgress
@@ -23,12 +24,15 @@ export class SprachySPA {
   progressItems?: ProgressItem[]
   readonly api = new SprachyAPIClient()
   readonly backgroundApi = new SprachyAPIClient()
+  /** 
+   * For drawing success confetti animation
+   */
+  effects: CanvasEffects
 
   async start() {
     if (!browser) {
       throw new Error("Tried to start SPA in a non-browser context")
     }
-
 
     // Configure nprogress to show the little loading bar at the top
     // whenever we're doing an API request
@@ -38,17 +42,12 @@ export class SprachySPA {
     }
 
     await this.refreshProgress()
+    this.effects = new CanvasEffects()
   }
 
   get admin() {
     return this.user && this.user.isAdmin
   }
-
-
-  /** 
-   * For drawing success confetti animation
-   */
-  // readonly effects = new CanvasEffects()
 
 
   async refreshProgress() {
@@ -80,15 +79,19 @@ export class SprachySPA {
     return _.keyBy(this.progressItems, (p) => p.patternId)
   }
 
+  getProgressFor(pattern: Pattern) {
+    const progressItem = this.progressItemByPatternId[pattern.id]
+    return new PatternProgress(pattern, progressItem)
+  }
+
   get allViewablePatterns(): Pattern[] {
     return this.user.isAdmin ? sprachdex.patternsIncludingDrafts : sprachdex.publishedPatterns
   }
 
   get patternsAndProgress(): PatternAndProgress[] {
     return this.allViewablePatterns.map((p) => {
-      const progressItem = this.progressItemByPatternId[p.id]
       return Object.assign({}, p, {
-        progress: new PatternProgress(p, progressItem)
+        progress: this.getProgressFor(p)
       })
     })
   }

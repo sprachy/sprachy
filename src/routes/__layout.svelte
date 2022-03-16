@@ -21,11 +21,11 @@
   import { browser } from "$app/env";
   import { session } from "$app/stores";
   import { spa } from "$lib/client/spa";
+  import { page } from "$app/stores";
 
-  let loading: boolean = false;
+  let loading: boolean = true;
 
   async function startSPA() {
-    loading = true;
     try {
       await spa.start();
     } finally {
@@ -33,8 +33,11 @@
     }
   }
 
-  if (browser && $session.userId && !spa.user) {
+  if (browser && $session.userId && !spa.user && !$page.error) {
     startSPA();
+  } else {
+    console.log("huh");
+    loading = false;
   }
 </script>
 
