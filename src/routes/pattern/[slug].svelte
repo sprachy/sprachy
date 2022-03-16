@@ -1,12 +1,11 @@
 <script lang="ts">
   import _ from "lodash";
-  import { Link } from "svelte-navigator";
-  import { NotFoundError } from "../../client/GlobalErrorHandler";
-  import SiteLayout from "../../common/SiteLayout.svelte";
-  import Sprachdown from "../../common/Sprachdown.svelte";
-  import sprachy from "../../client/sprachy";
-  import Timeago from "../../common/Timeago.svelte";
-  import type { PatternDef } from "../../common/Pattern";
+  // import { Link } from "svelte-navigator";
+  // import { NotFoundError } from "../$lib/client/GlobalErrorHandler";
+  import SiteLayout from "$lib/SiteLayout.svelte";
+  import Sprachdown from "$lib/Sprachdown.svelte";
+  // import Timeago from "$lib/client/Timeago.svelte";
+  import type { PatternDef } from "$lib/Pattern";
 
   export let pattern: PatternDef;
 </script>

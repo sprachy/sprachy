@@ -61,7 +61,7 @@
 <style lang="sass">
 .frontpage
   height: 100vh
-  background-image: url(./img/sprachy-bg.jpg)
+  background-image: url($lib/img/sprachy-bg.jpg)
   background-size: cover
   background-position: 50% 75%
   display: flex

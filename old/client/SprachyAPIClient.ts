@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import type { ProgressItem, User, ProgressSummary } from '../common/api'
+import type { ProgressItem, User, ProgressSummary } from '$lib/api'
 import { HTTPProvider, safeRequest } from './HTTPProvider'
 
 export class SprachyAPIClient {

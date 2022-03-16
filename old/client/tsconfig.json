@@ -2,7 +2,7 @@
   "extends": "../tsconfig-base.json",
   "include": [
     "**/*",
-    "../common"
+    "$lib"
   ],
   "exclude": [
     "node_modules"

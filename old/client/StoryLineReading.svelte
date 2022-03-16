@@ -1,7 +1,7 @@
 <script lang="ts">
   import _ from "lodash"
   import Message from "./Message.svelte"
-  import type { Line } from "../common/Pattern"
+  import type { Line } from "$lib/Pattern"
   import Sprachdown from "./Sprachdown.svelte"
 
   export let line: Line

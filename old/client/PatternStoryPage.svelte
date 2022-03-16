@@ -8,7 +8,7 @@
   import type { PatternAndProgress } from "./UserApp"
   import { onDestroy, onMount } from "svelte"
   import { Link, navigate } from "svelte-navigator"
-  import successImg from "./img/success.jpg"
+  import successImg from "$lib/img/success.jpg"
 
   export let slug: string | undefined
   let complete: boolean = false

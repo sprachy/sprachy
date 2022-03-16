@@ -1,4 +1,4 @@
-import { db } from '../server/db'
+import { db } from '$lib/server/db'
 
 export async function adminify(email: string) {
   const user = await db.users.expectByEmail(email)

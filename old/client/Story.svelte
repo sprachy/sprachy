@@ -1,7 +1,7 @@
 <script lang="ts">
   import _ from "lodash"
   import { createEventDispatcher, onDestroy, onMount, tick } from "svelte"
-  import type { StoryLine, Story } from "../common/Pattern"
+  import type { StoryLine, Story } from "$lib/Pattern"
   import StoryLineReading from "./StoryLineReading.svelte"
   import StoryLineFillblank from "./StoryLineFillblank.svelte"
   import { fly } from "svelte/transition"

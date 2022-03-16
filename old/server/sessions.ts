@@ -3,7 +3,7 @@
 
 import { v4 as uuidv4 } from "uuid"
 import * as cookie from "cookie"
-import * as time from "../common/time"
+import * as time from "$lib/time"
 import { kvs } from "./kvs"
 
 

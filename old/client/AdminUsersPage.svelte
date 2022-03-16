@@ -2,7 +2,7 @@
   import _ from "lodash"
   import { onMount } from "svelte"
   import { navigate } from "svelte-navigator"
-  import type { User } from "../common/api"
+  import type { User } from "$lib/api"
   import AdminLayout from "./AdminLayout.svelte"
   import sprachy from "./sprachy"
   let users: User[] = []

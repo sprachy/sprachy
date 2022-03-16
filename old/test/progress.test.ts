@@ -1,7 +1,7 @@
 import { testenv } from "./testenv"
-import { sprachdex } from "../common/sprachdex"
-import { time } from "../common/time"
-import { db } from "../server/db"
+import { sprachdex } from "$lib/sprachdex"
+import { time } from "$lib/time"
+import { db } from "$lib/server/db"
 
 test("srs progress updates", async () => {
   const { asUser } = await testenv()

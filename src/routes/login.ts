@@ -2,11 +2,11 @@ import type { RequestHandler } from "@sveltejs/kit"
 import * as z from 'zod'
 import { Index, Login, Match } from "faunadb"
 
-import { db } from "../server/db"
-import { sessions } from "../server/sessions"
-import { FaunaError } from "../server/faunaUtil"
+import { db } from "$lib/server/db"
+import { sessions } from "$lib/server/sessions"
+import { FaunaError } from "$lib/server/faunaUtil"
 import { ZodError } from "zod"
-import { errorsByField } from "../client/utils"
+import { errorsByField } from "$lib/client/utils"
 
 type FaunaLoginToken = {
   ref: { value: { id: string } } // Token ref
@@ -19,7 +19,7 @@ const loginForm = z.object({
   email: z.string(),
   password: z.string()
 })
-export const post: RequestHandler<void, { username: string }> = async ({ request }) => {
+export const post: RequestHandler<void, { username: string }> = async ({ request, url }) => {
   // @ts-ignore
   const data = Object.fromEntries(await request.formData())
 
@@ -38,10 +38,13 @@ export const post: RequestHandler<void, { username: string }> = async ({ request
     const user = await db.users.expect(result.instance.value.id)
     const sessionKey = await sessions.create(user.id)
     const progressItems = await db.progress.listAllFor(user.id)
+    const redirect = url.searchParams.get('redirect')
+
     return {
-      status: 200,
+      status: 303,
       headers: {
-        'set-cookie': sessions.asCookie(sessionKey)
+        'set-cookie': sessions.asCookie(sessionKey),
+        'location': redirect || '/home'
       }
     }
     // return { summary: { user, progressItems } }

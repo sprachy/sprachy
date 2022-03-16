@@ -1,5 +1,5 @@
-import type { FillblankLine } from "../common/Pattern"
-import { sprachdex } from "../common/sprachdex"
+import type { FillblankLine } from "$lib/Pattern"
+import { sprachdex } from "$lib/sprachdex"
 import { levenshtein } from "./levenshtein"
 
 /**

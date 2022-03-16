@@ -1,8 +1,8 @@
 require('dotenv').config()
 import { TEST_USER_EMAIL, TEST_USER_PASSWORD, TEST_ADMIN_EMAIL, TEST_ADMIN_PASSWORD } from './constants'
 import faunadb, { CreateDatabase, CreateKey, Database, Delete, Do, Exists, If } from 'faunadb'
-import * as schema from '../server/schema'
-import { db } from '../server/db'
+import * as schema from '$lib/server/schema'
+import { db } from '$lib/server/db'
 import { Miniflare } from 'miniflare'
 import { Server } from 'http'
 

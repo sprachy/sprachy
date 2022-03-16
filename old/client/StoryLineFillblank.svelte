@@ -2,7 +2,7 @@
   import _ from "lodash"
   import { createEventDispatcher, onMount } from "svelte"
   import Message from "./Message.svelte"
-  import type { FillblankLine } from "../common/Pattern"
+  import type { FillblankLine } from "$lib/Pattern"
   import { matchAnswer } from "./feedback"
   import Sprachdown from "./Sprachdown.svelte"
   import sprachy from "./sprachy"

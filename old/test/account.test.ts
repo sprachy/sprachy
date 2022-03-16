@@ -1,6 +1,6 @@
 import { testenv } from "./testenv"
-import { db } from "../server/db"
-import { testMailsSent } from "../server/email"
+import { db } from "$lib/server/db"
+import { testMailsSent } from "$lib/server/email"
 
 test("changing my email", async () => {
   // testMailsSent.splice(0, testMailsSent.length)

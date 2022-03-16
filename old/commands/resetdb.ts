@@ -1,6 +1,6 @@
 import shell from 'shelljs'
 import faunadb from 'faunadb'
-import * as schema from '../server/schema'
+import * as schema from '$lib/server/schema'
 
 export async function resetdb() {
   const dbname = 'sprachy_dev'

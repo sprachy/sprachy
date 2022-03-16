@@ -1,13 +1,13 @@
 import type { RequestHandler } from "@sveltejs/kit"
 import * as z from 'zod'
 import { Index, Login, Match } from "faunadb"
-import { DISCORD_SIGNUP_WEBHOOK, FRONTEND_BASE_URL } from '../server/settings'
+import { DISCORD_SIGNUP_WEBHOOK, FRONTEND_BASE_URL } from '$lib/server/settings'
 
-import { db } from "../server/db"
-import { sessions } from "../server/sessions"
-import { FaunaError } from "../server/faunaUtil"
+import { db } from "$lib/server/db"
+import { sessions } from "$lib/server/sessions"
+import { FaunaError } from "$lib/server/faunaUtil"
 import { ZodError } from "zod"
-import { errorsByField } from "../client/utils"
+import { errorsByField } from "$lib/client/utils"
 
 const signupForm = z.object({
   email: z.string().email(),

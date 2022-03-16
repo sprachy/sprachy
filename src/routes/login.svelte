@@ -1,7 +1,10 @@
+<script lang="ts" context="module">
+</script>
+
 <script lang="ts">
   // import sprachy from "../sprachy";
   import _ from "lodash";
-  import SprachyLogo from "../common/SprachyLogo.svelte";
+  import SprachyLogo from "$lib/SprachyLogo.svelte";
   let email: string = "";
   let password: string = "";
   let loading: boolean = false;

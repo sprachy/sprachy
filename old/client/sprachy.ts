@@ -1,4 +1,4 @@
-import type { ProgressSummary } from "../common/api"
+import type { ProgressSummary } from "$lib/api"
 import { UserApp } from "./UserApp"
 import { SprachyAPIClient } from "./SprachyAPIClient"
 import { LoginRequiredError } from "./GlobalErrorHandler"

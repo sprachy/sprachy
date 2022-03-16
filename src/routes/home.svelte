@@ -1,38 +1,37 @@
 <script lang="ts">
   import _ from "lodash";
-  import SiteLayout from "../common/SiteLayout.svelte";
-  // import sprachy from "./sprachy";
+  import SiteLayout from "$lib/SiteLayout.svelte";
   // import { IS_PRODUCTION } from "./settings";
-  import PatternItem from "../common/PatternItem.svelte";
-  // import NextPatternHomeTile from "../common/NextPatternHomeTile.svelte";
-  // import PracticeHomeTile from "../common/PracticeHomeTile.svelte";
-  import patterns from "../patterns";
+  import PatternItem from "$lib/PatternItem.svelte";
+  // import NextPatternHomeTile from "$lib/NextPatternHomeTile.svelte";
+  // import PracticeHomeTile from "$lib/PracticeHomeTile.svelte";
+  import { spa } from "$lib/client/spa";
+  import NextPatternHomeTile from "$lib/client/NextPatternHomeTile.svelte";
+  import PracticeHomeTile from "$lib/client/PracticeHomeTile.svelte";
 
-  // async function debugResetProgress() {
-  //   const summary = await sprachy.api.http.post(`/api/debug/reset-progress`);
-  //   sprachy.app.receiveProgress(summary);
-  //   patterns = sprachy.app.patternsAndProgress;
-  // }
+  async function debugResetProgress() {
+    const summary = await spa.api.http.post(`/api/debug/reset-progress`);
+    spa.receiveProgress(summary);
+  }
 
-  // async function debugSkipTime() {
-  //   const summary = await sprachy.api.http.post(`/api/debug/timeskip`);
-  //   sprachy.app.receiveProgress(summary);
-  //   patterns = sprachy.app.patternsAndProgress;
-  // }
+  async function debugSkipTime() {
+    const summary = await spa.api.http.post(`/api/debug/timeskip`);
+    spa.receiveProgress(summary);
+  }
 </script>
 
 <SiteLayout>
   <div class="home">
-    <!-- <div class="tiles">
+    <div class="tiles">
       <NextPatternHomeTile />
       <PracticeHomeTile />
-    </div> -->
+    </div>
     <hr />
     <div class="patterns">
       <section class="chapter">
         <h2>All patterns</h2>
         <ul>
-          {#each patterns as pattern (pattern.id)}
+          {#each spa.patternsAndProgress as pattern (pattern.id)}
             <PatternItem {pattern} />
           {/each}
         </ul>

@@ -2,7 +2,7 @@ import type { ServerResponse } from "worktop/response"
 import * as z from 'zod'
 import { Index, Login, Match } from "faunadb"
 
-import type { ProgressSummary } from "../../common/api"
+import type { ProgressSummary } from "$lib/api"
 import { APIRequest, HTTPError } from "../middleware"
 import { db } from "../db"
 import { sessions } from "../sessions"
@@ -12,7 +12,7 @@ import http from '../http'
 import { sendMail } from "../email"
 import { v4 as uuidv4 } from "uuid"
 import { kvs } from "../kvs"
-import { time } from "../../common/time"
+import { time } from "$lib/time"
 
 const signupForm = z.object({
   email: z.string().email(),

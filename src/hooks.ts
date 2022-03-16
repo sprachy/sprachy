@@ -1,6 +1,9 @@
 import cookie from 'cookie'
-import type { Handle, GetSession } from '@sveltejs/kit'
-import { sessions } from './server/sessions'
+import type { Handle, GetSession, HandleError } from '@sveltejs/kit'
+import { sessions } from '$lib/server/sessions'
+import { db } from '$lib/server/db'
+import { pathToRegexp } from "path-to-regexp"
+import { isAuthedRoute } from '$lib/routing'
 
 /**
  * All requests to the server are wrapped by this hook.
@@ -13,28 +16,44 @@ export const handle: Handle = async ({ event, resolve }) => {
   const sessionKey = cookies['sessionKey']
   const session = sessionKey ? await sessions.get(sessionKey) : null
   event.locals.session = session
+  console.log(event.url.pathname, sessionKey, session)
 
-  // Goes through to all the different route endpoints
-  const response = await resolve(event)
+  // If it's an api route, we need to auth gate it here
+  if (event.url.pathname.startsWith('/api') && !session) {
+    return new Response(null,
+      {
+        status: 401,
+        statusText: "Unauthorized"
+      }
+    )
+  }
 
-  // if (!cookies.userid) {
-  //   // if this is the first time the user has visited this app,
-  //   // set a cookie so that we recognise them when they return
-  //   response.headers.set(
-  //     'set-cookie',
-  //     cookie.serialize('userid', event.locals.userid, {
-  //       path: '/',
-  //       httpOnly: true
-  //     })
-  //   )
-  // }
-
+  const ssr = !isAuthedRoute(event.url.pathname)
+  const response = await resolve(event, { ssr })
   return response
 }
 
 /** Client-side session */
 export const getSession: GetSession = async (event) => {
-  return {}
+  const { session } = event.locals
+  if (session) {
+    return {
+      userId: session.userId
+    }
+  } else {
+    return {}
+  }
+  // const { session } = event.locals
+  // if (session) {
+  //   const [user, progressItems] = await Promise.all([
+  //     db.users.expect(session.userId),
+  //     db.progress.listAllFor(session.userId)
+  //   ])
+
+  //   return { user, progressItems }
+  // } else {
+  //   return {}
+  // }
   // return event.locals.user
   //   ? {
   //     user: {
@@ -47,4 +66,9 @@ export const getSession: GetSession = async (event) => {
   //     }
   //   }
   //   : {}
+}
+
+export const handleError: HandleError = async ({ error, event }) => {
+  console.log("humm")
+  console.error(error)
 }

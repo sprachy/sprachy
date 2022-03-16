@@ -1,5 +1,5 @@
 import type { RequestHandler } from "@sveltejs/kit"
-import patterns from "../../patterns"
+import patterns from "$lib/patterns"
 
 export const get: RequestHandler = async ({ params }) => {
   const pattern = patterns.find(p => p.slug === params.slug)

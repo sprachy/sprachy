@@ -1,3 +1,18 @@
+<script lang="ts" context="module">
+  export function load({ session }) {
+    if (session.userId) {
+      return {
+        status: 303,
+        redirect: "/home",
+      };
+    } else {
+      return {
+        status: 200,
+      };
+    }
+  }
+</script>
+
 <script lang="ts">
   // import sprachy from "../sprachy";
   import _ from "lodash";

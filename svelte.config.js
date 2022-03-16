@@ -1,6 +1,7 @@
 import adapter from '@sveltejs/adapter-cloudflare'
 import preprocess from 'svelte-preprocess'
 import { isoImport } from 'vite-plugin-iso-import'
+import { resolve } from "path"
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

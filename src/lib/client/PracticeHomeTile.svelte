@@ -1,0 +1,35 @@
+<script lang="ts">
+  import { spa } from "$lib/client/spa";
+  import Timeago from "$lib/client/Timeago.svelte";
+
+  $: numLevelable = spa.patternsReadyToLevel.length;
+  $: nextLevelable = spa.nextLevelablePattern;
+</script>
+
+<div class="home-tile">
+  <a sveltekit:prefetch href="/practice">
+    {#if numLevelable === 0 && nextLevelable && nextLevelable.progress.levelableAt}
+      <div class="card">
+        <span class="card-title">Free Practice</span>
+        <p>
+          You can level a pattern in <Timeago
+            ts={nextLevelable.progress.levelableAt}
+          />
+        </p>
+      </div>
+    {:else}
+      <div class="card">
+        <span class="card-title">Level Practice</span>
+        <p>
+          You can level up {numLevelable} pattern{numLevelable > 1 ? "s" : ""}
+        </p>
+      </div>
+    {/if}
+  </a>
+</div>
+
+<style lang="sass">
+.home-tile
+  --tile-color: var(--sprachy-secondary)
+  color: white
+</style>

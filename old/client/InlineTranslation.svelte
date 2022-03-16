@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { translations } from "../common/translations"
+  import { translations } from "$lib/translations"
   export let original: string
 
   const translation = translations[original]

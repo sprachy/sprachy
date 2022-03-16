@@ -2,7 +2,7 @@
   // import sprachy from "../sprachy";
   import _ from "lodash";
   import { onMount } from "svelte";
-  import SprachyLogo from "../common//SprachyLogo.svelte";
+  import SprachyLogo from "$lib//SprachyLogo.svelte";
 
   export let errors: Record<string, string> = {};
   export let email: string = "";
