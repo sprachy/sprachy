@@ -7,18 +7,14 @@ import * as time from "../common/time"
 import { kvs } from "./kvs"
 
 
-export type Session = {
-  key: string
-  userId: string
-}
 
 export namespace sessions {
-  export async function get(sessionKey: string): Promise<Session | null> {
+  export async function get(sessionKey: string): Promise<{ sessionKey: string, userId: string } | null> {
     const sess = await kvs.getJson(`sessions:${sessionKey}`)
     if (sess === null) {
       return null
     } else {
-      return Object.assign({}, { key: sessionKey }, sess) as Session
+      return Object.assign({}, { sessionKey: sessionKey }, sess as { userId: string })
     }
   }
 
