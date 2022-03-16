@@ -1,7 +1,6 @@
 import type { RequestHandler } from "@sveltejs/kit"
 import { db } from "$lib/server/db"
 import * as z from 'zod'
-import type { ProgressItem } from "$lib/api"
 
 export const get: RequestHandler = async ({ locals }) => {
   const [user, progressItems] = await Promise.all([

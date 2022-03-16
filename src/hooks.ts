@@ -25,8 +25,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     )
   }
 
-  // const ssr = !isAuthedRoute(event.url.pathname)
-  const response = await resolve(event)
+  const ssr = !session
+  const response = await resolve(event, { ssr })
   return response
 }
 

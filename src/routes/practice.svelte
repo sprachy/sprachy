@@ -2,64 +2,64 @@
   import _ from "lodash";
   import type { Exercise } from "$lib/Pattern";
   import SiteLayout from "$lib/SiteLayout.svelte";
-  // import sprachy from "./sprachy";
-  // import StoryLineFillblank from "./StoryLineFillblank.svelte";
-  // import type { PatternAndProgress } from "./UserApp";
+  import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte";
+  import { spa } from "$lib/client/spa";
+  import type { PatternAndProgress } from "$lib/client/spa";
 
-  // let freePractice: boolean = false;
-  // const noPatternsYet = sprachy.app.learnedPatterns.length === 0;
-  // const patternsToLevel = sprachy.app.patternsReadyToLevel;
+  let freePractice: boolean = false;
+  const noPatternsYet = spa.learnedPatterns.length === 0;
+  const patternsToLevel = spa.patternsReadyToLevel;
 
-  // type Review = Exercise & {
-  //   pattern: PatternAndProgress;
-  // };
+  type Review = Exercise & {
+    pattern: PatternAndProgress;
+  };
 
-  // let reviews: Review[] = [];
-  // if (patternsToLevel.length === 0) {
-  //   freePractice = true;
-  //   reviews = _.sampleSize(sprachy.app.allReviews, 10);
-  // } else {
-  //   reviews = _.shuffle(sprachy.app.reviewsForLeveling);
-  // }
+  let reviews: Review[] = [];
+  if (patternsToLevel.length === 0) {
+    freePractice = true;
+    reviews = _.sampleSize(spa.allReviews, 10);
+  } else {
+    reviews = _.shuffle(spa.reviewsForLeveling);
+  }
 
-  // let reviewIndex: number = 0;
-  // let completed = false;
+  let reviewIndex: number = 0;
+  let completed = false;
 
-  // $: review = reviews[reviewIndex];
+  $: review = reviews[reviewIndex];
 
-  // async function levelUpPattern(pattern: PatternAndProgress) {
-  //   const progressItem = await sprachy.api.completeLevel(
-  //     pattern!.id,
-  //     pattern.progress.srsLevel + 1
-  //   );
-  //   if (progressItem) {
-  //     sprachy.app.receiveProgressItem(progressItem);
-  //   }
-  // }
+  async function levelUpPattern(pattern: PatternAndProgress) {
+    const progressItem = await spa.api.completeLevel(
+      pattern!.id,
+      pattern.progress.srsLevel + 1
+    );
+    if (progressItem) {
+      spa.receiveProgressItem(progressItem);
+    }
+  }
 
-  // function nextReview() {
-  //   const completedReview = review;
-  //   if (completedReview) {
-  //     const remainingReviews = reviews.slice(reviewIndex + 1);
-  //     if (
-  //       !remainingReviews.some((r) => r.pattern === completedReview.pattern)
-  //     ) {
-  //       // Completed reviews for a pattern, level it up
-  //       levelUpPattern(completedReview.pattern);
-  //     }
-  //   }
+  function nextReview() {
+    const completedReview = review;
+    if (completedReview) {
+      const remainingReviews = reviews.slice(reviewIndex + 1);
+      if (
+        !remainingReviews.some((r) => r.pattern === completedReview.pattern)
+      ) {
+        // Completed reviews for a pattern, level it up
+        levelUpPattern(completedReview.pattern);
+      }
+    }
 
-  //   if (reviewIndex >= reviews.length - 1) {
-  //     // Completed all reviews
-  //     completed = true;
-  //   } else {
-  //     reviewIndex += 1;
-  //   }
-  // }
+    if (reviewIndex >= reviews.length - 1) {
+      // Completed all reviews
+      completed = true;
+    } else {
+      reviewIndex += 1;
+    }
+  }
 </script>
 
 <SiteLayout>
-  <!-- {#if !review}
+  {#if !review}
     {#if noPatternsYet}
       <p>You haven't learned any patterns to practice yet!</p>
     {:else}
@@ -75,14 +75,14 @@
     <header class="practice-header">
       <h3>Free Practice</h3>
       <p class="text-secondary">
-        There aren't any patterns ready to level yet. If you like, you can practice random exercises
-        here.
+        There aren't any patterns ready to level yet. If you like, you can
+        practice random exercises here.
       </p>
     </header>
     <div class="exercises">
       <StoryLineFillblank line={review} on:correct={nextReview} />
     </div>
-  {/if} -->
+  {/if}
 </SiteLayout>
 
 <style lang="sass">

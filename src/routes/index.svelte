@@ -40,10 +40,10 @@
       <div class="container">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/login">Sign in</a>
+            <a sveltekit:prefetch class="nav-link" href="/login">Sign in</a>
           </li>
           <li class="nav-item signup-link">
-            <a class="nav-link" href="/signup">Sign up</a>
+            <a sveltekit:prefetch class="nav-link" href="/signup">Sign up</a>
           </li>
         </ul>
       </div>

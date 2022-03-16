@@ -10,10 +10,7 @@
   "files.exclude": {
     "node_modules/": true,
     "tmp/": true,
-    "client/dist/": true,
-    "client/devdist/": true,
-    "server/dist/": true,
-    "server/devdist/": true
+    "package-lock.json": true,
   },
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"

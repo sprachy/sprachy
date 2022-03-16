@@ -54,7 +54,7 @@
   <form method="post" action="/login">
     <!-- <pre>{JSON.stringify(errors)}</pre> -->
     <div class="form-header">
-      <a href="/" class="header-logo">
+      <a sveltekit:prefetch href="/" class="header-logo">
         <SprachyLogo />
       </a>
     </div>
@@ -100,7 +100,7 @@
       {/if}
     </fieldset>
     <div class="forgot-password">
-      <a href="/reset-password">Forgot password?</a>
+      <a sveltekit:prefetch href="/reset-password">Forgot password?</a>
     </div>
 
     {#if errors.other}
@@ -114,7 +114,8 @@
     >
 
     <p class="signup-callout">
-      New to Sprachy? <a href="/signup">Create an account</a>.
+      New to Sprachy? <a sveltekit:prefetch href="/signup">Create an account</a
+      >.
     </p>
   </form>
 </main>

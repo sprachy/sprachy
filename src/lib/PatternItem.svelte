@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FontAwesomeIcon } from "fontawesome-svelte";
+  import Fa from "svelte-fa";
   import { Link } from "svelte-navigator";
 
   import Sprachdown from "$lib/Sprachdown.svelte";
@@ -18,7 +18,7 @@
 >
   <a href="/pattern/{pattern.slug}" sveltekit:prefetch>
     <div class="icon">
-      <FontAwesomeIcon icon={pattern.icon} />
+      <Fa icon={pattern.icon} />
     </div>
     <div>
       <h6>

@@ -1,8 +1,8 @@
 
-
-import { Miniflare } from "miniflare"
+import { dev } from "$app/env"
 
 async function getStore() {
+  const { Miniflare } = await import("miniflare")
   const mf = new Miniflare({
     script: "",
     kvNamespaces: ["STORE"],
@@ -27,7 +27,7 @@ class DummyStore {
   }
 }
 
-const STORE = new DummyStore()
+const STORE = dev ? new DummyStore() : global.STORE
 
 class KVStoreClient {
   async getText(key: string): Promise<string | null> {

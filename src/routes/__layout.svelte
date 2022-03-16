@@ -36,7 +36,6 @@
   if (browser && $session.userId && !spa.user && !$page.error) {
     startSPA();
   } else {
-    console.log("huh");
     loading = false;
   }
 </script>
