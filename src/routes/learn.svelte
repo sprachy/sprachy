@@ -1,15 +1,16 @@
 <script lang="ts">
-  import _ from "lodash";
-  import { navigate } from "svelte-navigator";
+  import { goto } from "$app/navigation";
+  import { spa } from "$lib/client/spa";
   import SiteLayout from "$lib/SiteLayout.svelte";
-  // import sprachy from "./sprachy";
 
-  // const pattern = sprachy.app.nextPatternToLearn;
-  // if (pattern) {
-  //   navigate(`/pattern/${pattern.slug}`, { replace: true });
-  // }
+  const pattern = spa.nextPatternToLearn;
+  if (pattern) {
+    goto(`/pattern/${pattern.slug}`, { replaceState: true });
+  }
 </script>
 
 <SiteLayout>
-  <p>You've learned all available patterns, congrats!</p>
+  {#if !pattern}
+    <p>You've learned all available patterns, congrats!</p>
+  {/if}
 </SiteLayout>

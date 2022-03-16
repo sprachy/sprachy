@@ -29,6 +29,7 @@ export class SprachySPA {
       throw new Error("Tried to start SPA in a non-browser context")
     }
 
+
     // Configure nprogress to show the little loading bar at the top
     // whenever we're doing an API request
     NProgress.configure({ showSpinner: false })
@@ -197,7 +198,7 @@ class PatternProgress {
 
 export type PatternAndProgress = Pattern & { progress: PatternProgress }
 
-export const spa = browser ? new SprachySPA() : null
+export const spa: SprachySPA | null = browser ? new SprachySPA() : null
 declare const window: { spa: SprachySPA }
 if (browser) {
   window.spa = spa

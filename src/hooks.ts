@@ -16,7 +16,6 @@ export const handle: Handle = async ({ event, resolve }) => {
   const sessionKey = cookies['sessionKey']
   const session = sessionKey ? await sessions.get(sessionKey) : null
   event.locals.session = session
-  console.log(event.url.pathname, sessionKey, session)
 
   // If it's an api route, we need to auth gate it here
   if (event.url.pathname.startsWith('/api') && !session) {
@@ -68,7 +67,7 @@ export const getSession: GetSession = async (event) => {
   //   : {}
 }
 
-export const handleError: HandleError = async ({ error, event }) => {
-  console.log("humm")
-  console.error(error)
-}
+// export const handleError: HandleError = async ({ error, event }) => {
+//   console.log("humm")
+//   console.error(error)
+// }

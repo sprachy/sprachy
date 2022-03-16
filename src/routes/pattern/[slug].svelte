@@ -1,3 +1,23 @@
+<script lang="ts" context="module">
+  import patterns from "$lib/patterns";
+  import type { Load } from "./[slug]";
+
+  export const load: Load = async ({ params }) => {
+    const pattern = patterns.find((p) => p.slug === params.slug);
+
+    if (!pattern) {
+      return { status: 404 };
+    }
+
+    return {
+      status: 200,
+      props: {
+        pattern: pattern,
+      },
+    };
+  };
+</script>
+
 <script lang="ts">
   import _ from "lodash";
   // import { Link } from "svelte-navigator";

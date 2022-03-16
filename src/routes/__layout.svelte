@@ -38,9 +38,7 @@
   }
 </script>
 
-{#if loading}
-  <div>loading...</div>
-{:else}
+{#if !loading}
   <slot />
 {/if}
 

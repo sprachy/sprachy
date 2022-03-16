@@ -6,9 +6,8 @@
   import { spa } from "$lib/client/spa";
   // import sprachy from "./sprachy"
   // @ts-ignore
-  // import Dropdown from "sv-bootstrap-dropdown"
 
-  // const patterns = sprachy.app.allViewablePatterns
+  const patterns = spa ? spa.allViewablePatterns : [];
 
   let dropdownTrigger: HTMLButtonElement;
 
@@ -51,29 +50,35 @@
             <li class="nav-item">
               <a class="nav-link" href="/practice">Practice</a>
             </li>
-            <!-- <li class="nav-item">
-              <div class="nav-link">
-                <Dropdown triggerElement={dropdownTrigger}>
-                  <button class="dropdown-toggle" bind:this={dropdownTrigger}> Patterns </button>
-                  <div slot="DropdownMenu">
-                    {#each patterns as pattern}
-                      <Link class="dropdown-item" to={`/pattern/${pattern.slug}`}
-                        >{pattern.title}</Link
-                      >
-                    {/each}
-                  </div>
-                </Dropdown>
-              </div>
-            </li> -->
+            {#if spa}
+              <!-- <li class="nav-item">
+                <div class="nav-link">
+                  <Dropdown triggerElement={dropdownTrigger}>
+                    <button class="dropdown-toggle" bind:this={dropdownTrigger}>
+                      Patterns
+                    </button>
+                    <div slot="DropdownMenu">
+                      {#each patterns as pattern}
+                        <a
+                          sveltekit:prefetch
+                          class="dropdown-item"
+                          href={`/pattern/${pattern.slug}`}>{pattern.title}</a
+                        >
+                      {/each}
+                    </div>
+                  </Dropdown>
+                </div>
+              </li> -->
+            {/if}
             <li class="nav-item">
               <a class="nav-link" sveltekit:prefetch href="/faq">FAQ</a>
             </li>
-            {#if spa.admin}
-              <li class="nav-item">
-                <a class="nav-link" sveltekit:prefetch href="/admin">Admin</a>
-              </li>
-            {/if}
-            {#if spa.user}
+            {#if spa}
+              {#if spa.admin}
+                <li class="nav-item">
+                  <a class="nav-link" sveltekit:prefetch href="/admin">Admin</a>
+                </li>
+              {/if}
               <li class="nav-item">
                 <a class="nav-link" sveltekit:prefetch href="/settings"
                   >{spa.user.email}</a
