@@ -1,3 +1,0 @@
-/api/* {{API_BASE_URL}}/api/:splat 200!
-/* /index.html 200
-
