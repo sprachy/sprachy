@@ -8,7 +8,7 @@
   export let node: Element;
   export let innerHtml: string;
   export let outerHtml: string;
-  const attrs = node.attribs;
+  const attrs = node.attribs as any;
 </script>
 
 {#if node.tagName == "dialogueexample"}

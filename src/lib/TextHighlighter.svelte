@@ -1,55 +1,56 @@
 <script lang="ts">
-  import _ from "lodash"
-  import Sprachdown from "./Sprachdown.svelte"
-  export let parts: string
-  export let text: string
+  import _ from "lodash";
+  // import Sprachdown from "./Sprachdown.svelte"
+  export let parts: string;
+  export let text: string;
+  import pixelWidth from "string-pixel-width";
 
-  function calculateTextWidth(text: string) {
-    const element = document.createElement("canvas")
-    const ctx = element.getContext("2d")!
-    ctx.font = `16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`
-    return ctx.measureText(text).width
+  function estimateTextWidth(text: string) {
+    return pixelWidth(text, { size: 16, font: "Helvetica" });
   }
 
   type TextFragment =
     | {
-        highlight: string
-        text: string
-        minWidth?: number
+        highlight: string;
+        text: string;
+        minWidth?: number;
       }
     | {
-        highlight?: undefined
-        text: string
-        minWidth?: undefined
-      }
+        highlight?: undefined;
+        text: string;
+        minWidth?: undefined;
+      };
 
-  $: highlights = parts.split(",").map((p) => p.trim())
+  $: highlights = parts.split(",").map((p) => p.trim());
 
   $: fragments = ((text: string, highlights: string[]) => {
-    const fragments: TextFragment[] = []
-    let highlightIndex = 0
+    const fragments: TextFragment[] = [];
+    let highlightIndex = 0;
 
-    const matches = [...text.matchAll(/\[.+?\]/g)]
-    let i = 0
+    const matches = [...text.matchAll(/\[.+?\]/g)];
+    let i = 0;
     for (const m of matches) {
-      if (!m || !m.index || !m[0]) continue
+      if (!m || !m.index || !m[0]) continue;
       fragments.push({
         text: text.slice(i, m.index),
-      })
+      });
 
-      const highlight = highlights[highlightIndex]!
-      const bit = m[0].slice(1, -1)
+      const highlight = highlights[highlightIndex]!;
+      const bit = m[0].slice(1, -1);
       fragments.push({
         highlight: highlight,
-        minWidth: highlight.length > bit.length ? calculateTextWidth(highlight) : undefined,
+        minWidth:
+          highlight.length > bit.length
+            ? estimateTextWidth(highlight)
+            : undefined,
         text: bit,
-      })
-      highlightIndex += 1
-      i = m.index + m[0].length
+      });
+      highlightIndex += 1;
+      i = m.index + m[0].length;
     }
 
-    return fragments
-  })(text, highlights)
+    return fragments;
+  })(text, highlights);
 </script>
 
 <div class="TextHighlighter">
@@ -57,7 +58,9 @@
     {#if fragment.highlight}
       <span
         class={`highlight ${fragment.highlight}`}
-        style={fragment.minWidth ? `min-width: ${fragment.minWidth}px` : undefined}
+        style={fragment.minWidth
+          ? `min-width: ${fragment.minWidth}px`
+          : undefined}
       >
         {fragment.text}
       </span>
