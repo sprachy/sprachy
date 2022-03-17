@@ -18,7 +18,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   // Look up the userId matching any sessionKey in the request's cookie
   // This is how we identify a logged in user for all requests
   const cookies = cookie.parse(event.request.headers.get('cookie') || '')
-  const sessionKey = cookies['sessionKey']
+  const sessionKey = cookies['sprachySessionKey']
   const session = sessionKey ? await sessions.get(sessionKey) : null
   event.locals.session = session
 
