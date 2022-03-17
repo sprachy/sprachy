@@ -1,8 +1,26 @@
+<script lang="ts" context="module">
+  import type { Load } from "@sveltejs/kit";
+
+  export const load: Load = ({ url }) => {
+    const email = url.searchParams.get("email");
+    if (email) {
+      return {
+        props: {
+          email,
+        },
+      };
+    } else {
+      return {};
+    }
+  };
+</script>
+
 <script lang="ts">
   // import sprachy from "../sprachy";
   import _ from "lodash";
   import { onMount } from "svelte";
   import SprachyLogo from "$lib//SprachyLogo.svelte";
+  import { browser } from "$app/env";
 
   export let errors: Record<string, string> = {};
   export let email: string = "";
@@ -15,15 +33,14 @@
   // let password: string = "";
   // let confirmPassword: string = "";
 
-  onMount(() => {
-    // if (sprachy.user) {
-    //   navigate("/home");
-    // }
-    // if (email) {
-    //   const el = document.getElementById("password")! as HTMLInputElement;
-    //   el.focus();
-    // }
-  });
+  if (browser) {
+    onMount(() => {
+      if (email) {
+        const el = document.getElementById("password")! as HTMLInputElement;
+        el.focus();
+      }
+    });
+  }
 
   // async function signup() {
   //   errors = {};

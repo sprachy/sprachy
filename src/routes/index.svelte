@@ -14,6 +14,8 @@
 </script>
 
 <script lang="ts">
+  import { goto } from "$app/navigation";
+
   // import sprachy from "../sprachy";
   import _ from "lodash";
   import { onMount } from "svelte";
@@ -26,7 +28,7 @@
   // });
 
   async function gotoSignup() {
-    //   navigate("/signup?email=" + encodeURIComponent(email))
+    goto("/signup?email=" + encodeURIComponent(email));
   }
 </script>
 
