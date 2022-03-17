@@ -4,7 +4,7 @@ import { db } from "../db"
 import { sendMail } from "../email"
 import { FRONTEND_BASE_URL } from '../settings'
 import { v4 as uuidv4 } from 'uuid'
-import { kvs } from '../kvs'
+import { kvs } from '$lib/server/kvs'
 import { time } from '$lib/time'
 
 
