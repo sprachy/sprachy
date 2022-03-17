@@ -2,7 +2,7 @@
 import { dev } from "$app/env"
 
 /** For development */
-async function getDummyStory() {
+async function getDummyStore() {
   // Rollup tree-shakes the import out of the production build
   const { Miniflare } = await import("miniflare")
   const mf = new Miniflare({
@@ -17,15 +17,15 @@ class DummyStore {
   data: Record<string, string> = {}
 
   async get(key: string, form: "text" | "json"): Promise<any> {
-    return (await getDummyStory()).get(key, form as any)
+    return (await getDummyStore()).get(key, form as any)
   }
 
   async put(key: string, value: string, options?: any) {
-    return (await getDummyStory()).put(key, value, options)
+    return (await getDummyStore()).put(key, value, options)
   }
 
   async delete(key: string) {
-    return (await getDummyStory()).delete(key)
+    return (await getDummyStore()).delete(key)
   }
 }
 
