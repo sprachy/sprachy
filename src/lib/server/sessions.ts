@@ -31,7 +31,7 @@ export namespace sessions {
   }
 
   export function asCookie(sessionKey: string) {
-    return cookie.serialize("sessionKey", sessionKey, {
+    return cookie.serialize("sprachySessionKey", sessionKey, {
       httpOnly: true,
       // maxAge is in seconds
       maxAge: time.weeks(4) / 1000,
