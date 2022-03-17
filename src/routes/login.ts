@@ -22,10 +22,9 @@ const loginForm = z.object({
 export const post: RequestHandler<void, { username: string }> = async ({ request, url }) => {
   // @ts-ignore
   const data = Object.fromEntries(await request.formData())
+  const { email, password } = loginForm.parse(data)
 
   try {
-    const { email, password } = loginForm.parse(data)
-
     const result = await db.faunaQuery(
       Login(
         Match(Index("users_by_email"), email),
@@ -49,14 +48,7 @@ export const post: RequestHandler<void, { username: string }> = async ({ request
     }
     // return { summary: { user, progressItems } }
   } catch (err) {
-    if (err instanceof ZodError) {
-      return {
-        status: 422,
-        body: {
-          errors: errorsByField(err.issues)
-        }
-      }
-    } else if (err instanceof FaunaError && err.code === "authentication failed") {
+    if (err instanceof FaunaError && err.code === "authentication failed") {
       return {
         status: 401,
         body: {

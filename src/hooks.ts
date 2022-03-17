@@ -3,6 +3,7 @@ import type { Handle, GetSession, HandleError } from '@sveltejs/kit'
 import { sessions } from '$lib/server/sessions'
 import { isAuthedRoute } from '$lib/routing'
 import { kvs } from "$lib/server/kvs"
+import { ZodError } from 'zod'
 
 /**
  * All requests to the server are wrapped by this hook.
@@ -23,6 +24,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   // If it's an api route, we need to auth gate it here
   if (event.url.pathname.startsWith('/api') && !session) {
+    // new Blob([JSON.stringify(data, null, 2)], {type : 'application/json'});
     return new Response(null,
       {
         status: 401,
@@ -31,9 +33,22 @@ export const handle: Handle = async ({ event, resolve }) => {
     )
   }
 
-  const ssr = !session
-  const response = await resolve(event, { ssr })
-  return response
+  try {
+    const ssr = !session
+    const response = await resolve(event, { ssr })
+    return response
+  } catch (err: any) {
+    if (err instanceof ZodError) {
+      const json = { status: 422, code: "validation failed", errors: err.issues }
+      return new Response(
+        new Blob([JSON.stringify(json)], { type: 'application/json ' }),
+        {
+          status: 422,
+          statusText: "Unprocessable Entity"
+        }
+      )
+    }
+  }
 }
 
 /** Client-side session */
