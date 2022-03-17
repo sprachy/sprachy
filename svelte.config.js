@@ -38,17 +38,6 @@ const config = {
         // https://github.com/sveltejs/kit/issues/928
         noExternal: ['@fortawesome/free-brands-svg-icons', '@fortawesome/free-regular-svg-icons', '@fortawesome/free-solid-svg-icons']
       },
-      build: {
-        rollupOptions: {
-          external: ['miniflare']
-          // output: {
-          //   globals: {
-          //     miniflare: "Miniflare"
-          //   }
-          // }
-          // https://rollupjs.org/guide/en/#big-list-of-options
-        }
-      }
       // optimizeDeps: {
       //   include: ["@fortawesome/free-solid-svg-icons"]
       // }

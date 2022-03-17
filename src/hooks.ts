@@ -2,12 +2,18 @@ import cookie from 'cookie'
 import type { Handle, GetSession, HandleError } from '@sveltejs/kit'
 import { sessions } from '$lib/server/sessions'
 import { isAuthedRoute } from '$lib/routing'
+import { kvs } from "$lib/server/kvs"
 
 /**
  * All requests to the server are wrapped by this hook.
  * Define middleware here.
  */
 export const handle: Handle = async ({ event, resolve }) => {
+  // Configure KV store in production
+  if (event.platform) {
+    kvs.STORE = event.platform.env.STORE
+  }
+
   // Look up the userId matching any sessionKey in the request's cookie
   // This is how we identify a logged in user for all requests
   const cookies = cookie.parse(event.request.headers.get('cookie') || '')

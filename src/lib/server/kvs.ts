@@ -1,7 +1,9 @@
 
 import { dev } from "$app/env"
 
-async function getStore() {
+/** For development */
+async function getDummyStory() {
+  // Rollup tree-shakes the import out of the production build
   const { Miniflare } = await import("miniflare")
   const mf = new Miniflare({
     script: "",
@@ -15,28 +17,29 @@ class DummyStore {
   data: Record<string, string> = {}
 
   async get(key: string, form: "text" | "json"): Promise<any> {
-    return (await getStore()).get(key, form as any)
+    return (await getDummyStory()).get(key, form as any)
   }
 
   async put(key: string, value: string, options?: any) {
-    return (await getStore()).put(key, value, options)
+    return (await getDummyStory()).put(key, value, options)
   }
 
   async delete(key: string) {
-    return (await getStore()).delete(key)
+    return (await getDummyStory()).delete(key)
   }
 }
 
-const STORE = dev ? new DummyStore() : global.STORE
 
 class KVStoreClient {
+  // Will be set by hooks.ts on incoming request
+  STORE: KVNamespace = (dev ? new DummyStore() : null) as any as KVNamespace
+
   async getText(key: string): Promise<string | null> {
-    console.log(STORE)
-    return await STORE.get(key, "text")
+    return await this.STORE.get(key, "text")
   }
 
   async getJson<T>(key: string): Promise<T | null> {
-    return await STORE.get(key, "json")
+    return await this.STORE.get(key, "json")
   }
 
   async putText(
@@ -48,7 +51,7 @@ class KVStoreClient {
     if (options?.expirationTtl) {
       options = { expirationTtl: options.expirationTtl }
     }
-    return await STORE.put(key, value, options)
+    return await this.STORE.put(key, value, options)
   }
 
   async putJson(
@@ -59,12 +62,12 @@ class KVStoreClient {
     if (options?.expirationTtl) {
       options = { expirationTtl: options.expirationTtl }
     }
-    await STORE.put(key, JSON.stringify(value), options)
+    await this.STORE.put(key, JSON.stringify(value), options)
   }
 
   async delete(key: string) {
     try {
-      await STORE.delete(key)
+      await this.STORE.delete(key)
     } catch (err) {
       // We don't really care that much about errors in deletion
       console.error(err)
