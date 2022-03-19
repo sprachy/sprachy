@@ -27,7 +27,11 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 
   // Double check some environment variables
-  const { FAUNA_ADMIN_KEY, FRONTEND_BASE_URL, MAILGUN_SECRET, DISCORD_SIGNUP_WEBHOOK } = event.platform.env
+  const { STORE, FAUNA_ADMIN_KEY, FRONTEND_BASE_URL, MAILGUN_SECRET, DISCORD_SIGNUP_WEBHOOK } = event.platform.env
+
+  if (!STORE) {
+    throw new Error("Couldn't access KV STORE; can't store sessions")
+  }
 
   if (!FAUNA_ADMIN_KEY) {
     throw new Error("No FAUNA_ADMIN_KEY set; can't connect to db")
@@ -39,6 +43,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   // Put the environment variables into globally accessible settings
   const filledSettings: App.SprachyEnvironment = {
+    STORE,
     FAUNA_ADMIN_KEY,
     FRONTEND_BASE_URL,
     MAILGUN_SECRET,

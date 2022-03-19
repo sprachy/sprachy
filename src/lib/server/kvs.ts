@@ -1,5 +1,6 @@
 
 import { dev } from "$app/env"
+import { expectSettings } from "./settings"
 
 /** For development */
 async function getDummyStore() {
@@ -31,14 +32,9 @@ export class DummyStore {
 
 
 class KVStoreClient {
-  // Will be set by hooks.ts on incoming request
-  _STORE?: KVNamespace
-
   get STORE() {
-    if (!this._STORE) {
-      throw new Error("STORE not initialized")
-    }
-    return this._STORE
+    const { STORE } = expectSettings()
+    return STORE
   }
 
   async getText(key: string): Promise<string | null> {

@@ -5,6 +5,7 @@
 // for information about these interfaces
 declare namespace App {
   interface SprachyEnvironment {
+    STORE: KVNamespace
     FAUNA_ADMIN_KEY: string
     FRONTEND_BASE_URL: string
     MAILGUN_SECRET?: string
@@ -21,7 +22,7 @@ declare namespace App {
 
   /**
    * Type definitions for Cloudflare Workers platform.
-   * This stuff is only present in production.
+   * Provided by CF in production, we mock it through hooks in dev.
    * https://www.npmjs.com/package/@sveltejs/adapter-cloudflare
    */
   interface Platform {
