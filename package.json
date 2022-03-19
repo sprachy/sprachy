@@ -33,7 +33,6 @@
     "@types/tough-cookie": "^4.0.1",
     "axios-cookiejar-support": "^2.0.4",
     "babel-jest": "^27.5.1",
-    "blob-polyfill": "^6.0.20211015",
     "child-process-promise": "^2.2.1",
     "concurrently": "^7.0.0",
     "dev-null-cli": "^2.0.0",

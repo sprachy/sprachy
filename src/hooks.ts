@@ -3,8 +3,6 @@ import type { Handle, GetSession } from '@sveltejs/kit'
 import { sessions } from '$lib/server/sessions'
 import { kvs } from "$lib/server/kvs"
 import { ZodError } from 'zod'
-// @ts-ignore
-import { Blob } from 'blob-polyfill'
 
 /**
  * All requests to the server are wrapped by this hook.
@@ -27,10 +25,13 @@ export const handle: Handle = async ({ event, resolve }) => {
   if (event.url.pathname.startsWith('/api') && !session) {
     const json = { status: 401, code: "login required" }
     return new Response(
-      new Blob([JSON.stringify(json)], { type: 'application/json' }),
+      JSON.stringify(json),
       {
         status: 401,
-        statusText: "Unauthorized"
+        statusText: "Unauthorized",
+        headers: {
+          'content-type': 'application/json;charset=UTF-8',
+        }
       }
     )
   }
@@ -43,10 +44,13 @@ export const handle: Handle = async ({ event, resolve }) => {
     if (err instanceof ZodError) {
       const json = { status: 422, code: "validation failed", errors: err.issues }
       return new Response(
-        new Blob([JSON.stringify(json)], { type: 'application/json' }),
+        JSON.stringify(json),
         {
           status: 422,
-          statusText: "Unprocessable Entity"
+          statusText: "Unprocessable Entity",
+          headers: {
+            'content-type': 'application/json;charset=UTF-8',
+          }
         }
       )
     } else {
