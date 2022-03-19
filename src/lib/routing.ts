@@ -22,7 +22,6 @@ const authedRoutes = [
 ]
 
 for (const pattern of sprachdex.patternsIncludingDrafts) {
-  authedRoutes.push(`/pattern/${pattern.slug}`)
   authedRoutes.push(`/story/${pattern.slug}`)
 }
 

@@ -13,7 +13,9 @@ import patternDefs from "$lib/patterns"
  */
 class Sprachdex {
   patternsIncludingDrafts = patternDefs.map((p) => parsePattern(p))
+
   publishedPatterns = this.patternsIncludingDrafts.filter((p) => !p.draft)
+  draftPatterns = this.patternsIncludingDrafts.filter((p) => p.draft)
 
   /** Words used in any story */
   knownGermanWords: { [key: string]: true } = {}
