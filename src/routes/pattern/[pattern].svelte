@@ -73,6 +73,14 @@
             Dialogue exercise
           {/if}
         </a>
+      {:else}
+        <a
+          sveltekit:prefetch
+          href={`/signup?next=/story/${pattern.slug}`}
+          class="btn btn-primary"
+        >
+          Sign up to learn this pattern
+        </a>
       {/if}
     </div>
   </SiteLayout>
