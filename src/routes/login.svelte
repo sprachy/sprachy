@@ -1,8 +1,15 @@
 <script lang="ts" context="module">
   import type { Load } from "@sveltejs/kit"
 
-  export const load: Load = ({ url }) => {
+  export const load: Load = ({ url, session }) => {
     const next = url.searchParams.get("next")
+    if (session.userId) {
+      return {
+        status: 303,
+        redirect: next || "/home",
+      }
+    }
+
     if (next) {
       return {
         props: {
@@ -19,7 +26,7 @@
   import sprachy from "$lib/sprachy"
   import _ from "lodash"
   import SprachyLogo from "$lib/SprachyLogo.svelte"
-  import { goto } from "$app/navigation"
+  import { goto, prefetchRoutes } from "$app/navigation"
   import { errorsByField } from "$lib/client/utils"
   import { session } from "$app/stores"
 
@@ -31,6 +38,8 @@
 
   async function login() {
     const { api } = sprachy.expectBrowser()
+
+    prefetchRoutes([next || "/home"])
 
     loading = true
     errors = {}
