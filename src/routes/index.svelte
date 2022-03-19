@@ -17,6 +17,7 @@
 
 <script lang="ts">
   import { goto } from "$app/navigation"
+  import PublicPage from "$lib/PublicPage.svelte"
   import _ from "lodash"
 
   let email: string = ""
@@ -24,82 +25,64 @@
   async function gotoSignup() {
     goto("/signup?email=" + encodeURIComponent(email))
   }
+
+  const pageDesc =
+    "Sprachy is a German learning web app with dorky characters, linguistic patterns, SRS, and extradimensional squirrels."
 </script>
 
-<svelte:head>
-  <title>Sprachy, an application for learning German</title>
-  <link rel="canonical" href="https://sprachy.com" />
-  <meta
-    name="description"
-    content="Sprachy is a German learning web app with dorky characters, linguistic patterns, SRS, and extradimensional squirrels.
-  "
-  />
+<PublicPage
+  title="Sprachy, an application for learning German"
+  canonicalPath="/"
+  metaDesc={pageDesc}
+  cardDesc={pageDesc}
+  cardImg="/meta-image.jpg"
+  cardBig={true}
+>
+  <div class="frontpage">
+    <header>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a sveltekit:prefetch class="nav-link" href="/login">Sign in</a>
+            </li>
+            <li class="nav-item signup-link">
+              <a sveltekit:prefetch class="nav-link" href="/signup">Sign up</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main class="container">
+      <div class="signup-box">
+        <h1>Learn German the clever and cute way</h1>
+        <h5>
+          Sprachy combines detailed explanations of language patterns with
+          memorable dialogue exercises. Also we have extradimensional psionic
+          squirrels.
+        </h5>
+        <form on:submit|preventDefault={gotoSignup}>
+          <fieldset class="form-group">
+            <label for="email">Email</label>
+            <input
+              bind:value={email}
+              name="email"
+              id="email"
+              type="email"
+              class:form-control={true}
+              placeholder="Email"
+              required
+            />
+          </fieldset>
 
-  <meta
-    property="og:description"
-    content="Learn German the clever and cute way"
-  />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Sprachy" />
-  <meta property="og:url" content="https://sprachy.com" />
-  <meta property="og:site_name" content="Sprachy" />
-  <meta property="og:image" content="https://sprachy.com/meta-image.jpg" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@SprachyApp" />
-  <meta name="twitter:creator" content="@SprachyApp" />
-  <meta name="twitter:title" content="Sprachy" />
-  <meta
-    name="twitter:description"
-    content="Learn German the clever and cute way"
-  />
-  <meta name="twitter:image:src" content="https://sprachy.com/meta-image.jpg" />
-</svelte:head>
-
-<div class="frontpage">
-  <header>
-    <nav class="navbar navbar-expand-lg">
-      <div class="container">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a sveltekit:prefetch class="nav-link" href="/login">Sign in</a>
-          </li>
-          <li class="nav-item signup-link">
-            <a sveltekit:prefetch class="nav-link" href="/signup">Sign up</a>
-          </li>
-        </ul>
+          <button class="btn btn-sprachy btn-lg" type="submit"
+            >Sign up for Sprachy</button
+          >
+        </form>
       </div>
-    </nav>
-  </header>
-  <main class="container">
-    <div class="signup-box">
-      <h1>Learn German the clever and cute way</h1>
-      <h5>
-        Sprachy combines detailed explanations of language patterns with
-        memorable dialogue exercises. Also we have extradimensional psionic
-        squirrels.
-      </h5>
-      <form on:submit|preventDefault={gotoSignup}>
-        <fieldset class="form-group">
-          <label for="email">Email</label>
-          <input
-            bind:value={email}
-            name="email"
-            id="email"
-            type="email"
-            class:form-control={true}
-            placeholder="Email"
-            required
-          />
-        </fieldset>
-
-        <button class="btn btn-sprachy btn-lg" type="submit"
-          >Sign up for Sprachy</button
-        >
-      </form>
-    </div>
-  </main>
-</div>
+    </main>
+  </div>
+</PublicPage>
 
 <style lang="sass">
 .frontpage

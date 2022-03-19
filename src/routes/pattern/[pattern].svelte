@@ -22,7 +22,7 @@
 
 <script lang="ts">
   import _ from "lodash"
-  import SiteLayout from "$lib/SiteLayout.svelte"
+  import PublicPage from "$lib/PublicPage.svelte"
   import Sprachdown from "$lib/Sprachdown.svelte"
   import Timeago from "$lib/client/Timeago.svelte"
   import type { PatternDef } from "$lib/Pattern"
@@ -35,7 +35,11 @@
   )?.progress
 </script>
 
-<SiteLayout title={pattern.title}>
+<PublicPage
+  title={pattern.title}
+  canonicalPath={`/pattern/${pattern.slug}`}
+  cardDesc={pattern.shortdesc}
+>
   <div class="pattern">
     <h1>
       {pattern.title}
@@ -68,7 +72,7 @@
       </a>
     {/if}
   </div>
-</SiteLayout>
+</PublicPage>
 
 <style lang="sass">
 .pattern
