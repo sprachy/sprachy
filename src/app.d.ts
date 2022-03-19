@@ -5,9 +5,9 @@
 // for information about these interfaces
 declare namespace App {
   interface SprachyEnvironment {
-    STORE: KVNamespace
-    FAUNA_ADMIN_KEY: string
     FRONTEND_BASE_URL: string
+    STORE?: KVNamespace
+    FAUNA_ADMIN_KEY?: string
     MAILGUN_SECRET?: string
     DISCORD_SIGNUP_WEBHOOK?: string
   }

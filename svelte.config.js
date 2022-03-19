@@ -30,7 +30,6 @@ const config = {
         // For server-side secrets
         // https://scottspence.com/posts/sveltekit-env-secrets
         'process.env': process.env,
-
         global: {}
       },
       ssr: {

@@ -1,9 +1,9 @@
 import cookie from 'cookie'
 import type { Handle, GetSession } from '@sveltejs/kit'
 import { sessions } from '$lib/server/sessions'
-import { DummyStore, kvs } from "$lib/server/kvs"
+import { DummyStore } from "$lib/server/kvs"
 import { ZodError } from 'zod'
-import { dev } from '$app/env'
+import { dev, prerendering } from '$app/env'
 import { _settings } from "$lib/server/settings"
 
 /**
@@ -11,7 +11,8 @@ import { _settings } from "$lib/server/settings"
  * Define middleware here.
  */
 export const handle: Handle = async ({ event, resolve }) => {
-  if (dev) {
+  let env: Partial<App.SprachyEnvironment> = {}
+  if (dev && !prerendering) {
     // Mock Cloudflare platform functionality in dev
     event.platform = {
       env: {
@@ -24,21 +25,26 @@ export const handle: Handle = async ({ event, resolve }) => {
         waitUntil: async (promise: Promise<any>) => { return promise }
       }
     }
+    env = event.platform.env
+  } else if (prerendering) {
+    env = {
+      FRONTEND_BASE_URL: "https://sprachy.com"
+    }
   }
 
   // Double check some environment variables
-  const { STORE, FAUNA_ADMIN_KEY, FRONTEND_BASE_URL, MAILGUN_SECRET, DISCORD_SIGNUP_WEBHOOK } = event.platform.env
+  const { FRONTEND_BASE_URL, STORE, FAUNA_ADMIN_KEY, MAILGUN_SECRET, DISCORD_SIGNUP_WEBHOOK } = env
 
-  if (!STORE) {
+  if (!FRONTEND_BASE_URL) {
+    throw new Error("No FRONTEND_BASE_URL set; Sprachy doesn't know how to make links")
+  }
+
+  if (!prerendering && !STORE) {
     throw new Error("Couldn't access KV STORE; can't store sessions")
   }
 
-  if (!FAUNA_ADMIN_KEY) {
+  if (!prerendering && !FAUNA_ADMIN_KEY) {
     throw new Error("No FAUNA_ADMIN_KEY set; can't connect to db")
-  }
-
-  if (!FRONTEND_BASE_URL) {
-    throw new Error("No FRONTEND_BASE_URL set; Sprachy doesn't know where it lives")
   }
 
   // Put the environment variables into globally accessible settings
