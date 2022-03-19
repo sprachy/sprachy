@@ -23,6 +23,7 @@
 <script lang="ts">
   import _ from "lodash"
   import PublicPage from "$lib/PublicPage.svelte"
+  import SiteLayout from "$lib/SiteLayout.svelte"
   import Sprachdown from "$lib/Sprachdown.svelte"
   import Timeago from "$lib/client/Timeago.svelte"
   import type { PatternDef } from "$lib/Pattern"
@@ -40,38 +41,40 @@
   canonicalPath={`/pattern/${pattern.slug}`}
   cardDesc={pattern.shortdesc}
 >
-  <div class="pattern">
-    <h1>
-      {pattern.title}
-      {#if pattern.draft}
-        <small class="text-danger fs-5">Draft</small>
-      {/if}
-    </h1>
-    <Sprachdown source={pattern.explanation} />
-
-    {#if progress}
-      {#if progress.levelableAt && progress.levelableAt > Date.now()}
-        <p class="text-secondary">
-          <em
-            >Level {progress.srsLevel + 1} unlocks in <Timeago
-              ts={progress.levelableAt}
-            /></em
-          >
-        </p>
-      {/if}
-      <a
-        sveltekit:prefetch
-        href="/story/{pattern.slug}"
-        class="btn btn-primary"
-      >
-        {#if progress.srsLevel === 0}
-          Learn this pattern
-        {:else}
-          Dialogue exercise
+  <SiteLayout>
+    <div class="pattern">
+      <h1>
+        {pattern.title}
+        {#if pattern.draft}
+          <small class="text-danger fs-5">Draft</small>
         {/if}
-      </a>
-    {/if}
-  </div>
+      </h1>
+      <Sprachdown source={pattern.explanation} />
+
+      {#if progress}
+        {#if progress.levelableAt && progress.levelableAt > Date.now()}
+          <p class="text-secondary">
+            <em
+              >Level {progress.srsLevel + 1} unlocks in <Timeago
+                ts={progress.levelableAt}
+              /></em
+            >
+          </p>
+        {/if}
+        <a
+          sveltekit:prefetch
+          href="/story/{pattern.slug}"
+          class="btn btn-primary"
+        >
+          {#if progress.srsLevel === 0}
+            Learn this pattern
+          {:else}
+            Dialogue exercise
+          {/if}
+        </a>
+      {/if}
+    </div>
+  </SiteLayout>
 </PublicPage>
 
 <style lang="sass">

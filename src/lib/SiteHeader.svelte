@@ -41,14 +41,15 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/learn">Learn</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/practice">Practice</a>
-            </li>
             {#if spa}
-              <!-- <li class="nav-item">
+              <li class="nav-item">
+                <a class="nav-link" href="/learn">Learn</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/practice">Practice</a>
+              </li>
+            {/if}
+            <!-- <li class="nav-item">
                 <div class="nav-link">
                   <Dropdown triggerElement={dropdownTrigger}>
                     <button class="dropdown-toggle" bind:this={dropdownTrigger}>
@@ -66,7 +67,6 @@
                   </Dropdown>
                 </div>
               </li> -->
-            {/if}
             <li class="nav-item">
               <a class="nav-link" sveltekit:prefetch href="/faq">FAQ</a>
             </li>
@@ -83,6 +83,15 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/logout">Log out</a>
+              </li>
+            {/if}
+            {#if !spa}
+              <li class="nav-item">
+                <a class="nav-link" sveltekit:prefetch href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" sveltekit:prefetch href="/signup">Sign up</a
+                >
               </li>
             {/if}
           </ul>
