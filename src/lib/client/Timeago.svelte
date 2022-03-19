@@ -1,9 +1,9 @@
 <script lang="ts">
-  // @ts-ignore
-  import * as timeago from "timeago-simple?client";
+  import { format } from "timeago.js";
+
   export let ts: number;
 
   $: date = new Date(ts);
 </script>
 
-<time datetime={date.toISOString()}>{timeago.format(date)}</time>
+<time datetime={date.toISOString()}>{format(date)}</time>
