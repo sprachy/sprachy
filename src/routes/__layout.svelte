@@ -38,6 +38,8 @@
   } else {
     loading = false
   }
+
+  console.log("hmm")
 </script>
 
 {#if !loading}

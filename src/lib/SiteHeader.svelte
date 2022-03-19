@@ -2,6 +2,9 @@
   import _ from "lodash"
   import sprachy from "$lib/sprachy"
   import { dev } from "$app/env"
+  import { page } from "$app/stores"
+  import { isAuthedRoute } from "$lib/routing"
+
   const { spa } = sprachy
 
   // const patterns = spa ? spa.allViewablePatterns : []
@@ -82,15 +85,27 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/logout">Log out</a>
+                <a
+                  class="nav-link"
+                  href={isAuthedRoute($page.url.pathname)
+                    ? "/logout"
+                    : `/logout?next=${$page.url.pathname}`}>Log out</a
+                >
               </li>
             {/if}
             {#if !spa}
               <li class="nav-item">
-                <a class="nav-link" sveltekit:prefetch href="/login">Login</a>
+                <a
+                  class="nav-link"
+                  sveltekit:prefetch
+                  href={`/login?next=${$page.url.pathname}`}>Login</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link" sveltekit:prefetch href="/signup">Sign up</a
+                <a
+                  class="nav-link"
+                  sveltekit:prefetch
+                  href="/signup?next=${$page.url.pathname}">Sign up</a
                 >
               </li>
             {/if}

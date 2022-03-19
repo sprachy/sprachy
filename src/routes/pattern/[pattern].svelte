@@ -34,6 +34,7 @@
   const progress = sprachy.spa?.patternsAndProgress.find(
     (p) => p.id === pattern.id
   )?.progress
+  console.log(sprachy.spa)
 </script>
 
 <PublicPage

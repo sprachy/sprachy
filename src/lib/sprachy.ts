@@ -11,7 +11,7 @@ import type { ProgressSummary } from "./api"
 declare const window: {
   sprachy: SprachyContextManager
   api: SprachyAPIClient
-  app: SprachyUserSPA
+  spa: SprachyUserSPA
 }
 
 /**
@@ -50,7 +50,7 @@ export class SprachyContextManager {
     this.spa = new SprachyUserSPA(api, summary)
 
     // For debugging
-    window.app = this.spa
+    window.spa = this.spa
   }
 
   /**
