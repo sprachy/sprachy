@@ -1,52 +1,52 @@
 <script lang="ts" context="module">
-  import type { Load } from "@sveltejs/kit";
+  import type { Load } from "@sveltejs/kit"
 
   export const load: Load = ({ url }) => {
-    const email = url.searchParams.get("email");
+    const email = url.searchParams.get("email")
     if (email) {
       return {
         props: {
           email,
         },
-      };
+      }
     } else {
-      return {};
+      return {}
     }
-  };
+  }
 </script>
 
 <script lang="ts">
-  // import sprachy from "../sprachy";
-  import _ from "lodash";
-  import { onMount } from "svelte";
-  import SprachyLogo from "$lib//SprachyLogo.svelte";
-  import { browser } from "$app/env";
+  // import sprachy from "../sprachy"
+  import _ from "lodash"
+  import { onMount } from "svelte"
+  import SprachyLogo from "$lib//SprachyLogo.svelte"
+  import { browser } from "$app/env"
 
-  export let errors: Record<string, string> = {};
-  export let email: string = "";
-  export let password: string = "";
-  export let confirmPassword: string = "";
-  // import { APIValidationError } from "../HTTPProvider";
+  export let errors: Record<string, string> = {}
+  export let email: string = ""
+  export let password: string = ""
+  export let confirmPassword: string = ""
+  // import { APIValidationError } from "../HTTPProvider"
 
-  // const params = new URLSearchParams(window.location.search);
-  // let email = params.get("email") || "";
-  // let password: string = "";
-  // let confirmPassword: string = "";
+  // const params = new URLSearchParams(window.location.search)
+  // let email = params.get("email") || ""
+  // let password: string = ""
+  // let confirmPassword: string = ""
 
   if (browser) {
     onMount(() => {
       if (email) {
-        const el = document.getElementById("password")! as HTMLInputElement;
-        el.focus();
+        const el = document.getElementById("password")! as HTMLInputElement
+        el.focus()
       }
-    });
+    })
   }
 
   // async function signup() {
-  //   errors = {};
+  //   errors = {}
   //   if (password != confirmPassword) {
-  //     errors.confirmPassword = "This doesn't match the password";
-  //     return;
+  //     errors.confirmPassword = "This doesn't match the password"
+  //     return
   //   }
 
   //   try {
@@ -54,25 +54,25 @@
   //       email: email,
   //       password: password,
   //       confirmPassword,
-  //     });
+  //     })
 
-  //     sprachy.initApp(summary);
-  //     const params = new URLSearchParams(window.location.search);
-  //     const afterSignupUrl = params.get("next");
+  //     sprachy.initApp(summary)
+  //     const params = new URLSearchParams(window.location.search)
+  //     const afterSignupUrl = params.get("next")
 
   //     if (afterSignupUrl) {
-  //       navigate(afterSignupUrl);
+  //       navigate(afterSignupUrl)
   //     } else {
-  //       navigate("/home");
+  //       navigate("/home")
   //     }
   //   } catch (err: any) {
   //     if (err instanceof APIValidationError) {
-  //       errors = err.errorsByField;
+  //       errors = err.errorsByField
   //     } else {
-  //       errors.other = err.message;
+  //       errors.other = err.message
   //     }
   //   } finally {
-  //     loading = false;
+  //     loading = false
   //   }
   // }
 </script>

@@ -1,58 +1,58 @@
 <script lang="ts" context="module">
-  import type { Load } from "@sveltejs/kit";
+  import type { Load } from "@sveltejs/kit"
 
   export const load: Load = ({ url }) => {
-    const next = url.searchParams.get("next");
+    const next = url.searchParams.get("next")
     if (next) {
       return {
         props: {
           next,
         },
-      };
+      }
     } else {
-      return {};
+      return {}
     }
-  };
+  }
 </script>
 
 <script lang="ts">
-  import sprachy from "$lib/sprachy";
-  import _ from "lodash";
-  import SprachyLogo from "$lib/SprachyLogo.svelte";
-  import { goto } from "$app/navigation";
-  import { errorsByField } from "$lib/client/utils";
-  import { session } from "$app/stores";
+  import sprachy from "$lib/sprachy"
+  import _ from "lodash"
+  import SprachyLogo from "$lib/SprachyLogo.svelte"
+  import { goto } from "$app/navigation"
+  import { errorsByField } from "$lib/client/utils"
+  import { session } from "$app/stores"
 
-  export let next: string = "";
-  let email: string = "";
-  let password: string = "";
-  let loading: boolean = false;
-  let errors: Record<string, string> = {};
+  export let next: string = ""
+  let email: string = ""
+  let password: string = ""
+  let loading: boolean = false
+  let errors: Record<string, string> = {}
 
   async function login() {
-    const { api } = sprachy.expectBrowser();
+    const { api } = sprachy.expectBrowser()
 
-    loading = true;
-    errors = {};
+    loading = true
+    errors = {}
     try {
-      const { summary } = await api.login({ email, password });
-      $session.userId = summary.user.id;
-      await sprachy.initSPA(summary);
+      const { summary } = await api.login({ email, password })
+      $session.userId = summary.user.id
+      await sprachy.initSPA(summary)
       if (next) {
-        goto(next, { replaceState: true });
+        goto(next, { replaceState: true })
       } else {
-        goto("/home", { replaceState: true });
+        goto("/home", { replaceState: true })
       }
     } catch (err: any) {
       if (err?.response?.status == 422) {
-        errors = errorsByField(err.response.data.errors);
+        errors = errorsByField(err.response.data.errors)
       } else if (err?.response?.data?.message) {
-        errors.other = err.response.data.message;
+        errors.other = err.response.data.message
       } else {
-        throw err;
+        throw err
       }
     } finally {
-      loading = false;
+      loading = false
     }
   }
 </script>

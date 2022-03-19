@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { md } from "$lib/sprachdown";
-  import _ from "lodash";
-  import Sprachdown from "$lib/Sprachdown.svelte";
-  import SiteLayout from "$lib/SiteLayout.svelte";
+  import { md } from "$lib/sprachdown"
+  import _ from "lodash"
+  import Sprachdown from "$lib/Sprachdown.svelte"
+  import SiteLayout from "$lib/SiteLayout.svelte"
 
   const faq = md`
 # Frequently asked questions
@@ -41,7 +41,7 @@ a mobile app, we'll investigate building one.
 Sprachy is made by [Toggle](https://github.com/tgle) and [Twokay](https://github.com/two-kay)!
 Toggle wanted to learn German, and it's Twokay's native language, so we decided to team up
 and make a fancy website for it!
-  `;
+  `
 </script>
 
 <template>

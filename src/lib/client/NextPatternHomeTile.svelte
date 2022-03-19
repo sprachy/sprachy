@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Sprachdown from "$lib/Sprachdown.svelte";
-  import sprachy from "$lib/sprachy";
+  import Sprachdown from "$lib/Sprachdown.svelte"
+  import sprachy from "$lib/sprachy"
 
-  const { spa } = sprachy.expectSPA();
-  const nextPattern = spa.nextPatternToLearn;
+  const { spa } = sprachy.expectSPA()
+  const nextPattern = spa.nextPatternToLearn
 </script>
 
 <div class="home-tile">

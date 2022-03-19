@@ -1,14 +1,14 @@
 <script lang="ts" context="module">
-  import { sprachdex } from "$lib/sprachdex";
-  import type { Load } from "./[story]";
+  import { sprachdex } from "$lib/sprachdex"
+  import type { Load } from "./[story]"
 
   export const load: Load = async ({ params }) => {
     const pattern = sprachdex.patternsIncludingDrafts.find(
       (p) => p.slug === params.story
-    );
+    )
 
     if (!pattern) {
-      return { status: 404 };
+      return { status: 404 }
     }
 
     return {
@@ -16,67 +16,67 @@
       props: {
         pattern: pattern,
       },
-    };
-  };
+    }
+  }
 </script>
 
 <script lang="ts">
-  import { onDestroy, onMount } from "svelte";
-  import SiteLayout from "$lib/SiteLayout.svelte";
-  import Story from "$lib/client/Story.svelte";
-  import Timeago from "$lib/client/Timeago.svelte";
-  import successImg from "$lib/img/success.jpg";
-  import type { Pattern } from "$lib/Pattern";
-  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA";
-  import { goto } from "$app/navigation";
-  import sprachy from "$lib/sprachy";
+  import { onDestroy, onMount } from "svelte"
+  import SiteLayout from "$lib/SiteLayout.svelte"
+  import Story from "$lib/client/Story.svelte"
+  import Timeago from "$lib/client/Timeago.svelte"
+  import successImg from "$lib/img/success.jpg"
+  import type { Pattern } from "$lib/Pattern"
+  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA"
+  import { goto } from "$app/navigation"
+  import sprachy from "$lib/sprachy"
 
-  const { spa, api } = sprachy.expectSPA();
+  const { spa, api } = sprachy.expectSPA()
 
-  export let pattern: Pattern;
-  let complete: boolean = false;
+  export let pattern: Pattern
+  let complete: boolean = false
 
-  const story = pattern.story;
-  const progress = spa.getProgressFor(pattern);
+  const story = pattern.story
+  const progress = spa.getProgressFor(pattern)
 
   function leavingWarning(e: any) {
     var confirmationMessage =
       "It looks like you have been editing something. " +
-      "If you leave before saving, your changes will be lost.";
+      "If you leave before saving, your changes will be lost."
 
-    (e || window.event).returnValue = confirmationMessage;
-    return confirmationMessage;
+    ;(e || window.event).returnValue = confirmationMessage
+    return confirmationMessage
   }
 
   onMount(() => {
-    window.addEventListener("beforeunload", leavingWarning);
-  });
+    window.addEventListener("beforeunload", leavingWarning)
+  })
 
   onDestroy(() => {
-    window.removeEventListener("beforeunload", leavingWarning);
-  });
+    window.removeEventListener("beforeunload", leavingWarning)
+  })
 
-  let nextPattern: PatternAndProgress | undefined;
+  let nextPattern: PatternAndProgress | undefined
 
   async function onCompleteStory() {
-    window.removeEventListener("beforeunload", leavingWarning);
+    window.removeEventListener("beforeunload", leavingWarning)
 
     if (progress.srsLevel > 0) {
       // User was practicing something they already did, just go back to the pattern page
-      goto(`/pattern/${pattern.slug}`);
+      goto(`/pattern/${pattern.slug}`)
     } else {
-      const progressItem = await api.completeLevel(pattern.id, 1);
+      const progressItem = await api.completeLevel(pattern.id, 1)
       if (progressItem) {
-        spa.receiveProgressItem(progressItem);
+        spa.receiveProgressItem(progressItem)
       }
-      pattern = spa.patternsAndProgress.find((p) => p.slug === pattern.slug)!;
-      nextPattern = spa.nextPatternToLearn;
-      complete = true;
+      pattern = spa.patternsAndProgress.find((p) => p.slug === pattern.slug)!
+      nextPattern = spa.nextPatternToLearn
+      complete = true
 
       setTimeout(() => {
-        const btn = document.querySelector(".btn-primary")! as HTMLLinkElement;
-        btn.focus();
-      }, 0);
+        const btn = document.querySelector(".btn-primary")! as HTMLLinkElement
+        btn.focus()
+      }, 0)
     }
   }
 </script>

@@ -1,13 +1,13 @@
 <script lang="ts">
-  import Fa from "svelte-fa";
+  import Fa from "svelte-fa"
 
-  import Sprachdown from "$lib/Sprachdown.svelte";
-  // import Timeago from "$lib/client/Timeago.svelte";
-  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA";
+  import Sprachdown from "$lib/Sprachdown.svelte"
+  // import Timeago from "$lib/client/Timeago.svelte"
+  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA"
 
-  export let pattern: PatternAndProgress;
-  $: patternLearned = false; //pattern.progress.srsLevel > 0
-  $: patternMastered = false; //pattern.progress.srsLevel === pattern.maxLevel
+  export let pattern: PatternAndProgress
+  $: patternLearned = false //pattern.progress.srsLevel > 0
+  $: patternMastered = false //pattern.progress.srsLevel === pattern.maxLevel
 </script>
 
 <li

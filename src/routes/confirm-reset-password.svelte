@@ -1,37 +1,37 @@
 <script lang="ts">
-  import sprachy from "$lib/sprachy";
-  import _ from "lodash";
-  import { errorsByField } from "$lib/client/utils";
-  import SprachyLogo from "$lib/SprachyLogo.svelte";
+  import sprachy from "$lib/sprachy"
+  import _ from "lodash"
+  import { errorsByField } from "$lib/client/utils"
+  import SprachyLogo from "$lib/SprachyLogo.svelte"
 
-  export let token: string = "";
-  let newPassword: string = "";
-  let confirmPassword: string = "";
-  let loading: boolean = false;
-  let success: boolean = false;
-  let errors: Record<string, string> = {};
+  export let token: string = ""
+  let newPassword: string = ""
+  let confirmPassword: string = ""
+  let loading: boolean = false
+  let success: boolean = false
+  let errors: Record<string, string> = {}
 
   async function confirmResetPassword() {
-    const { api } = sprachy.expectBrowser();
+    const { api } = sprachy.expectBrowser()
 
-    loading = true;
+    loading = true
     try {
       await api.confirmPasswordReset({
         token,
         newPassword,
         confirmPassword,
-      });
-      success = true;
+      })
+      success = true
     } catch (err: any) {
       if (err?.response?.status === 422) {
-        errors = errorsByField(err.response.data.errors);
+        errors = errorsByField(err.response.data.errors)
       } else if (err?.response?.status === 401) {
-        errors.confirmPassword = "Invalid or expired token";
+        errors.confirmPassword = "Invalid or expired token"
       } else {
-        throw err;
+        throw err
       }
     } finally {
-      loading = false;
+      loading = false
     }
   }
 </script>

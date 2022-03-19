@@ -1,28 +1,28 @@
 <script lang="ts">
-  import _ from "lodash";
-  import SprachyLogo from "$lib/SprachyLogo.svelte";
-  import { errorsByField } from "$lib/client/utils";
-  import sprachy from "$lib/sprachy";
-  let email: string = "";
-  let loading: boolean = false;
-  let success: boolean = false;
-  let errors: Record<string, string> = {};
+  import _ from "lodash"
+  import SprachyLogo from "$lib/SprachyLogo.svelte"
+  import { errorsByField } from "$lib/client/utils"
+  import sprachy from "$lib/sprachy"
+  let email: string = ""
+  let loading: boolean = false
+  let success: boolean = false
+  let errors: Record<string, string> = {}
 
   async function sendPasswordResetEmail() {
-    const { api } = sprachy.expectBrowser();
+    const { api } = sprachy.expectBrowser()
 
-    loading = true;
+    loading = true
     try {
-      await api.sendPasswordResetEmail(email);
-      success = true;
+      await api.sendPasswordResetEmail(email)
+      success = true
     } catch (err: any) {
       if (err?.response?.status == 422) {
-        errors = errorsByField(err.response.data.errors);
+        errors = errorsByField(err.response.data.errors)
       } else {
-        throw err;
+        throw err
       }
     } finally {
-      loading = false;
+      loading = false
     }
   }
 </script>

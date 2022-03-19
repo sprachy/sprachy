@@ -1,28 +1,28 @@
 <script lang="ts" context="module">
-  import type { Load } from "./index";
+  import type { Load } from "./index"
 
   export const load: Load = async ({ session }) => {
     if (session.userId) {
       return {
         status: 303,
         redirect: "/home",
-      };
+      }
     } else {
       return {
         status: 200,
-      };
+      }
     }
-  };
+  }
 </script>
 
 <script lang="ts">
-  import { goto } from "$app/navigation";
-  import _ from "lodash";
+  import { goto } from "$app/navigation"
+  import _ from "lodash"
 
-  let email: string = "";
+  let email: string = ""
 
   async function gotoSignup() {
-    goto("/signup?email=" + encodeURIComponent(email));
+    goto("/signup?email=" + encodeURIComponent(email))
   }
 </script>
 

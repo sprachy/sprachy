@@ -1,73 +1,73 @@
 <script lang="ts">
-  import _ from "lodash";
-  import { createEventDispatcher, onMount } from "svelte";
-  import Message from "$lib/Message.svelte";
-  import type { FillblankLine } from "$lib/Pattern";
-  import Sprachdown from "$lib/Sprachdown.svelte";
-  import { matchAnswer } from "$lib/client/feedback";
-  import sprachy from "$lib/sprachy";
+  import _ from "lodash"
+  import { createEventDispatcher, onMount } from "svelte"
+  import Message from "$lib/Message.svelte"
+  import type { FillblankLine } from "$lib/Pattern"
+  import Sprachdown from "$lib/Sprachdown.svelte"
+  import { matchAnswer } from "$lib/client/feedback"
+  import sprachy from "$lib/sprachy"
 
-  const { spa } = sprachy.expectSPA();
+  const { spa } = sprachy.expectSPA()
 
-  export let line: FillblankLine;
-  export let flip: boolean = false;
-  export let complete: boolean = false;
-  let prevLine = line;
-  let attemptInput!: HTMLInputElement;
-  let attempt: string = "";
-  let feedback: string = "";
+  export let line: FillblankLine
+  export let flip: boolean = false
+  export let complete: boolean = false
+  let prevLine = line
+  let attemptInput!: HTMLInputElement
+  let attempt: string = ""
+  let feedback: string = ""
 
-  const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher()
 
   onMount(() => {
-    attemptInput.focus();
-  });
+    attemptInput.focus()
+  })
 
   $: if (line !== prevLine) {
-    attempt = "";
-    prevLine = line;
+    attempt = ""
+    prevLine = line
   }
 
   $: parts = ((line: FillblankLine) => {
-    const [before, after] = line.message.split(/\[.+?\]/);
+    const [before, after] = line.message.split(/\[.+?\]/)
     return {
       before: before || "",
       after: after || "",
-    };
-  })(line);
+    }
+  })(line)
 
   // How many characters we expect to go in the input
   // Length of the longest answer, or the hint if it's longer
   $: inputWidthChars = ((line: FillblankLine) => {
-    const words = line.validAnswers;
+    const words = line.validAnswers
     if (line.hint) {
-      words.push(line.hint);
+      words.push(line.hint)
     }
-    const longestAnswer = _.sortBy(words, (s) => -s.length)[0];
-    return longestAnswer!.length;
-  })(line);
+    const longestAnswer = _.sortBy(words, (s) => -s.length)[0]
+    return longestAnswer!.length
+  })(line)
 
   $: translation = ((line: FillblankLine) => {
     return line.translation.replace(/\[.+?\]/, (substring) => {
-      const highlight = substring.slice(1, -1);
-      return `**${highlight}**`;
-    });
-  })(line);
+      const highlight = substring.slice(1, -1)
+      return `**${highlight}**`
+    })
+  })(line)
 
   export function checkAnswer() {
-    feedback = "";
-    if (attempt === "") return;
+    feedback = ""
+    if (attempt === "") return
 
-    const result = matchAnswer(attempt, line);
+    const result = matchAnswer(attempt, line)
     if (result.validAnswer) {
-      attempt = result.validAnswer;
-      spa.effects.spawnParticlesAt(attemptInput);
-      dispatch("correct");
+      attempt = result.validAnswer
+      spa.effects.spawnParticlesAt(attemptInput)
+      dispatch("correct")
     } else {
       if (result.feedback) {
-        feedback = result.feedback;
+        feedback = result.feedback
       }
-      attemptInput.focus();
+      attemptInput.focus()
       // dispatch("answer", { correct: false })
     }
   }

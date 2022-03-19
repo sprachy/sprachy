@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Timeago from "$lib/client/Timeago.svelte";
-  import sprachy from "$lib/sprachy";
-  const { spa } = sprachy.expectSPA();
+  import Timeago from "$lib/client/Timeago.svelte"
+  import sprachy from "$lib/sprachy"
+  const { spa } = sprachy.expectSPA()
 
-  $: numLevelable = spa.patternsReadyToLevel.length;
-  $: nextLevelable = spa.nextLevelablePattern;
+  $: numLevelable = spa.patternsReadyToLevel.length
+  $: nextLevelable = spa.nextLevelablePattern
 </script>
 
 <div class="home-tile">

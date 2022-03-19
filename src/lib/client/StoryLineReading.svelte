@@ -1,11 +1,11 @@
 <script lang="ts">
-  import _ from "lodash";
-  import Message from "$lib/Message.svelte";
-  import type { ReadingLine } from "$lib/Pattern";
-  import Sprachdown from "$lib/Sprachdown.svelte";
+  import _ from "lodash"
+  import Message from "$lib/Message.svelte"
+  import type { ReadingLine } from "$lib/Pattern"
+  import Sprachdown from "$lib/Sprachdown.svelte"
 
-  export let line: ReadingLine;
-  export let flip: boolean = false;
+  export let line: ReadingLine
+  export let flip: boolean = false
 </script>
 
 <Message from={line.from} {flip}>

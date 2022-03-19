@@ -1,42 +1,42 @@
 <script lang="ts" context="module">
-  import { isAuthedRoute } from "$lib/routing";
-  import type { Load } from "./__layout";
+  import { isAuthedRoute } from "$lib/routing"
+  import type { Load } from "./__layout"
 
   export const load: Load = async ({ url, session }) => {
-    const needsAuth = isAuthedRoute(url.pathname);
-    const loggedIn = !!session.userId;
+    const needsAuth = isAuthedRoute(url.pathname)
+    const loggedIn = !!session.userId
 
     if (!loggedIn && needsAuth) {
       return {
         status: 303,
         redirect: "/login?next=" + encodeURIComponent(url.pathname),
-      };
+      }
     } else {
-      return {};
+      return {}
     }
-  };
+  }
 </script>
 
 <script lang="ts">
-  import { browser } from "$app/env";
-  import { session } from "$app/stores";
-  import { page } from "$app/stores";
-  import sprachy from "$lib/sprachy";
+  import { browser } from "$app/env"
+  import { session } from "$app/stores"
+  import { page } from "$app/stores"
+  import sprachy from "$lib/sprachy"
 
-  let loading: boolean = true;
+  let loading: boolean = true
 
   async function startSPA() {
     try {
-      await sprachy.initSPA();
+      await sprachy.initSPA()
     } finally {
-      loading = false;
+      loading = false
     }
   }
 
   if (browser && $session.userId && !sprachy.spa && !$page.error) {
-    startSPA();
+    startSPA()
   } else {
-    loading = false;
+    loading = false
   }
 </script>
 

@@ -1,22 +1,22 @@
 <script lang="ts">
-  import _ from "lodash";
-  import SiteLayout from "$lib/SiteLayout.svelte";
-  import PatternItem from "$lib/PatternItem.svelte";
-  import NextPatternHomeTile from "$lib/client/NextPatternHomeTile.svelte";
-  import PracticeHomeTile from "$lib/client/PracticeHomeTile.svelte";
-  import sprachy from "$lib/sprachy";
-  import { dev } from "$app/env";
+  import _ from "lodash"
+  import SiteLayout from "$lib/SiteLayout.svelte"
+  import PatternItem from "$lib/PatternItem.svelte"
+  import NextPatternHomeTile from "$lib/client/NextPatternHomeTile.svelte"
+  import PracticeHomeTile from "$lib/client/PracticeHomeTile.svelte"
+  import sprachy from "$lib/sprachy"
+  import { dev } from "$app/env"
 
   async function debugResetProgress() {
-    const { spa, api } = sprachy.expectSPA();
-    const summary = await api.http.post(`/api/debug/reset-progress`);
-    spa.receiveProgress(summary);
+    const { spa, api } = sprachy.expectSPA()
+    const summary = await api.http.post(`/api/debug/reset-progress`)
+    spa.receiveProgress(summary)
   }
 
   async function debugSkipTime() {
-    const { spa, api } = sprachy.expectSPA();
-    const summary = await api.http.post(`/api/debug/timeskip`);
-    spa.receiveProgress(summary);
+    const { spa, api } = sprachy.expectSPA()
+    const summary = await api.http.post(`/api/debug/timeskip`)
+    spa.receiveProgress(summary)
   }
 </script>
 

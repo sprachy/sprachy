@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { translations } from "$lib/translations";
-  export let original: string;
-  export let inline: boolean = false;
+  import { translations } from "$lib/translations"
+  export let original: string
+  export let inline: boolean = false
 
-  const m = original.match(/^(.+?) \((.+?)\)$/);
-  const deutsch = m ? m[1] : original;
-  const translation = m ? m[2] : translations[original];
+  const m = original.match(/^(.+?) \((.+?)\)$/)
+  const deutsch = m ? m[1] : original
+  const translation = m ? m[2] : translations[original]
 </script>
 
 <div class:cell={true} class:inline>

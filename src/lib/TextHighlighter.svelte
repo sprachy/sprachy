@@ -1,42 +1,42 @@
 <script lang="ts">
-  import _ from "lodash";
+  import _ from "lodash"
   // import Sprachdown from "./Sprachdown.svelte"
-  export let parts: string;
-  export let text: string;
-  import pixelWidth from "string-pixel-width";
+  export let parts: string
+  export let text: string
+  import pixelWidth from "string-pixel-width"
 
   function estimateTextWidth(text: string) {
-    return pixelWidth(text, { size: 16, font: "arial" });
+    return pixelWidth(text, { size: 16, font: "arial" })
   }
 
   type TextFragment =
     | {
-        highlight: string;
-        text: string;
-        minWidth?: number;
+        highlight: string
+        text: string
+        minWidth?: number
       }
     | {
-        highlight?: undefined;
-        text: string;
-        minWidth?: undefined;
-      };
+        highlight?: undefined
+        text: string
+        minWidth?: undefined
+      }
 
-  $: highlights = parts.split(",").map((p) => p.trim());
+  $: highlights = parts.split(",").map((p) => p.trim())
 
   $: fragments = ((text: string, highlights: string[]) => {
-    const fragments: TextFragment[] = [];
-    let highlightIndex = 0;
+    const fragments: TextFragment[] = []
+    let highlightIndex = 0
 
-    const matches = [...text.matchAll(/\[.+?\]/g)];
-    let i = 0;
+    const matches = [...text.matchAll(/\[.+?\]/g)]
+    let i = 0
     for (const m of matches) {
-      if (!m || !m.index || !m[0]) continue;
+      if (!m || !m.index || !m[0]) continue
       fragments.push({
         text: text.slice(i, m.index),
-      });
+      })
 
-      const highlight = highlights[highlightIndex]!;
-      const bit = m[0].slice(1, -1);
+      const highlight = highlights[highlightIndex]!
+      const bit = m[0].slice(1, -1)
       fragments.push({
         highlight: highlight,
         minWidth:
@@ -44,13 +44,13 @@
             ? estimateTextWidth(highlight)
             : undefined,
         text: bit,
-      });
-      highlightIndex += 1;
-      i = m.index + m[0].length;
+      })
+      highlightIndex += 1
+      i = m.index + m[0].length
     }
 
-    return fragments;
-  })(text, highlights);
+    return fragments
+  })(text, highlights)
 </script>
 
 <div class="TextHighlighter">

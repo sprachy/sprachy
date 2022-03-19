@@ -1,45 +1,45 @@
 <script lang="ts">
-  import sprachy from "$lib/sprachy";
-  import SiteLayout from "$lib/SiteLayout.svelte";
-  const { spa, api } = sprachy.expectSPA();
+  import sprachy from "$lib/sprachy"
+  import SiteLayout from "$lib/SiteLayout.svelte"
+  const { spa, api } = sprachy.expectSPA()
 
-  let email = spa.user.email;
+  let email = spa.user.email
 
-  let errors: Record<string, string> = {};
-  let confirmChangeAddress: string | null = null;
-  let emailChangeConfirmed: boolean = false;
+  let errors: Record<string, string> = {}
+  let confirmChangeAddress: string | null = null
+  let emailChangeConfirmed: boolean = false
 
-  const params = new URLSearchParams(window.location.search);
-  const emailConfirmToken = params.get("emailConfirmToken");
+  const params = new URLSearchParams(window.location.search)
+  const emailConfirmToken = params.get("emailConfirmToken")
   if (emailConfirmToken) {
-    confirmEmailChange(emailConfirmToken);
+    confirmEmailChange(emailConfirmToken)
   }
 
   async function confirmEmailChange(token: string) {
     try {
-      const { newEmail } = await api.confirmEmailChange(token);
-      spa.user.email = newEmail;
-      email = newEmail;
-      emailChangeConfirmed = true;
+      const { newEmail } = await api.confirmEmailChange(token)
+      spa.user.email = newEmail
+      email = newEmail
+      emailChangeConfirmed = true
     } catch (err: any) {
       if (err?.response?.status === 400) {
-        errors.email = err.response.data;
+        errors.email = err.response.data
       } else {
-        throw err;
+        throw err
       }
     }
   }
 
   async function submitEmailChange() {
-    errors = {};
+    errors = {}
     try {
-      await api.changeEmail(email);
-      confirmChangeAddress = email;
+      await api.changeEmail(email)
+      confirmChangeAddress = email
     } catch (err: any) {
       if (err?.response?.status === 409) {
-        errors.email = "Another user already has this email!";
+        errors.email = "Another user already has this email!"
       } else {
-        throw err;
+        throw err
       }
     }
   }

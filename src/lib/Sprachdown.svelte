@@ -1,11 +1,11 @@
 <script lang="ts">
-  import _ from "lodash";
-  import SvelteMarkdown from "svelte-markdown";
-  import SprachdownHTML from "./SprachdownHTML.svelte";
+  import _ from "lodash"
+  import SvelteMarkdown from "svelte-markdown"
+  import SprachdownHTML from "./SprachdownHTML.svelte"
 
-  export let source: string;
+  export let source: string
 
-  export let inline: boolean = false; // SvelteMarkdown doesn't seem to support this atm, despite claiming to
+  export let inline: boolean = false // SvelteMarkdown doesn't seem to support this atm, despite claiming to
 
   // const parsedSource = source.replace(/=[^=\n]+=/, (substring) => {
   //   const highlight = substring.slice(1, -1)

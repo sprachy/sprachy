@@ -1,12 +1,12 @@
 <script lang="ts">
-  import _ from "lodash";
-  import sprachy from "$lib/sprachy";
-  import { dev } from "$app/env";
-  const { spa } = sprachy;
+  import _ from "lodash"
+  import sprachy from "$lib/sprachy"
+  import { dev } from "$app/env"
+  const { spa } = sprachy
 
-  // const patterns = spa ? spa.allViewablePatterns : [];
+  // const patterns = spa ? spa.allViewablePatterns : []
 
-  // let dropdownTrigger: HTMLButtonElement;
+  // let dropdownTrigger: HTMLButtonElement
 
   // const isDev = !IS_PRODUCTION
 

@@ -1,61 +1,61 @@
 <script lang="ts">
-  import _ from "lodash";
-  import type { Exercise } from "$lib/Pattern";
-  import SiteLayout from "$lib/SiteLayout.svelte";
-  import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte";
-  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA";
-  import sprachy from "$lib/sprachy";
+  import _ from "lodash"
+  import type { Exercise } from "$lib/Pattern"
+  import SiteLayout from "$lib/SiteLayout.svelte"
+  import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
+  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA"
+  import sprachy from "$lib/sprachy"
 
-  const { spa, api } = sprachy.expectSPA();
+  const { spa, api } = sprachy.expectSPA()
 
-  let freePractice: boolean = false;
-  const noPatternsYet = spa.learnedPatterns.length === 0;
-  const patternsToLevel = spa.patternsReadyToLevel;
+  let freePractice: boolean = false
+  const noPatternsYet = spa.learnedPatterns.length === 0
+  const patternsToLevel = spa.patternsReadyToLevel
 
   type Review = Exercise & {
-    pattern: PatternAndProgress;
-  };
-
-  let reviews: Review[] = [];
-  if (patternsToLevel.length === 0) {
-    freePractice = true;
-    reviews = _.sampleSize(spa.allReviews, 10);
-  } else {
-    reviews = _.shuffle(spa.reviewsForLeveling);
+    pattern: PatternAndProgress
   }
 
-  let reviewIndex: number = 0;
-  let completed = false;
+  let reviews: Review[] = []
+  if (patternsToLevel.length === 0) {
+    freePractice = true
+    reviews = _.sampleSize(spa.allReviews, 10)
+  } else {
+    reviews = _.shuffle(spa.reviewsForLeveling)
+  }
 
-  $: review = reviews[reviewIndex];
+  let reviewIndex: number = 0
+  let completed = false
+
+  $: review = reviews[reviewIndex]
 
   async function levelUpPattern(pattern: PatternAndProgress) {
     const progressItem = await api.completeLevel(
       pattern!.id,
       pattern.progress.srsLevel + 1
-    );
+    )
     if (progressItem) {
-      spa.receiveProgressItem(progressItem);
+      spa.receiveProgressItem(progressItem)
     }
   }
 
   function nextReview() {
-    const completedReview = review;
+    const completedReview = review
     if (completedReview) {
-      const remainingReviews = reviews.slice(reviewIndex + 1);
+      const remainingReviews = reviews.slice(reviewIndex + 1)
       if (
         !remainingReviews.some((r) => r.pattern === completedReview.pattern)
       ) {
         // Completed reviews for a pattern, level it up
-        levelUpPattern(completedReview.pattern);
+        levelUpPattern(completedReview.pattern)
       }
     }
 
     if (reviewIndex >= reviews.length - 1) {
       // Completed all reviews
-      completed = true;
+      completed = true
     } else {
-      reviewIndex += 1;
+      reviewIndex += 1
     }
   }
 </script>

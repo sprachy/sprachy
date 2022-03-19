@@ -1,14 +1,14 @@
 <script lang="ts">
-  import DialogueExample from "./DialogueExample.svelte";
-  import LTable from "./LTable.svelte";
-  import Tip from "./Tip.svelte";
-  import TextHighlighter from "./TextHighlighter.svelte";
-  import type { Element } from "domhandler";
+  import DialogueExample from "./DialogueExample.svelte"
+  import LTable from "./LTable.svelte"
+  import Tip from "./Tip.svelte"
+  import TextHighlighter from "./TextHighlighter.svelte"
+  import type { Element } from "domhandler"
 
-  export let node: Element;
-  export let innerHtml: string;
-  export let outerHtml: string;
-  const attrs = node.attribs as any;
+  export let node: Element
+  export let innerHtml: string
+  export let outerHtml: string
+  const attrs = node.attribs as any
 </script>
 
 {#if node.tagName == "dialogueexample"}
