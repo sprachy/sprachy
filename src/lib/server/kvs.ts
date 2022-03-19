@@ -13,7 +13,7 @@ async function getDummyStore() {
   return mf.getKVNamespace("STORE")
 }
 
-class DummyStore {
+export class DummyStore {
   data: Record<string, string> = {}
 
   async get(key: string, form: "text" | "json"): Promise<any> {
@@ -32,7 +32,14 @@ class DummyStore {
 
 class KVStoreClient {
   // Will be set by hooks.ts on incoming request
-  STORE: KVNamespace = (dev ? new DummyStore() : null) as any as KVNamespace
+  _STORE?: KVNamespace
+
+  get STORE() {
+    if (!this._STORE) {
+      throw new Error("STORE not initialized")
+    }
+    return this._STORE
+  }
 
   async getText(key: string): Promise<string | null> {
     return await this.STORE.get(key, "text")

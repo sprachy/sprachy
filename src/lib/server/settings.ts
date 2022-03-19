@@ -1,12 +1,12 @@
-const env: any = (typeof process !== "undefined") ? process.env : global
+import _ from "lodash"
 
-export const FRONTEND_BASE_URL: string = env.FRONTEND_BASE_URL || ""
+// Will be configured by hooks.ts when the env comes in
+export const _settings: Partial<App.SprachySettings> = {}
 
-export const IS_PRODUCTION: boolean = !!FRONTEND_BASE_URL && !FRONTEND_BASE_URL.includes("localhost")
+export function expectSettings(): App.SprachySettings {
+  if (_.isEmpty(_settings)) {
+    throw new Error("Expected settings to already be present")
+  }
 
-// @ts-ignore
-export const IS_TESTING: boolean = env.IS_TESTING || false
-
-export const MAILGUN_SECRET: string = env.MAILGUN_SECRET || ""
-
-export const DISCORD_SIGNUP_WEBHOOK: string = env.DISCORD_SIGNUP_WEBHOOK || ""
+  return _settings as App.SprachySettings
+}

@@ -1,29 +1,26 @@
 import faunadb, { Collection, Create, Documents, Expr, Get, Index, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now } from 'faunadb'
 import type { ProgressItem, User } from '$lib/api'
 import _ from 'lodash'
-import { IS_PRODUCTION } from './settings'
-import { FAUNA_ADMIN_KEY } from './secrets'
 import { flattenFauna, FaunaError } from './faunaUtil'
 import type { FaunaDocument } from "./faunaUtil"
 import * as time from '$lib/time'
+import { expectSettings } from './settings'
+
+class FaunaConnector {
+  _client?: faunadb.Client
+  get client() {
+    const { FAUNA_ADMIN_KEY } = expectSettings()
+    if (!this._client) {
+      this._client = new faunadb.Client({
+        secret: FAUNA_ADMIN_KEY
+      })
+    }
+    return this._client
+  }
+}
 
 export namespace db {
-  // This structure allows the client to be changed e.g. by tests
-  export const fauna =
-    IS_PRODUCTION
-      ? {
-        client: new faunadb.Client({
-          secret: FAUNA_ADMIN_KEY
-        })
-      }
-      : {
-        client: new faunadb.Client({
-          secret: FAUNA_ADMIN_KEY,
-          // domain: 'localhost',
-          // port: 8443,
-          // scheme: 'http'
-        })
-      }
+  export const fauna = new FaunaConnector()
 
   export function GetIfExists(expr: Expr) {
     return Let(

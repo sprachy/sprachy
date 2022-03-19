@@ -1,6 +1,5 @@
 import type { RequestHandler } from "@sveltejs/kit"
 import * as z from 'zod'
-import { DISCORD_SIGNUP_WEBHOOK } from '$lib/server/settings'
 
 import { db } from "$lib/server/db"
 import { sessions } from "$lib/server/sessions"
@@ -18,24 +17,22 @@ const signupForm = z.object({
   message: "Confirm password must be identical to password",
   path: ["confirmPassword"]
 })
-export const post: RequestHandler = async ({ request, platform }) => {
+export const post: RequestHandler = async ({ request, platform, locals }) => {
   const { email, password } = signupForm.parse(await request.json())
   try {
     const user = await db.users.create({ email, password, isAdmin: false })
     const progressItems = await db.progress.listAllFor(user.id)
     const sessionKey = await sessions.create(user.id)
 
-    if (DISCORD_SIGNUP_WEBHOOK) {
+    if (locals.env.DISCORD_SIGNUP_WEBHOOK) {
       const params = {
         username: "SignUp",
         avatar_url: "",
         content: `Yuh new learny person **${email}** appeared! ❤️🐿️`,
       }
 
-      const req = http.postJson(DISCORD_SIGNUP_WEBHOOK, params)
-      if (platform) {
-        platform.context.waitUntil(req)
-      }
+      const req = http.postJson(locals.env.DISCORD_SIGNUP_WEBHOOK, params)
+      platform.context.waitUntil(req)
     }
 
     return {

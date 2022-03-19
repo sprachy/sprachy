@@ -4,11 +4,19 @@
 // See https://kit.svelte.dev/docs/types#the-app-namespace
 // for information about these interfaces
 declare namespace App {
+  interface SprachyEnvironment {
+    FAUNA_ADMIN_KEY: string
+    FRONTEND_BASE_URL: string
+    MAILGUN_SECRET?: string
+    DISCORD_SIGNUP_WEBHOOK?: string
+  }
+
   interface Locals {
     session: {
       userId: string
       sessionKey: string
     } | null
+    env: SprachyEnvironment
   }
 
   /**
@@ -19,7 +27,7 @@ declare namespace App {
   interface Platform {
     env: {
       STORE: KVNamespace
-    }
+    } & Partial<SprachyEnvironment>
     context: {
       waitUntil(promise: Promise<any>): void
     }

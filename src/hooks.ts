@@ -1,18 +1,51 @@
 import cookie from 'cookie'
 import type { Handle, GetSession } from '@sveltejs/kit'
 import { sessions } from '$lib/server/sessions'
-import { kvs } from "$lib/server/kvs"
+import { DummyStore, kvs } from "$lib/server/kvs"
 import { ZodError } from 'zod'
+import { dev } from '$app/env'
+import { _settings } from "$lib/server/settings"
 
 /**
  * All requests to the server are wrapped by this hook.
  * Define middleware here.
  */
 export const handle: Handle = async ({ event, resolve }) => {
-  // Configure KV store in production
-  if (event.platform) {
-    kvs.STORE = event.platform.env.STORE
+  if (dev) {
+    // Mock Cloudflare platform functionality in dev
+    event.platform = {
+      env: {
+        FRONTEND_BASE_URL: "http://localhost:5999",
+        ...process.env,
+        STORE: new DummyStore() as any as KVNamespace,
+      },
+      context: {
+        // Just a no-op in dev
+        waitUntil: async (promise: Promise<any>) => { return promise }
+      }
+    }
   }
+
+  // Double check some environment variables
+  const { FAUNA_ADMIN_KEY, FRONTEND_BASE_URL, MAILGUN_SECRET, DISCORD_SIGNUP_WEBHOOK } = event.platform.env
+
+  if (!FAUNA_ADMIN_KEY) {
+    throw new Error("No FAUNA_ADMIN_KEY set; can't connect to db")
+  }
+
+  if (!FRONTEND_BASE_URL) {
+    throw new Error("No FRONTEND_BASE_URL set; Sprachy doesn't know where it lives")
+  }
+
+  // Put the environment variables into globally accessible settings
+  const filledSettings: App.SprachyEnvironment = {
+    FAUNA_ADMIN_KEY,
+    FRONTEND_BASE_URL,
+    MAILGUN_SECRET,
+    DISCORD_SIGNUP_WEBHOOK
+  }
+  Object.assign(_settings, filledSettings)
+  event.locals.env = _settings
 
   // Look up the userId matching any sessionKey in the request's cookie
   // This is how we identify a logged in user for all requests
