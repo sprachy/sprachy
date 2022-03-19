@@ -27,7 +27,33 @@
 </script>
 
 <svelte:head>
-  <title>Sprachy</title>
+  <title>Sprachy, an application for learning German</title>
+  <link rel="canonical" href="https://sprachy.com" />
+  <meta
+    name="description"
+    content="Sprachy is a German learning web app with dorky characters, linguistic patterns, SRS, and extradimensional squirrels.
+  "
+  />
+
+  <meta
+    property="og:description"
+    content="Learn German the clever and cute way"
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Sprachy" />
+  <meta property="og:url" content="https://sprachy.com" />
+  <meta property="og:site_name" content="Sprachy" />
+  <meta property="og:image" content="https://sprachy.com/meta-image.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@SprachyApp" />
+  <meta name="twitter:creator" content="@SprachyApp" />
+  <meta name="twitter:title" content="Sprachy" />
+  <meta
+    name="twitter:description"
+    content="Learn German the clever and cute way"
+  />
+  <meta name="twitter:image:src" content="https://sprachy.com/meta-image.jpg" />
 </svelte:head>
 
 <div class="frontpage">
