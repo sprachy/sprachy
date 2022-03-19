@@ -1,4 +1,5 @@
 import { pathToRegexp } from "path-to-regexp"
+import { sprachdex } from "./sprachdex"
 
 // Routes that don't require login
 // These routes get SSR; every other route is gated by an auth redirect
@@ -17,9 +18,13 @@ const authedRoutes = [
   '/learn',
   '/practice',
   '/api(.*)',
-  '/admin(.*)',
-  '/pattern/:slug/story'
+  '/admin(.*)'
 ]
+
+for (const pattern of sprachdex.patternsIncludingDrafts) {
+  authedRoutes.push(`/pattern/${pattern.slug}`)
+  authedRoutes.push(`/story/${pattern.slug}`)
+}
 
 export function isAuthedRoute(pathname: string): boolean {
   return authedRoutes.some(route => pathToRegexp(route).exec(pathname))

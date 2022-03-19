@@ -6,6 +6,7 @@ import { SprachyUserSPA } from "$lib/client/SprachyUserSPA"
 import _ from "lodash"
 // @ts-ignore
 import NProgress from "accessible-nprogress?client"
+import type { ProgressSummary } from "./api"
 
 declare const window: {
   sprachy: SprachyContextManager
@@ -40,10 +41,12 @@ export class SprachyContextManager {
     window.api = this.api
   }
 
-  async initSPA() {
+  async initSPA(summary?: ProgressSummary) {
     const { api } = this.expectBrowser()
 
-    const summary = await api.getProgress()
+    if (!summary) {
+      summary = await api.getProgress()
+    }
     this.spa = new SprachyUserSPA(api, summary)
 
     // For debugging

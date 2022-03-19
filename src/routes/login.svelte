@@ -1,60 +1,66 @@
 <script lang="ts" context="module">
+  import type { Load } from "@sveltejs/kit";
+
+  export const load: Load = ({ url }) => {
+    const next = url.searchParams.get("next");
+    if (next) {
+      return {
+        props: {
+          next,
+        },
+      };
+    } else {
+      return {};
+    }
+  };
 </script>
 
 <script lang="ts">
-  // import sprachy from "../sprachy";
+  import sprachy from "$lib/sprachy";
   import _ from "lodash";
   import SprachyLogo from "$lib/SprachyLogo.svelte";
+  import { goto } from "$app/navigation";
+  import { errorsByField } from "$lib/client/utils";
+  import { session } from "$app/stores";
+
+  export let next: string = "";
   let email: string = "";
   let password: string = "";
   let loading: boolean = false;
-  export let errors: Record<string, string> = {};
+  let errors: Record<string, string> = {};
 
-  // onMount(() => {
-  //   if (sprachy.user) {
-  //     navigate("/home");
-  //   }
-  // });
+  async function login() {
+    const { api } = sprachy.expectBrowser();
 
-  // async function login() {
-  //   loading = true;
-  //   errors = {};
-  //   try {
-  //     const { summary } = await sprachy.api.login({ email, password });
-  //     sprachy.initApp(summary);
-  //     const params = new URLSearchParams(window.location.search);
-  //     const afterLoginUrl = params.get("next");
-  //     if (afterLoginUrl) {
-  //       navigate(afterLoginUrl);
-  //     } else {
-  //       navigate("/home");
-  //     }
-  //   } catch (err: any) {
-  //     if (err instanceof APIValidationError) {
-  //       errors = err.errorsByField;
-  //     } else {
-  //       errors.other = err.message;
-  //     }
-  //   } finally {
-  //     loading = false;
-  //   }
-
-  //   // if (res.status === 200) {
-  //   // } else {
-  //   //   if (res.code === "wrong password") {
-  //   //     errors.password = "The password doesn't match the user"
-  //   //   } else if (res.code === "validation failed") {
-  //   //     errors = errorsByField(res.errors)
-  //   //   }
-  //   // }
-  // }
+    loading = true;
+    errors = {};
+    try {
+      const { summary } = await api.login({ email, password });
+      $session.userId = summary.user.id;
+      await sprachy.initSPA(summary);
+      if (next) {
+        goto(next, { replaceState: true });
+      } else {
+        goto("/home", { replaceState: true });
+      }
+    } catch (err: any) {
+      if (err?.response?.status == 422) {
+        errors = errorsByField(err.response.data.errors);
+      } else if (err?.response?.data?.message) {
+        errors.other = err.response.data.message;
+      } else {
+        throw err;
+      }
+    } finally {
+      loading = false;
+    }
+  }
 </script>
 
 <main>
-  <form method="post" action="/login">
-    <!-- <pre>{JSON.stringify(errors)}</pre> -->
+  <form on:submit|preventDefault={login}>
     <div class="form-header">
-      <a sveltekit:prefetch href="/" class="header-logo">
+      <a href="/" class="header-logo">
         <SprachyLogo />
       </a>
     </div>

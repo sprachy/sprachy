@@ -5,8 +5,6 @@ import { Index, Login, Match } from "faunadb"
 import { db } from "$lib/server/db"
 import { sessions } from "$lib/server/sessions"
 import { FaunaError } from "$lib/server/faunaUtil"
-import { ZodError } from "zod"
-import { errorsByField } from "$lib/client/utils"
 
 type FaunaLoginToken = {
   ref: { value: { id: string } } // Token ref
@@ -19,10 +17,8 @@ const loginForm = z.object({
   email: z.string(),
   password: z.string()
 })
-export const post: RequestHandler<void, { username: string }> = async ({ request, url }) => {
-  // @ts-ignore
-  const data = Object.fromEntries(await request.formData())
-  const { email, password } = loginForm.parse(data)
+export const post: RequestHandler = async ({ request, url }) => {
+  const { email, password } = loginForm.parse(await request.json())
 
   try {
     const result = await db.faunaQuery(
@@ -37,24 +33,22 @@ export const post: RequestHandler<void, { username: string }> = async ({ request
     const user = await db.users.expect(result.instance.value.id)
     const sessionKey = await sessions.create(user.id)
     const progressItems = await db.progress.listAllFor(user.id)
-    const redirect = url.searchParams.get('redirect')
 
     return {
-      status: 303,
+      status: 200,
       headers: {
         'set-cookie': sessions.asCookie(sessionKey),
-        'location': redirect || '/home'
+      },
+      body: {
+        summary: { user, progressItems }
       }
     }
-    // return { summary: { user, progressItems } }
   } catch (err) {
     if (err instanceof FaunaError && err.code === "authentication failed") {
       return {
         status: 401,
         body: {
-          errors: {
-            password: "The password doesn't match the user"
-          }
+          message: "The password doesn't match the user"
         }
       }
     } else {

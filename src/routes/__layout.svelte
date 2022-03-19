@@ -9,7 +9,7 @@
     if (!loggedIn && needsAuth) {
       return {
         status: 303,
-        redirect: "/login?redirect=" + encodeURIComponent(url.pathname),
+        redirect: "/login?next=" + encodeURIComponent(url.pathname),
       };
     } else {
       return {};
