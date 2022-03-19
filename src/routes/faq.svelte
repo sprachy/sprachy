@@ -3,6 +3,7 @@
   import _ from "lodash"
   import Sprachdown from "$lib/Sprachdown.svelte"
   import SiteLayout from "$lib/SiteLayout.svelte"
+  import PublicPage from "$lib/PublicPage.svelte"
 
   const faq = md`
 # Frequently asked questions
@@ -38,19 +39,23 @@ a mobile app, we'll investigate building one.
 
 ### Who made this?
 
-Sprachy is made by [Toggle](https://github.com/tgle) and [Twokay](https://github.com/two-kay)!
+Sprachy is made by [Toggle](https://github.com/tgle) and [Twokay](https://github.com/two-kay).
 Toggle wanted to learn German, and it's Twokay's native language, so we decided to team up
 and make a fancy website for it!
   `
 </script>
 
-<template>
-  <SiteLayout title="FAQ">
+<PublicPage
+  title="FAQ"
+  canonicalPath="/faq"
+  cardDesc="Frequently asked questions"
+>
+  <SiteLayout>
     <div class="faq">
       <Sprachdown source={faq} />
     </div>
   </SiteLayout>
-</template>
+</PublicPage>
 
 <style lang="sass">
 .faq :global(h3)

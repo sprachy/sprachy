@@ -5,8 +5,6 @@ import { DISCORD_SIGNUP_WEBHOOK } from '$lib/server/settings'
 import { db } from "$lib/server/db"
 import { sessions } from "$lib/server/sessions"
 import { FaunaError } from "$lib/server/faunaUtil"
-import { ZodError } from "zod"
-import { errorsByField } from "$lib/client/utils"
 import http from "$lib/server/http"
 
 const signupForm = z.object({
@@ -21,17 +19,11 @@ const signupForm = z.object({
   path: ["confirmPassword"]
 })
 export const post: RequestHandler = async ({ request }) => {
-  // @ts-ignore
-  const data = Object.fromEntries(await request.formData())
+  const { email, password } = signupForm.parse(await request.json())
   try {
-    const { email, password } = signupForm.parse(data)
-
     const user = await db.users.create({ email, password, isAdmin: false })
-
-    // const progressItems = await db.progress.listAllFor(user.id)
+    const progressItems = await db.progress.listAllFor(user.id)
     const sessionKey = await sessions.create(user.id)
-
-    console.log(user)
 
     if (DISCORD_SIGNUP_WEBHOOK) {
       const params = {
@@ -46,27 +38,18 @@ export const post: RequestHandler = async ({ request }) => {
       status: 200,
       headers: {
         'set-cookie': sessions.asCookie(sessionKey)
+      },
+      body: {
+        summary: { user, progressItems }
       }
     }
-    // return { summary: { user, progressItems } }
   } catch (err) {
-    if (err instanceof ZodError) {
-      return {
-        status: 422,
-        body: {
-          ...data,
-          errors: errorsByField(err.issues)
-        }
-      }
-    } else if (err instanceof FaunaError && err.code === "instance not unique") {
+    if (err instanceof FaunaError && err.code === "instance not unique") {
       console.log(err)
       return {
         status: 409,
         body: {
-          ...data,
-          errors: {
-            email: "This email is already in use"
-          }
+          message: "Email is already in use",
         }
       }
     } else {

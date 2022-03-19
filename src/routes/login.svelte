@@ -129,7 +129,9 @@
     >
 
     <p class="signup-callout">
-      New to Sprachy? <a sveltekit:prefetch href="/signup">Create an account</a
+      New to Sprachy? <a
+        sveltekit:prefetch
+        href={next ? `/signup?next=${next}` : "/signup"}>Create an account</a
       >.
     </p>
   </form>

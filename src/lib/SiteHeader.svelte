@@ -105,7 +105,7 @@
                 <a
                   class="nav-link"
                   sveltekit:prefetch
-                  href="/signup?next=${$page.url.pathname}">Sign up</a
+                  href={`/signup?next=${$page.url.pathname}`}>Sign up</a
                 >
               </li>
             {/if}

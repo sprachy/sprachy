@@ -3,35 +3,32 @@
 
   export const load: Load = ({ url }) => {
     const email = url.searchParams.get("email")
-    if (email) {
-      return {
-        props: {
-          email,
-        },
-      }
-    } else {
-      return {}
+    const next = url.searchParams.get("next")
+    return {
+      props: {
+        email: email || "",
+        next: next || "",
+      },
     }
   }
 </script>
 
 <script lang="ts">
-  // import sprachy from "../sprachy"
+  import sprachy from "$lib/sprachy"
   import _ from "lodash"
   import { onMount } from "svelte"
-  import SprachyLogo from "$lib//SprachyLogo.svelte"
+  import SprachyLogo from "$lib/SprachyLogo.svelte"
+  import { errorsByField } from "$lib/client/utils"
+  import { goto, prefetchRoutes } from "$app/navigation"
   import { browser } from "$app/env"
+  import { session } from "$app/stores"
+  let loading: boolean = false
+  let errors: Record<string, string> = {}
 
-  export let errors: Record<string, string> = {}
-  export let email: string = ""
-  export let password: string = ""
-  export let confirmPassword: string = ""
-  // import { APIValidationError } from "../HTTPProvider"
-
-  // const params = new URLSearchParams(window.location.search)
-  // let email = params.get("email") || ""
-  // let password: string = ""
-  // let confirmPassword: string = ""
+  export let email: string
+  export let next: string
+  let password: string = ""
+  let confirmPassword: string = ""
 
   if (browser) {
     onMount(() => {
@@ -42,44 +39,48 @@
     })
   }
 
-  // async function signup() {
-  //   errors = {}
-  //   if (password != confirmPassword) {
-  //     errors.confirmPassword = "This doesn't match the password"
-  //     return
-  //   }
+  async function signup() {
+    const { api } = sprachy.expectBrowser()
 
-  //   try {
-  //     const { summary } = await sprachy.api.signUp({
-  //       email: email,
-  //       password: password,
-  //       confirmPassword,
-  //     })
+    prefetchRoutes([next || "/home"])
 
-  //     sprachy.initApp(summary)
-  //     const params = new URLSearchParams(window.location.search)
-  //     const afterSignupUrl = params.get("next")
+    errors = {}
+    if (password != confirmPassword) {
+      errors.confirmPassword = "This doesn't match the password"
+      return
+    }
 
-  //     if (afterSignupUrl) {
-  //       navigate(afterSignupUrl)
-  //     } else {
-  //       navigate("/home")
-  //     }
-  //   } catch (err: any) {
-  //     if (err instanceof APIValidationError) {
-  //       errors = err.errorsByField
-  //     } else {
-  //       errors.other = err.message
-  //     }
-  //   } finally {
-  //     loading = false
-  //   }
-  // }
+    try {
+      const { summary } = await api.signUp({
+        email: email,
+        password: password,
+        confirmPassword,
+      })
+
+      $session.userId = summary.user.id
+      await sprachy.initSPA(summary)
+
+      if (next) {
+        goto(next, { replaceState: true })
+      } else {
+        goto("/home", { replaceState: true })
+      }
+    } catch (err: any) {
+      if (err?.response?.status == 422) {
+        errors = errorsByField(err.response.data.errors)
+      } else if (err?.response?.data?.message) {
+        errors.other = err.response.data.message
+      } else {
+        throw err
+      }
+    } finally {
+      loading = false
+    }
+  }
 </script>
 
 <main>
-  <!-- {JSON.stringify(errors)} -->
-  <form method="post" action="/signup">
+  <form on:submit|preventDefault={signup}>
     <div class="form-header">
       <a href="/" class="header-logo">
         <SprachyLogo />
@@ -90,10 +91,10 @@
       <label for="email">Email address</label>
       <!-- svelte-ignore a11y-autofocus -->
       <input
+        bind:value={email}
         name="email"
         id="email"
         type="email"
-        value={email}
         class:form-control={true}
         class:is-invalid={!!errors.email}
         placeholder="Email"
@@ -109,10 +110,10 @@
     <fieldset class="form-group">
       <label for="password">Password</label>
       <input
+        bind:value={password}
         name="password"
         id="password"
         type="password"
-        value={password}
         class:form-control={true}
         class:is-invalid={!!errors.password}
         placeholder="Password"
@@ -129,10 +130,10 @@
       <label for="confirmPassword">Confirm Password</label>
       <!-- svelte-ignore a11y-autofocus -->
       <input
-        name="confirmPassword"
-        id="confirmPassword"
+        bind:value={confirmPassword}
+        name="confirm_password"
+        id="confirm_password"
         type="password"
-        value={confirmPassword}
         class:form-control={true}
         class:is-invalid={!!errors.confirmPassword}
         placeholder="Confirm Password"
@@ -151,11 +152,15 @@
         {errors.other}
       </div>
     {/if}
-    <button class="btn btn-sprachy" type="submit">Sign up</button>
+    <button class="btn btn-sprachy" type="submit" disabled={loading}
+      >Sign up</button
+    >
 
     <hr />
     <p class="callout">
-      <a href="/login">Sign in to an existing account</a>
+      <a sveltekit:prefetch href={next ? `/login?next=${next}` : "/login"}
+        >Sign in to an existing account</a
+      >
     </p>
   </form>
 </main>

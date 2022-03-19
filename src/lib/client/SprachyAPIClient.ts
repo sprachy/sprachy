@@ -10,6 +10,11 @@ export class SprachyAPIClient {
     this.admin = new AdminAPI(this.http)
   }
 
+
+  async signUp({ email, password, confirmPassword }: { email: string, password: string, confirmPassword: string }): Promise<{ summary: ProgressSummary }> {
+    return this.http.post(`/signup`, { email, password, confirmPassword })
+  }
+
   async login({ email, password }: { email: string, password: string }): Promise<{ summary: ProgressSummary }> {
     return this.http.post(`/login`, { email, password })
   }
@@ -21,10 +26,6 @@ export class SprachyAPIClient {
   async confirmPasswordReset({ token, newPassword, confirmPassword }: { token: string, newPassword: string, confirmPassword: string }) {
     return this.http.post(`/confirm-reset-password`, { token, newPassword, confirmPassword })
   }
-
-  // async signUp({ email, password, confirmPassword }: { email: string, password: string, confirmPassword: string }): Promise<{ summary: ProgressSummary }> {
-  //   return this.http.post(`/api/signup`, { email, password, confirmPassword })
-  // }
 
   async getProgress(): Promise<ProgressSummary> {
     return this.http.get(`/api/progress`)
