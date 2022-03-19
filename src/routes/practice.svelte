@@ -3,8 +3,10 @@
   import type { Exercise } from "$lib/Pattern";
   import SiteLayout from "$lib/SiteLayout.svelte";
   import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte";
-  import { spa } from "$lib/client/spa";
-  import type { PatternAndProgress } from "$lib/client/spa";
+  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA";
+  import sprachy from "$lib/sprachy";
+
+  const { spa, api } = sprachy.expectSPA();
 
   let freePractice: boolean = false;
   const noPatternsYet = spa.learnedPatterns.length === 0;
@@ -28,7 +30,7 @@
   $: review = reviews[reviewIndex];
 
   async function levelUpPattern(pattern: PatternAndProgress) {
-    const progressItem = await spa.api.completeLevel(
+    const progressItem = await api.completeLevel(
       pattern!.id,
       pattern.progress.srsLevel + 1
     );

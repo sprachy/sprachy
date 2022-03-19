@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { spa } from "$lib/client/spa";
   import Timeago from "$lib/client/Timeago.svelte";
+  import sprachy from "$lib/sprachy";
+  const { spa } = sprachy.expectSPA();
 
   $: numLevelable = spa.patternsReadyToLevel.length;
   $: nextLevelable = spa.nextLevelablePattern;

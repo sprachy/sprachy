@@ -20,18 +20,17 @@
 
 <script lang="ts">
   import _ from "lodash";
-  // import { Link } from "svelte-navigator";
   import SiteLayout from "$lib/SiteLayout.svelte";
   import Sprachdown from "$lib/Sprachdown.svelte";
   import Timeago from "$lib/client/Timeago.svelte";
   import type { PatternDef } from "$lib/Pattern";
-  import { spa } from "$lib/client/spa";
+  import sprachy from "$lib/sprachy";
 
   export let pattern: PatternDef;
 
-  const progress = spa?.patternsAndProgress.find(
+  const progress = sprachy.app?.patternsAndProgress.find(
     (p) => p.id === pattern.id
-  ).progress;
+  )?.progress;
 </script>
 
 <SiteLayout title={pattern.title}>

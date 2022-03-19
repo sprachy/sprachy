@@ -4,7 +4,7 @@
 
   import Sprachdown from "$lib/Sprachdown.svelte";
   // import Timeago from "$lib/client/Timeago.svelte";
-  import type { PatternAndProgress } from "$lib/client/spa";
+  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA";
 
   export let pattern: PatternAndProgress;
   $: patternLearned = false; //pattern.progress.srsLevel > 0

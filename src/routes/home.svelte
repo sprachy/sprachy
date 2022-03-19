@@ -3,25 +3,25 @@
   import SiteLayout from "$lib/SiteLayout.svelte";
   // import { IS_PRODUCTION } from "./settings";
   import PatternItem from "$lib/PatternItem.svelte";
-  // import NextPatternHomeTile from "$lib/NextPatternHomeTile.svelte";
-  // import PracticeHomeTile from "$lib/PracticeHomeTile.svelte";
-  import { spa } from "$lib/client/spa";
   import NextPatternHomeTile from "$lib/client/NextPatternHomeTile.svelte";
   import PracticeHomeTile from "$lib/client/PracticeHomeTile.svelte";
+  import sprachy from "$lib/sprachy";
 
   async function debugResetProgress() {
-    const summary = await spa.api.http.post(`/api/debug/reset-progress`);
+    const { spa, api } = sprachy.expectSPA();
+    const summary = await api.http.post(`/api/debug/reset-progress`);
     spa.receiveProgress(summary);
   }
 
   async function debugSkipTime() {
-    const summary = await spa.api.http.post(`/api/debug/timeskip`);
+    const { spa, api } = sprachy.expectSPA();
+    const summary = await api.http.post(`/api/debug/timeskip`);
     spa.receiveProgress(summary);
   }
 </script>
 
 <SiteLayout>
-  {#if spa}
+  {#if sprachy.spa}
     <div class="home">
       <div class="tiles">
         <NextPatternHomeTile />
@@ -32,7 +32,7 @@
         <section class="chapter">
           <h2>All patterns</h2>
           <ul>
-            {#each spa.patternsAndProgress as pattern (pattern.id)}
+            {#each sprachy.spa.patternsAndProgress as pattern (pattern.id)}
               <PatternItem {pattern} />
             {/each}
           </ul>

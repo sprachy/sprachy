@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { spa } from "$lib/client/spa";
-
+  import sprachy from "$lib/sprachy";
   import SiteLayout from "$lib/SiteLayout.svelte";
+  const { spa, api } = sprachy.expectSPA();
 
   let email = spa.user.email;
 
@@ -17,7 +17,7 @@
 
   async function confirmEmailChange(token: string) {
     try {
-      const { newEmail } = await spa.api.confirmEmailChange(token);
+      const { newEmail } = await api.confirmEmailChange(token);
       spa.user.email = newEmail;
       email = newEmail;
       emailChangeConfirmed = true;
@@ -33,7 +33,7 @@
   async function submitEmailChange() {
     errors = {};
     try {
-      await spa.api.changeEmail(email);
+      await api.changeEmail(email);
       confirmChangeAddress = email;
     } catch (err: any) {
       if (err?.response?.status === 409) {

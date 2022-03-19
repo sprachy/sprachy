@@ -5,7 +5,9 @@
   import type { FillblankLine } from "$lib/Pattern";
   import Sprachdown from "$lib/Sprachdown.svelte";
   import { matchAnswer } from "$lib/client/feedback";
-  import { spa } from "$lib/client/spa";
+  import sprachy from "$lib/sprachy";
+
+  const { spa } = sprachy.expectSPA();
 
   export let line: FillblankLine;
   export let flip: boolean = false;

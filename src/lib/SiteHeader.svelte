@@ -3,9 +3,10 @@
   import { getContext } from "svelte";
   // import { IS_PRODUCTION } from "./settings"
   import { Link, navigate } from "svelte-navigator";
-  import { spa } from "$lib/client/spa";
-  // import sprachy from "./sprachy"
+  import sprachy from "$lib/sprachy";
   // @ts-ignore
+
+  const { spa } = sprachy;
 
   const patterns = spa ? spa.allViewablePatterns : [];
 

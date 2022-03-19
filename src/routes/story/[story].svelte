@@ -26,17 +26,18 @@
   import Story from "$lib/client/Story.svelte";
   import Timeago from "$lib/client/Timeago.svelte";
   import successImg from "$lib/img/success.jpg";
-  import { spa } from "$lib/client/spa";
   import type { Pattern } from "$lib/Pattern";
-  import type { PatternAndProgress } from "$lib/client/spa";
+  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA";
   import { goto } from "$app/navigation";
-  import { browser } from "$app/env";
+  import sprachy from "$lib/sprachy";
+
+  const { spa, api } = sprachy.expectSPA();
 
   export let pattern: Pattern;
   let complete: boolean = false;
 
   const story = pattern.story;
-  const progress = spa?.getProgressFor(pattern);
+  const progress = spa.getProgressFor(pattern);
 
   function leavingWarning(e: any) {
     var confirmationMessage =
@@ -47,15 +48,13 @@
     return confirmationMessage;
   }
 
-  if (browser) {
-    onMount(() => {
-      window.addEventListener("beforeunload", leavingWarning);
-    });
+  onMount(() => {
+    window.addEventListener("beforeunload", leavingWarning);
+  });
 
-    onDestroy(() => {
-      window.removeEventListener("beforeunload", leavingWarning);
-    });
-  }
+  onDestroy(() => {
+    window.removeEventListener("beforeunload", leavingWarning);
+  });
 
   let nextPattern: PatternAndProgress | undefined;
 
@@ -66,7 +65,7 @@
       // User was practicing something they already did, just go back to the pattern page
       goto(`/pattern/${pattern.slug}`);
     } else {
-      const progressItem = await spa.api.completeLevel(pattern.id, 1);
+      const progressItem = await api.completeLevel(pattern.id, 1);
       if (progressItem) {
         spa.receiveProgressItem(progressItem);
       }
@@ -83,9 +82,7 @@
 </script>
 
 <SiteLayout fixedHeader>
-  {#if !spa}
-    Need JS for this one!
-  {:else if !story}
+  {#if !story}
     No stories for this pattern yet! Let's write some~
   {:else if story && !complete}
     <div class="story-holder">

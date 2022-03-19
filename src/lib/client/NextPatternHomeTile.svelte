@@ -1,7 +1,8 @@
 <script lang="ts">
   import Sprachdown from "$lib/Sprachdown.svelte";
-  import { spa } from "$lib/client/spa";
+  import sprachy from "$lib/sprachy";
 
+  const { spa } = sprachy.expectSPA();
   const nextPattern = spa.nextPatternToLearn;
 </script>
 

@@ -20,20 +20,20 @@
 <script lang="ts">
   import { browser } from "$app/env";
   import { session } from "$app/stores";
-  import { spa } from "$lib/client/spa";
   import { page } from "$app/stores";
+  import sprachy from "$lib/sprachy";
 
   let loading: boolean = true;
 
   async function startSPA() {
     try {
-      await spa.start();
+      await sprachy.initSPA();
     } finally {
       loading = false;
     }
   }
 
-  if (browser && $session.userId && !spa.user && !$page.error) {
+  if (browser && $session.userId && !sprachy.spa && !$page.error) {
     startSPA();
   } else {
     loading = false;

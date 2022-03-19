@@ -1,7 +1,6 @@
 import cookie from 'cookie'
 import type { Handle, GetSession, HandleError } from '@sveltejs/kit'
 import { sessions } from '$lib/server/sessions'
-import { isAuthedRoute } from '$lib/routing'
 import { kvs } from "$lib/server/kvs"
 import { ZodError } from 'zod'
 
@@ -47,6 +46,8 @@ export const handle: Handle = async ({ event, resolve }) => {
           statusText: "Unprocessable Entity"
         }
       )
+    } else {
+      throw err
     }
   }
 }

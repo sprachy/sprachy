@@ -1,11 +1,7 @@
 
-import _ from "lodash"
-// @ts-ignore
-import NProgress from "accessible-nprogress?client"
 
-import { browser } from "$app/env"
-
-import { SprachyAPIClient } from "./SprachyAPIClient"
+import _ from 'lodash'
+import type { SprachyAPIClient } from "./SprachyAPIClient"
 import type { ProgressItem, User, ProgressSummary } from "$lib/api"
 import type { Exercise, FillblankLine, Pattern, Story } from "$lib/Pattern"
 import { sprachdex } from "$lib/sprachdex"
@@ -17,32 +13,20 @@ export type Review = Exercise & {
 }
 
 /**
- * Application-wide state for when the user is signed in
+ * Single page application state for when the user is signed in
  */
-export class SprachySPA {
-  user?: User
-  progressItems?: ProgressItem[]
-  readonly api = new SprachyAPIClient()
-  readonly backgroundApi = new SprachyAPIClient()
+export class SprachyUserSPA {
+  user: User
+  progressItems: ProgressItem[]
+
   /** 
    * For drawing success confetti animation
    */
-  effects: CanvasEffects
+  effects: CanvasEffects = new CanvasEffects()
 
-  async start() {
-    if (!browser) {
-      throw new Error("Tried to start SPA in a non-browser context")
-    }
-
-    // Configure nprogress to show the little loading bar at the top
-    // whenever we're doing an API request
-    NProgress.configure({ showSpinner: false })
-    this.api.http.onRequest = (req) => {
-      NProgress.promise(req)
-    }
-
-    await this.refreshProgress()
-    this.effects = new CanvasEffects()
+  constructor(readonly api: SprachyAPIClient, summary: ProgressSummary) {
+    this.user = summary.user
+    this.progressItems = summary.progressItems
   }
 
   get admin() {
@@ -200,9 +184,3 @@ class PatternProgress {
 }
 
 export type PatternAndProgress = Pattern & { progress: PatternProgress }
-
-export const spa: SprachySPA | null = browser ? new SprachySPA() : null
-declare const window: { spa: SprachySPA }
-if (browser) {
-  window.spa = spa
-}
