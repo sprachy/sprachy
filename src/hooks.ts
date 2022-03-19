@@ -11,11 +11,7 @@ import { _settings } from "$lib/server/settings"
  * Define middleware here.
  */
 export const handle: Handle = async ({ event, resolve }) => {
-  let env: Partial<App.SprachyEnvironment> = {}
-  if (event.platform) {
-    // Production
-    env = event.platform.env
-  } else if (dev && !prerendering) {
+  if (dev) {
     // Mock Cloudflare platform functionality in dev
     event.platform = {
       env: {
@@ -28,11 +24,15 @@ export const handle: Handle = async ({ event, resolve }) => {
         waitUntil: async (promise: Promise<any>) => { return promise }
       }
     }
-    env = event.platform.env
-  } else if (prerendering) {
+  }
+
+  let env: Partial<App.SprachyEnvironment> = {}
+  if (prerendering) {
     env = {
       FRONTEND_BASE_URL: "https://sprachy.com"
     }
+  } else {
+    env = event.platform.env
   }
 
   // Double check some environment variables
