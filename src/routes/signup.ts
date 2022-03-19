@@ -1,13 +1,13 @@
 import type { RequestHandler } from "@sveltejs/kit"
 import * as z from 'zod'
-import { Index, Login, Match } from "faunadb"
-import { DISCORD_SIGNUP_WEBHOOK, FRONTEND_BASE_URL } from '$lib/server/settings'
+import { DISCORD_SIGNUP_WEBHOOK } from '$lib/server/settings'
 
 import { db } from "$lib/server/db"
 import { sessions } from "$lib/server/sessions"
 import { FaunaError } from "$lib/server/faunaUtil"
 import { ZodError } from "zod"
 import { errorsByField } from "$lib/client/utils"
+import http from "$lib/server/http"
 
 const signupForm = z.object({
   email: z.string().email(),
@@ -20,7 +20,7 @@ const signupForm = z.object({
   message: "Confirm password must be identical to password",
   path: ["confirmPassword"]
 })
-export const post: RequestHandler<void, { email: string, password: string, confirmPassword: string }> = async ({ request }) => {
+export const post: RequestHandler = async ({ request }) => {
   // @ts-ignore
   const data = Object.fromEntries(await request.formData())
   try {
@@ -28,19 +28,19 @@ export const post: RequestHandler<void, { email: string, password: string, confi
 
     const user = await db.users.create({ email, password, isAdmin: false })
 
-    const progressItems = await db.progress.listAllFor(user.id)
+    // const progressItems = await db.progress.listAllFor(user.id)
     const sessionKey = await sessions.create(user.id)
 
     console.log(user)
 
-    // if (DISCORD_SIGNUP_WEBHOOK) {
-    //   const params = {
-    //     username: "SignUp",
-    //     avatar_url: "",
-    //     content: `Yuh new learny person **${email}** appeared! ❤️🐿️`,
-    //   }
-    //   http.postJson(DISCORD_SIGNUP_WEBHOOK, params)
-    // }
+    if (DISCORD_SIGNUP_WEBHOOK) {
+      const params = {
+        username: "SignUp",
+        avatar_url: "",
+        content: `Yuh new learny person **${email}** appeared! ❤️🐿️`,
+      }
+      http.postJson(DISCORD_SIGNUP_WEBHOOK, params)
+    }
 
     return {
       status: 200,

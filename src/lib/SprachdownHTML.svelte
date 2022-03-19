@@ -1,6 +1,5 @@
 <script lang="ts">
   import SprachdownNode from "./SprachdownNode.svelte";
-  import { browser } from "$app/env";
   import { parseDocument } from "htmlparser2";
   import type { Element } from "domhandler";
   export let text: string;
@@ -12,13 +11,13 @@
   const nodes = dom.children as Element[];
 
   function getInnerHTML(node: Element) {
-    const slice = text.slice(node.startIndex, node.endIndex);
+    const slice = text.slice(node.startIndex!, node.endIndex!);
     const m = slice.match(/>([\s\S]*)</);
-    return m ? m[1] : "";
+    return m ? m[1]! : "";
   }
 
   function getOuterHTML(node: Element) {
-    return text.slice(node.startIndex, node.endIndex + 1);
+    return text.slice(node.startIndex!, node.endIndex! + 1);
   }
 
   // @ts-ignore

@@ -52,9 +52,9 @@ function getFeedback(attempt: string, line: FillblankLine): string | undefined {
     const ans = answer.toLowerCase()
 
     // Prioritize any exercise/pattern-specific feedback
-    const specificFeedback = line.feedback && line.feedback[attempt]
+    const specificFeedback = line.feedback && line.feedback.find(f => f.answer === answer)
     if (specificFeedback)
-      return specificFeedback
+      return specificFeedback.message
 
     // Otherwise, we might have some general site-wide feedback for this attempt/answer pair
     const generalFeedback = (defaultFeedback[ans] || {})[attempt]

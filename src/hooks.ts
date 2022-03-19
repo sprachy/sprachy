@@ -1,5 +1,5 @@
 import cookie from 'cookie'
-import type { Handle, GetSession, HandleError } from '@sveltejs/kit'
+import type { Handle, GetSession } from '@sveltejs/kit'
 import { sessions } from '$lib/server/sessions'
 import { kvs } from "$lib/server/kvs"
 import { ZodError } from 'zod'

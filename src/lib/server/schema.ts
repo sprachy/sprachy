@@ -1,4 +1,4 @@
-import { CreateCollection, CreateIndex, Collection, Get } from "faunadb"
+import { CreateCollection, CreateIndex, Collection } from "faunadb"
 
 // Note collections and indexes must be created in separate transactions
 

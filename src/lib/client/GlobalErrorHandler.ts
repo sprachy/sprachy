@@ -1,6 +1,7 @@
 import * as Sentry from '@sentry/browser'
 // import { SENTRY_DSN_URL } from "~/settings"
-import axios, { AxiosError, AxiosResponse } from 'axios'
+import axios from 'axios'
+import type { AxiosError } from 'axios'
 
 const SENTRY_DSN_URL = ''
 

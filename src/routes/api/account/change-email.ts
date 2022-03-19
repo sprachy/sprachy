@@ -22,7 +22,7 @@ export const post: RequestHandler = async ({ request, locals }) => {
   const token = uuidv4()
   await kvs.putJson(
     `email_confirm_tokens:${token}`,
-    { userId: locals.session.userId, email: newEmail },
+    { userId: locals.session!.userId, email: newEmail },
     { expirationTtl: time.weeks(4) / 1000 }
   )
 

@@ -1,9 +1,11 @@
 <script lang="ts" context="module">
-  import patterns from "$lib/patterns";
+  import { sprachdex } from "$lib/sprachdex";
   import type { Load } from "./[pattern]";
 
   export const load: Load = async ({ params }) => {
-    const pattern = patterns.find((p) => p.slug === params.pattern);
+    const pattern = sprachdex.patternsIncludingDrafts.find(
+      (p) => p.slug === params.pattern
+    );
 
     if (!pattern) {
       return { status: 404 };
@@ -28,7 +30,7 @@
 
   export let pattern: PatternDef;
 
-  const progress = sprachy.app?.patternsAndProgress.find(
+  const progress = sprachy.spa?.patternsAndProgress.find(
     (p) => p.id === pattern.id
   )?.progress;
 </script>

@@ -1,4 +1,4 @@
-import faunadb, { Collection, Create, Documents, Expr, Get, Index, Login, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now, Difference, Select, Filter, Not, Time } from 'faunadb'
+import faunadb, { Collection, Create, Documents, Expr, Get, Index, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now } from 'faunadb'
 import type { ProgressItem, User } from '$lib/api'
 import _ from 'lodash'
 import { IS_PRODUCTION } from './settings'

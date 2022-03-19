@@ -1,16 +1,12 @@
 <script lang="ts">
   import _ from "lodash";
-  import { getContext } from "svelte";
-  // import { IS_PRODUCTION } from "./settings"
-  import { Link, navigate } from "svelte-navigator";
   import sprachy from "$lib/sprachy";
-  // @ts-ignore
-
+  import { dev } from "$app/env";
   const { spa } = sprachy;
 
-  const patterns = spa ? spa.allViewablePatterns : [];
+  // const patterns = spa ? spa.allViewablePatterns : [];
 
-  let dropdownTrigger: HTMLButtonElement;
+  // let dropdownTrigger: HTMLButtonElement;
 
   // const isDev = !IS_PRODUCTION
 
@@ -27,9 +23,9 @@
       <div class="container">
         <a sveltekit:prefetch class="navbar-brand" href="/">
           Sprachy
-          <!-- {#if isDev}
+          {#if dev}
             <span class="envbadge dev">dev</span>
-          {/if} -->
+          {/if}
         </a>
         <button
           class="navbar-toggler"
@@ -104,9 +100,9 @@
 .navbar-collapse
   flex-grow: 0
 
-.dropdown-toggle
-  all: unset
-  cursor: pointer
+// .dropdown-toggle
+//   all: unset
+//   cursor: pointer
 
 
 // .caret

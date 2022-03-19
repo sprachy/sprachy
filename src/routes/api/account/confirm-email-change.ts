@@ -10,7 +10,7 @@ export const post: RequestHandler = async ({ request, locals }) => {
   const { token } = confirmEmailChangeForm.parse(await request.json())
 
   const json = await kvs.getJson<{ userId: string, email: string }>(`email_confirm_tokens:${token}`)
-  if (json && json.userId === locals.session.userId) {
+  if (json && json.userId === locals.session?.userId) {
     await db.users.update(locals.session.userId, { email: json.email })
     return { newEmail: json.email }
   } else {

@@ -1,6 +1,5 @@
 <script lang="ts">
   import Fa from "svelte-fa";
-  import { Link } from "svelte-navigator";
 
   import Sprachdown from "$lib/Sprachdown.svelte";
   // import Timeago from "$lib/client/Timeago.svelte";

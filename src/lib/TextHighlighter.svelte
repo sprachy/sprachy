@@ -6,7 +6,7 @@
   import pixelWidth from "string-pixel-width";
 
   function estimateTextWidth(text: string) {
-    return pixelWidth(text, { size: 16, font: "Helvetica" });
+    return pixelWidth(text, { size: 16, font: "arial" });
   }
 
   type TextFragment =

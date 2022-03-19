@@ -1,11 +1,11 @@
 <script lang="ts">
   import _ from "lodash";
   import SiteLayout from "$lib/SiteLayout.svelte";
-  // import { IS_PRODUCTION } from "./settings";
   import PatternItem from "$lib/PatternItem.svelte";
   import NextPatternHomeTile from "$lib/client/NextPatternHomeTile.svelte";
   import PracticeHomeTile from "$lib/client/PracticeHomeTile.svelte";
   import sprachy from "$lib/sprachy";
+  import { dev } from "$app/env";
 
   async function debugResetProgress() {
     const { spa, api } = sprachy.expectSPA();
@@ -40,16 +40,17 @@
         <section class="chapter">
           <p><em>More patterns coming soon!</em></p>
         </section>
-        <!-- {#if !IS_PRODUCTION}
-        <div class="debug">
-          <button class="btn btn-outline-warning" on:click={debugResetProgress}
-            >Debug: Reset Progress</button
-          >
-          <button class="btn btn-outline-warning" on:click={debugSkipTime}
-            >Debug: Skip Time</button
-          >
-        </div>
-      {/if} -->
+        {#if dev}
+          <div class="debug">
+            <button
+              class="btn btn-outline-warning"
+              on:click={debugResetProgress}>Debug: Reset Progress</button
+            >
+            <button class="btn btn-outline-warning" on:click={debugSkipTime}
+              >Debug: Skip Time</button
+            >
+          </div>
+        {/if}
       </div>
     </div>
   {/if}

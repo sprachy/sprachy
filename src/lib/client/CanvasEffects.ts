@@ -1,5 +1,5 @@
 import { cubicOut } from 'svelte/easing'
-import * as _ from 'lodash'
+import _ from 'lodash'
 
 const confettiColors = [
   '#FFFF04',

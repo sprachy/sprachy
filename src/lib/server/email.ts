@@ -1,5 +1,5 @@
 import http from './http'
-import { MAILGUN_SECRET, IS_TESTING, IS_PRODUCTION } from './settings'
+import { MAILGUN_SECRET, IS_TESTING } from './settings'
 
 type PlaintextEmailMessage = {
   to: string

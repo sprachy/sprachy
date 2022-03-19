@@ -73,7 +73,7 @@ It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ fo
       translation: "My tail was always fluffy!",
     },
   ],
-  exericses: [
+  exercises: [
 
   ]
 })

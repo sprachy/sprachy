@@ -1,5 +1,7 @@
 <script lang="ts" context="module">
-  export function load({ session }) {
+  import type { Load } from "./index";
+
+  export const load: Load = async ({ session }) => {
     if (session.userId) {
       return {
         status: 303,
@@ -10,22 +12,14 @@
         status: 200,
       };
     }
-  }
+  };
 </script>
 
 <script lang="ts">
   import { goto } from "$app/navigation";
-
-  // import sprachy from "../sprachy";
   import _ from "lodash";
-  import { onMount } from "svelte";
-  let email: string = "";
 
-  // onMount(() => {
-  //   if (sprachy.user) {
-  //     navigate("/home");
-  //   }
-  // });
+  let email: string = "";
 
   async function gotoSignup() {
     goto("/signup?email=" + encodeURIComponent(email));

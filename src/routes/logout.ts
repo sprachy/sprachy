@@ -3,8 +3,9 @@ import { sessions } from "$lib/server/sessions"
 
 
 export const get: RequestHandler = async ({ locals }) => {
-  if (!locals.session) return
-  await sessions.expire(locals.session.sessionKey)
+  if (locals.session) {
+    await sessions.expire(locals.session.sessionKey)
+  }
   return {
     status: 303,
     headers: {

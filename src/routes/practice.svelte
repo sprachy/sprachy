@@ -74,13 +74,15 @@
   {:else if completed}
     <p>All reviews completed!</p>
   {:else}
-    <header class="practice-header">
-      <h3>Free Practice</h3>
-      <p class="text-secondary">
-        There aren't any patterns ready to level yet. If you like, you can
-        practice random exercises here.
-      </p>
-    </header>
+    {#if freePractice}
+      <header class="practice-header">
+        <h3>Free Practice</h3>
+        <p class="text-secondary">
+          There aren't any patterns ready to level yet. If you like, you can
+          practice random exercises here.
+        </p>
+      </header>
+    {/if}
     <div class="exercises">
       <StoryLineFillblank line={review} on:correct={nextReview} />
     </div>

@@ -4,8 +4,8 @@ import * as z from 'zod'
 
 export const get: RequestHandler = async ({ locals }) => {
   const [user, progressItems] = await Promise.all([
-    db.users.expect(locals.session.userId),
-    db.progress.listAllFor(locals.session.userId)
+    db.users.expect(locals.session!.userId),
+    db.progress.listAllFor(locals.session!.userId)
   ])
   return {
     status: 200,
@@ -19,7 +19,7 @@ const progressReport = z.object({
 })
 export const post: RequestHandler = async ({ request, locals }) => {
   const { patternId, level } = progressReport.parse(await request.json())
-  const progressItem = await db.progress.completeLevel(locals.session.userId, patternId, level)
+  const progressItem = await db.progress.completeLevel(locals.session!.userId, patternId, level)
   return {
     status: 200,
     body: progressItem
