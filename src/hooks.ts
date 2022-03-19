@@ -12,7 +12,10 @@ import { _settings } from "$lib/server/settings"
  */
 export const handle: Handle = async ({ event, resolve }) => {
   let env: Partial<App.SprachyEnvironment> = {}
-  if (dev && !prerendering) {
+  if (event.platform) {
+    // Production
+    env = event.platform.env
+  } else if (dev && !prerendering) {
     // Mock Cloudflare platform functionality in dev
     event.platform = {
       env: {
