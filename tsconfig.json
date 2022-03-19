@@ -5,6 +5,9 @@
       {
         "name": "vite-plugin-iso-import"
       }
-    ]
+    ],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true
   }
 }
