@@ -18,10 +18,6 @@ export class SprachyAPIClient {
   //   return this.http.post(`/api/signup`, { email, password, confirmPassword })
   // }
 
-  async logout(): Promise<void> {
-    return this.http.post(`/api/logout`)
-  }
-
   async getProgress(): Promise<ProgressSummary> {
     return this.http.get(`/api/progress`)
   }
@@ -39,11 +35,11 @@ export class SprachyAPIClient {
   }
 
   async sendPasswordResetEmail(email: string) {
-    return this.http.post(`/api/reset-password`, { email })
+    return this.http.post(`/reset-password`, { email })
   }
 
   async confirmPasswordReset({ token, newPassword, confirmPassword }: { token: string, newPassword: string, confirmPassword: string }) {
-    return this.http.post(`/api/confirm-reset-password`, { token, newPassword, confirmPassword })
+    return this.http.post(`/confirm-reset-password`, { token, newPassword, confirmPassword })
   }
 }
 
