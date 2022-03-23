@@ -3,9 +3,9 @@
 
   import Sprachdown from "$lib/Sprachdown.svelte"
   // import Timeago from "$lib/client/Timeago.svelte"
-  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA"
+  import type { Pattern } from "$lib/Pattern"
 
-  export let pattern: PatternAndProgress
+  export let pattern: Pattern
   $: patternLearned = false //pattern.progress.srsLevel > 0
   $: patternMastered = false //pattern.progress.srsLevel === pattern.maxLevel
 </script>
@@ -77,7 +77,8 @@ li.pattern
   .icon :global(svg)
     color: white
     width: 32px
-    height: 32px
+    height: 32px !important
+    vertical-align: middle !important
 
   h6
     font-size: 1.1rem

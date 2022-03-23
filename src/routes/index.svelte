@@ -19,8 +19,14 @@
   import { goto } from "$app/navigation"
   import PublicPage from "$lib/PublicPage.svelte"
   import _ from "lodash"
+  import { sprachdex } from "$lib/sprachdex"
+  import PatternIndex from "$lib/PatternIndex.svelte"
+  import SiteLayout from "$lib/SiteLayout.svelte"
 
   let email: string = ""
+  let password: string = ""
+  let confirmPassword: string = ""
+  let errors = {}
 
   async function gotoSignup() {
     goto("/signup?email=" + encodeURIComponent(email))
@@ -38,103 +44,155 @@
   cardImg="/meta-image.jpg"
   cardBig={true}
 >
-  <div class="frontpage">
-    <header>
-      <nav class="navbar navbar-expand-lg">
-        <div class="container">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a sveltekit:prefetch class="nav-link" href="/login">Sign in</a>
-            </li>
-            <li class="nav-item signup-link">
-              <a sveltekit:prefetch class="nav-link" href="/signup">Sign up</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-    <main class="container">
-      <div class="signup-box">
-        <h1>Learn German the clever and cute way</h1>
-        <h5>
-          Sprachy combines detailed explanations of language patterns with
-          memorable dialogue exercises. Also we have extradimensional psionic
-          squirrels.
-        </h5>
-        <form on:submit|preventDefault={gotoSignup}>
-          <fieldset class="form-group">
-            <label for="email">Email</label>
-            <input
-              bind:value={email}
-              name="email"
-              id="email"
-              type="email"
-              class:form-control={true}
-              placeholder="Email"
-              required
-            />
-          </fieldset>
+  <SiteLayout noContainer={true}>
+    <section class="banner">
+      <div class="container">
+        <div class="row">
+          <div class="col sitedesc">
+            <h1>Learn German the clever and cute way</h1>
+            <p>
+              Sprachy combines detailed explanations of language patterns with
+              memorable dialogue exercises. Also we have extradimensional
+              psionic squirrels.
+            </p>
+          </div>
+          <div class="col">
+            <div class="signup">
+              <form on:submit|preventDefault={gotoSignup}>
+                <fieldset class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    bind:value={email}
+                    name="email"
+                    id="email"
+                    type="email"
+                    class:form-control={true}
+                    placeholder="Email"
+                    required
+                  />
+                </fieldset>
 
-          <button class="btn btn-sprachy btn-lg" type="submit"
-            >Sign up for Sprachy</button
-          >
-        </form>
+                <fieldset class="form-group">
+                  <label for="password">Password</label>
+                  <input
+                    bind:value={password}
+                    name="password"
+                    id="password"
+                    type="password"
+                    class:form-control={true}
+                    class:is-invalid={!!errors.password}
+                    placeholder="Password"
+                    minLength="10"
+                    required
+                  />
+                  {#if errors.password}
+                    <div class="invalid-feedback">
+                      {errors.password}
+                    </div>
+                  {/if}
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label for="confirmPassword">Confirm Password</label>
+                  <!-- svelte-ignore a11y-autofocus -->
+                  <input
+                    bind:value={confirmPassword}
+                    name="confirm_password"
+                    id="confirm_password"
+                    type="password"
+                    class:form-control={true}
+                    class:is-invalid={!!errors.confirmPassword}
+                    placeholder="Confirm Password"
+                    minLength="10"
+                    required
+                  />
+                  {#if errors.confirmPassword}
+                    <div class="invalid-feedback">
+                      {errors.confirmPassword}
+                    </div>
+                  {/if}
+                </fieldset>
+
+                <button class="btn btn-sprachy btn-lg" type="submit"
+                  >Sign up for Sprachy</button
+                >
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-    </main>
-  </div>
+    </section>
+    <section class="patterns">
+      <div class="container">
+        <h2>All patterns</h2>
+        <PatternIndex />
+      </div>
+    </section>
+  </SiteLayout>
 </PublicPage>
 
 <style lang="sass">
-.frontpage
-  height: 100vh
+
+.container
+  position: relative
+  max-width: 1140px
+
+section.banner
+  position: relative
   background-image: url(/sprachy-bg.jpg)
   background-size: cover
   background-position: 50% 75%
-  display: flex
-  flex-direction: column
+  padding: 4rem 2rem
 
-.frontpage::before
-  content: ''
-  position: absolute
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
-  background-color: rgba(0,0,0,0.03)
-
-.form-group
-  margin-bottom: 1rem
-
-header
-  padding: 1rem
-  font-size: 110%
-
-  :global(a)
-    color: #333 !important
-
-  .signup-link
-    border: 1px solid #333
-    border-radius: 6px
-    margin-left: 1rem
-
-main.container
-  position: relative
-  flex-grow: 1
-  display: flex
-  align-items: center
-
-.signup-box
-  width: 50%
-  color: #5f2323
-
-  h1
-    font-size: 3.5rem
-    margin-bottom: 1.5rem
+  &::before
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: rgba(0,0,0,0.3)
   
-  h5
-    font-size: 1.3rem
-    line-height: 1.8rem
-    margin-bottom: 1.5rem
+  .sitedesc
+    color: white
+
+    p
+      font-size: 1.5rem
+      margin-bottom: 2rem
+
+  .signup
+    padding: 24px
+    background: white
+
+    .form-group
+      margin-bottom: 1rem
+
+    h1
+      margin-top: 10px
+      font-size: 3.3rem
+      margin-bottom: 2rem
+
+    button
+      width: 100%
+      padding: 20px 32px
+
+section.patterns
+  padding-top: 3rem
+
+  // div.half
+  //   display: flex
+  //   flex-direction: column
+  //   width: 50%
+  //   z-index: 1
+
+  //   h1
+  //     font-size: 3.5rem
+  //     margin-bottom: 1.5rem
+    
+  //   h5
+  //     font-size: 1.3rem
+  //     line-height: 1.8rem
+  //     margin-bottom: 1.5rem
 
 @media only screen and (max-width: 768px)
   .signup-box

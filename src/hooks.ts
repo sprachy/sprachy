@@ -116,29 +116,6 @@ export const getSession: GetSession = async (event) => {
   } else {
     return {}
   }
-  // const { session } = event.locals
-  // if (session) {
-  //   const [user, progressItems] = await Promise.all([
-  //     db.users.expect(session.userId),
-  //     db.progress.listAllFor(session.userId)
-  //   ])
-
-  //   return { user, progressItems }
-  // } else {
-  //   return {}
-  // }
-  // return event.locals.user
-  //   ? {
-  //     user: {
-  //       // only include properties needed client-side —
-  //       // exclude anything else attached to the user
-  //       // like access tokens etc
-  //       name: event.locals.user.name,
-  //       email: event.locals.user.email,
-  //       avatar: event.locals.user.avatar
-  //     }
-  //   }
-  //   : {}
 }
 
 // export const handleError: HandleError = async ({ error, event }) => {
