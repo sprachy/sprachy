@@ -19,14 +19,10 @@
   import { goto } from "$app/navigation"
   import PublicPage from "$lib/PublicPage.svelte"
   import _ from "lodash"
-  import { sprachdex } from "$lib/sprachdex"
   import PatternIndex from "$lib/PatternIndex.svelte"
   import SiteLayout from "$lib/SiteLayout.svelte"
 
   let email: string = ""
-  let password: string = ""
-  let confirmPassword: string = ""
-  let errors = {}
 
   async function gotoSignup() {
     goto("/signup?email=" + encodeURIComponent(email))
@@ -37,7 +33,7 @@
 </script>
 
 <PublicPage
-  title="Sprachy, an application for learning German"
+  title="Sprachy, a German learning application"
   canonicalPath="/"
   metaDesc={pageDesc}
   cardDesc={pageDesc}
@@ -48,76 +44,32 @@
     <section class="banner">
       <div class="container">
         <div class="row">
-          <div class="col sitedesc">
+          <div class="signup">
             <h1>Learn German the clever and cute way</h1>
+
             <p>
               Sprachy combines detailed explanations of language patterns with
               memorable dialogue exercises. Also we have extradimensional
               psionic squirrels.
             </p>
-          </div>
-          <div class="col">
-            <div class="signup">
-              <form on:submit|preventDefault={gotoSignup}>
-                <fieldset class="form-group">
-                  <label for="email">Email</label>
-                  <input
-                    bind:value={email}
-                    name="email"
-                    id="email"
-                    type="email"
-                    class:form-control={true}
-                    placeholder="Email"
-                    required
-                  />
-                </fieldset>
+            <form on:submit|preventDefault={gotoSignup}>
+              <fieldset class="form-group">
+                <label for="email">Email</label>
+                <input
+                  bind:value={email}
+                  name="email"
+                  id="email"
+                  type="email"
+                  class:form-control={true}
+                  placeholder="Email"
+                  required
+                />
+              </fieldset>
 
-                <fieldset class="form-group">
-                  <label for="password">Password</label>
-                  <input
-                    bind:value={password}
-                    name="password"
-                    id="password"
-                    type="password"
-                    class:form-control={true}
-                    class:is-invalid={!!errors.password}
-                    placeholder="Password"
-                    minLength="10"
-                    required
-                  />
-                  {#if errors.password}
-                    <div class="invalid-feedback">
-                      {errors.password}
-                    </div>
-                  {/if}
-                </fieldset>
-
-                <fieldset class="form-group">
-                  <label for="confirmPassword">Confirm Password</label>
-                  <!-- svelte-ignore a11y-autofocus -->
-                  <input
-                    bind:value={confirmPassword}
-                    name="confirm_password"
-                    id="confirm_password"
-                    type="password"
-                    class:form-control={true}
-                    class:is-invalid={!!errors.confirmPassword}
-                    placeholder="Confirm Password"
-                    minLength="10"
-                    required
-                  />
-                  {#if errors.confirmPassword}
-                    <div class="invalid-feedback">
-                      {errors.confirmPassword}
-                    </div>
-                  {/if}
-                </fieldset>
-
-                <button class="btn btn-sprachy btn-lg" type="submit"
-                  >Sign up for Sprachy</button
-                >
-              </form>
-            </div>
+              <button class="btn btn-sprachy btn-lg" type="submit"
+                >Sign up for Sprachy</button
+              >
+            </form>
           </div>
         </div>
       </div>
@@ -151,30 +103,28 @@ section.banner
     left: 0
     width: 100%
     height: 100%
-    background-color: rgba(0,0,0,0.3)
+    background-color: rgba(0,0,0,0.5)
   
-  .sitedesc
-    color: white
-
-    p
-      font-size: 1.5rem
-      margin-bottom: 2rem
-
   .signup
+    width: 50%
     padding: 24px
     background: white
+
+
+    h1
+      margin-top: 10px
+      font-size: 2.8rem
+      margin-bottom: 1rem
+
+    p
+      font-size: 1.1rem
 
     .form-group
       margin-bottom: 1rem
 
-    h1
-      margin-top: 10px
-      font-size: 3.3rem
-      margin-bottom: 2rem
-
     button
       width: 100%
-      padding: 20px 32px
+      padding: 1rem
 
 section.patterns
   padding-top: 3rem
