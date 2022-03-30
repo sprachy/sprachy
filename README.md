@@ -44,7 +44,7 @@ from there into the `.env` file where it says `FAUNA_ADMIN_KEY=`.
 Now we can populate the dev database with the schema:
 
 ```sh
-./manage.ts resetdb
+npm run resetdb
 ```
 
 ### Running development server

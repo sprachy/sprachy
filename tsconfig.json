@@ -9,5 +9,8 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitReturns": true
+  },
+  "ts-node": {
+    "transpileOnly": true
   }
 }

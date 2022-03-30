@@ -10,7 +10,8 @@
     "prepare": "svelte-kit sync",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "deploy": "wrangler publish --env live && node ./scripts/post-deploy.js",
-    "td": "wrangler publish --env staging"
+    "td": "wrangler publish --env staging",
+    "resetdb": "NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd node --loader ts-node/esm scripts/resetdb.ts"
   },
   "devDependencies": {
     "@babel/core": "^7.17.7",

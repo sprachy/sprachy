@@ -1,4 +1,5 @@
-import { CreateCollection, CreateIndex, Collection } from "faunadb"
+import fdb from "faunadb"
+const { CreateCollection, CreateIndex, Collection } = fdb
 
 // Note collections and indexes must be created in separate transactions
 
