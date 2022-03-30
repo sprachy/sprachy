@@ -1,0 +1,32 @@
+type = "javascript"
+compatibility_flags = []
+compatibility_date = "2022-03-30"
+
+[site]
+bucket = "./build"
+entry-point = "./workers-site"
+
+[build]
+command = "npm run build"
+
+[build.upload]
+format = "service-worker"
+
+[env.staging]
+workers_dev = true
+name = "sprachy-staging"
+kv-namespaces = [ 
+  { binding = "STORE", id = "1eac321c4c6549d9b0273011bd353be1" }
+]
+
+[env.staging.vars]
+FRONTEND_BASE_URL = "https://sprachy-staging.toggly.workers.dev/"
+
+[env.live]
+workers_dev = false
+# zone_id = "fdafda"
+route = "https://sprachy.com/*"
+name = "sprachy"
+kv-namespaces = [ 
+  { binding = "STORE", id = "bb9faad68907458c8ee529bf390f853e" } 
+]

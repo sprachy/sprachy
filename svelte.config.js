@@ -1,7 +1,6 @@
-import adapter from '@sveltejs/adapter-cloudflare'
+import adapterCloudflareWorkers from '@sveltejs/adapter-cloudflare-workers'
 import preprocess from 'svelte-preprocess'
 import { isoImport } from 'vite-plugin-iso-import'
-import { resolve } from "path"
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -10,7 +9,7 @@ const config = {
   preprocess: preprocess(),
 
   kit: {
-    adapter: adapter(),
+    adapter: adapterCloudflareWorkers(),
 
     // Override http methods in the Todo forms
     methodOverride: {

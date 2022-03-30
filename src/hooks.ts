@@ -5,6 +5,9 @@ import { DummyStore } from "$lib/server/kvs"
 import { ZodError } from 'zod'
 import { dev, prerendering } from '$app/env'
 import { _settings } from "$lib/server/settings"
+import { getCloudflareWorkersEnv } from "./workersEnv"
+
+declare const FRONTEND_BASE_URL: string
 
 /**
  * All requests to the server are wrapped by this hook.
@@ -32,7 +35,7 @@ export const handle: Handle = async ({ event, resolve }) => {
       FRONTEND_BASE_URL: "https://sprachy.com"
     }
   } else {
-    env = event.platform.env
+    env = getCloudflareWorkersEnv()
   }
 
   // Double check some environment variables
