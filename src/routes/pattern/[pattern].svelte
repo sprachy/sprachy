@@ -1,6 +1,4 @@
 <script lang="ts" context="module">
-  export const prerender = true
-
   import { sprachdex } from "$lib/sprachdex"
   import type { Load } from "./[pattern]"
 

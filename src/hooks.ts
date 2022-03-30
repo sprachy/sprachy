@@ -6,6 +6,7 @@ import { ZodError } from 'zod'
 import { dev, prerendering } from '$app/env'
 import { _settings } from "$lib/server/settings"
 import { getCloudflareWorkersEnv } from "./workersEnv"
+import { isAuthedRoute } from '$lib/routing'
 
 /**
  * All requests to the server are wrapped by this hook.
@@ -85,8 +86,11 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 
   try {
-    const response = await resolve(event, { ssr: !session })
-    return response
+    if (session && isAuthedRoute(event.url.pathname)) {
+      return await resolve(event, { ssr: false })
+    } else {
+      return await resolve(event)
+    }
   } catch (err: any) {
     if (err instanceof ZodError) {
       const json = { status: 422, code: "validation failed", errors: err.issues }
