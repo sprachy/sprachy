@@ -1,11 +1,11 @@
 <script lang="ts">
   import _ from "lodash"
   import SiteLayout from "$lib/SiteLayout.svelte"
-  import PatternItem from "$lib/PatternItem.svelte"
   import NextPatternHomeTile from "$lib/client/NextPatternHomeTile.svelte"
   import PracticeHomeTile from "$lib/client/PracticeHomeTile.svelte"
   import sprachy from "$lib/sprachy"
   import { dev } from "$app/env"
+  import PatternIndex from "$lib/PatternIndex.svelte"
 
   async function debugResetProgress() {
     const { spa, api } = sprachy.expectSPA()
@@ -29,18 +29,10 @@
       </div>
       <hr />
       <div class="patterns">
-        <section class="chapter">
-          <h2>All patterns</h2>
-          <ul>
-            {#each sprachy.spa.patternsAndProgress as pattern (pattern.id)}
-              <PatternItem {pattern} />
-            {/each}
-          </ul>
-        </section>
-        <section class="chapter">
-          <p><em>More patterns coming soon!</em></p>
-        </section>
+        <h2>All patterns</h2>
+        <PatternIndex />
         {#if dev}
+          <hr />
           <div class="debug">
             <button
               class="btn btn-outline-warning"
@@ -57,18 +49,6 @@
 </SiteLayout>
 
 <style lang="sass">
-.chapter
-  // header
-  //   text-align: center
-
-  ul
-    padding: 0
-
-.chapter:not(:first-child)
-  margin-top: 1rem
-  border-top: 1px solid #ccc
-  padding-top: 1rem
-
 .tiles
   display: flex
 </style>

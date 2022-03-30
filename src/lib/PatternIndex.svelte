@@ -14,7 +14,6 @@
 
 <style lang="sass">
 .pattern-index
-
   ul
     display: flex
     flex-wrap: wrap
