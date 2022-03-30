@@ -1,5 +1,6 @@
 <script lang="ts">
   import SiteHeader from "./SiteHeader.svelte"
+  import { sprachdex } from "./sprachdex"
 
   export let title: string | null = null
   export let noContainer: boolean = false
@@ -7,6 +8,9 @@
 </script>
 
 <svelte:head>
+  {#each sprachdex.characters as character}
+    <link rel="preload" as="image" href={character.avatar} />
+  {/each}
   {#if title}
     <title>{title} - Sprachy</title>
   {:else}

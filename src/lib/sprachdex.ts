@@ -12,8 +12,8 @@ import patternDefs from "$lib/patterns"
  * but we don't need to worry about it for now.
  */
 class Sprachdex {
+  characters = characters
   patternsIncludingDrafts = patternDefs.map((p) => parsePattern(p))
-
   publishedPatterns = this.patternsIncludingDrafts.filter((p) => !p.draft)
   draftPatterns = this.patternsIncludingDrafts.filter((p) => p.draft)
 

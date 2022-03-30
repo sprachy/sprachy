@@ -1,8 +1,26 @@
 import { md } from "./sprachdown"
+import lukas from "$lib/img/lukas.png"
+import anna from "$lib/img/anna.png"
+import squirrel from "$lib/img/squirrel.png"
+import lindenbaum from "$lib/img/scientist.png"
+import deer from "$lib/img/deer.png"
+import cashier from "$lib/img/cashier.png"
+import mirror from "$lib/img/mirror.png"
+import explorer from "$lib/img/explorer.png"
+import robot from "$lib/img/robot.png"
+import reporter from "$lib/img/reporter.png"
+import fish from "$lib/img/fish.png"
+import dog from "$lib/img/dog.png"
+import leonie from "$lib/img/leonie.png"
+import nils from "$lib/img/nils.png"
+import fox from "$lib/img/fox.png"
+import harald from "$lib/img/harald.png"
+import klaus from "$lib/img/klaus.png"
 
 export type Character = {
   id: string
   name: string
+  avatar: string
   fullname: string
   profile: string
 }
@@ -72,6 +90,7 @@ const characters = [
    */
   {
     id: "squirrel",
+    avatar: squirrel,
     name: "Töskirelon",
     fullname: "Töskirelon Uferlos Yi",
     profile: md`
@@ -88,6 +107,7 @@ An extradimensional squirrel-like lifeform with vast psionic power. Tösky is cu
   {
     id: "lukas",
     name: "Lukas",
+    avatar: lukas,
     fullname: "Lukas Zweidenker",
     profile: md`
 A student at a German university, studying science and philosophy. He likes tea and fluffy things. Totally down to hang out with an alien squirrel.
@@ -96,6 +116,7 @@ A student at a German university, studying science and philosophy. He likes tea 
   {
     id: "lindenbaum",
     name: "Lindenbaum",
+    avatar: lindenbaum,
     fullname: "Fräulein Lindenbaum",
     profile: md`
 A highly energetic high-energy physicist. She works singlemindedly towards a certain goal, alongside mysterious allies.
@@ -104,6 +125,7 @@ A highly energetic high-energy physicist. She works singlemindedly towards a cer
   {
     id: "fox",
     name: "Schlaufuchs",
+    avatar: fox,
     fullname: "Schlaufuchs",
     profile: md`
 An advanced artificial intelligence created by Lindenbaum. This young and mischevous entity represents himself with a fox avatar.
@@ -112,6 +134,7 @@ An advanced artificial intelligence created by Lindenbaum. This young and mische
   {
     id: "cashier",
     name: "Cashier",
+    avatar: cashier,
     fullname: "Cashier",
     profile: md`
 A local supermarket cashier. She has no idea that fuzzy eldritch entities are browsing the snack aisle.
@@ -120,6 +143,7 @@ A local supermarket cashier. She has no idea that fuzzy eldritch entities are br
   {
     id: "mirror",
     name: "Mirror",
+    avatar: mirror,
     fullname: "Mirror",
     profile: md`
 Töski's mirror. Töski brought this seemingly inanimate object to life using esper powers.
@@ -133,6 +157,7 @@ Töski's mirror. Töski brought this seemingly inanimate object to life using es
   {
     id: "explorer",
     name: "Explorer",
+    avatar: explorer,
     fullname: "Explorer",
     profile: md`
 An interplanetary explorer. Seems to be searching for something among the ruins of fallen civilizations.
@@ -141,6 +166,7 @@ An interplanetary explorer. Seems to be searching for something among the ruins 
   {
     id: "robot",
     name: "Ancient Robot",
+    avatar: robot,
     fullname: "Ancient Robot",
     profile: md`
 An ancient traffic law enforcement robot. Somehow still operating despite the city it serves being long abandoned.
@@ -149,6 +175,7 @@ An ancient traffic law enforcement robot. Somehow still operating despite the ci
   {
     id: "reporter",
     name: "Reporter",
+    avatar: reporter,
     fullname: "Reporter",
     profile: md`
 A reporter covering science news. He doesn't _really_ know what he's talking about, but he tries his best.
@@ -157,6 +184,7 @@ A reporter covering science news. He doesn't _really_ know what he's talking abo
   {
     id: "fish",
     name: "Fish",
+    avatar: fish,
     fullname: "Fish",
     profile: md`
 A small diadromous fish-like organism. It's not entirely clear if it's intelligent or self-aware.
@@ -165,6 +193,7 @@ A small diadromous fish-like organism. It's not entirely clear if it's intellige
   {
     id: "dog",
     name: "Dog",
+    avatar: dog,
     fullname: "Dog",
     profile: md`
 A local house pet and good boy. Prepared to sacrifice his life in defense of his family, if need be.
@@ -173,6 +202,7 @@ A local house pet and good boy. Prepared to sacrifice his life in defense of his
   {
     id: "leonie",
     name: "Leonie",
+    avatar: leonie,
     fullname: "Leonie Köhler",
     profile: md`
 A volunteer at the local dragon reserve. She is patient and fond of nature.
@@ -181,6 +211,7 @@ A volunteer at the local dragon reserve. She is patient and fond of nature.
   {
     id: "nils",
     name: "Nils",
+    avatar: nils,
     fullname: "Nilkorozog the Incorrigible",
     profile: md`
 A young dragon who lives on the dragon reserve. He recently developed an interest in human languages and culture.
@@ -189,6 +220,7 @@ A young dragon who lives on the dragon reserve. He recently developed an interes
   {
     id: "anna",
     name: "Anna",
+    avatar: anna,
     fullname: "Anna Zweidenker",
     profile: md`
 An outgoing young professional, and Lukas' older sister. She likes to tease him.
@@ -197,6 +229,7 @@ An outgoing young professional, and Lukas' older sister. She likes to tease him.
   {
     id: "harald",
     name: "Harald",
+    avatar: harald,
     fullname: "Harald Federstrauß",
     profile: md`
 An old man who has recently discovered his hobby in writing, though he might be a bit too overconfident.
@@ -205,6 +238,7 @@ An old man who has recently discovered his hobby in writing, though he might be 
   {
     id: "klaus",
     name: "Klaus",
+    avatar: klaus,
     fullname: "Klaus Maus",
     profile: md`
 It's Harald's little rat companion, though Harald refuses to acknowledge that and considers him a mouse just so he can keep up with the rhyming name.
