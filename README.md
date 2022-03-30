@@ -10,7 +10,7 @@ The code is licensed under MIT, while the content is CC-BY. If you want to make 
 
 ## Developing Sprachy
 
-Sprachy is built with [SvelteKit](https://kit.svelte.dev/docs/introduction) using [adapter-cloudflare-workers](https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare-workers). The database is provided by [FaunaDB](https://fauna.com/). This architecture lets the site run fully serverless in production, independent from any particular geographic region. Note that some of these dependencies are still pretty new and they make break in odd ways!
+Sprachy is built with [SvelteKit](https://kit.svelte.dev/docs/introduction) using [adapter-cloudflare-workers](https://github.com/sveltejs/kit/tree/master/packages/adapter-cloudflare-workers). The database is provided by [FaunaDB](https://fauna.com/). This architecture lets the site run fully serverless in production, independent from any particular geographic region. Note that some of these dependencies are still pretty new and they may break in odd ways!
 
 ### Installing dependencies
 
