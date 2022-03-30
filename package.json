@@ -9,7 +9,7 @@
     "preview": "svelte-kit preview",
     "prepare": "svelte-kit sync",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "deploy": "wrangler publish --env live",
+    "deploy": "wrangler publish --env live && node ./scripts/post-deploy.js",
     "td": "wrangler publish --env staging"
   },
   "devDependencies": {
@@ -42,6 +42,7 @@
     "miniflare": "^2.3.0",
     "mkdirp": "^1.0.4",
     "prompt-confirm": "^2.0.4",
+    "shelljs": "^0.8.5",
     "svelte": "^3.46.4",
     "svelte-check": "^2.4.6",
     "svelte-preprocess": "^4.10.1",
@@ -83,7 +84,6 @@
     "sade": "^1.8.1",
     "sass": "^1.49.9",
     "sass-loader": "12.6.0",
-    "shelljs": "^0.8.5",
     "slugify": "^1.6.5",
     "string-pixel-width": "^1.10.0",
     "svelte-fa": "^2.4.0",
