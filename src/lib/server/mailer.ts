@@ -35,9 +35,11 @@ export class Mailer {
 
     const { MAILGUN_SECRET } = expectSettings()
 
-    if (false) { //IS_TESTING) {
-      testMailsSent.push(msg)
-    } else if (!MAILGUN_SECRET) {
+    // if (IS_TESTING) {
+    //   testMailsSent.push(msg)
+    // } else 
+    
+    if (!MAILGUN_SECRET) {
       return await http.post("https://api.mailgun.net/v3/mg.sprachy.com/messages", body, {
         headers: {
           Authorization: `Basic ${btoa(`api:${MAILGUN_SECRET}`)}`

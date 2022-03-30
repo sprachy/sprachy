@@ -12,7 +12,7 @@ class FaunaConnector {
     const { FAUNA_ADMIN_KEY } = expectSettings()
     if (!this._client) {
       this._client = new faunadb.Client({
-        secret: FAUNA_ADMIN_KEY
+        secret: FAUNA_ADMIN_KEY!
       })
     }
     return this._client

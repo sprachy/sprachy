@@ -1,5 +1,3 @@
-
-import { dev } from "$app/env"
 import { expectSettings } from "./settings"
 
 /** For development */
@@ -34,7 +32,7 @@ export class DummyStore {
 class KVStoreClient {
   get STORE() {
     const { STORE } = expectSettings()
-    return STORE
+    return STORE!
   }
 
   async getText(key: string): Promise<string | null> {

@@ -61,7 +61,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     DISCORD_SIGNUP_WEBHOOK
   }
   Object.assign(_settings, filledSettings)
-  event.locals.env = _settings
+  event.locals.env = _settings as App.SprachyEnvironment
 
   // Look up the userId matching any sessionKey in the request's cookie
   // This is how we identify a logged in user for all requests

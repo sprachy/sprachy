@@ -51,8 +51,8 @@
 
             <p>
               Sprachy combines detailed explanations of language patterns with
-              memorable dialogue exercises. Also we have extradimensional
-              psionic squirrels.
+              memorable dialogue exercises. Also it involves extradimensional
+              squirrels.
             </p>
             <form on:submit|preventDefault={gotoSignup}>
               <fieldset class="form-group">
@@ -145,18 +145,4 @@ section.patterns
   //     font-size: 1.3rem
   //     line-height: 1.8rem
   //     margin-bottom: 1.5rem
-
-@media only screen and (max-width: 768px)
-  .signup-box
-    width: auto
-    margin: 5%
-    text-align: center
-    h1
-      font-size: 2.5rem
-    h5
-      font-size: 1rem
-
-    button
-      padding: 0.625rem 1.5625rem
-      font-weight: 700
 </style>

@@ -10,7 +10,7 @@ import { db } from '$lib/server/db'
 const changeEmailForm = z.object({
   newEmail: z.string()
 })
-export const post: RequestHandler = async ({ request, locals, platform }) => {
+export const post: RequestHandler = async ({ request, locals }) => {
   const { newEmail } = changeEmailForm.parse(await request.json())
 
   const existingUser = await db.users.getByEmail(newEmail)
