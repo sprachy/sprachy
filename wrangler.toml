@@ -1,6 +1,7 @@
 type = "javascript"
 compatibility_flags = []
 compatibility_date = "2022-03-30"
+account_id = "e24de7c361b035e990d2814691027093"
 
 [site]
 bucket = "./build"
@@ -20,13 +21,16 @@ kv-namespaces = [
 ]
 
 [env.staging.vars]
-FRONTEND_BASE_URL = "https://sprachy-staging.toggly.workers.dev/"
+FRONTEND_BASE_URL = "https://sprachy-staging.toggly.workers.dev"
 
 [env.live]
 workers_dev = false
-# zone_id = "fdafda"
+zone_id = "6f3dc9a177c40debfd85f65777af39de"
 route = "https://sprachy.com/*"
 name = "sprachy"
 kv-namespaces = [ 
   { binding = "STORE", id = "bb9faad68907458c8ee529bf390f853e" } 
 ]
+
+[env.live.vars]
+FRONTEND_BASE_URL = "https://sprachy.com"

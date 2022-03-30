@@ -1,4 +1,6 @@
 <script lang="ts" context="module">
+  export const prerender = true
+
   import { sprachdex } from "$lib/sprachdex"
   import type { Load } from "./[pattern]"
 
@@ -34,7 +36,6 @@
   const progress = sprachy.spa?.patternsAndProgress.find(
     (p) => p.id === pattern.id
   )?.progress
-  console.log(sprachy.spa)
 </script>
 
 <PublicPage

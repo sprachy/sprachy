@@ -1,4 +1,6 @@
 <script lang="ts" context="module">
+  export const prerender = true
+
   import type { Load } from "./index"
 
   export const load: Load = async ({ session }) => {

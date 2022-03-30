@@ -7,30 +7,28 @@ import { dev, prerendering } from '$app/env'
 import { _settings } from "$lib/server/settings"
 import { getCloudflareWorkersEnv } from "./workersEnv"
 
-declare const FRONTEND_BASE_URL: string
-
 /**
  * All requests to the server are wrapped by this hook.
  * Define middleware here.
  */
 export const handle: Handle = async ({ event, resolve }) => {
+  let env: Partial<App.SprachyEnvironment> = {}
+
   if (dev) {
+    env = {
+      FRONTEND_BASE_URL: "http://localhost:5999",
+      ...process.env,
+      STORE: new DummyStore() as any as KVNamespace,
+    }
+
     // Mock Cloudflare platform functionality in dev
     event.platform = {
-      env: {
-        FRONTEND_BASE_URL: "http://localhost:5999",
-        ...process.env,
-        STORE: new DummyStore() as any as KVNamespace,
-      },
       context: {
         // Just a no-op in dev
         waitUntil: async (promise: Promise<any>) => { return promise }
       }
-    }
-  }
-
-  let env: Partial<App.SprachyEnvironment> = {}
-  if (prerendering) {
+    } as any
+  } else if (prerendering) {
     env = {
       FRONTEND_BASE_URL: "https://sprachy.com"
     }
@@ -87,8 +85,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 
   try {
-    const ssr = !session
-    const response = await resolve(event, { ssr })
+    const response = await resolve(event, { ssr: !session })
     return response
   } catch (err: any) {
     if (err instanceof ZodError) {

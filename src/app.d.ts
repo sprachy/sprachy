@@ -23,12 +23,9 @@ declare namespace App {
   /**
    * Type definitions for Cloudflare Workers platform.
    * Provided by CF in production, we mock it through hooks in dev.
-   * https://www.npmjs.com/package/@sveltejs/adapter-cloudflare
+   * https://www.npmjs.com/package/@sveltejs/adapter-cloudflare-workers
    */
   interface Platform {
-    env: {
-      STORE: KVNamespace
-    } & Partial<SprachyEnvironment>
     context: {
       waitUntil(promise: Promise<any>): void
     }

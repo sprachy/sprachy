@@ -98,14 +98,18 @@
                 <a
                   class="nav-link"
                   sveltekit:prefetch
-                  href={`/login?next=${$page.url.pathname}`}>Login</a
+                  href={$page.url.pathname === "/"
+                    ? "/login"
+                    : `/login?next=${$page.url.pathname}`}>Login</a
                 >
               </li>
               <li class="nav-item">
                 <a
                   class="nav-link"
                   sveltekit:prefetch
-                  href={`/signup?next=${$page.url.pathname}`}>Sign up</a
+                  href={$page.url.pathname === "/"
+                    ? "/signup"
+                    : `/signup?next=${$page.url.pathname}`}>Sign up</a
                 >
               </li>
             {/if}
