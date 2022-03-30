@@ -17,7 +17,7 @@ const signupForm = z.object({
   message: "Confirm password must be identical to password",
   path: ["confirmPassword"]
 })
-export const post: RequestHandler = async ({ request, platform, locals }) => {
+export const post: RequestHandler = async ({ request, locals }) => {
   const { email, password } = signupForm.parse(await request.json())
   try {
     const user = await db.users.create({ email, password, isAdmin: false })
@@ -31,8 +31,9 @@ export const post: RequestHandler = async ({ request, platform, locals }) => {
         content: `Yuh new learny person **${email}** appeared! ❤️🐿️`,
       }
 
-      const req = http.postJson(locals.env.DISCORD_SIGNUP_WEBHOOK, params)
-      platform.context.waitUntil(req)
+      http.postJson(locals.env.DISCORD_SIGNUP_WEBHOOK, params)
+      // const req = http.postJson(locals.env.DISCORD_SIGNUP_WEBHOOK, params)
+      // platform.context.waitUntil(req)
     }
 
     return {
