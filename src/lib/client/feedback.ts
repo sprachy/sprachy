@@ -21,13 +21,13 @@ const defaultFeedback: Record<string, Record<string, string>> = {
     deine: "This is the feminine form. The noun has a different gender."
   },
   eine: {
-    ein: "This is the masculine or neuter form. The noun has a different gender."
+    ein: "This is the masculine or neuter form. The noun has a different gender (or is pluralized)."
   },
   meine: {
-    mein: "This is the masculine or neuter form. The noun has a different gender."
+    mein: "This is the masculine or neuter form. The noun has a different gender (or is pluralized)."
   },
   deine: {
-    dein: "This is the masculine or neuter form. The noun has a different gender."
+    dein: "This is the masculine or neuter form. The noun has a different gender (or is pluralized)."
   }
 }
 
