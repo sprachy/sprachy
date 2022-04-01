@@ -112,7 +112,6 @@ section.banner
     padding: 24px
     background: white
 
-
     h1
       margin-top: 10px
       font-size: 2.8rem
@@ -145,4 +144,12 @@ section.patterns
   //     font-size: 1.3rem
   //     line-height: 1.8rem
   //     margin-bottom: 1.5rem
+
+
+@media only screen and (max-width: 768px)
+  section.banner
+    padding: 2rem 1rem
+
+    .signup
+      width: 100%
 </style>
