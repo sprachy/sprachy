@@ -87,7 +87,12 @@
 <div class="Story">
   <div class="lines">
     {#each lines as line, i}
-      <div class="line" in:fly={{ y: 20, duration: 500 }} bind:this={lineRef}>
+      <div
+        class:line
+        class:hinted={line.type === "fillblank" && line.hint}
+        in:fly={{ y: 20, duration: 500 }}
+        bind:this={lineRef}
+      >
         {#if line.type === "reading"}
           <StoryLineReading {line} flip={lineFlips[i]} />
         {:else}
@@ -118,6 +123,9 @@
 
   .line:not(:first-child)
     margin-top: 1rem
+
+  .line.hinted:not(:first-child)
+    margin-top: 2rem
 
   footer
     border-top: 1px solid #ccc

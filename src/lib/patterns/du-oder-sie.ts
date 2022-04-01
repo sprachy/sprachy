@@ -68,8 +68,11 @@ Note that all three forms of sie/Sie change to ihr/Ihr for the possessive!
       hint: "[formal]",
     },
   ],
-  exercises: [
-  ]
+  exercises: [{
+    from: "cashier",
+    message: "Möchten [Sie] dazu Pommes frites?",
+    translation: "Would [you] like fries with that?",
+  }]
 })
 
 

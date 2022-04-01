@@ -1,5 +1,5 @@
 <script lang="ts">
-  import _ from "lodash"
+  import _, { at } from "lodash"
   import { createEventDispatcher, onMount } from "svelte"
   import Message from "$lib/Message.svelte"
   import type { FillblankLine } from "$lib/Pattern"
@@ -90,6 +90,11 @@
       size={inputWidthChars}
       disabled={complete}
     />
+    {#if line.hint && attempt.length}
+      <div class="overhint">
+        {line.hint}
+      </div>
+    {/if}
     <Sprachdown inline source={parts.after} />
   </form>
   <div slot="after">
@@ -136,7 +141,7 @@ input.fillblank
 input.fillblank:focus
   outline: none
 
-input.fillblank::placeholder
+.overhint, input.fillblank::placeholder
   color: #86abff
   font-size: 80%
 
@@ -146,4 +151,11 @@ input.fillblank:disabled
 
 .feedback
   color: #0b9bc7
+
+.overhint
+  position: absolute
+  top: -0.2rem
+  left: 50%
+  width: 100%
+  transform: translate(-50%, -100%)
 </style>
