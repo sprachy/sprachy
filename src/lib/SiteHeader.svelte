@@ -17,6 +17,7 @@
     DropdownMenu,
     DropdownItem,
   } from "sveltestrap"
+  import { sprachdex } from "./sprachdex"
   const { spa } = sprachy
 
   let isOpen = false
@@ -55,6 +56,22 @@
               <NavLink href="/practice">Practice</NavLink>
             </NavItem>
           {/if}
+
+          <Dropdown nav inNavbar>
+            <DropdownToggle nav caret>Patterns</DropdownToggle>
+            <DropdownMenu end>
+              {#each sprachdex.publishedPatterns as pattern}
+                <DropdownItem>
+                  <a
+                    sveltekit:prefetch
+                    class="dropdown-item"
+                    href={`/pattern/${pattern.slug}`}>{pattern.title}</a
+                  >
+                </DropdownItem>
+              {/each}
+            </DropdownMenu>
+          </Dropdown>
+
           <NavItem>
             <NavLink href="/faq">FAQ</NavLink>
           </NavItem>
@@ -95,43 +112,9 @@
               >
             </NavItem>
           {/if}
-          <!-- <Dropdown nav inNavbar>
-            <DropdownToggle nav caret>Options</DropdownToggle>
-            <DropdownMenu end>
-              <DropdownItem>Option 1</DropdownItem>
-              <DropdownItem>Option 2</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>Reset</DropdownItem>
-            </DropdownMenu>
-          </Dropdown> -->
         </Nav>
       </Collapse>
     </Navbar>
-
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-            <li class="nav-item">
-                <div class="nav-link">
-                  <Dropdown triggerElement={dropdownTrigger}>
-                    <button class="dropdown-toggle" bind:this={dropdownTrigger}>
-                      Patterns
-                    </button>
-                    <div slot="DropdownMenu">
-                      {#each patterns as pattern}
-                        <a
-                          sveltekit:prefetch
-                          class="dropdown-item"
-                          href={`/pattern/${pattern.slug}`}>{pattern.title}</a
-                        >
-                      {/each}
-                    </div>
-                  </Dropdown>
-                </div>
-              </li>
-          </ul>
-        </div>
-      </div>
-    </nav> -->
   </header>
 </template>
 
