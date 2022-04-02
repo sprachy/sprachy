@@ -22,18 +22,9 @@
 
   let isOpen = false
 
-  function handleUpdate(event) {
+  function handleUpdate(event: CustomEvent<any>) {
     isOpen = event.detail.isOpen
   }
-  // const patterns = spa ? spa.allViewablePatterns : []
-
-  // let dropdownTrigger: HTMLButtonElement
-
-  // async function logout() {
-  //   await sprachy.api.logout()
-  //   sprachy.closeApp()
-  //   navigate("/")
-  // }
 </script>
 
 <template>

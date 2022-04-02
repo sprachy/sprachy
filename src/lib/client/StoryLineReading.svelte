@@ -9,10 +9,10 @@
 </script>
 
 <Message from={line.from} {flip}>
-  {line.message}
+  <Sprachdown inline source={line.message} />
   <div slot="after">
     <div class="translation">
-      {@html line.translation}
+      <Sprachdown inline source={line.translation} />
     </div>
     {#if line.explanation}
       <div class="explanation">

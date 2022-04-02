@@ -55,11 +55,6 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
   story: [
     {
       from: "lukas",
-      message: "Ich glaube, ich werde spazieren gehen.",
-      translation: "I think I will go for a walk."
-    },
-    {
-      from: "lukas",
       message: "[Die] Welt ist heute friedlich.",
       translation: "[The] world is peaceful today.",
       hint: "[feminine]",
@@ -72,8 +67,8 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
     },
     {
       from: "lukas",
-      message: "[Das] Eichhörnchen... redet mit mir?",
-      translation: "[The] squirrel... is talking to me?",
+      message: "Und jetzt... spricht [das] Eichhörnchen mit mir?",
+      translation: "And now... [the] squirrel is talking to me?",
       hint: "[neuter]",
     },
     {
@@ -81,6 +76,33 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
       message: "[Die] Nüsse hier sind auch sehr lecker.",
       translation: "[The] nuts here are also very tasty.",
     },
+    {
+      from: "lukas",
+      message: "[Der] Tag wurde definitiv merkwürdiger!",
+      translation: "[The] day definitely got weirder!",
+      hint: "[masculine]"
+    },
+    {
+      from: "squirrel",
+      message: "Nun, [der] Mensch flippt nicht aus. Das ist schon mal ein guter Anfang.",
+      translation: "Well, [the] human isn't freaking out. That's a good start.",
+      hint: "[masculine]"
+    },
+    {
+      from: "lukas",
+      message: "Ich habe _so viele_ Fragen.",
+      translation: "I have _so many_ questions."
+    },
+    {
+      from: "squirrel",
+      message: "[Die] Fragen... Ich werde einige beantworten, wenn ihr mir helft, meine Anwesenheit geheim zu halten.",
+      translation: "[The] questions... I will answer some, if you help keep my presence secret."
+    },
+    {
+      from: "lukas",
+      message: "Abgemacht!",
+      translation: "Deal!"
+    }
   ],
   exercises: [
     {
