@@ -130,7 +130,6 @@
   footer
     border-top: 1px solid #ccc
     position: fixed
-    height: 8rem
     bottom: 0
     left: 50%
     transform: translateX(-50%)
