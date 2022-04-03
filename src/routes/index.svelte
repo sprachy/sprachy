@@ -39,8 +39,6 @@
   canonicalPath="/"
   metaDesc={pageDesc}
   cardDesc={pageDesc}
-  cardImg="/meta-image.jpg"
-  cardBig={true}
 >
   <SiteLayout noContainer={true}>
     <section class="banner">

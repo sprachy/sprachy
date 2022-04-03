@@ -17,7 +17,9 @@
   }
 
   $: canonicalUrl = `https://sprachy.com${canonicalPath}`
-  $: imgUrl = cardImg ? `https://sprachy.com${cardImg}` : null
+  $: imgUrl = cardImg
+    ? `https://sprachy.com${cardImg}`
+    : `https://sprachy.com/meta-image.jpg`
 </script>
 
 <svelte:head>
