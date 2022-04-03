@@ -14,7 +14,7 @@
         <div class="card">
           <span class="card-title">Free Practice</span>
           <p>
-            You can level a pattern in <Timeago
+            You can level a pattern <Timeago
               ts={nextLevelable.progress.levelableAt}
             />
           </p>
