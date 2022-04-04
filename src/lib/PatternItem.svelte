@@ -34,9 +34,6 @@
 </li>
 
 <style lang="sass">
-li.pattern:not(:first-child)
-  margin-top: 1rem
-
 // li.pattern:not(.ready)
 //   filter: grayscale(100%)
 
@@ -61,7 +58,7 @@ li.pattern
   > :global(a)
     display: flex
     align-items: center
-    padding: 1rem
+    padding: 1.5rem 1rem
     padding-left: 0
     color: inherit
     text-decoration: none
