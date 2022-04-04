@@ -52,12 +52,8 @@
             <DropdownToggle nav caret>Patterns</DropdownToggle>
             <DropdownMenu end>
               {#each sprachdex.publishedPatterns as pattern}
-                <DropdownItem>
-                  <a
-                    sveltekit:prefetch
-                    class="dropdown-item"
-                    href={`/pattern/${pattern.slug}`}>{pattern.title}</a
-                  >
+                <DropdownItem href={`/pattern/${pattern.slug}`}>
+                  {pattern.title}
                 </DropdownItem>
               {/each}
             </DropdownMenu>
