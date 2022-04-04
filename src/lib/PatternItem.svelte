@@ -73,6 +73,7 @@ li.pattern
   .icon
     padding: 0.75rem
     margin-right: 1rem
+    border-radius: 0.25rem
 
   .icon :global(svg)
     color: white
