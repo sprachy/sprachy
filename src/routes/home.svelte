@@ -1,11 +1,10 @@
 <script lang="ts">
   import _ from "lodash"
   import SiteLayout from "$lib/SiteLayout.svelte"
-  import NextPatternHomeTile from "$lib/client/NextPatternHomeTile.svelte"
-  import PracticeHomeTile from "$lib/client/PracticeHomeTile.svelte"
   import sprachy from "$lib/sprachy"
   import { dev } from "$app/env"
   import PatternIndex from "$lib/PatternIndex.svelte"
+  import HomeTiles from "$lib/client/HomeTiles.svelte"
 
   async function debugResetProgress() {
     const { spa, api } = sprachy.expectSPA()
@@ -23,10 +22,7 @@
 <SiteLayout>
   {#if sprachy.spa}
     <div class="home">
-      <div class="tiles">
-        <NextPatternHomeTile />
-        <PracticeHomeTile />
-      </div>
+      <HomeTiles />
       <hr />
       <div class="patterns">
         <h2>All patterns</h2>
@@ -47,8 +43,3 @@
     </div>
   {/if}
 </SiteLayout>
-
-<style lang="sass">
-.tiles
-  display: flex
-</style>
