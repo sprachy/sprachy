@@ -21,8 +21,8 @@
     freePractice = true
     reviews = _.sampleSize(spa.allReviews, 10)
   } else {
-    reviews = spa.allReviews.filter((r) => r.message.includes("nie wieder"))
-    // reviews = _.shuffle(spa.reviewsForLeveling)
+    // reviews = spa.allReviews.filter((r) => r.message.includes("nie wieder"))
+    reviews = _.shuffle(spa.reviewsForLeveling)
   }
 
   let reviewIndex: number = 0
