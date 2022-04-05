@@ -1,4 +1,5 @@
-import { Expr } from 'faunadb'
+import fdb from 'faunadb'
+const { Expr } = fdb
 
 export class FaunaError extends Error {
   /** HTTP status code */

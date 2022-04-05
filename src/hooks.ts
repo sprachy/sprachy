@@ -4,7 +4,7 @@ import { sessions } from '$lib/server/sessions'
 import { DummyStore } from "$lib/server/kvs"
 import { ZodError } from 'zod'
 import { dev, prerendering } from '$app/env'
-import { _settings } from "$lib/server/settings"
+import { prepareSettings, _settings } from "$lib/server/settings"
 import { getCloudflareWorkersEnv } from "./workersEnv"
 import { isAuthedRoute } from '$lib/routing'
 
@@ -37,30 +37,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     env = getCloudflareWorkersEnv()
   }
 
-  // Double check some environment variables
-  const { FRONTEND_BASE_URL, STORE, FAUNA_ADMIN_KEY, MAILGUN_SECRET, DISCORD_SIGNUP_WEBHOOK } = env
-
-  if (!FRONTEND_BASE_URL) {
-    throw new Error("No FRONTEND_BASE_URL set; Sprachy doesn't know how to make links")
-  }
-
-  if (!prerendering && !STORE) {
-    throw new Error("Couldn't access KV STORE; can't store sessions")
-  }
-
-  if (!prerendering && !FAUNA_ADMIN_KEY) {
-    throw new Error("No FAUNA_ADMIN_KEY set; can't connect to db")
-  }
-
-  // Put the environment variables into globally accessible settings
-  const filledSettings: App.SprachyEnvironment = {
-    STORE,
-    FAUNA_ADMIN_KEY,
-    FRONTEND_BASE_URL,
-    MAILGUN_SECRET,
-    DISCORD_SIGNUP_WEBHOOK
-  }
-  Object.assign(_settings, filledSettings)
+  prepareSettings(env)
   event.locals.env = _settings as App.SprachyEnvironment
 
   // Look up the userId matching any sessionKey in the request's cookie

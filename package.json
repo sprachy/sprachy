@@ -12,7 +12,8 @@
     "deploy": "npm run check && wrangler publish --env live && node ./scripts/post-deploy.js",
     "stealthdeploy": "wrangler publish --env live",
     "td": "wrangler publish --env staging",
-    "resetdb": "NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd node --loader ts-node/esm scripts/resetdb.ts"
+    "resetdb": "NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd node --loader ts-node/esm scripts/resetdb.ts",
+    "adminify": "NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd node --loader ts-node/esm scripts/adminify.ts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.4.0",

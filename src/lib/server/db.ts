@@ -1,9 +1,10 @@
-import faunadb, { Collection, Create, Documents, Expr, Get, Index, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now } from 'faunadb'
-import type { ProgressItem, User } from '$lib/api'
+import faunadb from 'faunadb'
+const { Collection, Create, Documents, Get, Index, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now } = faunadb
+import type { ProgressItem, User } from '../api'
 import _ from 'lodash'
 import { flattenFauna, FaunaError } from './faunaUtil'
 import type { FaunaDocument } from "./faunaUtil"
-import * as time from '$lib/time'
+import * as time from '../time'
 import { expectSettings } from './settings'
 
 class FaunaConnector {
@@ -22,7 +23,7 @@ class FaunaConnector {
 export namespace db {
   export const fauna = new FaunaConnector()
 
-  export function GetIfExists(expr: Expr) {
+  export function GetIfExists(expr: faunadb.Expr) {
     return Let(
       { obj: expr },
       If(
@@ -37,7 +38,7 @@ export namespace db {
    * Run a faunadb query with error handling and return the
    * raw, unparsed result.
    */
-  export async function faunaQuery(expr: Expr): Promise<any> {
+  export async function faunaQuery(expr: faunadb.Expr): Promise<any> {
     try {
       return await fauna.client.query(expr)
     } catch (err: any) {
@@ -48,7 +49,7 @@ export namespace db {
   /**
    * Run a faunadb query, retrieving a single document as a result.
    */
-  export async function querySingle<T>(expr: Expr) {
+  export async function querySingle<T>(expr: faunadb.Expr) {
     const res = await faunaQuery(expr)
     if (res === null)
       return res
@@ -59,7 +60,7 @@ export namespace db {
   /**
    * Run a faunadb query, retrieving a list of documents as a result.
    */
-  export async function query<T extends any[]>(expr: Expr) {
+  export async function query<T extends any[]>(expr: faunadb.Expr) {
     const res = await faunaQuery(expr) as { data: FaunaDocument<T[0]>[] }
     return res.data.map(flattenFauna)
   }
