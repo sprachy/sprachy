@@ -16,6 +16,8 @@
   let attemptInput!: HTMLInputElement
   let attempt: string = ""
   let feedback: string = ""
+  let incorrectShake: boolean = false
+  let shakeTimeout: number | undefined
 
   const dispatch = createEventDispatcher()
 
@@ -68,53 +70,65 @@
         feedback = result.feedback
       }
       attemptInput.focus()
+      incorrectShake = true
+      clearTimeout(shakeTimeout)
+      shakeTimeout = setTimeout(() => {
+        incorrectShake = false
+      }, 300) as any
       // dispatch("answer", { correct: false })
     }
   }
 </script>
 
-<Message from={line.from} {flip}>
-  <form on:submit|preventDefault={checkAnswer}>
-    <Sprachdown inline source={parts.before} />
-    <!-- svelte-ignore a11y-autofocus -->
-    <input
-      class="fillblank"
-      type="text"
-      bind:this={attemptInput}
-      bind:value={attempt}
-      placeholder={line.hint}
-      autocapitalize="off"
-      autocomplete="off"
-      autocorrect="off"
-      spellcheck="false"
-      size={inputWidthChars}
-      disabled={complete}
-    />
-    {#if line.hint && attempt.length}
-      <div class="overhint">
-        {line.hint}
+<div class:shake={incorrectShake}>
+  <Message from={line.from} {flip}>
+    <form on:submit|preventDefault={checkAnswer}>
+      <Sprachdown inline source={parts.before} />
+      <!-- svelte-ignore a11y-autofocus -->
+      <input
+        class="fillblank"
+        type="text"
+        bind:this={attemptInput}
+        bind:value={attempt}
+        placeholder={line.hint}
+        autocapitalize="off"
+        autocomplete="off"
+        autocorrect="off"
+        spellcheck="false"
+        size={inputWidthChars}
+        disabled={complete}
+      />
+      {#if line.hint && attempt.length}
+        <div class="overhint">
+          {line.hint}
+        </div>
+      {/if}
+      <Sprachdown inline source={parts.after} />
+    </form>
+    <div slot="after">
+      <div class="translation">
+        <Sprachdown inline source={translation} />
       </div>
-    {/if}
-    <Sprachdown inline source={parts.after} />
-  </form>
-  <div slot="after">
-    <div class="translation">
-      <Sprachdown inline source={translation} />
+      {#if feedback}
+        <div class="feedback">
+          <Sprachdown inline source={feedback} />
+        </div>
+      {/if}
+      {#if line.explanation}
+        <div class="explanation">
+          <Sprachdown inline source={line.explanation} />
+        </div>
+      {/if}
     </div>
-    {#if feedback}
-      <div class="feedback">
-        <Sprachdown inline source={feedback} />
-      </div>
-    {/if}
-    {#if line.explanation}
-      <div class="explanation">
-        <Sprachdown inline source={line.explanation} />
-      </div>
-    {/if}
-  </div>
-</Message>
+  </Message>
+</div>
 
 <style lang="sass">
+@import './shake.scss'
+
+.shake
+  @include animation(shake-base)
+
 .translation :global(strong)
   color: #86abff
 

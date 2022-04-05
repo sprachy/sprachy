@@ -21,7 +21,8 @@
     freePractice = true
     reviews = _.sampleSize(spa.allReviews, 10)
   } else {
-    reviews = _.shuffle(spa.reviewsForLeveling)
+    reviews = spa.allReviews.filter((r) => r.message.includes("nie wieder"))
+    // reviews = _.shuffle(spa.reviewsForLeveling)
   }
 
   let reviewIndex: number = 0
@@ -72,7 +73,7 @@
       </p>
     {/if}
   {:else if completed}
-    <p>All reviews completed!</p>
+    <p class="text-center">All reviews completed!</p>
   {:else}
     {#if freePractice}
       <header class="practice-header">
