@@ -41,7 +41,7 @@
     on:click={toggleProfile}
   />
   {#if showProfile}
-    <div class="profile">
+    <div class="profile shadow">
       <div class="card">
         <div class="card-header">
           <img src={character.avatar} alt={character.fullname} />
@@ -66,7 +66,7 @@
   z-index: 1006
   position: absolute
   left: 80%
-  top: 0
+  top: -8px
   width: 350px
 
   img

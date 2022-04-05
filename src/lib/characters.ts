@@ -94,7 +94,7 @@ const characters = [
     name: "Töskirelon",
     fullname: "Töskirelon Uferlos Yi",
     profile: md`
-An extradimensional squirrel-like lifeform with vast psionic power. Tösky is currently taking a vacation on Earth, a travel destination his mindspace identified as having "gemütliche Bäume" and a pleasant lack of reality-rending esper battles.
+An extradimensional squirrel-like lifeform with vast psionic power. Töski is currently taking a vacation on Earth, a travel destination his mindspace identified as having "gemütliche Bäume" and a pleasant lack of reality-rending esper battles.
     `,
   },
 
