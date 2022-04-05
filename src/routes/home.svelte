@@ -10,12 +10,14 @@
     const { spa, api } = sprachy.expectSPA()
     const summary = await api.http.post(`/api/debug/reset-progress`)
     spa.receiveProgress(summary)
+    window.location.reload()
   }
 
   async function debugSkipTime() {
     const { spa, api } = sprachy.expectSPA()
     const summary = await api.http.post(`/api/debug/timeskip`)
     spa.receiveProgress(summary)
+    window.location.reload()
   }
 </script>
 
