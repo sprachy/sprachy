@@ -66,7 +66,7 @@
           {#if spa}
             {#if spa.admin}
               <NavItem>
-                <NavLink href="/admin">Admin</NavLink>
+                <NavLink href="/admin/users">Admin</NavLink>
               </NavItem>
             {/if}
 
