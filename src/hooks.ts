@@ -7,6 +7,7 @@ import { dev, prerendering } from '$app/env'
 import { prepareSettings, _settings } from "$lib/server/settings"
 import { getCloudflareWorkersEnv } from "./workersEnv"
 import { isAuthedRoute } from '$lib/routing'
+import { db } from '$lib/server/db'
 
 /**
  * All requests to the server are wrapped by this hook.
@@ -60,6 +61,21 @@ export const handle: Handle = async ({ event, resolve }) => {
         }
       }
     )
+  } else if (event.url.pathname.startsWith(`/api/admin`)) {
+    const user = await db.users.get(session!.userId)
+    if (!user?.isAdmin) {
+      const json = { status: 403, code: "admin required" }
+      return new Response(
+        JSON.stringify(json),
+        {
+          status: 403,
+          statusText: "Forbidden",
+          headers: {
+            'content-type': 'application/json;charset=UTF-8',
+          }
+        }
+      )
+    }
   }
 
   try {
