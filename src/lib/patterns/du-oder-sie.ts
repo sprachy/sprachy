@@ -68,11 +68,41 @@ Note that all three forms of sie/Sie change to ihr/Ihr for the possessive!
       hint: "[formal]",
     },
   ],
-  exercises: [{
-    from: "cashier",
-    message: "Möchten [Sie] dazu Pommes frites?",
-    translation: "Would [you] like fries with that?",
-  }]
+  exercises: [
+    {
+      from: "squirrel",
+      message: "Entschuldigung, kennen [Sie] den Weg zur Erde?",
+      translation: "Excuse me, do [you] know the way to Earth?",
+      feedback: {
+        "du": "If it were the informal **du**, then we'd see **kennst** instead of **kennen**."
+      }
+    },
+    {
+      from: "lukas",
+      message: "Mein Rucksack hat ein Geräusch gemacht? Tut mir leid, da müssen [Sie] sich irren.",
+      translation: "My backpack made a noise? Sorry, [you] must be mistaken.",
+      feedback: {
+        "du": "If it were the informal **du**, then we'd see **musst** instead of **müssen**."
+      }
+    },
+    {
+      from: "fox",
+      message: "Entschuldigen Sie, ist das [Ihre] Regenbogenkatze?",
+      translation: "Excuse me, is this [your] rainbow cat?",
+      feedback: {
+        "Ihr": "That's the masculine or neuter form. Because **katze** is feminine, you want the feminine form.",
+        "deine": "That's the informal form. Because the speaker used **Sie**, we know they're speaking formally."
+      }
+    },
+    {
+      from: "cashier",
+      message: "Möchten [Sie] dazu Pommes frites?",
+      translation: "Would [you] like fries with that?",
+      feedback: {
+        du: "If it were the informal **du**, then we'd see **möchtest** instead of **möchten**."
+      }
+    },
+  ]
 })
 
 

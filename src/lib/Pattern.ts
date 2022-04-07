@@ -31,6 +31,7 @@ export type LineDef = {
   translation: string
   explanation?: string
   hint?: string
+  feedback?: { [attempt: string]: string }
 }
 
 export type ReadingLine = {
@@ -84,12 +85,23 @@ export function parseLine(patternDef: PatternDef, lineDef: LineDef): StoryLine {
   if (match) {
     const canonicalAnswer = match[1]!
 
+    const lineSpecificFeedback: FeedbackDef[] = []
+    if (lineDef.feedback) {
+      for (const attempt in lineDef.feedback) {
+        lineSpecificFeedback.push({
+          answer: canonicalAnswer,
+          attempt: attempt,
+          message: lineDef.feedback[attempt]!
+        })
+      }
+    }
+
     return {
       type: 'fillblank',
       canonicalAnswer: canonicalAnswer,
       validAnswers: [canonicalAnswer],
-      feedback: patternDef.feedback,
-      ...lineDef
+      ...lineDef,
+      feedback: lineSpecificFeedback.concat(patternDef.feedback || []),
     }
   } else {
     return {
