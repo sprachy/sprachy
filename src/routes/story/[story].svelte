@@ -37,7 +37,7 @@
   let complete: boolean = false
 
   const story = pattern.story
-  const progress = spa.getProgressFor(pattern)
+  let progress = spa.getProgressFor(pattern)
 
   function leavingWarning(e: any) {
     var confirmationMessage =
@@ -68,6 +68,7 @@
       const progressItem = await api.completeLevel(pattern.id, 1)
       if (progressItem) {
         spa.receiveProgressItem(progressItem)
+        progress = spa.getProgressFor(pattern)
       }
       pattern = spa.patternsAndProgress.find((p) => p.slug === pattern.slug)!
       nextPattern = spa.nextPatternToLearn
@@ -95,7 +96,7 @@
     <div class="complete">
       <img src={successImg} alt="Happy squirrel" />
       <p>
-        Nice work! Level {progress.srsLevel + 1} of {pattern.title} will become available
+        Nice work! You can level up _{pattern.title}_
         <Timeago ts={progress.levelableAt} />.
       </p>
       {#if nextPattern}
