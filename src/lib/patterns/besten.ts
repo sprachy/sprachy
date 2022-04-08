@@ -87,7 +87,17 @@ You would commonly see the word _am_ like in the phrase _am besten_ placed infro
     },
   ],
   exercises: [
-
+    // {
+    //   from: "lukas",
+    //   message: "",
+    //   translation: ""
+    // },
+    // {
+    //   from: "squirrel",
+    //   message: "Ich glaube nicht, dass Sie einen Namen für meine Lieblingsfarbe haben. Wir haben eine... [größere] Bandbreite der Wahrnehmung.",
+    //   translation: "I don't think you have a name for my favorite color. We have a... [wider] range of perception.",
+    //   hint: "[groß, feminine]"
+    // },
   ]
 })
 

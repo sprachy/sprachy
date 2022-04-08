@@ -2,7 +2,7 @@ import type { RequestHandler } from "@sveltejs/kit"
 import { db } from '$lib/server/db'
 import { time } from "$lib/time"
 
-export const post: RequestHandler = async ({ request, locals }) => {
+export const post: RequestHandler = async ({ locals }) => {
   if (!locals.session)
     return { status: 401 }
 

@@ -114,9 +114,6 @@
   color: green
   font-size: 1rem
 
-.navbar-collapse
-  flex-grow: 0
-
 :global(.navbar-light .navbar-toggler)
   &:hover
     background-color: inherit

@@ -3,7 +3,6 @@
   import SiteLayout from "$lib/SiteLayout.svelte"
   import { sprachdex } from "$lib/sprachdex"
   import Sprachdown from "$lib/Sprachdown.svelte"
-  import Story from "$lib/client/Story.svelte"
   import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
   import StoryLineReading from "$lib/client/StoryLineReading.svelte"
 
@@ -12,7 +11,7 @@
 
 <SiteLayout>
   <h1>Testall</h1>
-  {#each patterns as pattern, i}
+  {#each patterns as pattern}
     <div class="pattern">
       <h1>{pattern.title}</h1>
       <Sprachdown source={pattern.explanation} />

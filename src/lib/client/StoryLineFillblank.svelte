@@ -1,5 +1,5 @@
 <script lang="ts">
-  import _, { at } from "lodash"
+  import _ from "lodash"
   import { createEventDispatcher, onMount } from "svelte"
   import Message from "$lib/Message.svelte"
   import type { FillblankLine } from "$lib/Pattern"
