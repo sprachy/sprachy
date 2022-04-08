@@ -10,7 +10,7 @@
 
   let freePractice: boolean = false
   const noPatternsYet = spa.learnedPatterns.length === 0
-  const patternsToLevel = spa.patternsReadyToLevel
+  let patternsToLevel = spa.patternsReadyToLevel
 
   type Review = Exercise & {
     pattern: PatternAndProgress
@@ -37,6 +37,9 @@
     )
     if (progressItem) {
       spa.receiveProgressItem(progressItem)
+      patternsToLevel = patternsToLevel.filter(
+        (p) => p.id !== progressItem.patternId
+      )
     }
   }
 
@@ -81,6 +84,16 @@
         <p class="text-secondary">
           There aren't any patterns ready to level yet. If you like, you can
           practice random exercises here.
+        </p>
+      </header>
+    {:else}
+      <header class="practice-header">
+        <h3>Level Practice</h3>
+        <p class="text-secondary">
+          Complete these exercises to level up {patternsToLevel.length} pattern{patternsToLevel.length >
+          1
+            ? "s"
+            : ""}.
         </p>
       </header>
     {/if}
