@@ -23,6 +23,7 @@
   import _ from "lodash"
   import PatternIndex from "$lib/PatternIndex.svelte"
   import SiteLayout from "$lib/SiteLayout.svelte"
+  import backgroundImg from "$lib/img/sprachy-bg.jpg"
 
   let email: string = ""
 
@@ -41,7 +42,7 @@
   cardDesc={pageDesc}
 >
   <SiteLayout noContainer={true}>
-    <section class="banner">
+    <section class="banner" style={`background-image: url(${backgroundImg})`}>
       <div class="container">
         <div class="row">
           <div class="signup">
@@ -91,7 +92,6 @@
 
 section.banner
   position: relative
-  background-image: url(/sprachy-bg.jpg)
   background-size: cover
   background-position: 50% 75%
   padding: 4rem 2rem
