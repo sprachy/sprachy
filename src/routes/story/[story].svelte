@@ -96,7 +96,7 @@
     <div class="complete">
       <img src={successImg} alt="Happy squirrel" />
       <p>
-        Nice work! You can level up _{pattern.title}_
+        Nice work! You can level up <em>{pattern.title}</em>
         <Timeago ts={progress.levelableAt} />.
       </p>
       {#if nextPattern}
