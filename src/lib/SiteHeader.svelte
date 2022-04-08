@@ -65,9 +65,13 @@
 
           {#if spa}
             {#if spa.admin}
-              <NavItem>
-                <NavLink href="/admin/users">Admin</NavLink>
-              </NavItem>
+              <Dropdown nav inNavbar>
+                <DropdownToggle nav caret>Admin</DropdownToggle>
+                <DropdownMenu end>
+                  <DropdownItem href="/admin/users">Users</DropdownItem>
+                  <DropdownItem href="/admin/testall">Testall</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             {/if}
 
             <NavItem>

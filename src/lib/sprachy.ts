@@ -61,7 +61,7 @@ export class SprachyContextManager {
     const { api, backgroundApi } = this
 
     if (!api || !backgroundApi) {
-      throw new Error("Expected to be running in the browser")
+      throw new Error(`Expected to be running in the browser. Did we forget to put this route in authedRoutes?`)
     }
 
     return { api, backgroundApi }
