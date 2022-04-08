@@ -23,7 +23,7 @@
   import _ from "lodash"
   import PatternIndex from "$lib/PatternIndex.svelte"
   import SiteLayout from "$lib/SiteLayout.svelte"
-  import backgroundImg from "$lib/img/sprachy-bg.jpg"
+  import backgroundImg from "$lib/img/sprachy-bg.webp"
 
   let email: string = ""
 

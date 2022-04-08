@@ -25,7 +25,7 @@
   import SiteLayout from "$lib/SiteLayout.svelte"
   import Story from "$lib/client/Story.svelte"
   import Timeago from "$lib/client/Timeago.svelte"
-  import successImg from "$lib/img/success.jpg"
+  import successImg from "$lib/img/success.webp"
   import type { Pattern } from "$lib/Pattern"
   import type { PatternAndProgress } from "$lib/client/SprachyUserSPA"
   import { goto } from "$app/navigation"
