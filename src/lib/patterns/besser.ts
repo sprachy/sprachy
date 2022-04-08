@@ -74,7 +74,30 @@ It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ fo
     },
   ],
   exercises: [
-
+    {
+      from: "squirrel",
+      message: "Was finden die Menschen [leckerer], Plastik oder Kohle?",
+      translation: "What do humans find [tastier], plastic or coal?",
+      hint: "[lecker]",
+    },
+    {
+      from: "lukas",
+      message: "Das ist eine noch [seltsamere] Frage als sonst.",
+      translation: "That is an even [weirder] question than usual.",
+      hint: "[seltsam, feminine]",
+    },
+    {
+      from: "lindenbaum",
+      message: "Einige Lösungen des Fermi-Paradoxons sind [erschreckender] als andere.",
+      translation: "Some solutions of the Fermi paradox are [scarier] than others.",
+      hint: "[erschreckend]"
+    },
+    {
+      from: "fox",
+      message: "Die Aliens haben wahrscheinlich einfach [coolere] Spiele.",
+      translation: "The aliens probably just have [cooler] games.",
+      hint: "[cool]"
+    }
   ]
 })
 
