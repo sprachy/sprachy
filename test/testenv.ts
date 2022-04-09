@@ -1,9 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios"
-import { SprachyAPIClient } from "$lib/client/SprachyAPIClient"
+import { SprachyAPIClient } from "../src/lib/client/SprachyAPIClient"
 import { TEST_USER_EMAIL, TEST_USER_PASSWORD } from "./constants"
 import { wrapper } from "axios-cookiejar-support"
 import { CookieJar } from "tough-cookie"
-import { HTTPProvider } from "$lib/client/HTTPProvider"
+import type { HTTPProvider } from "../src/lib/client/HTTPProvider"
 
 export class TestHTTPProvider implements HTTPProvider {
   axios: AxiosInstance
