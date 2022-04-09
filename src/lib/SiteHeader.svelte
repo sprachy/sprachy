@@ -79,11 +79,7 @@
             </NavItem>
 
             <NavItem>
-              <NavLink
-                href={isAuthedRoute($page.url.pathname)
-                  ? "/logout"
-                  : `/logout?next=${$page.url.pathname}`}>Log out</NavLink
-              >
+              <NavLink href="/logout">Log out</NavLink>
             </NavItem>
           {/if}
 
