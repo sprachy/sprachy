@@ -28,14 +28,6 @@ export class SprachyContextManager {
     this.api = new SprachyAPIClient()
     this.backgroundApi = new SprachyAPIClient()
 
-    // Configure nprogress to show the little loading bar at the top
-    // whenever we're doing an API request
-    NProgress.configure({ showSpinner: false })
-    this.api.http.onRequest = (req) => {
-      NProgress.promise(req)
-    }
-
-
     // For debugging
     window.sprachy = this
     window.api = this.api

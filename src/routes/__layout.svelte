@@ -19,28 +19,47 @@
 
 <script lang="ts">
   import { browser } from "$app/env"
-  import { session } from "$app/stores"
+  import { navigating, session } from "$app/stores"
   import { page } from "$app/stores"
   import sprachy from "$lib/sprachy"
+  import PreloadingIndicator from "$lib/PreloadingIndicator.svelte"
+  let initializing: boolean = true
 
-  let loading: boolean = true
+  let loadingPromises: Set<Promise<any>> = new Set()
+
+  if (browser) {
+    const { api } = sprachy.expectBrowser()
+
+    api.http.onRequest = (req) => {
+      loadingPromises.add(req)
+      loadingPromises = loadingPromises
+      req.then(() => {
+        loadingPromises.delete(req)
+        loadingPromises = loadingPromises
+      })
+    }
+  }
 
   async function startSPA() {
     try {
       await sprachy.initSPA()
     } finally {
-      loading = false
+      initializing = false
     }
   }
 
   if (browser && $session.userId && !sprachy.spa && !$page.error) {
     startSPA()
   } else {
-    loading = false
+    initializing = false
   }
 </script>
 
-{#if !loading}
+{#if initializing || $navigating || loadingPromises.size > 0}
+  <PreloadingIndicator />
+{/if}
+
+{#if !initializing}
   <slot />
 {/if}
 

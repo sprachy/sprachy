@@ -10,7 +10,6 @@ export class SprachyAPIClient {
     this.admin = new AdminAPI(this.http)
   }
 
-
   async signUp({ email, password, confirmPassword }: { email: string, password: string, confirmPassword: string }): Promise<{ summary: ProgressSummary }> {
     return this.http.post(`/signup`, { email, password, confirmPassword })
   }
