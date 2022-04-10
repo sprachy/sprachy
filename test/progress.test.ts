@@ -7,6 +7,8 @@ import { time } from "$lib/time"
 test("srs progress updates", async () => {
   const asUser = await asExistingUser()
 
+  await db.progress.resetFor(asUser.user.id)
+
   // Initial state, no progress recorded
   const summary = await asUser.api.getProgress()
   expect(summary.user).toBeDefined()

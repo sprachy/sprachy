@@ -5,6 +5,7 @@ import { TEST_USER_EMAIL, TEST_USER_PASSWORD } from "./constants"
 import { wrapper } from "axios-cookiejar-support"
 import { CookieJar } from "tough-cookie"
 import type { HTTPProvider } from "../src/lib/client/HTTPProvider"
+import type { ProgressSummary } from "$lib/api"
 
 export class TestHTTPProvider implements HTTPProvider {
   axios: AxiosInstance
@@ -71,14 +72,15 @@ export async function asRandoVisitor() {
   return _rando
 }
 
-let _user: { api: SprachyAPIClient } | null = null
+let _user: { api: SprachyAPIClient, user: ProgressSummary['user'] } | null = null
 export async function asExistingUser() {
   if (!_user) {
-    _user = { api: new SprachyAPIClient(new TestHTTPProvider()) }
-    await _user.api.login({
+    const api = new SprachyAPIClient(new TestHTTPProvider())
+    const { summary } = await api.login({
       email: TEST_USER_EMAIL,
       password: TEST_USER_PASSWORD,
     })
+    return { api, user: summary.user }
   }
 
   return _user
