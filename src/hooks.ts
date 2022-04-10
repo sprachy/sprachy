@@ -1,12 +1,14 @@
 import cookie from 'cookie'
 import type { Handle, GetSession } from '@sveltejs/kit'
 import { sessions } from '$lib/server/sessions'
+import { DummyStore } from '$lib/server/kvs'
 import { ZodError } from 'zod'
 import { isAuthedRoute } from '$lib/routing'
 import { db } from '$lib/server/db'
 import { getCloudflareWorkersEnv } from './workersEnv'
 import { env } from '$lib/server/env'
 import _ from 'lodash'
+import { dev, prerendering } from '$app/env'
 
 /**
  * All requests to the server are wrapped by this hook.

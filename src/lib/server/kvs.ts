@@ -29,12 +29,14 @@ export class DummyStore {
   }
 }
 
-
 class KVStoreClient {
   get STORE() {
-    if (!env.STORE && dev) {
-      env.STORE = new DummyStore() as any as KVNamespace
+    if (dev) {
+      if (!env.STORE) {
+        env.STORE = new DummyStore() as any as KVNamespace
+      }
     }
+
     return env.STORE!
   }
 
