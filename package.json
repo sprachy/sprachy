@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "env-cmd svelte-kit dev",
+    "dev": "env-cmd --no-override svelte-kit dev",
     "build": "svelte-kit build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
@@ -14,7 +14,7 @@
     "td": "wrangler publish --env staging",
     "resetdb": "NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd node --loader ts-node/esm scripts/resetdb.ts",
     "adminify": "NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd node --loader ts-node/esm scripts/adminify.ts",
-    "test": "vitest"
+    "test": "env-cmd --no-override vitest"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.4.0",
@@ -29,7 +29,7 @@
     "@types/tough-cookie": "^4.0.1",
     "axios-cookiejar-support": "^2.0.4",
     "dotenv": "^16.0.0",
-    "miniflare": "^2.3.0",
+    "miniflare": "^2.4.0",
     "shelljs": "^0.8.5",
     "svelte": "^3.46.6",
     "svelte-check": "^2.4.6",

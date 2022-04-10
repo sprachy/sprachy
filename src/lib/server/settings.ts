@@ -13,7 +13,7 @@ export function expectSettings(): App.SprachyEnvironment {
 
 export function prepareSettings(env: any) {
   // Double check some environment variables
-  const { FRONTEND_BASE_URL, STORE, FAUNA_ADMIN_KEY, MAILGUN_SECRET, DISCORD_SIGNUP_WEBHOOK } = env
+  const { VITEST, FRONTEND_BASE_URL, STORE, FAUNA_ADMIN_KEY, MAILGUN_SECRET, DISCORD_SIGNUP_WEBHOOK } = env
 
   if (!FRONTEND_BASE_URL) {
     throw new Error("No FRONTEND_BASE_URL set; Sprachy doesn't know how to make links")
@@ -29,6 +29,7 @@ export function prepareSettings(env: any) {
 
   // Put the environment variables into globally accessible settings
   const filledSettings: App.SprachyEnvironment = {
+    VITEST,
     STORE,
     FAUNA_ADMIN_KEY,
     FRONTEND_BASE_URL,
@@ -36,5 +37,4 @@ export function prepareSettings(env: any) {
     DISCORD_SIGNUP_WEBHOOK
   }
   Object.assign(_settings, filledSettings)
-
 }

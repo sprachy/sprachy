@@ -24,7 +24,8 @@ export const post: RequestHandler = async ({ request, locals }) => {
     const progressItems = await db.progress.listAllFor(user.id)
     const sessionKey = await sessions.create(user.id)
 
-    if (locals.env.DISCORD_SIGNUP_WEBHOOK) {
+    console.log(locals.env.VITEST)
+    if (locals.env.DISCORD_SIGNUP_WEBHOOK && !locals.env.VITEST) {
       const params = {
         username: "SignUp",
         avatar_url: "",
