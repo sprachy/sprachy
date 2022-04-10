@@ -33,7 +33,7 @@
     api.http.onRequest = (req) => {
       loadingPromises.add(req)
       loadingPromises = loadingPromises
-      req.then(() => {
+      req.finally(() => {
         loadingPromises.delete(req)
         loadingPromises = loadingPromises
       })
