@@ -55,6 +55,21 @@ npm run dev
 
 And that's it! The dev server should now be available at `http://localhost:5999`.
 
+### Running tests
+
+```sh
+npm run test
+```
+
+This uses [vitest](https://vitest.dev/) to run tests under the `test` directory.
+It will automatically create an isolated child database and spawn a svelte-kit
+dev server connected to it, so tests should work out of the box so long as your
+dev environment is configured correctly.
+
+For writing tests, it's important to note that the server runs in a
+separate process to the test code, so you can't share global variables
+between them.
+
 ### Advanced: run FaunaDB locally with Docker
 
 For faster development (and especially tests) you can run a local instance of FaunaDB
