@@ -39,7 +39,7 @@ export async function setup() {
   await testFauna.query(schema.indexes)
 
   // Clean up any process left around from previous test
-  shell.exec("kill $(lsof -t -i:5998)")
+  shell.exec("kill $(lsof -t -i:5998)", { silent: true })
 
   devServerProcess = shell.exec(`FAUNA_ADMIN_KEY=${secret} npm run dev -- -p 5998`, { async: true })
 

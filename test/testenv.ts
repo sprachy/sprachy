@@ -62,20 +62,23 @@ type TestEnv = {
 
 let testenvReady: TestEnv | null = null
 
-async function setupTestEnv(): Promise<TestEnv> {
-  const asRando = { api: new SprachyAPIClient(new TestHTTPProvider()) }
-  const asUser = { api: new SprachyAPIClient(new TestHTTPProvider()) }
-  await asUser.api.login({
-    email: TEST_USER_EMAIL,
-    password: TEST_USER_PASSWORD,
-  })
-
-  return { asUser, asRando }
+let _rando = null
+export async function asRandoVisitor() {
+  if (!_rando) {
+    _rando = { api: new SprachyAPIClient(new TestHTTPProvider()) }
+  }
+  return _rando
 }
 
-export async function testenv() {
-  if (!testenvReady) {
-    testenvReady = await setupTestEnv()
+let _user = null
+export async function asExistingUser() {
+  if (!_user) {
+    _user = { api: new SprachyAPIClient(new TestHTTPProvider()) }
+    await _user.api.login({
+      email: TEST_USER_EMAIL,
+      password: TEST_USER_PASSWORD,
+    })
   }
-  return testenvReady
+
+  return _user
 }
