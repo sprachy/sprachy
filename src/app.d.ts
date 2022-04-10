@@ -5,9 +5,9 @@
 // for information about these interfaces
 declare namespace App {
   interface SprachyEnvironment {
-    VITEST?: string
-    FRONTEND_BASE_URL: string
     STORE?: KVNamespace
+    VITEST?: string
+    FRONTEND_BASE_URL?: string
     FAUNA_ADMIN_KEY?: string
     MAILGUN_SECRET?: string
     DISCORD_SIGNUP_WEBHOOK?: string
@@ -18,7 +18,6 @@ declare namespace App {
       userId: string
       sessionKey: string
     } | null
-    env: SprachyEnvironment
   }
 
   /**

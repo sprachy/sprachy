@@ -1,16 +1,16 @@
 import faunadb, { Delete, CreateDatabase, Database, Exists, If, Do, CreateKey } from 'faunadb'
-import { SprachyAPIClient } from '../src/lib/client/SprachyAPIClient'
+import { SprachyAPIClient } from '$lib/client/SprachyAPIClient'
 import { TestHTTPProvider } from './testenv'
 import { TEST_USER_EMAIL, TEST_USER_PASSWORD } from './constants'
 import shell from "shelljs"
-import { ChildProcess } from 'child_process'
-import * as schema from '../src/lib/server/schema'
+import type { ChildProcess } from 'child_process'
+import * as schema from '$lib/server/schema'
 
 let devServerProcess: ChildProcess
 
 export async function setup() {
   const devFauna = new faunadb.Client({
-    secret: process.env.FAUNA_ADMIN_KEY
+    secret: process.env.FAUNA_ADMIN_KEY!
   })
 
   // Delete any existing test child db and create a new one
@@ -30,6 +30,9 @@ export async function setup() {
     CreateKey({ role: "admin", database: Database("sprachy-vitest") })
   ) as { secret: string }
 
+  // Put it in env for the tests to retrieve
+  process.env['FAUNA_ADMIN_KEY'] = secret
+
   // Apply schema
   const testFauna = new faunadb.Client({
     secret: secret
@@ -44,7 +47,7 @@ export async function setup() {
   devServerProcess = shell.exec(`FAUNA_ADMIN_KEY=${secret} npm run dev -- -p 5998`, { async: true })
 
   const devServerReady = new Promise<void>(resolve => {
-    devServerProcess.stdout.on('data', (data: string) => {
+    devServerProcess.stdout!.on('data', (data: string) => {
       if (data.includes("local:")) {
         resolve()
       }

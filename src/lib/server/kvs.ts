@@ -1,4 +1,5 @@
-import { expectSettings } from "./settings"
+import { dev } from "$app/env"
+import { env } from "./env"
 
 /** For development */
 async function getDummyStore() {
@@ -31,8 +32,10 @@ export class DummyStore {
 
 class KVStoreClient {
   get STORE() {
-    const { STORE } = expectSettings()
-    return STORE!
+    if (!env.STORE && dev) {
+      env.STORE = new DummyStore() as any as KVNamespace
+    }
+    return env.STORE!
   }
 
   async getText(key: string): Promise<string | null> {

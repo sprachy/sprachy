@@ -7,7 +7,8 @@ export default async function () {
   return defineConfig({
     plugins: extract['plugins'],
     test: {
-      globalSetup: "./test/globalSetup.ts"
+      globalSetup: "./test/globalSetup.ts",
+      testTimeout: 30000
     }
   })
 }

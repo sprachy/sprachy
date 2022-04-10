@@ -1,45 +1,21 @@
 import cookie from 'cookie'
 import type { Handle, GetSession } from '@sveltejs/kit'
 import { sessions } from '$lib/server/sessions'
-import { DummyStore } from "$lib/server/kvs"
 import { ZodError } from 'zod'
-import { dev, prerendering } from '$app/env'
-import { prepareSettings, _settings } from "$lib/server/settings"
-import { getCloudflareWorkersEnv } from "./workersEnv"
 import { isAuthedRoute } from '$lib/routing'
 import { db } from '$lib/server/db'
+import { getCloudflareWorkersEnv } from './workersEnv'
+import { env } from '$lib/server/env'
+import _ from 'lodash'
 
 /**
  * All requests to the server are wrapped by this hook.
  * Define middleware here.
  */
 export const handle: Handle = async ({ event, resolve }) => {
-  let env: Partial<App.SprachyEnvironment> = {}
-
-  if (dev) {
-    env = {
-      FRONTEND_BASE_URL: "http://localhost:5999",
-      ...process.env,
-      STORE: new DummyStore() as any as KVNamespace,
-    }
-
-    // Mock Cloudflare platform functionality in dev
-    event.platform = {
-      context: {
-        // Just a no-op in dev
-        waitUntil: async (promise: Promise<any>) => { return promise }
-      }
-    } as any
-  } else if (prerendering) {
-    env = {
-      FRONTEND_BASE_URL: "https://sprachy.com"
-    }
-  } else {
-    env = getCloudflareWorkersEnv()
-  }
-
-  prepareSettings(env)
-  event.locals.env = _settings as App.SprachyEnvironment
+  // Will become platform.env at some point when adapter-cloudflare-workers
+  // is updated or we move back to Pages
+  Object.assign(env, getCloudflareWorkersEnv(), Object.assign({}, env))
 
   // Look up the userId matching any sessionKey in the request's cookie
   // This is how we identify a logged in user for all requests

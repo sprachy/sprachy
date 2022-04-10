@@ -5,6 +5,7 @@ import { db } from "$lib/server/db"
 import { sessions } from "$lib/server/sessions"
 import { FaunaError } from "$lib/server/faunaUtil"
 import http from "$lib/server/http"
+import { env } from "$lib/server/env"
 
 const signupForm = z.object({
   email: z.string().email(),
@@ -24,16 +25,15 @@ export const post: RequestHandler = async ({ request, locals }) => {
     const progressItems = await db.progress.listAllFor(user.id)
     const sessionKey = await sessions.create(user.id)
 
-    console.log(locals.env.VITEST)
-    if (locals.env.DISCORD_SIGNUP_WEBHOOK && !locals.env.VITEST) {
+    if (env.DISCORD_SIGNUP_WEBHOOK && !env.VITEST) {
       const params = {
         username: "SignUp",
         avatar_url: "",
         content: `Yuh new learny person **${email}** appeared! ❤️🐿️`,
       }
 
-      http.postJson(locals.env.DISCORD_SIGNUP_WEBHOOK, params)
-      // const req = http.postJson(locals.env.DISCORD_SIGNUP_WEBHOOK, params)
+      http.postJson(env.DISCORD_SIGNUP_WEBHOOK, params)
+      // const req = http.postJson(env.DISCORD_SIGNUP_WEBHOOK, params)
       // platform.context.waitUntil(req)
     }
 

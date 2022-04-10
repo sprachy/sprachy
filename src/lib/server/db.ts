@@ -5,15 +5,17 @@ import _ from 'lodash'
 import { flattenFauna, FaunaError } from './faunaUtil'
 import type { FaunaDocument } from "./faunaUtil"
 import * as time from '../time'
-import { expectSettings } from './settings'
+import { env } from './env'
 
 class FaunaConnector {
   _client?: faunadb.Client
   get client() {
-    const { FAUNA_ADMIN_KEY } = expectSettings()
     if (!this._client) {
+      if (!env.FAUNA_ADMIN_KEY) {
+        throw new Error(`FAUNA_ADMIN_KEY not set; Sprachy can't connect to db`)
+      }
       this._client = new faunadb.Client({
-        secret: FAUNA_ADMIN_KEY!
+        secret: env.FAUNA_ADMIN_KEY
       })
     }
     return this._client

@@ -26,7 +26,6 @@ const confirmResetPassword = z.object({
 })
 export const post: RequestHandler = async ({ request }) => {
   const { token, newPassword } = confirmResetPassword.parse(await request.json())
-  console.log(token, newPassword)
 
   const json = await kvs.getJson<{ userId: string }>(`reset_password_tokens:${token}`)
   const user = await db.users.get(json?.userId || "")

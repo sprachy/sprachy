@@ -1,9 +1,6 @@
 import { db } from '../src/lib/server/db'
-import { prepareSettings } from '../src/lib/server/settings'
 
 export async function adminify(email: string) {
-  prepareSettings(process.env)
-
   const user = await db.users.expectByEmail(email)
   if (user.isAdmin) {
     console.log(`${email} is already an admin`)

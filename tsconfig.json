@@ -10,6 +10,12 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitReturns": true
   },
+  "include": [
+    "./src/**/*.js",
+    "./src/**/*.ts",
+    "./src/**/*.svelte",
+    "./test/**/*.ts",
+  ],
   "ts-node": {
     "transpileOnly": true
   }

@@ -1,4 +1,5 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios"
+import axios from "axios"
+import type { AxiosInstance, AxiosRequestConfig } from "axios"
 import { SprachyAPIClient } from "../src/lib/client/SprachyAPIClient"
 import { TEST_USER_EMAIL, TEST_USER_PASSWORD } from "./constants"
 import { wrapper } from "axios-cookiejar-support"
@@ -62,7 +63,7 @@ type TestEnv = {
 
 let testenvReady: TestEnv | null = null
 
-let _rando = null
+let _rando: { api: SprachyAPIClient } | null = null
 export async function asRandoVisitor() {
   if (!_rando) {
     _rando = { api: new SprachyAPIClient(new TestHTTPProvider()) }
@@ -70,7 +71,7 @@ export async function asRandoVisitor() {
   return _rando
 }
 
-let _user = null
+let _user: { api: SprachyAPIClient } | null = null
 export async function asExistingUser() {
   if (!_user) {
     _user = { api: new SprachyAPIClient(new TestHTTPProvider()) }

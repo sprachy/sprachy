@@ -1,5 +1,5 @@
 import http from './http'
-import { expectSettings } from './settings'
+import { env } from './env'
 
 type PlaintextEmailMessage = {
   to: string
@@ -33,16 +33,14 @@ export class Mailer {
       body.text = msg.text
     }
 
-    const { MAILGUN_SECRET } = expectSettings()
-
     // if (IS_TESTING) {
     //   testMailsSent.push(msg)
     // } else 
-    
-    if (!MAILGUN_SECRET) {
+
+    if (env.MAILGUN_SECRET) {
       return await http.post("https://api.mailgun.net/v3/mg.sprachy.com/messages", body, {
         headers: {
-          Authorization: `Basic ${btoa(`api:${MAILGUN_SECRET}`)}`
+          Authorization: `Basic ${btoa(`api:${env.MAILGUN_SECRET}`)}`
         }
       })
     } else {

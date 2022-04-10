@@ -5,6 +5,7 @@ import { time } from '$lib/time'
 import { mailer } from "$lib/server/mailer"
 import { db } from '$lib/server/db'
 import { kvs } from '$lib/server/kvs'
+import { env } from '$lib/server/env'
 
 const resetPasswordForm = z.object({
   email: z.string()
@@ -21,7 +22,7 @@ export const post: RequestHandler = async ({ request, locals }) => {
       to: user.email,
       subject: "Reset your Sprachy password",
       text: `
-Please click here to reset your password: ${locals.env.FRONTEND_BASE_URL}/confirm-reset-password?token=${token}
+Please click here to reset your password: ${env.FRONTEND_BASE_URL}/confirm-reset-password?token=${token}
       `
     })
   }

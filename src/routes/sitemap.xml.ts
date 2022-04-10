@@ -1,8 +1,9 @@
+import { env } from "$lib/server/env"
 import { sprachdex } from "$lib/sprachdex"
 import type { RequestHandler } from "@sveltejs/kit"
 
 export const get: RequestHandler = async ({ locals }) => {
-  const baseUrl = locals.env.FRONTEND_BASE_URL
+  const baseUrl = env.FRONTEND_BASE_URL
 
   const headers = {
     'Cache-Control': 'max-age=0, s-maxage=3600',

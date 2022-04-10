@@ -5,6 +5,7 @@ import { mailer } from "$lib/server/mailer"
 import { kvs } from '$lib/server/kvs'
 import { time } from '$lib/time'
 import { db } from '$lib/server/db'
+import { env } from '$lib/server/env'
 
 
 const changeEmailForm = z.object({
@@ -31,7 +32,7 @@ export const post: RequestHandler = async ({ request, locals }) => {
     text: `
 You requested to change your Sprachy email address to ${newEmail}.
 
-Please click here to confirm: ${locals.env.FRONTEND_BASE_URL}/settings?emailConfirmToken=${token}
+Please click here to confirm: ${env.FRONTEND_BASE_URL}/settings?emailConfirmToken=${token}
     `
   })
 
