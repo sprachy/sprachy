@@ -5,13 +5,12 @@ import { TEST_USER_EMAIL, TEST_USER_PASSWORD } from './constants'
 import shell from "shelljs"
 import type { ChildProcess } from 'child_process'
 import * as schema from '$lib/server/schema'
+import { makeFaunaClient } from '$lib/server/faunaUtil'
 
 let devServerProcess: ChildProcess
 
 export async function setup() {
-  const devFauna = new faunadb.Client({
-    secret: process.env.FAUNA_ADMIN_KEY!
-  })
+  const devFauna = makeFaunaClient()
 
   // Delete any existing test child db and create a new one
   await devFauna.query(
@@ -34,10 +33,7 @@ export async function setup() {
   process.env['FAUNA_ADMIN_KEY'] = secret
 
   // Apply schema
-  const testFauna = new faunadb.Client({
-    secret: secret
-  })
-
+  const testFauna = makeFaunaClient({ secret })
   await testFauna.query(schema.collections)
   await testFauna.query(schema.indexes)
 

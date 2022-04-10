@@ -54,3 +54,32 @@ npm run dev
 ```
 
 And that's it! The dev server should now be available at `http://localhost:5999`.
+
+### Advanced: run FaunaDB locally with Docker
+
+For faster development (and especially tests) you can run a local instance of FaunaDB
+using Docker, and connect Sprachy to a database there.
+
+First, download the docker image:
+
+```sh
+docker pull fauna/faunadb:latest
+```
+
+Start the node running in the background:
+
+```sh
+docker run -d --rm --name fauna -p 8443:8443 -p 8084:8084 -v devdb:/var/lib/fauna fauna/faunadb
+```
+
+Install `fauna-shell`, and use it to create a local dev database:
+
+```sh
+npm i -g fauna-shell
+fauna add-endpoint http://localhost:8443/ --alias localhost --key secret
+fauna create-database sprachy-dev --endpoint=localhost
+fauna create-key sprachy-dev --endpoint=localhost
+```
+
+Copy the key from `fauna create-key` as FAUNA_ADMIN_KEY in your `.env`.
+

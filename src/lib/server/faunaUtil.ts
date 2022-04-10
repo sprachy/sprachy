@@ -1,5 +1,6 @@
-import fdb from 'faunadb'
-const { Expr } = fdb
+import faunadb from 'faunadb'
+import { env } from './env'
+const { Expr } = faunadb
 
 export class FaunaError extends Error {
   /** HTTP status code */
@@ -80,4 +81,25 @@ export type FaunaDocument<T> = {
   ref: { value: { id: string } }
   ts: number
   data: Omit<T, 'id' | 'ts'>
+}
+
+export function makeFaunaClient(options: Partial<faunadb.ClientConfig> = {}): faunadb.Client {
+  const secret = options.secret || env.FAUNA_ADMIN_KEY
+  if (!secret) {
+    throw new Error(`No FAUNA_ADMIN_KEY set; Sprachy can't connect to database`)
+  }
+
+  const config: faunadb.ClientConfig = {
+    secret: secret
+  }
+
+  if (env.FAUNA_DOMAIN)
+    config.domain = env.FAUNA_DOMAIN
+  if (env.FAUNA_PORT)
+    config.port = parseInt(env.FAUNA_PORT)
+  if (env.FAUNA_SCHEME === 'http')
+    config.scheme = env.FAUNA_SCHEME
+
+  Object.assign(config, options)
+  return new faunadb.Client(config)
 }

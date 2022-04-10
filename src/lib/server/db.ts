@@ -2,7 +2,7 @@ import faunadb from 'faunadb'
 const { Collection, Create, Documents, Get, Index, Match, Ref, Update, Map, Lambda, Paginate, Var, Delete, If, Let, Exists, Now } = faunadb
 import type { ProgressItem, User } from '../api'
 import _ from 'lodash'
-import { flattenFauna, FaunaError } from './faunaUtil'
+import { flattenFauna, FaunaError, makeFaunaClient } from './faunaUtil'
 import type { FaunaDocument } from "./faunaUtil"
 import * as time from '../time'
 import { env } from './env'
@@ -11,12 +11,7 @@ class FaunaConnector {
   _client?: faunadb.Client
   get client() {
     if (!this._client) {
-      if (!env.FAUNA_ADMIN_KEY) {
-        throw new Error(`FAUNA_ADMIN_KEY not set; Sprachy can't connect to db`)
-      }
-      this._client = new faunadb.Client({
-        secret: env.FAUNA_ADMIN_KEY
-      })
+      this._client = makeFaunaClient()
     }
     return this._client
   }

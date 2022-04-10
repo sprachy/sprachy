@@ -13,7 +13,7 @@ export class TestHTTPProvider implements HTTPProvider {
   constructor() {
     this.axios = wrapper(
       axios.create({
-        baseURL: "http://localhost:5998",
+        baseURL: "http://127.0.0.1:5998",
         timeout: 10000,
         jar: new CookieJar(),
       })

@@ -9,6 +9,9 @@ declare namespace App {
     VITEST?: string
     FRONTEND_BASE_URL?: string
     FAUNA_ADMIN_KEY?: string
+    FAUNA_DOMAIN?: string
+    FAUNA_PORT?: string
+    FAUNA_SCHEME?: string
     MAILGUN_SECRET?: string
     DISCORD_SIGNUP_WEBHOOK?: string
   }

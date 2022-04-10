@@ -20,7 +20,7 @@ namespace http {
   export async function request(url: RequestInfo, init: RequestInit) {
     const response = await fetch(url, init)
 
-    if (response.status !== 200) {
+    if (response.status < 200 || response.status >= 300) {
       console.error(response)
       const results = await gatherResponse(response)
       console.error(results)
