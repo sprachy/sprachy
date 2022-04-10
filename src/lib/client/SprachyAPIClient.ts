@@ -18,6 +18,10 @@ export class SprachyAPIClient {
     return this.http.post(`/login`, { email, password })
   }
 
+  async logout() {
+    await this.http.get(`/logout`)
+  }
+
   async sendPasswordResetEmail(email: string) {
     return this.http.post(`/reset-password`, { email })
   }
