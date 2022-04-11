@@ -12,8 +12,8 @@
     "deploy": "npm run check && wrangler publish --env live && node ./scripts/post-deploy.js",
     "stealthdeploy": "wrangler publish --env live",
     "td": "wrangler publish --env staging",
-    "resetdb": "NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd node --loader ts-node/esm scripts/resetdb.ts",
-    "adminify": "NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd node --loader ts-node/esm scripts/adminify.ts",
+    "initdb": "NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd --no-override node --loader ts-node/esm scripts/initdb.ts",
+    "adminify": "NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd --no-override node --loader ts-node/esm scripts/adminify.ts",
     "test": "env-cmd --no-override vitest",
     "faunadb": "docker run -d --rm --name fauna -p 8443:8443 -p 8084:8084 -v devdb:/var/lib/fauna fauna/faunadb"
   },

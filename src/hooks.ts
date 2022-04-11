@@ -7,6 +7,7 @@ import { db } from '$lib/server/db'
 import { getCloudflareWorkersEnv } from './workersEnv'
 import { env } from '$lib/server/env'
 import _ from 'lodash'
+import { time } from '$lib/time'
 
 /**
  * All requests to the server are wrapped by this hook.
@@ -89,6 +90,19 @@ export const getSession: GetSession = async (event) => {
   } else {
     return {}
   }
+}
+
+async function testCron() {
+  const user = await db.users.expectByEmail("toggledy@gmail.com")
+  await db.users.update(user.id, { lastReminderEmailSentAt: time.now() })
+}
+
+if (typeof addEventListener !== 'undefined') {
+  addEventListener('scheduled', (event: ScheduledEvent) => {
+    Object.assign(env, getCloudflareWorkersEnv(), Object.assign({}, env))
+    event.waitUntil(testCron())
+    // event.waitUntil(handleScheduled(event))
+  })
 }
 
 // export const handleError: HandleError = async ({ error, event }) => {

@@ -51,14 +51,6 @@ export async function setup() {
   })
 
   await devServerReady
-
-  // Sign up our test user
-  const api = new SprachyAPIClient(new TestHTTPProvider())
-  await api.signUp({
-    email: TEST_USER_EMAIL,
-    password: TEST_USER_PASSWORD,
-    confirmPassword: TEST_USER_PASSWORD
-  })
 }
 
 export async function teardown() {

@@ -1,9 +1,9 @@
 import { test, expect } from "vitest"
-import { asRandoVisitor } from "./testenv"
+import { testenv } from "./testenv"
 import { v4 as uuid } from "uuid"
 
 test("sign up for Sprachy", async () => {
-  const asRando = await asRandoVisitor()
+  const asRando = await testenv.asRando()
 
   const email = `twodork+${uuid()}@sprachy.com`
 

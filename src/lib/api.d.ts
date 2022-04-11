@@ -16,6 +16,8 @@ export type User = {
   id: string
   email: string
   isAdmin: boolean
+  lastReminderEmailSentAt?: number
+  lastReviewAt?: number
 }
 
 export type ProgressItem = {

@@ -6,6 +6,7 @@ import { wrapper } from "axios-cookiejar-support"
 import { CookieJar } from "tough-cookie"
 import type { HTTPProvider } from "../src/lib/client/HTTPProvider"
 import type { ProgressSummary } from "$lib/api"
+import { v4 as uuid } from 'uuid'
 
 export class TestHTTPProvider implements HTTPProvider {
   axios: AxiosInstance
@@ -56,32 +57,34 @@ export class TestHTTPProvider implements HTTPProvider {
   }
 }
 
-type TestEnv = {
-  asUser: { api: SprachyAPIClient }
-  asRando: { api: SprachyAPIClient }
-  // asAdmin: SprachyAPIClient
-}
+export class TestEnvironment {
+  private randoClient?: { api: SprachyAPIClient }
+  private userClient?: { api: SprachyAPIClient, user: ProgressSummary['user'] }
 
-let testenvReady: TestEnv | null = null
-
-let _rando: { api: SprachyAPIClient } | null = null
-export async function asRandoVisitor() {
-  if (!_rando) {
-    _rando = { api: new SprachyAPIClient(new TestHTTPProvider()) }
-  }
-  return _rando
-}
-
-let _user: { api: SprachyAPIClient, user: ProgressSummary['user'] } | null = null
-export async function asExistingUser() {
-  if (!_user) {
-    const api = new SprachyAPIClient(new TestHTTPProvider())
-    const { summary } = await api.login({
-      email: TEST_USER_EMAIL,
-      password: TEST_USER_PASSWORD,
-    })
-    return { api, user: summary.user }
+  async asRando() {
+    if (!this.randoClient) {
+      this.randoClient = { api: new SprachyAPIClient(new TestHTTPProvider()) }
+    }
+    return this.randoClient
   }
 
-  return _user
+  async asUser() {
+    if (!this.userClient) {
+      const api = new SprachyAPIClient(new TestHTTPProvider())
+
+      const email = `testdork+${uuid()}@yuh.com`
+      const password = uuid()
+
+      const { summary } = await api.signUp({
+        email: email,
+        password: password,
+        confirmPassword: password
+      })
+      return { api, user: summary.user, password: password }
+    }
+
+    return this.userClient
+  }
 }
+
+export const testenv = new TestEnvironment()
