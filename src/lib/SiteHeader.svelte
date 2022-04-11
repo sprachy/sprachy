@@ -74,9 +74,13 @@
               </Dropdown>
             {/if}
 
-            <NavItem>
-              <NavLink href="/settings">{spa.user.email}</NavLink>
-            </NavItem>
+            <Dropdown nav inNavbar>
+              <DropdownToggle nav caret>{spa.user.email}</DropdownToggle>
+              <DropdownMenu end>
+                <DropdownItem href="/profile">Profile</DropdownItem>
+                <DropdownItem href="/settings">Account</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
 
             <NavItem>
               <NavLink href="/logout">Log out</NavLink>
