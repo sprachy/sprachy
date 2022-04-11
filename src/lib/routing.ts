@@ -19,7 +19,8 @@ const authedRoutes = [
   '/practice',
   '/api(.*)',
   '/admin(.*)',
-  '/settings'
+  '/settings',
+  '/profile'
 ]
 
 for (const pattern of sprachdex.patternsIncludingDrafts) {

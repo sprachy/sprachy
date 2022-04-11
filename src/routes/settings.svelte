@@ -46,7 +46,7 @@
 </script>
 
 <SiteLayout>
-  <h1>Settings</h1>
+  <h1>Account Settings</h1>
 
   <form>
     <fieldset class="form-group">
