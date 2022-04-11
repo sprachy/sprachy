@@ -2,7 +2,7 @@ import { env } from "$lib/server/env"
 import { sprachdex } from "$lib/sprachdex"
 import type { RequestHandler } from "@sveltejs/kit"
 
-export const get: RequestHandler = async ({ locals }) => {
+export const get: RequestHandler = async () => {
   const baseUrl = env.FRONTEND_BASE_URL
 
   const headers = {

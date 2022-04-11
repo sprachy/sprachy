@@ -1,14 +1,13 @@
 import axios from "axios"
 import type { AxiosInstance, AxiosRequestConfig } from "axios"
 import { SprachyAPIClient } from "../src/lib/client/SprachyAPIClient"
-import { TEST_USER_EMAIL, TEST_USER_PASSWORD } from "./constants"
 import { wrapper } from "axios-cookiejar-support"
 import { CookieJar } from "tough-cookie"
 import type { HTTPProvider } from "../src/lib/client/HTTPProvider"
 import type { ProgressSummary } from "$lib/api"
 import { v4 as uuid } from 'uuid'
 
-export class TestHTTPProvider implements HTTPProvider {
+export class TestHTTPProvider {
   axios: AxiosInstance
   ongoingRequests: Promise<any>[] = []
   constructor() {
@@ -63,14 +62,14 @@ export class TestEnvironment {
 
   async asRando() {
     if (!this.randoClient) {
-      this.randoClient = { api: new SprachyAPIClient(new TestHTTPProvider()) }
+      this.randoClient = { api: new SprachyAPIClient(new TestHTTPProvider() as HTTPProvider) }
     }
     return this.randoClient
   }
 
   async asUser() {
     if (!this.userClient) {
-      const api = new SprachyAPIClient(new TestHTTPProvider())
+      const api = new SprachyAPIClient(new TestHTTPProvider() as HTTPProvider)
 
       const email = `testdork+${uuid()}@yuh.com`
       const password = uuid()

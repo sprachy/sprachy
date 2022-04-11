@@ -1,18 +1,11 @@
 import { pathToRegexp } from "path-to-regexp"
 import { sprachdex } from "./sprachdex"
 
-// Routes that don't require login
-// These routes get SSR; every other route is gated by an auth redirect
-// const publicRoutes = [
-//   '/',
-//   '/login',
-//   '/signup',
-//   '/reset-password',
-//   '/reset-password/:token',
-//   '/pattern/:slug',
-//   '/faq'
-// ]
-
+/**
+ * Routes that can only be accessed when you're
+ * logged in. We disable SSR for these and render
+ * them only in the browser.
+ */
 const authedRoutes = [
   '/home',
   '/learn',

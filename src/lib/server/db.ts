@@ -5,7 +5,6 @@ import _ from 'lodash'
 import { flattenFauna, FaunaError, makeFaunaClient } from './faunaUtil'
 import type { FaunaDocument } from "./faunaUtil"
 import * as time from '../time'
-import { env } from './env'
 
 class FaunaConnector {
   _client?: faunadb.Client
@@ -20,6 +19,10 @@ class FaunaConnector {
 export namespace db {
   export const fauna = new FaunaConnector()
 
+  /** 
+   * FQL shorthand to return null instead of erroring if
+   * the document doesn't exist.
+   */
   export function GetIfExists(expr: faunadb.Expr) {
     return Let(
       { obj: expr },
@@ -127,7 +130,6 @@ export namespace db {
       )
     }
 
-
     export async function update(userId: string, changes: Partial<Omit<User, 'id'>>): Promise<User> {
       return await db.querySingle<User>(
         Update(
@@ -139,7 +141,6 @@ export namespace db {
       )
     }
   }
-
 
   export namespace progress {
     function MatchByUserAndPattern(userId: string, patternId: string) {
@@ -175,6 +176,9 @@ export namespace db {
       )
     }
 
+    /**
+     * Reset all SRS progress for a user. Destructive!
+     */
     export async function resetFor(userId: string) {
       await db.query(
         Map(

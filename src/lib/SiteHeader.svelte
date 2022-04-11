@@ -3,7 +3,6 @@
   import sprachy from "$lib/sprachy"
   import { dev } from "$app/env"
   import { page } from "$app/stores"
-  import { isAuthedRoute } from "$lib/routing"
   import {
     Collapse,
     Navbar,
@@ -118,19 +117,4 @@
   &:hover
     background-color: inherit
     box-shadow: inherit
-
-// .dropdown-toggle
-//   all: unset
-//   cursor: pointer
-
-
-// .caret
-//   display: inline-block
-//   width: 0
-//   height: 0
-//   margin-left: 2px
-//   vertical-align: middle
-//   border-top: 4px dashed
-//   border-right: 4px solid transparent
-//   border-left: 4px solid transparent
 </style>

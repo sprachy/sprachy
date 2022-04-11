@@ -3,14 +3,7 @@ import characters from "$lib/characters"
 import type { Character } from "$lib/characters"
 import patternDefs from "$lib/patterns"
 
-/**
- * Main interface for accessing sprachy content (patterns, exercises, characters, etc).
- *
- * Everything is currently compiled into the code bundle, so it's all
- * synchronously available. We may have to change this in the future
- * as the amount of content grows (in order to retain reasonable load times), 
- * but we don't need to worry about it for now.
- */
+
 class Sprachdex {
   characters = characters
   patternsIncludingDrafts = patternDefs.map((p) => parsePattern(p))
@@ -35,4 +28,12 @@ class Sprachdex {
   }
 }
 
+/**
+ * Main interface for accessing sprachy content (patterns, exercises, characters, etc).
+ *
+ * Everything is currently compiled into the code bundle, so it's all
+ * synchronously available. We may have to change this in the future
+ * as the amount of content grows (in order to retain reasonable load times), 
+ * but we don't need to worry about it for now.
+ */
 export const sprachdex = new Sprachdex()

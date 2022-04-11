@@ -4,8 +4,6 @@ import { browser } from "$app/env"
 import { SprachyAPIClient } from "$lib/client/SprachyAPIClient"
 import { SprachyUserSPA } from "$lib/client/SprachyUserSPA"
 import _ from "lodash"
-// @ts-ignore
-import NProgress from "accessible-nprogress?client"
 import type { ProgressSummary } from "./api"
 
 declare const window: {
@@ -14,11 +12,6 @@ declare const window: {
   spa: SprachyUserSPA
 }
 
-/**
- * This singleton class is used to differentiate between different
- * global states of the app. Code can use it to declare its expectation
- * that the user be logged in or that it's running in the browser.
- */
 export class SprachyContextManager {
   api?: SprachyAPIClient
   backgroundApi?: SprachyAPIClient
@@ -75,6 +68,11 @@ export class SprachyContextManager {
   }
 }
 
+/**
+ * This singleton class is used to differentiate between different
+ * global states of the app. Code can use it to declare its expectation
+ * that the user be logged in or that it's running in the browser.
+ */
 const sprachy = new SprachyContextManager()
 if (browser) {
   sprachy.initBrowser()

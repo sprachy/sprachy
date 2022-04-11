@@ -1,7 +1,4 @@
-import faunadb, { Delete, CreateDatabase, Database, Exists, If, Do, CreateKey } from 'faunadb'
-import { SprachyAPIClient } from '$lib/client/SprachyAPIClient'
-import { TestHTTPProvider } from './testenv'
-import { TEST_USER_EMAIL, TEST_USER_PASSWORD } from './constants'
+import { Delete, CreateDatabase, Database, Exists, If, Do, CreateKey } from 'faunadb'
 import shell from "shelljs"
 import type { ChildProcess } from 'child_process'
 import * as schema from '$lib/server/schema'
