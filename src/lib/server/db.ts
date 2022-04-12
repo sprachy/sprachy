@@ -100,6 +100,16 @@ export namespace db {
       )
     }
 
+    export async function query(index: string, ...args: any[]): Promise<User[]> {
+      return await db.query<User[]>(
+        Map(
+          Paginate(Match(Index(index), ...args)),
+          Lambda("id", Get(Var("id")))
+        )
+      )
+    }
+
+
     /**
      * Create a new user. Will fail if email is taken, due to faunadb unique constraint.
      */
@@ -193,10 +203,15 @@ export namespace db {
      * Only updates srs level if it is the correct time to do so.
      */
     export async function completeLevel(userId: string, patternId: string, completedLevel: number): Promise<ProgressItem | null> {
+
       const progress = await db.progress.get(userId, patternId)
 
       if (!progress) {
         // Initial review
+        await db.users.update(userId, {
+          lastReviewAt: Now() as any
+        })
+
         return await db.querySingle<ProgressItem>(
           Create(Collection("progress"), {
             data: {
@@ -219,6 +234,10 @@ export namespace db {
           srsLevel: completedLevel
         }
       }
+
+      await db.users.update(userId, {
+        lastReviewAt: Now() as any
+      })
 
       return await db.querySingle<ProgressItem>(
         Update(

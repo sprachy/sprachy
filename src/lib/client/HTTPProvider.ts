@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import axios from 'axios'
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { IS_PRODUCTION } from './settings'
 import { errorsByField } from './utils'
 
 export type RequestOpts = AxiosRequestConfig & { safe?: boolean }
@@ -37,16 +36,16 @@ export class HTTPProvider {
       timeout: 10000
     })
 
-    if (!IS_PRODUCTION) {
-      // In development, delay all requests by a small random amount to simulate live user experience.
-      // This helps with dev-prod parity so that we remember to do good loading behavior.
-      this.axios.interceptors.response.use(async response => {
-        // Numbers are based on how long API requests take for me on GitHub, which uses
-        // a similar kind of loading indicator to us
-        await delay(_.random(200, 700))
-        return response
-      })
-    }
+    // if (!IS_PRODUCTION) {
+    //   // In development, delay all requests by a small random amount to simulate live user experience.
+    //   // This helps with dev-prod parity so that we remember to do good loading behavior.
+    //   this.axios.interceptors.response.use(async response => {
+    //     // Numbers are based on how long API requests take for me on GitHub, which uses
+    //     // a similar kind of loading indicator to us
+    //     await delay(_.random(200, 700))
+    //     return response
+    //   })
+    // }
   }
 
   async unsafeRequest(opts: RequestOpts): Promise<AxiosResponse<any>> {

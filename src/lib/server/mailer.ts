@@ -1,5 +1,6 @@
 import http from './http'
 import { env } from './env'
+import { kvs } from './kvs'
 
 type PlaintextEmailMessage = {
   to: string
@@ -15,11 +16,17 @@ type HtmlEmailMessage = {
   html: string
 }
 
-type EmailMessage = PlaintextEmailMessage | HtmlEmailMessage
+export type EmailMessage = PlaintextEmailMessage | HtmlEmailMessage
 
 export const testMailsSent: EmailMessage[] = []
 
 export class Mailer {
+  testMailsSent: EmailMessage[] = []
+
+  testMailsSentTo(email: string) {
+    return this.testMailsSent.filter(m => m.to === email)
+  }
+
   async sendEmail(msg: EmailMessage) {
     const body: any = {
       "to": msg.to,
@@ -33,11 +40,9 @@ export class Mailer {
       body.text = msg.text
     }
 
-    // if (IS_TESTING) {
-    //   testMailsSent.push(msg)
-    // } else 
-
-    if (env.MAILGUN_SECRET) {
+    if (env.TESTING) {
+      this.testMailsSent.push(msg)
+    } else if (env.MAILGUN_SECRET) {
       return await http.post("https://api.mailgun.net/v3/mg.sprachy.com/messages", body, {
         headers: {
           Authorization: `Basic ${btoa(`api:${env.MAILGUN_SECRET}`)}`

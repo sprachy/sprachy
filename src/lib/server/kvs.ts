@@ -5,12 +5,13 @@ import { env } from "./env"
 async function getDummyStore() {
   // Rollup tree-shakes the import out of the production build
   const { Miniflare } = await import("miniflare")
+  const namespace = env.TESTING ? "TESTSTORE" : "STORE"
   const mf = new Miniflare({
     script: "",
-    kvNamespaces: ["STORE"],
+    kvNamespaces: [namespace],
     kvPersist: true
   })
-  return mf.getKVNamespace("STORE")
+  return mf.getKVNamespace(namespace)
 }
 
 export class DummyStore {
@@ -30,11 +31,13 @@ export class DummyStore {
 }
 
 class KVStoreClient {
+  _devStore?: KVNamespace
   get STORE() {
     if (dev) {
-      if (!env.STORE) {
-        env.STORE = new DummyStore() as any as KVNamespace
+      if (!this._devStore) {
+        this._devStore = new DummyStore() as any as KVNamespace
       }
+      return this._devStore
     }
 
     return env.STORE!

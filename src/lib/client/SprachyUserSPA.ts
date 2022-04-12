@@ -42,7 +42,6 @@ export class SprachyUserSPA {
   receiveProgress(summary: ProgressSummary) {
     this.user = summary.user
     this.progressItems = summary.progressItems
-    localStorage.setItem("summary", JSON.stringify(summary))
   }
 
   // Update local progress with a single new item

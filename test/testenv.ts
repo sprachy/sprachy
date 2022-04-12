@@ -4,8 +4,15 @@ import { SprachyAPIClient } from "../src/lib/client/SprachyAPIClient"
 import { wrapper } from "axios-cookiejar-support"
 import { CookieJar } from "tough-cookie"
 import type { HTTPProvider } from "../src/lib/client/HTTPProvider"
-import type { ProgressSummary } from "$lib/api"
+import type { ProgressSummary, SignupDetails } from "$lib/api"
 import { v4 as uuid } from 'uuid'
+import { env } from "$lib/server/env"
+import shell from "shelljs"
+
+env.TESTING = "1"
+
+// Clear the test KV store
+shell.exec("rm -rf .mf/kv/TESTSTORE", { silent: true })
 
 export class TestHTTPProvider {
   axios: AxiosInstance
@@ -58,7 +65,7 @@ export class TestHTTPProvider {
 
 export class TestEnvironment {
   private randoClient?: { api: SprachyAPIClient }
-  private userClient?: { api: SprachyAPIClient, user: ProgressSummary['user'] }
+  private userClient?: { api: SprachyAPIClient, user: ProgressSummary['user'], password: string }
 
   async asRando() {
     if (!this.randoClient) {
@@ -67,7 +74,7 @@ export class TestEnvironment {
     return this.randoClient
   }
 
-  async asUser() {
+  async asUser(opts: Partial<SignupDetails> = {}) {
     if (!this.userClient) {
       const api = new SprachyAPIClient(new TestHTTPProvider() as HTTPProvider)
 
@@ -77,9 +84,10 @@ export class TestEnvironment {
       const { summary } = await api.signUp({
         email: email,
         password: password,
-        confirmPassword: password
+        confirmPassword: password,
+        wantsReminderEmails: opts.wantsReminderEmails || false
       })
-      return { api, user: summary.user, password: password }
+      this.userClient = { api, user: summary.user, password: password }
     }
 
     return this.userClient

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import type { ProgressItem, User, ProgressSummary } from '$lib/api'
+import type { ProgressItem, User, ProgressSummary, SignupDetails } from '$lib/api'
 import { HTTPProvider } from './HTTPProvider'
 
 export class SprachyAPIClient {
@@ -10,8 +10,8 @@ export class SprachyAPIClient {
     this.admin = new AdminAPI(this.http)
   }
 
-  async signUp({ email, password, confirmPassword }: { email: string, password: string, confirmPassword: string }): Promise<{ summary: ProgressSummary }> {
-    return this.http.post(`/signup`, { email, password, confirmPassword })
+  async signUp(deets: SignupDetails): Promise<{ summary: ProgressSummary }> {
+    return this.http.post(`/signup`, deets)
   }
 
   async login({ email, password }: { email: string, password: string }): Promise<{ summary: ProgressSummary }> {
@@ -44,6 +44,10 @@ export class SprachyAPIClient {
 
   async confirmEmailChange(token: string) {
     return this.http.post(`/api/account/confirm-email-change`, { token })
+  }
+
+  async patchSettings(settings: Pick<User, 'wantsReminderEmails'>): Promise<User> {
+    return this.http.patch(`/api/account/settings`, settings)
   }
 }
 

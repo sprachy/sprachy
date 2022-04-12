@@ -10,7 +10,8 @@ import { env } from "$lib/server/env"
 const signupForm = z.object({
   email: z.string().email(),
   password: z.string(),
-  confirmPassword: z.string()
+  confirmPassword: z.string(),
+  wantsReminderEmails: z.boolean()
 }).refine(d => d.password.length >= 10, {
   message: "Password must be at least length 10",
   path: ["password"]
@@ -19,13 +20,13 @@ const signupForm = z.object({
   path: ["confirmPassword"]
 })
 export const post: RequestHandler = async ({ request }) => {
-  const { email, password } = signupForm.parse(await request.json())
+  const { email, password, wantsReminderEmails } = signupForm.parse(await request.json())
   try {
-    const user = await db.users.create({ email, password, isAdmin: false })
+    const user = await db.users.create({ email, password, wantsReminderEmails, isAdmin: false })
     const progressItems = await db.progress.listAllFor(user.id)
     const sessionKey = await sessions.create(user.id)
 
-    if (env.DISCORD_SIGNUP_WEBHOOK && !env.VITEST) {
+    if (env.DISCORD_SIGNUP_WEBHOOK && !env.TESTING) {
       const params = {
         username: "SignUp",
         avatar_url: "",
@@ -48,7 +49,6 @@ export const post: RequestHandler = async ({ request }) => {
     }
   } catch (err) {
     if (err instanceof FaunaError && err.code === "instance not unique") {
-      console.log(err)
       return {
         status: 409,
         body: {

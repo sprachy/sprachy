@@ -11,6 +11,12 @@ import type { ZodIssue } from 'zod'
 //   { status: 422, code: 'validation failed', errors: ZodIssue[] } |
 //   { status: 409, code: 'user already exists' }
 
+export type SignupDetails = {
+  email: string
+  password: string
+  confirmPassword: string
+  wantsReminderEmails: boolean
+}
 
 export type User = {
   id: string
@@ -18,6 +24,7 @@ export type User = {
   isAdmin: boolean
   lastReminderEmailSentAt?: number
   lastReviewAt?: number
+  wantsReminderEmails?: boolean
 }
 
 export type ProgressItem = {

@@ -75,7 +75,7 @@ export type Story = Pattern['story']
 export function parsePattern(patternDef: PatternDef): Pattern {
   return Object.assign({}, patternDef, {
     story: patternDef.story.map(ex => parseLine(patternDef, ex)),
-    maxLevel: 5,
+    maxLevel: 9,
     exercises: patternDef.exercises ? patternDef.exercises.map(ex => parseLine(patternDef, ex)) as Exercise[] : []
   })
 }
