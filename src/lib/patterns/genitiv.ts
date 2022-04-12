@@ -17,7 +17,7 @@ for instance to underline the posession of some almonds:
 That is [the almond] of the [squirrel].
 </TextHighlighter>
 
-The easiest way to remember a noun in its genitive case is that its article for masculine or neuter nouns is _des_ and _eines_, whereas feminine nouns are trickier with _der_ and _einer_, sharing the same structure as the dative.
+The genitive articles for masculine or neuter nouns are _des_ and _eines_. Feminine nouns in genitiv are identical to dative, receiving _der_ and _einer_. Unlike dative, but similar to nominative, **plurals follow the feminine** and take _der_ as well.
 
 <TextHighlighter parts="directobject, directobject">
 Das ist [die Mandel] des [Eichhörnchens].
@@ -53,7 +53,6 @@ Some nouns already end in _-s_ so one might be inclined to add an apostrophe the
 </Tip>
   `,
   story: [
-    // LEVEL 1
     {
       from: "fox",
       message: "Du hast eine neue Nachricht von dem Präsidenten [des Komitees] für Astrophysischen Ereignisse erhalten.",
@@ -91,6 +90,28 @@ Some nouns already end in _-s_ so one might be inclined to add an apostrophe the
     },
   ],
   exercises: [
-
+    {
+      from: "lukas",
+      message: "Sorry, ich habe mich verlaufen, als ich die Katze [des] Nachbarn streicheln wollte.",
+      translation: "Sorry, I got lost trying to pet the neighbor ['s] cat.",
+      hint: "[masculine]"
+    },
+    {
+      from: "squirrel",
+      message: "Bei uns zu Hause gibt es einen Ort namens \"Wald [der] unendlichen Winkel\". Geh da nicht hin.",
+      translation: "Back home we have a place called the \"Forest [of] Infinite Angles\". Don't go there."
+    },
+    {
+      from: "lindenbaum",
+      message: "Ich frage mich, ob dies das Werk [eines Fuchses] ist.",
+      translation: "I wonder if this is the work [of a fox].",
+      hint: "[masculine, Fuchs]"
+    },
+    {
+      from: "fox",
+      message: "Das dezentralisierte Verschlüsselung wurde kompromittiert? Hier ist ein Pikachu [der] Überraschung",
+      translation: "The decentralized encryption was compromised? Here is a Pikachu [of] Surprise",
+      hint: "[feminine]"
+    }
   ]
 })
