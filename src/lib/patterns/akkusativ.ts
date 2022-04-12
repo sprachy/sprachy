@@ -38,6 +38,12 @@ Accusative / **den** / die / das
 _ein_ words follow the same pattern, changing to **einen** in accusative only for
 masculine nouns. If it's a neuter or feminine noun, it always looks the same in
 accusative!
+
+<Tip title="Einen Jungen">
+Some masculine nouns change form when used in any case other than the nominative, gaining a new _-n_ or _-en_ ending. You will often see phrases like _den Prinzen_, _einen Herren_, or _deinen Studenten_.
+</Tip>
+
+
   `,
   story: [
     {
