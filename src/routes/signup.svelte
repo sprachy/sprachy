@@ -29,6 +29,7 @@
   export let next: string
   let password: string = ""
   let confirmPassword: string = ""
+  let wantsReminderEmails: boolean = false
 
   if (browser) {
     onMount(() => {
@@ -55,6 +56,7 @@
         email: email,
         password: password,
         confirmPassword,
+        wantsReminderEmails: wantsReminderEmails,
       })
 
       $session.userId = summary.user.id
@@ -147,6 +149,20 @@
       {/if}
     </fieldset>
 
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        checked={wantsReminderEmails}
+        id="wantsReminderEmails"
+        on:change|preventDefault={() =>
+          (wantsReminderEmails = !wantsReminderEmails)}
+      />
+      <label class="form-check-label" for="wantsReminderEmails">
+        Send me reminder emails when patterns are ready to review
+      </label>
+    </div>
+
     {#if errors.other}
       <div class="text-danger">
         {errors.other}
@@ -195,4 +211,9 @@ form
   button
     margin-top: 1rem
     width: 100%
+
+.form-check
+  margin-top: 1rem
+  font-size: 0.95rem
+  color: #333
 </style>
