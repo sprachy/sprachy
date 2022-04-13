@@ -3,9 +3,18 @@
   import Message from "$lib/Message.svelte"
   import type { ReadingLine } from "$lib/Pattern"
   import Sprachdown from "$lib/Sprachdown.svelte"
+  import { onMount } from "svelte"
+  import sprachy from "$lib/sprachy"
 
   export let line: ReadingLine
   export let flip: boolean = false
+
+  onMount(() => {
+    const { spa } = sprachy.expectSPA()
+    if (spa.user.enableSpeechSynthesis) {
+      spa.speech.speak(line)
+    }
+  })
 </script>
 
 <Message from={line.from} {flip}>

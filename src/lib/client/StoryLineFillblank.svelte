@@ -6,12 +6,18 @@
   import Sprachdown from "$lib/Sprachdown.svelte"
   import { matchAnswer } from "$lib/client/feedback"
   import sprachy from "$lib/sprachy"
+  import { sprachdex } from "$lib/sprachdex"
 
   const { spa } = sprachy.expectSPA()
+
+  try {
+    speechSynthesis.getVoices()
+  } catch {}
 
   export let line: FillblankLine
   export let flip: boolean = false
   export let complete: boolean = false
+  export let speakable: boolean = false
   let prevLine = line
   let attemptInput!: HTMLInputElement
   let attempt: string = ""
@@ -56,7 +62,7 @@
     })
   })(line)
 
-  export function checkAnswer() {
+  export async function checkAnswer() {
     feedback = ""
     if (attempt === "") return
 
@@ -64,6 +70,11 @@
     if (result.validAnswer) {
       attempt = result.validAnswer
       spa.effects.spawnParticlesAt(attemptInput)
+
+      if (speakable && spa.user.enableSpeechSynthesis) {
+        spa.speech.speak(line)
+      }
+
       dispatch("correct")
     } else {
       if (result.feedback) {

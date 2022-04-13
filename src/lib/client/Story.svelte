@@ -97,6 +97,7 @@
           <StoryLineReading {line} flip={lineFlips[i]} />
         {:else}
           <StoryLineFillblank
+            speakable
             {line}
             flip={lineFlips[i]}
             on:correct={nextLine}

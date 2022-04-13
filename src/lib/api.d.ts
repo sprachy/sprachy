@@ -25,6 +25,7 @@ export type User = {
   lastReminderEmailSentAt?: number
   lastReviewAt?: number
   wantsReminderEmails?: boolean
+  enableSpeechSynthesis?: boolean
 }
 
 export type ProgressItem = {

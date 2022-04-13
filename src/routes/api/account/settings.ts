@@ -3,15 +3,16 @@ import type { RequestHandler } from "@sveltejs/kit"
 import { db } from '$lib/server/db'
 
 const settingsForm = z.object({
-  wantsReminderEmails: z.boolean()
+  wantsReminderEmails: z.optional(z.boolean()),
+  enableSpeechSynthesis: z.optional(z.boolean())
 })
 export const patch: RequestHandler = async ({ request, locals }) => {
-  const { wantsReminderEmails } = settingsForm.parse(await request.json())
+  const settingChanges = settingsForm.parse(await request.json())
 
-  const newUser = await db.users.update(locals.session!.userId, { wantsReminderEmails })
+  const updatedUser = await db.users.update(locals.session!.userId, settingChanges)
 
   return {
     status: 200,
-    body: newUser
+    body: updatedUser
   }
 }

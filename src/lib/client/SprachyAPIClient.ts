@@ -46,7 +46,7 @@ export class SprachyAPIClient {
     return this.http.post(`/api/account/confirm-email-change`, { token })
   }
 
-  async patchSettings(settings: Pick<User, 'wantsReminderEmails'>): Promise<User> {
+  async patchSettings(settings: Pick<User, 'wantsReminderEmails' | 'enableSpeechSynthesis'>): Promise<User> {
     return this.http.patch(`/api/account/settings`, settings)
   }
 }

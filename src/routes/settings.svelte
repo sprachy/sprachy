@@ -5,6 +5,7 @@
 
   let email = spa.user.email
   let wantsReminderEmails = spa.user.wantsReminderEmails
+  let enableSpeechSynthesis = spa.user.enableSpeechSynthesis
 
   let errors: Record<string, string> = {}
   let confirmChangeAddress: string | null = null
@@ -50,6 +51,13 @@
       wantsReminderEmails: !spa.user.wantsReminderEmails,
     })
     wantsReminderEmails = spa.user.wantsReminderEmails
+  }
+
+  async function toggleSpeechSynthesis() {
+    spa.user = await api.patchSettings({
+      enableSpeechSynthesis: !spa.user.enableSpeechSynthesis,
+    })
+    enableSpeechSynthesis = spa.user.enableSpeechSynthesis
   }
 </script>
 
@@ -101,6 +109,24 @@
     />
     <label class="form-check-label" for="wantsReminderEmails">
       Send me a reminder email when patterns are ready to review
+    </label>
+  </div>
+  <div class="form-check mt-2">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      checked={enableSpeechSynthesis}
+      id="enableSpeechSynthesis"
+      on:change|preventDefault={toggleSpeechSynthesis}
+    />
+    <label class="form-check-label" for="enableSpeechSynthesis">
+      <span class="text-info">Experimental:</span> Enable speech synthesis for
+      stories
+
+      <div class="text-secondary">
+        The pronunciation will not always be accurate to how humans would speak
+        German.
+      </div>
     </label>
   </div>
 </SiteLayout>

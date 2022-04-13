@@ -7,6 +7,7 @@ import type { Exercise, FillblankLine, Pattern, Story } from "$lib/Pattern"
 import { sprachdex } from "$lib/sprachdex"
 import { time } from "$lib/time"
 import { CanvasEffects } from "$lib/client/CanvasEffects"
+import { SpeechSystem } from '$lib/SpeechSystem'
 
 export type Review = Exercise & {
   pattern: PatternAndProgress
@@ -19,10 +20,13 @@ export class SprachyUserSPA {
   user: User
   progressItems: ProgressItem[]
 
+  speech = new SpeechSystem(this)
+
   /** 
    * For drawing success confetti animation
    */
-  effects: CanvasEffects = new CanvasEffects()
+  effects = new CanvasEffects()
+
 
   constructor(readonly api: SprachyAPIClient, summary: ProgressSummary) {
     this.user = summary.user
@@ -32,7 +36,6 @@ export class SprachyUserSPA {
   get admin() {
     return this.user && this.user.isAdmin
   }
-
 
   async refreshProgress() {
     const summary = await this.api.getProgress()

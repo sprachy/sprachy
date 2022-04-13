@@ -88,7 +88,7 @@ When dealing with compound words, the last word within the compound word would d
     },
     {
       from: "lindenbaum",
-      message: "The atomares Modell ist nur [eine] Abstraktion der quantenphysikalischen Realität.",
+      message: "Das atomares Modell ist nur [eine] Abstraktion der quantenphysikalischen Realität.",
       translation: "The atomic model is only [an] abstraction of quantum physical reality.",
       hint: "[feminine]"
     },

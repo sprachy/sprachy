@@ -23,6 +23,8 @@ export type Character = {
   avatar: string
   fullname: string
   profile: string
+  rate?: number
+  pitch?: number
 }
 
 const characters = [
@@ -96,6 +98,8 @@ const characters = [
     profile: md`
 An extradimensional squirrel-like lifeform with vast psionic power. Töski is currently taking a vacation on Earth, a travel destination his mindspace identified as having "gemütliche Bäume" and a pleasant lack of reality-rending esper battles.
     `,
+    rate: 1.05,
+    pitch: 1.5
   },
 
   /**
@@ -112,6 +116,8 @@ An extradimensional squirrel-like lifeform with vast psionic power. Töski is cu
     profile: md`
 A student at a German university, studying science and philosophy. He likes tea and fluffy things. Totally down to hang out with an alien squirrel.
     `,
+    rate: 1.0,
+    pitch: 0.6,
   },
   {
     id: "lindenbaum",
