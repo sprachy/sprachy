@@ -3,7 +3,7 @@ import type { RequestHandler } from "@sveltejs/kit"
 import { db } from '$lib/server/db'
 
 const changeNameForm = z.object({
-  newName: z.optional(z.string())
+  newName: z.string()
 })
 export const patch: RequestHandler = async ({ request, locals }) => {
   const { newName } = changeNameForm.parse(await request.json())
