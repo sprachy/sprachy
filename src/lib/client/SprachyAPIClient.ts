@@ -39,23 +39,23 @@ export class SprachyAPIClient {
   }
 
   async changeEmail(newEmail: string) {
-    return this.http.post(`/api/account/change-email`, { newEmail })
+    return this.http.post(`/api/settings/account/change-email`, { newEmail })
   }
 
   async confirmEmailChange(token: string) {
-    return this.http.post(`/api/account/confirm-email-change`, { token })
+    return this.http.post(`/api/settings/account/confirm-email-change`, { token })
   }
 
   async patchSettings(settings: Pick<User, 'wantsReminderEmails' | 'enableSpeechSynthesis'>): Promise<User> {
-    return this.http.patch(`/api/account/settings`, settings)
+    return this.http.patch(`/api/settings/account/settings`, settings)
   }
 
   async changeProfileName(newName: string) {
-    return this.http.patch(`/api/profile/change-name`, { newName })
+    return this.http.patch(`/api/settings/profile/change-name`, { newName })
   }
 
   async changeProfileBio(newBio: string) {
-    return this.http.patch(`/api/profile/change-bio`, { newBio })
+    return this.http.patch(`/api/settings/profile/change-bio`, { newBio })
   }
 }
 
