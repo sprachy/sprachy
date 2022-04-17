@@ -55,11 +55,11 @@ export class SprachyAPIClient {
   }
 
   async changeProfileName(newName: string) {
-    return this.http.patch(`/api/account/change-name`, { newName })
+    return this.http.patch(`/api/profile/change-name`, { newName })
   }
 
   async changeProfileBio(newBio: string) {
-    return this.http.patch(`/api/account/change-bio`, { newBio })
+    return this.http.patch(`/api/profile/change-bio`, { newBio })
   }
 }
 
