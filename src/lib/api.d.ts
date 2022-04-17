@@ -21,6 +21,8 @@ export type SignupDetails = {
 export type User = {
   id: string
   email: string
+  name: string
+  bio: string
   isAdmin: boolean
   lastReminderEmailSentAt?: number
   lastReviewAt?: number
