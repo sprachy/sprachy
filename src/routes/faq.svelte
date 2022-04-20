@@ -42,6 +42,23 @@ a mobile app, we'll investigate building one.
 Sprachy is made by [Toggle](https://github.com/tgle) and [Twokay](https://github.com/two-kay).
 Toggle wanted to learn German, and it's Twokay's native language, so we decided to team up
 and make a fancy website for it!
+
+### Typing in German
+
+German mostly uses the same alphabet as English, but it has a few extra characters. These are:
+
+The umlaut + vowel combinations: Ä/ä, Ö/ö, and Ü/ü
+
+The Eszett or "scharfes S": ß
+
+Here's how to type them on an English keyboard.
+
+#### MacOS
+
+ä, ö, ü: alt+u then the base letter (a/o/u)
+ß: alt+s
+
+TODO expand this section for other platforms
   `
 </script>
 
