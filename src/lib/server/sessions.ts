@@ -34,7 +34,7 @@ export namespace sessions {
     return cookie.serialize("sprachySessionKey", sessionKey, {
       httpOnly: true,
       // maxAge is in seconds
-      maxAge: time.weeks(4) / 1000,
+      maxAge: time.weeks(52) / 1000,
     })
   }
 }

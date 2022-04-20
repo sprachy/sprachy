@@ -25,7 +25,6 @@ export class SpeechSystem {
   speak(line: StoryLine) {
     return new Promise<void>((resolve) => {
       const voice = this.speechSynthesisVoice
-      console.log(voice)
       if (voice) {
         const text = line.message.replace(/[[_*]+/g, "")
         const utter = new SpeechSynthesisUtterance(text)
