@@ -3,18 +3,18 @@ import type { RequestHandler } from "@sveltejs/kit"
 import { db } from '$lib/server/db'
 
 const patchProfileForm = z.object({
-  newName: z.string(),
-  newBio: z.string()
+  input: z.string(),
+  type: z.string()
 })
 export const patch: RequestHandler = async ({ request, locals }) => {
-  const { newName, newBio } = patchProfileForm.parse(await request.json())
+  const { input, type } = patchProfileForm.parse(await request.json())
 
   var updatedUser = null
-  if (newName != "") {
-    updatedUser = await db.users.update(locals.session!.userId, { name: newName })
+  if (type == "name") {
+    updatedUser = await db.users.update(locals.session!.userId, { name: input })
   }
-  else if (newBio != "") {
-    updatedUser = await db.users.update(locals.session!.userId, { bio: newBio })
+  else if (type == "bio") {
+    updatedUser = await db.users.update(locals.session!.userId, { bio: input })
   }
 
   return {

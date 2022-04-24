@@ -50,8 +50,8 @@ export class SprachyAPIClient {
     return this.http.patch(`/api/settings/account/settings`, settings)
   }
 
-  async patchProfile(newName: string, newBio: string) {
-    return this.http.patch(`/api/settings/profile/patch-profile`, { newName, newBio })
+  async patchProfile(input: string, type: string) {
+    return this.http.patch(`/api/settings/profile/patch-profile`, { input, type })
   }
 }
 

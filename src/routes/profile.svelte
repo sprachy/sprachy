@@ -1,6 +1,7 @@
 <script lang="ts">
   import sprachy from "$lib/sprachy"
   import SiteLayout from "$lib/SiteLayout.svelte"
+  import _ from "lodash"
   const { spa, api } = sprachy.expectSPA()
 
   let name = spa.user.name
@@ -11,7 +12,7 @@
   async function editName() {
     errors = {}
     try {
-      spa.user = await api.patchProfile(name, "")
+      spa.user = await api.patchProfile(name, "name")
     } catch (err: any) {
       throw err
     }
@@ -20,7 +21,7 @@
   async function editBio() {
     errors = {}
     try {
-      spa.user = await api.patchProfile("", bio)
+      spa.user = await api.patchProfile(bio, "bio")
     } catch (err: any) {
       throw err
     }
@@ -68,7 +69,6 @@
         class:form-control={true}
         class:is-invalid={!!errors.bio}
         placeholder="Profile Bio"
-        required
       />
       {#if errors.name}
         <div class="invalid-feedback">
