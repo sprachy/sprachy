@@ -4,13 +4,23 @@
   const { spa, api } = sprachy.expectSPA()
 
   let name = spa.user.name
+  let bio = spa.user.bio
 
   let errors: Record<string, string> = {}
 
   async function editName() {
     errors = {}
     try {
-      spa.user = await api.changeProfileName(name)
+      spa.user = await api.patchProfile(name, "")
+    } catch (err: any) {
+      throw err
+    }
+  }
+
+  async function editBio() {
+    errors = {}
+    try {
+      spa.user = await api.patchProfile("", bio)
     } catch (err: any) {
       throw err
     }
@@ -22,7 +32,7 @@
 <SiteLayout>
   <h1>Profile Settings</h1>
   <form>
-    <fieldset class="form-group">
+    <fieldset class="form-group col-md-6">
       <label for="name">Name</label>
       <input
         bind:value={name}
@@ -45,6 +55,32 @@
       class="btn btn-primary mt-2"
       disabled={name === spa.user.name}
       on:click|preventDefault={editName}>Change Name</button
+    >
+  </form>
+  <form>
+    <fieldset class="form-group col-md-6">
+      <label for="bio">Bio</label>
+      <textarea
+        bind:value={bio}
+        name="bio"
+        id="bio"
+        type="bio"
+        class:form-control={true}
+        class:is-invalid={!!errors.bio}
+        placeholder="Profile Bio"
+        required
+      />
+      {#if errors.name}
+        <div class="invalid-feedback">
+          {errors.name}
+        </div>
+      {/if}
+    </fieldset>
+    <button
+      type="submit"
+      class="btn btn-primary mt-2"
+      disabled={bio === spa.user.bio}
+      on:click|preventDefault={editBio}>Save Profile Bio</button
     >
   </form>
 </SiteLayout>
