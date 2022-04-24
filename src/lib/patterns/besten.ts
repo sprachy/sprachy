@@ -87,17 +87,29 @@ You would commonly see the word _am_ like in the phrase _am besten_ placed infro
     },
   ],
   exercises: [
-    // {
-    //   from: "lukas",
-    //   message: "",
-    //   translation: ""
-    // },
-    // {
-    //   from: "squirrel",
-    //   message: "Ich glaube nicht, dass Sie einen Namen für meine Lieblingsfarbe haben. Wir haben eine... [größere] Bandbreite der Wahrnehmung.",
-    //   translation: "I don't think you have a name for my favorite color. We have a... [wider] range of perception.",
-    //   hint: "[groß, feminine]"
-    // },
+    {
+      from: "mirror",
+      message: "Ich bin der [glanzvollste] Spiegel. Ich bin keine Zeitung.",
+      translation: "I am the [shiniest] mirror. I am not a newspaper.",
+      hint: "[glanzvoll]"
+    },
+    {
+      from: "squirrel",
+      message: "Die Schaffung eines neuen Bewusstseins ist die [höchste] Stufe der Esper-Künste.",
+      translation: "The creation of a new consciousness is the [highest] level of esper arts.",
+      hint: "[hoch]"
+    },
+    {
+      from: "lukas",
+      message: "Der [schönsten] Orte der Erde, den man besuchen kann? Hmm, ich mag die Wasserfälle!",
+      translation: "The [nicest] places to visit on Earth? Hmm, I like the waterfalls!",
+      hint: "[schön]"
+    },
+    {
+      from: "fox",
+      message: "Warum ein Fuchs? Weil Füchse [am besten] sind!",
+      translation: "Why a fox? Because foxes are [the best]!"
+    }
   ]
 })
 
