@@ -73,11 +73,14 @@ You would commonly see the word _am_ like in the phrase _am besten_ placed infro
       translation: "A feast for the eyes for everyone on which the [flattest] creatures live",
       hint: "[flach, plural]",
     },
+    // The direct object of the sentence is the person, not their chocolate side
+    // this is why we still get "elegantesten" even though Schokoladenseite is feminine
+    // TODO inline explanation feature
     {
       from: "mirror",
       message: "Denkt daran euch auch andersweitig von eurer [elegantesten] Schokoladenseite zu zeigen.",
       translation: "Remember to put your [most elegant] foot forward on other aspects as well.",
-      hint: "[elegant, dative]"
+      hint: "[elegant, accusative masculine]"
     },
     {
       from: "mirror",
