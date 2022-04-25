@@ -11,4 +11,4 @@ import besten from './besten'
 import genitiv from './genitiv'
 import imperativ from './imperativ'
 
-export default [derdiedas, eineine, sein, daschen, akkusativ, derlernerdielernerin, duodersie, besser, besten, dativ, genitiv, imperativ]
+export default [derdiedas, eineine, sein, daschen, akkusativ, dativ, derlernerdielernerin, duodersie, besser, besten, genitiv, imperativ]
