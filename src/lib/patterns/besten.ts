@@ -77,7 +77,7 @@ You would commonly see the word _am_ like in the phrase _am besten_ placed infro
       from: "mirror",
       message: "Denkt daran euch auch andersweitig von eurer [elegantesten] Schokoladenseite zu zeigen.",
       translation: "Remember to put your [most elegant] foot forward on other aspects as well.",
-      hint: "[elegant, accusative]"
+      hint: "[elegant, dative]"
     },
     {
       from: "mirror",
