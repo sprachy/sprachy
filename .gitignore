@@ -9,5 +9,6 @@ node_modules
 .vercel
 .output
 .mf
+.cloudflare
 workers-site
 devdb

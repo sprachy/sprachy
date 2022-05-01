@@ -5,7 +5,6 @@
 // for information about these interfaces
 declare namespace App {
   interface SprachyEnvironment {
-    STORE?: KVNamespace
     TESTING?: string
     FRONTEND_BASE_URL?: string
     FAUNA_ADMIN_KEY?: string
@@ -29,6 +28,10 @@ declare namespace App {
    * https://www.npmjs.com/package/@sveltejs/adapter-cloudflare-workers
    */
   interface Platform {
+    env: {
+      STORE: KVNamespace
+    }
+
     context: {
       waitUntil(promise: Promise<any>): void
     }

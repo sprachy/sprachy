@@ -4,14 +4,16 @@ compatibility_date = "2022-03-30"
 account_id = "e24de7c361b035e990d2814691027093"
 
 [site]
-bucket = "./build"
-entry-point = "./workers-site"
+bucket = "./.cloudflare/assets"
+entry-point = "./.cloudflare/worker"
 
 [build]
-command = "npm run build"
+command = ""
 
 [build.upload]
-format = "service-worker"
+format = "modules"
+main = "./worker.mjs"
+dir = "./.cloudflare/worker"
 
 [triggers]
 crons = ["*/5 * * * *"]

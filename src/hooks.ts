@@ -16,7 +16,7 @@ import { heartbeat } from '$lib/server/heartbeat'
 export const handle: Handle = async ({ event, resolve }) => {
   // Will become platform.env at some point when adapter-cloudflare-workers
   // is updated or we move back to Pages
-  Object.assign(env, getCloudflareWorkersEnv(), Object.assign({}, env))
+  Object.assign(env, event.platform?.env || {}, Object.assign({}, env))
 
   // Look up the userId matching any sessionKey in the request's cookie
   // This is how we identify a logged in user for all requests
