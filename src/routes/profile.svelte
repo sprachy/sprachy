@@ -26,8 +26,6 @@
       throw err
     }
   }
-
-  const params = new URLSearchParams(window.location.search)
 </script>
 
 <SiteLayout>

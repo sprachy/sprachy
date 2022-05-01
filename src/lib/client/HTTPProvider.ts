@@ -102,12 +102,6 @@ export class HTTPProvider {
   }
 }
 
-async function delay(amount: number) {
-  return new Promise(resolve => {
-    _.delay(resolve, amount)
-  })
-}
-
 /**
  * Catch any errors and return the status code
  */

@@ -1,3 +1,5 @@
+import _ from "lodash"
+
 /**
  * Replace umlaut characters with their ascii equivalent. 
  */
@@ -14,4 +16,10 @@ export function md(strs: TemplateStringsArray, ...substs: any[]) {
     (prev, cur, i) => prev + cur + strs[i + 1],
     strs[0]
   )
+}
+
+export async function delay(amount: number) {
+  return new Promise(resolve => {
+    _.delay(resolve, amount)
+  })
 }

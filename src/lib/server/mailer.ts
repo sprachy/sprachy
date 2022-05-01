@@ -1,6 +1,5 @@
 import http from './http'
 import { env } from './env'
-import { kvs } from './kvs'
 
 type PlaintextEmailMessage = {
   to: string

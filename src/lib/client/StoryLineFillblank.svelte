@@ -6,7 +6,6 @@
   import Sprachdown from "$lib/Sprachdown.svelte"
   import { matchAnswer } from "$lib/client/feedback"
   import sprachy from "$lib/sprachy"
-  import { sprachdex } from "$lib/sprachdex"
 
   const { spa } = sprachy.expectSPA()
 

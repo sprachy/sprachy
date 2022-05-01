@@ -18,7 +18,7 @@
   import _ from "lodash"
   import { onMount } from "svelte"
   import SprachyLogo from "$lib/SprachyLogo.svelte"
-  import { errorsByField } from "$lib/client/utils"
+  import { errorsByField } from "$lib/client/clientUtil"
   import { goto, prefetchRoutes } from "$app/navigation"
   import { browser } from "$app/env"
   import { session } from "$app/stores"

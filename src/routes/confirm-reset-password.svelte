@@ -1,7 +1,7 @@
 <script lang="ts">
   import sprachy from "$lib/sprachy"
   import _ from "lodash"
-  import { errorsByField } from "$lib/client/utils"
+  import { errorsByField } from "$lib/client/clientUtil"
   import SprachyLogo from "$lib/SprachyLogo.svelte"
 
   export let token: string = ""

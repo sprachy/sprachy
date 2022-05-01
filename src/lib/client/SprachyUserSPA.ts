@@ -20,7 +20,7 @@ export class SprachyUserSPA {
   user: User
   progressItems: ProgressItem[]
 
-  speech = new SpeechSystem(this)
+  speech = new SpeechSystem()
 
   /** 
    * For drawing success confetti animation

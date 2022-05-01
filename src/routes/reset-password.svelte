@@ -1,7 +1,7 @@
 <script lang="ts">
   import _ from "lodash"
   import SprachyLogo from "$lib/SprachyLogo.svelte"
-  import { errorsByField } from "$lib/client/utils"
+  import { errorsByField } from "$lib/client/clientUtil"
   import sprachy from "$lib/sprachy"
   let email: string = ""
   let loading: boolean = false

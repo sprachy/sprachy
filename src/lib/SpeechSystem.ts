@@ -1,10 +1,9 @@
 import _ from "lodash"
-import type { SprachyUserSPA } from "./client/SprachyUserSPA"
 import type { StoryLine } from "./Pattern"
 import { sprachdex } from "./sprachdex"
 
 export class SpeechSystem {
-  constructor(spa: SprachyUserSPA) { }
+  constructor() { }
 
   get speechSynthesisVoice(): SpeechSynthesisVoice | null {
     const options = { voice: null }
@@ -33,7 +32,7 @@ export class SpeechSystem {
         const character = sprachdex.getCharacter(line.from)
         utter.rate = character.rate || 1.0
         utter.pitch = character.pitch || 1.0
-        utter.onend = (ev) => resolve()
+        utter.onend = () => resolve()
         speechSynthesis.speak(utter)
       }
     })
