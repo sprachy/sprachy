@@ -94,7 +94,7 @@
         bind:this={lineRef}
       >
         {#if line.type === "reading"}
-          <StoryLineReading {line} flip={lineFlips[i]} />
+          <StoryLineReading {line} flip={lineFlips[i]} speakable />
         {:else}
           <StoryLineFillblank
             speakable
