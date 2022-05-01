@@ -82,7 +82,27 @@ the dativeness, e.g. the use of an intransitive verb like _helfen_.
     }
   ],
   exercises: [
-
+    {
+      from: "squirrel",
+      message: "Ich habe gelernt, dass Menschen [einem] kleinen Tier oft Futter geben.",
+      translation: "I learned that humans will often give food to [a] small animal.",
+      hint: "[neuter]",
+      explanation: `We can know this is dative case from the use of the verb _geben_, which takes a direct object (die Futter) and gives it to the indirect object (das Tier). For a neuter noun in the dative case, we translate "a" as "einem".`
+    },
+    {
+      from: "lukas",
+      message: "Ja, Menschen helfen gerne [niedlichen Tieren].",
+      translation: "Yes, humans like to help [cute animals].",
+      hint: "[niedliche Tiere]",
+      explanation: `_helfen_ is what's called an intransitive verb, one that doesn't take a direct object. Whoever is being helped is always the indirect object, taking the dative case. Dative plurals gain the -n suffix, so _niedliche Tiere_ becomes _niedlichen Tieren_.`
+    },
+    {
+      from: "fox",
+      message: "Die Verbindung zu [dem] Server ist hergestellt.",
+      translation: "The connection to [the] server is established.",
+      hint: "[masculine]",
+      explanation: "What's being established? The connection, making it the direct object of the sentence. That means the server is the indirect object, and gets the dative case. The dative form of _the_ for a masculine noun is _dem_."
+    }
   ]
 })
 
