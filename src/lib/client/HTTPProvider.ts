@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import axios from 'axios'
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { errorsByField } from './utils'
+import { errorsByField } from '$lib/client/clientUtil'
 
 export type RequestOpts = AxiosRequestConfig & { safe?: boolean }
 

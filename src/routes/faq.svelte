@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { md } from "$lib/sprachdown"
+  import { md } from "$lib/util"
   import _ from "lodash"
   import Sprachdown from "$lib/Sprachdown.svelte"
   import SiteLayout from "$lib/SiteLayout.svelte"

@@ -1,4 +1,4 @@
-import { md } from "./sprachdown"
+import { md } from "./util"
 import lukas from "$lib/img/lukas.webp"
 import anna from "$lib/img/anna.webp"
 import squirrel from "$lib/img/squirrel.webp"

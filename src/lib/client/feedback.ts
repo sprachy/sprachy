@@ -1,5 +1,6 @@
 import type { FillblankLine } from "$lib/Pattern"
 import { levenshtein } from "$lib/levenshtein"
+import { deumlautify } from "$lib/util"
 
 /**
  * Feedback to be applied across all fillblank exercises, unless
@@ -66,6 +67,11 @@ function getFeedback(attempt: string, line: FillblankLine): string | undefined {
   // if (line.validAnswers.some(ans => ans.toLowerCase() === attempt.toLowerCase())) {
   //   return "That's the right spelling, but the answer has a different capitalization."
   // }
+
+  const ans = line.validAnswers.find(ans => deumlautify(ans) === deumlautify(attempt))
+  if (ans) {
+    return `Note the <a href="/faq#typing-in-german" target="_blank">umlauts</a>: _${ans}_!`
+  }
 
   // Otherwise give some generic feedback based on character diff
   if (line.canonicalAnswer.length < attempt.length) {
