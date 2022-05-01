@@ -1,12 +1,26 @@
 import type { RequestHandler } from "@sveltejs/kit"
 import { db } from "$lib/server/db"
 import * as z from 'zod'
+import { sessions } from "$lib/server/sessions"
 
 export const get: RequestHandler = async ({ locals }) => {
   const [user, progressItems] = await Promise.all([
-    db.users.expect(locals.session!.userId),
+    db.users.get(locals.session!.userId),
     db.progress.listAllFor(locals.session!.userId)
   ])
+
+  if (!user) {
+    // Invalid session, e.g. when the user was deleted
+    await sessions.expire(locals.session!.sessionKey)
+    return {
+      status: 401,
+      body: {
+        status: 401,
+        code: 'login required'
+      }
+    }
+  }
+
   return {
     status: 200,
     body: { user, progressItems }
