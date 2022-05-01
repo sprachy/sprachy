@@ -161,7 +161,7 @@ lukas:
     },
     {
       from: "lukas",
-      message: "Töski, bitte [iss] nicht die Schachfiguren."
+      message: "Töski, bitte [iss] nicht die Schachfiguren.",
       translation: "Töski, please don't [eat] the chess pieces.",
       hint: "[essen]",
     },
