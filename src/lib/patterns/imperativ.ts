@@ -151,10 +151,25 @@ lukas:
       hint: "[transferieren]",
     },
   ],
-  exercises: [{
-    from: "fox",
-    message: "[Sprich] nie wieder mit mir oder meinem Sohn",
-    translation: "Don't [talk] to me or my son ever again",
-    hint: "[sprechen]"
-  }]
+  exercises: [
+    {
+      from: "squirrel",
+      message: "[Mach] deinen Zug, Mensch!",
+      translation: "[Make] your move, human!",
+      hint: "[machen]",
+      explanation: `This is a command for someone to do something, so it's imperative form. Verbs in imperative form tend to use their stem form with no prefix or suffix, so _machen_ becomes _mach_.`
+    },
+    {
+      from: "lukas",
+      message: "Töski, bitte [iss] nicht die Schachfiguren."
+      translation: "Töski, please don't [eat] the chess pieces.",
+      hint: "[essen]",
+    },
+    {
+      from: "fox",
+      message: "[Sprich] nie wieder mit mir oder meinem Sohn.",
+      translation: "Don't [talk] to me or my son ever again.",
+      hint: "[sprechen]"
+    }
+  ]
 })
