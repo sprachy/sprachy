@@ -5,6 +5,7 @@
 // for information about these interfaces
 declare namespace App {
   interface SprachyEnvironment {
+    STORE?: KVNamespace
     TESTING?: string
     FRONTEND_BASE_URL?: string
     FAUNA_ADMIN_KEY?: string
