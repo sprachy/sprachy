@@ -21,7 +21,7 @@ export namespace sessions {
     await kvs.putJson(
       `sessions:${sessionKey}`,
       { userId: userId },
-      { expirationTtl: time.weeks(5) / 1000 }
+      { expirationTtl: time.weeks(52) / 1000 }
     )
     return sessionKey
   }
