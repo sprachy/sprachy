@@ -43,7 +43,16 @@
               <NavLink href="/learn">Learn</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/practice">Practice</NavLink>
+              <NavLink href="/practice">
+                <div class="d-flex align-items-center">
+                  Practice
+                  {#if spa.reviewsForLeveling.length > 0}
+                    <span class="badge review-count ms-1">
+                      {spa.reviewsForLeveling.length}
+                    </span>
+                  {/if}
+                </div>
+              </NavLink>
             </NavItem>
           {/if}
 
@@ -117,4 +126,8 @@
   &:hover
     background-color: inherit
     box-shadow: inherit
+
+.review-count
+  background-color: var(--sprachy-secondary)
+  color: white
 </style>
