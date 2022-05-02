@@ -37,7 +37,7 @@
       {/if}
       {#each pattern.exercises as line}
         <div class="line">
-          <StoryLineFillblank {line} />
+          <StoryLineFillblank {line} {pattern} />
         </div>
       {/each}
     </div>

@@ -98,7 +98,13 @@
       </header>
     {/if}
     <div class="exercises">
-      <StoryLineFillblank line={review} on:correct={nextReview} />
+      {#key reviewIndex}
+        <StoryLineFillblank
+          line={review}
+          on:correct={nextReview}
+          pattern={review.pattern}
+        />
+      {/key}
     </div>
   {/if}
 </SiteLayout>

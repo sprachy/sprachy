@@ -2,7 +2,7 @@
   import _ from "lodash"
   import { createEventDispatcher, onMount } from "svelte"
   import Message from "$lib/Message.svelte"
-  import type { FillblankLine } from "$lib/Pattern"
+  import type { FillblankLine, Pattern } from "$lib/Pattern"
   import Sprachdown from "$lib/Sprachdown.svelte"
   import { matchAnswer } from "$lib/client/feedback"
   import sprachy from "$lib/sprachy"
@@ -17,10 +17,12 @@
   export let flip: boolean = false
   export let complete: boolean = false
   export let speakable: boolean = false
+  export let pattern: Pattern | null = null
   let prevLine = line
   let attemptInput!: HTMLInputElement
   let attempt: string = ""
   let feedback: string = ""
+  let showingAnswer: boolean = false
   let incorrectShake: boolean = false
   let shakeTimeout: number | undefined
 
@@ -61,8 +63,16 @@
     })
   })(line)
 
+  function showAnswer() {
+    showingAnswer = true
+    attempt = ""
+    feedback = ""
+    attemptInput.focus()
+  }
+
   export async function checkAnswer() {
     feedback = ""
+    showingAnswer = false
     if (attempt === "") return
 
     const result = matchAnswer(attempt, line)
@@ -80,7 +90,7 @@
         feedback = result.feedback
       }
       attemptInput.focus()
-      incorrectShake = true
+      // incorrectShake = true
       clearTimeout(shakeTimeout)
       shakeTimeout = setTimeout(() => {
         incorrectShake = false
@@ -122,11 +132,27 @@
       {#if feedback}
         <div class="feedback">
           <Sprachdown inline source={feedback} />
+          <button class="btn-link show-answer" on:click={showAnswer}>
+            {#if line.explanation}
+              Explain answer
+            {:else}
+              Show me
+            {/if}
+          </button>
         </div>
       {/if}
-      {#if line.explanation}
+      {#if showingAnswer}
         <div class="explanation">
-          <Sprachdown inline source={line.explanation} />
+          {#if line.explanation}
+            <Sprachdown inline source={line.explanation} />
+          {:else}
+            The answer is <em>{line.canonicalAnswer}</em>.
+          {/if}
+          {#if pattern}
+            Pattern: <a target="_blank" href={`/pattern/${pattern.slug}`}
+              >{pattern.title}</a
+            >
+          {/if}
         </div>
       {/if}
     </div>
@@ -182,4 +208,8 @@ input.fillblank:disabled
   left: 50%
   width: 100%
   transform: translate(-50%, -100%)
+
+.show-answer
+  font-size: 90%
+  color: #0b9bc7
 </style>
