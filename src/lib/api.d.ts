@@ -23,6 +23,7 @@ export type User = {
   email: string
   name: string
   bio: string
+  pfp: string
   isAdmin: boolean
   lastReminderEmailSentAt?: number
   lastReviewAt?: number

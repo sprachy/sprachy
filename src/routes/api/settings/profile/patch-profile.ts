@@ -16,6 +16,9 @@ export const patch: RequestHandler = async ({ request, locals }) => {
   else if (type == "bio") {
     updatedUser = await db.users.update(locals.session!.userId, { bio: input })
   }
+  else if (type == "pfp") {
+    updatedUser = await db.users.update(locals.session!.userId, { pfp: input })
+  }
 
   return {
     status: 200,

@@ -6,6 +6,7 @@
 
   let name = spa.user.name
   let bio = spa.user.bio
+  let pfp: File[]
 
   let errors: Record<string, string> = {}
 
@@ -26,10 +27,49 @@
       throw err
     }
   }
+
+  async function uploadPfp(ev: Event) {
+    errors = {}
+    try {
+      const el = ev.target as HTMLInputElement
+      const pfp = el.files![0]
+      if (pfp) {
+        var reader = new FileReader()
+        reader.onloadend = function () {
+          if (typeof reader.result == "string") {
+            api.patchProfile(reader.result, "pfp")
+          }
+        }
+        reader.readAsDataURL(pfp)
+      }
+    } catch (err: any) {
+      throw err
+    }
+  }
 </script>
 
 <SiteLayout>
   <h1>Profile Settings</h1>
+  <form>
+    <fieldset class="mb-3 col-md-6">
+      <label for="pfp">Profile Picture</label>
+      <input
+        bind:value={pfp}
+        name="pfp"
+        id="pfp"
+        type="file"
+        class:form-control={true}
+        class:is-invalid={!!errors.pfp}
+        placeholder="Profile Picture"
+        on:change={uploadPfp}
+      />
+      {#if errors.pfp}
+        <div class="invalid-feedback">
+          {errors.pfp}
+        </div>
+      {/if}
+    </fieldset>
+  </form>
   <form>
     <fieldset class="form-group col-md-6">
       <label for="name">Name</label>
