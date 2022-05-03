@@ -83,7 +83,18 @@
             {/if}
 
             <Dropdown nav inNavbar>
-              <DropdownToggle nav caret>{spa.user.email}</DropdownToggle>
+              <!-- <DropdownToggle nav caret>{spa.user.email}</DropdownToggle> -->
+              <DropdownToggle nav caret>
+                {#if spa.user.pfp}
+                  <img src={spa.user.pfp} alt={spa.user.email} class="avatar" />
+                {:else}
+                  <img
+                    src="src/lib/img/squirrel.webp"
+                    alt={spa.user.email}
+                    class="avatar"
+                  />
+                {/if}
+              </DropdownToggle>
               <DropdownMenu end>
                 <DropdownItem href="/profile">Profile</DropdownItem>
                 <DropdownItem href="/settings">Account</DropdownItem>
@@ -130,4 +141,10 @@
 .review-count
   background-color: var(--sprachy-secondary)
   color: white
+
+.avatar
+  vertical-align: top
+  width: 30px
+  height: 30px
+  border-radius: 50%
 </style>
