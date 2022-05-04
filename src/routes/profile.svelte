@@ -61,6 +61,7 @@
         class:form-control={true}
         class:is-invalid={!!errors.pfp}
         placeholder="Profile Picture"
+        accept="image/png, image/jpeg, image/webp"
         on:change={uploadPfp}
       />
       {#if errors.pfp}
