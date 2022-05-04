@@ -97,7 +97,8 @@
               </DropdownToggle>
               <DropdownMenu end>
                 <DropdownItem href="/profile">Profile</DropdownItem>
-                <DropdownItem href="/settings">Account</DropdownItem>
+                <DropdownItem href="/settings">Settings</DropdownItem>
+                <!-- <DropdownItem href="/subscribe">Subscription</DropdownItem> -->
                 <DropdownItem href="/logout">Log out</DropdownItem>
               </DropdownMenu>
             </Dropdown>
