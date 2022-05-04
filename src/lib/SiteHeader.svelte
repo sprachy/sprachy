@@ -98,12 +98,9 @@
               <DropdownMenu end>
                 <DropdownItem href="/profile">Profile</DropdownItem>
                 <DropdownItem href="/settings">Account</DropdownItem>
+                <DropdownItem href="/logout">Log out</DropdownItem>
               </DropdownMenu>
             </Dropdown>
-
-            <NavItem>
-              <NavLink href="/logout">Log out</NavLink>
-            </NavItem>
           {/if}
 
           {#if !spa}
