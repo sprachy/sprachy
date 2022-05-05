@@ -31,13 +31,15 @@
   import { goto } from "$app/navigation"
   import sprachy from "$lib/sprachy"
 
-  const { spa, api } = sprachy.expectSPA()
+  const spa = sprachy.expectSPA()
+  const { api, patternAndProgressById, nextPatternToLearn } = spa
 
   export let pattern: Pattern
   let complete: boolean = false
 
   const story = pattern.story
-  let progress = $spa.getProgressFor(pattern)
+  $: progress = $patternAndProgressById[pattern.id]!.progress
+  let nextPattern: PatternAndProgress | undefined
 
   function leavingWarning(e: any) {
     var confirmationMessage =
@@ -56,8 +58,6 @@
     window.removeEventListener("beforeunload", leavingWarning)
   })
 
-  let nextPattern: PatternAndProgress | undefined
-
   async function onCompleteStory() {
     window.removeEventListener("beforeunload", leavingWarning)
 
@@ -67,11 +67,8 @@
     } else {
       const progressItem = await api.completeLevel(pattern.id, 1)
       if (progressItem) {
-        $spa.receiveProgressItem(progressItem)
-        progress = $spa.getProgressFor(pattern)
+        spa.receiveProgressItem(progressItem)
       }
-      pattern = $spa.patternsAndProgress.find((p) => p.slug === pattern.slug)!
-      nextPattern = $spa.nextPatternToLearn
       complete = true
 
       setTimeout(() => {
@@ -99,12 +96,12 @@
         Nice work! You can level up <em>{pattern.title}</em>
         <Timeago ts={progress.levelableAt} />.
       </p>
-      {#if nextPattern}
+      {#if $nextPatternToLearn}
         <a
           sveltekit:prefetch
           class="btn btn-primary"
-          href={`/pattern/${nextPattern.slug}`}
-          >Next: {nextPattern.title}
+          href={`/pattern/${$nextPatternToLearn.slug}`}
+          >Next: {$nextPatternToLearn.title}
         </a>
       {/if}
     </div>

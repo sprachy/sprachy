@@ -4,19 +4,18 @@ import { browser } from "$app/env"
 import { SprachyAPIClient } from "$lib/client/SprachyAPIClient"
 import { SprachyUserSPA } from "$lib/client/SprachyUserSPA"
 import _ from "lodash"
-import { writable, type Writable } from "svelte/store"
 import type { ProgressSummary } from "./api"
 
 declare const window: {
   sprachy: SprachyContextManager
   api: SprachyAPIClient
-  spa: Writable<SprachyUserSPA>
+  spa: SprachyUserSPA
 }
 
 export class SprachyContextManager {
   api?: SprachyAPIClient
   backgroundApi?: SprachyAPIClient
-  spa?: Writable<SprachyUserSPA>
+  spa?: SprachyUserSPA
 
   initBrowser() {
     this.api = new SprachyAPIClient()
@@ -28,12 +27,12 @@ export class SprachyContextManager {
   }
 
   async initSPA(summary?: ProgressSummary) {
-    const { api } = this.expectBrowser()
+    const { api, backgroundApi } = this.expectBrowser()
 
     if (!summary) {
       summary = await api.getProgress()
     }
-    this.spa = writable(new SprachyUserSPA(api, summary))
+    this.spa = new SprachyUserSPA(api, backgroundApi, summary)
 
     // For debugging
     window.spa = this.spa
@@ -58,14 +57,13 @@ export class SprachyContextManager {
    * functionality to be available.
    */
   expectSPA() {
-    const { api, backgroundApi } = this.expectBrowser()
     const { spa } = this
 
     if (!spa) {
       throw new Error("Expected the user SPA to be initialized")
     }
 
-    return { spa, api, backgroundApi }
+    return spa
   }
 }
 

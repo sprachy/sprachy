@@ -7,7 +7,8 @@
   import { matchAnswer } from "$lib/client/feedback"
   import sprachy from "$lib/sprachy"
 
-  const { spa } = sprachy.expectSPA()
+  const spa = sprachy.expectSPA()
+  const { user } = spa
 
   try {
     speechSynthesis.getVoices()
@@ -78,10 +79,10 @@
     const result = matchAnswer(attempt, line)
     if (result.validAnswer) {
       attempt = result.validAnswer
-      $spa.effects.spawnParticlesAt(attemptInput)
+      spa.effects.spawnParticlesAt(attemptInput)
 
-      if (speakable && $spa.user.enableSpeechSynthesis) {
-        $spa.speech.speak(line)
+      if (speakable && $user.enableSpeechSynthesis) {
+        spa.speech.speak(line)
       }
 
       dispatch("correct")

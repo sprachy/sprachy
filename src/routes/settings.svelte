@@ -1,11 +1,12 @@
 <script lang="ts">
   import sprachy from "$lib/sprachy"
   import SiteLayout from "$lib/SiteLayout.svelte"
-  const { spa, api } = sprachy.expectSPA()
+  const spa = sprachy.expectSPA()
+  const { api, user } = spa
 
-  let email = $spa.user.email
-  let wantsReminderEmails = $spa.user.wantsReminderEmails
-  let enableSpeechSynthesis = $spa.user.enableSpeechSynthesis
+  let email = $user.email
+  let wantsReminderEmails = $user.wantsReminderEmails
+  let enableSpeechSynthesis = $user.enableSpeechSynthesis
 
   let errors: Record<string, string> = {}
   let confirmChangeAddress: string | null = null
@@ -20,7 +21,7 @@
   async function confirmEmailChange(token: string) {
     try {
       const { newEmail } = await api.confirmEmailChange(token)
-      $spa.user.email = newEmail
+      $user.email = newEmail
       email = newEmail
       emailChangeConfirmed = true
     } catch (err: any) {
@@ -47,17 +48,17 @@
   }
 
   async function toggleReminderEmails() {
-    $spa.user = await api.patchSettings({
-      wantsReminderEmails: !$spa.user.wantsReminderEmails,
+    $user = await api.patchSettings({
+      wantsReminderEmails: !$user.wantsReminderEmails,
     })
-    wantsReminderEmails = $spa.user.wantsReminderEmails
+    wantsReminderEmails = $user.wantsReminderEmails
   }
 
   async function toggleSpeechSynthesis() {
-    $spa.user = await api.patchSettings({
-      enableSpeechSynthesis: !$spa.user.enableSpeechSynthesis,
+    $user = await api.patchSettings({
+      enableSpeechSynthesis: !$user.enableSpeechSynthesis,
     })
-    enableSpeechSynthesis = $spa.user.enableSpeechSynthesis
+    enableSpeechSynthesis = $user.enableSpeechSynthesis
   }
 </script>
 
@@ -95,7 +96,7 @@
     <button
       type="submit"
       class="btn btn-primary mt-2"
-      disabled={email === $spa.user.email}
+      disabled={email === $user.email}
       on:click|preventDefault={submitEmailChange}>Change Email</button
     >
   </form>

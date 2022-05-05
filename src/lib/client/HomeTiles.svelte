@@ -5,11 +5,16 @@
   import Fa from "svelte-fa"
   import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
 
-  const { spa } = sprachy.expectSPA()
+  const {
+    learnedPatterns,
+    nextPatternToLearn,
+    patternsReadyToLevel,
+    nextLevelablePattern,
+  } = sprachy.expectSPA()
 
-  $: nextPattern = $spa.nextPatternToLearn
-  $: numLevelable = $spa.patternsReadyToLevel.length
-  $: nextLevelable = $spa.nextLevelablePattern
+  $: nextPattern = $nextPatternToLearn
+  $: numLevelable = $patternsReadyToLevel.length
+  $: nextLevelable = $nextLevelablePattern
 </script>
 
 <div class="tiles">
@@ -27,7 +32,7 @@
     {/if}
   </div>
 
-  {#if $spa.learnedPatterns.length > 0}
+  {#if $learnedPatterns.length > 0}
     <div class="home-tile practice">
       <a sveltekit:prefetch href="/practice">
         <div class="card">

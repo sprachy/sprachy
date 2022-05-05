@@ -17,7 +17,7 @@
     DropdownItem,
   } from "sveltestrap"
   import { sprachdex } from "./sprachdex"
-  const { spa } = sprachy
+  const { user, admin, reviewsForLeveling } = sprachy.spa ?? {}
 
   let isOpen = false
 
@@ -38,7 +38,7 @@
       <NavbarToggler on:click={() => (isOpen = !isOpen)} />
       <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
         <Nav class="ms-auto" navbar>
-          {#if spa}
+          {#if $reviewsForLeveling}
             <NavItem>
               <NavLink href="/learn">Learn</NavLink>
             </NavItem>
@@ -46,9 +46,9 @@
               <NavLink href="/practice">
                 <div class="d-flex align-items-center">
                   Practice
-                  {#if $spa.reviewsForLeveling.length > 0}
+                  {#if $reviewsForLeveling.length > 0}
                     <span class="badge review-count ms-1">
-                      {$spa.reviewsForLeveling.length}
+                      {$reviewsForLeveling.length}
                     </span>
                   {/if}
                 </div>
@@ -71,8 +71,8 @@
             <NavLink href="/faq">FAQ</NavLink>
           </NavItem>
 
-          {#if spa}
-            {#if $spa.admin}
+          {#if $user}
+            {#if $admin}
               <Dropdown nav inNavbar>
                 <DropdownToggle nav caret>Admin</DropdownToggle>
                 <DropdownMenu end>
@@ -83,18 +83,13 @@
             {/if}
 
             <Dropdown nav inNavbar>
-              <!-- <DropdownToggle nav caret>{$spa.user.email}</DropdownToggle> -->
               <DropdownToggle nav caret>
-                {#if $spa.user.pfp}
-                  <img
-                    src={$spa.user.pfp}
-                    alt={$spa.user.email}
-                    class="avatar"
-                  />
+                {#if $user.pfp}
+                  <img src={$user.pfp} alt={$user.email} class="avatar" />
                 {:else}
                   <img
                     src="src/lib/img/squirrel.webp"
-                    alt={$spa.user.email}
+                    alt={$user.email}
                     class="avatar"
                   />
                 {/if}
@@ -108,7 +103,7 @@
             </Dropdown>
           {/if}
 
-          {#if !spa}
+          {#if !$user}
             <NavItem>
               <NavLink
                 href={$page.url.pathname === "/"

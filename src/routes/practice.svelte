@@ -6,11 +6,18 @@
   import type { PatternAndProgress } from "$lib/client/SprachyUserSPA"
   import sprachy from "$lib/sprachy"
 
-  const { spa, api } = sprachy.expectSPA()
+  const spa = sprachy.expectSPA()
+  const {
+    api,
+    learnedPatterns,
+    patternsReadyToLevel,
+    allReviews,
+    reviewsForLeveling,
+  } = spa
 
   let freePractice: boolean = false
-  const noPatternsYet = $spa.learnedPatterns.length === 0
-  let patternsToLevel = $spa.patternsReadyToLevel
+  const noPatternsYet = $learnedPatterns.length === 0
+  let patternsToLevel = $patternsReadyToLevel
 
   type Review = Exercise & {
     pattern: PatternAndProgress
@@ -19,10 +26,10 @@
   let reviews: Review[] = []
   if (patternsToLevel.length === 0) {
     freePractice = true
-    reviews = _.sampleSize($spa.allReviews, 10)
+    reviews = _.sampleSize($allReviews, 10)
   } else {
-    // reviews = $spa.allReviews.filter((r) => r.message.includes("nie wieder"))
-    reviews = _.shuffle($spa.reviewsForLeveling)
+    // reviews = $allReviews.filter((r) => r.message.includes("nie wieder"))
+    reviews = _.shuffle($reviewsForLeveling)
   }
 
   let reviewIndex: number = 0
@@ -36,7 +43,7 @@
       pattern.progress.srsLevel + 1
     )
     if (progressItem) {
-      $spa.receiveProgressItem(progressItem)
+      spa.receiveProgressItem(progressItem)
       patternsToLevel = patternsToLevel.filter(
         (p) => p.id !== progressItem.patternId
       )

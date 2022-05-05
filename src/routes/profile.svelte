@@ -2,10 +2,11 @@
   import sprachy from "$lib/sprachy"
   import SiteLayout from "$lib/SiteLayout.svelte"
   import _ from "lodash"
-  const { spa, api } = sprachy.expectSPA()
+  const spa = sprachy.expectSPA()
+  const { api, user } = spa
 
-  let name = $spa.user.name
-  let bio = $spa.user.bio
+  let name = $user.name
+  let bio = $user.bio
   let pfp: File[]
 
   let errors: Record<string, string> = {}
@@ -13,7 +14,7 @@
   async function editName() {
     errors = {}
     try {
-      $spa.user = await api.patchProfile(name, "name")
+      $user = await api.patchProfile(name, "name")
     } catch (err: any) {
       throw err
     }
@@ -22,7 +23,7 @@
   async function editBio() {
     errors = {}
     try {
-      $spa.user = await api.patchProfile(bio, "bio")
+      $user = await api.patchProfile(bio, "bio")
     } catch (err: any) {
       throw err
     }
@@ -37,7 +38,7 @@
         var reader = new FileReader()
         reader.onloadend = async function () {
           if (typeof reader.result == "string") {
-            $spa.user = await api.patchProfile(reader.result, "pfp")
+            $user = await api.patchProfile(reader.result, "pfp")
           }
         }
         reader.readAsDataURL(pfp)
@@ -93,7 +94,7 @@
     <button
       type="submit"
       class="btn btn-primary mt-2"
-      disabled={name === $spa.user.name}
+      disabled={name === $user.name}
       on:click|preventDefault={editName}>Change Name</button
     >
   </form>
@@ -118,7 +119,7 @@
     <button
       type="submit"
       class="btn btn-primary mt-2"
-      disabled={bio === $spa.user.bio}
+      disabled={bio === $user.bio}
       on:click|preventDefault={editBio}>Save Profile Bio</button
     >
   </form>

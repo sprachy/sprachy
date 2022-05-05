@@ -9,11 +9,12 @@
   export let line: ReadingLine
   export let flip: boolean = false
   export let speakable: boolean = false
-  const { spa } = sprachy.expectSPA()
+  const spa = sprachy.expectSPA()
+  const { user } = spa
 
   onMount(() => {
-    if (speakable && $spa.user.enableSpeechSynthesis) {
-      $spa.speech.speak(line)
+    if (speakable && $user.enableSpeechSynthesis) {
+      spa.speech.speak(line)
     }
   })
 </script>
