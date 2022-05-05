@@ -37,7 +37,7 @@
   let complete: boolean = false
 
   const story = pattern.story
-  let progress = spa.getProgressFor(pattern)
+  let progress = $spa.getProgressFor(pattern)
 
   function leavingWarning(e: any) {
     var confirmationMessage =
@@ -67,11 +67,11 @@
     } else {
       const progressItem = await api.completeLevel(pattern.id, 1)
       if (progressItem) {
-        spa.receiveProgressItem(progressItem)
-        progress = spa.getProgressFor(pattern)
+        $spa.receiveProgressItem(progressItem)
+        progress = $spa.getProgressFor(pattern)
       }
-      pattern = spa.patternsAndProgress.find((p) => p.slug === pattern.slug)!
-      nextPattern = spa.nextPatternToLearn
+      pattern = $spa.patternsAndProgress.find((p) => p.slug === pattern.slug)!
+      nextPattern = $spa.nextPatternToLearn
       complete = true
 
       setTimeout(() => {

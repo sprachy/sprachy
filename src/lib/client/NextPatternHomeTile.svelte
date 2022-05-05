@@ -3,7 +3,7 @@
   import sprachy from "$lib/sprachy"
 
   const { spa } = sprachy.expectSPA()
-  const nextPattern = spa.nextPatternToLearn
+  const nextPattern = $spa.nextPatternToLearn
 </script>
 
 <div class="home-tile">

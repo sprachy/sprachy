@@ -4,18 +4,19 @@ import { browser } from "$app/env"
 import { SprachyAPIClient } from "$lib/client/SprachyAPIClient"
 import { SprachyUserSPA } from "$lib/client/SprachyUserSPA"
 import _ from "lodash"
+import { writable, type Writable } from "svelte/store"
 import type { ProgressSummary } from "./api"
 
 declare const window: {
   sprachy: SprachyContextManager
   api: SprachyAPIClient
-  spa: SprachyUserSPA
+  spa: Writable<SprachyUserSPA>
 }
 
 export class SprachyContextManager {
   api?: SprachyAPIClient
   backgroundApi?: SprachyAPIClient
-  spa?: SprachyUserSPA
+  spa?: Writable<SprachyUserSPA>
 
   initBrowser() {
     this.api = new SprachyAPIClient()
@@ -32,7 +33,7 @@ export class SprachyContextManager {
     if (!summary) {
       summary = await api.getProgress()
     }
-    this.spa = new SprachyUserSPA(api, summary)
+    this.spa = writable(new SprachyUserSPA(api, summary))
 
     // For debugging
     window.spa = this.spa

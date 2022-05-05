@@ -46,9 +46,9 @@
               <NavLink href="/practice">
                 <div class="d-flex align-items-center">
                   Practice
-                  {#if spa.reviewsForLeveling.length > 0}
+                  {#if $spa.reviewsForLeveling.length > 0}
                     <span class="badge review-count ms-1">
-                      {spa.reviewsForLeveling.length}
+                      {$spa.reviewsForLeveling.length}
                     </span>
                   {/if}
                 </div>
@@ -72,7 +72,7 @@
           </NavItem>
 
           {#if spa}
-            {#if spa.admin}
+            {#if $spa.admin}
               <Dropdown nav inNavbar>
                 <DropdownToggle nav caret>Admin</DropdownToggle>
                 <DropdownMenu end>
@@ -83,14 +83,18 @@
             {/if}
 
             <Dropdown nav inNavbar>
-              <!-- <DropdownToggle nav caret>{spa.user.email}</DropdownToggle> -->
+              <!-- <DropdownToggle nav caret>{$spa.user.email}</DropdownToggle> -->
               <DropdownToggle nav caret>
-                {#if spa.user.pfp}
-                  <img src={spa.user.pfp} alt={spa.user.email} class="avatar" />
+                {#if $spa.user.pfp}
+                  <img
+                    src={$spa.user.pfp}
+                    alt={$spa.user.email}
+                    class="avatar"
+                  />
                 {:else}
                   <img
                     src="src/lib/img/squirrel.webp"
-                    alt={spa.user.email}
+                    alt={$spa.user.email}
                     class="avatar"
                   />
                 {/if}

@@ -3,7 +3,8 @@
   import sprachy from "$lib/sprachy"
   import SiteLayout from "$lib/SiteLayout.svelte"
 
-  const pattern = sprachy.expectSPA().spa.nextPatternToLearn
+  const { spa } = sprachy.expectSPA()
+  const pattern = $spa.nextPatternToLearn
   if (pattern) {
     goto(`/pattern/${pattern.slug}`, { replaceState: true })
   }

@@ -28,10 +28,11 @@
   import Timeago from "$lib/client/Timeago.svelte"
   import type { PatternDef } from "$lib/Pattern"
   import sprachy from "$lib/sprachy"
+  const { spa } = sprachy
 
   export let pattern: PatternDef
 
-  const progress = sprachy.spa?.patternsAndProgress.find(
+  const progress = $spa?.patternsAndProgress.find(
     (p) => p.id === pattern.id
   )?.progress
 </script>

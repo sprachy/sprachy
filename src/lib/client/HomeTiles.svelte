@@ -7,9 +7,9 @@
 
   const { spa } = sprachy.expectSPA()
 
-  $: nextPattern = spa.nextPatternToLearn
-  $: numLevelable = spa.patternsReadyToLevel.length
-  $: nextLevelable = spa.nextLevelablePattern
+  $: nextPattern = $spa.nextPatternToLearn
+  $: numLevelable = $spa.patternsReadyToLevel.length
+  $: nextLevelable = $spa.nextLevelablePattern
 </script>
 
 <div class="tiles">
@@ -27,7 +27,7 @@
     {/if}
   </div>
 
-  {#if spa.learnedPatterns.length > 0}
+  {#if $spa.learnedPatterns.length > 0}
     <div class="home-tile practice">
       <a sveltekit:prefetch href="/practice">
         <div class="card">

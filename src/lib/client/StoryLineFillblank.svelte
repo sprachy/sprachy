@@ -78,10 +78,10 @@
     const result = matchAnswer(attempt, line)
     if (result.validAnswer) {
       attempt = result.validAnswer
-      spa.effects.spawnParticlesAt(attemptInput)
+      $spa.effects.spawnParticlesAt(attemptInput)
 
-      if (speakable && spa.user.enableSpeechSynthesis) {
-        spa.speech.speak(line)
+      if (speakable && $spa.user.enableSpeechSynthesis) {
+        $spa.speech.speak(line)
       }
 
       dispatch("correct")
