@@ -60,15 +60,11 @@ export class SprachyUserSPA {
     })
   }
 
+  allViewablePatterns = derived(this.admin,
+    $admin => $admin ? sprachdex.patternsIncludingDrafts : sprachdex.publishedPatterns)
 
-
-  // getProgressFor(pattern: Pattern) {
-  //   const progressItem = this.progressItemByPatternId[pattern.id]
-  //   return new PatternProgress(pattern, progressItem)
-  // }
-
-  allViewablePatterns = derived(this.admin, admin => admin ? sprachdex.patternsIncludingDrafts : sprachdex.publishedPatterns)
-  progressItemByPatternId = derived(this.progressItems, items => _.keyBy(items, (p) => p.patternId))
+  progressItemByPatternId = derived(this.progressItems,
+    $progressItemsByPatternId => _.keyBy($progressItemsByPatternId, (p) => p.patternId))
 
   patternsAndProgress = derived(
     [this.allViewablePatterns, this.progressItemByPatternId],
@@ -81,10 +77,11 @@ export class SprachyUserSPA {
     }
   )
 
-  patternAndProgressById = derived(this.patternsAndProgress, patternsAndProgress => _.keyBy(patternsAndProgress, (p) => p.id))
+  patternAndProgressById = derived(this.patternsAndProgress,
+    $patternsAndProgress => _.keyBy($patternsAndProgress, (p) => p.id))
 
-  nextPatternToLearn = derived(this.patternsAndProgress, patternsAndProgress => {
-    return patternsAndProgress.find((p) => p.progress.srsLevel === 0) as PatternAndProgress | undefined
+  nextPatternToLearn = derived(this.patternsAndProgress, $patternsAndProgress => {
+    return $patternsAndProgress.find((p) => p.progress.srsLevel === 0) as PatternAndProgress | undefined
   })
 
   /** All patterns for which the user has completed at least level 1 */
