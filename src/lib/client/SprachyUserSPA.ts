@@ -64,7 +64,7 @@ export class SprachyUserSPA {
     $admin => $admin ? sprachdex.patternsIncludingDrafts : sprachdex.publishedPatterns)
 
   progressItemByPatternId = derived(this.progressItems,
-    $progressItemsByPatternId => _.keyBy($progressItemsByPatternId, (p) => p.patternId))
+    $progressItems => _.keyBy($progressItems, (p) => p.patternId))
 
   patternsAndProgress = derived(
     [this.allViewablePatterns, this.progressItemByPatternId],
