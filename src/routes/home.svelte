@@ -5,18 +5,17 @@
   import { dev } from "$app/env"
   import PatternIndex from "$lib/PatternIndex.svelte"
   import HomeTiles from "$lib/client/HomeTiles.svelte"
-  const { receiveProgress, api } = sprachy.expectSPA()
+  const spa = sprachy.expectSPA()
+  const { api } = spa
 
   async function debugResetProgress() {
     const summary = await api.http.post(`/api/debug/reset-progress`)
-    receiveProgress(summary)
-    window.location.reload()
+    spa.receiveProgress(summary)
   }
 
   async function debugSkipTime() {
     const summary = await api.http.post(`/api/debug/timeskip`)
-    receiveProgress(summary)
-    window.location.reload()
+    spa.receiveProgress(summary)
   }
 </script>
 
