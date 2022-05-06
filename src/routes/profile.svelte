@@ -9,7 +9,6 @@
   let name = $user.name
   let bio = $user.bio
   let pfp: File[]
-  let canvas
 
   let errors: Record<string, string> = {}
 
@@ -99,7 +98,6 @@
       <label for="pfp">Profile Picture</label>
       <input
         bind:value={pfp}
-        bind:this={canvas}
         name="pfp"
         id="pfp"
         type="file"
