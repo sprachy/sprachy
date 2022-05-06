@@ -2,12 +2,14 @@
   import sprachy from "$lib/sprachy"
   import SiteLayout from "$lib/SiteLayout.svelte"
   import _ from "lodash"
+  import { onMount } from "svelte"
   const spa = sprachy.expectSPA()
   const { api, user } = spa
 
   let name = $user.name
   let bio = $user.bio
   let pfp: File[]
+  let canvas
 
   let errors: Record<string, string> = {}
 
@@ -36,9 +38,50 @@
       const pfp = el.files![0]
       if (pfp) {
         var reader = new FileReader()
-        reader.onloadend = async function () {
+        reader.onload = async function (readerEvent) {
           if (typeof reader.result == "string") {
-            $user = await api.patchProfile(reader.result, "pfp")
+            const image = new Image()
+            image.onload = async function (imageEvent) {
+              var canvas = document.createElement("canvas"),
+                max_size = 624,
+                width = image.width,
+                height = image.height
+
+              canvas.width = width
+              canvas.height = height
+              const aspectRatio = width / height
+              let newWidth = width
+              let newHeight = height
+              if (aspectRatio > 1) {
+                newWidth = height
+              } else if (aspectRatio < 1) {
+                newHeight = width
+              }
+
+              if (newWidth > newHeight) {
+                if (newWidth > max_size) {
+                  newHeight *= max_size / newWidth
+                  newWidth = max_size
+                }
+              } else {
+                if (newHeight > max_size) {
+                  newWidth *= max_size / newHeight
+                  newHeight = max_size
+                }
+              }
+
+              const newX = (newWidth - width) * 0.5
+              const newY = (newHeight - height) * 0.5
+              canvas.width = newWidth
+              canvas.height = newHeight
+              const newImage = canvas.getContext("2d")
+              newImage!.drawImage(image, newX, newY)
+
+              var dataUrl = canvas.toDataURL("image/jpeg")
+              $user = await api.patchProfile(dataUrl, "pfp")
+            }
+            // @ts-ignore
+            image.src = readerEvent.target!.result
           }
         }
         reader.readAsDataURL(pfp)
@@ -56,6 +99,7 @@
       <label for="pfp">Profile Picture</label>
       <input
         bind:value={pfp}
+        bind:this={canvas}
         name="pfp"
         id="pfp"
         type="file"
