@@ -96,7 +96,25 @@ Some masculine nouns change form when used in any case other than the nominative
       message: "Ich habe früher wie Sie eine Sprache gelernt. Dann bekam ich [einen] Pfeil ins Knie...",
       translation: "I used to be a language-learner like you. Then I took [an] arrow to the knee...",
       hint: "[masculine]"
-    }
+    },
+    {
+      from: "squirrel",
+      message: "Eure Technologie ist obsolet, Damit kriegt ihr nicht [die] Haselnuss!",
+      translation: "Your technology is obsolete. You won't get [the] hazelnut with it!",
+      hint: "[feminine]"
+    },
+    {
+      from: "lukas",
+      message: "Oh je, pass mit [deinen] Schwanz auf!",
+      translation: "Oh dear, watch it with [your] tail!",
+      hint: "[masculine]"
+    },
+    {
+      from: "lukas",
+      message: "Es ist [ein] Baumhaus.",
+      translation: "It is [a] tree house.",
+      hint: "[neutral]"
+    },
   ]
 })
 
