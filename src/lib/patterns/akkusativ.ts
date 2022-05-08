@@ -111,8 +111,8 @@ Some masculine nouns change form when used in any case other than the nominative
     },
     {
       from: "lindenbaum",
-      message: "Und Sie nennen es \"den [Durchbruch]\"?",
-      translation: "And you call it \"the [breakthrough]\"?",
+      message: "Und Sie nennen es \"[den] Durchbruch\"?",
+      translation: "And you call it \"[the] breakthrough\"?",
       hint: "[masculine]"
     },
   ]
