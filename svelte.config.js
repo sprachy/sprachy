@@ -11,11 +11,6 @@ const config = {
   kit: {
     adapter: adapterCloudflareWorkers(),
 
-    // Override http methods in the Todo forms
-    methodOverride: {
-      allowed: ['PATCH', 'DELETE']
-    },
-
     vite: {
       plugins: [
         // This allows server-only or client-only imports like
