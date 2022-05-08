@@ -73,10 +73,20 @@ export type Story = Pattern['story']
 
 /** Turn a PatternDef into a Pattern for use by code. */
 export function parsePattern(patternDef: PatternDef): Pattern {
+  const exercises: Exercise[] = []
+  for (const exerciseDef of patternDef.exercises) {
+    const line = parseLine(patternDef, exerciseDef)
+    if (line.type !== 'fillblank') {
+      console.error(`Discarding invalid exercise definition. Did we forget to define a fillblank? ${JSON.stringify(exerciseDef)}`)
+    } else {
+      exercises.push(line)
+    }
+  }
+
   return Object.assign({}, patternDef, {
     story: patternDef.story.map(ex => parseLine(patternDef, ex)),
     maxLevel: 9,
-    exercises: patternDef.exercises ? patternDef.exercises.map(ex => parseLine(patternDef, ex)) as Exercise[] : []
+    exercises: exercises
   })
 }
 
