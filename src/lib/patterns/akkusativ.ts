@@ -110,10 +110,10 @@ Some masculine nouns change form when used in any case other than the nominative
       hint: "[masculine]"
     },
     {
-      from: "lukas",
-      message: "Es ist [ein] Baumhaus.",
-      translation: "It is [a] tree house.",
-      hint: "[neutral]"
+      from: "lindenbaum",
+      message: "Und Sie nennen es \"den [Durchbruch]\"?",
+      translation: "And you call it \"the [breakthrough]\"?",
+      hint: "[masculine]"
     },
   ]
 })
