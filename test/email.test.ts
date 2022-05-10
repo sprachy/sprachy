@@ -1,7 +1,7 @@
 import { db } from "$lib/server/db"
 import { sprachdex } from "$lib/sprachdex"
 import { time } from "$lib/time"
-import { heartbeatReviewReminders } from "$lib/server/heartbeat"
+import { heartbeatReviewReminders } from "$lib/../routes/heartbeat"
 import { test, expect } from "vitest"
 import { testenv } from "./testenv"
 import { mailer } from "$lib/server/mailer"

@@ -2,7 +2,6 @@
   import sprachy from "$lib/sprachy"
   import SiteLayout from "$lib/SiteLayout.svelte"
   import _ from "lodash"
-  import { onMount } from "svelte"
   const spa = sprachy.expectSPA()
   const { api, user } = spa
 

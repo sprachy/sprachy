@@ -3,7 +3,7 @@
 import _ from 'lodash'
 import type { SprachyAPIClient } from "./SprachyAPIClient"
 import type { ProgressItem, User, ProgressSummary } from "$lib/api"
-import type { Exercise, FillblankLine, Pattern, Story } from "$lib/Pattern"
+import type { Exercise, Pattern } from "$lib/Pattern"
 import { sprachdex } from "$lib/sprachdex"
 import { time } from "$lib/time"
 import { CanvasEffects } from "$lib/client/CanvasEffects"

@@ -4,7 +4,6 @@ import { sessions } from '$lib/server/sessions'
 import { ZodError } from 'zod'
 import { isAuthedRoute } from '$lib/routing'
 import { db } from '$lib/server/db'
-import { getCloudflareWorkersEnv } from './workersEnv'
 import { env } from '$lib/server/env'
 import _ from 'lodash'
 
