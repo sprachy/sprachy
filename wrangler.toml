@@ -15,9 +15,6 @@ format = "modules"
 main = "./worker.mjs"
 dir = "./.cloudflare/worker"
 
-[triggers]
-crons = ["*/5 * * * *"]
-
 [env.staging]
 workers_dev = true
 name = "sprachy-staging"

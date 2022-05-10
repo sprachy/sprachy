@@ -1,0 +1,15 @@
+name = "sprachy-cron"
+type = "javascript"
+compatibility_flags = []
+compatibility_date = "2022-03-30"
+account_id = "e24de7c361b035e990d2814691027093"
+
+[build]
+command = ""
+
+[build.upload]
+format = "modules"
+main = "./worker.mjs"
+
+[triggers]
+crons = ["*/5 * * * *"]
