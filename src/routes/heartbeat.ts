@@ -5,8 +5,13 @@ import { env } from "$lib/server/env"
 import faunadb from "faunadb"
 const q = faunadb.query
 
-export async function heartbeat() {
+export async function get() {
   await heartbeatReviewReminders()
+  return {
+    body: {
+      "❤️": true
+    }
+  }
 }
 
 export async function heartbeatReviewReminders() {

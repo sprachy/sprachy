@@ -7,7 +7,6 @@ import { db } from '$lib/server/db'
 import { getCloudflareWorkersEnv } from './workersEnv'
 import { env } from '$lib/server/env'
 import _ from 'lodash'
-import { heartbeat } from '$lib/server/heartbeat'
 
 /**
  * All requests to the server are wrapped by this hook.
@@ -90,13 +89,6 @@ export const getSession: GetSession = async (event) => {
   } else {
     return {}
   }
-}
-
-if (typeof addEventListener !== 'undefined') {
-  addEventListener('scheduled', (event: ScheduledEvent) => {
-    Object.assign(env, getCloudflareWorkersEnv(), Object.assign({}, env))
-    event.waitUntil(heartbeat())
-  })
 }
 
 // export const handleError: HandleError = async ({ error, event }) => {
