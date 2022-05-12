@@ -3,12 +3,17 @@ import type { RequestHandler } from "@sveltejs/kit"
 import * as stripe from '$lib/server/stripe'
 import { db } from "$lib/server/db"
 import { env } from "$lib/server/env"
-import { MONTHLY_PRICE_ID, ANNUAL_PRICE_ID } from '$lib/constants'
+import { LIVE_MONTHLY_PRICE_ID, LIVE_ANNUAL_PRICE_ID, TEST_MONTHLY_PRICE_ID, TEST_ANNUAL_PRICE_ID } from '$lib/constants'
 
-const updateSubscriptionForm = z.object({
-  priceId: z.enum([MONTHLY_PRICE_ID, ANNUAL_PRICE_ID])
-})
-export const post: RequestHandler = async ({ request, locals }) => {
+export const post: RequestHandler = async ({ request, locals, url }) => {
+  const IS_LIVE = url.host === "sprachy.com"
+  const MONTHLY_PRICE_ID = IS_LIVE ? LIVE_MONTHLY_PRICE_ID : TEST_MONTHLY_PRICE_ID
+  const ANNUAL_PRICE_ID = IS_LIVE ? LIVE_ANNUAL_PRICE_ID : TEST_ANNUAL_PRICE_ID
+
+  const subscriptionForm = z.object({
+    priceId: z.enum([MONTHLY_PRICE_ID, ANNUAL_PRICE_ID])
+  })
+
   // let user = await db.users.expect(locals.session!.userId)
 
   // if (!user.customerId) {
@@ -28,7 +33,7 @@ export const post: RequestHandler = async ({ request, locals }) => {
   // }
 
 
-  const { priceId } = updateSubscriptionForm.parse(await request.json())
+  const { priceId } = subscriptionForm.parse(await request.json())
   const user = await db.users.expect(locals.session!.userId)
 
   if (user.subscription) {

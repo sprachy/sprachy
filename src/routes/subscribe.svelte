@@ -1,6 +1,6 @@
 <script lang="ts">
   import { loadStripe } from "@stripe/stripe-js"
-  import { MONTHLY_PRICE_ID } from "$lib/constants"
+  import { LIVE_MONTHLY_PRICE_ID, TEST_MONTHLY_PRICE_ID } from "$lib/constants"
   import SiteLayout from "$lib/SiteLayout.svelte"
   import sprachy from "$lib/sprachy"
   import { onMount } from "svelte"
@@ -11,6 +11,9 @@
   const STRIPE_PUBLIC_KEY = IS_LIVE
     ? "pk_live_51KyJTvJlYNBfr7TbU37JuMfk86WU2XVe5nsCvjmPx2L6dCvwVjLXamo6KwjLW7Q9cnDsHsW398SwHvWcGKPNjCcA00Nza7EvwZ"
     : "pk_test_51KyJTvJlYNBfr7TbT6fTcg8lgRUOCzJuIziF0LTTd52pUkfbE6N4qRaeoDWVKwREd3JIMwuox1LG0ROHdXqv1kKA00iJLuvXQt"
+  const MONTHLY_PRICE_ID = IS_LIVE
+    ? LIVE_MONTHLY_PRICE_ID
+    : TEST_MONTHLY_PRICE_ID
 
   const loadingStripe = loadStripe(STRIPE_PUBLIC_KEY)
 
