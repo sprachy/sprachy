@@ -1,10 +1,55 @@
 <script lang="ts">
+  import { loadStripe } from "@stripe/stripe-js"
+  import { MONTHLY_PRICE_ID } from "$lib/constants"
   import SiteLayout from "$lib/SiteLayout.svelte"
+  import sprachy from "$lib/sprachy"
+  import { onMount } from "svelte"
+  const spa = sprachy.expectSPA()
+  const { api, user } = spa
 
-  const MONTHLY_PLAN_ID = "sprachy_monthly"
+  const IS_LIVE = window.location.origin === "https://sprachy.com"
+  const STRIPE_PUBLIC_KEY = IS_LIVE
+    ? "pk_live_51KyJTvJlYNBfr7TbU37JuMfk86WU2XVe5nsCvjmPx2L6dCvwVjLXamo6KwjLW7Q9cnDsHsW398SwHvWcGKPNjCcA00Nza7EvwZ"
+    : "pk_test_51KyJTvJlYNBfr7TbT6fTcg8lgRUOCzJuIziF0LTTd52pUkfbE6N4qRaeoDWVKwREd3JIMwuox1LG0ROHdXqv1kKA00iJLuvXQt"
 
-  let activePlanId: string | undefined = undefined
+  const loadingStripe = loadStripe(STRIPE_PUBLIC_KEY)
+
   let loading: boolean = false
+
+  $: activePriceId = $user.subscription?.priceId
+
+  async function subscribeMonthly() {
+    if (
+      $user.subscription &&
+      !window.confirm(
+        `Change to the monthly plan? Stripe will apply an appropriate proration against your current plan.`
+      )
+    ) {
+      return
+    }
+
+    let result
+    try {
+      loading = true
+      result = await api.subscribe(MONTHLY_PRICE_ID)
+    } finally {
+      loading = false
+    }
+
+    if ("checkoutSessionId" in result) {
+      const stripe = await loadingStripe
+
+      const { error } = await stripe!.redirectToCheckout({
+        sessionId: result.checkoutSessionId,
+      })
+
+      if (error) {
+        throw error
+      }
+    } else {
+      $user = result.user
+    }
+  }
 </script>
 
 <svelte:head>
@@ -31,7 +76,7 @@
       <p class="subtext">
         Subscriptions with auto renewal turned off will revert to the free plan
       </p>
-      {#if activePlanId}
+      {#if activePriceId}
         <button class="btn btn-outline-dark" disabled>Switch</button>
       {:else}
         <button class="btn btn-outline-dark" disabled>Active</button>
@@ -48,10 +93,14 @@
         <li>All Pattern Pages</li>
         <li>All Interactive Exercises</li>
       </ul>
-      {#if activePlanId === MONTHLY_PLAN_ID}
+      {#if activePriceId === MONTHLY_PRICE_ID}
         <button class="btn btn-outline-dark" disabled>Active</button>
       {:else}
-        <button class="btn btn-outline-dark">Upgrade</button>
+        <button
+          class="btn btn-outline-dark"
+          on:click={subscribeMonthly}
+          disabled={loading}>Upgrade</button
+        >
       {/if}
     </div>
   </div>

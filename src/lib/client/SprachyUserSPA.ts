@@ -8,11 +8,13 @@ import { sprachdex } from "$lib/sprachdex"
 import { time } from "$lib/time"
 import { CanvasEffects } from "$lib/client/CanvasEffects"
 import { SpeechSystem } from '$lib/SpeechSystem'
-import { derived, writable, type Writable } from 'svelte/store'
+import { derived, get, writable, type Writable } from 'svelte/store'
 
 export type Review = Exercise & {
   pattern: PatternAndProgress
 }
+
+declare const window: any
 
 /**
  * Single page application state for when the user is signed in
@@ -28,9 +30,11 @@ export class SprachyUserSPA {
    */
   effects = new CanvasEffects()
 
-
   constructor(readonly api: SprachyAPIClient, readonly backgroundApi: SprachyAPIClient, summary: ProgressSummary) {
     this.receiveProgress(summary)
+
+    // Expose some stuff for debugging
+    this.user.subscribe($user => window.user = $user)
   }
 
   admin = derived(this.user, user => user.isAdmin)

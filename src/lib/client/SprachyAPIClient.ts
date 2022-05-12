@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import type { ProgressItem, User, ProgressSummary, SignupDetails } from '$lib/api'
+import type { ProgressItem, User, ProgressSummary, SignupDetails, PriceId } from '$lib/api'
 import { HTTPProvider } from './HTTPProvider'
 
 export class SprachyAPIClient {
@@ -52,6 +52,10 @@ export class SprachyAPIClient {
 
   async patchProfile(input: string, type: string) {
     return this.http.patch(`/api/settings/profile/patch-profile`, { input, type })
+  }
+
+  async subscribe(priceId: PriceId): Promise<{ 'checkoutSessionId': string } | { 'user': User }> {
+    return this.http.post(`/api/settings/subscription`, { priceId })
   }
 }
 

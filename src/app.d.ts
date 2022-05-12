@@ -14,6 +14,7 @@ declare namespace App {
     FAUNA_SCHEME?: string
     MAILGUN_SECRET?: string
     DISCORD_SIGNUP_WEBHOOK?: string
+    STRIPE_SECRET_KEY?: string
   }
 
   interface Locals {

@@ -1,4 +1,5 @@
 import type { ZodIssue } from 'zod'
+import type { MONTHLY_PRICE_ID, ANNUAL_PRICE_ID } from '$lib/constants'
 
 // export type LoginResult =
 //   { status: 200, summary: ProgressSummary } |
@@ -18,6 +19,8 @@ export type SignupDetails = {
   wantsReminderEmails: boolean
 }
 
+export type PriceId = typeof MONTHLY_PRICE_ID | typeof ANNUAL_PRICE_ID
+
 export type User = {
   id: string
   email: string
@@ -29,6 +32,13 @@ export type User = {
   lastReviewAt?: number
   wantsReminderEmails?: boolean
   enableSpeechSynthesis?: boolean
+  customerId?: string
+  subscription?: {
+    priceId: PriceId
+    subscriptionId: string
+    customerId: string
+    subscribedAt: number
+  }
 }
 
 export type ProgressItem = {

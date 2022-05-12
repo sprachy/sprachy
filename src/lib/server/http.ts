@@ -17,18 +17,15 @@ namespace http {
     headers?: { [key: string]: string }
   }
 
-  export async function request(url: RequestInfo, init: RequestInit) {
+  export async function request(url: RequestInfo, init: RequestInit): Promise<Response> {
     const response = await fetch(url, init)
 
     if (response.status < 200 || response.status >= 300) {
       console.error(response)
-      const results = await gatherResponse(response)
-      console.error(results)
       throw new RequestError(`Received ${response.status} from ${init.method} request to ${url}`)
     }
 
-    const results = await gatherResponse(response)
-    return results
+    return response
   }
 
   export async function get(url: string, options: HttpOptions = {}) {
@@ -63,23 +60,6 @@ namespace http {
         'content-type': 'application/json;charset=UTF-8',
       }, options.headers || {})
     })
-  }
-
-  async function gatherResponse(response: Response) {
-    const { headers } = response
-    const contentType = headers.get('content-type')
-    if (!contentType)
-      return response
-
-    if (contentType.includes('application/json')) {
-      return await response.json()
-    } else if (contentType.includes('application/text')) {
-      return await response.text()
-    } else if (contentType.includes('text/html')) {
-      return await response.text()
-    } else {
-      return await response.text()
-    }
   }
 }
 
