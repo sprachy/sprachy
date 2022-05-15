@@ -95,7 +95,11 @@
                 {/if}
               </DropdownToggle>
               <DropdownMenu end>
-                <DropdownItem href="/profile">Profile</DropdownItem>
+                {#if $user.name}
+                  <DropdownItem href="/profile">Profile</DropdownItem>
+                {:else}
+                  <DropdownItem href="/profile-settings">Profile</DropdownItem>
+                {/if}
                 <DropdownItem href="/settings">Settings</DropdownItem>
                 <!-- <DropdownItem href="/subscribe">Subscription</DropdownItem> -->
                 <DropdownItem href="/logout">Log out</DropdownItem>
