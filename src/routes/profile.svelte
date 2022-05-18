@@ -11,37 +11,50 @@
 
 <SiteLayout>
   <div class="profile">
-    <h2>Your Profile</h2>
-    <div class="container element">
-      <div class="row align-items-center">
-        <div class="col-sm">
-          {#if $user.pfp}
-            <img src={$user.pfp} alt={$user.name} class="avatar" />
-          {:else}
-            <img
-              src="src/lib/img/squirrel.webp"
-              alt={$user.name}
-              class="avatar"
-            />
-          {/if}
+    <h2 class="header">Your Profile</h2>
+    <div class="profile shadow">
+      <div class="card">
+        <div class="card-header">
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-sm">
+                {#if $user.pfp}
+                  <img src={$user.pfp} alt={$user.name} class="avatar" />
+                {:else}
+                  <img
+                    src="src/lib/img/squirrel.webp"
+                    alt={$user.name}
+                    class="avatar"
+                  />
+                {/if}
+              </div>
+              <div class="col-sm"><div class="username">{$user.name}</div></div>
+            </div>
+          </div>
         </div>
-        <div class="col-sm"><div class="username">{$user.name}</div></div>
+        <div class="card-body">
+          <div class="bio">
+            {#if $user.bio}
+              {$user.bio}
+            {/if}
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+          <button
+            type="submit"
+            class="btn btn-primary mt-2"
+            on:click|preventDefault={goToSettings}>Edit Profile</button
+          >
+        </div>
       </div>
     </div>
-    <div class="element">
-      {#if $user.bio}
-        {$user.bio}
-      {/if}
-    </div>
-    <button
-      type="submit"
-      class="btn btn-primary mt-2"
-      on:click|preventDefault={goToSettings}>Edit Profile</button
-    >
   </div>
 </SiteLayout>
 
 <style lang="sass">
+  .header
+    margin-bottom: 2rem
+
   .profile
     margin: auto
     max-width: 600px
@@ -52,11 +65,15 @@
     width: 100px
     height: 100px
     border-radius: 50%
+    margin-top: 1rem
+    margin-bottom: 2rem
 
   .username
     font-size: 2rem
-
-  .element
-    margin-top: 2rem
+    margin-top: 1rem
     margin-bottom: 2rem
+
+  .bio
+    text-align: justify
+    color: #802424
 </style>
