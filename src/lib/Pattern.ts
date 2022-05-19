@@ -25,7 +25,14 @@ export type FeedbackDef = {
   message: string
 }
 
-export type LineDef = {
+
+export type ReadingLineDef = {
+  from: string
+  message: string
+  translation?: string
+}
+
+export type FillblankLineDef = {
   from: string
   message: string
   translation: string
@@ -34,11 +41,18 @@ export type LineDef = {
   feedback?: { [attempt: string]: string }
 }
 
+export type MultipleChoiceLineDef = {
+  question: string
+  choices: { text: string, correct?: boolean }[]
+}
+
+export type LineDef = ReadingLineDef | FillblankLineDef | MultipleChoiceLineDef
+
 export type ReadingLine = {
   type: 'reading'
   from: string
   message: string
-  translation: string
+  translation?: string
   explanation?: string
 }
 
@@ -54,7 +68,13 @@ export type FillblankLine = {
   feedback?: FeedbackDef[]
 }
 
-export type StoryLine = ReadingLine | FillblankLine
+export type MultipleChoiceLine = {
+  type: 'choice'
+  question: string
+  choices: { text: string, correct?: boolean }[]
+}
+
+export type StoryLine = ReadingLine | FillblankLine | MultipleChoiceLine
 
 
 export type Exercise = FillblankLine
@@ -91,31 +111,39 @@ export function parsePattern(patternDef: PatternDef): Pattern {
 }
 
 export function parseLine(patternDef: PatternDef, lineDef: LineDef): StoryLine {
-  const match = lineDef.message.match(/\[(.+?)\]/)
-  if (match) {
-    const canonicalAnswer = match[1]!
+  if ('message' in lineDef) {
+    const match = lineDef.message.match(/\[(.+?)\]/)
+    if (match) {
+      const fillblankDef = lineDef as FillblankLineDef
+      const canonicalAnswer = match[1]!
 
-    const lineSpecificFeedback: FeedbackDef[] = []
-    if (lineDef.feedback) {
-      for (const attempt in lineDef.feedback) {
-        lineSpecificFeedback.push({
-          answer: canonicalAnswer,
-          attempt: attempt,
-          message: lineDef.feedback[attempt]!
-        })
+      const lineSpecificFeedback: FeedbackDef[] = []
+      if (fillblankDef.feedback) {
+        for (const attempt in fillblankDef.feedback) {
+          lineSpecificFeedback.push({
+            answer: canonicalAnswer,
+            attempt: attempt,
+            message: fillblankDef.feedback[attempt]!
+          })
+        }
       }
-    }
 
-    return {
-      type: 'fillblank',
-      canonicalAnswer: canonicalAnswer,
-      validAnswers: [canonicalAnswer],
-      ...lineDef,
-      feedback: lineSpecificFeedback.concat(patternDef.feedback || []),
+      return {
+        type: 'fillblank',
+        canonicalAnswer: canonicalAnswer,
+        validAnswers: [canonicalAnswer],
+        ...fillblankDef,
+        feedback: lineSpecificFeedback.concat(patternDef.feedback || []),
+      }
+    } else {
+      return {
+        type: 'reading',
+        ...lineDef
+      }
     }
   } else {
     return {
-      type: 'reading',
+      type: 'choice',
       ...lineDef
     }
   }

@@ -4,6 +4,7 @@
   import type { StoryLine, Story } from "$lib/Pattern"
   import StoryLineReading from "$lib/client/StoryLineReading.svelte"
   import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
+  import StoryLineChoice from "$lib/client/StoryLineChoice.svelte"
   import { fly } from "svelte/transition"
 
   export let story: Story
@@ -95,13 +96,19 @@
       >
         {#if line.type === "reading"}
           <StoryLineReading {line} flip={lineFlips[i]} speakable />
-        {:else}
+        {:else if line.type === "fillblank"}
           <StoryLineFillblank
             speakable
             {line}
             flip={lineFlips[i]}
             on:correct={nextLine}
             bind:this={fillblankRef}
+            complete={finished || line !== currentLine}
+          />
+        {:else if line.type === "choice"}
+          <StoryLineChoice
+            {line}
+            on:correct={nextLine}
             complete={finished || line !== currentLine}
           />
         {/if}

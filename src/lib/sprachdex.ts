@@ -16,8 +16,10 @@ class Sprachdex {
   constructor() {
     for (const pattern of this.patternsIncludingDrafts) {
       for (const line of pattern.story) {
-        for (const word of line.message.split(/\s+/)) {
-          this.knownGermanWords[word.toLowerCase().replace(/[[\]*".,!?_]/g, '')] = true
+        if ('message' in line) {
+          for (const word of line.message.split(/\s+/)) {
+            this.knownGermanWords[word.toLowerCase().replace(/[[\]*".,!?_]/g, '')] = true
+          }
         }
       }
 
