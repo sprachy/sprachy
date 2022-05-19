@@ -20,7 +20,7 @@
   // const name = names[from] || from
 </script>
 
-<div class:message={true} class:flip>
+<div class:message={true} class:flip {...$$restProps}>
   <Avatar charId={from} />
   <!-- <div class="name">{name}</div> -->
   <div class="quoteContainer">

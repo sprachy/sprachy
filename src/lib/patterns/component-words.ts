@@ -26,17 +26,17 @@ das Wasserschwein (the capybara) / "water pig" - From _das Wasser_ + _das Schwei
 
 Note how compound nouns inherit the gender of their ending root. The many German animal names ending in _tier_ all use _das_.
 
-In English, we often make new words not by combining existing English words, but from Latin or Greek roots. This is especially true for medical or scientific terminology. In German, it's much more common to just use German roots. The English word [paramecium](https://en.wikipedia.org/wiki/Paramecium) is derived from Ancient Greek, but in German it's just [das Pantoffeltierchen](https://de.wikipedia.org/wiki/Pantoffeltierchen) ("slipper animal little").
-
 Many verbs in German are formed by adding a prefix like _ein-_ or _ver-_ to a another verb, like _kaufen_ (to buy) => _einkaufen_ (to shop). These are a bit quirky and the meaning is not always easily inferrable; we'll cover separable and inseperable verb prefixes in another pattern.
 
-German sometimes likes to take compound words to extreme lengths. Words for government programs are particularly notorious for this, such as [das Bundesausbildungsförderungsgesetz](https://en.wikipedia.org/wiki/BAf%C3%B6G), the Federal Training Assistance Act in Germany-- which most people quite reasonably abbreviate to BAföG. Good to master compounds if you need to submit forms in Germany!
+In English, we often make new words not by combining existing English words, but from Latin or Greek roots. This is especially true for medical or scientific terminology. In German, it's much more common to just use German roots. The English word [paramecium](https://en.wikipedia.org/wiki/Paramecium) is derived from Ancient Greek, but in German it's just [das Pantoffeltierchen](https://de.wikipedia.org/wiki/Pantoffeltierchen) ("slipper animal little").
+
+German sometimes likes to take compound words to extreme lengths. Names for government programs are particularly notorious for this, such as [das Bundesausbildungsförderungsgesetz](https://en.wikipedia.org/wiki/BAf%C3%B6G), the Federal Training Assistance Act in Germany-- which most people quite reasonably abbreviate to BAföG. Good to master compounds if you need to submit forms in Germany!
   `,
   story: [
     {
       from: "squirrel",
-      message: "Töski, hast du [mein] Brötchen gegessen?",
-      translation: "Töski, did you eat [my] bread roll?",
+      message: "Was ist dieses kleine schleimige Tier?",
+      translation: "What is this small slimy animal?",
     },
   ],
   exercises: [

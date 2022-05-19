@@ -19,19 +19,21 @@
   })
 </script>
 
-<Message from={line.from} {flip}>
-  <Sprachdown inline source={line.message} />
-  <div slot="after">
-    <div class="translation">
-      <Sprachdown inline source={line.translation} />
-    </div>
-    {#if line.explanation}
-      <div class="explanation">
-        <Sprachdown inline source={line.explanation} />
+<div class="reading">
+  <Message from={line.from} {flip}>
+    <Sprachdown inline source={line.message} />
+    <div slot="after">
+      <div class="translation">
+        <Sprachdown inline source={line.translation} />
       </div>
-    {/if}
-  </div>
-</Message>
+      {#if line.explanation}
+        <div class="explanation">
+          <Sprachdown inline source={line.explanation} />
+        </div>
+      {/if}
+    </div>
+  </Message>
+</div>
 
 <style lang="sass">
 .explanation
