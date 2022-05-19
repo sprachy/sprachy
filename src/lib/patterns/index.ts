@@ -10,6 +10,6 @@ import besser from './besser'
 import besten from './besten'
 import genitiv from './genitiv'
 import imperativ from './imperativ'
-import componentWords from './component-words'
+import compoundWords from './compound-words'
 
-export default [derdiedas, eineine, sein, daschen, akkusativ, dativ, derlernerdielernerin, duodersie, besser, besten, genitiv, imperativ, componentWords]
+export default [derdiedas, eineine, sein, daschen, akkusativ, dativ, derlernerdielernerin, duodersie, besser, besten, genitiv, imperativ, compoundWords]
