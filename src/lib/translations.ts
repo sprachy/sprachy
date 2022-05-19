@@ -61,4 +61,8 @@ export const translations = {
   "alt": "old",
   "älter": "older",
   "ältest-": "oldest",
+
+  "das Schild": "the shield",
+  "die Kröte": "the toad",
+  "die Schildkröte": "the turtle",
 } as Record<string, string>
