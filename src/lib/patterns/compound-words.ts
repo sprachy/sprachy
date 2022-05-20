@@ -62,6 +62,40 @@ German sometimes likes to take compound words to extreme lengths. Names for gove
       from: "lukas",
       message: "Ja, du hast recht!",
       translation: "Yes, you are right!"
+    },
+    {
+      from: "squirrel",
+      message: "Und was ist mit dieser schwimmenden Kreatur mit vielen Tentakeln?",
+      translation: "And what about this swimming creature with lots of tentacles?"
+    },
+    {
+      from: "lukas",
+      message: "Das ist ein **Tintenfisch**!"
+    },
+    {
+      from: "lukas",
+      message: "Es spritzt Tinte. Aber es ist nicht wirklich ein Fisch.",
+      translation: "It sprays ink. But it is not really a fish."
+    },
+    {
+      question: `Was bedeutet "Tintenfisch"?`,
+      translation: "What does \"Tintenfisch\" mean?",
+      choices: [
+        { text: "shark" },
+        { text: "lobster" },
+        { text: "clam" },
+        { text: "squid", correct: true },
+      ]
+    },
+    {
+      from: "squirrel",
+      message: "Das gefällt mir!",
+      translation: "I like it!"
+    },
+    {
+      from: "squirrel",
+      message: "Euer Planet hat viele edle Lebensformen.",
+      translation: "Youre planet has many noble lifeforms."
     }
   ],
   exercises: [
