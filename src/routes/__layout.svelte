@@ -65,4 +65,5 @@
 
 <style lang="sass" global>
   @import '../app.sass'
+  @import '../app.css'
 </style>

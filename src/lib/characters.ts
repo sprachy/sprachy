@@ -99,7 +99,7 @@ const characters = [
 An extradimensional squirrel-like lifeform with vast psionic power. Töski is currently taking a vacation on Earth, a travel destination his mindspace identified as having "gemütliche Bäume" and a pleasant lack of reality-rending esper battles.
     `,
     rate: 1.05,
-    pitch: 1.9
+    pitch: 1.5
   },
 
   /**

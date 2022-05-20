@@ -21,11 +21,17 @@
 
 <div class="reading">
   <Message from={line.from} {flip}>
-    <Sprachdown inline source={line.message} />
+    <div
+      class="message"
+      class:hasTranslation={!!line.translation}
+      data-tooltip={line.translation}
+    >
+      <Sprachdown inline source={line.message} />
+    </div>
     <div slot="after">
-      <div class="translation">
+      <!-- <div class="translation">
         <Sprachdown inline source={line.translation} />
-      </div>
+      </div> -->
       {#if line.explanation}
         <div class="explanation">
           <Sprachdown inline source={line.explanation} />
@@ -36,6 +42,12 @@
 </div>
 
 <style lang="sass">
+.message.hasTranslation
+  :global(p)
+    text-decoration: underline #ccc dotted
+  
+  cursor: default
+
 .explanation
   padding-top: 0.8rem
   color: #444

@@ -36,20 +36,21 @@ German sometimes likes to take compound words to extreme lengths. Names for gove
     {
       from: "squirrel",
       message: "Was ist dieses kleine schleimige Tier?",
-      // translation: "What is this small slimy animal?",
+      translation: "What is this small slimy animal?",
     },
     {
       from: "lukas",
-      message: "Das ist eine Nacktschnecke.",
+      message: "Das ist eine **Nacktschnecke**.",
       // translation: "That is a slug."
     },
     {
       from: "squirrel",
       message: "Ach so, ich verstehe! Sie ist wie eine Schnecke, aber nackt.",
-      // translation: "Aha, I see! It is like a snail, but naked.",
+      translation: "Aha, I see! It is like a snail, but naked.",
     },
     {
       question: `Was bedeutet "Nacktschnecke"?`,
+      translation: "What does \"Nacktschnecke\" mean?",
       choices: [
         { text: "turtle" },
         { text: "slug", correct: true },
@@ -60,6 +61,7 @@ German sometimes likes to take compound words to extreme lengths. Names for gove
     {
       from: "lukas",
       message: "Ja, du hast recht!",
+      translation: "Yes, you are right!"
     }
   ],
   exercises: [

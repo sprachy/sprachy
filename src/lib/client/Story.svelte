@@ -146,4 +146,9 @@
 
     > div
       padding: 2rem
+
+
+  :global(strong)
+    color: rgb(28, 176, 246)
+
 </style>

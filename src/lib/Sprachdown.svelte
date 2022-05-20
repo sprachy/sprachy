@@ -13,7 +13,7 @@
   // })
 </script>
 
-<div class:markdown={true} class:markdown-inline={inline}>
+<div class:markdown={true} class:markdown-inline={inline} {...$$restProps}>
   <SvelteMarkdown {source} renderers={{ html: SprachdownHTML }} />
 </div>
 
