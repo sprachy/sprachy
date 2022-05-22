@@ -1,4 +1,4 @@
-import { faCat } from "@fortawesome/free-solid-svg-icons"
+import { faCodeMerge } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "$lib/definePattern"
 
 export default definePattern({
@@ -6,7 +6,7 @@ export default definePattern({
   slug: "compound-words",
   title: "Compound words",
   shortdesc: `Fledermaus (bat) is "flutter mouse"`,
-  icon: faCat,
+  icon: faCodeMerge,
   explanation: md`
 In many languages, humans like to create new words by smooshing together two or more existing ones. The meaning of the new word may be immediately obvious from the roots, or it might derive it in a more subtle or historical way. For example, in English:
 
