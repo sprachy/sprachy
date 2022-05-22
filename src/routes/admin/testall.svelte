@@ -5,6 +5,7 @@
   import Sprachdown from "$lib/Sprachdown.svelte"
   import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
   import StoryLineReading from "$lib/client/StoryLineReading.svelte"
+  import StoryLineChoice from "$lib/client/StoryLineChoice.svelte"
 
   const patterns = sprachdex.publishedPatterns
 </script>
@@ -25,8 +26,10 @@
         <div class="line">
           {#if line.type === "fillblank"}
             <StoryLineFillblank {line} />
-          {:else}
+          {:else if line.type === "reading"}
             <StoryLineReading {line} />
+          {:else}
+            <StoryLineChoice {line} />
           {/if}
         </div>
       {/each}

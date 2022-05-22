@@ -1,5 +1,5 @@
 import _ from "lodash"
-import type { StoryLine } from "./Pattern"
+import type { ReadingLine, FillblankLine } from "./Pattern"
 import { sprachdex } from "./sprachdex"
 
 export class SpeechSystem {
@@ -32,7 +32,7 @@ export class SpeechSystem {
     return this.voice
   }
 
-  async speak(line: StoryLine) {
+  async speak(line: ReadingLine | FillblankLine) {
     const voice = await this.getVoice()
     if (!voice) return
     await new Promise<void>((resolve) => {

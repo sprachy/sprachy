@@ -26,9 +26,13 @@
   // speaker changes
   $: lineFlips = ((lines: StoryLine[]) => {
     let flip = false
-    let prevFrom = lines[0]?.from
+    let prevFrom = lines[0] && "from" in lines[0] ? lines[0].from : null
     const flips: boolean[] = []
     for (const line of lines) {
+      if (!("from" in line)) {
+        continue
+      }
+
       if (line.from !== prevFrom) {
         flip = !flip
         prevFrom = line.from
