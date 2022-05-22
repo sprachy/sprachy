@@ -1,7 +1,6 @@
 <script lang="ts" context="module">
   export const prerender = true
-
-  import type { Load } from "./index"
+  import type { Load } from "@sveltejs/kit"
 
   export const load: Load = async ({ session }) => {
     if (session.userId) {

@@ -1,8 +1,8 @@
 <script lang="ts" context="module">
   import { sprachdex } from "$lib/sprachdex"
-  import type { Load } from "./[story]"
+  import type { Load } from "@sveltejs/kit"
 
-  export const load: Load = async ({ params }) => {
+  export const load: Load<{ story: string }> = async ({ params }) => {
     const pattern = sprachdex.patternsIncludingDrafts.find(
       (p) => p.slug === params.story
     )

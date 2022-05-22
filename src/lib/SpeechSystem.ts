@@ -12,7 +12,7 @@ export class SpeechSystem {
       return voices
 
     // Voices haven't loaded yet, wait for them
-    return await new Promise((resolve, reject) => {
+    return await new Promise((resolve) => {
       speechSynthesis.onvoiceschanged = () => {
         resolve(speechSynthesis.getVoices())
       }

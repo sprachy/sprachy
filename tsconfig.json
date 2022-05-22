@@ -1,9 +1,6 @@
 {
   "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
-    "target": "es6",
-    "module": "esnext",
-    "moduleResolution": "nodenext",
     "plugins": [
       {
         "name": "vite-plugin-iso-import"

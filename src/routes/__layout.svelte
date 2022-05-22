@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
   import { isAuthedRoute } from "$lib/routing"
-  import type { Load } from "./__layout"
+  import type { Load } from "@sveltejs/kit"
 
   export const load: Load = async ({ url, session }) => {
     const needsAuth = isAuthedRoute(url.pathname)

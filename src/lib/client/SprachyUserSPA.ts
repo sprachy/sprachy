@@ -8,7 +8,7 @@ import { sprachdex } from "$lib/sprachdex"
 import { time } from "$lib/time"
 import { CanvasEffects } from "$lib/client/CanvasEffects"
 import { SpeechSystem } from '$lib/SpeechSystem'
-import { derived, get, writable, type Writable } from 'svelte/store'
+import { derived, writable, type Writable } from 'svelte/store'
 
 export type Review = Exercise & {
   pattern: PatternAndProgress
