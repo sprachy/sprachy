@@ -101,9 +101,19 @@ German sometimes likes to take compound words to extreme lengths. Names for gove
   exercises: [
     {
       from: "squirrel",
-      message: "[Die] Nüsschen auf diesem Planeten sind besonders lecker. Zu Hause ist das ein gut gehütetes Geheimnis.",
-      translation: "[The] little nuts on this planet are especially delicious. It's a well-kept secret back home."
+      message: "Ein **Schrank**, der **kühl** gehalten wird. Sie nennen es einen [Kühlschrank]!",
+      translation: "A cupboard, that is kept cool. They call it a [fridge]!"
     },
+    {
+      from: "lukas",
+      message: "Es ist wie ein **Schuh** für deine **Hand**. Ein [Handschuh]!",
+      translation: "It's like a shoe for your hand. A [glove]!"
+    },
+    {
+      from: "lindenbaum",
+      message: "Mit der Kraft von **Zeug** haben die Menschen den **Flug** erobert. Wir haben ein [Flugzeug] gebaut!",
+      translation: "With the power of stuff, humans conquered flight. We built a [plane]!"
+    }
   ]
 })
 
