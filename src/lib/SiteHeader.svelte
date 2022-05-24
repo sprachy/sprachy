@@ -17,6 +17,8 @@
     DropdownItem,
   } from "sveltestrap"
   import { sprachdex } from "./sprachdex"
+  import defaultProfileImage from "$lib/img/squirrel.webp"
+
   const { user, admin, reviewsForLeveling } = sprachy.spa ?? {}
 
   let isOpen = false
@@ -88,7 +90,7 @@
                   <img src={$user.pfp} alt={$user.email} class="avatar" />
                 {:else}
                   <img
-                    src="src/lib/img/squirrel.webp"
+                    src={defaultProfileImage}
                     alt={$user.email}
                     class="avatar"
                   />
