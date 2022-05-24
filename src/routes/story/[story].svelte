@@ -123,25 +123,32 @@
   {/if}
 </SiteLayout>
 
-<style lang="sass">
-.story-holder
-  padding-top: 30vh
-  padding-bottom: calc(50vh - 5rem - 80px)
+<style>
+  .story-holder {
+    padding-top: 30vh;
+    padding-bottom: calc(50vh - 5rem - 80px);
+  }
 
-.story-header
-  margin-bottom: 2rem
-  h3
-    text-align: center
+  .story-header {
+    margin-bottom: 2rem;
+  }
 
-.complete
-  padding-top: 20vh
-  width: fit-content
-  margin: auto
-  text-align: center
+  .story-header h3 {
+    text-align: center;
+  }
 
-  img
-    margin: auto
+  .complete {
+    padding-top: 20vh;
+    width: fit-content;
+    margin: auto;
+    text-align: center;
+  }
 
-  p
-    font-size: 1.1rem
+  img {
+    margin: auto;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
 </style>

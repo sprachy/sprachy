@@ -86,28 +86,25 @@
   </SiteLayout>
 </PublicPage>
 
-<style lang="sass">
-.pattern
-  max-width: 720px
-  margin: auto
-  font-size: 17px
-  line-height: 28px
+<style>
+  .pattern {
+    max-width: 720px;
+    margin: auto;
+    font-size: 17px;
+    line-height: 28px;
+  }
 
-  // :global(.table)
-  //   margin-top: 2.5rem
-  //   margin-bottom: 1.5rem
+  .pattern :global(strong) {
+    color: rgb(28, 176, 246);
+  }
 
-  // :global(.dialogue)
-  //   margin-top: 2rem
-  //   margin-bottom: 1rem
+  .pattern :global(.btn) {
+    margin-right: 0.5rem;
+  }
 
-  :global(strong)
-    color: rgb(28, 176, 246)
-
-  :global(.btn)
-    margin-right: 0.5rem
-
-@media only screen and (max-width: 768px)
-  .pattern :global(table)
-    font-size: 90%
+  @media only screen and (max-width: 768px) {
+    .pattern :global(table) {
+      font-size: 90%;
+    }
+  }
 </style>

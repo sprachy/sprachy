@@ -33,60 +33,64 @@
   </a>
 </li>
 
-<style lang="sass">
-// li.pattern:not(.ready)
-//   filter: grayscale(100%)
+<style>
+  li.pattern {
+    --pattern-color: var(--sprachy-primary);
+  }
 
-li.pattern
-  --pattern-color: var(--sprachy-primary)
+  li.pattern.learned {
+    --pattern-color: var(--sprachy-gradthree);
+  }
 
-li.pattern.learned
-  --pattern-color: var(--sprachy-gradthree)
+  li.pattern.mastered {
+    --pattern-color: var(--sprachy-secondary);
+  }
 
-li.pattern.mastered
-  --pattern-color: var(--sprachy-secondary)
+  li.pattern {
+    display: flex;
+    list-style-type: none;
+  }
 
-li.pattern
-  display: flex
-  list-style-type: none
+  li.pattern div.icon {
+    background-color: var(--pattern-color);
+  }
+  li.pattern h6 {
+    color: var(--pattern-color);
+  }
 
-  div.icon
-    background-color: var(--pattern-color)
-  h6
-    color: var(--pattern-color)
+  li.pattern > :global(a) {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    padding-left: 0;
+    color: inherit;
+    text-decoration: none;
+    flex-grow: 1;
+  }
 
-  > :global(a)
-    display: flex
-    align-items: center
-    padding: 1.5rem 1rem
-    padding-left: 0
-    color: inherit
-    text-decoration: none
-    flex-grow: 1
+  li.pattern > :global(a):hover :global(h6) {
+    text-decoration: underline;
+  }
 
-  > :global(a):hover :global(h6)
-    text-decoration: underline
+  li.pattern .icon {
+    padding: 0.75rem;
+    margin-right: 1rem;
+    border-radius: 0.25rem;
+  }
 
-  .icon
-    padding: 0.75rem
-    margin-right: 1rem
-    border-radius: 0.25rem
+  li.pattern .icon :global(svg) {
+    color: white;
+    width: 32px;
+    height: 32px !important;
+    vertical-align: middle !important;
+  }
 
-  .icon :global(svg)
-    color: white
-    width: 32px
-    height: 32px !important
-    vertical-align: middle !important
+  li.pattern h6 {
+    font-size: 1.1rem;
+    margin-bottom: 0.1rem;
+  }
 
-  h6
-    font-size: 1.1rem
-    margin-bottom: 0.1rem
-
-  .shortdesc
-    margin-bottom: 0.1rem
-
-  // .timetolevel
-  //   font-style: italic
-  //   color: #666
-  //   font-size: 0.9rem
+  li.pattern .shortdesc {
+    margin-bottom: 0.1rem;
+  }
 </style>

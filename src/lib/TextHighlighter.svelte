@@ -71,42 +71,51 @@
   <!-- <Sprachdown source={"<p>" + text + "</p>"} /> -->
 </div>
 
-<style lang="sass">
-.TextHighlighter
-  padding-bottom: 30px
-  margin-bottom: 1rem
+<style>
+  .TextHighlighter {
+    padding-bottom: 30px;
+    margin-bottom: 1rem;
+  }
 
-  span.highlight
-    display: inline-block
-    font-weight: bold
-    text-align: center
-    margin-left: 0.2rem
-    margin-right: 0.2rem
+  .TextHighlighter span.highlight {
+    display: inline-block;
+    font-weight: bold;
+    text-align: center;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+  }
 
-    &::after
-      font-weight: normal
-      font-size: 16px
-      position: absolute
-      left: 50%
-      transform: translateX(-50%)
-      top: 100%
-      white-space: nowrap
+  .TextHighlighter span.highlight::after {
+    font-weight: normal;
+    font-size: 16px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100%;
+    white-space: nowrap;
+  }
 
-  :global(span.actor)
-    color: #a56eff
-    position: relative  
-    &::after
-      content: "actor"
+  .TextHighlighter :global(span.actor) {
+    color: #a56eff;
+    position: relative;
+  }
+  .TextHighlighter :global(span.actor)::after {
+    content: "actor";
+  }
 
-  :global(span.indirectobject)
-    color: #005d5d
-    position: relative  
-    &::after
-      content: "indirect object"
+  .TextHighlighter :global(span.indirectobject) {
+    color: #005d5d;
+    position: relative;
+  }
+  .TextHighlighter :global(span.indirectobject)::after {
+    content: "indirect object";
+  }
 
-  :global(span.directobject)
-    color: #9f1853
-    position: relative  
-    &::after
-      content: "direct object"
+  .TextHighlighter :global(span.directobject) {
+    color: #9f1853;
+    position: relative;
+  }
+  .TextHighlighter :global(span.directobject)::after {
+    content: "direct object";
+  }
 </style>

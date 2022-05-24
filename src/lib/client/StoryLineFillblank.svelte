@@ -160,57 +160,68 @@
   </Message>
 </div>
 
-<style lang="sass">
-@import './shake.scss'
+<style>
+  /* @import './shake.scss'
 
 .shake
-  @include animation(shake-base)
+  @include animation(shake-base) */
 
-.translation :global(strong)
-  color: #86abff
+  .translation :global(strong) {
+    color: #86abff;
+  }
 
-.translation
-  padding-top: 0.4rem
-  font-size: 90%
-  color: #444
+  .translation {
+    padding-top: 0.4rem;
+    font-size: 90%;
+    color: #444;
+  }
 
-.explanation
-  padding-top: 0.8rem
-  color: #444
-  font-size: 90%
-  color: #0b9bc7
+  .explanation {
+    padding-top: 0.8rem;
+    color: #444;
+    font-size: 90%;
+    color: #0b9bc7;
+  }
 
-input.fillblank
-  color: #64b5f6
-  border: 0
-  border-bottom: 2px solid #dcddde
-  display: inline-block
-  text-align: center
-  line-height: 1.5rem
-  -webkit-appearance: none
+  input.fillblank {
+    color: #64b5f6;
+    border: 0;
+    border-bottom: 2px solid #dcddde;
+    display: inline-block;
+    text-align: center;
+    line-height: 1.5rem;
+    -webkit-appearance: none;
+  }
 
-input.fillblank:focus
-  outline: none
+  input.fillblank:focus {
+    outline: none;
+  }
 
-.overhint, input.fillblank::placeholder
-  color: #86abff
-  font-size: 80%
+  .overhint,
+  input.fillblank::placeholder {
+    color: #86abff;
+    font-size: 80%;
+  }
 
-input.fillblank:disabled
-  background-color: transparent
-  border: 0
+  input.fillblank:disabled {
+    background-color: transparent;
+    border: 0;
+  }
 
-.feedback
-  color: #0b9bc7
+  .feedback {
+    color: #0b9bc7;
+  }
 
-.overhint
-  position: absolute
-  top: -0.2rem
-  left: 50%
-  width: 100%
-  transform: translate(-50%, -100%)
+  .overhint {
+    position: absolute;
+    top: -0.2rem;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -100%);
+  }
 
-.show-answer
-  font-size: 90%
-  color: #0b9bc7
+  .show-answer {
+    font-size: 90%;
+    color: #0b9bc7;
+  }
 </style>

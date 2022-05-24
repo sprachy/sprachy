@@ -12,15 +12,18 @@
   <Sprachdown source={textWithTitle} />
 </div>
 
-<style lang="sass">
-  .tip
-    background-color: transparent
-    border: 2px solid #64b5f6
-    color: #333
+<style>
+  .tip {
+    background-color: transparent;
+    border: 2px solid #64b5f6;
+    color: #333;
+  }
 
-  .tip :global(strong)
-    color: #64b5f6 !important
+  .tip :global(strong) {
+    color: #64b5f6 !important;
+  }
 
-  .tip :global(p):last-child
-    margin-bottom: 0
+  .tip :global(p):last-child {
+    margin-bottom: 0;
+  }
 </style>

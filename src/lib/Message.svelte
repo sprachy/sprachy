@@ -31,83 +31,91 @@
   </div>
 </div>
 
-<style lang="sass">
-.message
-  display: flex
+<style>
+  .message {
+    display: flex;
+  }
 
-  .quoteContainer
-    max-width: 80%
-    text-align: center
-    
+  .quoteContainer {
+    max-width: 80%;
+    text-align: center;
+  }
 
-.message:not(.flip)
-  :global(img)
-      margin-top: calc(4px - 0.125rem)
-      width: 50px
-      height: 50px
-      border-radius: 50%
-      margin-right: 15px
+  .message:not(.flip) :global(img) {
+    margin-top: calc(4px - 0.125rem);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
 
-  .quote
-    position: relative
-    background-color: #fff
-    border: 2px solid #dedede
-    border-radius: 14px
-    border-top-left-radius: 0
-    padding: 10px 12px
-    font-size: 16.5px
-  
-  .quote::before
-    border-bottom: 12px solid transparent
-    border-right: 12px solid #dedede
-    border-top-left-radius: 50%
-    content: ""
-    left: -14px
-    position: absolute
-    top: -2px
+  .message:not(.flip) .quote {
+    position: relative;
+    background-color: #fff;
+    border: 2px solid #dedede;
+    border-radius: 14px;
+    border-top-left-radius: 0;
+    padding: 10px 12px;
+    font-size: 16.5px;
+  }
 
-  .quote::after
-    border-bottom: 12px solid transparent
-    border-right: 12px solid #fff
-    content: ""
-    left: -9px
-    position: absolute
-    top: 0
+  .message:not(.flip) .quote::before {
+    border-bottom: 12px solid transparent;
+    border-right: 12px solid #dedede;
+    border-top-left-radius: 50%;
+    content: "";
+    left: -14px;
+    position: absolute;
+    top: -2px;
+  }
 
-.message.flip
-  flex-direction: row-reverse
+  .message:not(.flip) .quote::after {
+    border-bottom: 12px solid transparent;
+    border-right: 12px solid #fff;
+    content: "";
+    left: -9px;
+    position: absolute;
+    top: 0;
+  }
 
-  :global(img)
-    margin-top: calc(4px - 0.125rem)
-    width: 50px
-    height: 50px
-    border-radius: 50%
-    margin-left: 15px
+  .message.flip {
+    flex-direction: row-reverse;
+  }
 
-  .quote
-    position: relative
-    background-color: #fff
-    border: 2px solid #dedede
-    border-radius: 14px
-    border-top-right-radius: 0
-    padding: 10px 12px
-    font-size: 16.5px
+  .message.flip :global(img) {
+    margin-top: calc(4px - 0.125rem);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 15px;
+  }
 
-  .quote::before
-    border-bottom: 12px solid transparent
-    border-left: 12px solid #dedede
-    border-top-right-radius: 50%
-    content: ""
-    right: -14px
-    position: absolute
-    top: -2px
+  .message.flip .quote {
+    position: relative;
+    background-color: #fff;
+    border: 2px solid #dedede;
+    border-radius: 14px;
+    border-top-right-radius: 0;
+    padding: 10px 12px;
+    font-size: 16.5px;
+  }
 
-  .quote::after
-    border-bottom: 12px solid transparent
-    border-left: 12px solid #fff
-    content: ""
-    right: -9px
-    position: absolute
-    top: 0
+  .message.flip .quote::before {
+    border-bottom: 12px solid transparent;
+    border-left: 12px solid #dedede;
+    border-top-right-radius: 50%;
+    content: "";
+    right: -14px;
+    position: absolute;
+    top: -2px;
+  }
 
+  .message.flip .quote::after {
+    border-bottom: 12px solid transparent;
+    border-left: 12px solid #fff;
+    content: "";
+    right: -9px;
+    position: absolute;
+    top: 0;
+  }
 </style>

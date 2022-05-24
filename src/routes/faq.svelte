@@ -74,9 +74,10 @@ TODO expand this section for other platforms
   </SiteLayout>
 </PublicPage>
 
-<style lang="sass">
-.faq :global(h3)
-  margin-top: 1.5rem
-  margin-bottom: 0.5rem
-  font-size: 1.4rem
+<style>
+  .faq :global(h3) {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+  }
 </style>

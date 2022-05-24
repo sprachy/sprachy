@@ -129,23 +129,26 @@
   </header>
 </template>
 
-<style lang="sass">
-.envbadge.dev
-  color: green
-  font-size: 1rem
+<style>
+  .envbadge.dev {
+    color: green;
+    font-size: 1rem;
+  }
 
-:global(.navbar-light .navbar-toggler)
-  &:hover
-    background-color: inherit
-    box-shadow: inherit
+  :global(.navbar-light .navbar-toggler):hover {
+    background-color: inherit;
+    box-shadow: inherit;
+  }
 
-.review-count
-  background-color: var(--sprachy-secondary)
-  color: white
+  .review-count {
+    background-color: var(--sprachy-secondary);
+    color: white;
+  }
 
-.avatar
-  vertical-align: top
-  width: 30px
-  height: 30px
-  border-radius: 50%
+  .avatar {
+    vertical-align: top;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
 </style>

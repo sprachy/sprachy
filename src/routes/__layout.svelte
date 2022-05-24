@@ -18,6 +18,10 @@
 </script>
 
 <script lang="ts">
+  import "accessible-nprogress/dist/accessible-nprogress.css"
+  import "bootstrap/dist/css/bootstrap.min.css"
+  import "../app.css"
+
   import { browser } from "$app/env"
   import { navigating, session } from "$app/stores"
   import { page } from "$app/stores"
@@ -62,8 +66,3 @@
 {#if !initializing}
   <slot />
 {/if}
-
-<style lang="sass" global>
-  @import '../app.sass'
-  @import '../app.css'
-</style>

@@ -51,29 +51,34 @@
   </div>
 </SiteLayout>
 
-<style lang="sass">
-  .header
-    margin-bottom: 2rem
+<style>
+  .header {
+    margin-bottom: 2rem;
+  }
 
-  .profile
-    margin: auto
-    max-width: 600px
-    text-align: center
+  .profile {
+    margin: auto;
+    max-width: 600px;
+    text-align: center;
+  }
 
-  .avatar
-    vertical-align: top
-    width: 100px
-    height: 100px
-    border-radius: 50%
-    margin-top: 1rem
-    margin-bottom: 2rem
+  .avatar {
+    vertical-align: top;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
 
-  .username
-    font-size: 2rem
-    margin-top: 1rem
-    margin-bottom: 2rem
+  .username {
+    font-size: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
 
-  .bio
-    text-align: justify
-    color: #802424
+  .bio {
+    text-align: justify;
+    color: #802424;
+  }
 </style>

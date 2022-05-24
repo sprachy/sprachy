@@ -17,11 +17,13 @@
   <SvelteMarkdown {source} renderers={{ html: SprachdownHTML }} />
 </div>
 
-<style lang="sass">
-.markdown-inline
-  display: inline
+<style>
+  .markdown-inline {
+    display: inline;
+  }
 
-.markdown-inline :global(p)
-  margin: 0
-  display: inline
+  .markdown-inline :global(p) {
+    margin: 0;
+    display: inline;
+  }
 </style>

@@ -41,16 +41,19 @@
   </Message>
 </div>
 
-<style lang="sass">
-.message.hasTranslation
-  :global(p)
-    text-decoration: underline #ccc dotted
-  
-  cursor: default
+<style>
+  .message.hasTranslation :global(p) {
+    text-decoration: underline #ccc dotted;
+  }
 
-.explanation
-  padding-top: 0.8rem
-  color: #444
-  font-size: 90%
-  color: #0b9bc7
+  .message.hasTranslation {
+    cursor: default;
+  }
+
+  .explanation {
+    padding-top: 0.8rem;
+    color: #444;
+    font-size: 90%;
+    color: #0b9bc7;
+  }
 </style>

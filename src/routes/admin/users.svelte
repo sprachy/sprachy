@@ -35,10 +35,12 @@
   </table>
 </SiteLayout>
 
-<style lang="sass">
-h1
-  font-size: 2.2rem
-  margin-bottom: 1.5rem
-tr
-  cursor: pointer
+<style>
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+  tr {
+    cursor: pointer;
+  }
 </style>

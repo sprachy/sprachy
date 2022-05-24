@@ -181,39 +181,41 @@
   </form>
 </main>
 
-<style lang="sass">
-main
-  height: 100%
-  display: flex
-  align-items: center
-  justify-content: center
+<style>
+  main {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-form
-  width: 340px
-  padding-left: 16px
-  padding-right: 16px
-  margin: auto
+  form {
+    width: 340px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin: auto;
 
-  position: relative
-  top: -2rem
+    position: relative;
+    top: -2rem;
+  }
 
-  .form-header
-    text-align: center
-    margin-bottom: 1rem
+  form .form-header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
 
-  // h1
-  //   font-size: 28px
-  //   text-align: center
+  form fieldset {
+    margin-top: 1rem;
+  }
 
-  fieldset
-    margin-top: 1rem
+  form button {
+    margin-top: 1rem;
+    width: 100%;
+  }
 
-  button
-    margin-top: 1rem
-    width: 100%
-
-.form-check
-  margin-top: 1rem
-  font-size: 0.95rem
-  color: #333
+  .form-check {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: #333;
+  }
 </style>

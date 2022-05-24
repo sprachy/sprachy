@@ -55,26 +55,25 @@
   {/if}
 </div>
 
-<style lang="sass">
-.avatar
-  position: relative
+<style>
+  .avatar {
+    position: relative;
+  }
 
-  img
-    cursor: pointer
+  .avatar img {
+    cursor: pointer;
+  }
 
-.profile
-  z-index: 1006
-  position: absolute
-  left: 80%
-  top: -8px
-  width: 350px
+  .profile {
+    z-index: 1006;
+    position: absolute;
+    left: 80%;
+    top: -8px;
+    width: 350px;
+  }
 
-  img
-    width: 50px
-    height: 50px
-
-  // :global(p)
-  //   font-size: 1rem
-  //   line-height: 1.8rem
-
+  .profile img {
+    width: 50px;
+    height: 50px;
+  }
 </style>

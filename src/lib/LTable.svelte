@@ -46,12 +46,15 @@
   </tbody>
 </table>
 
-<style lang="sass">
-.ltable
-  text-align: center
-  th
-    border-bottom: none
+<style>
+  .ltable {
+    text-align: center;
+  }
+  .ltable th {
+    border-bottom: none;
+  }
 
-  :global(p)
-    margin: 0
+  .ltable :global(p) {
+    margin: 0;
+  }
 </style>

@@ -137,45 +137,53 @@
   </form>
 </main>
 
-<style lang="sass">
-main
-  height: 100%
-  display: flex
-  align-items: center
-  justify-content: center
+<style>
+  main {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-form
-  width: 340px
-  padding-left: 16px
-  padding-right: 16px
-  margin: auto
+  form {
+    width: 340px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin: auto;
 
-  position: relative
-  top: -2rem
+    position: relative;
+    top: -2rem;
+  }
 
-  .form-header
-    text-align: center
-    margin-bottom: 1rem
+  form .form-header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
 
-  h1
-    font-size: 28px
-    text-align: center
+  form h1 {
+    font-size: 28px;
+    text-align: center;
+  }
 
-  fieldset
-    margin-top: 1rem
+  form fieldset {
+    margin-top: 1rem;
+  }
 
-  .forgot-password
-    font-size: 90%
-    margin-top: 0.2rem
-  
-  button
-    margin-top: 1rem
-    width: 100%
+  form .forgot-password {
+    font-size: 90%;
+    margin-top: 0.2rem;
+  }
 
-  .signup-callout
-    margin-top: 1rem
-    padding: 15px 20px
-    text-align: center
-    border: 1px solid #ccc
-    border-radius: 6px
+  form button {
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  form .signup-callout {
+    margin-top: 1rem;
+    padding: 15px 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
 </style>

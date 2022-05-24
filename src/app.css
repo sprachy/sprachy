@@ -1,4 +1,48 @@
-/*This would all go into the global.css file*/
+:root {
+  --sprachy-primary: #58508d;
+  --sprachy-gradtwo: #bc5090;
+  --sprachy-gradthree: #ff6361;
+  --sprachy-secondary: #ffa600;
+}
+
+html,
+body,
+.svelte {
+  height: 100%;
+}
+
+
+h1:focus,
+h2:focus,
+h3:focus,
+h4:focus,
+h5:focus,
+h6:focus {
+  outline: none;
+}
+
+.btn-sprachy {
+  background-color: var(--sprachy-secondary);
+  border-color: var(--sprachy-secondary);
+  color: white;
+}
+
+.btn-sprachy:hover {
+  color: white;
+}
+
+.btn-link {
+  border: 0;
+  padding: 0;
+  background: none;
+}
+
+.form-check input,
+.form-check label {
+  cursor: pointer;
+}
+
+/** Tooltips from https://svelte.dev/repl/3153faf7584d40bd8ddebecf39f24ac1?version=3 **/
 [data-tooltip] {
   position: relative;
   z-index: 2;

@@ -29,16 +29,18 @@
   {/if}
 </div>
 
-<style lang="sass">
-.site-layout
-  padding-bottom: 5rem
+<style>
+  .site-layout {
+    padding-bottom: 5rem;
+  }
 
-.site-layout.fixed-header
-  :global(.site-header)
-    position: fixed
-    z-index: 1
-    width: 100%
+  .site-layout.fixed-header :global(.site-header) {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+  }
 
-main
-  padding-top: 1.5rem
+  main {
+    padding-top: 1.5rem;
+  }
 </style>

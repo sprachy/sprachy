@@ -109,16 +109,19 @@
   </div>
 </SiteLayout>
 
-<style lang="sass">
-.pricing-tile
-  background-color: white
-  padding: 1rem
-  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%)
+<style>
+  .pricing-tile {
+    background-color: white;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  }
 
-.price-point
-  color: #64b5f6
-  font-size: 3.5rem
+  .price-point {
+    color: #64b5f6;
+    font-size: 3.5rem;
+  }
 
-button
-  width: 100%
+  button {
+    width: 100%;
+  }
 </style>

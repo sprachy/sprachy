@@ -62,8 +62,6 @@
     "lodash": "^4.17.21",
     "object-to-formdata": "^4.4.2",
     "path-to-regexp": "^6.2.1",
-    "sass": "^1.52.1",
-    "sass-loader": "13.0.0",
     "string-pixel-width": "^1.10.0",
     "stripe": "^9.2.0",
     "svelte-fa": "^2.4.0",

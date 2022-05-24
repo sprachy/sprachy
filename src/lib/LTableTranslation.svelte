@@ -18,16 +18,17 @@
   {/if}
 </div>
 
-<style lang="sass">
-.cell.inline
-  .original
-    font-style: italic
+<style>
+  .cell.inline .original {
+    font-style: italic;
+  }
 
-.cell:not(.inline)
-  .original
-    font-size: 105%
+  .cell:not(.inline) .original {
+    font-size: 105%;
+  }
 
-  .translation
-    color: #777
-    font-size: 90%
+  .cell:not(.inline) .translation {
+    color: #777;
+    font-size: 90%;
+  }
 </style>

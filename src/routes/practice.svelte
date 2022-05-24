@@ -116,12 +116,14 @@
   {/if}
 </SiteLayout>
 
-<style lang="sass">
-.practice-header
-  margin-bottom: 2rem
-  text-align: center
+<style>
+  .practice-header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
 
-.exercises
-  margin: auto
-  max-width: 600px
+  .exercises {
+    margin: auto;
+    max-width: 600px;
+  }
 </style>

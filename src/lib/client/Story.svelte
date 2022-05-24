@@ -128,31 +128,35 @@
   </footer>
 </div>
 
-<style lang="sass">
-.Story
-  margin: auto
-  max-width: 600px
+<style>
+  .Story {
+    margin: auto;
+    max-width: 600px;
+  }
 
-  .line:not(:first-child)
-    margin-top: 1rem
+  .Story .line:not(:first-child) {
+    margin-top: 1rem;
+  }
 
-  .line.hinted:not(:first-child)
-    margin-top: 2rem
+  .Story .line.hinted:not(:first-child) {
+    margin-top: 2rem;
+  }
 
-  footer
-    border-top: 1px solid #ccc
-    position: fixed
-    bottom: 0
-    left: 50%
-    transform: translateX(-50%)
-    width: 100%
-    background-color: white
+  .Story footer {
+    border-top: 1px solid #ccc;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background-color: white;
+  }
 
-    > div
-      padding: 2rem
+  .Story footer > div {
+    padding: 2rem;
+  }
 
-
-  :global(strong)
-    color: rgb(28, 176, 246)
-
+  .Story :global(strong) {
+    color: rgb(28, 176, 246);
+  }
 </style>

@@ -47,15 +47,18 @@
   {/each}
 </SiteLayout>
 
-<style lang="sass">
-.pattern
-  max-width: 720px
-  margin: auto
-  margin-bottom: 8rem
+<style>
+  .pattern {
+    max-width: 720px;
+    margin: auto;
+    margin-bottom: 8rem;
+  }
 
-  h4
-    margin-bottom: 1rem
+  .pattern h4 {
+    margin-bottom: 1rem;
+  }
 
-  .line
-    margin-bottom: 1rem
+  .pattern .line {
+    margin-bottom: 1rem;
+  }
 </style>

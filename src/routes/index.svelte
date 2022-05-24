@@ -83,70 +83,65 @@
   </SiteLayout>
 </PublicPage>
 
-<style lang="sass">
+<style>
+  .container {
+    position: relative;
+    max-width: 1140px;
+  }
 
-.container
-  position: relative
-  max-width: 1140px
+  section.banner {
+    position: relative;
+    background-size: cover;
+    background-position: 50% 75%;
+    padding: 4rem 2rem;
+  }
 
-section.banner
-  position: relative
-  background-size: cover
-  background-position: 50% 75%
-  padding: 4rem 2rem
+  section.banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 
-  &::before
-    content: ''
-    position: absolute
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-    background-color: rgba(0,0,0,0.5)
-  
-  .signup
-    width: 50%
-    padding: 24px
-    background: white
+  section.banner .signup {
+    width: 50%;
+    padding: 24px;
+    background: white;
+  }
 
-    h1
-      margin-top: 10px
-      font-size: 2.8rem
-      margin-bottom: 1rem
+  section.banner .signup h1 {
+    margin-top: 10px;
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+  }
 
-    p
-      font-size: 1.1rem
+  section.banner .signup p {
+    font-size: 1.1rem;
+  }
 
-    .form-group
-      margin-bottom: 1rem
+  section.banner .signup .form-group {
+    margin-bottom: 1rem;
+  }
 
-    button
-      width: 100%
-      padding: 1rem
+  section.banner .signup button {
+    width: 100%;
+    padding: 1rem;
+  }
 
-section.patterns
-  padding-top: 3rem
+  section.patterns {
+    padding-top: 3rem;
+  }
 
-  // div.half
-  //   display: flex
-  //   flex-direction: column
-  //   width: 50%
-  //   z-index: 1
+  @media only screen and (max-width: 768px) {
+    section.banner {
+      padding: 2rem 1rem;
+    }
 
-  //   h1
-  //     font-size: 3.5rem
-  //     margin-bottom: 1.5rem
-    
-  //   h5
-  //     font-size: 1.3rem
-  //     line-height: 1.8rem
-  //     margin-bottom: 1.5rem
-
-
-@media only screen and (max-width: 768px)
-  section.banner
-    padding: 2rem 1rem
-
-    .signup
-      width: 100%
+    section.banner .signup {
+      width: 100%;
+    }
+  }
 </style>

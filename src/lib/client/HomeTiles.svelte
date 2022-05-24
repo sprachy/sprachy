@@ -58,52 +58,63 @@
   {/if}
 </div>
 
-<style lang="sass">
-.tiles
-  display: flex
+<style>
+  .tiles {
+    display: flex;
+  }
 
-.home-tile.next-pattern
-  --tile-color: var(--sprachy-primary)
+  .home-tile.next-pattern {
+    --tile-color: var(--sprachy-primary);
+  }
 
-.home-tile.practice
-  --tile-color: var(--sprachy-secondary)
+  .home-tile.practice {
+    --tile-color: var(--sprachy-secondary);
+  }
 
-.home-tile
-  font-size: 1.1rem
-  flex-basis: 50%
-  color: white
-  position: relative
+  .home-tile {
+    font-size: 1.1rem;
+    flex-basis: 50%;
+    color: white;
+    position: relative;
+  }
 
-  .card
-    border: none
-    background-color: var(--tile-color)
-    color: inherit
-    padding: 1.2rem 1rem
+  .home-tile .card {
+    border: none;
+    background-color: var(--tile-color);
+    color: inherit;
+    padding: 1.2rem 1rem;
+  }
 
-  a
-    color: inherit
-    text-decoration: none
+  .home-tile a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-  a:hover .card
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0)
+  .home-tile a:hover .card {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0);
+  }
 
-  .card-title
-    font-weight: bold
-    margin-bottom: 0.5rem
+  .home-tile .card-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
 
-  p
-    margin: 0
+  .home-tile p {
+    margin: 0;
+  }
 
-  :global(svg)
-    position: absolute
-    right: 20px
-    top: 50%
-    transform: translateY(-50%)
+  .home-tile :global(svg) {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
+  .home-tile:first-child {
+    margin-right: 0.5rem;
+  }
 
-.home-tile:first-child
-  margin-right: 0.5rem
-
-.home-tile:nth-child(2)
-  margin-left: 0.5rem
+  .home-tile:nth-child(2) {
+    margin-left: 0.5rem;
+  }
 </style>
