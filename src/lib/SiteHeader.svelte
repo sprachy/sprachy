@@ -102,7 +102,7 @@
                     >Profile</DropdownItem
                   >
                 {:else}
-                  <DropdownItem href="/profile-settings">Profile</DropdownItem>
+                  <DropdownItem href="/profile/setup">Profile</DropdownItem>
                 {/if}
                 <DropdownItem href="/settings">Settings</DropdownItem>
                 <!-- <DropdownItem href="/subscribe">Subscription</DropdownItem> -->

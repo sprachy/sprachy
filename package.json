@@ -62,6 +62,8 @@
     "lodash": "^4.17.21",
     "object-to-formdata": "^4.4.2",
     "path-to-regexp": "^6.2.1",
+    "slug": "^5.3.0",
+    "slugify": "^1.6.5",
     "string-pixel-width": "^1.10.0",
     "stripe": "^9.2.0",
     "svelte-fa": "^2.4.0",

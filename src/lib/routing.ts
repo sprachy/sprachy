@@ -14,7 +14,8 @@ const authedRoutes = [
   '/admin(.*)',
   '/settings',
   '/subscribe',
-  '/profile-settings'
+  '/profile-settings',
+  '/profile/setup'
 ]
 
 for (const pattern of sprachdex.patternsIncludingDrafts) {

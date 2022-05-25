@@ -131,7 +131,7 @@
       {/if}
     </fieldset>
   </form>
-  <form class="inputForm">
+  <form class="inputForm" on:submit|preventDefault={editUsername}>
     <fieldset class="form-group col-md-6">
       <label for="username">Username</label>
       <input
@@ -153,11 +153,10 @@
     <button
       type="submit"
       class="btn btn-primary mt-2"
-      disabled={username === $user.username}
-      on:click|preventDefault={editUsername}>Change Username</button
+      disabled={username === $user.username}>Change Username</button
     >
   </form>
-  <form class="inputForm">
+  <form class="inputForm" on:submit|preventDefault={editDisplayName}>
     <fieldset class="form-group col-md-6">
       <label for="name">Display Name</label>
       <input
@@ -179,11 +178,10 @@
     <button
       type="submit"
       class="btn btn-primary mt-2"
-      disabled={displayName === $user.displayName}
-      on:click|preventDefault={editDisplayName}>Change Display Name</button
+      disabled={displayName === $user.displayName}>Change Display Name</button
     >
   </form>
-  <form class="inputForm">
+  <form class="inputForm" on:submit|preventDefault={editBio}>
     <fieldset class="form-group col-md-6">
       <label for="bio">Bio</label>
       <textarea
@@ -204,8 +202,7 @@
     <button
       type="submit"
       class="btn btn-primary mt-2"
-      disabled={bio === $user.bio}
-      on:click|preventDefault={editBio}>Save Profile Bio</button
+      disabled={bio === $user.bio}>Save Profile Bio</button
     >
   </form>
 </SiteLayout>

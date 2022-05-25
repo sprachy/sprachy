@@ -57,6 +57,10 @@ export class SprachyAPIClient {
   async subscribe(priceId: PriceId): Promise<{ 'checkoutSessionId': string } | { 'user': User }> {
     return this.http.post(`/api/settings/subscription`, { priceId })
   }
+
+  async makeProfile(settings: { displayName: string }) {
+    return this.http.post(`/api/settings/profile/make-profile`, settings)
+  }
 }
 
 /**
