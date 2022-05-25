@@ -17,6 +17,12 @@ export const indexes = [
     unique: true,
   }),
   q.CreateIndex({
+    name: "users_by_username",
+    source: q.Collection("users"),
+    terms: [{ field: ["data", "username"] }],
+    unique: true,
+  }),
+  q.CreateIndex({
     name: "users_by_remindable",
     source: {
       collection: q.Collection("users"),

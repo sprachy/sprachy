@@ -13,7 +13,6 @@ const authedRoutes = [
   '/api(.*)',
   '/admin(.*)',
   '/settings',
-  '/profile',
   '/subscribe',
   '/profile-settings'
 ]

@@ -10,8 +10,11 @@ export const patch: RequestHandler = async ({ request, locals }) => {
   const { input, type } = patchProfileForm.parse(await request.json())
 
   var updatedUser = null
-  if (type == "name") {
-    updatedUser = await db.users.update(locals.session!.userId, { name: input })
+  if (type == "displayName") {
+    updatedUser = await db.users.update(locals.session!.userId, { displayName: input })
+  }
+  else if (type == "username") {
+    updatedUser = await db.users.update(locals.session!.userId, { username: input })
   }
   else if (type == "bio") {
     updatedUser = await db.users.update(locals.session!.userId, { bio: input })

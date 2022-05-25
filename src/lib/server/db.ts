@@ -78,6 +78,12 @@ export namespace db {
       )
     }
 
+    export async function getByUsername(username: string): Promise<User | null> {
+      return await db.querySingle<User>(
+        GetIfExists(Match(Index("users_by_username"), username))
+      )
+    }
+
     export async function getByEmail(email: string): Promise<User | null> {
       return await db.querySingle<User>(
         GetIfExists(Match(Index("users_by_email"), email))

@@ -24,7 +24,8 @@ export type PriceId = typeof MONTHLY_PRICE_ID | typeof ANNUAL_PRICE_ID
 export type User = {
   id: string
   email: string
-  name: string
+  displayName: string
+  username?: string
   bio: string
   pfp: string
   isAdmin: boolean

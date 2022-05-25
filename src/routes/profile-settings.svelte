@@ -5,16 +5,28 @@
   const spa = sprachy.expectSPA()
   const { api, user } = spa
 
-  let name = $user.name
+  let username = $user.username
+  let displayName = $user.displayName
   let bio = $user.bio
   let pfp: File[]
 
   let errors: Record<string, string> = {}
 
-  async function editName() {
+  async function editDisplayName() {
     errors = {}
     try {
-      $user = await api.patchProfile(name, "name")
+      $user = await api.patchProfile(displayName, "displayName")
+    } catch (err: any) {
+      throw err
+    }
+  }
+
+  async function editUsername() {
+    errors = {}
+    try {
+      if (username) {
+        $user = await api.patchProfile(username, "username")
+      }
     } catch (err: any) {
       throw err
     }
@@ -113,33 +125,59 @@
       {/if}
     </fieldset>
   </form>
-  <form>
+  <form class="inputForm">
     <fieldset class="form-group col-md-6">
-      <label for="name">Name</label>
+      <label for="username">Username</label>
       <input
-        bind:value={name}
-        name="name"
-        id="name"
-        type="name"
+        bind:value={username}
+        name="username"
+        id="username"
+        type="username"
         class:form-control={true}
-        class:is-invalid={!!errors.name}
-        placeholder="Name"
+        class:is-invalid={!!errors.displayName}
+        placeholder="Username"
         required
       />
-      {#if errors.name}
+      {#if errors.username}
         <div class="invalid-feedback">
-          {errors.name}
+          {errors.username}
         </div>
       {/if}
     </fieldset>
     <button
       type="submit"
       class="btn btn-primary mt-2"
-      disabled={name === $user.name}
-      on:click|preventDefault={editName}>Change Name</button
+      disabled={username === $user.username}
+      on:click|preventDefault={editUsername}>Change Username</button
     >
   </form>
-  <form>
+  <form class="inputForm">
+    <fieldset class="form-group col-md-6">
+      <label for="name">Display Name</label>
+      <input
+        bind:value={displayName}
+        name="displayName"
+        id="displayName"
+        type="displayName"
+        class:form-control={true}
+        class:is-invalid={!!errors.displayName}
+        placeholder="Display Name"
+        required
+      />
+      {#if errors.displayName}
+        <div class="invalid-feedback">
+          {errors.displayName}
+        </div>
+      {/if}
+    </fieldset>
+    <button
+      type="submit"
+      class="btn btn-primary mt-2"
+      disabled={displayName === $user.displayName}
+      on:click|preventDefault={editDisplayName}>Change Display Name</button
+    >
+  </form>
+  <form class="inputForm">
     <fieldset class="form-group col-md-6">
       <label for="bio">Bio</label>
       <textarea
@@ -151,9 +189,9 @@
         class:is-invalid={!!errors.bio}
         placeholder="Profile Bio"
       />
-      {#if errors.name}
+      {#if errors.bio}
         <div class="invalid-feedback">
-          {errors.name}
+          {errors.bio}
         </div>
       {/if}
     </fieldset>
@@ -165,3 +203,10 @@
     >
   </form>
 </SiteLayout>
+
+<style>
+  .inputForm {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+</style>
