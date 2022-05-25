@@ -50,8 +50,8 @@ export class SprachyAPIClient {
     return this.http.patch(`/api/settings/account/settings`, settings)
   }
 
-  async patchProfile(input: string, type: string) {
-    return this.http.patch(`/api/settings/profile/patch-profile`, { input, type })
+  async patchProfile(changes: Partial<Pick<User, 'username' | 'displayName' | 'bio' | 'pfp'>>) {
+    return this.http.patch(`/api/settings/profile/patch-profile`, changes)
   }
 
   async subscribe(priceId: PriceId): Promise<{ 'checkoutSessionId': string } | { 'user': User }> {

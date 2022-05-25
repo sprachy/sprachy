@@ -15,7 +15,7 @@
   async function editDisplayName() {
     errors = {}
     try {
-      $user = await api.patchProfile(displayName, "displayName")
+      $user = await api.patchProfile({ displayName })
     } catch (err: any) {
       throw err
     }
@@ -25,17 +25,23 @@
     errors = {}
     try {
       if (username) {
-        $user = await api.patchProfile(username, "username")
+        $user = await api.patchProfile({ username })
       }
     } catch (err: any) {
-      throw err
+      if (err?.response?.status === 409) {
+        errors.username = `The username "${username}" is already taken`
+      } else if (err?.response?.data?.code) {
+        errors.username = err?.response?.data?.code
+      } else {
+        errors.username = err.message
+      }
     }
   }
 
   async function editBio() {
     errors = {}
     try {
-      $user = await api.patchProfile(bio, "bio")
+      $user = await api.patchProfile({ bio })
     } catch (err: any) {
       throw err
     }
@@ -134,7 +140,7 @@
         id="username"
         type="username"
         class:form-control={true}
-        class:is-invalid={!!errors.displayName}
+        class:is-invalid={!!errors.username}
         placeholder="Username"
         required
       />
