@@ -94,7 +94,7 @@
               newImage!.drawImage(image, newX, newY)
 
               var dataUrl = canvas.toDataURL("image/jpeg")
-              $user = await api.patchProfile(dataUrl, "pfp")
+              $user = await api.patchProfile({ pfp: dataUrl })
             }
             // @ts-ignore
             image.src = readerEvent.target!.result
