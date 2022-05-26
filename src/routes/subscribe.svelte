@@ -3,7 +3,6 @@
   import { LIVE_MONTHLY_PRICE_ID, TEST_MONTHLY_PRICE_ID } from "$lib/constants"
   import SiteLayout from "$lib/SiteLayout.svelte"
   import sprachy from "$lib/sprachy"
-  import { onMount } from "svelte"
   const spa = sprachy.expectSPA()
   const { api, user } = spa
 

@@ -57,7 +57,7 @@
         reader.onload = async function (readerEvent) {
           if (typeof reader.result == "string") {
             const image = new Image()
-            image.onload = async function (imageEvent) {
+            image.onload = async function () {
               var canvas = document.createElement("canvas"),
                 max_size = 624,
                 width = image.width,
