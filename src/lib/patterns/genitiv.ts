@@ -107,8 +107,7 @@ Some nouns already end in _-s_ so one might be inclined to add an apostrophe the
       from: "lindenbaum",
       message: "Ich frage mich, ob dies das Werk [eines Fuchses] ist.",
       translation: "I wonder if this is the work [of a fox].",
-      hint: "[masculine, Fuchs]",
-      explanation: `The forest _posesses_ infinite angles so we should use the _possessive_ form. However we're explicitly talking about two direct objects in the name of the place, so the genitive must be used here, this is generally the case for any names and titles.`
+      hint: "[masculine, Fuchs]"
     },
     {
       from: "fox",
