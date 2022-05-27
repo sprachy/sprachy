@@ -94,18 +94,21 @@ Some nouns already end in _-s_ so one might be inclined to add an apostrophe the
       from: "lukas",
       message: "Sorry, ich habe mich verlaufen, als ich die Katze [des] Nachbarn streicheln wollte.",
       translation: "Sorry, I got lost trying to pet the neighbor ['s] cat.",
-      hint: "[masculine]"
+      hint: "[masculine]",
+      explanation: `Here the neighbor owns the cat, so we are using the posessive genitive here. Similiar to the _'s_ and _of the_ in English, the possessive can have the alternative dative writing _von dem_, which has increasingly been replacing the genitive and is one of the reasons the genitive is rarely used. But why is it _Nachbarn_ and not _Nachbars_? Well the story is more complicated since _Der Nachbar_ is an n-noun that is declined in both the weak and mixed group, we weak _des Nachbarn_ is more commonly used nowadays, especially in formal language, but _Des Nachbars_ would also be acceptable as it is in the mixed group.`
     },
     {
       from: "squirrel",
       message: "Bei uns zu Hause gibt es einen Ort namens \"Wald [der] unendlichen Winkel\". Geh da nicht hin.",
-      translation: "Back home we have a place called the \"Forest [of] Infinite Angles\". Don't go there."
+      translation: "Back home we have a place called the \"Forest [of] Infinite Angles\". Don't go there.",
+      explanation: `The forest _posesses_ infinite angles so we should use the _possessive_ form. However we're explicitly talking about two direct objects in the name of the place, so the genitive must be used here, this is generally the case for any names and titles. Since _Winkel_ is in plural, we use the feminine genetive article _der_.`
     },
     {
       from: "lindenbaum",
       message: "Ich frage mich, ob dies das Werk [eines Fuchses] ist.",
       translation: "I wonder if this is the work [of a fox].",
-      hint: "[masculine, Fuchs]"
+      hint: "[masculine, Fuchs]",
+      explanation: `The forest _posesses_ infinite angles so we should use the _possessive_ form. However we're explicitly talking about two direct objects in the name of the place, so the genitive must be used here, this is generally the case for any names and titles.`
     },
     {
       from: "fox",
