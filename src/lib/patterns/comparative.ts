@@ -3,7 +3,7 @@ import { definePattern, md } from "$lib/definePattern"
 
 export default definePattern({
   id: "besser",
-  slug: "besser",
+  slug: "comparative",
   title: "Das Komparativ",
   shortdesc: "For when you have a way better idea",
   icon: faChartLine,

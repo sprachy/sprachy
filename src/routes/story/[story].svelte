@@ -63,7 +63,7 @@
 
     if (progress.srsLevel > 0) {
       // User was practicing something they already did, just go back to the pattern page
-      goto(`/pattern/${pattern.slug}`)
+      goto(`/${pattern.slug}`)
     } else {
       const progressItem = await api.completeLevel(pattern.id, 1)
       if (progressItem) {
@@ -100,7 +100,7 @@
         <a
           sveltekit:prefetch
           class="btn btn-primary"
-          href={`/pattern/${$nextPatternToLearn.slug}`}
+          href={`/${$nextPatternToLearn.slug}`}
           >Next: {$nextPatternToLearn.title}
         </a>
       {/if}
@@ -115,7 +115,7 @@
         <a
           sveltekit:prefetch
           class="btn btn-primary"
-          href={`/pattern/${nextPattern.slug}`}
+          href={`/${nextPattern.slug}`}
           >Next: {nextPattern.title}
         </a>
       {/if}

@@ -3,7 +3,7 @@ import { definePattern, md } from "$lib/definePattern"
 
 export default definePattern({
   id: "akkusativ",
-  slug: "akkusativ",
+  slug: "accusative",
   title: "Den Akkusativ",
   shortdesc: "For ~~accusing people~~ direct objects",
   icon: faHandPointRight,

@@ -3,7 +3,7 @@ import { definePattern, md } from "$lib/definePattern"
 
 export default definePattern({
   id: "besten",
-  slug: "besten",
+  slug: "superlative",
   title: "Das Superlativ",
   shortdesc: "For when you see the fluffiest squirrel ever",
   icon: faMedal,

@@ -20,7 +20,7 @@
 <div class="tiles">
   <div class="home-tile next-pattern">
     {#if nextPattern}
-      <a sveltekit:prefetch href={`/pattern/${nextPattern.slug}`}>
+      <a sveltekit:prefetch href={`/${nextPattern.slug}`}>
         <div class="card">
           <span class="card-title">Next Pattern: {nextPattern.title}</span>
           <p><Sprachdown inline source={nextPattern.shortdesc} /></p>

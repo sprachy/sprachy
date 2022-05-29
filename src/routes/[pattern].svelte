@@ -39,7 +39,7 @@
 
 <PublicPage
   title={pattern.title}
-  canonicalPath={`/pattern/${pattern.slug}`}
+  canonicalPath={`/${pattern.slug}`}
   cardDesc={pattern.shortdesc}
 >
   <SiteLayout>
@@ -67,11 +67,7 @@
           href="/story/{pattern.slug}"
           class="btn btn-primary"
         >
-          {#if progress.srsLevel === 0}
-            Learn this pattern
-          {:else}
-            Dialogue exercise
-          {/if}
+          Practice this pattern
         </a>
       {:else}
         <a
@@ -79,7 +75,7 @@
           href={`/signup?next=/story/${pattern.slug}`}
           class="btn btn-primary"
         >
-          Sign up to learn this pattern
+          Practice this pattern
         </a>
       {/if}
     </div>

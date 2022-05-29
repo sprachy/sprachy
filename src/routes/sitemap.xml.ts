@@ -24,7 +24,7 @@ export const get: RequestHandler = async () => {
         .map(pattern =>
           `
   <url>
-    <loc>${baseUrl}/pattern/${pattern.slug}</loc>
+    <loc>${baseUrl}/${pattern.slug}</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>

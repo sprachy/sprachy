@@ -6,7 +6,7 @@
   const { nextPatternToLearn } = sprachy.expectSPA()
   const pattern = $nextPatternToLearn
   if (pattern) {
-    goto(`/pattern/${pattern.slug}`, { replaceState: true })
+    goto(`/${pattern.slug}`, { replaceState: true })
   }
 </script>
 

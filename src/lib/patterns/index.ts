@@ -1,15 +1,16 @@
 import derdiedas from './der-die-das'
 import eineine from './ein-eine'
 import sein from './sein'
-import akkusativ from './akkusativ'
-import dativ from './dativ'
+import accusative from './accusative'
+import dative from './dative'
 import daschen from './das-chen'
 import derlernerdielernerin from './der-lerner-die-lernerin'
 import duodersie from './du-oder-sie'
-import besser from './besser'
-import besten from './besten'
+import comparative from './comparative'
+import superlative from './superlative'
 import genitiv from './genitiv'
 import imperativ from './imperativ'
 import compoundWords from './compound-words'
+import adjectiveEndings from './adjective-endings'
 
-export default [derdiedas, eineine, sein, daschen, akkusativ, dativ, derlernerdielernerin, duodersie, besser, besten, genitiv, imperativ, compoundWords]
+export default [derdiedas, eineine, sein, daschen, accusative, dative, derlernerdielernerin, duodersie, comparative, superlative, genitiv, imperativ, compoundWords, adjectiveEndings]

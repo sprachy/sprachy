@@ -3,7 +3,7 @@ import { definePattern, md } from "$lib/definePattern"
 
 export default definePattern({
   id: "dativ",
-  slug: "dativ",
+  slug: "dative",
   title: "Dem Dativ",
   shortdesc: "When something is _kinda_ affected by a verb",
   icon: faHandHoldingHeart,

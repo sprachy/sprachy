@@ -3,7 +3,7 @@ import { definePattern, md } from "$lib/definePattern"
 
 export default definePattern({
   id: "genitiv",
-  slug: "genitiv",
+  slug: "genitive",
   title: "Des Genitivs",
   shortdesc: "For _directly_ belonging to a fluffy squirrel.",
   icon: faHandHoldingUsd,

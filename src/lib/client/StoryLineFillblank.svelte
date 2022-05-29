@@ -150,7 +150,7 @@
             The answer is <em>{line.canonicalAnswer}</em>.
           {/if}
           {#if pattern}
-            Pattern: <a target="_blank" href={`/pattern/${pattern.slug}`}
+            Pattern: <a target="_blank" href={`/${pattern.slug}`}
               >{pattern.title}</a
             >
           {/if}

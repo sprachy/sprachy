@@ -62,7 +62,7 @@
             <DropdownToggle nav caret>Patterns</DropdownToggle>
             <DropdownMenu end>
               {#each sprachdex.publishedPatterns as pattern}
-                <DropdownItem href={`/pattern/${pattern.slug}`}>
+                <DropdownItem href={`/${pattern.slug}`}>
                   {pattern.title}
                 </DropdownItem>
               {/each}
