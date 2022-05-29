@@ -32,13 +32,12 @@ unique to the dative case, so it's great for quickly interpreting a sentence. Me
 from the nominative _die_ to dative _der_.
 
 <LTable>
-_ / Masculine / Feminine / Neuter
-Nominative / der / die / das
-Dative / **dem** / **der** / **dem**
+_ / Masculine / Feminine / Neuter / Plural
+Nominative / der / die / das / die
+Dative / **dem** / **der** / **dem** / **den**
 </LTable>
 
-The nominative plural _die_ becomes _den_ in dative, and also has the quirk that it adds an **-n** to the end of 
-the noun, if it doesn't already have one.
+The plural also has the quirk that it adds an **-n** to the end of the noun, if it doesn't already have one.
 
 <DialogueExample>
 squirrel:
