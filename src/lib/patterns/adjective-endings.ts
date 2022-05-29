@@ -29,17 +29,50 @@ The general pattern is: when there is no _der-_ or _ein-_ type word preceding a 
 
 <LTable>
 _ / Masculine / Feminine / Neuter / Plural
-Nominative / weicher Flaum /	frische Milch	/ flauschiges Eichhörnchen / rote Weine
-Accusative / weichen Flaum / frische Milch	/ flauschiges Eichhörnchen	/ rote Weine
-Dative / weichem Flaum	/ frischer Milch / flauschigem Eichhörnchen / roten Weinen
-Genitive / weichen Flaumes /	frischer Milch / kalten Bieres	/ roter Weine
+Nominative / weicher Flaum / ewige Liebe / geheimes Wissen / süße Freunde
+Accusative / weichen Flaum / ewige Liebe / geheimes Wissen / süße Freunde
+Dative / weichem Flaum / ewiger Liebe / geheimem Wissen / süßen Freunden
+Genitive / weichen Flaumes / ewiger Liebe / geheimen Wissens / süßer Freunde
 </LTable>
 `
   ,
-  story: [{
-    from: "squirrel",
-    message: ""
-  }],
+  story: [
+    {
+      from: "squirrel",
+      message: "Was trinkst du da?",
+      translation: "What are you drinking?"
+    },
+    {
+      from: "lukas",
+      message: "Grüner Tee! Das ist gesund für den Menschen.",
+      translation: "Green tea! It's healthy for humans."
+    },
+    {
+      question: "Why does Lukas say 'grüner' instead of 'grüne'?",
+      choices: [
+        { text: "Since there's no article, the adjective indicates the gender of _der Tee_", correct: true },
+        { text: "The phrase is in the dative case, which adds an -r" },
+        { text: "He's secretly a pirate" }
+      ]
+    },
+    {
+      from: "squirrel",
+      message: "Und was trinkt Anna?",
+      translation: "And what is Anna drinking?"
+    },
+    {
+      from: "anna",
+      message: "Das ist starker Kaffee. Ich habe nicht viel Schlaf bekommen.",
+      translation: "That is strong coffee. I didn't get much sleep."
+    },
+    {
+      question: "What kind of coffee does Anna say she is drinking?",
+      choices: [
+        { text: "Strong coffee", correct: true },
+        { text: "Stronger coffee" },
+      ]
+    }
+  ],
   exercises: [
     // {
     //   from: "squirrel",
