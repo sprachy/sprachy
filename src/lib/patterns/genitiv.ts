@@ -29,7 +29,7 @@ polysyllabic neuter and masculine nouns end in _-s_ in the genitive case.
 <LTable>
 _ / Masculine / Feminine / Neuter
 Nominative / der Mond / die Schlange / das Sauerkraut 
-Dative / **des** Mond**es** / **der** Schlange / **des** Sauerkraut**s**
+Genitive / **des** Mond**es** / **der** Schlange / **des** Sauerkraut**s**
 </LTable>
 
 Of course there are also some exceptions in place with the polysyllabic and monosyllabic nouns mentioned before.
