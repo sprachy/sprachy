@@ -36,13 +36,21 @@ export class SpeechSystem {
     const voice = await this.getVoice()
     if (!voice) return
     await new Promise<void>((resolve) => {
-      const text = line.message.replace(/[[_*]+/g, "")
+      let text = line.message.replace(/[[_*]+/g, "")
+      const character = sprachdex.getCharacter(line.from)
+      let rate = character.rate || 1.0
+      let pitch = character.pitch || 1.0
+
+      if ('alien' in line && line.alien) {
+        text = text.split("").reverse().join("")
+        rate = 2.0
+      }
+
       const utter = new SpeechSynthesisUtterance(text)
       utter.lang = "de"
       utter.voice = voice
-      const character = sprachdex.getCharacter(line.from)
-      utter.rate = character.rate || 1.0
-      utter.pitch = character.pitch || 1.0
+      utter.rate = rate
+      utter.pitch = pitch
       utter.onend = () => resolve()
       speechSynthesis.speak(utter)
     })

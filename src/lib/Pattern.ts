@@ -30,6 +30,7 @@ export type ReadingLineDef = {
   from: string
   message: string
   translation?: string
+  alien?: boolean
 }
 
 export type FillblankLineDef = {
@@ -54,6 +55,7 @@ export type ReadingLine = {
   message: string
   translation?: string
   explanation?: string
+  alien?: boolean
 }
 
 export type FillblankLine = {

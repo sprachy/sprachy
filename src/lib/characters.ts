@@ -28,6 +28,15 @@ export type Character = {
 }
 
 const characters = [
+  {
+    id: "narrator",
+    avatar: squirrel,
+    name: "Narrator",
+    fullname: "Narrator",
+    rate: 1,
+    pitch: 1
+  },
+
   /**
    * ESPER POWERS AND HOW THEY WORK
    * 

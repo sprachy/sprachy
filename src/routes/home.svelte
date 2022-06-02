@@ -4,7 +4,6 @@
   import sprachy from "$lib/sprachy"
   import { dev } from "$app/env"
   import PatternIndex from "$lib/PatternIndex.svelte"
-  import HomeTiles from "$lib/client/HomeTiles.svelte"
   const spa = sprachy.expectSPA()
   const { api } = spa
 
@@ -21,7 +20,6 @@
 
 <SiteLayout>
   <div class="home">
-    <HomeTiles />
     <hr />
     <div class="patterns">
       <h2>All patterns</h2>

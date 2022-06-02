@@ -5,6 +5,7 @@
   import Sprachdown from "$lib/Sprachdown.svelte"
   import { onMount } from "svelte"
   import sprachy from "$lib/sprachy"
+  import AlienText from "./AlienText.svelte"
 
   export let line: ReadingLine
   export let flip: boolean = false
@@ -20,25 +21,35 @@
 </script>
 
 <div class="reading">
-  <Message from={line.from} {flip}>
-    <div
-      class="message"
-      class:hasTranslation={!!line.translation}
-      data-tooltip={line.translation}
-    >
-      <Sprachdown inline source={line.message} />
+  {#if line.from === "narrator"}
+    <div>
+      {line.message}
     </div>
-    <div slot="after">
-      <!-- <div class="translation">
-        <Sprachdown inline source={line.translation} />
-      </div> -->
-      {#if line.explanation}
-        <div class="explanation">
-          <Sprachdown inline source={line.explanation} />
-        </div>
-      {/if}
-    </div>
-  </Message>
+  {:else}
+    <Message from={line.from} {flip}>
+      <div
+        class="message"
+        class:hasTranslation={!!line.translation}
+        data-tooltip={line.translation}
+      >
+        {#if line.alien}
+          <AlienText source={line.message} />
+        {:else}
+          <Sprachdown inline source={line.message} />
+        {/if}
+      </div>
+      <div slot="after">
+        <!-- <div class="translation">
+          <Sprachdown inline source={line.translation} />
+        </div> -->
+        {#if line.explanation}
+          <div class="explanation">
+            <Sprachdown inline source={line.explanation} />
+          </div>
+        {/if}
+      </div>
+    </Message>
+  {/if}
 </div>
 
 <style>

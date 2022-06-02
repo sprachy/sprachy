@@ -1,3 +1,4 @@
+import introduction from './introduction'
 import derdiedas from './der-die-das'
 import eineine from './ein-eine'
 import sein from './sein'
@@ -13,4 +14,4 @@ import imperativ from './imperativ'
 import compoundWords from './compound-words'
 import adjectiveEndings from './adjective-endings'
 
-export default [derdiedas, eineine, sein, daschen, accusative, dative, derlernerdielernerin, duodersie, comparative, superlative, genitiv, imperativ, compoundWords, adjectiveEndings]
+export default [introduction, derdiedas, eineine, sein, daschen, accusative, dative, derlernerdielernerin, duodersie, comparative, superlative, genitiv, imperativ, compoundWords, adjectiveEndings]

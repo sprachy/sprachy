@@ -15,7 +15,7 @@
   class:learned={patternLearned}
   class:mastered={patternMastered}
 >
-  <a href="/{pattern.slug}" sveltekit:prefetch>
+  <a href="/story/{pattern.slug}" sveltekit:prefetch>
     <div class="icon">
       <Fa icon={pattern.icon} />
     </div>
