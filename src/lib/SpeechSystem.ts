@@ -1,10 +1,11 @@
 import _ from "lodash"
+import type { SprachyUserSPA } from "./client/SprachyUserSPA"
 import type { ReadingLine, FillblankLine } from "./Pattern"
 import { sprachdex } from "./sprachdex"
 
 export class SpeechSystem {
   voice: SpeechSynthesisVoice | null = null
-  constructor() { }
+  constructor(readonly spa: SprachyUserSPA) { }
 
   async loadVoices(): Promise<SpeechSynthesisVoice[]> {
     const voices = speechSynthesis.getVoices()
@@ -33,26 +34,33 @@ export class SpeechSystem {
   }
 
   async speak(line: ReadingLine | FillblankLine) {
-    const voice = await this.getVoice()
-    if (!voice) return
-    await new Promise<void>((resolve) => {
-      let text = line.message.replace(/[[_*]+/g, "")
-      const character = sprachdex.getCharacter(line.from)
-      let rate = character.rate || 1.0
-      let pitch = character.pitch || 1.0
+    let text = line.message.replace(/[[_*]+/g, "")
 
-      if ('alien' in line && line.alien) {
-        text = text.split("").reverse().join("")
-        rate = 2.0
-      }
+    const { audioContent } = await this.spa.api.synthesizeSpeech({ text })
 
-      const utter = new SpeechSynthesisUtterance(text)
-      utter.lang = "de"
-      utter.voice = voice
-      utter.rate = rate
-      utter.pitch = pitch
-      utter.onend = () => resolve()
-      speechSynthesis.speak(utter)
-    })
+    const snd = new Audio("data:audio/wav;base64," + audioContent)
+    snd.play()
+
+    // const voice = await this.getVoice()
+    // if (!voice) return
+    // return new Promise<void>((resolve) => {
+    //   let text = line.message.replace(/[[_*]+/g, "")
+    //   const character = sprachdex.getCharacter(line.from)
+    //   let rate = character.rate || 1.0
+    //   let pitch = character.pitch || 1.0
+
+    //   if ('alien' in line && line.alien) {
+    //     text = text.split("").reverse().join("")
+    //     rate = 2.0
+    //   }
+
+    //   const utter = new SpeechSynthesisUtterance(text)
+    //   utter.lang = "de"
+    //   utter.voice = voice
+    //   utter.rate = rate
+    //   utter.pitch = pitch
+    //   utter.onend = () => resolve()
+    //   speechSynthesis.speak(utter)
+    // })
   }
 }

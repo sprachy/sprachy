@@ -23,7 +23,7 @@ export class SprachyUserSPA {
   user: Writable<User> = writable({}) as any
   progressItems: Writable<ProgressItem[]> = writable([])
 
-  speech = new SpeechSystem()
+  speech = new SpeechSystem(this)
 
   /** 
    * For drawing success confetti animation

@@ -61,6 +61,10 @@ export class SprachyAPIClient {
   async makeProfile(settings: { displayName: string }) {
     return this.http.post(`/api/settings/profile/make-profile`, settings)
   }
+
+  async synthesizeSpeech(options: { text: string }) {
+    return this.http.post(`/api/synthesize`, options)
+  }
 }
 
 /**
