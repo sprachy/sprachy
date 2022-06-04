@@ -16,6 +16,7 @@ import nils from "$lib/img/nils.webp"
 import fox from "$lib/img/fox.webp"
 import harald from "$lib/img/harald.webp"
 import klaus from "$lib/img/klaus.webp"
+import type { VoiceSynthesisRequestSchema } from "src/routes/api/synthesize"
 
 export type Character = {
   id: string
@@ -23,8 +24,7 @@ export type Character = {
   avatar: string
   fullname: string
   profile: string
-  rate?: number
-  pitch?: number
+  audio?: Partial<VoiceSynthesisRequestSchema>
 }
 
 const characters = [
@@ -32,9 +32,7 @@ const characters = [
     id: "narrator",
     avatar: squirrel,
     name: "Narrator",
-    fullname: "Narrator",
-    rate: 1,
-    pitch: 1
+    fullname: "Narrator"
   },
 
   /**
@@ -107,8 +105,18 @@ const characters = [
     profile: md`
 An extradimensional squirrel-like lifeform with vast psionic power. Töski is currently taking a vacation on Earth, a travel destination his mindspace identified as having "gemütliche Bäume" and a pleasant lack of reality-rending esper battles.
     `,
-    rate: 1.05,
-    pitch: 1.5
+
+    audio: {
+      voice: {
+        name: "de-DE-Wavenet-C",
+        ssmlGender: "MALE"
+      },
+      audioConfig: {
+
+      }
+    }
+    // rate: 1.05,
+    // pitch: 1.5
   },
 
   /**

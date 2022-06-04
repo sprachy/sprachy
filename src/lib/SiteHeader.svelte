@@ -80,6 +80,7 @@
                 <DropdownMenu end>
                   <DropdownItem href="/admin/users">Users</DropdownItem>
                   <DropdownItem href="/admin/testall">Testall</DropdownItem>
+                  <DropdownItem href="/admin/voicetest">Voicetest</DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             {/if}
