@@ -36,7 +36,19 @@ export class SpeechSystem {
   async speak(line: ReadingLine | FillblankLine) {
     let text = line.message.replace(/[[_*]+/g, "")
 
-    const { audioContent } = await this.spa.api.synthesizeSpeech({ text })
+    const { audioContent } = await this.spa.api.synthesizeSpeech({
+      input: {
+        text
+      },
+      voice: {
+        languageCode: "de-DE",
+        name: "de-DE-Wavenet-C",
+        ssmlGender: "FEMALE"
+      },
+      audioConfig: {
+        audioEncoding: 'MP3'
+      }
+    })
 
     const snd = new Audio("data:audio/wav;base64," + audioContent)
     snd.play()

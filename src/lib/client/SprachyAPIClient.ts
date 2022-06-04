@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import type { ProgressItem, User, ProgressSummary, SignupDetails, PriceId } from '$lib/api'
 import { HTTPProvider } from './HTTPProvider'
+import type { VoiceSynthesisRequestSchema } from '$lib/../routes/api/synthesize'
 
 export class SprachyAPIClient {
   http: HTTPProvider
@@ -62,7 +63,7 @@ export class SprachyAPIClient {
     return this.http.post(`/api/settings/profile/make-profile`, settings)
   }
 
-  async synthesizeSpeech(options: { text: string }) {
+  async synthesizeSpeech(options: VoiceSynthesisRequestSchema) {
     return this.http.post(`/api/synthesize`, options)
   }
 }

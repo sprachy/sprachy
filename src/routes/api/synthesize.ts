@@ -2,38 +2,70 @@ import type { RequestHandler } from "@sveltejs/kit"
 import * as z from 'zod'
 import http from '$lib/server/http'
 import { env } from "$lib/server/env"
+import { kvs } from "$lib/server/kvs"
+
 // @ts-ignore
 import { getGoogleAuthToken } from "$lib/getGoogleAuthToken"
+// @ts-ignore
+import MD5 from 'md5-es'
 
 const synthesizeSchema = z.object({
-  text: z.string()
+  // Our endpoint just sends the request straight through to Google Cloud (w/ caching)
+  // So these options are from https://cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize
+  input: z.union([
+    z.object({
+      text: z.string()
+    }),
+    z.object({
+      ssml: z.string()
+    })
+  ]),
+  voice: z.object({
+    // See voice options at https://cloud.google.com/text-to-speech/docs/voices
+    languageCode: z.string(),
+    name: z.string(),
+    ssmlGender: z.enum(['MALE', 'FEMALE', 'NEUTRAL'])
+  }),
+  audioConfig: z.object({
+    audioEncoding: z.enum(['LINEAR16', 'MP3', 'OGG_OPUS', 'MULAW', 'ALAW']),
+    speakingRate: z.optional(z.number()),
+    pitch: z.optional(z.number()),
+    volumeGainDb: z.optional(z.number()),
+    sampleRateHertz: z.optional(z.number().int()),
+    effectsProfileId: z.optional(z.array(z.string()))
+  })
 })
+
+export type VoiceSynthesisRequestSchema = z.infer<typeof synthesizeSchema>
+
 export const post: RequestHandler = async ({ request, locals }) => {
-  const { text } = synthesizeSchema.parse(await request.json())
+  const options = synthesizeSchema.parse(await request.json())
 
   const credentials = JSON.parse(atob(env.GOOGLE_CLOUD_CREDENTIALS))
   const accessToken = await getGoogleAuthToken(credentials.client_email, credentials.private_key, "https://www.googleapis.com/auth/cloud-platform")
 
-  const res = await http.postJson(`https://texttospeech.googleapis.com/v1/text:synthesize`, {
-    input: {
-      text: text
-    },
-    voice: {
-      languageCode: 'de-DE',
-      name: 'de-DE-Wavenet-A',
-      ssmlGender: 'FEMALE'
-    },
-    audioConfig: {
-      audioEncoding: 'MP3'
-    }
-  }, {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`
-    }
-  })
+  const hashkey = MD5.hash(JSON.stringify(options))
+  let audioContent = await kvs.getText(`voiceSynthesis:${hashkey}`)
 
-  return {
-    status: 200,
-    body: await res.json()
+  if (audioContent) {
+    return {
+      status: 200,
+      body: { audioContent }
+    }
+  } else {
+    const res = await http.postJson(`https://texttospeech.googleapis.com/v1/text:synthesize`, options, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
+
+    const json = await res.json() as { audioContent: string }
+    audioContent = json.audioContent
+    await kvs.putText(`voiceSynthesis:${hashkey}`, audioContent)
+
+    return {
+      status: 200,
+      body: { audioContent }
+    }
   }
 }
