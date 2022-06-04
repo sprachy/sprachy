@@ -116,7 +116,8 @@ An extradimensional squirrel-like lifeform with vast psionic power. Töski is cu
       },
       audioConfig: {
         speakingRate: 1.4,
-        pitch: 8
+        pitch: 8,
+        volumeGainDb: 2.0
       }
     }
     // rate: 1.05,

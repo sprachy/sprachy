@@ -1,11 +1,12 @@
 <script lang="ts">
   import Fa from "svelte-fa"
+  import { faBook, faTrain, faCrown } from "@fortawesome/free-solid-svg-icons"
 
   import Sprachdown from "$lib/Sprachdown.svelte"
   // import Timeago from "$lib/client/Timeago.svelte"
-  import type { Pattern } from "$lib/Pattern"
+  import type { PatternAndProgress } from "./client/SprachyUserSPA"
 
-  export let pattern: Pattern
+  export let pattern: PatternAndProgress
   $: patternLearned = false //pattern.progress.srsLevel > 0
   $: patternMastered = false //pattern.progress.srsLevel === pattern.maxLevel
 </script>
@@ -29,11 +30,37 @@
       <div class="shortdesc">
         <Sprachdown inline source={pattern.shortdesc} />
       </div>
+      <div class="submenu">
+        <div class="step">
+          <Fa icon={faBook} />
+        </div>
+        <div class="step">
+          <Fa icon={faTrain} />
+        </div>
+        <div class="step">
+          <Fa icon={faCrown} />
+        </div>
+      </div>
     </div>
   </a>
 </li>
 
 <style>
+  .submenu {
+    display: flex;
+    position: relative;
+  }
+
+  .submenu .step {
+    border: 1px solid #ccc;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   li.pattern {
     --pattern-color: var(--sprachy-primary);
   }

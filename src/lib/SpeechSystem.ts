@@ -37,6 +37,7 @@ export class SpeechSystem {
   async speak(line: ReadingLine | FillblankLine) {
     let text = line.message.replace(/[[_*]+/g, "")
     const character = sprachdex.getCharacter(line.from)
+
     this.characterSpeak(character, text)
   }
 

@@ -40,6 +40,16 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
   story: [
     {
       from: "narrator",
+      message: "Ein Junge spaziert im Park.",
+      translation: "A boy is walking in the park."
+    },
+    {
+      from: "narrator",
+      message: "Er sieht ein süßes Eichhörnchen. 🐿️",
+      translation: "He sees a cute squirrel."
+    },
+    {
+      from: "narrator",
       message: "Ein Junge spaziert im Park."
     },
     {
