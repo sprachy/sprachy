@@ -28,9 +28,9 @@ const synthesizeSchema = z.object({
   }),
   audioConfig: z.object({
     audioEncoding: z.enum(['LINEAR16', 'MP3', 'OGG_OPUS', 'MULAW', 'ALAW']),
-    speakingRate: z.optional(z.number()),
-    pitch: z.optional(z.number()),
-    volumeGainDb: z.optional(z.number()),
+    speakingRate: z.optional(z.number().min(0.25).max(4.0)),
+    pitch: z.optional(z.number().min(-20.0).max(20.0)),
+    volumeGainDb: z.optional(z.number().min(-96.0).max(16.0)),
     sampleRateHertz: z.optional(z.number().int()),
     effectsProfileId: z.optional(z.array(z.string()))
   })

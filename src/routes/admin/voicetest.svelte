@@ -6,15 +6,29 @@
   import SiteLayout from "$lib/SiteLayout.svelte"
   import { sprachdex } from "$lib/sprachdex"
   import Avatar from "$lib/Avatar.svelte"
+  import type { ReadingLine } from "$lib/Pattern"
+  import StoryLineReading from "$lib/client/StoryLineReading.svelte"
 
   let users: User[] = []
 
   const spa = sprachy.expectSPA()
 
-  let selectedCharacterId = "narrator"
+  let selectedCharacterId = "squirrel"
   let text = ""
 
   $: selectedCharacter = sprachdex.getCharacter(selectedCharacterId)
+
+  $: lines = (($selectedCharacterId) => {
+    const lines: ReadingLine[] = []
+    for (const pattern of sprachdex.patternsIncludingDrafts) {
+      for (const line of pattern.story) {
+        if (line.type === "reading" && line.from === $selectedCharacterId) {
+          lines.push(line)
+        }
+      }
+    }
+    return lines
+  })(selectedCharacterId)
 
   async function speak() {
     spa.speech.characterSpeak(selectedCharacter, text)
@@ -44,7 +58,12 @@
         />
       </div>
     </div>
-    <button class="btn btn-primary">Speak</button>
+    <button class="btn btn-primary mb-4">Speak</button>
+    {#each lines as line}
+      <div class="line mb-2" on:click={() => spa.speech.speak(line)}>
+        <StoryLineReading {line} />
+      </div>
+    {/each}
   </form>
 </SiteLayout>
 
@@ -55,5 +74,9 @@
     height: 50px;
     border-radius: 50%;
     margin-right: 15px;
+  }
+
+  .line {
+    cursor: pointer;
   }
 </style>

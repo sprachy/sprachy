@@ -23,11 +23,14 @@ export type Character = {
   name: string
   avatar: string
   fullname: string
-  profile: string
-  audio?: Partial<VoiceSynthesisRequestSchema>
+  profile?: string
+  audio?: {
+    voice: Partial<VoiceSynthesisRequestSchema["voice"]>,
+    audioConfig?: Partial<VoiceSynthesisRequestSchema["audioConfig"]>
+  }
 }
 
-const characters = [
+const characters: Character[] = [
   {
     id: "narrator",
     avatar: squirrel,
@@ -108,11 +111,12 @@ An extradimensional squirrel-like lifeform with vast psionic power. Töski is cu
 
     audio: {
       voice: {
-        name: "de-DE-Wavenet-C",
-        ssmlGender: "MALE"
+        name: "de-DE-Standard-F",
+        ssmlGender: "FEMALE"
       },
       audioConfig: {
-
+        speakingRate: 1.4,
+        pitch: 8
       }
     }
     // rate: 1.05,
@@ -133,8 +137,16 @@ An extradimensional squirrel-like lifeform with vast psionic power. Töski is cu
     profile: md`
 A student at a German university, studying science and philosophy. He likes tea and fluffy things. Totally down to hang out with an alien squirrel.
     `,
-    rate: 1.0,
-    pitch: 0.6,
+    audio: {
+      voice: {
+        name: "de-DE-Wavenet-B",
+        ssmlGender: "MALE"
+      },
+      audioConfig: {
+        speakingRate: 1.2,
+        pitch: 2
+      }
+    }
   },
   {
     id: "lindenbaum",

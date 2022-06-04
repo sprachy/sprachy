@@ -1,4 +1,4 @@
-import { parsePattern } from "./Pattern"
+import { parsePattern, type ReadingLine } from "./Pattern"
 import characters from "$lib/characters"
 import type { Character } from "$lib/characters"
 import patternDefs from "$lib/patterns"
