@@ -172,16 +172,16 @@ export namespace db {
       )
     }
 
-    export async function update(progressId: string, changes: Partial<Omit<ProgressItem, 'id' | 'userId' | 'patternId'>>): Promise<ProgressItem> {
-      return await db.querySingle<ProgressItem>(
-        Update(
-          Ref(Collection('progress'), progressId),
-          {
-            data: changes
-          }
-        )
-      )
-    }
+    // export async function update(progressId: string, changes: Partial<Omit<ProgressItem, 'id' | 'userId' | 'patternId'>>): Promise<ProgressItem> {
+    //   return await db.querySingle<ProgressItem>(
+    //     Update(
+    //       Ref(Collection('progress'), progressId),
+    //       {
+    //         data: changes
+    //       }
+    //     )
+    //   )
+    // }
 
     export async function listAllFor(userId: string) {
       return await db.query<ProgressItem[]>(
@@ -204,55 +204,80 @@ export namespace db {
       )
     }
 
-    /**
-     * Call when a user has completed the level for a given pattern.
-     * Only updates srs level if it is the correct time to do so.
-     */
-    export async function completeLevel(userId: string, patternId: string, completedLevel: number): Promise<ProgressItem | null> {
-
+    export async function update(userId: string, patternId: string, changes: Partial<ProgressItem>): Promise<ProgressItem> {
       const progress = await db.progress.get(userId, patternId)
 
       if (!progress) {
-        // Initial review
-        await db.users.update(userId, {
-          lastReviewAt: Now() as any
-        })
-
         return await db.querySingle<ProgressItem>(
           Create(Collection("progress"), {
             data: {
               userRef: Ref(Collection("users"), userId),
               patternId: patternId,
-              initiallyLearnedAt: Now(),
-              lastLeveledAt: Now(),
-              srsLevel: completedLevel
+              ...changes
             }
           })
         )
       }
 
-      const levelableAt = progress.lastLeveledAt + time.toNextSRSLevel(progress.srsLevel)
-
-      let progressChanges: any = {}
-      if (completedLevel > progress.srsLevel && time.now() >= levelableAt) {
-        progressChanges = {
-          lastLeveledAt: Now(),
-          srsLevel: completedLevel
-        }
-      }
-
-      await db.users.update(userId, {
-        lastReviewAt: Now() as any
-      })
-
       return await db.querySingle<ProgressItem>(
         Update(
           Ref(Collection('progress'), progress.id),
           {
-            data: progressChanges
+            data: changes
           }
         )
       )
     }
+
+    /**
+     * Call when a user has completed the level for a given pattern.
+     * Only updates srs level if it is the correct time to do so.
+     */
+    // export async function completeLevel(userId: string, patternId: string, completedLevel: number): Promise<ProgressItem | null> {
+
+    //   const progress = await db.progress.get(userId, patternId)
+
+    //   if (!progress) {
+    //     // Initial review
+    //     await db.users.update(userId, {
+    //       lastReviewAt: Now() as any
+    //     })
+
+    //     return await db.querySingle<ProgressItem>(
+    //       Create(Collection("progress"), {
+    //         data: {
+    //           userRef: Ref(Collection("users"), userId),
+    //           patternId: patternId,
+    //           initiallyLearnedAt: Now(),
+    //           lastLeveledAt: Now(),
+    //           srsLevel: completedLevel
+    //         }
+    //       })
+    //     )
+    //   }
+
+    //   const levelableAt = progress.lastLeveledAt + time.toNextSRSLevel(progress.srsLevel)
+
+    //   let progressChanges: any = {}
+    //   if (completedLevel > progress.srsLevel && time.now() >= levelableAt) {
+    //     progressChanges = {
+    //       lastLeveledAt: Now(),
+    //       srsLevel: completedLevel
+    //     }
+    //   }
+
+    //   await db.users.update(userId, {
+    //     lastReviewAt: Now() as any
+    //   })
+
+    //   return await db.querySingle<ProgressItem>(
+    //     Update(
+    //       Ref(Collection('progress'), progress.id),
+    //       {
+    //         data: progressChanges
+    //       }
+    //     )
+    //   )
+    // }
   }
 }

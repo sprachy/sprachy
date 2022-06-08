@@ -29,11 +29,13 @@ export const get: RequestHandler = async ({ locals }) => {
 
 const progressReport = z.object({
   patternId: z.string(),
-  level: z.number()
+  progress: z.object({
+    storyLine: z.number().int()
+  }).partial()
 })
 export const post: RequestHandler = async ({ request, locals }) => {
-  const { patternId, level } = progressReport.parse(await request.json())
-  const progressItem = await db.progress.completeLevel(locals.session!.userId, patternId, level)
+  const { patternId, progress } = progressReport.parse(await request.json())
+  const progressItem = await db.progress.update(locals.session!.userId, patternId, progress)
   return {
     status: 200,
     body: progressItem

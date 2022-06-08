@@ -1,12 +1,16 @@
 <script lang="ts">
   import _ from "lodash"
   import { createEventDispatcher, onDestroy, onMount } from "svelte"
-  import type { StoryLine, Story } from "$lib/Pattern"
+  import type { StoryLine, Story, Pattern } from "$lib/Pattern"
   import StoryLineReading from "$lib/client/StoryLineReading.svelte"
   import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
   import StoryLineChoice from "$lib/client/StoryLineChoice.svelte"
   import { fly } from "svelte/transition"
+  import sprachy from "$lib/sprachy"
 
+  const spa = sprachy.expectSPA()
+
+  export let pattern: Pattern
   export let story: Story
   let lineIndex: number
   $: if (story) {
@@ -73,6 +77,9 @@
     }
     if (lineIndex < story.length - 1) {
       lineIndex += 1
+      spa.backgroundApi.updateProgress(pattern.id, {
+        storyLine: lineIndex,
+      })
     } else {
       finished = true
     }

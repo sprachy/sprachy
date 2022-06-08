@@ -16,7 +16,7 @@
   class:learned={patternLearned}
   class:mastered={patternMastered}
 >
-  <a href="/story/{pattern.slug}" sveltekit:prefetch>
+  <div>
     <div class="icon">
       <Fa icon={pattern.icon} />
     </div>
@@ -32,7 +32,9 @@
       </div>
       <div class="submenu">
         <div class="step">
-          <Fa icon={faBook} />
+          <a href={`/story/${pattern.slug}`} sveltekit:prefetch>
+            <Fa icon={faBook} />
+          </a>
         </div>
         <div class="step">
           <Fa icon={faTrain} />
@@ -42,7 +44,7 @@
         </div>
       </div>
     </div>
-  </a>
+  </div>
 </li>
 
 <style>
@@ -59,6 +61,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    margin-right: 0.5rem;
+  }
+
+  .submenu .step::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 5%;
+    background: lightblue;
+    border-radius: 50%;
   }
 
   li.pattern {
@@ -85,7 +100,7 @@
     color: var(--pattern-color);
   }
 
-  li.pattern > :global(a) {
+  li.pattern > div {
     display: flex;
     align-items: center;
     padding: 1.5rem 1rem;

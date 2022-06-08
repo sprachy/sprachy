@@ -87,7 +87,7 @@
       <header class="story-header">
         <h3>{pattern.title}</h3>
       </header>
-      <Story {story} on:complete={onCompleteStory} />
+      <Story {story} {pattern} on:complete={onCompleteStory} />
     </div>
   {:else if progress.levelableAt}
     <div class="complete">

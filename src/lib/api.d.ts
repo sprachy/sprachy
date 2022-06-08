@@ -46,9 +46,7 @@ export type ProgressItem = {
   id: string
   userId: string
   patternId: string
-  initiallyLearnedAt: number
-  lastLeveledAt: number
-  srsLevel: number
+  storyLine: number
 }
 
 /**
