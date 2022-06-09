@@ -6,6 +6,8 @@ import { sprachdex } from "./sprachdex"
 
 export class SpeechSystem {
   voice: SpeechSynthesisVoice | null = null
+  currentlySaying: HTMLAudioElement | null = null
+
   constructor(readonly spa: SprachyUserSPA) { }
 
   async loadVoices(): Promise<SpeechSynthesisVoice[]> {
@@ -60,6 +62,18 @@ export class SpeechSystem {
     })
 
     const snd = new Audio("data:audio/wav;base64," + audioContent)
+
+    if (this.currentlySaying) {
+      this.currentlySaying.pause()
+      this.currentlySaying.currentTime = 0
+    }
+
+    this.currentlySaying = snd
+    snd.addEventListener('onended', () => {
+      if (this.currentlySaying === snd) {
+        this.currentlySaying = null
+      }
+    })
     snd.play()
 
     // const voice = await this.getVoice()
