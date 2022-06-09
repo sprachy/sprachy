@@ -7,10 +7,11 @@
   import StoryLineChoice from "$lib/client/StoryLineChoice.svelte"
   import { fly } from "svelte/transition"
   import sprachy from "$lib/sprachy"
+  import type { PatternAndProgress } from "./SprachyUserSPA"
 
   const spa = sprachy.expectSPA()
 
-  export let pattern: Pattern
+  export let pattern: PatternAndProgress
   export let story: Story
   let lineIndex: number
   $: if (story) {
@@ -91,6 +92,13 @@
     } else if (lineIndex < story.length - 1) {
       nextLine()
     } else {
+      if (!pattern.progress.storyCompleted) {
+        const progressItem = spa.backgroundApi.updateProgress(pattern.id, {
+          // TODO server-side timestamp
+          storyCompletedAt: Date.now(),
+        })
+        spa.receiveProgressItem(progressItem)
+      }
       dispatch("complete")
     }
   }

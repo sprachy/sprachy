@@ -5,10 +5,10 @@ import type { SprachyAPIClient } from "./SprachyAPIClient"
 import type { ProgressItem, User, ProgressSummary } from "$lib/api"
 import type { Exercise, Pattern } from "$lib/Pattern"
 import { sprachdex } from "$lib/sprachdex"
-import { time } from "$lib/time"
 import { CanvasEffects } from "$lib/client/CanvasEffects"
 import { SpeechSystem } from '$lib/SpeechSystem'
 import { derived, writable, type Writable } from 'svelte/store'
+import { PatternProgress } from './PatternProgress'
 
 export type Review = Exercise & {
   pattern: PatternAndProgress
@@ -129,40 +129,6 @@ export class SprachyUserSPA {
     }
     return reviews
   })
-}
-
-class PatternProgress {
-  constructor(readonly pattern: Pattern, readonly item?: ProgressItem) { }
-
-  get srsLevel() {
-    return this.item?.srsLevel || 0
-  }
-
-  get mastered() {
-    return this.srsLevel >= this.pattern.maxLevel
-  }
-
-  get levelableAt(): number | null {
-    if (this.mastered) {
-      return null
-    } else if (this.item) {
-      return this.item.lastLeveledAt + time.toNextSRSLevel(this.item.srsLevel)
-    } else {
-      return Date.now()
-    }
-  }
-
-  get readyToLevel(): boolean {
-    return !!(this.levelableAt && this.levelableAt <= Date.now())
-  }
-
-  get completedLevels() {
-    const levels: number[] = []
-    for (let i = 0; i < this.srsLevel; i++) {
-      levels.push(i)
-    }
-    return levels
-  }
 }
 
 export type PatternAndProgress = Pattern & { progress: PatternProgress }

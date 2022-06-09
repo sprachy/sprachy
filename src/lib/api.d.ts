@@ -46,7 +46,8 @@ export type ProgressItem = {
   id: string
   userId: string
   patternId: string
-  storyLine: number
+  storyLine?: number
+  storyCompletedAt?: number
 }
 
 /**
