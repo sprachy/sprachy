@@ -29,6 +29,21 @@
       <div class="shortdesc">
         <Sprachdown inline source={pattern.shortdesc} />
       </div>
+      <!-- <div class="submenu">
+        <div class="step">
+          <a href={`/story/${pattern.slug}`} sveltekit:prefetch>
+            <Fa icon={faBook} />
+          </a>
+        </div>
+        <div class="step">
+          <a href={`/practice/${pattern.slug}`} sveltekit:prefetch>
+            <Fa icon={faTrain} />
+          </a>
+        </div>
+        <div class="step">
+          <Fa icon={faCrown} />
+        </div>
+      </div> -->
     </div>
   </a>
 </li>

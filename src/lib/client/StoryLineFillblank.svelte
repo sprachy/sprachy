@@ -7,7 +7,6 @@
   import { matchAnswer } from "$lib/client/feedback"
   import sprachy from "$lib/sprachy"
   import SoundIndicator from "$lib/SoundIndicator.svelte"
-  import { space } from "svelte/internal"
 
   const { speech, effects } = sprachy.expectSPA()
 
@@ -76,7 +75,7 @@
 
   async function playSound() {
     let text = !attemptMatch.validAnswer
-      ? parts.before + " ... was?"
+      ? parts.before + (parts.before.length ? " ... was?" : "")
       : line.message.replace(/[[_*]+/g, "")
 
     playingSound = true

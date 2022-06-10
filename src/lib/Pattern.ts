@@ -90,7 +90,7 @@ export type Exercise = FillblankLine
  * A pattern after parsing the definition file. Structured
  * to be friendly for code use.
  */
-export type Pattern = Omit<PatternDef, "story"> & {
+export type Pattern = Omit<PatternDef, "story" | "exercises"> & {
   story: StoryLine[]
   exercises: Exercise[]
   maxLevel: number

@@ -67,7 +67,14 @@
           href="/story/{pattern.slug}"
           class="btn btn-primary"
         >
-          Practice this pattern
+          Introduction
+        </a>
+        <a
+          sveltekit:prefetch
+          href="/practice/{pattern.slug}"
+          class="btn btn-primary"
+        >
+          Practice
         </a>
       {:else}
         <a
