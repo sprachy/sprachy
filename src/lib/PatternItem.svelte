@@ -37,7 +37,9 @@
           </a>
         </div>
         <div class="step">
-          <Fa icon={faTrain} />
+          <a href={`/practice/${pattern.slug}`} sveltekit:prefetch>
+            <Fa icon={faTrain} />
+          </a>
         </div>
         <div class="step">
           <Fa icon={faCrown} />
