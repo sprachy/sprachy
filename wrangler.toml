@@ -1,19 +1,13 @@
-type = "javascript"
+main = ".cloudflare/worker/worker.mjs"
 compatibility_flags = []
 compatibility_date = "2022-03-30"
 account_id = "e24de7c361b035e990d2814691027093"
 
 [site]
 bucket = "./.cloudflare/assets"
-entry-point = "./.cloudflare/worker"
 
 [build]
 command = ""
-
-[build.upload]
-format = "modules"
-main = "./worker.mjs"
-dir = "./.cloudflare/worker"
 
 [env.staging]
 workers_dev = true

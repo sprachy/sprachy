@@ -16,7 +16,7 @@ declare namespace App {
     DISCORD_SIGNUP_WEBHOOK?: string
     DISCORD_CUSTOMER_WEBHOOK?: string
     STRIPE_SECRET_KEY?: string
-    GOOGLE_TTS_API_SECRET?: string
+    GOOGLE_CLOUD_CREDENTIALS?: string
   }
 
   interface Locals {

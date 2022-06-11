@@ -41,7 +41,7 @@ export type VoiceSynthesisRequestSchema = z.infer<typeof synthesizeSchema>
 export const post: RequestHandler = async ({ request, locals }) => {
   const options = synthesizeSchema.parse(await request.json())
 
-  const credentials = JSON.parse(atob(env.GOOGLE_CLOUD_CREDENTIALS))
+  const credentials = JSON.parse(atob(env.GOOGLE_CLOUD_CREDENTIALS!))
   const accessToken = await getGoogleAuthToken(credentials.client_email, credentials.private_key, "https://www.googleapis.com/auth/cloud-platform")
 
   const hashkey = MD5.hash(JSON.stringify(options))

@@ -40,7 +40,7 @@
     alt={character.fullname}
     on:click={toggleProfile}
   />
-  {#if showProfile}
+  {#if showProfile && character.profile}
     <div class="profile shadow">
       <div class="card">
         <div class="card-header">
