@@ -14,4 +14,4 @@ import imperativ from './imperativ'
 import compoundWords from './compound-words'
 import adjectiveEndings from './adjective-endings'
 
-export default [introduction, derdiedas, eineine, sein, daschen, accusative, dative, derlernerdielernerin, duodersie, comparative, superlative, genitiv, imperativ, compoundWords, adjectiveEndings]
+export default [derdiedas, eineine, sein, daschen, accusative, dative, derlernerdielernerin, duodersie, comparative, superlative, genitiv, imperativ, compoundWords, adjectiveEndings]
