@@ -3,7 +3,7 @@ import { definePattern, md } from "$lib/definePattern"
 
 export default definePattern({
   id: "das-chen",
-  slug: "das-chen",
+  slug: "diminutives",
   title: "Das -chen",
   shortdesc: "The power of cute diminutives",
   icon: faCat,

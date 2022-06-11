@@ -3,7 +3,7 @@ import { definePattern, md } from "$lib/definePattern"
 
 export default definePattern({
   id: "ein-eine",
-  slug: "ein-eine",
+  slug: "ein-words",
   title: "Ein und eine",
   shortdesc: "Like a/an but with more gender",
   icon: faListOl,

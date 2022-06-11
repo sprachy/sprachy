@@ -3,7 +3,7 @@ import { definePattern, md } from "$lib/definePattern"
 
 export default definePattern({
   id: "du-oder-sie",
-  slug: "du-oder-sie",
+  slug: "formal",
   title: "Du oder Sie",
   shortdesc: "How to not be an overly familiar rando",
   icon: faUserTie,

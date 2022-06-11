@@ -5,7 +5,7 @@ import { definePattern, md } from "$lib/definePattern"
 
 export default definePattern({
   id: "der-lerner-die-lernerin",
-  slug: "der-lerner-die-lernerin",
+  slug: "gender-people",
   title: "Der Lerner, die Lernerin",
   shortdesc: "Apparently humans have genders too",
   icon: faVenusMars,

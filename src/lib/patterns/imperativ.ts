@@ -3,7 +3,7 @@ import { definePattern, md } from "$lib/definePattern"
 
 export default definePattern({
   id: "imperativ",
-  slug: "imperativ",
+  slug: "imperative",
   title: "Der Imperativ!",
   shortdesc: "To yell at people to go to sleep!",
   icon: faExclamation,

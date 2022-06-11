@@ -4,7 +4,7 @@ import { definePattern, md } from "$lib/definePattern"
 // https://german.stackexchange.com/questions/3834/what-is-the-gender-distribution-of-nouns-in-the-german-language
 export default definePattern({
   id: "der-die-das",
-  slug: "der-die-das",
+  slug: "nominative",
   title: "Der, die, das",
   shortdesc: "Ah yes, the three genders",
   icon: faVenusMars,
