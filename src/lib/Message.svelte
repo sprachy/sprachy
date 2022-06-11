@@ -41,7 +41,7 @@
     text-align: center;
   }
 
-  .message:not(.flip) :global(img) {
+  .message:not(.flip) :global(.avatar img) {
     margin-top: calc(4px - 0.125rem);
     width: 50px;
     height: 50px;
@@ -82,7 +82,7 @@
     flex-direction: row-reverse;
   }
 
-  .message.flip :global(img) {
+  .message.flip :global(.avatar img) {
     margin-top: calc(4px - 0.125rem);
     width: 50px;
     height: 50px;

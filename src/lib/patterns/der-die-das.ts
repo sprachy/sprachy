@@ -1,5 +1,6 @@
 import { faVenusMars } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "$lib/definePattern"
+import sonne from "$lib/img/sonne.webp"
 
 // https://german.stackexchange.com/questions/3834/what-is-the-gender-distribution-of-nouns-in-the-german-language
 export default definePattern({
@@ -54,54 +55,78 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
    */
   story: [
     {
+      from: "squirrel",
+      message: "Lukas, was ist das?",
+      image: sonne,
+      imageAlt: "The sun shining brightly"
+    },
+    {
       from: "lukas",
-      message: "[Die] Welt ist heute friedlich.",
-      translation: "[The] world is peaceful today.",
-      hint: "[feminine]",
+      message: "Das ist die Sonne.",
+      translation: "That is the sun.",
+      explanation: `Lukas uses the word _die_ to mean _the_ here, because _Sonne_ is a feminine noun. `
+    },
+    {
+      from: "lukas",
+      message: "Sie gibt unserem Planeten Wärme und Energie.",
+      explanation: "Lukas refers to the sun using the feminine pronoun _sie_."
     },
     {
       from: "squirrel",
-      message: "Hallo. [Der] Baum hier ist gemütlich.",
-      translation: "Hello. [The] tree here is comfy.",
-      hint: "[masculine]",
+      message: "Und was ist das Blaue?",
+      explanation: `Töski uses _das_ because Blaue is a neuter noun.`
     },
     {
       from: "lukas",
-      message: "Und jetzt... spricht [das] Eichhörnchen mit mir?",
-      translation: "And now... [the] squirrel is talking to me?",
-      hint: "[neuter]",
+      message: "Das ist der Himmel.",
+      explanation: ``
+    },
+    {
+      from: "lukas",
+      message: "Vögel🐦 fliegen dort."
     },
     {
       from: "squirrel",
-      message: "[Die] Nüsse hier sind auch sehr lecker.",
-      translation: "[The] nuts here are also very tasty.",
+      message: "Warum ist er blau?",
+      translation: "Why is it blue?"
+    },
+    {
+      question: `What is Töski referring to with "er"?`,
+      choices: [
+        { text: "der Himmel", correct: true },
+        { text: "die Sonne" },
+        { text: "die Vögel" }
+      ]
     },
     {
       from: "lukas",
-      message: "[Der] Tag wurde definitiv merkwürdiger!",
-      translation: "[The] day definitely got weirder!",
-      hint: "[masculine]"
+      message: "Das ist... kompliziert.",
+      translation: "That is... complicated."
+    },
+    {
+      from: "lukas",
+      message: "Es geht um die Physik des Lichts.",
+      translation: "It has to do with the physics of light."
     },
     {
       from: "squirrel",
-      message: "Nun, [der] Mensch flippt nicht aus. Das ist schon mal ein guter Anfang.",
-      translation: "Well, [the] human isn't freaking out. That's a good start.",
-      hint: "[masculine]"
+      message: "Kann ich er essen?",
+      translation: "Can I eat it?"
     },
     {
       from: "lukas",
-      message: "Ich habe _so viele_ Fragen.",
-      translation: "I have _so many_ questions."
+      message: "...du willst den Himmel essen?",
+      translation: "...you want to eat the sky?"
     },
     {
       from: "squirrel",
-      message: "[Die] Fragen... Ich werde einige beantworten, wenn ihr mir helft, meine Anwesenheit geheim zu halten.",
-      translation: "[The] questions... I will answer some, if you help keep my presence secret."
+      message: "Ja, er sieht lecker aus.",
+      translation: "Yes, it looks tasty."
     },
     {
       from: "lukas",
-      message: "Abgemacht!",
-      translation: "Deal!"
+      message: "Bitte nicht.",
+      translation: "Please don't."
     }
   ],
   exercises: [
