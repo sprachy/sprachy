@@ -14,7 +14,7 @@
   const { user } = spa
 
   onMount(() => {
-    if (speakable && $user.enableSpeechSynthesis) {
+    if (speakable && $user.enableSpeechSynthesis && line.from !== "explainer") {
       spa.speech.speak(line)
     }
   })
@@ -23,6 +23,10 @@
 <div class="reading">
   {#if line.from === "narrator"}
     <div>
+      {line.message}
+    </div>
+  {:else if line.from === "explainer"}
+    <div class="explainer">
       {line.message}
     </div>
   {:else}
@@ -49,6 +53,9 @@
         {/if}
       </div>
     </Message>
+    {#if line.image}
+      <img alt={line.imageAlt} src={line.image} />
+    {/if}
   {/if}
 </div>
 
@@ -65,6 +72,17 @@
     padding-top: 0.8rem;
     color: #444;
     font-size: 90%;
+    color: #0b9bc7;
+  }
+
+  img {
+    max-height: 300px;
+    margin-top: 1rem;
+  }
+
+  .explainer {
+    padding-top: 0.8rem;
+    color: #444;
     color: #0b9bc7;
   }
 </style>

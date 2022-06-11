@@ -31,6 +31,8 @@ export type ReadingLineDef = {
   message: string
   translation?: string
   alien?: boolean
+  image?: string
+  imageAlt?: string
 }
 
 export type FillblankLineDef = {
@@ -56,6 +58,8 @@ export type ReadingLine = {
   translation?: string
   explanation?: string
   alien?: boolean
+  image?: string
+  imageAlt?: string
 }
 
 export type FillblankLine = {
