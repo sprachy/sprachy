@@ -21,7 +21,6 @@ FRONTEND_BASE_URL = "https://sprachy-staging.toggly.workers.dev"
 
 [env.live]
 workers_dev = false
-zone_id = "6f3dc9a177c40debfd85f65777af39de"
 route = "https://sprachy.com/*"
 name = "sprachy"
 kv-namespaces = [ 
