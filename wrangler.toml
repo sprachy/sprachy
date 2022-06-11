@@ -12,7 +12,7 @@ command = ""
 [env.staging]
 workers_dev = true
 name = "sprachy-staging"
-kv-namespaces = [ 
+kv_namespaces = [ 
   { binding = "STORE", id = "1eac321c4c6549d9b0273011bd353be1" }
 ]
 
@@ -23,7 +23,7 @@ FRONTEND_BASE_URL = "https://sprachy-staging.toggly.workers.dev"
 workers_dev = false
 route = "https://sprachy.com/*"
 name = "sprachy"
-kv-namespaces = [ 
+kv_namespaces = [ 
   { binding = "STORE", id = "bb9faad68907458c8ee529bf390f853e" } 
 ]
 
