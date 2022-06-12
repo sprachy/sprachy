@@ -23,6 +23,16 @@ export const handle: Handle = async ({ event, resolve }) => {
   const session = sessionKey ? await sessions.get(sessionKey) : null
   event.locals.session = session
 
+
+  if (event.url.pathname.startsWith(`/pattern`)) {
+    return new Response("", {
+      status: 302,
+      headers: {
+        location: `/${event.url.pathname.split("/pattern/")[1]}`
+      }
+    })
+  }
+
   // If it's an api route, we need to auth gate it here
   if (event.url.pathname.startsWith('/api') && !session) {
     const json = { status: 401, code: "login required" }
