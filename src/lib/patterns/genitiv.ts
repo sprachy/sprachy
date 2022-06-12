@@ -5,7 +5,7 @@ export default definePattern({
   id: "genitiv",
   slug: "genitive",
   title: "Des Genitivs",
-  shortdesc: "For _directly_ belonging to a fluffy squirrel.",
+  shortdesc: "For _directly_ belonging to a fluffy squirrel",
   icon: faHandHoldingUsd,
   explanation: md`
 The least common shiny grammatical case is the genitive case, just like the dative case
