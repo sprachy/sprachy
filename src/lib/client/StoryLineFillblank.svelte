@@ -81,8 +81,8 @@
       attempt = result.validAnswer
       spa.effects.spawnParticlesAt(attemptInput)
 
-      if (speakable && $user.enableSpeechSynthesis) {
-        spa.speech.speak(line)
+      if ($user.enableSpeechSynthesis) {
+        await spa.speech.speak(line)
       }
 
       dispatch("correct")

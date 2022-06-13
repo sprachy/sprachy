@@ -39,7 +39,7 @@ export class SpeechSystem {
   async speak(line: ReadingLine | FillblankLine) {
     let text = line.message.replace(/[[_*]+/g, "")
     const character = sprachdex.getCharacter(line.from)
-    this.characterSpeak(character, text)
+    await this.characterSpeak(character, text)
   }
 
   async characterSpeak(character: Character, text: string) {
@@ -69,12 +69,16 @@ export class SpeechSystem {
     }
 
     this.currentlySaying = snd
-    snd.addEventListener('onended', () => {
-      if (this.currentlySaying === snd) {
-        this.currentlySaying = null
-      }
+    return new Promise<void>((resolve, reject) => {
+      snd.addEventListener('ended', () => {
+        console.log("ended")
+        if (this.currentlySaying === snd) {
+          this.currentlySaying = null
+        }
+        resolve()
+      })
+      snd.play()
     })
-    snd.play()
 
     // const voice = await this.getVoice()
     // if (!voice) return
