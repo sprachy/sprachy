@@ -3,11 +3,10 @@ import * as z from 'zod'
 import http from '$lib/server/http'
 import { env } from "$lib/server/env"
 import { kvs } from "$lib/server/kvs"
+import SparkMD5 from "spark-md5"
 
 // @ts-ignore
 import { getGoogleAuthToken } from "$lib/getGoogleAuthToken"
-// @ts-ignore
-import MD5 from 'md5-es'
 
 const synthesizeSchema = z.object({
   // Our endpoint just sends the request straight through to Google Cloud (w/ caching)
@@ -44,7 +43,7 @@ export const post: RequestHandler = async ({ request, locals }) => {
   const credentials = JSON.parse(atob(env.GOOGLE_CLOUD_CREDENTIALS!))
   const accessToken = await getGoogleAuthToken(credentials.client_email, credentials.private_key, "https://www.googleapis.com/auth/cloud-platform")
 
-  const hashkey = MD5.hash(JSON.stringify(options))
+  const hashkey = SparkMD5.hash(JSON.stringify(options))
   let audioContent = await kvs.getText(`voiceSynthesis:${hashkey}`)
 
   if (audioContent) {
