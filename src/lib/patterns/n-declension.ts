@@ -27,10 +27,9 @@ masculine persons such as _der Junge_, _der Kunde_,
 as well as masculine nationals: _der Deutsche_, _der Franzose_,
 and masculine occupations: _der Student_, _der Journalist_.
 
-<Tip title="Fading usage">
-  The usage of n-declension is fading and more frequently left out entirely.
-  A good example would be the usage of _den Nachbar_ being more common than _den Nachbarn_ nowadays.
-  Both spelling are grammatically correct however.
+<Tip title="Weak nouns">
+  Identifying the weak declension on nouns is no easy feat. It is derived from Proto-Germanic word stems which ended in _-n_, which are now categorized as "weak nouns".
+  As a rule of thumb, you can usually see that a noun is a weak noun if you know that its plural ends in _-n_.
 </Tip>
 
 But as always we're dealing with a few exceptions:
@@ -89,6 +88,12 @@ Accusative / den Herr**n** / die Herr**en**
 Dative / dem Herr**n** / den Herr**en**
 Genitive / des Herr**n** / der Herr**en**
 </LTable>
+
+<Tip title="Fading usage">
+  The usage of n-declension is fading and more frequently left out entirely.
+  A good example would be the usage of _den Nachbar_ being more common than _den Nachbarn_ nowadays.
+  Both spelling are grammatically correct however.
+</Tip>
 `
   ,
   story: [
