@@ -1,23 +1,10 @@
 <script lang="ts">
+  import Fa from "svelte-fa"
+  import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons"
+
   import Avatar from "./Avatar.svelte"
   export let from: string
   export let flip: boolean = false
-
-  // function incoming(node: HTMLElement, { delay = 0, duration = 100 }) {
-  //   const o = node.clientWidth
-
-  //   return {
-  //     delay,
-  //     duration,
-  //     css: (t: number) => `transform-origin: left; transform: scaleX(${t * 100}%)`,
-  //   }
-  // }
-  // const names = {
-  //   scientist: "Lindenbaum",
-  //   deer: "Eiknir",
-  // } as Record<string, string>
-
-  // const name = names[from] || from
 </script>
 
 <div class:message={true} class:flip {...$$restProps}>

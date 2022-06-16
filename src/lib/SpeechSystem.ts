@@ -69,16 +69,19 @@ export class SpeechSystem {
     }
 
     this.currentlySaying = snd
-    return new Promise<void>((resolve, reject) => {
-      snd.addEventListener('ended', () => {
-        console.log("ended")
+    const promise = new Promise<void>((resolve, reject) => {
+      const onEnd = () => {
         if (this.currentlySaying === snd) {
           this.currentlySaying = null
         }
         resolve()
-      })
-      snd.play()
+      }
+      snd.addEventListener('ended', onEnd)
+      snd.addEventListener('pause', onEnd)
     })
+
+    await snd.play()
+    return promise
 
     // const voice = await this.getVoice()
     // if (!voice) return

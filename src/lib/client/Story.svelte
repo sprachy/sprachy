@@ -6,6 +6,9 @@
   import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
   import StoryLineChoice from "$lib/client/StoryLineChoice.svelte"
   import { fly } from "svelte/transition"
+  import sprachy from "$lib/sprachy"
+
+  const { user } = sprachy.expectSPA()
 
   export let story: Story
   let lineIndex: number
@@ -99,7 +102,11 @@
         bind:this={lineRef}
       >
         {#if line.type === "reading"}
-          <StoryLineReading {line} flip={lineFlips[i]} speakable />
+          <StoryLineReading
+            {line}
+            flip={lineFlips[i]}
+            speakable={$user.enableSpeechSynthesis}
+          />
         {:else if line.type === "fillblank"}
           <StoryLineFillblank
             speakable

@@ -30,6 +30,7 @@
   import type { PatternAndProgress } from "$lib/client/SprachyUserSPA"
   import { goto } from "$app/navigation"
   import sprachy from "$lib/sprachy"
+  import { dev } from "$app/env"
 
   const spa = sprachy.expectSPA()
   const { api, patternAndProgressById, nextPatternToLearn } = spa
@@ -51,11 +52,15 @@
   }
 
   onMount(() => {
-    window.addEventListener("beforeunload", leavingWarning)
+    if (!dev) {
+      window.addEventListener("beforeunload", leavingWarning)
+    }
   })
 
   onDestroy(() => {
-    window.removeEventListener("beforeunload", leavingWarning)
+    if (!dev) {
+      window.removeEventListener("beforeunload", leavingWarning)
+    }
   })
 
   async function onCompleteStory() {

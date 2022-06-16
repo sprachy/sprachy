@@ -6,18 +6,26 @@
   import { onMount } from "svelte"
   import sprachy from "$lib/sprachy"
   import AlienText from "./AlienText.svelte"
+  import SoundIndicator from "$lib/SoundIndicator.svelte"
 
   export let line: ReadingLine
   export let flip: boolean = false
   export let speakable: boolean = false
   const spa = sprachy.expectSPA()
-  const { user } = spa
+  let playingSound: boolean = false
 
-  onMount(() => {
-    if (speakable && $user.enableSpeechSynthesis && line.from !== "explainer") {
-      spa.speech.speak(line)
+  async function playSound() {
+    if (speakable && !playingSound) {
+      playingSound = true
+      try {
+        await spa.speech.speak(line)
+      } finally {
+        playingSound = false
+      }
     }
-  })
+  }
+
+  onMount(playSound)
 </script>
 
 <div class="reading">
@@ -32,10 +40,13 @@
   {:else}
     <Message from={line.from} {flip}>
       <div
-        class="message"
+        class="withTooltip"
         class:hasTranslation={!!line.translation}
         data-tooltip={line.translation}
       >
+        {#if speakable}
+          <SoundIndicator playing={playingSound} on:click={playSound} />
+        {/if}
         {#if line.alien}
           <AlienText source={line.message} />
         {:else}
@@ -60,11 +71,16 @@
 </div>
 
 <style>
-  .message.hasTranslation :global(p) {
+  .withTooltip {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .withTooltip.hasTranslation :global(p) {
     text-decoration: underline #ccc dotted;
   }
 
-  .message.hasTranslation {
+  .withTooltip.hasTranslation {
     cursor: default;
   }
 
