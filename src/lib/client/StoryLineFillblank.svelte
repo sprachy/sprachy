@@ -9,11 +9,6 @@
   import SoundIndicator from "$lib/SoundIndicator.svelte"
 
   const spa = sprachy.expectSPA()
-  const { user } = spa
-
-  try {
-    speechSynthesis.getVoices()
-  } catch {}
 
   export let line: FillblankLine
   export let flip: boolean = false
@@ -66,6 +61,8 @@
     })
   })(line)
 
+  $: attemptMatch = matchAnswer(attempt, line)
+
   function showAnswer() {
     showingAnswer = true
     attempt = ""
@@ -87,9 +84,10 @@
     showingAnswer = false
     if (attempt === "") return
 
-    const result = matchAnswer(attempt, line)
-    if (result.validAnswer) {
-      attempt = result.validAnswer
+    if (attemptMatch.validAnswer) {
+      // Change user's input as needed to show them we're accounting
+      // for any variation in casing or typo etc
+      attempt = attemptMatch.validAnswer
       spa.effects.spawnParticlesAt(attemptInput)
 
       if (speakable) {
@@ -98,8 +96,8 @@
 
       dispatch("correct")
     } else {
-      if (result.feedback) {
-        feedback = result.feedback
+      if (attemptMatch.feedback) {
+        feedback = attemptMatch.feedback
       }
       attemptInput.focus()
       // incorrectShake = true
