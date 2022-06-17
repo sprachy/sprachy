@@ -7,6 +7,7 @@
   import { matchAnswer } from "$lib/client/feedback"
   import sprachy from "$lib/sprachy"
   import SoundIndicator from "$lib/SoundIndicator.svelte"
+  import { space } from "svelte/internal"
 
   const { speech, effects } = sprachy.expectSPA()
 
@@ -22,11 +23,15 @@
   let showingAnswer: boolean = false
   let playingSound: boolean = false
 
+  /* When the user got the right answer, and we're waiting for the sound
+   * to play before moving on. */
+  let playingPostAnswerSound: boolean = false
+
   const dispatch = createEventDispatcher()
 
   onMount(() => {
     attemptInput.focus()
-    playSound()
+    if (!complete) playSound()
   })
 
   $: if (line !== prevLine) {
@@ -71,12 +76,18 @@
 
   async function playSound() {
     let text = !attemptMatch.validAnswer
-      ? parts.before + "... was?"
+      ? parts.before + " ... was?"
       : line.message.replace(/[[_*]+/g, "")
 
     playingSound = true
     try {
-      await speech.characterSpeak(line.from, text)
+      if (text.length > 0) {
+        await speech.characterSpeak(line.from, text)
+      }
+      // if (!attemptMatch.validAnswer) {
+      //   // Representing the part that needs filling
+      //   await speech.characterSpeak(line.from, "was")
+      // }
     } finally {
       playingSound = false
     }
@@ -87,6 +98,12 @@
     showingAnswer = false
     if (attempt === "") return
 
+    if (playingPostAnswerSound) {
+      // User pressed enter twice or such, skip sound and continue
+      speech.skip()
+      return
+    }
+
     if (attemptMatch.validAnswer) {
       // Change user's input as needed to show them we're accounting
       // for any variation in casing or typo etc
@@ -94,7 +111,12 @@
       effects.spawnParticlesAt(attemptInput)
 
       if (speakable) {
-        await playSound()
+        playingPostAnswerSound = true
+        try {
+          await playSound()
+        } finally {
+          playingPostAnswerSound = false
+        }
       }
 
       dispatch("correct")

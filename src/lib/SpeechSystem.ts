@@ -58,8 +58,9 @@ export class SpeechSystem {
     const snd = new Audio("data:audio/wav;base64," + audioContent)
 
     if (this.currentlySaying) {
-      this.currentlySaying.pause()
-      this.currentlySaying.currentTime = 0
+      // Skip any current speech in favor of new one, so we're not
+      // playing two voices at once
+      this.skip()
     }
 
     this.currentlySaying = snd
@@ -74,7 +75,18 @@ export class SpeechSystem {
       snd.addEventListener('pause', onEnd)
     })
 
-    await snd.play()
+    await Promise.race([snd.play(), promise])
     return promise
+  }
+
+  /**
+   * Skip any currently playing speech and continue.
+   */
+  async skip() {
+    // https://stackoverflow.com/questions/14834520/html5-audio-stop-function
+    if (this.currentlySaying) {
+      this.currentlySaying.pause()
+      this.currentlySaying.currentTime = 0
+    }
   }
 }
