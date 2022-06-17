@@ -1,8 +1,15 @@
 import _ from "lodash"
+import type { VoiceSynthesisRequestSchema } from "src/routes/api/synthesize"
 import type { Character } from "./characters"
 import type { SprachyUserSPA } from "./client/SprachyUserSPA"
-import type { ReadingLine, FillblankLine } from "./Pattern"
+import type { ReadingLine, FillblankLine, CharacterId } from "./Pattern"
 import { sprachdex } from "./sprachdex"
+
+export type SpeechOptions = {
+  text: string
+  voice?: Partial<VoiceSynthesisRequestSchema["voice"]>
+  audioConfig?: Partial<VoiceSynthesisRequestSchema["audioConfig"]>
+}
 
 export class SpeechSystem {
   voice: SpeechSynthesisVoice | null = null
@@ -10,13 +17,26 @@ export class SpeechSystem {
 
   constructor(readonly spa: SprachyUserSPA) { }
 
-  async speak(line: ReadingLine | FillblankLine) {
+  async speakLine(line: ReadingLine | FillblankLine) {
     let text = line.message.replace(/[[_*]+/g, "")
-    const character = sprachdex.getCharacter(line.from)
-    await this.characterSpeak(character, text)
+    await this.characterSpeak(line.from, text)
   }
 
-  async characterSpeak(character: Character, text: string) {
+  async characterSpeak(characterId: CharacterId, text: string) {
+    const character = sprachdex.getCharacter(characterId)
+    return this.speak({
+      text,
+      voice: character.audio?.voice,
+      audioConfig: character.audio?.audioConfig
+    })
+  }
+
+  // TODO there's currently a DOS vulnerability here-- a hostile client can send infinitely varying
+  // requests to the server, potentially causing google to charge us a large amount of money
+  //
+  // Solution for later: have server responsible for calculating the audio configuration, and the
+  // client just sends a line identifier or such, so the set of possible speech is finite
+  async speak(opts: SpeechOptions) {
     const voiceDefaults = {
       languageCode: "de-DE",
       name: "de-DE-Wavenet-C",
@@ -29,10 +49,10 @@ export class SpeechSystem {
 
     const { audioContent } = await this.spa.api.synthesizeSpeech({
       input: {
-        text
+        text: opts.text
       },
-      voice: Object.assign(voiceDefaults, character.audio?.voice),
-      audioConfig: Object.assign(audioConfigDefaults, character.audio?.audioConfig)
+      voice: Object.assign(voiceDefaults, opts.voice),
+      audioConfig: Object.assign(audioConfigDefaults, opts.audioConfig)
     })
 
     const snd = new Audio("data:audio/wav;base64," + audioContent)

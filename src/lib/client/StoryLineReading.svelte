@@ -18,7 +18,7 @@
     if (speakable && !playingSound) {
       playingSound = true
       try {
-        await spa.speech.speak(line)
+        await spa.speech.speakLine(line)
       } finally {
         playingSound = false
       }

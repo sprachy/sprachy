@@ -8,7 +8,7 @@
   import sprachy from "$lib/sprachy"
   import SoundIndicator from "$lib/SoundIndicator.svelte"
 
-  const spa = sprachy.expectSPA()
+  const { speech, effects } = sprachy.expectSPA()
 
   export let line: FillblankLine
   export let flip: boolean = false
@@ -20,14 +20,13 @@
   let attempt: string = ""
   let feedback: string = ""
   let showingAnswer: boolean = false
-  let incorrectShake: boolean = false
-  let shakeTimeout: number | undefined
   let playingSound: boolean = false
 
   const dispatch = createEventDispatcher()
 
   onMount(() => {
     attemptInput.focus()
+    playSound()
   })
 
   $: if (line !== prevLine) {
@@ -71,9 +70,13 @@
   }
 
   async function playSound() {
+    let text = !attemptMatch.validAnswer
+      ? parts.before + "... was?"
+      : line.message.replace(/[[_*]+/g, "")
+
     playingSound = true
     try {
-      await spa.speech.speak(line)
+      await speech.characterSpeak(line.from, text)
     } finally {
       playingSound = false
     }
@@ -88,7 +91,7 @@
       // Change user's input as needed to show them we're accounting
       // for any variation in casing or typo etc
       attempt = attemptMatch.validAnswer
-      spa.effects.spawnParticlesAt(attemptInput)
+      effects.spawnParticlesAt(attemptInput)
 
       if (speakable) {
         await playSound()
@@ -100,17 +103,11 @@
         feedback = attemptMatch.feedback
       }
       attemptInput.focus()
-      // incorrectShake = true
-      clearTimeout(shakeTimeout)
-      shakeTimeout = setTimeout(() => {
-        incorrectShake = false
-      }, 300) as any
-      // dispatch("answer", { correct: false })
     }
   }
 </script>
 
-<div class:shake={incorrectShake}>
+<div>
   <Message from={line.from} {flip}>
     <form on:submit|preventDefault={checkAnswer}>
       {#if speakable}
@@ -173,11 +170,6 @@
 </div>
 
 <style>
-  /* @import './shake.scss'
-
-.shake
-  @include animation(shake-base) */
-
   .translation :global(strong) {
     color: #86abff;
   }

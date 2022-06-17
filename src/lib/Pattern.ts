@@ -1,6 +1,8 @@
 import type { IconDefinition } from "@fortawesome/fontawesome-common-types"
 import _ from "lodash"
 
+export type CharacterId = string
+
 /**
  * A pattern definition. Defines what is actually written into the
  * individual pattern files. Structured to make it easy to write
@@ -25,9 +27,8 @@ export type FeedbackDef = {
   message: string
 }
 
-
 export type ReadingLineDef = {
-  from: string
+  from: CharacterId
   message: string
   translation?: string
   alien?: boolean
@@ -36,7 +37,7 @@ export type ReadingLineDef = {
 }
 
 export type FillblankLineDef = {
-  from: string
+  from: CharacterId
   message: string
   translation: string
   explanation?: string
@@ -53,7 +54,7 @@ export type LineDef = ReadingLineDef | FillblankLineDef | MultipleChoiceLineDef
 
 export type ReadingLine = {
   type: 'reading'
-  from: string
+  from: CharacterId
   message: string
   translation?: string
   explanation?: string
@@ -64,7 +65,7 @@ export type ReadingLine = {
 
 export type FillblankLine = {
   type: 'fillblank'
-  from: string
+  from: CharacterId
   message: string
   translation: string
   canonicalAnswer: string

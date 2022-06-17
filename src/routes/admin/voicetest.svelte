@@ -60,7 +60,7 @@
     </div>
     <button class="btn btn-primary mb-4">Speak</button>
     {#each lines as line}
-      <div class="line mb-2" on:click={() => spa.speech.speak(line)}>
+      <div class="line mb-2" on:click={() => spa.speech.speakLine(line)}>
         <StoryLineReading {line} />
       </div>
     {/each}
