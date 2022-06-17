@@ -23,7 +23,7 @@
   let fillblankRef: StoryLineFillblank | null = null
   let lineRef: HTMLDivElement | null = null
 
-  $: doingExercise = !finished && currentLine.type === "fillblank"
+  $: doingExercise = !finished && currentLine.type !== "reading"
 
   // We want to flip the line orientation each time the
   // speaker changes
