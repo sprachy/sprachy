@@ -6,6 +6,7 @@
   import Sprachdown from "$lib/Sprachdown.svelte"
   import { matchAnswer } from "$lib/client/feedback"
   import sprachy from "$lib/sprachy"
+  import SoundIndicator from "$lib/SoundIndicator.svelte"
 
   const spa = sprachy.expectSPA()
   const { user } = spa
@@ -26,6 +27,7 @@
   let showingAnswer: boolean = false
   let incorrectShake: boolean = false
   let shakeTimeout: number | undefined
+  let playingSound: boolean = false
 
   const dispatch = createEventDispatcher()
 
@@ -71,6 +73,15 @@
     attemptInput.focus()
   }
 
+  async function playSound() {
+    playingSound = true
+    try {
+      await spa.speech.speak(line)
+    } finally {
+      playingSound = false
+    }
+  }
+
   export async function checkAnswer() {
     feedback = ""
     showingAnswer = false
@@ -81,8 +92,8 @@
       attempt = result.validAnswer
       spa.effects.spawnParticlesAt(attemptInput)
 
-      if ($user.enableSpeechSynthesis) {
-        await spa.speech.speak(line)
+      if (speakable) {
+        await playSound()
       }
 
       dispatch("correct")
@@ -104,6 +115,9 @@
 <div class:shake={incorrectShake}>
   <Message from={line.from} {flip}>
     <form on:submit|preventDefault={checkAnswer}>
+      {#if speakable}
+        <SoundIndicator playing={playingSound} on:click={playSound} />
+      {/if}
       <Sprachdown inline source={parts.before} />
       <!-- svelte-ignore a11y-autofocus -->
       <input
