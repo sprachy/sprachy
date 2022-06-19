@@ -124,7 +124,6 @@
 <style>
   .container {
     position: relative;
-    max-width: 1140px;
   }
 
   section.banner {
@@ -201,6 +200,17 @@
 
   .neat-parts-card p {
     color: #666;
+  }
+
+  @media only screen and (max-width: 992px) {
+    .neat-parts .container > div {
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .neat-parts-card {
+      flex-basis: 100%;
+    }
   }
 
   @media only screen and (max-width: 768px) {
