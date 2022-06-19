@@ -16,8 +16,6 @@
   let selectedCharacterId = "squirrel"
   let text = ""
 
-  $: selectedCharacter = sprachdex.getCharacter(selectedCharacterId)
-
   $: lines = (($selectedCharacterId) => {
     const lines: ReadingLine[] = []
     for (const pattern of sprachdex.patternsIncludingDrafts) {
@@ -31,7 +29,7 @@
   })(selectedCharacterId)
 
   async function speak() {
-    spa.speech.characterSpeak(selectedCharacter, text)
+    spa.speech.characterSpeak(selectedCharacterId, text)
   }
 </script>
 
