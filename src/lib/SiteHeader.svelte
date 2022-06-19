@@ -107,7 +107,9 @@
                 {/if}
                 <DropdownItem href="/settings">Settings</DropdownItem>
                 <!-- <DropdownItem href="/subscribe">Subscription</DropdownItem> -->
-                <DropdownItem href="/logout">Log out</DropdownItem>
+                <a href="/logout" class="dropdown-item" sveltekit:reload
+                  >Log out</a
+                >
               </DropdownMenu>
             </Dropdown>
           {/if}
