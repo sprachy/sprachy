@@ -31,6 +31,7 @@
   import { goto } from "$app/navigation"
   import sprachy from "$lib/sprachy"
   import { dev } from "$app/env"
+  import LevelReport from "$lib/LevelReport.svelte"
 
   const spa = sprachy.expectSPA()
   const { api, patternAndProgressById, nextPatternToLearn } = spa
@@ -40,7 +41,7 @@
 
   const story = pattern.story
   $: progress = $patternAndProgressById[pattern.id]!.progress
-  let nextPattern: PatternAndProgress | undefined
+  let showNext: boolean = false
 
   function leavingWarning(e: any) {
     var confirmationMessage =
@@ -66,21 +67,21 @@
   async function onCompleteStory() {
     window.removeEventListener("beforeunload", leavingWarning)
 
-    if (progress.srsLevel > 0) {
-      // User was practicing something they already did, just go back to the pattern page
-      goto(`/${pattern.slug}`)
-    } else {
-      const progressItem = await api.completeLevel(pattern.id, 1)
-      if (progressItem) {
-        spa.receiveProgressItem(progressItem)
-      }
-      complete = true
-
-      setTimeout(() => {
-        const btn = document.querySelector(".btn-primary")! as HTMLLinkElement
-        btn.focus()
-      }, 0)
+    // if (progress.srsLevel > 0) {
+    //   // User was practicing something they already did, just go back to the pattern page
+    //   goto(`/${pattern.slug}`)
+    // } else {
+    const progressItem = await api.completeLevel(pattern.id, 1)
+    if (progressItem) {
+      spa.receiveProgressItem(progressItem)
     }
+    complete = true
+
+    setTimeout(() => {
+      const btn = document.querySelector(".btn-primary")! as HTMLLinkElement
+      btn.focus()
+    }, 0)
+    // }
   }
 </script>
 
@@ -94,36 +95,25 @@
       </header>
       <Story {story} on:complete={onCompleteStory} />
     </div>
-  {:else if progress.levelableAt}
+  {:else if complete}
     <div class="complete">
-      <img src={successImg} alt="Happy squirrel" />
-      <p>
-        Nice work! You can level up <em>{pattern.title}</em>
-        <Timeago ts={progress.levelableAt} />.
-      </p>
-      {#if $nextPatternToLearn}
+      <div>
+        <img src={successImg} alt="Happy squirrel" />
+      </div>
+      <div>
+        <h4>Introduction complete</h4>
+        <LevelReport
+          gains={[{ pattern, progress, experience: 1000 }]}
+          on:animEnd={() => (showNext = true)}
+        />
         <a
           sveltekit:prefetch
-          class="btn btn-primary"
-          href={`/${$nextPatternToLearn.slug}`}
-          >Next: {$nextPatternToLearn.title}
+          style:opacity={showNext ? 1 : 0}
+          class="btn btn-success mt-2"
+          href={`/practice/${pattern.slug}`}
+          >Continue to practice
         </a>
-      {/if}
-    </div>
-  {:else}
-    <div class="complete">
-      <img src={successImg} alt="Happy squirrel" />
-      <p>
-        Nice work! You've completed all available levels of {pattern.title}!
-      </p>
-      {#if nextPattern}
-        <a
-          sveltekit:prefetch
-          class="btn btn-primary"
-          href={`/${nextPattern.slug}`}
-          >Next: {nextPattern.title}
-        </a>
-      {/if}
+      </div>
     </div>
   {/if}
 </SiteLayout>
@@ -143,10 +133,21 @@
   }
 
   .complete {
-    padding-top: 20vh;
-    width: fit-content;
     margin: auto;
-    text-align: center;
+    margin-top: 50vh;
+    transform: translateY(-50%);
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+  }
+
+  .complete > div:last-child {
+    margin-left: 2rem;
+    flex-grow: 1;
+  }
+
+  .complete .btn {
+    transition: opacity 0.5s;
   }
 
   img {

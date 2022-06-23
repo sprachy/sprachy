@@ -131,8 +131,12 @@ export class SprachyUserSPA {
   })
 }
 
-class PatternProgress {
+export class PatternProgress {
   constructor(readonly pattern: Pattern, readonly item?: ProgressItem) { }
+
+  get experience() {
+    return this.srsLevel * 1000
+  }
 
   get srsLevel() {
     return this.item?.srsLevel || 0

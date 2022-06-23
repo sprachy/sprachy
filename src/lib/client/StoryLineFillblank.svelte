@@ -107,7 +107,7 @@
       // Change user's input as needed to show them we're accounting
       // for any variation in casing or typo etc
       attempt = attemptMatch.validAnswer
-      effects.spawnParticlesAt(attemptInput)
+      effects.confetti.spawnAt(attemptInput)
 
       if (speakable) {
         playingPostAnswerSound = true
