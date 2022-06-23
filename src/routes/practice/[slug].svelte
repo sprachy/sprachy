@@ -25,6 +25,7 @@
   import SiteLayout from "$lib/SiteLayout.svelte"
   import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
   import sprachy from "$lib/sprachy"
+  import PracticeSession from "$lib/client/PracticeSession.svelte"
 
   export let patternId: string
 
@@ -32,53 +33,15 @@
   const { patternsAndProgress } = spa
 
   $: pattern = $patternsAndProgress.find((p) => p.id === patternId)!
-  $: remainingExercises = pattern.exercises
-  $: currentExercise = remainingExercises[0]
-  $: completed = remainingExercises.length === 0
 
-  function nextExercise() {
-    remainingExercises = remainingExercises.slice(1)
-    // const completedReview = review
-    // if (completedReview) {
-    //   const remainingReviews = reviews.slice(reviewIndex + 1)
-    //   if (
-    //     !remainingReviews.some((r) => r.pattern === completedReview.pattern)
-    //   ) {
-    //     // Completed reviews for a pattern, level it up
-    //     levelUpPattern(completedReview.pattern)
-    //   }
-    // }
-    // if (reviewIndex >= reviews.length - 1) {
-    //   // Completed all reviews
-    //   completed = true
-    // } else {
-    //   reviewIndex += 1
-    // }
-  }
+  $: exercises = pattern.exercises.map((ex) => ({
+    ...ex,
+    pattern,
+  }))
 </script>
 
 <SiteLayout>
-  {#if completed}
-    <p class="text-center">All reviews completed!</p>
-  {:else if !currentExercise}
-    <p>
-      Missing exercise definitions for {pattern.slug}! Let's add those~
-    </p>
-  {:else}
-    <header class="practice-header">
-      <h3>Level Practice</h3>
-      <p class="text-secondary">Complete these exercises to level up pattern</p>
-    </header>
-    <div class="exercises">
-      {#key pattern.exercises.indexOf(currentExercise)}
-        <StoryLineFillblank
-          line={currentExercise}
-          on:correct={nextExercise}
-          {pattern}
-        />
-      {/key}
-    </div>
-  {/if}
+  <PracticeSession {exercises} />
 </SiteLayout>
 
 <style>

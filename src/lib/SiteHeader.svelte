@@ -18,6 +18,8 @@
   } from "sveltestrap"
   import { sprachdex } from "./sprachdex"
   import defaultProfileImage from "$lib/img/squirrel.webp"
+  import Fa from "svelte-fa"
+  import { faVolumeHigh, faVolumeMute } from "@fortawesome/free-solid-svg-icons"
 
   const { user, admin, reviewsForLeveling } = sprachy.spa ?? {}
 
@@ -25,6 +27,10 @@
 
   function handleUpdate(event: CustomEvent<any>) {
     isOpen = event.detail.isOpen
+  }
+
+  function toggleMute() {
+    $user!.enableSpeechSynthesis = !$user?.enableSpeechSynthesis
   }
 </script>
 
@@ -74,6 +80,20 @@
           </NavItem>
 
           {#if $user}
+            <NavItem>
+              <button class="btn toggle-mute" on:click={toggleMute}>
+                <div>
+                  <Fa
+                    pull="left"
+                    icon={$user.enableSpeechSynthesis
+                      ? faVolumeHigh
+                      : faVolumeMute}
+                    color="#666"
+                  />
+                </div>
+              </button>
+            </NavItem>
+
             {#if $admin}
               <Dropdown nav inNavbar>
                 <DropdownToggle nav caret>Admin</DropdownToggle>
@@ -157,5 +177,14 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
+  }
+
+  :global(.nav-item) {
+    display: flex;
+    align-items: center;
+  }
+
+  .toggle-mute {
+    width: 47px;
   }
 </style>
