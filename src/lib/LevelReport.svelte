@@ -1,22 +1,27 @@
 <script lang="ts">
-  import type { Pattern } from "./Pattern"
-  import type { PatternProgress } from "./client/SprachyUserSPA"
+  import type { PatternId } from "./Pattern"
   import LevelReportItem from "./LevelReportItem.svelte"
   import { createEventDispatcher } from "svelte"
+  import sprachy from "./sprachy"
 
-  export let gains: {
-    pattern: Pattern
-    progress: PatternProgress
-    experience: number
-  }[]
+  export let experienceByPatternId: Record<PatternId, number>
+
+  const { patternsAndProgress } = sprachy.expectSPA()
 
   const dispatch = createEventDispatcher()
 
-  let items = gains.map((g) => ({
-    title: g.pattern.title,
-    expStart: g.progress.experience - g.experience,
-    expGained: g.experience,
-  }))
+  $: gainingPatterns = $patternsAndProgress.filter(
+    (p) => p.id in experienceByPatternId
+  )
+
+  $: items = gainingPatterns.map((p) => {
+    const experience = experienceByPatternId[p.id]!
+    return {
+      title: p.title,
+      expStart: p.progress.experience - experience,
+      expGained: experience,
+    }
+  })
 
   let itemRefs: LevelReportItem[] = []
 

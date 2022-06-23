@@ -30,7 +30,7 @@ export type User = {
   pfp: string
   isAdmin: boolean
   lastReminderEmailSentAt?: number
-  lastReviewAt?: number
+  lastExperienceGainAt?: number
   wantsReminderEmails?: boolean
   enableSpeechSynthesis?: boolean
   customerId?: string
@@ -48,7 +48,7 @@ export type ProgressItem = {
   patternId: string
   initiallyLearnedAt: number
   lastLeveledAt: number
-  srsLevel: number
+  experience: number
 }
 
 /**

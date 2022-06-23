@@ -110,18 +110,16 @@ h6:focus {
 /**
  * Remove focus styles for non-keyboard focus.
  */
-:focus:not(:focus-visible) {
+button:focus:not(:focus-visible) {
   outline: 0;
   box-shadow: none;
 }
 
 /**
  * Cross-browser styles for explicit focus via 
- * keyboard-based (eg Tab) navigation or the
- * .focus-visible utility class.
+ * keyboard-based (eg Tab) navigation
  */
-:focus,
-.focus-visible:focus:not(:focus-visible) {
+button:focus {
   outline: 0;
   box-shadow:
     0 0 0 .2rem #fff,

@@ -53,15 +53,6 @@
       <Sprachdown source={pattern.explanation} />
 
       {#if progress}
-        {#if progress.levelableAt && progress.levelableAt > Date.now()}
-          <p class="text-secondary">
-            <em
-              >Level {progress.srsLevel + 1} unlocks in <Timeago
-                ts={progress.levelableAt}
-              /></em
-            >
-          </p>
-        {/if}
         <a
           sveltekit:prefetch
           href="/story/{pattern.slug}"

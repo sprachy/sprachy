@@ -64,6 +64,8 @@
     }
   })
 
+  let experienceByPatternId = { [pattern.id]: 0 }
+
   async function onCompleteStory() {
     window.removeEventListener("beforeunload", leavingWarning)
 
@@ -71,9 +73,12 @@
     //   // User was practicing something they already did, just go back to the pattern page
     //   goto(`/${pattern.slug}`)
     // } else {
-    const progressItem = await api.completeLevel(pattern.id, 1)
-    if (progressItem) {
-      spa.receiveProgressItem(progressItem)
+    if (progress.experience < 1000) {
+      experienceByPatternId[pattern.id] = 1000
+      const progressItems = await api.gainExperience(experienceByPatternId)
+      for (const item of progressItems) {
+        spa.receiveProgressItem(item)
+      }
     }
     complete = true
 
@@ -103,7 +108,7 @@
       <div>
         <h4>Introduction complete</h4>
         <LevelReport
-          gains={[{ pattern, progress, experience: 1000 }]}
+          {experienceByPatternId}
           on:animEnd={() => (showNext = true)}
         />
         <a

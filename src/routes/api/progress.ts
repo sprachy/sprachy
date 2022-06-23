@@ -27,15 +27,16 @@ export const get: RequestHandler = async ({ locals }) => {
   }
 }
 
-const progressReport = z.object({
-  patternId: z.string(),
-  level: z.number()
-})
+const progressReport = z.record(z.string(), z.number())
 export const post: RequestHandler = async ({ request, locals }) => {
-  const { patternId, level } = progressReport.parse(await request.json())
-  const progressItem = await db.progress.completeLevel(locals.session!.userId, patternId, level)
+  const experienceByPatternId = progressReport.parse(await request.json())
+
+  const progressItems = await Promise.all(Object.keys(experienceByPatternId).map(patternId =>
+    db.progress.gainExperience(locals.session!.userId, patternId, experienceByPatternId[patternId]!)
+  ))
+
   return {
     status: 200,
-    body: progressItem
+    body: progressItems
   }
 }

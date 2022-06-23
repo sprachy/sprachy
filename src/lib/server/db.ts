@@ -208,14 +208,12 @@ export namespace db {
      * Call when a user has completed the level for a given pattern.
      * Only updates srs level if it is the correct time to do so.
      */
-    export async function completeLevel(userId: string, patternId: string, completedLevel: number): Promise<ProgressItem | null> {
-
+    export async function gainExperience(userId: string, patternId: string, experience: number): Promise<ProgressItem | null> {
       const progress = await db.progress.get(userId, patternId)
 
       if (!progress) {
-        // Initial review
         await db.users.update(userId, {
-          lastReviewAt: Now() as any
+          lastExperienceGainAt: Now() as any
         })
 
         return await db.querySingle<ProgressItem>(
@@ -225,31 +223,24 @@ export namespace db {
               patternId: patternId,
               initiallyLearnedAt: Now(),
               lastLeveledAt: Now(),
-              srsLevel: completedLevel
+              experience: experience
             }
           })
         )
       }
 
-      const levelableAt = progress.lastLeveledAt + time.toNextSRSLevel(progress.srsLevel)
-
-      let progressChanges: any = {}
-      if (completedLevel > progress.srsLevel && time.now() >= levelableAt) {
-        progressChanges = {
-          lastLeveledAt: Now(),
-          srsLevel: completedLevel
-        }
-      }
-
       await db.users.update(userId, {
-        lastReviewAt: Now() as any
+        lastExperienceGainAt: Now() as any
       })
 
       return await db.querySingle<ProgressItem>(
         Update(
           Ref(Collection('progress'), progress.id),
           {
-            data: progressChanges
+            data: {
+              lastExperienceGainAt: Now(),
+              experience: progress.experience + experience
+            }
           }
         )
       )

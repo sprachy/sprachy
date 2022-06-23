@@ -109,7 +109,7 @@
           />
         {:else if line.type === "fillblank"}
           <StoryLineFillblank
-            speakable
+            speakable={$user.enableSpeechSynthesis}
             {line}
             flip={lineFlips[i]}
             on:correct={nextLine}

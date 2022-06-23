@@ -30,7 +30,7 @@
 
   onMount(() => {
     attemptInput.focus()
-    if (!complete) playSound()
+    if (!complete && speakable) playSound()
   })
 
   $: if (line !== prevLine) {
@@ -75,7 +75,7 @@
 
   async function playSound() {
     let text = !attemptMatch.validAnswer
-      ? parts.before + (parts.before.length ? " ... was?" : "")
+      ? parts.before + (parts.before.length ? "..." : "")
       : line.message.replace(/[[_*]+/g, "")
 
     playingSound = true

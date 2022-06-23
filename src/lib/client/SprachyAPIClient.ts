@@ -35,8 +35,8 @@ export class SprachyAPIClient {
     return this.http.get(`/api/progress`)
   }
 
-  async completeLevel(patternId: string, level: number): Promise<ProgressItem | null> {
-    return this.http.post(`/api/progress`, { patternId, level })
+  async gainExperience(experienceByPatternId: Record<string, number>): Promise<ProgressItem[]> {
+    return this.http.post(`/api/progress`, experienceByPatternId)
   }
 
   async changeEmail(newEmail: string) {

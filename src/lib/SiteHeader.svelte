@@ -21,7 +21,7 @@
   import Fa from "svelte-fa"
   import { faVolumeHigh, faVolumeMute } from "@fortawesome/free-solid-svg-icons"
 
-  const { user, admin, reviewsForLeveling } = sprachy.spa ?? {}
+  const { user, admin } = sprachy.spa ?? {}
 
   let isOpen = false
 
@@ -46,23 +46,21 @@
       <NavbarToggler on:click={() => (isOpen = !isOpen)} />
       <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
         <Nav class="ms-auto" navbar>
-          {#if $reviewsForLeveling}
-            <NavItem>
-              <NavLink href="/learn">Learn</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/practice">
-                <div class="d-flex align-items-center">
-                  Practice
-                  {#if $reviewsForLeveling.length > 0}
+          <NavItem>
+            <NavLink href="/learn">Learn</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/practice">
+              <div class="d-flex align-items-center">
+                Practice
+                <!-- {#if $reviewsForLeveling.length > 0}
                     <span class="badge review-count ms-1">
                       {$reviewsForLeveling.length}
                     </span>
-                  {/if}
-                </div>
-              </NavLink>
-            </NavItem>
-          {/if}
+                  {/if} -->
+              </div>
+            </NavLink>
+          </NavItem>
 
           <Dropdown nav inNavbar>
             <DropdownToggle nav caret>Patterns</DropdownToggle>

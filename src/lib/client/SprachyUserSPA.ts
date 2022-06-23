@@ -85,12 +85,12 @@ export class SprachyUserSPA {
     $patternsAndProgress => _.keyBy($patternsAndProgress, (p) => p.id))
 
   nextPatternToLearn = derived(this.patternsAndProgress, $patternsAndProgress => {
-    return $patternsAndProgress.find((p) => p.progress.srsLevel === 0) as PatternAndProgress | undefined
+    return $patternsAndProgress.find((p) => p.progress.experience === 0) as PatternAndProgress | undefined
   })
 
   /** All patterns for which the user has completed at least level 1 */
   learnedPatterns = derived(this.patternsAndProgress, $patternsAndProgress => {
-    return $patternsAndProgress.filter(p => p.progress.srsLevel > 0) as PatternAndProgress[]
+    return $patternsAndProgress.filter(p => p.progress.experience > 0) as PatternAndProgress[]
   })
 
   /**
@@ -98,18 +98,18 @@ export class SprachyUserSPA {
    * Ordered by previous review time, so the patterns you haven't
    * reviewed for the longest come first.
    */
-  patternsReadyToLevel = derived(this.learnedPatterns, $learnedPatterns => {
-    const patterns = $learnedPatterns.filter(p => p.progress.levelableAt && p.progress.levelableAt <= Date.now())
-    return _.sortBy(patterns, p => p.progress.levelableAt)
-  })
+  // patternsReadyToLevel = derived(this.learnedPatterns, $learnedPatterns => {
+  //   const patterns = $learnedPatterns.filter(p => p.progress.levelableAt && p.progress.levelableAt <= Date.now())
+  //   return _.sortBy(patterns, p => p.progress.levelableAt)
+  // })
 
-  nextLevelablePattern = derived(this.learnedPatterns, $learnedPatterns => {
-    const patterns = _.sortBy($learnedPatterns, p => p.progress.levelableAt)
-    return patterns[0]
-  })
+  // nextLevelablePattern = derived(this.learnedPatterns, $learnedPatterns => {
+  //   const patterns = _.sortBy($learnedPatterns, p => p.progress.levelableAt)
+  //   return patterns[0]
+  // })
 
-  /** Get reviews for all learned patterns, regardless of levelup availability */
-  allReviews = derived(this.learnedPatterns, $learnedPatterns => {
+  /** Get exercises for all learned patterns, regardless of levelup availability */
+  allAvailableExercises = derived(this.learnedPatterns, $learnedPatterns => {
     let reviews: Review[] = []
     for (const pattern of $learnedPatterns) {
       for (const exercise of pattern.exercises) {
@@ -120,52 +120,26 @@ export class SprachyUserSPA {
   })
 
   /** Get reviews from patterns ready to level */
-  reviewsForLeveling = derived(this.patternsReadyToLevel, $patternsReadyToLevel => {
-    let reviews: Review[] = []
-    for (const pattern of $patternsReadyToLevel) {
-      for (const exercise of pattern.exercises) {
-        reviews.push(Object.assign({}, exercise, { pattern }))
-      }
-    }
-    return reviews
-  })
+  // reviewsForLeveling = derived(this.patternsReadyToLevel, $patternsReadyToLevel => {
+  //   let reviews: Review[] = []
+  //   for (const pattern of $patternsReadyToLevel) {
+  //     for (const exercise of pattern.exercises) {
+  //       reviews.push(Object.assign({}, exercise, { pattern }))
+  //     }
+  //   }
+  //   return reviews
+  // })
 }
 
 export class PatternProgress {
   constructor(readonly pattern: Pattern, readonly item?: ProgressItem) { }
 
   get experience() {
-    return this.srsLevel * 1000
+    return this.item?.experience || 0
   }
 
-  get srsLevel() {
-    return this.item?.srsLevel || 0
-  }
-
-  get mastered() {
-    return this.srsLevel >= this.pattern.maxLevel
-  }
-
-  get levelableAt(): number | null {
-    if (this.mastered) {
-      return null
-    } else if (this.item) {
-      return this.item.lastLeveledAt + time.toNextSRSLevel(this.item.srsLevel)
-    } else {
-      return Date.now()
-    }
-  }
-
-  get readyToLevel(): boolean {
-    return !!(this.levelableAt && this.levelableAt <= Date.now())
-  }
-
-  get completedLevels() {
-    const levels: number[] = []
-    for (let i = 0; i < this.srsLevel; i++) {
-      levels.push(i)
-    }
-    return levels
+  get level() {
+    return this.experience / 1000
   }
 }
 

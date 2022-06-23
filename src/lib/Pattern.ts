@@ -2,6 +2,7 @@ import type { IconDefinition } from "@fortawesome/fontawesome-common-types"
 import _ from "lodash"
 
 export type CharacterId = string
+export type PatternId = string
 
 /**
  * A pattern definition. Defines what is actually written into the

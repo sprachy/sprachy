@@ -3,19 +3,43 @@
   import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
   import type { Review } from "$lib/client/SprachyUserSPA"
   import successImg from "$lib/img/success.webp"
+  import sprachy from "$lib/sprachy"
   import LevelReport from "$lib/LevelReport.svelte"
+
+  const spa = sprachy.expectSPA()
+  const { api } = spa
 
   export let exercises: Review[]
 
+  let experienceByPatternId: Record<string, number> = {}
   let exerciseIndex: number = 0
+
+  let completing = false
   let completed = false
 
   $: exercise = exercises[exerciseIndex]!
 
-  function nextExercise() {
+  async function nextExercise() {
+    if (completing || completed) return
+
     if (exerciseIndex >= exercises.length - 1) {
       // Completed all reviews
-      completed = true
+      completing = true
+      try {
+        for (const exercise of exercises) {
+          if (!(exercise.pattern.id in experienceByPatternId)) {
+            experienceByPatternId[exercise.pattern.id] = 0
+          }
+          experienceByPatternId[exercise.pattern.id] += 100
+        }
+        const progressItems = await api.gainExperience(experienceByPatternId)
+        for (const item of progressItems) {
+          spa.receiveProgressItem(item)
+        }
+      } finally {
+        completing = false
+        completed = true
+      }
     } else {
       exerciseIndex += 1
     }
@@ -28,11 +52,8 @@
       <img src={successImg} alt="Happy squirrel" />
     </div>
     <div>
-      <h4>Introduction complete</h4>
-      <LevelReport
-        gains={[{ pattern, progress, experience: 1000 }]}
-        on:animEnd={() => (showNext = true)}
-      />
+      <h4>Exercises complete!</h4>
+      <LevelReport {experienceByPatternId} />
       <!-- <a
         sveltekit:prefetch
         style:opacity={showNext ? 1 : 0}

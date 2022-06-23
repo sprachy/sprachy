@@ -17,10 +17,11 @@
     easing: cubicInOut,
   })
 
-  $: level = Math.floor($renderExp / 1000)
+  $: initialLevel = Math.floor(expStart / 1000)
+  $: renderLevel = Math.floor($renderExp / 1000)
   $: fracProgress = ($renderExp % 1000) / 1000
 
-  $: if (level) {
+  $: if (renderLevel > initialLevel) {
     effects.confetti.spawnAt(endpointRef)
   }
 
@@ -47,7 +48,9 @@
         <div class="expbar">
           <div class="expbar-fill" style:width={`${fracProgress * 100}%`} />
         </div>
-        <div class="level ms-2" bind:this={endpointRef}>Level {level}</div>
+        <div class="level ms-2" bind:this={endpointRef}>
+          Level {renderLevel}
+        </div>
       </div>
     </td>
   </tr>
