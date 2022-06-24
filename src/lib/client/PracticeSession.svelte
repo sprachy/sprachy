@@ -30,7 +30,7 @@
           if (!(exercise.pattern.id in experienceByPatternId)) {
             experienceByPatternId[exercise.pattern.id] = 0
           }
-          experienceByPatternId[exercise.pattern.id] += 100
+          experienceByPatternId[exercise.pattern.id] += 200
         }
         const progressItems = await api.gainExperience(experienceByPatternId)
         for (const item of progressItems) {

@@ -24,17 +24,14 @@
   import { onDestroy, onMount } from "svelte"
   import SiteLayout from "$lib/SiteLayout.svelte"
   import Story from "$lib/client/Story.svelte"
-  import Timeago from "$lib/client/Timeago.svelte"
   import successImg from "$lib/img/success.webp"
   import type { Pattern } from "$lib/Pattern"
-  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA"
-  import { goto } from "$app/navigation"
   import sprachy from "$lib/sprachy"
   import { dev } from "$app/env"
   import LevelReport from "$lib/LevelReport.svelte"
 
   const spa = sprachy.expectSPA()
-  const { api, patternAndProgressById, nextPatternToLearn } = spa
+  const { api, patternAndProgressById } = spa
 
   export let pattern: Pattern
   let complete: boolean = false
