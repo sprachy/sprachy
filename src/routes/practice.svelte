@@ -14,7 +14,11 @@
 </script>
 
 <SiteLayout>
-  <PracticeSession {exercises} />
+  {#if !exercises.length}
+    You haven't learned any patterns to practice yet!
+  {:else}
+    <PracticeSession {exercises} />
+  {/if}
 </SiteLayout>
 
 <style>
