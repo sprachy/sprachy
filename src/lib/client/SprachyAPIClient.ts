@@ -66,6 +66,10 @@ export class SprachyAPIClient {
   async synthesizeSpeech(options: VoiceSynthesisRequestSchema) {
     return this.http.post(`/api/synthesize`, options)
   }
+
+  async resetProgress() {
+    return this.http.post(`/api/settings/reset-progress`)
+  }
 }
 
 /**

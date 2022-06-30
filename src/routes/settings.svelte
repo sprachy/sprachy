@@ -1,6 +1,7 @@
 <script lang="ts">
   import sprachy from "$lib/sprachy"
   import SiteLayout from "$lib/SiteLayout.svelte"
+  import Modal from "$lib/client/Modal.svelte"
   const spa = sprachy.expectSPA()
   const { api, user } = spa
 
@@ -59,6 +60,17 @@
       enableSpeechSynthesis: !$user.enableSpeechSynthesis,
     })
     enableSpeechSynthesis = $user.enableSpeechSynthesis
+  }
+
+  async function resetProgress() {
+    if (confirm("Are you sure you want to lose ALL Sprachy progress?")) {
+      await reallyResetProgress()
+    }
+  }
+
+  async function reallyResetProgress() {
+    const summary = await api.resetProgress()
+    spa.receiveProgress(summary)
   }
 </script>
 
@@ -130,4 +142,49 @@
       </div>
     </label>
   </div>
+  <section class="danger-zone">
+    <h2 id="danger-zone">Danger Zone</h2>
+    <div class="box">
+      <ul>
+        <li>
+          <div>
+            <strong>Reset progress</strong>
+            <div>Resets all progress to start again from zero</div>
+          </div>
+          <button class="btn btn-danger" on:click={resetProgress}
+            >Reset progress</button
+          >
+        </li>
+      </ul>
+    </div>
+  </section>
 </SiteLayout>
+
+<style>
+  section {
+    margin-top: 2rem;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .danger-zone .box {
+    border: 1px solid red;
+    border-radius: 6px;
+  }
+
+  .danger-zone ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .danger-zone li {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>

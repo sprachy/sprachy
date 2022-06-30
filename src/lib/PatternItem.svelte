@@ -9,21 +9,21 @@
   const progress = $patternAndProgressById
     ? $patternAndProgressById[pattern.id]?.progress
     : null
+
+  $: level = progress ? progress.level : 0
 </script>
 
-<li class="pattern">
+<li class:pattern={true}>
   <a href="/{pattern.slug}" sveltekit:prefetch>
     <div class="pattern-inner">
-      {#if progress}
-        <div class="level-part">
-          <div class="levelbar">
-            {#each { length: 5 } as _, i}
-              <div class:pip={true} class:filled={progress.level >= i + 1} />
-            {/each}
-          </div>
-          Lv. {progress.level}
+      <div class="level-part">
+        <div class="levelbar">
+          {#each { length: 5 } as _, i}
+            <div class:pip={true} class:filled={level >= i + 1} />
+          {/each}
         </div>
-      {/if}
+        Lv. {level}
+      </div>
       <div class="text-part">
         <h6>
           {pattern.title}
