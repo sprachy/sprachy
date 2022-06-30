@@ -1,35 +1,37 @@
 <script lang="ts">
-  import Fa from "svelte-fa"
-
   import Sprachdown from "$lib/Sprachdown.svelte"
-  // import Timeago from "$lib/client/Timeago.svelte"
   import type { Pattern } from "$lib/Pattern"
+  import sprachy from "$lib/sprachy"
 
   export let pattern: Pattern
-  $: patternLearned = false //pattern.progress.srsLevel > 0
-  $: patternMastered = false //pattern.progress.srsLevel === pattern.maxLevel
+
+  const patternAndProgressById = sprachy.spa?.patternAndProgressById
+  const progress = $patternAndProgressById
+    ? $patternAndProgressById[pattern.id]?.progress
+    : null
 </script>
 
-<li
-  class:pattern={true}
-  class:learned={patternLearned}
-  class:mastered={patternMastered}
->
+<li class="pattern">
   <a href="/{pattern.slug}" sveltekit:prefetch>
-    <div class="icon">
-      <Fa icon={pattern.icon} />
-    </div>
-    <div>
-      <h6>
-        {pattern.title}
-        <!-- {#each { length: pattern.progress.srsLevel } as _}
-          <span>⭐</span>
-        {/each} -->
-      </h6>
-      <div class="shortdesc">
-        <Sprachdown inline source={pattern.shortdesc} />
-      </div>
-      <!-- <div class="submenu">
+    <div class="pattern-inner">
+      {#if progress}
+        <div class="level-part">
+          <div class="levelbar">
+            {#each { length: 5 } as _, i}
+              <div class:pip={true} class:filled={progress.level >= i + 1} />
+            {/each}
+          </div>
+          Lv. {progress.level}
+        </div>
+      {/if}
+      <div class="text-part">
+        <h6>
+          {pattern.title}
+        </h6>
+        <div class="shortdesc">
+          <Sprachdown inline source={pattern.shortdesc} />
+        </div>
+        <!-- <div class="submenu">
         <div class="step">
           <a href={`/story/${pattern.slug}`} sveltekit:prefetch>
             <Fa icon={faBook} />
@@ -44,68 +46,90 @@
           <Fa icon={faCrown} />
         </div>
       </div> -->
+      </div>
     </div>
   </a>
 </li>
 
 <style>
-  li.pattern {
+  .pattern {
     --pattern-color: var(--sprachy-primary);
   }
 
-  li.pattern.learned {
-    --pattern-color: var(--sprachy-gradthree);
-  }
-
-  li.pattern.mastered {
-    --pattern-color: var(--sprachy-secondary);
-  }
-
-  li.pattern {
+  .pattern {
     display: flex;
     list-style-type: none;
+    border-radius: 3px;
+    padding: 0.5rem;
   }
 
-  li.pattern div.icon {
-    background-color: var(--pattern-color);
+  .pattern > a {
+    display: block;
+    background: #f5f5f6;
   }
-  li.pattern h6 {
+
+  .pattern h6 {
     color: var(--pattern-color);
   }
 
-  li.pattern > :global(a) {
+  .pattern > :global(a) {
     display: flex;
     align-items: center;
     padding: 1.5rem 1rem;
-    padding-left: 0;
     color: inherit;
     text-decoration: none;
     flex-grow: 1;
   }
 
-  li.pattern > :global(a):hover :global(h6) {
+  .pattern > :global(a):hover :global(h6) {
     text-decoration: underline;
   }
 
-  li.pattern .icon {
-    padding: 0.75rem;
-    margin-right: 1rem;
-    border-radius: 0.25rem;
+  .pattern h6 {
+    font-size: 1.15rem;
+    margin-bottom: 0.2rem;
   }
 
-  li.pattern .icon :global(svg) {
-    color: white;
-    width: 32px;
-    height: 32px !important;
-    vertical-align: middle !important;
-  }
-
-  li.pattern h6 {
-    font-size: 1.1rem;
+  .pattern .shortdesc {
     margin-bottom: 0.1rem;
   }
 
-  li.pattern .shortdesc {
-    margin-bottom: 0.1rem;
+  .pattern-inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .text-part {
+    flex-grow: 1;
+  }
+
+  .level-part {
+    margin: 0 1rem;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    align-items: center;
+    min-width: 35px;
+    color: var(--pattern-color);
+  }
+
+  .levelbar {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1px;
+    width: 20px;
+  }
+
+  .levelbar .pip {
+    flex-grow: 1;
+    width: 100%;
+    background: #e9ecef;
+  }
+
+  .levelbar .pip.filled {
+    background: var(--pattern-color);
   }
 </style>

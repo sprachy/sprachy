@@ -139,7 +139,7 @@ export class PatternProgress {
   }
 
   get level() {
-    return this.experience / 1000
+    return Math.floor(this.experience / 1000)
   }
 }
 
