@@ -1,6 +1,7 @@
 <script lang="ts">
   import SiteHeader from "./SiteHeader.svelte"
   import { sprachdex } from "./sprachdex"
+  import successImg from "$lib/img/success.webp"
 
   export let title: string | null = null
   export let noContainer: boolean = false
@@ -11,6 +12,7 @@
   {#each sprachdex.characters as character}
     <link rel="preload" as="image" href={character.avatar} />
   {/each}
+  <link rel="preload" as="image" href={successImg} />
   {#if title}
     <title>{title} - Sprachy</title>
   {:else}

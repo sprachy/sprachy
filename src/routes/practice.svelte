@@ -1,9 +1,6 @@
 <script lang="ts">
   import _ from "lodash"
-  import type { Exercise } from "$lib/Pattern"
   import SiteLayout from "$lib/SiteLayout.svelte"
-  import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
-  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA"
   import sprachy from "$lib/sprachy"
   import PracticeSession from "$lib/client/PracticeSession.svelte"
 
