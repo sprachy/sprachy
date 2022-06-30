@@ -14,7 +14,11 @@
   {#if !exercises.length}
     You haven't learned any patterns to practice yet!
   {:else}
-    <PracticeSession {exercises} />
+    <div class="practice-header">
+      <h2>Practice Roulette</h2>
+      <div class="bonus">+20% EXP</div>
+    </div>
+    <PracticeSession {exercises} expMultiplier={1.2} />
   {/if}
 </SiteLayout>
 
@@ -24,8 +28,8 @@
     text-align: center;
   }
 
-  .exercises {
-    margin: auto;
-    max-width: 600px;
+  .bonus {
+    font-size: 0.9rem;
+    color: var(--blue-highlight);
   }
 </style>

@@ -10,6 +10,7 @@
   const { api } = spa
 
   export let exercises: Review[]
+  export let expMultiplier: number = 1.0
 
   let experienceByPatternId: Record<string, number> = {}
   let exerciseIndex: number = 0
@@ -30,7 +31,7 @@
           if (!(exercise.pattern.id in experienceByPatternId)) {
             experienceByPatternId[exercise.pattern.id] = 0
           }
-          experienceByPatternId[exercise.pattern.id] += 200
+          experienceByPatternId[exercise.pattern.id] += 200 * expMultiplier
         }
         const progressItems = await api.gainExperience(experienceByPatternId)
         for (const item of progressItems) {
