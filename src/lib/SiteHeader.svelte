@@ -19,9 +19,13 @@
   import { sprachdex } from "./sprachdex"
   import defaultProfileImage from "$lib/img/squirrel.webp"
   import Fa from "svelte-fa"
-  import { faVolumeHigh, faVolumeMute } from "@fortawesome/free-solid-svg-icons"
+  import {
+    faVolumeHigh,
+    faVolumeMute,
+    faMoon,
+  } from "@fortawesome/free-solid-svg-icons"
 
-  const { user, admin } = sprachy.spa ?? {}
+  const { user, admin, restBonusAvailable } = sprachy.spa ?? {}
 
   let isOpen = false
 
@@ -53,6 +57,11 @@
             <NavLink href="/practice">
               <div class="d-flex align-items-center">
                 Practice
+
+                {#if $restBonusAvailable}
+                  <Fa icon={faMoon} color="#0787c3" class="ms-1" />
+                {/if}
+
                 <!-- {#if $reviewsForLeveling.length > 0}
                     <span class="badge review-count ms-1">
                       {$reviewsForLeveling.length}

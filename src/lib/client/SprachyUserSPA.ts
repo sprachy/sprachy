@@ -119,6 +119,20 @@ export class SprachyUserSPA {
     return reviews
   })
 
+  restBonusAvailable = derived(this.progressItems, $progressItems => {
+    if (!$progressItems.length) return false
+
+    return $progressItems.every(item => {
+      // Get the start (midnight) of the current day in user's timezone as UTC timestamp
+      const date = new Date()
+      date.setHours(0, 0, 0, 0)
+      const startOfDay = date.valueOf()
+
+      // User has rest bonus if they haven't practiced since start of day
+      return item.lastExperienceGainAt < startOfDay + time.days(1)
+    })
+  })
+
   /** Get reviews from patterns ready to level */
   // reviewsForLeveling = derived(this.patternsReadyToLevel, $patternsReadyToLevel => {
   //   let reviews: Review[] = []

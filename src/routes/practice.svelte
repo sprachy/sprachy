@@ -5,9 +5,11 @@
   import PracticeSession from "$lib/client/PracticeSession.svelte"
 
   const spa = sprachy.expectSPA()
-  const { allAvailableExercises } = spa
+  const { allAvailableExercises, restBonusAvailable } = spa
 
   $: exercises = _.sampleSize($allAvailableExercises, 5)
+
+  $: expMultiplier = 1.2 + (restBonusAvailable ? 0.5 : 0)
 </script>
 
 <SiteLayout>
@@ -16,9 +18,12 @@
   {:else}
     <div class="practice-header">
       <h2>Practice Roulette</h2>
-      <div class="bonus">+20% EXP</div>
+      <div class="bonus">Roulette bonus: +20% EXP</div>
+      {#if restBonusAvailable}
+        <div class="bonus">Rest bonus: +50% EXP</div>
+      {/if}
     </div>
-    <PracticeSession {exercises} expMultiplier={1.2} />
+    <PracticeSession {exercises} {expMultiplier} />
   {/if}
 </SiteLayout>
 
