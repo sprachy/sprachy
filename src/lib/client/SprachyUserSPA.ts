@@ -129,7 +129,7 @@ export class SprachyUserSPA {
       const startOfDay = date.valueOf()
 
       // User has rest bonus if they haven't practiced since start of day
-      return item.lastExperienceGainAt < startOfDay + time.days(1)
+      return item.lastExperienceGainAt < startOfDay
     })
   })
 
