@@ -7,6 +7,7 @@
   import LevelReport from "$lib/LevelReport.svelte"
   import { faClose } from "@fortawesome/free-solid-svg-icons"
   import Fa from "svelte-fa"
+  import { fly } from "svelte/transition"
 
   const spa = sprachy.expectSPA()
   const { api } = spa
@@ -79,7 +80,7 @@
       </a>
       <h1>Practicing</h1>
     </div>
-    <div class="exercises">
+    <div class="exercises" in:fly={{ y: 20, duration: 500 }}>
       {#key exerciseIndex}
         <StoryLineFillblank
           line={exercise}
