@@ -34,39 +34,41 @@
 </script>
 
 <SiteLayout>
-  <h1>Voice Tester</h1>
-  <form on:submit|preventDefault={speak}>
-    <div class="mb-3">
-      <select class="form-select" bind:value={selectedCharacterId}>
-        {#each sprachdex.characters as character}
-          <option value={character.id}>
-            {character.id}
-          </option>
-        {/each}
-      </select>
-    </div>
-    <div class="mb-3 d-flex align-items-center">
-      <Avatar charId={selectedCharacterId} />
-      <div class="flex-grow-1">
-        <input
-          id="voicetext"
-          class="form-control"
-          placeholder="What to say..."
-          bind:value={text}
-        />
+  <div class="voicetest">
+    <h1>Voice Tester</h1>
+    <form on:submit|preventDefault={speak}>
+      <div class="mb-3">
+        <select class="form-select" bind:value={selectedCharacterId}>
+          {#each sprachdex.characters as character}
+            <option value={character.id}>
+              {character.id}
+            </option>
+          {/each}
+        </select>
       </div>
-    </div>
-    <button class="btn btn-primary mb-4">Speak</button>
-    {#each lines as line}
-      <div class="line mb-2" on:click={() => spa.speech.speakLine(line)}>
-        <StoryLineReading {line} />
+      <div class="mb-3 d-flex align-items-center">
+        <Avatar charId={selectedCharacterId} />
+        <div class="flex-grow-1">
+          <input
+            id="voicetext"
+            class="form-control"
+            placeholder="What to say..."
+            bind:value={text}
+          />
+        </div>
       </div>
-    {/each}
-  </form>
+      <button class="btn btn-primary mb-4">Speak</button>
+      {#each lines as line}
+        <div class="line mb-2" on:click={() => spa.speech.speakLine(line)}>
+          <StoryLineReading {line} />
+        </div>
+      {/each}
+    </form>
+  </div>
 </SiteLayout>
 
 <style>
-  :global(img) {
+  .voicetest :global(img) {
     margin-top: calc(4px - 0.125rem);
     width: 50px;
     height: 50px;
