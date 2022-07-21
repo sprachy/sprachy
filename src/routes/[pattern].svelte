@@ -22,19 +22,13 @@
 
 <script lang="ts">
   import _ from "lodash"
-  import PublicPage from "$lib/PublicPage.svelte"
-  import SiteLayout from "$lib/SiteLayout.svelte"
+
   import Sprachdown from "$lib/Sprachdown.svelte"
-  import Timeago from "$lib/client/Timeago.svelte"
   import type { PatternDef } from "$lib/Pattern"
-  import sprachy from "$lib/sprachy"
-  const { patternsAndProgress } = sprachy.spa ?? {}
+  import PatternLayout from "$lib/PatternLayout.svelte"
+  import PublicPage from "$lib/PublicPage.svelte"
 
   export let pattern: PatternDef
-
-  const progress = $patternsAndProgress?.find(
-    (p) => p.id === pattern.id
-  )?.progress
 </script>
 
 <PublicPage
@@ -42,62 +36,29 @@
   canonicalPath={`/${pattern.slug}`}
   cardDesc={pattern.shortdesc}
 >
-  <SiteLayout>
-    <div class="pattern">
-      <h1>
-        {pattern.title}
-        {#if pattern.draft}
-          <small class="text-danger fs-5">Draft</small>
-        {/if}
-      </h1>
+  <PatternLayout {pattern} activeTab="explanation">
+    <article class="explanation">
       <Sprachdown source={pattern.explanation} />
-
-      {#if progress}
-        <a
-          sveltekit:prefetch
-          href="/story/{pattern.slug}"
-          class="btn btn-primary"
-        >
-          Introduction
-        </a>
-        <a
-          sveltekit:prefetch
-          href="/practice/{pattern.slug}"
-          class="btn btn-primary"
-        >
-          Practice
-        </a>
-      {:else}
-        <a
-          sveltekit:prefetch
-          href={`/signup?next=/story/${pattern.slug}`}
-          class="btn btn-primary"
-        >
-          Practice this pattern
-        </a>
-      {/if}
-    </div>
-  </SiteLayout>
+    </article>
+  </PatternLayout>
 </PublicPage>
 
 <style>
-  .pattern {
-    max-width: 720px;
-    margin: auto;
+  .explanation {
     font-size: 17px;
     line-height: 28px;
   }
 
-  .pattern :global(strong) {
+  .explanation :global(strong) {
     color: rgb(28, 176, 246);
   }
 
-  .pattern :global(.btn) {
+  .explanation :global(.btn) {
     margin-right: 0.5rem;
   }
 
   @media only screen and (max-width: 768px) {
-    .pattern :global(table) {
+    .explanation :global(table) {
       font-size: 90%;
     }
   }

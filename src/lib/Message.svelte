@@ -24,7 +24,6 @@
   }
 
   .quoteContainer {
-    max-width: 80%;
     text-align: center;
   }
 

@@ -22,10 +22,9 @@
 
 <script lang="ts">
   import _ from "lodash"
-  import SiteLayout from "$lib/SiteLayout.svelte"
-  import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
   import sprachy from "$lib/sprachy"
   import PracticeSession from "$lib/client/PracticeSession.svelte"
+  import PatternLayout from "$lib/PatternLayout.svelte"
 
   export let patternId: string
 
@@ -40,9 +39,9 @@
   }))
 </script>
 
-<SiteLayout>
+<PatternLayout {pattern} activeTab="practice">
   <PracticeSession {exercises} />
-</SiteLayout>
+</PatternLayout>
 
 <style>
   .practice-header {

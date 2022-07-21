@@ -25,6 +25,8 @@
     faMoon,
   } from "@fortawesome/free-solid-svg-icons"
 
+  export let fixed: boolean = false
+
   const { user, admin, restBonusAvailable } = sprachy.spa ?? {}
 
   let isOpen = false
@@ -39,7 +41,7 @@
 </script>
 
 <template>
-  <header class="site-header">
+  <header class="site-header" class:fixed>
     <Navbar color="light" light expand="md" container={true}>
       <NavbarBrand href="/">
         Sprachy
@@ -164,6 +166,16 @@
 </template>
 
 <style>
+  :root {
+    --site-header-height: 62px;
+  }
+
+  header.fixed {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+  }
+
   .envbadge.dev {
     color: green;
     font-size: 1rem;

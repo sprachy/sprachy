@@ -29,6 +29,7 @@
   import sprachy from "$lib/sprachy"
   import { dev } from "$app/env"
   import LevelReport from "$lib/LevelReport.svelte"
+  import PatternLayout from "$lib/PatternLayout.svelte"
 
   const spa = sprachy.expectSPA()
   const { api, patternAndProgressById } = spa
@@ -87,14 +88,11 @@
   }
 </script>
 
-<SiteLayout fixedHeader>
+<PatternLayout {pattern} activeTab="intro">
   {#if !story}
     No stories for this pattern yet! Let's write some~
   {:else if story && !complete}
     <div class="story-holder">
-      <header class="story-header">
-        <h3>{pattern.title}</h3>
-      </header>
       <Story {story} on:complete={onCompleteStory} />
     </div>
   {:else if complete}
@@ -118,20 +116,12 @@
       </div>
     </div>
   {/if}
-</SiteLayout>
+</PatternLayout>
 
 <style>
   .story-holder {
-    padding-top: 30vh;
+    padding-top: 3rem;
     padding-bottom: calc(50vh - 5rem - 80px);
-  }
-
-  .story-header {
-    margin-bottom: 2rem;
-  }
-
-  .story-header h3 {
-    text-align: center;
   }
 
   .complete {
