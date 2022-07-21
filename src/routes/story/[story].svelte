@@ -29,7 +29,6 @@
   import sprachy from "$lib/sprachy"
   import { dev } from "$app/env"
   import LevelReport from "$lib/LevelReport.svelte"
-  import PatternLayout from "$lib/PatternLayout.svelte"
 
   const spa = sprachy.expectSPA()
   const { api, patternAndProgressById } = spa
@@ -88,7 +87,7 @@
   }
 </script>
 
-<SiteLayout {pattern}>
+<SiteLayout>
   {#if !story}
     No stories for this pattern yet! Let's write some~
   {:else if story && !complete}
