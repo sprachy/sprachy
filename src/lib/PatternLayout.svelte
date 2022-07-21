@@ -4,6 +4,7 @@
     faBook,
     faDumbbell,
     faComments,
+    faList,
   } from "@fortawesome/free-solid-svg-icons"
   import _ from "lodash"
 
@@ -14,7 +15,7 @@
 
   const { patternsAndProgress } = sprachy.spa ?? {}
 
-  export let activeTab: "intro" | "explanation" | "practice"
+  export let activeTab: "explanation" | "examples"
   export let pattern: PatternDef
 
   const progress = $patternsAndProgress?.find(
@@ -36,25 +37,28 @@
       </p>
       <nav>
         <ul>
-          <li class:active={activeTab === "intro"}>
-            <a sveltekit:prefetch href="/story/{pattern.slug}">
-              <Fa fw icon={faComments} />
-              Introduction
-            </a>
-          </li>
           <li class:active={activeTab === "explanation"}>
             <a sveltekit:prefetch href="/{pattern.slug}">
               <Fa fw icon={faBook} />
               Explanation
             </a>
           </li>
-          <li class:active={activeTab === "practice"}>
-            <a sveltekit:prefetch href="/practice/{pattern.slug}">
-              <Fa fw icon={faDumbbell} />
-              Practice
+          <li class:active={activeTab === "examples"}>
+            <a sveltekit:prefetch href="/{pattern.slug}/examples">
+              <Fa fw icon={faList} />
+              Examples
             </a>
           </li>
         </ul>
+        <hr />
+        <a
+          class="btn btn-outline-primary w-100"
+          sveltekit:prefetch
+          href="/practice/{pattern.slug}"
+        >
+          <Fa fw icon={faDumbbell} />
+          Practice
+        </a>
       </nav>
     </aside>
     <div class="inner">
@@ -104,7 +108,6 @@
   }
 
   .sidebar li a :global(svg) {
-    color: inherit;
     margin-right: 0.5rem;
   }
 
