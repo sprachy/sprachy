@@ -43,6 +43,11 @@ h6:focus {
   cursor: pointer;
 }
 
+/** Make font-awesome icons inherit the color of their surrounding text by default */
+svg.svelte-fa {
+  color: inherit;
+}
+
 /** Tooltips from https://svelte.dev/repl/3153faf7584d40bd8ddebecf39f24ac1?version=3 **/
 [data-tooltip] {
   position: relative;
