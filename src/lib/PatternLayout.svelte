@@ -54,7 +54,7 @@
         <a
           class="btn btn-outline-primary w-100"
           sveltekit:prefetch
-          href="/practice/{pattern.slug}"
+          href="/{pattern.slug}/practice"
         >
           <Fa fw icon={faDumbbell} />
           Practice

@@ -9,7 +9,8 @@ import { sprachdex } from "./sprachdex"
 const authedRoutes = [
   '/home',
   '/learn',
-  '/practice(.*)',
+  '/practice',
+  '/(.*)/practice',
   '/api(.*)',
   '/admin(.*)',
   '/settings',

@@ -110,7 +110,7 @@
           sveltekit:prefetch
           style:opacity={showNext ? 1 : 0}
           class="btn btn-success mt-2"
-          href={`/practice/${pattern.slug}`}
+          href={`/${pattern.slug}/practice`}
           >Continue to practice
         </a>
       </div>

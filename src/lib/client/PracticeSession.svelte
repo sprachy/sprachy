@@ -5,18 +5,22 @@
   import successImg from "$lib/img/success.webp"
   import sprachy from "$lib/sprachy"
   import LevelReport from "$lib/LevelReport.svelte"
+  import { faClose } from "@fortawesome/free-solid-svg-icons"
+  import Fa from "svelte-fa"
 
   const spa = sprachy.expectSPA()
   const { api } = spa
 
   export let exercises: Review[]
   export let expMultiplier: number = 1.0
+  export let returnUrl: string = "/home"
 
   let experienceByPatternId: Record<string, number> = {}
   let exerciseIndex: number = 0
 
   let completing = false
   let completed = false
+  let showNext = false
 
   $: exercise = exercises[exerciseIndex]!
 
@@ -54,41 +58,68 @@
     </div>
     <div>
       <h4>Exercises complete!</h4>
-      <LevelReport {experienceByPatternId} />
-      <!-- <a
+      <LevelReport
+        {experienceByPatternId}
+        on:animEnd={() => (showNext = true)}
+      />
+      <a
         sveltekit:prefetch
         style:opacity={showNext ? 1 : 0}
         class="btn btn-success mt-2"
-        href={`/practice/${pattern.slug}`}
-        >Continue to practice
-      </a> -->
+        href={returnUrl}
+        >Continue
+      </a>
     </div>
   </div>
 {:else}
-  <!-- <header class="practice-header">
-      <h3>Level Practice</h3>
-      <p class="text-secondary">
-        Complete these exercises to level up {patternsToLevel.length} pattern{patternsToLevel.length >
-        1
-          ? "s"
-          : ""}.
-      </p>
-    </header> -->
-  <div class="exercises">
-    {#key exerciseIndex}
-      <StoryLineFillblank
-        line={exercise}
-        on:correct={nextExercise}
-        pattern={exercise.pattern}
-      />
-    {/key}
+  <div class="practice">
+    <div class="context">
+      <a sveltekit:prefetch href={returnUrl} class="btn close">
+        <Fa fw size="2x" icon={faClose} color="#ccc" />
+      </a>
+      <h1>Practicing</h1>
+    </div>
+    <div class="exercises">
+      {#key exerciseIndex}
+        <StoryLineFillblank
+          line={exercise}
+          on:correct={nextExercise}
+          pattern={exercise.pattern}
+        />
+      {/key}
+    </div>
+    <footer />
   </div>
 {/if}
 
 <style>
-  .practice-header {
-    margin-bottom: 2rem;
-    text-align: center;
+  .practice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .context {
+    position: fixed;
+    left: 5vh;
+    top: 5vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .context h1 {
+    color: #ccc;
+    font-size: 2rem;
+    margin: 0;
+    position: relative;
+    top: -2px;
+  }
+
+  footer {
+    height: 8rem;
+    width: 100%;
   }
 
   .exercises {

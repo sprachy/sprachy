@@ -2,9 +2,9 @@
   import { sprachdex } from "$lib/sprachdex"
   import type { Load } from "@sveltejs/kit"
 
-  export const load: Load<{ slug: string }> = async ({ params }) => {
+  export const load: Load<{ pattern: string }> = async ({ params }) => {
     const pattern = sprachdex.patternsIncludingDrafts.find(
-      (p) => p.slug === params.slug
+      (p) => p.slug === params.pattern
     )
 
     if (!pattern) {
@@ -24,7 +24,6 @@
   import _ from "lodash"
   import sprachy from "$lib/sprachy"
   import PracticeSession from "$lib/client/PracticeSession.svelte"
-  import PatternLayout from "$lib/PatternLayout.svelte"
 
   export let patternId: string
 
@@ -39,18 +38,4 @@
   }))
 </script>
 
-<PatternLayout {pattern} activeTab="practice">
-  <PracticeSession {exercises} />
-</PatternLayout>
-
-<style>
-  .practice-header {
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-
-  .exercises {
-    margin: auto;
-    max-width: 600px;
-  }
-</style>
+<PracticeSession {exercises} returnUrl={`/${pattern.slug}`} />
