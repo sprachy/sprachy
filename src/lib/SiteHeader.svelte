@@ -27,7 +27,7 @@
 
   export let fixed: boolean = false
 
-  const { user, admin, restBonusAvailable } = sprachy.spa ?? {}
+  const { user, admin, restBonusAvailable, backgroundApi } = sprachy.spa ?? {}
 
   let isOpen = false
 
@@ -37,6 +37,10 @@
 
   function toggleMute() {
     $user!.enableSpeechSynthesis = !$user?.enableSpeechSynthesis
+
+    backgroundApi!.patchSettings({
+      enableSpeechSynthesis: $user?.enableSpeechSynthesis,
+    })
   }
 </script>
 

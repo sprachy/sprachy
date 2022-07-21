@@ -30,7 +30,6 @@
 
   onMount(() => {
     attemptInput.focus()
-    if (!complete && speakable) playSound()
   })
 
   $: if (line !== prevLine) {

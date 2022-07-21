@@ -10,7 +10,7 @@
   import { fly } from "svelte/transition"
 
   const spa = sprachy.expectSPA()
-  const { api } = spa
+  const { api, user } = spa
 
   export let exercises: Review[]
   export let expMultiplier: number = 1.0
@@ -86,6 +86,7 @@
           line={exercise}
           on:correct={nextExercise}
           pattern={exercise.pattern}
+          speakable={$user.enableSpeechSynthesis}
         />
       {/key}
     </div>
