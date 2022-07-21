@@ -88,7 +88,7 @@
   }
 </script>
 
-<PatternLayout {pattern} activeTab="intro">
+<SiteLayout {pattern}>
   {#if !story}
     No stories for this pattern yet! Let's write some~
   {:else if story && !complete}
@@ -110,13 +110,13 @@
           sveltekit:prefetch
           style:opacity={showNext ? 1 : 0}
           class="btn btn-success mt-2"
-          href={`/${pattern.slug}/practice`}
-          >Continue to practice
+          href={`/${pattern.slug}`}
+          >Continue
         </a>
       </div>
     </div>
   {/if}
-</PatternLayout>
+</SiteLayout>
 
 <style>
   .story-holder {

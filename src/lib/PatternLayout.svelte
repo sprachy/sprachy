@@ -54,6 +54,14 @@
         <a
           class="btn btn-outline-primary w-100"
           sveltekit:prefetch
+          href="/story/{pattern.slug}"
+        >
+          <Fa fw icon={faComments} />
+          Introduction
+        </a>
+        <a
+          class="btn btn-outline-primary w-100"
+          sveltekit:prefetch
           href="/{pattern.slug}/practice"
         >
           <Fa fw icon={faDumbbell} />
@@ -114,5 +122,9 @@
   .sidebar li.active a {
     background-color: var(--sprachy-primary);
     color: white;
+  }
+
+  .sidebar .btn {
+    margin-bottom: 0.5rem;
   }
 </style>
