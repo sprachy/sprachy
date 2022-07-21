@@ -156,6 +156,16 @@ A student at a German university, studying science and philosophy. He likes tea 
     profile: md`
 A highly energetic high-energy physicist. She works singlemindedly towards a certain goal, alongside mysterious allies.
     `,
+    audio: {
+      voice: {
+        name: "de-DE-Wavenet-F",
+        ssmlGender: "FEMALE"
+      },
+      audioConfig: {
+        speakingRate: 1.2,
+        pitch: 0.9
+      }
+    }
   },
   {
     id: "fox",
@@ -165,6 +175,16 @@ A highly energetic high-energy physicist. She works singlemindedly towards a cer
     profile: md`
 An advanced artificial intelligence created by Lindenbaum. This young and mischevous entity represents himself with a fox avatar.
     `,
+    audio: {
+      voice: {
+        name: "de-DE-Wavenet-E",
+        ssmlGender: "MALE"
+      },
+      audioConfig: {
+        speakingRate: 1.4,
+        pitch: 5
+      }
+    }
   },
   {
     id: "cashier",
@@ -174,6 +194,13 @@ An advanced artificial intelligence created by Lindenbaum. This young and mische
     profile: md`
 A local supermarket cashier. She has no idea that fuzzy eldritch entities are browsing the snack aisle.
     `,
+
+    audio: {
+      voice: {
+        name: "de-DE-Wavenet-A",
+        ssmlGender: "FEMALE"
+      },
+    }
   },
   {
     id: "mirror",
@@ -183,6 +210,16 @@ A local supermarket cashier. She has no idea that fuzzy eldritch entities are br
     profile: md`
 Töski's mirror. Töski brought this seemingly inanimate object to life using esper powers.
     `,
+    audio: {
+      voice: {
+        name: "de-DE-Wavenet-E",
+        ssmlGender: "MALE"
+      },
+      audioConfig: {
+        speakingRate: 1.4,
+        pitch: 0.5
+      }
+    }
   },
 
   /**
