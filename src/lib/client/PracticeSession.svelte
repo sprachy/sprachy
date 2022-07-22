@@ -86,7 +86,6 @@
           line={exercise}
           on:correct={nextExercise}
           pattern={exercise.pattern}
-          speakable={$user.enableSpeechSynthesis}
         />
       {/key}
     </div>

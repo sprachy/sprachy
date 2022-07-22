@@ -102,14 +102,9 @@
         bind:this={lineRef}
       >
         {#if line.type === "reading"}
-          <StoryLineReading
-            {line}
-            flip={lineFlips[i]}
-            speakable={$user.enableSpeechSynthesis}
-          />
+          <StoryLineReading {line} flip={lineFlips[i]} />
         {:else if line.type === "fillblank"}
           <StoryLineFillblank
-            speakable={$user.enableSpeechSynthesis}
             {line}
             flip={lineFlips[i]}
             on:correct={nextLine}
