@@ -10,22 +10,22 @@
 
   export let line: ReadingLine
   export let flip: boolean = false
-  export let speakable: boolean = false
-  const spa = sprachy.expectSPA()
+  export let staticMode: boolean = false
+  const { user, speech } = sprachy.maybeSPA()
   let playingSound: boolean = false
 
   async function playSound() {
-    if (speakable && !playingSound) {
+    if ($user?.enableSpeechSynthesis && !playingSound) {
       playingSound = true
       try {
-        await spa.speech.speakLine(line)
+        await speech!.speakLine(line)
       } finally {
         playingSound = false
       }
     }
   }
 
-  onMount(playSound)
+  if (!staticMode) onMount(playSound)
 </script>
 
 <div class="reading">
@@ -44,7 +44,7 @@
         class:hasTranslation={!!line.translation}
         data-tooltip={line.translation}
       >
-        {#if speakable}
+        {#if $user?.enableSpeechSynthesis}
           <SoundIndicator playing={playingSound} on:click={playSound} />
         {/if}
         {#if line.alien}

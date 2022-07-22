@@ -8,12 +8,11 @@
   import sprachy from "$lib/sprachy"
   import SoundIndicator from "$lib/SoundIndicator.svelte"
 
-  const { speech, effects } = sprachy.expectSPA()
+  const { user, speech, effects } = sprachy.expectSPA()
 
   export let line: FillblankLine
   export let flip: boolean = false
   export let complete: boolean = false
-  export let speakable: boolean = false
   export let pattern: Pattern | null = null
   let prevLine = line
   let attemptInput!: HTMLInputElement
@@ -108,7 +107,7 @@
       attempt = attemptMatch.validAnswer
       effects.confetti.spawnAt(attemptInput)
 
-      if (speakable) {
+      if ($user.enableSpeechSynthesis) {
         playingPostAnswerSound = true
         try {
           await playSound()
@@ -130,7 +129,7 @@
 <div>
   <Message from={line.from} {flip}>
     <form on:submit|preventDefault={checkAnswer}>
-      {#if speakable}
+      {#if $user.enableSpeechSynthesis}
         <SoundIndicator playing={playingSound} on:click={playSound} />
       {/if}
       <Sprachdown inline source={parts.before} />

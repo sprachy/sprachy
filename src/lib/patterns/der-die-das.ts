@@ -57,6 +57,7 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
     {
       from: "squirrel",
       message: "Lukas, was ist das?",
+      translation: "Lukas, what is that?",
       image: sonne,
       imageAlt: "The sun shining brightly"
     },
@@ -64,17 +65,18 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
       from: "lukas",
       message: "Das ist die Sonne.",
       translation: "That is the sun.",
-      explanation: `Lukas uses the word _die_ to mean _the_ here, because _Sonne_ is a feminine noun. `
+      // explanation: `Lukas uses the word _die_ to mean _the_ here, because _Sonne_ is a feminine noun. `
     },
     {
       from: "lukas",
       message: "Sie gibt unserem Planeten Wärme und Energie.",
-      explanation: "Lukas refers to the sun using the feminine pronoun _sie_."
+      translation: "It gives our planet energy and heat.",
+      // explanation: "Lukas refers to the sun using the feminine pronoun _sie_."
     },
     {
       from: "squirrel",
       message: "Und was ist das Blaue?",
-      explanation: `Töski uses _das_ because Blaue is a neuter noun.`
+      // explanation: `Töski uses _das_ because Blaue is a neuter noun.`
     },
     {
       from: "lukas",

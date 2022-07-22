@@ -3,6 +3,7 @@
   import type { MultipleChoiceLine } from "$lib/Pattern"
   import Sprachdown from "$lib/Sprachdown.svelte"
   import { createEventDispatcher, onDestroy, onMount } from "svelte"
+  import { browser } from "$app/env"
 
   export let line: MultipleChoiceLine
   export let complete: boolean = false
@@ -29,13 +30,15 @@
     }
   }
 
-  onMount(() => {
-    window.addEventListener("keydown", onKeydown)
-  })
+  if (browser) {
+    onMount(() => {
+      window.addEventListener("keydown", onKeydown)
+    })
 
-  onDestroy(() => {
-    window.removeEventListener("keydown", onKeydown)
-  })
+    onDestroy(() => {
+      window.removeEventListener("keydown", onKeydown)
+    })
+  }
 </script>
 
 <div>

@@ -15,7 +15,7 @@
 
   const { patternsAndProgress } = sprachy.spa ?? {}
 
-  export let activeTab: "explanation" | "examples"
+  export let activeTab: "dialogue" | "explanation" | "examples"
   export let pattern: PatternDef
 
   const progress = $patternsAndProgress?.find(
@@ -37,6 +37,12 @@
       </p>
       <nav>
         <ul>
+          <li class:active={activeTab === "dialogue"}>
+            <a sveltekit:prefetch href="/{pattern.slug}/dialogue">
+              <Fa fw icon={faComments} />
+              Dialogue
+            </a>
+          </li>
           <li class:active={activeTab === "explanation"}>
             <a sveltekit:prefetch href="/{pattern.slug}">
               <Fa fw icon={faBook} />
@@ -51,14 +57,6 @@
           </li>
         </ul>
         <hr />
-        <a
-          class="btn btn-outline-primary w-100"
-          sveltekit:prefetch
-          href="/story/{pattern.slug}"
-        >
-          <Fa fw icon={faComments} />
-          Introduction
-        </a>
         <a
           class="btn btn-outline-primary w-100"
           sveltekit:prefetch

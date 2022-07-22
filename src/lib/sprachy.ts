@@ -65,6 +65,10 @@ export class SprachyContextManager {
 
     return spa
   }
+
+  maybeSPA(): Partial<SprachyUserSPA> {
+    return this.spa || {}
+  }
 }
 
 /**

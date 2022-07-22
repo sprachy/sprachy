@@ -27,7 +27,7 @@
 
   export let fixed: boolean = false
 
-  const { user, admin, restBonusAvailable, backgroundApi } = sprachy.spa ?? {}
+  const { user, admin, restBonusAvailable, backgroundApi } = sprachy.maybeSPA()
 
   let isOpen = false
 

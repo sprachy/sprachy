@@ -11,10 +11,14 @@
     : null
 
   $: level = progress ? progress.level : 0
+  $: learned = level > 0
 </script>
 
 <li class:pattern={true}>
-  <a href="/{pattern.slug}" sveltekit:prefetch>
+  <a
+    href={learned ? `/${pattern.slug}` : `/story/${pattern.slug}`}
+    sveltekit:prefetch
+  >
     <div class="pattern-inner">
       <div class="level-part">
         <div class="levelbar">
