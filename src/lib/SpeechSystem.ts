@@ -18,7 +18,8 @@ export class SpeechSystem {
   constructor(readonly spa: SprachyUserSPA) { }
 
   async speakLine(line: ReadingLine | FillblankLine) {
-    let text = line.message.replace(/[[_*]+/g, "")
+    // Strip any unspeakable characters (e.g. fillblank markup or emoji)
+    let text = line.message.replace(/[^a-zA-Z0-9,.!?:;üäöß ]/g, "")
     await this.characterSpeak(line.from, text)
   }
 
