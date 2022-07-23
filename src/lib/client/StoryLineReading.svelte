@@ -10,7 +10,7 @@
   export let line: ReadingLine
   export let flip: boolean = false
   export let staticMode: boolean = false
-  export let audioPromise: Promise<Base64Audio> | undefined
+  export let audioPromise: Promise<Base64Audio> | undefined = undefined
 </script>
 
 <div class="reading">

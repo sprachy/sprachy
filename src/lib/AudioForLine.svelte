@@ -30,7 +30,9 @@
     }
   }
 
-  loadAudio()
+  $: if (audioPromise) {
+    loadAudio()
+  }
 
   async function playSound() {
     if (!audio) return

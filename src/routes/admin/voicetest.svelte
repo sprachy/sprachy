@@ -9,8 +9,6 @@
   import type { ReadingLine } from "$lib/Pattern"
   import StoryLineReading from "$lib/client/StoryLineReading.svelte"
 
-  let users: User[] = []
-
   const spa = sprachy.expectSPA()
 
   let selectedCharacterId = "squirrel"
@@ -27,6 +25,8 @@
     }
     return lines
   })(selectedCharacterId)
+
+  $: audioPromises = lines.map((line) => spa.speech.synthesizeLine(line))
 
   async function speak() {
     const audio = await spa.speech.synthesizeFromCharacter(
@@ -62,10 +62,8 @@
         </div>
       </div>
       <button class="btn btn-primary mb-4">Speak</button>
-      {#each lines as line}
-        <div class="line mb-2" on:click={() => spa.speech.speakLine(line)}>
-          <StoryLineReading {line} />
-        </div>
+      {#each lines as line, i}
+        <StoryLineReading staticMode {line} audioPromise={audioPromises[i]} />
       {/each}
     </form>
   </div>
