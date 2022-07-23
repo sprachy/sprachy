@@ -4,6 +4,7 @@
   import sprachy from "$lib/sprachy"
   import SoundIndicator from "$lib/SoundIndicator.svelte"
   import type { Base64Audio } from "$lib/SpeechSystem"
+  import { onDestroy } from "svelte"
 
   export let line: ReadingLine | FillblankLine
   export let audioPromise: Promise<Base64Audio> | undefined
@@ -41,6 +42,11 @@
       playingSound = false
     }
   }
+
+  onDestroy(() => {
+    // User muted the sound or went to another page, stop playing
+    if (playingSound) speech.skip()
+  })
 
   $: if (playImmediately && !playedOnLoad) {
     playSound()

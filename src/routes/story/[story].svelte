@@ -81,7 +81,7 @@
 
     setTimeout(() => {
       const btn = document.querySelector(".btn-primary")! as HTMLLinkElement
-      btn.focus()
+      if (btn) btn.focus()
     }, 0)
     // }
   }

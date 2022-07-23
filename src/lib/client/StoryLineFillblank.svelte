@@ -79,7 +79,8 @@
     playingSound = true
     try {
       if (text.length > 0) {
-        await speech.characterSpeak(line.from, text)
+        const audio = await speech.synthesizeFromCharacter(line.from, text)
+        await speech.speak(audio)
       }
       // if (!attemptMatch.validAnswer) {
       //   // Representing the part that needs filling
