@@ -29,7 +29,11 @@
   })(selectedCharacterId)
 
   async function speak() {
-    spa.speech.characterSpeak(selectedCharacterId, text)
+    const audio = await spa.speech.synthesizeFromCharacter(
+      selectedCharacterId,
+      text
+    )
+    spa.speech.speak(audio)
   }
 </script>
 

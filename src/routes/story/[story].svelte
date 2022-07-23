@@ -23,7 +23,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte"
   import SiteLayout from "$lib/SiteLayout.svelte"
-  import Story from "$lib/client/Story.svelte"
+  import Story from "$lib/Story.svelte"
   import successImg from "$lib/img/success.webp"
   import type { Pattern } from "$lib/Pattern"
   import sprachy from "$lib/sprachy"

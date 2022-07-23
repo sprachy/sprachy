@@ -11,21 +11,20 @@ export type SpeechOptions = {
   audioConfig?: Partial<VoiceSynthesisRequestSchema["audioConfig"]>
 }
 
+export type Base64Audio = string
+
 export class SpeechSystem {
-  voice: SpeechSynthesisVoice | null = null
   currentlySaying: HTMLAudioElement | null = null
 
   constructor(readonly spa: SprachyUserSPA) { }
 
-  async speakLine(line: ReadingLine | FillblankLine) {
-    // Strip any unspeakable characters (e.g. fillblank markup or emoji)
-    let text = line.message.replace(/[^a-zA-Z0-9,.!?:;üäöß ]/g, "")
-    await this.characterSpeak(line.from, text)
+  async synthesizeLine(line: ReadingLine | FillblankLine): Promise<Base64Audio> {
+    return this.synthesizeFromCharacter(line.from, line.message)
   }
 
-  async characterSpeak(characterId: CharacterId, text: string) {
+  async synthesizeFromCharacter(characterId: CharacterId, text: string): Promise<Base64Audio> {
     const character = sprachdex.getCharacter(characterId)
-    return this.speak({
+    return this.synthesize({
       text,
       voice: character.audio?.voice,
       audioConfig: character.audio?.audioConfig
@@ -37,7 +36,7 @@ export class SpeechSystem {
   //
   // Solution for later: have server responsible for calculating the audio configuration, and the
   // client just sends a line identifier or such, so the set of possible speech is finite
-  async speak(opts: SpeechOptions) {
+  async synthesize(opts: SpeechOptions): Promise<Base64Audio> {
     const voiceDefaults = {
       languageCode: "de-DE",
       name: "de-DE-Wavenet-C",
@@ -48,14 +47,21 @@ export class SpeechSystem {
       audioEncoding: 'MP3'
     }
 
+    // Strip any unspeakable characters (e.g. fillblank markup or emoji)
+    let text = opts.text.replace(/[^a-zA-Z0-9,.!?:;üäöß ]/g, "")
+
     const { audioContent } = await this.spa.api.synthesizeSpeech({
       input: {
-        text: opts.text
+        text: text
       },
       voice: Object.assign(voiceDefaults, opts.voice),
       audioConfig: Object.assign(audioConfigDefaults, opts.audioConfig)
     })
 
+    return audioContent
+  }
+
+  async speak(audioContent: Base64Audio) {
     const snd = new Audio("data:audio/wav;base64," + audioContent)
 
     if (this.currentlySaying) {

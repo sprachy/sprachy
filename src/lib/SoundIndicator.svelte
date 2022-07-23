@@ -1,8 +1,13 @@
 <script lang="ts">
   import Fa from "svelte-fa"
-  import { faVolumeHigh, faVolumeLow } from "@fortawesome/free-solid-svg-icons"
+  import {
+    faVolumeHigh,
+    faVolumeLow,
+    faSpinner,
+  } from "@fortawesome/free-solid-svg-icons"
 
   export let playing: boolean = false
+  export let loading: boolean = false
   let icon = faVolumeHigh
   let interval: ReturnType<typeof setInterval> | null = null
 
@@ -18,7 +23,11 @@
 </script>
 
 <div class="SoundIndicator" on:click|preventDefault>
-  <Fa {icon} pull="left" size="sm" />
+  {#if loading}
+    <Fa icon={faSpinner} spin pull="left" size="sm" />
+  {:else}
+    <Fa {icon} pull="left" size="sm" />
+  {/if}
 </div>
 
 <style>

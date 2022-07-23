@@ -7,6 +7,10 @@
   import StoryLineChoice from "$lib/client/StoryLineChoice.svelte"
   import { fly } from "svelte/transition"
   import { browser } from "$app/env"
+  import sprachy from "./sprachy"
+  import type { Base64Audio } from "./SpeechSystem"
+
+  const { speech, user } = sprachy.maybeSPA()
 
   export let story: Story
   export let staticMode: boolean = false
@@ -16,11 +20,12 @@
     lineIndex = staticMode ? story.length : 0
   }
 
-  $: lines = story.slice(0, lineIndex + 1)
-  $: currentLine = lines[lines.length - 1]!
+  $: visibleLines = story.slice(0, lineIndex + 1)
+  $: currentLine = visibleLines[visibleLines.length - 1]!
   let finished: boolean = staticMode ? true : false
   let fillblankRef: StoryLineFillblank | null = null
   let lineRef: HTMLDivElement | null = null
+  let audioPromises: (Promise<Base64Audio> | undefined)[] = []
 
   $: doingExercise = !finished && currentLine.type !== "reading"
 
@@ -43,6 +48,18 @@
     }
     return flips
   })(story)
+
+  $: if (speech && $user?.enableSpeechSynthesis && !audioPromises.length) {
+    audioPromises = story.map((line) => {
+      if (line.type === "reading" || line.type === "fillblank") {
+        return speech?.synthesizeLine(line)
+      } else {
+        return undefined
+      }
+    })
+  } else {
+    audioPromises = []
+  }
 
   const dispatch = createEventDispatcher()
 
@@ -95,7 +112,7 @@
 
 <div class="Story">
   <div class="lines">
-    {#each lines as line, i}
+    {#each visibleLines as line, i}
       <div
         class:line
         class:hinted={line.type === "fillblank" && line.hint}
@@ -103,7 +120,12 @@
         bind:this={lineRef}
       >
         {#if line.type === "reading"}
-          <StoryLineReading staticMode {line} flip={lineFlips[i]} />
+          <StoryLineReading
+            {staticMode}
+            audioPromise={audioPromises[i]}
+            {line}
+            flip={lineFlips[i]}
+          />
         {:else if line.type === "fillblank"}
           <StoryLineFillblank
             {line}

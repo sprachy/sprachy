@@ -5,12 +5,16 @@
   import Sprachdown from "$lib/Sprachdown.svelte"
   import sprachy from "$lib/sprachy"
   import SoundIndicator from "$lib/SoundIndicator.svelte"
+  import { browser } from "$app/env"
+  import type { Base64Audio } from "./SpeechSystem"
+  import { onMount } from "svelte"
 
   const { speech, user } = sprachy.spa || {}
 
   export let line: FillblankLine
   export let pattern: Pattern | null = null
   let playingSound: boolean = false
+  let audioPromise: Promise<Base64Audio> | undefined
 
   $: parts = ((line: FillblankLine) => {
     const [before, after] = line.message.split(/\[.+?\]/)
@@ -27,15 +31,18 @@
     })
   })(line)
 
+  if (browser) {
+    onMount(() => {
+      audioPromise = speech?.synthesizeLine(line)
+    })
+  }
+
   async function playSound() {
-    if (!speech) return
+    if (!speech || !audioPromise) return
 
     playingSound = true
     try {
-      await speech.characterSpeak(
-        line.from,
-        line.message.replace(/[[_*]+/g, "")
-      )
+      await speech.speak(await audioPromise)
     } finally {
       playingSound = false
     }

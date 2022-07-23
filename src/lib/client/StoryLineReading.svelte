@@ -3,29 +3,14 @@
   import Message from "$lib/Message.svelte"
   import type { ReadingLine } from "$lib/Pattern"
   import Sprachdown from "$lib/Sprachdown.svelte"
-  import { onMount } from "svelte"
-  import sprachy from "$lib/sprachy"
   import AlienText from "./AlienText.svelte"
-  import SoundIndicator from "$lib/SoundIndicator.svelte"
+  import AudioForLine from "$lib/AudioForLine.svelte"
+  import type { Base64Audio } from "$lib/SpeechSystem"
 
   export let line: ReadingLine
   export let flip: boolean = false
   export let staticMode: boolean = false
-  const { user, speech } = sprachy.maybeSPA()
-  let playingSound: boolean = false
-
-  async function playSound() {
-    if ($user?.enableSpeechSynthesis && !playingSound) {
-      playingSound = true
-      try {
-        await speech!.speakLine(line)
-      } finally {
-        playingSound = false
-      }
-    }
-  }
-
-  if (!staticMode) onMount(playSound)
+  export let audioPromise: Promise<Base64Audio> | undefined
 </script>
 
 <div class="reading">
@@ -44,8 +29,8 @@
         class:hasTranslation={!!line.translation}
         data-tooltip={line.translation}
       >
-        {#if $user?.enableSpeechSynthesis}
-          <SoundIndicator playing={playingSound} on:click={playSound} />
+        {#if audioPromise}
+          <AudioForLine {line} {audioPromise} playImmediately={!staticMode} />
         {/if}
         {#if line.alien}
           <AlienText source={line.message} />
@@ -71,6 +56,9 @@
 </div>
 
 <style>
+  .hidden {
+    display: none;
+  }
   .withTooltip {
     display: inline-flex;
     align-items: center;
