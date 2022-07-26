@@ -1,7 +1,5 @@
 <script lang="ts">
   import _ from "lodash"
-  import { onMount } from "svelte"
-  import type { User } from "$lib/api"
   import sprachy from "$lib/sprachy"
   import SiteLayout from "$lib/SiteLayout.svelte"
   import { sprachdex } from "$lib/sprachdex"
