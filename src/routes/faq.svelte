@@ -8,15 +8,6 @@
   const faq = md`
 # Frequently asked questions
 
-### How do the levels work?
-
-Sprachy is a kind of [spaced repetition system](https://en.wikipedia.org/wiki/Spaced_repetition) for learning German.
-You can unlock the next level of a pattern a certain number of hours/days after completing the previous level.
-
-For now, levels never decrease, and you can always retry a level if you make a mistake.
-We may later add higher levels with more challenging exercises, which require
-consitent accuracy or speed to pass.
-
 ### What will the pricing model be?
 
 Sprachy is free to use while it is in early development. After we add sufficient
