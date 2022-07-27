@@ -7,6 +7,8 @@
   import { matchAnswer } from "$lib/client/feedback"
   import sprachy from "$lib/sprachy"
   import SoundIndicator from "$lib/SoundIndicator.svelte"
+  import type { Base64Audio } from "$lib/SpeechSystem"
+  import AudioForLine from "$lib/AudioForLine.svelte"
 
   const { user, speech, effects } = sprachy.expectSPA()
 
@@ -14,12 +16,13 @@
   export let flip: boolean = false
   export let complete: boolean = false
   export let pattern: Pattern | null = null
+  export let audioPromise: Promise<Base64Audio> | undefined = undefined
   let prevLine = line
   let attemptInput!: HTMLInputElement
   let attempt: string = ""
   let feedback: string = ""
   let showingAnswer: boolean = false
-  let playingSound: boolean = false
+  let audio: AudioForLine
 
   /* When the user got the right answer, and we're waiting for the sound
    * to play before moving on. */
@@ -71,26 +74,6 @@
     attemptInput.focus()
   }
 
-  async function playSound() {
-    let text = !attemptMatch.validAnswer
-      ? parts.before + (parts.before.length ? "..." : "")
-      : line.message.replace(/[[_*]+/g, "")
-
-    playingSound = true
-    try {
-      if (text.length > 0) {
-        const audio = await speech.synthesizeFromCharacter(line.from, text)
-        await speech.speak(audio)
-      }
-      // if (!attemptMatch.validAnswer) {
-      //   // Representing the part that needs filling
-      //   await speech.characterSpeak(line.from, "was")
-      // }
-    } finally {
-      playingSound = false
-    }
-  }
-
   export async function checkAnswer() {
     feedback = ""
     showingAnswer = false
@@ -108,10 +91,10 @@
       attempt = attemptMatch.validAnswer
       effects.confetti.spawnAt(attemptInput)
 
-      if ($user.enableSpeechSynthesis) {
+      if (audio) {
         playingPostAnswerSound = true
         try {
-          await playSound()
+          await audio.playSound()
         } finally {
           playingPostAnswerSound = false
         }
@@ -130,8 +113,13 @@
 <div>
   <Message from={line.from} {flip}>
     <form on:submit|preventDefault={checkAnswer}>
-      {#if $user.enableSpeechSynthesis}
-        <SoundIndicator playing={playingSound} on:click={playSound} />
+      {#if audioPromise}
+        <AudioForLine
+          {line}
+          {audioPromise}
+          bind:this={audio}
+          disabled={!playingPostAnswerSound}
+        />
       {/if}
       <Sprachdown inline source={parts.before} />
       <!-- svelte-ignore a11y-autofocus -->

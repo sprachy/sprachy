@@ -10,7 +10,7 @@
   import { fly } from "svelte/transition"
 
   const spa = sprachy.expectSPA()
-  const { api, user } = spa
+  const { api, user, speech } = spa
 
   export let exercises: Review[]
   export let expMultiplier: number = 1.0
@@ -24,6 +24,12 @@
   let showNext = false
 
   $: exercise = exercises[exerciseIndex]!
+
+  $: audioPromises = $user?.enableSpeechSynthesis
+    ? exercises.map((ex) => {
+        return speech.synthesizeLine(ex)
+      })
+    : []
 
   async function nextExercise() {
     if (completing || completed) return
@@ -84,6 +90,7 @@
       {#key exerciseIndex}
         <StoryLineFillblank
           line={exercise}
+          audioPromise={audioPromises[exerciseIndex]}
           on:correct={nextExercise}
           pattern={exercise.pattern}
         />

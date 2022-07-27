@@ -9,6 +9,7 @@
   export let line: ReadingLine | FillblankLine
   export let audioPromise: Promise<Base64Audio> | undefined
   export let playImmediately: boolean = false
+  export let disabled: boolean = false
 
   const { speech } = sprachy.expectSPA()
   let playingSound: boolean = false
@@ -34,7 +35,7 @@
     loadAudio()
   }
 
-  async function playSound() {
+  export async function playSound() {
     if (!audio) return
 
     playingSound = true
@@ -55,4 +56,8 @@
   }
 </script>
 
-<SoundIndicator {loading} playing={playingSound} on:click={playSound} />
+<SoundIndicator
+  {loading}
+  playing={playingSound}
+  on:click={disabled ? () => null : playSound}
+/>

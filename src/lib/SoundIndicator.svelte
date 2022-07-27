@@ -37,7 +37,7 @@
     margin-right: 0.2rem;
   }
 
-  :global(svg) {
+  .SoundIndicator :global(svg) {
     cursor: pointer;
     color: #666;
   }

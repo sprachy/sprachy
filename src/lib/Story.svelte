@@ -130,6 +130,7 @@
           <StoryLineFillblank
             {line}
             flip={lineFlips[i]}
+            audioPromise={audioPromises[i]}
             on:correct={nextLine}
             bind:this={fillblankRef}
             complete={finished || line !== currentLine}
