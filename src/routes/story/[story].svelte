@@ -32,6 +32,7 @@
   import { faClose } from "@fortawesome/free-solid-svg-icons"
 
   import { afterNavigate } from "$app/navigation"
+  import { page } from "$app/stores"
 
   const spa = sprachy.expectSPA()
   const { api, patternAndProgressById, user } = spa
@@ -45,10 +46,12 @@
   let initialPageInteraction = false
   $: readyForStory = !$user.enableSpeechSynthesis || initialPageInteraction
 
-  let returnPath: string = `/${pattern.slug}`
+  let returnPath: string = `/${pattern.slug}/dialogue`
   afterNavigate((navigation) => {
     if (navigation?.from) {
-      returnPath = navigation.from.pathname
+      if (["/home", "/learn"].includes(navigation.from.pathname)) {
+        returnPath = "/home"
+      }
       initialPageInteraction = true
     }
   })
