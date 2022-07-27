@@ -29,6 +29,8 @@
   import sprachy from "$lib/sprachy"
   import { dev } from "$app/env"
   import LevelReport from "$lib/LevelReport.svelte"
+  import Fa from "svelte-fa"
+  import { faClose } from "@fortawesome/free-solid-svg-icons"
 
   const spa = sprachy.expectSPA()
   const { api, patternAndProgressById } = spa
@@ -87,20 +89,28 @@
   }
 </script>
 
-<SiteLayout>
-  {#if !story}
-    No stories for this pattern yet! Let's write some~
-  {:else if story && !complete}
-    <div class="story-holder">
-      <Story {story} on:complete={onCompleteStory} />
+{#if !story}
+  No stories for this pattern yet! Let's write some~
+{:else if story && !complete}
+  <div class="story-holder">
+    <div class="context">
+      <a sveltekit:prefetch href={`/${pattern.slug}`} class="btn close">
+        <Fa fw size="2x" icon={faClose} color="#ccc" />
+      </a>
     </div>
-  {:else if complete}
-    <div class="complete">
+    <header>
+      <h3>{pattern.title}</h3>
+    </header>
+    <Story {story} on:complete={onCompleteStory} />
+  </div>
+{:else if complete}
+  <div class="complete">
+    <div>
       <div>
         <img src={successImg} alt="Happy squirrel" />
       </div>
       <div>
-        <h4>Introduction complete</h4>
+        <h4>Dialogue complete</h4>
         <LevelReport
           {experienceByPatternId}
           on:animEnd={() => (showNext = true)}
@@ -114,16 +124,38 @@
         </a>
       </div>
     </div>
-  {/if}
-</SiteLayout>
+  </div>
+{/if}
 
 <style>
+  .context {
+    position: fixed;
+    left: 5vh;
+    top: 5vh;
+    display: flex;
+    align-items: center;
+  }
+
+  header {
+    margin-bottom: 2rem;
+  }
+
+  header h3 {
+    text-align: center;
+  }
+
   .story-holder {
     padding-top: 3rem;
     padding-bottom: calc(50vh - 5rem - 80px);
   }
 
   .complete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .complete > div {
     margin: auto;
     margin-top: 50vh;
     transform: translateY(-50%);
@@ -132,7 +164,7 @@
     display: flex;
   }
 
-  .complete > div:last-child {
+  .complete > div > div:last-child {
     margin-left: 2rem;
     flex-grow: 1;
   }
@@ -143,9 +175,5 @@
 
   img {
     margin: auto;
-  }
-
-  p {
-    font-size: 1.1rem;
   }
 </style>
