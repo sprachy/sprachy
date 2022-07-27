@@ -31,23 +31,31 @@
   import Fa from "svelte-fa"
   import { faClose } from "@fortawesome/free-solid-svg-icons"
 
-  import { goto, afterNavigate } from "$app/navigation"
+  import { afterNavigate } from "$app/navigation"
 
   const spa = sprachy.expectSPA()
-  const { api, patternAndProgressById } = spa
+  const { api, patternAndProgressById, user } = spa
 
   export let pattern: Pattern
   let complete: boolean = false
+
+  // Browsers don't let you play audio immediately after page load, to
+  // prevent people spamming you with it. So if this is the first page load
+  // we put a button before showing the story.
+  let initialPageInteraction = false
+  $: readyForStory = !$user.enableSpeechSynthesis || initialPageInteraction
 
   let returnPath: string = `/${pattern.slug}`
   afterNavigate((navigation) => {
     if (navigation?.from) {
       returnPath = navigation.from.pathname
+      initialPageInteraction = true
     }
   })
 
-  const story = pattern.story
+  $: story = pattern.story
   $: progress = $patternAndProgressById[pattern.id]!.progress
+
   let showNext: boolean = false
 
   function leavingWarning(e: any) {
@@ -109,7 +117,16 @@
     <header>
       <h3>{pattern.title}</h3>
     </header>
-    <Story {story} on:complete={onCompleteStory} />
+    {#if !readyForStory}
+      <div class="text-center">
+        <button
+          class="btn btn-primary"
+          on:click={() => (initialPageInteraction = true)}>Play Dialogue</button
+        >
+      </div>
+    {:else}
+      <Story {story} on:complete={onCompleteStory} />
+    {/if}
   </div>
 {:else if complete}
   <div class="complete">
