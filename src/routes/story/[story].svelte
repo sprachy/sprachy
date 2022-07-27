@@ -31,11 +31,20 @@
   import Fa from "svelte-fa"
   import { faClose } from "@fortawesome/free-solid-svg-icons"
 
+  import { goto, afterNavigate } from "$app/navigation"
+
   const spa = sprachy.expectSPA()
   const { api, patternAndProgressById } = spa
 
   export let pattern: Pattern
   let complete: boolean = false
+
+  let returnPath: string = `/${pattern.slug}`
+  afterNavigate((navigation) => {
+    if (navigation?.from) {
+      returnPath = navigation.from.pathname
+    }
+  })
 
   const story = pattern.story
   $: progress = $patternAndProgressById[pattern.id]!.progress
@@ -93,7 +102,7 @@
 {:else if story && !complete}
   <div class="story-holder">
     <div class="context">
-      <a sveltekit:prefetch href={`/${pattern.slug}`} class="btn close">
+      <a sveltekit:prefetch href={returnPath} class="btn close">
         <Fa fw size="2x" icon={faClose} color="#ccc" />
       </a>
     </div>
