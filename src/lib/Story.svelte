@@ -3,8 +3,8 @@
   import { createEventDispatcher, onDestroy, onMount } from "svelte"
   import type { StoryLine, Story, ReadingLine } from "$lib/Pattern"
   import StoryLineReading from "$lib/client/StoryLineReading.svelte"
-  import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
   import StoryLineChoice from "$lib/client/StoryLineChoice.svelte"
+  import SpecialLineMorph from "$lib/SpecialLineMorph.svelte"
   import { fly } from "svelte/transition"
   import { browser } from "$app/env"
   import sprachy from "./sprachy"
@@ -23,7 +23,6 @@
   $: visibleLines = story.slice(0, lineIndex + 1)
   $: currentLine = visibleLines[visibleLines.length - 1]!
   let finished: boolean = staticMode ? true : false
-  let fillblankRef: StoryLineFillblank | null = null
   let lineRef: HTMLDivElement | null = null
   let audioPromises: (Promise<Base64Audio> | undefined)[] = []
 
@@ -98,8 +97,7 @@
   }
 
   function continueStory() {
-    if (doingExercise && fillblankRef) {
-      fillblankRef.checkAnswer()
+    if (doingExercise) {
     } else if (lineIndex < story.length - 1) {
       nextLine()
     } else {
@@ -118,21 +116,21 @@
         bind:this={lineRef}
       >
         {#if line.type === "reading"}
-          <StoryLineReading
-            {staticMode}
-            audioPromise={audioPromises[i]}
-            {line}
-            flip={lineFlips[i]}
-          />
-        {:else if line.type === "fillblank"}
-          <StoryLineFillblank
-            {line}
-            flip={lineFlips[i]}
-            audioPromise={audioPromises[i]}
-            on:correct={nextLine}
-            bind:this={fillblankRef}
-            complete={finished || line !== currentLine}
-          />
+          {#if line.special === "morph"}
+            <SpecialLineMorph
+              {staticMode}
+              audioPromise={audioPromises[i]}
+              {line}
+              flip={lineFlips[i]}
+            />
+          {:else}
+            <StoryLineReading
+              {staticMode}
+              audioPromise={audioPromises[i]}
+              {line}
+              flip={lineFlips[i]}
+            />
+          {/if}
         {:else if line.type === "choice"}
           <StoryLineChoice
             {line}

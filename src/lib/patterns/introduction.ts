@@ -72,16 +72,14 @@ export default definePattern({
     },
     {
       from: "orb",
-      message: "Das gefällt mir!",
-      translation: "I like it!",
+      message: "Diese Form gefällt mir!",
+      translation: "I like this form!",
     },
     {
       from: "orb",
       message: "Zeit für Entdeckungen.",
       translation: "Time for exploring.",
-      effect: {
-        type: 'squirrelMorph',
-      }
+      special: 'morph'
     }
   ],
   exercises: [

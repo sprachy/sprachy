@@ -14,20 +14,12 @@
 </script>
 
 <div class="reading">
-  <Message from={line.from} {flip} effect={line.effect}>
-    <div
-      class="withTooltip"
-      class:hasTranslation={!!line.translation}
-      data-tooltip={line.translation}
-    >
+  <Message from={line.from} {flip} tooltip={line.translation}>
+    <div>
       {#if audioPromise}
         <AudioForLine {line} {audioPromise} playImmediately={!staticMode} />
       {/if}
-      {#if line.alien}
-        <AlienText source={line.message} />
-      {:else}
-        <Sprachdown inline source={line.message} />
-      {/if}
+      <Sprachdown inline source={line.message} />
     </div>
   </Message>
   {#if line.image}
@@ -43,15 +35,6 @@
     display: inline-flex;
     align-items: center;
   }
-
-  .withTooltip.hasTranslation :global(p) {
-    text-decoration: underline #ccc dotted;
-  }
-
-  .withTooltip.hasTranslation {
-    cursor: default;
-  }
-
   .explanation {
     padding-top: 0.8rem;
     color: #444;

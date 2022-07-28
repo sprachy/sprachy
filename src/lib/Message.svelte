@@ -1,25 +1,25 @@
 <script lang="ts">
   import Avatar from "./Avatar.svelte"
-  import type { MessageEffectDef } from "./Pattern"
-  import SquirrelMorphAvatar from "./SquirrelMorphAvatar.svelte"
   export let from: string
   export let flip: boolean = false
-  export let effect: MessageEffectDef | null = null
+  export let tooltip: string | undefined = undefined
 </script>
 
 <div class:message={true} class:flip {...$$restProps}>
   {#if from === "narrator"}
-    <slot />
+    <div class="text" data-tooltip={tooltip}>
+      <slot />
+    </div>
     <slot name="after" />
   {:else}
-    {#if effect?.type === "squirrelMorph"}
-      <SquirrelMorphAvatar />
-    {:else}
+    <slot name="avatar">
       <Avatar charId={from} />
-    {/if}
+    </slot>
     <div class="quoteContainer">
       <div class="quote">
-        <slot />
+        <div class="text" data-tooltip={tooltip}>
+          <slot />
+        </div>
       </div>
       <slot name="after" />
     </div>
@@ -27,6 +27,14 @@
 </div>
 
 <style>
+  .text[data-tooltip] :global(p) {
+    text-decoration: underline #ccc dotted;
+  }
+
+  .text[data-tooltip] {
+    cursor: default;
+  }
+
   .message {
     display: flex;
   }

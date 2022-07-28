@@ -35,7 +35,13 @@ const characters: Character[] = [
     id: "narrator",
     avatar: squirrel,
     name: "Narrator",
-    fullname: "Narrator"
+    fullname: "Narrator",
+    audio: {
+      voice: {
+        name: "de-DE-Wavenet-B",
+        ssmlGender: "MALE"
+      },
+    }
   },
 
   /**

@@ -1,6 +1,17 @@
 <script lang="ts">
+  import _ from "lodash"
   import { onMount } from "svelte"
+  import Message from "$lib/Message.svelte"
+  import type { ReadingLine } from "$lib/Pattern"
+  import Sprachdown from "$lib/Sprachdown.svelte"
+  import AudioForLine from "$lib/AudioForLine.svelte"
+  import type { Base64Audio } from "$lib/SpeechSystem"
   import Avatar from "./Avatar.svelte"
+
+  export let line: ReadingLine
+  export let flip: boolean = false
+  export let staticMode: boolean = false
+  export let audioPromise: Promise<Base64Audio> | undefined = undefined
 
   let finished: boolean = false
 
@@ -9,13 +20,20 @@
   })
 </script>
 
-{#if finished}
-  <Avatar charId="squirrel" />
-{:else}
-  <div class="avatar">
-    <div class="pixel" />
-  </div>
-{/if}
+<div>
+  {#if !finished}
+    <div class="avatar">
+      <div class="pixel" />
+    </div>
+  {:else}
+    <Message from="squirrel" {flip} tooltip={line.translation}>
+      {#if audioPromise}
+        <AudioForLine {line} {audioPromise} playImmediately={!staticMode} />
+      {/if}
+      <Sprachdown inline source={line.message} />
+    </Message>
+  {/if}
+</div>
 
 <style>
   .avatar {
