@@ -26,23 +26,12 @@
   import type { Pattern } from "$lib/Pattern"
   import PatternLayout from "$lib/PatternLayout.svelte"
   import Story from "$lib/Story.svelte"
-  import { faPlay } from "@fortawesome/free-solid-svg-icons"
-  import Fa from "svelte-fa"
 
   export let pattern: Pattern
 </script>
 
 <PatternLayout {pattern} activeTab="dialogue">
   <article class="dialogue">
-    <a
-      class="btn btn-outline-primary mb-4"
-      sveltekit:prefetch
-      href="/story/{pattern.slug}"
-    >
-      <Fa fw icon={faPlay} />
-      Play dialogue
-    </a>
-
     <Story staticMode story={pattern.story} />
   </article>
 </PatternLayout>

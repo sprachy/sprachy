@@ -5,6 +5,7 @@
     faDumbbell,
     faComments,
     faList,
+    faPlay,
   } from "@fortawesome/free-solid-svg-icons"
   import _ from "lodash"
 
@@ -57,6 +58,15 @@
           </li>
         </ul>
         <hr />
+
+        <a
+          class="btn btn-outline-primary w-100"
+          sveltekit:prefetch
+          href="/story/{pattern.slug}"
+        >
+          <Fa fw icon={faPlay} />
+          Play dialogue
+        </a>
         <a
           class="btn btn-outline-primary w-100"
           sveltekit:prefetch
