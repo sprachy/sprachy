@@ -2,7 +2,6 @@ import { definePattern, md } from "$lib/definePattern"
 import parkImg from "$lib/img/1-park.webp"
 import orbInParkImg from "$lib/img/1-orb-in-park.webp"
 import squirrelOnTreeImg from "$lib/img/1-squirrel-on-tree.webp"
-import squirrelImg from "$lib/img/squirrel.webp"
 
 // https://german.stackexchange.com/questions/3834/what-is-the-gender-distribution-of-nouns-in-the-german-language
 export default definePattern({
@@ -65,10 +64,13 @@ export default definePattern({
     },
     {
       from: "narrator",
-      message: "Es ist ein Eichhörnchen!",
-      translation: "It is a squirrel!",
       image: squirrelOnTreeImg,
       imageAlt: "A squirrel climbing a tree"
+    },
+    {
+      from: "narrator",
+      message: "Es ist ein Eichhörnchen!",
+      translation: "It is a squirrel!",
     },
     {
       from: "orb",

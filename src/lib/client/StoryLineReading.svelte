@@ -14,42 +14,24 @@
 </script>
 
 <div class="reading">
-  <Message from={line.from} {flip} tooltip={line.translation}>
-    <div>
-      {#if audioPromise}
-        <AudioForLine {line} {audioPromise} playImmediately={!staticMode} />
-      {/if}
-      <Sprachdown inline source={line.message} />
-    </div>
-  </Message>
+  {#if line.message}
+    <Message from={line.from} {flip} tooltip={line.translation}>
+      <div>
+        {#if audioPromise}
+          <AudioForLine {line} {audioPromise} playImmediately={!staticMode} />
+        {/if}
+        <Sprachdown inline source={line.message} />
+      </div>
+    </Message>
+  {/if}
   {#if line.image}
     <img alt={line.imageAlt} src={line.image} />
   {/if}
 </div>
 
 <style>
-  .hidden {
-    display: none;
-  }
-  .withTooltip {
-    display: inline-flex;
-    align-items: center;
-  }
-  .explanation {
-    padding-top: 0.8rem;
-    color: #444;
-    font-size: 90%;
-    color: #0b9bc7;
-  }
-
   img {
     max-height: 300px;
     margin-top: 1rem;
-  }
-
-  .explainer {
-    padding-top: 0.8rem;
-    color: #444;
-    color: #0b9bc7;
   }
 </style>

@@ -32,7 +32,6 @@
   import { faClose } from "@fortawesome/free-solid-svg-icons"
 
   import { afterNavigate } from "$app/navigation"
-  import { page } from "$app/stores"
 
   const spa = sprachy.expectSPA()
   const { api, patternAndProgressById, user } = spa

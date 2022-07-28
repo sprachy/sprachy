@@ -48,7 +48,7 @@
 
   $: if (speech && $user?.enableSpeechSynthesis && !audioPromises.length) {
     audioPromises = story.map((line) => {
-      if (line.type === "reading" || line.type === "fillblank") {
+      if ("message" in line) {
         return speech?.synthesizeLine(line)
       } else {
         return undefined
@@ -111,7 +111,6 @@
     {#each visibleLines as line, i}
       <div
         class:line
-        class:hinted={line.type === "fillblank" && line.hint}
         in:fly={staticMode ? undefined : { y: 20, duration: 500 }}
         bind:this={lineRef}
       >
@@ -160,10 +159,6 @@
 
   .Story .line:not(:first-child) {
     margin-top: 1rem;
-  }
-
-  .Story .line.hinted:not(:first-child) {
-    margin-top: 2rem;
   }
 
   .Story footer {

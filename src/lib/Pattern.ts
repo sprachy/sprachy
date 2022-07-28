@@ -58,7 +58,7 @@ export type LineDef = ReadingLineDef | FillblankLineDef | MultipleChoiceLineDef
 export type ReadingLine = {
   type: 'reading'
   from: CharacterId
-  message: string
+  message?: string
   translation?: string
   explanation?: string
   image?: string
@@ -121,39 +121,37 @@ export function parsePattern(patternDef: PatternDef): Pattern {
 }
 
 export function parseLine(patternDef: PatternDef, lineDef: LineDef): StoryLine {
-  if ('message' in lineDef) {
-    const match = lineDef.message.match(/\[(.+?)\]/)
-    if (match) {
-      const fillblankDef = lineDef as FillblankLineDef
-      const canonicalAnswer = match[1]!
+  const match = 'message' in lineDef && lineDef.message?.match(/\[(.+?)\]/)
+  if (match) {
+    const fillblankDef = lineDef as FillblankLineDef
+    const canonicalAnswer = match[1]!
 
-      const lineSpecificFeedback: FeedbackDef[] = []
-      if (fillblankDef.feedback) {
-        for (const attempt in fillblankDef.feedback) {
-          lineSpecificFeedback.push({
-            answer: canonicalAnswer,
-            attempt: attempt,
-            message: fillblankDef.feedback[attempt]!
-          })
-        }
+    const lineSpecificFeedback: FeedbackDef[] = []
+    if (fillblankDef.feedback) {
+      for (const attempt in fillblankDef.feedback) {
+        lineSpecificFeedback.push({
+          answer: canonicalAnswer,
+          attempt: attempt,
+          message: fillblankDef.feedback[attempt]!
+        })
       }
+    }
 
-      return {
-        type: 'fillblank',
-        canonicalAnswer: canonicalAnswer,
-        validAnswers: [canonicalAnswer],
-        ...fillblankDef,
-        feedback: lineSpecificFeedback.concat(patternDef.feedback || []),
-      }
-    } else {
-      return {
-        type: 'reading',
-        ...lineDef
-      }
+    return {
+      type: 'fillblank',
+      canonicalAnswer: canonicalAnswer,
+      validAnswers: [canonicalAnswer],
+      ...fillblankDef,
+      feedback: lineSpecificFeedback.concat(patternDef.feedback || []),
+    }
+  } else if ('choices' in lineDef) {
+    return {
+      type: 'choice',
+      ...lineDef
     }
   } else {
     return {
-      type: 'choice',
+      type: 'reading',
       ...lineDef
     }
   }
