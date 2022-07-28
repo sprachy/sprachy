@@ -84,15 +84,13 @@ lukas:
   story: [
     {
       from: "lindenbaum",
-      message: "Dann [fangen] wir mal an!",
-      translation: "Well then let's [begin]!",
-      hint: "[anfangen]",
+      message: "Dann fangen wir mal an!",
+      translation: "Well then let's begin!",
     },
     {
       from: "lindenbaum",
-      message: "[Gib] mir die Koordinaten der Gravitationsanomalie!",
-      translation: "[Give] me the coordinates for the gravitational anomaly!",
-      hint: "[geben]",
+      message: "Gib mir die Koordinaten der Gravitationsanomalie!",
+      translation: "Give me the coordinates for the gravitational anomaly!",
     },
     {
       from: "fox",
@@ -101,21 +99,18 @@ lukas:
     },
     {
       from: "lindenbaum",
-      message: "[Zoom] näher heran.",
-      translation: "[Zoom] closer in.",
-      hint: "[zoomen]",
+      message: "Zoom näher heran.",
+      translation: "Zoom closer in.",
     },
     {
       from: "lindenbaum",
-      message: "Okay... [bleib] da!",
-      translation: "Okay... [stay] there.",
-      hint: "[bleiben]",
+      message: "Okay... bleib da!",
+      translation: "Okay... stay there.",
     },
     {
       from: "lindenbaum",
-      message: "[Analysiere] die chemischen Eigenschaften des Objektes.",
-      translation: "[Analyze] the chemical properties of this object.",
-      hint: "[analysieren]",
+      message: "Analysiere die chemischen Eigenschaften des Objektes.",
+      translation: "Analyze the chemical properties of this object.",
     },
     {
       from: "fox",
@@ -124,9 +119,8 @@ lukas:
     },
     {
       from: "lindenbaum",
-      message: "Also organisch! Schlaufuchs, [initiiere] einen Scan auf biologischen Eigenschaften.",
-      translation: "So it is organic! Schlaufuchs, [initiate] a scan on biological properties.",
-      hint: "[initiieren]",
+      message: "Also organisch! Schlaufuchs, initiiere einen Scan auf biologischen Eigenschaften.",
+      translation: "So it is organic! Schlaufuchs, initiate a scan on biological properties.",
     },
     {
       from: "fox",
@@ -135,9 +129,8 @@ lukas:
     },
     {
       from: "lindenbaum",
-      message: "[Nimm] eine mikroskopische Analyse des Organs auf.",
-      translation: "[Take] on a microscopic analysis of the organ.",
-      hint: "[nehmen]",
+      message: "Nimm eine mikroskopische Analyse des Organs auf.",
+      translation: "Take on a microscopic analysis of the organ.",
     },
     {
       from: "fox",
@@ -146,9 +139,8 @@ lukas:
     },
     {
       from: "lindenbaum",
-      message: "[Transferiere] die Daten zum LIGO server. Diese soll es dann auswerten.",
-      translation: "[Transfer] the date to the LIGO server. This should then evaluate it.",
-      hint: "[transferieren]",
+      message: "Transferiere die Daten zum LIGO server. Diese soll es dann auswerten.",
+      translation: "Transfer the date to the LIGO server. This should then evaluate it.",
     },
   ],
   exercises: [

@@ -20,20 +20,18 @@ der Paläoastrobiologe / die Paläoastrobiologin / the paleoastrobiologist
 </ltable>
 
 Pretty straightforward! Not all person words follow this pattern, though. For example, _das Mädchen_ is always neuter as a _-chen_ word, even though it refers specifically to girls. Similarly, _die Person_ and _der Mensch_ are feminine and masculine respectively, even though they both just refer to people in general.
-
-
   `,
   story: [
     {
       from: "squirrel",
-      message: "Lukas, bist du [ein] Student?",
-      translation: "Lukas, are you [a] uni student?",
+      message: "Lukas, bist du ein Student?",
+      translation: "Lukas, are you a uni student?",
     },
     {
       from: "lukas",
-      message: "Ja. [Meine] Biologieprofessorin würde Sie gerne mal sehen.",
+      message: "Ja. Meine Biologieprofessorin würde Sie gerne mal sehen.",
       translation:
-        "Yes. [My] biology professor would love to get a look at you.",
+        "Yes. My biology professor would love to get a look at you.",
     },
     {
       from: "lukas",
@@ -42,13 +40,13 @@ Pretty straightforward! Not all person words follow this pattern, though. For ex
     },
     {
       from: "squirrel",
-      message: "Etwas wie... [ein] Prinz?",
-      translation: "Something like... [a] prince?",
+      message: "Etwas wie... ein Prinz?",
+      translation: "Something like... a prince?",
     },
     {
       from: "squirrel",
-      message: "[Die] Buchhalterin war nicht sehr glücklich darüber, dass ich gegangen bin.",
-      translation: "[The] accountant was not very happy I left.",
+      message: "Die Buchhalterin war nicht sehr glücklich darüber, dass ich gegangen bin.",
+      translation: "The accountant was not very happy I left.",
     },
   ],
   exercises: [

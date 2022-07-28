@@ -44,33 +44,28 @@ When dealing with compound words, the last word within the compound word would d
     // LEVEL 1
     {
       from: "lukas",
-      message: "Woher kommt [ein] sprechendes Eichhörnchen?",
-      translation: "Where does [a] talking squirrel come from?",
-      hint: "[neuter]",
+      message: "Woher kommt ein sprechendes Eichhörnchen?",
+      translation: "Where does a talking squirrel come from?",
     },
     {
       from: "squirrel",
-      message: "[Ein] Ort weit weg von hier.",
-      translation: "[A] place far away from here.",
-      hint: "[masculine]",
+      message: "Ein Ort weit weg von hier.",
+      translation: "A place far away from here."
     },
     {
       from: "squirrel",
-      message: "[Deine] Welt ist sehr ruhig.",
-      translation: "[Your] world is very quiet.",
-      hint: "[feminine]",
+      message: "Deine Welt ist sehr ruhig.",
+      translation: "Your world is very quiet."
     },
     {
       from: "squirrel",
-      message: "[Meine] Leute würden es eine Todeszone nennen.",
-      translation: "[My] people would call it a deadzone.",
-      hint: "[plural]"
+      message: "Meine Leute würden es eine Todeszone nennen.",
+      translation: "My people would call it a deadzone."
     },
     {
       from: "squirrel",
-      message: "Für mich ist es wie [ein] ruhiger Ozean.",
-      translation: "To me it's like [a] calm ocean.",
-      hint: "[masculine]",
+      message: "Für mich ist es wie ein ruhiger Ozean.",
+      translation: "To me it's like a calm ocean."
     },
   ],
   exercises: [

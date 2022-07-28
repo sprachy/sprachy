@@ -35,32 +35,32 @@ Some nouns are used mainly in their diminutive form. For example, _das Eichhörn
   story: [
     {
       from: "lukas",
-      message: "Töski, hast du [mein] Brötchen gegessen?",
-      translation: "Töski, did you eat [my] bread roll?",
+      message: "Töski, hast du mein Brötchen gegessen?",
+      translation: "Töski, did you eat my bread roll?",
     },
     {
       from: "squirrel",
       message:
-        "[Dein] Brötchen ist zum Brennstoff für das ewige Feuer meiner Seele geworden.",
+        "Dein Brötchen ist zum Brennstoff für das ewige Feuer meiner Seele geworden.",
       translation:
-        "[Your] bread roll has become fuel for the eternal fire of my soul.",
+        "Your bread roll has become fuel for the eternal fire of my soul.",
     },
     {
       from: "lukas",
-      message: "Und was ist mit [mein] Haselnüsschen?",
-      translation: "And what about [my] little hazelnut?",
+      message: "Und was ist mit mein Haselnüsschen?",
+      translation: "And what about my little hazelnut?",
     },
     {
       from: "squirrel",
       message:
-        "[Deine] Haselnüsschen funkeln in den Weiten des Gedankenraums.",
+        "Deine Haselnüsschen funkeln in den Weiten des Gedankenraums.",
       translation:
-        "[Your] little hazelnuts sparkle in the far reaches of mindspace.",
+        "Your little hazelnuts sparkle in the far reaches of mindspace.",
     },
     {
       from: "squirrel",
-      message: "Jetzt werde ich [ein] Nickerchen machen. Gute Nacht.",
-      translation: "Now I will have [a] nap. Good night.",
+      message: "Jetzt werde ich ein Nickerchen machen. Gute Nacht.",
+      translation: "Now I will have a nap. Good night.",
     },
   ],
   exercises: [

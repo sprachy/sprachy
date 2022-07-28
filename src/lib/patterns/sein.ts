@@ -46,38 +46,38 @@ formal/informal language!
   story: [
     {
       from: "lukas",
-      message: "Erkennst du die Kreatur auf dem Foto? [Sie ist] ein Eichhörnchen.",
-      translation: "Do you recognize the creature in the photo? [It is] a squirrel.",
+      message: "Erkennst du die Kreatur auf dem Foto? Sie ist ein Eichhörnchen.",
+      translation: "Do you recognize the creature in the photo? It is a squirrel.",
     },
     {
       from: "squirrel",
-      message: "[Sie ist] mir ähnlich! Aber flach.",
-      translation: "[It is] similar to me! But flat."
+      message: "Sie ist mir ähnlich! Aber flach.",
+      translation: "It is similar to me! But flat."
     },
     {
       from: "lukas",
-      message: "Oh, das Eichhörnchen [ist] nicht flach, nur das Foto, das es darstellt.",
-      translation: "Oh, the squirrel [is] not flat, only the photo that represents it."
+      message: "Oh, das Eichhörnchen ist nicht flach, nur das Foto, das es darstellt.",
+      translation: "Oh, the squirrel is not flat, only the photo that represents it."
     },
     {
       from: "squirrel",
-      message: "Nein, ich meine, das Eichhörnchen ist flach. Das [ist] Lukas auch!",
-      translation: "No, I mean, the squirrel is flat. Lukas [is] flat too!"
+      message: "Nein, ich meine, das Eichhörnchen ist flach. Das ist Lukas auch!",
+      translation: "No, I mean, the squirrel is flat. Lukas is flat too!"
     },
     {
       from: "squirrel",
-      message: "[Ich bin] holpriger.",
-      translation: "[I am] more bumpy."
+      message: "Ich bin holpriger.",
+      translation: "I am more bumpy."
     },
     {
       from: "squirrel",
-      message: "Denkst du [ich bin] ein Eichhörnchen?",
-      translation: "Do you think [I am] a squirrel?"
+      message: "Denkst du ich bin ein Eichhörnchen?",
+      translation: "Do you think I am a squirrel?"
     },
     {
       from: "lukas",
-      message: "[Du bist] wie ein Eichhörnchen geformt. Vielleicht konvergente Evolution?",
-      translation: "[You are] shaped like a squirrel. Maybe convergent evolution?"
+      message: "Du bist wie ein Eichhörnchen geformt. Vielleicht konvergente Evolution?",
+      translation: "You are shaped like a squirrel. Maybe convergent evolution?"
     }
   ],
   exercises: [

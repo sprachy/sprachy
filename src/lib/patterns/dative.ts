@@ -56,28 +56,28 @@ the dativeness, e.g. the use of an intransitive verb like _helfen_.
     // LEVEL 1
     {
       from: "lukas",
-      message: "Der Junge gibt [dem] Eichhörnchen eine Mandel.",
-      translation: "The boy gives [the] squirrel an almond."
+      message: "Der Junge gibt dem Eichhörnchen eine Mandel.",
+      translation: "The boy gives the squirrel an almond."
     },
     {
       from: "squirrel",
-      message: "Das Eichhörnchen dankt [dem] Jungen für sein Angebot.",
-      translation: "The squirrel thanks [the] boy for his offering."
+      message: "Das Eichhörnchen dankt dem Jungen für sein Angebot.",
+      translation: "The squirrel thanks the boy for his offering."
     },
     {
       from: "anna",
-      message: "Willst du [der] Schwester auch eine Mandel geben?",
-      translation: "Will you give [the] sister an almond too?"
+      message: "Willst du der Schwester auch eine Mandel geben?",
+      translation: "Will you give the sister an almond too?"
     },
     {
       from: "lukas",
-      message: "Vorsicht, er ist ziemlich besitzergreifend bei [den Mandeln].",
-      translation: "Careful, he's pretty possessive with [the almonds]."
+      message: "Vorsicht, er ist ziemlich besitzergreifend bei den Mandeln.",
+      translation: "Careful, he's pretty possessive with the almonds."
     },
     {
       from: "squirrel",
-      message: "Das Eichhörnchen wird [einem] Menschen helfen, dieses eine Mal.",
-      translation: "The squirrel will help [a] human, this once."
+      message: "Das Eichhörnchen wird einem Menschen helfen, dieses eine Mal.",
+      translation: "The squirrel will help a human, this once."
     }
   ],
   exercises: [

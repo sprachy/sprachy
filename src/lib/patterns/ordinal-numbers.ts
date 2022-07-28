@@ -48,8 +48,8 @@ If the ordinal number is written as a digit, you simply follow the digit by a pe
   story: [
     {
       from: "lukas",
-      message: "Du bist das [erste] außerirdische Lebewesen, das ich je gesehen habe.",
-      translation: "You are the [first] alien creature I have ever seen.",
+      message: "Du bist das erste außerirdische Lebewesen, das ich je gesehen habe.",
+      translation: "You are the first alien creature I have ever seen.",
     },
     {
       from: "squirrel",
@@ -58,9 +58,8 @@ If the ordinal number is written as a digit, you simply follow the digit by a pe
     },
     {
       from: "lukas",
-      message: "Ein Außerirdischer ist [eine] Lebensform, die nicht von der Erde stammt.",
-      translation: "An alien is [a] living being that doesn't come from Earth.",
-      hint: "[feminine]",
+      message: "Ein Außerirdischer ist eine Lebensform, die nicht von der Erde stammt.",
+      translation: "An alien is a living being that doesn't come from Earth.",
     },
     {
       from: "lukas",
@@ -69,8 +68,8 @@ If the ordinal number is written as a digit, you simply follow the digit by a pe
     },
     {
       from: "squirrel",
-      message: "Es gibt viele in eurem Universum, ihr seid die [5999.] Außerirdische Spezies, die ich begegnet bin.",
-      translation: "There are many in your universe, you are the [5999th] alien species I have encountered.",
+      message: "Es gibt viele in eurem Universum, ihr seid die 5999. Außerirdische Spezies, die ich begegnet bin.",
+      translation: "There are many in your universe, you are the 5999th alien species I have encountered.",
     },
     {
       from: "lukas",
@@ -79,9 +78,9 @@ If the ordinal number is written as a digit, you simply follow the digit by a pe
     },
     {
       from: "squirrel",
-      message: "Ähnlich wie eure Bakterien, nur oft ein wenig [größer].",
-      translation: "Similar to your bacteries, but often a bit [bigger].",
-      hint: "[groß]"
+      message: "Ähnlich wie eure Bakterien, nur oft ein wenig größer.",
+      translation: "Similar to your bacteries, but often a bit bigger.",
+      hint: "groß"
     },
     {
       from: "lukas",
@@ -90,14 +89,14 @@ If the ordinal number is written as a digit, you simply follow the digit by a pe
     },
     {
       from: "squirrel",
-      message: "Ja, aber es gibt nicht viele in [eurem] Universum.",
+      message: "Ja, aber es gibt nicht viele in eurem Universum.",
       translation: "Yes, but there are not many in your universe",
-      hint: "[euer (dative singular)]"
+      hint: "euer (dative singular)"
     },
     {
       from: "squirrel",
-      message: "Ihr seid die [vierte] intelligente Spezies, die ich gefunden habe.",
-      translation: "You are the [fourth] intelligent species I have found.",
+      message: "Ihr seid die vierte intelligente Spezies, die ich gefunden habe.",
+      translation: "You are the fourth intelligent species I have found.",
     },
     {
       from: "lukas",
@@ -106,13 +105,13 @@ If the ordinal number is written as a digit, you simply follow the digit by a pe
     },
     {
       from: "squirrel",
-      message: "Die [dritte], die ich gefunden habe, hatte bereits ihre halbe Galaxie unter Kontrolle.",
-      translation: "The [third] one I found already had half its galaxy under control.",
+      message: "Die dritte, die ich gefunden habe, hatte bereits ihre halbe Galaxie unter Kontrolle.",
+      translation: "The third one I found already had half its galaxy under control.",
     },
     {
       from: "squirrel",
-      message: "Sie waren gerade dabei, ihre [siebzehnte] Dyson-Sphäre fertigzustellen.",
-      translation: "They were in the process of finishing their [seventeeth] dyson sphere.",
+      message: "Sie waren gerade dabei, ihre siebzehnte Dyson-Sphäre fertigzustellen.",
+      translation: "They were in the process of finishing their seventeeth dyson sphere.",
     },
   ],
   exercises: [

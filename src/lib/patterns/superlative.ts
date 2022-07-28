@@ -27,66 +27,56 @@ You would commonly see the word _am_ like in the phrase _am besten_ placed infro
     // LEVEL 2
     {
       from: "squirrel",
-      message: "Spieglein, Spieglein an der Wand, wer ist der [flauschigste] im ganzen Land?",
-      translation: "Mirror, mirror on the wall, who is the [fluffiest] of them all?",
-      hint: "[flauschig]",
+      message: "Spieglein, Spieglein an der Wand, wer ist der flauschigste im ganzen Land?",
+      translation: "Mirror, mirror on the wall, who is the fluffiest of them all?",
     },
     {
       from: "mirror",
-      message: "Das seid Ihr, mein Meister. Ihr seid das [niedlichste] Eichhörnchen der Welt.",
-      translation: "You are, my master. You are the [cutest] squirrel in the world.",
-      hint: "[niedlich]",
+      message: "Das seid Ihr, mein Meister. Ihr seid das niedlichste Eichhörnchen der Welt.",
+      translation: "You are, my master. You are the cutest squirrel in the world.",
     },
     {
       from: "squirrel",
-      message: "Und du bist mein [gehorsamster] Spiegel.",
-      translation: "And you are my [most obedient] mirror.",
-      hint: "[gehorsam, masculine]",
+      message: "Und du bist mein gehorsamster Spiegel.",
+      translation: "And you are my most obedient mirror.",
     },
     {
       from: "squirrel",
-      message: "[Am besten] wäre jedoch ein Spiegel mit Armen und Beinen...",
-      translation: "However, [the best] would be a mirror with arms and legs...",
-      hint: "[gut]",
+      message: "Am besten wäre jedoch ein Spiegel mit Armen und Beinen...",
+      translation: "However, the best would be a mirror with arms and legs...",
     },
     {
       from: "mirror",
-      message: "Wahrlich bin ich aber [am glanzvollsten].",
-      translation: "Surely I am [the shiniest]",
-      hint: "[glanzvoll]"
+      message: "Wahrlich bin ich aber am glanzvollsten.",
+      translation: "Surely I am the shiniest",
     },
     {
       from: "squirrel",
-      message: "Ich nutze auch mein [schönster] Glanzzauber.",
-      translation: "I'm also using my [prettiest] glitter spell.",
-      hint: "[schön, masculine]",
+      message: "Ich nutze auch mein schönster Glanzzauber.",
+      translation: "I'm also using my prettiest glitter spell.",
     },
     {
       from: "squirrel",
-      message: "Sodass ich meine [niedlichste] Kante anschauen kann.",
-      translation: "So that I can see my [cutest] edge.",
-      hint: "[niedlich, feminine]",
+      message: "Sodass ich meine niedlichste Kante anschauen kann.",
+      translation: "So that I can see my cutest edge.",
     },
     {
       from: "squirrel",
-      message: "Ein Augenschmaus für Jederman auf dem die [flachsten] Lebewesen leben.",
-      translation: "A feast for the eyes for everyone on which the [flattest] creatures live",
-      hint: "[flach, plural]",
+      message: "Ein Augenschmaus für Jederman auf dem die flachsten Lebewesen leben.",
+      translation: "A feast for the eyes for everyone on which the flattest creatures live",
     },
     // The direct object of the sentence is the person, not their chocolate side
     // this is why we still get "elegantesten" even though Schokoladenseite is feminine
     // TODO inline explanation feature
     {
       from: "mirror",
-      message: "Denkt daran euch auch andersweitig von eurer [elegantesten] Schokoladenseite zu zeigen.",
-      translation: "Remember to put your [most elegant] foot forward on other aspects as well.",
-      hint: "[elegant, accusative masculine]"
+      message: "Denkt daran euch auch andersweitig von eurer elegantesten] Schokoladenseite zu zeigen.",
+      translation: "Remember to put your most elegant] foot forward on other aspects as well.",
     },
     {
       from: "mirror",
-      message: "Denn Ihr seid natürlich auch das [charismatischste] Eichhörnchen.",
-      translation: "Since naturally you are the [most charismatic] squirrel.",
-      hint: "[charismatisch]"
+      message: "Denn Ihr seid natürlich auch das charismatischste] Eichhörnchen.",
+      translation: "Since naturally you are the most charismatic] squirrel.",
     },
   ],
   exercises: [

@@ -36,36 +36,31 @@ Note that all three forms of sie/Sie change to ihr/Ihr for the possessive!
   story: [
     {
       from: "cashier",
-      message: "Möchten [Sie] noch etwas anderes?",
-      translation: "Would [you] like anything else?",
-      hint: "[formal]",
+      message: "Möchten Sie noch etwas anderes?",
+      translation: "Would you like anything else?",
       // feedback: {
       //   "du": "_du_ is the the informal form. You want the formal one."
       // }
     },
     {
       from: "squirrel",
-      message: "Lukas, [du] musst die mit Honig gebrannten Mandeln kaufen!",
-      translation: "Lukas, [you] have to get the honey-roasted almonds!",
-      hint: "[informal]",
+      message: "Lukas, du musst die mit Honig gebrannten Mandeln kaufen!",
+      translation: "Lukas, you have to get the honey-roasted almonds!",
     },
     {
       from: "cashier",
-      message: "Entschuldigung, spricht [Ihr] Rucksack?",
-      translation: "Excuse me, is [your] backpack talking?",
-      hint: "[masculine]",
+      message: "Entschuldigung, spricht Ihr Rucksack?",
+      translation: "Excuse me, is your backpack talking?",
     },
     {
       from: "lukas",
-      message: "Pssst. [Du] wirst die Menschen verängstigen.",
-      translation: "Shhhh. [You]'ll freak out the humans.",
-      hint: "[informal]",
+      message: "Pssst. Du wirst die Menschen verängstigen.",
+      translation: "Shhhh. You'll freak out the humans.",
     },
     {
       from: "lukas",
-      message: "Können [Sie] mir sagen, welche Art von Mandeln Sie haben?",
-      translation: "Could [you] tell me what kind of almonds you have?",
-      hint: "[formal]",
+      message: "Können Sie mir sagen, welche Art von Mandeln Sie haben?",
+      translation: "Could you tell me what kind of almonds you have?",
     },
   ],
   exercises: [

@@ -55,9 +55,8 @@ Some nouns already end in _-s_ so one might be inclined to add an apostrophe the
   story: [
     {
       from: "fox",
-      message: "Du hast eine neue Nachricht von dem Präsidenten [des Komitees] für Astrophysischen Ereignisse erhalten.",
+      message: "Du hast eine neue Nachricht von dem Präsidenten des Komitees für Astrophysischen Ereignisse erhalten.",
       translation: "You have received a new message of the president of the Astrophysical Events Committee.",
-      hint: "[das Komitee]",
     },
     {
       from: "lindenbaum",
@@ -66,27 +65,23 @@ Some nouns already end in _-s_ so one might be inclined to add an apostrophe the
     },
     {
       from: "fox",
-      message: "Er sagt, dass das Budget [der Server] eingestellt wird.",
+      message: "Er sagt, dass das Budget der Server eingestellt wird.",
       translation: "He says that the budget of the servers will be cancelled.",
-      hint: "[die Server]",
     },
     {
       from: "lindenbaum",
-      message: "Und was soll ich mit [dem] LIGO Projekt, so kurz vor dem Durchbruch machen?",
+      message: "Und was soll ich mit dem LIGO Projekt, so kurz vor dem Durchbruch machen?",
       translation: "What should I do with the LIGO Project so close to breakthrough?",
-      hint: "[das Projekt]",
     },
     {
       from: "fox",
-      message: "Das sollte auch mit [dem Geld] von unseren alternativen Investoren möglich sein.",
+      message: "Das sollte auch mit dem Geld von unseren alternativen Investoren möglich sein.",
       translation: "That should also be possible with the money of our alternative investors.",
-      hint: "[das Geld]",
     },
     {
       from: "lindenbaum",
-      message: "Na dann nehmen wir mal Kontakt zum Direktor [des Instituts] für dunkle Anomalieforschung auf!",
+      message: "Na dann nehmen wir mal Kontakt zum Direktor des Instituts für dunkle Anomalieforschung auf!",
       translation: "Well then, let's initiate contact with the director of the institute for dark anomaly research!",
-      hint: "[das Institut]",
     },
   ],
   exercises: [

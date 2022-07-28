@@ -104,15 +104,13 @@ Genitive / des Herr**n** / der Herr**en**
     },
     {
       from: "lukas",
-      message: "Das sind die Eingangstüren meiner [Nachbarn], das sind Menschen wie ich, die dasselbe Gebäude teilen.",
-      translation: "These are the front doors of my [neighbors], these are humans like me who share the same building.",
-      hint: "[Nachbar]",
+      message: "Das sind die Eingangstüren meiner Nachbarn, das sind Menschen wie ich, die dasselbe Gebäude teilen.",
+      translation: "These are the front doors of my neighbors, these are humans like me who share the same building.",
     },
     {
       from: "squirrel",
-      message: "Dann hätte ich einen Hinweis für den [Architekten].",
-      translation: "Then I would have a hint for the [architect].",
-      hint: "[Architekt]",
+      message: "Dann hätte ich einen Hinweis für den Architekten.",
+      translation: "Then I would have a hint for the architect.",
     },
     {
       from: "squirrel",
@@ -121,9 +119,8 @@ Genitive / des Herr**n** / der Herr**en**
     },
     {
       from: "lukas",
-      message: "Aber wir haben den [Willen] nach Privatsphäre...",
-      translation: "But we have the [will] for privacy...",
-      hint: "[Wille]",
+      message: "Aber wir haben den Willen nach Privatsphäre...",
+      translation: "But we have the will for privacy...",
     },
     {
       from: "squirrel",
@@ -132,9 +129,8 @@ Genitive / des Herr**n** / der Herr**en**
     },
     {
       from: "lukas",
-      message: "Wenn du einen [Menschen] siehst möchte dieser manchmal nicht gestört werden.",
-      translation: "When you see a [person], sometimes they don't want to be disturbed.",
-      hint: "[Mensch]",
+      message: "Wenn du einen Menschen siehst möchte dieser manchmal nicht gestört werden.",
+      translation: "When you see a person, sometimes they don't want to be disturbed.",
     },
     {
       from: "lukas",

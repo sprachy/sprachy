@@ -48,20 +48,18 @@ Some masculine nouns change form when used in any case other than the nominative
   story: [
     {
       from: "squirrel",
-      message: "Du willst [den] Esper-Prinzen herausfordern, Sterblicher?",
-      translation: "You would challenge [the] Esper Prince, mortal?"
+      message: "Du willst den Esper-Prinzen herausfordern, Sterblicher?",
+      translation: "You would challenge the Esper Prince, mortal?"
     },
     {
       from: "squirrel",
-      message: "So sei es! Entfalte [deinen] Kampfgeist!",
-      translation: "So be it! Reveal [your] warrior spirit!",
-      hint: "[masculine]",
+      message: "So sei es! Entfalte deinen Kampfgeist!",
+      translation: "So be it! Reveal your warrior spirit!"
     },
     {
       from: "squirrel",
-      message: "Kämpfe, um [dein] Haus und deine Ehre zu verteidigen!",
-      translation: "Fight to defend [your] house and honor!",
-      hint: "[neuter]",
+      message: "Kämpfe, um dein Haus und deine Ehre zu verteidigen!",
+      translation: "Fight to defend your house and honor!",
     },
     {
       from: "lukas",
@@ -75,9 +73,8 @@ Some masculine nouns change form when used in any case other than the nominative
     },
     {
       from: "squirrel",
-      message: "Wart ab! Dein hinterlistiges Manöver hat [keinen] Nutzen für dich!",
-      translation: "Wait and see! Your deceitful maneuver is of no use to you!",
-      hint: "[kein- masculine]",
+      message: "Wart ab! Dein hinterlistiges Manöver hat keinen Nutzen für dich!",
+      translation: "Wait and see! Your deceitful maneuver is of no use to you!"
     },
     {
       from: "dog",
@@ -86,8 +83,8 @@ Some masculine nouns change form when used in any case other than the nominative
     },
     {
       from: "lukas",
-      message: "Bitte lass [den] Hund in Ruhe, du machst in unruhig!",
-      translation: "Please leave [the] dog alone, you make him anxious!",
+      message: "Bitte lass den Hund in Ruhe, du machst in unruhig!",
+      translation: "Please leave the dog alone, you make him anxious!",
     },
   ],
   exercises: [
