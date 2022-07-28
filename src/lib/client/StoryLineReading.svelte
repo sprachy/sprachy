@@ -14,7 +14,7 @@
 </script>
 
 <div class="reading">
-  <Message from={line.from} {flip}>
+  <Message from={line.from} {flip} effect={line.effect}>
     <div
       class="withTooltip"
       class:hasTranslation={!!line.translation}

@@ -9,7 +9,7 @@ export default definePattern({
   id: "introduction",
   slug: "introduction",
   title: "Introduction",
-  shortdesc: "Ah yes, the three genders",
+  shortdesc: "",
   draft: true,
   explanation: md`
   `,
@@ -80,8 +80,7 @@ export default definePattern({
       message: "Zeit für Entdeckungen.",
       translation: "Time for exploring.",
       effect: {
-        type: 'transformAvatar',
-        target: squirrelImg
+        type: 'squirrelMorph',
       }
     }
   ],

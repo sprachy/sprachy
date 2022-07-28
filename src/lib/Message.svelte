@@ -1,7 +1,10 @@
 <script lang="ts">
   import Avatar from "./Avatar.svelte"
+  import type { MessageEffectDef } from "./Pattern"
+  import SquirrelMorphAvatar from "./SquirrelMorphAvatar.svelte"
   export let from: string
   export let flip: boolean = false
+  export let effect: MessageEffectDef | null = null
 </script>
 
 <div class:message={true} class:flip {...$$restProps}>
@@ -9,7 +12,11 @@
     <slot />
     <slot name="after" />
   {:else}
-    <Avatar charId={from} />
+    {#if effect?.type === "squirrelMorph"}
+      <SquirrelMorphAvatar />
+    {:else}
+      <Avatar charId={from} />
+    {/if}
     <div class="quoteContainer">
       <div class="quote">
         <slot />

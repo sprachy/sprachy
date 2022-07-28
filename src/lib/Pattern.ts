@@ -28,6 +28,10 @@ export type FeedbackDef = {
   message: string
 }
 
+export type MessageEffectDef = {
+  type: 'squirrelMorph'
+}
+
 export type ReadingLineDef = {
   from: CharacterId
   message: string
@@ -35,6 +39,7 @@ export type ReadingLineDef = {
   alien?: boolean
   image?: string
   imageAlt?: string
+  effect?: MessageEffectDef
 }
 
 export type FillblankLineDef = {
@@ -62,6 +67,7 @@ export type ReadingLine = {
   alien?: boolean
   image?: string
   imageAlt?: string
+  effect?: { type: 'squirrelMorph' }
 }
 
 export type FillblankLine = {
