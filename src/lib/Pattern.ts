@@ -15,7 +15,7 @@ export type PatternDef = {
   title: string
   slug: string
   shortdesc: string
-  icon: IconDefinition
+  icon?: IconDefinition
   explanation: string
   story: LineDef[]
   exercises: LineDef[]
