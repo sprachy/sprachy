@@ -1,5 +1,6 @@
-import { faVenusMars } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "$lib/definePattern"
+import parkImg from "$lib/img/1-park.webp"
+import orbInParkImg from "$lib/img/1-orb-in-park.webp"
 
 // https://german.stackexchange.com/questions/3834/what-is-the-gender-distribution-of-nouns-in-the-german-language
 export default definePattern({
@@ -7,93 +8,46 @@ export default definePattern({
   slug: "introduction",
   title: "Introduction",
   shortdesc: "Ah yes, the three genders",
-  icon: faVenusMars,
+  draft: true,
   explanation: md`
-Der, die, and das are three ways of saying _the_ in German. Which one you use depends on the _grammatical gender_ of the noun that follows.
-
-<LTable header="Gender / Deutsch / Meaning">
-neuter / **das** Eichhörnchen / **the** squirrel
-masculine / **der** Baum / **the** tree
-feminine / **die** unendliche Leere / **the** infinite void
-</LTable>
-
-These are all in what's called the _nominative case_, the case where we're talking about the subject of a sentence (like a squirrel), unmodified by any verbs.
-
-The gender of a particular noun usually has nothing to do with what that word describes. It's not that trees are particularly manly, or that ominous voids are particularly girly. That's simply the _grammatical_ gender those nouns happen to have, by consensus of German speakers.
-
-Generally, you want to learn the gender together with the word. Rather than remembering that _Baum_ means tree, try to remember _der Baum_! However, the genders are not totally _random_ either. We'll learn some patterns later we can use to predict noun gender for certain groups of words.
-
-Roughly speaking, around 40% of nouns are masculine, 40% are feminine, and 20% are neuter. A very small number of words have more than one gender. They're fancy and rare like shiny Pokémon!
-
-<DialogueExample>
-squirrel:
-  Aber **die** Plurale!
-  But **the** plurals!
-</DialogueExample>
-
-For plurals, we always use _die_, regardless of the noun's base gender. For example, _der Baum_ would become _die Bäume_ when talking about mulitiple trees. Meanwhile, _das_ when used without a noun can also have the meaning of "that" or "it".
-
-<Tip>
-Unlike in English, the first letter of every noun in German is **C**apitalized. This is particularly useful when learning the language, as it makes nouns easy to identify.
-</Tip>
   `,
   story: [
     {
       from: "narrator",
-      message: "Ein Junge spaziert im Park."
+      message: "Es ist ein ruhiger Tag in Deutschland.",
+      translation: "It is a peaceful day in Germany.",
     },
     {
-      from: "lukas",
-      message: "Hallo, kleines Eichhörnchen.",
+      from: "narrator",
+      message: "Die Blätter flattern in der Frühlingsbrise.",
+      translation: "The leaves flutter in the spring breeze.",
+      image: parkImg
     },
     {
-      from: "squirrel",
-      message: "Dieser Baum ist sehr gemütlich.",
-      alien: true
+      from: "narrator",
+      message: "Eine mysteriöse Kugel sitzt im Baum.",
+      translation: "A mysterious orb sits in the tree.",
+      image: orbInParkImg
     },
     {
-      from: "squirrel",
-      message: "Hallo. [Der] Baum hier ist gemütlich.",
-      translation: "Hello. [The] tree here is comfy.",
-      hint: "[masculine]",
+      question: `Was bedeutet "Kugel"?`,
+      translation: "What does \"Kugel\" mean?",
+      choices: [
+        { text: "cube" },
+        { text: "orb", correct: true },
+        { text: "tail" },
+        { text: "hat" },
+      ]
     },
     {
-      from: "lukas",
-      message: "Und jetzt... spricht [das] Eichhörnchen mit mir?",
-      translation: "And now... [the] squirrel is talking to me?",
-      hint: "[neuter]",
+      from: "narrator",
+      message: "Die Kugel denkt.",
+      translation: "The orb thinks.",
     },
     {
-      from: "squirrel",
-      message: "[Die] Nüsse hier sind auch sehr lecker.",
-      translation: "[The] nuts here are also very tasty.",
-    },
-    {
-      from: "lukas",
-      message: "[Der] Tag wurde definitiv merkwürdiger!",
-      translation: "[The] day definitely got weirder!",
-      hint: "[masculine]"
-    },
-    {
-      from: "squirrel",
-      message: "Nun, [der] Mensch flippt nicht aus. Das ist schon mal ein guter Anfang.",
-      translation: "Well, [the] human isn't freaking out. That's a good start.",
-      hint: "[masculine]"
-    },
-    {
-      from: "lukas",
-      message: "Ich habe _so viele_ Fragen.",
-      translation: "I have _so many_ questions."
-    },
-    {
-      from: "squirrel",
-      message: "[Die] Fragen... Ich werde einige beantworten, wenn ihr mir helft, meine Anwesenheit geheim zu halten.",
-      translation: "[The] questions... I will answer some, if you help keep my presence secret."
-    },
-    {
-      from: "lukas",
-      message: "Abgemacht!",
-      translation: "Deal!"
+      from: "orb",
+      message: "Ich bin da!",
+      translation: "I have arrived!"
     }
   ],
   exercises: [

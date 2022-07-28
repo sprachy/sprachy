@@ -1,21 +1,22 @@
 <script lang="ts">
-  import Fa from "svelte-fa"
-  import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons"
-
   import Avatar from "./Avatar.svelte"
   export let from: string
   export let flip: boolean = false
 </script>
 
 <div class:message={true} class:flip {...$$restProps}>
-  <Avatar charId={from} />
-  <!-- <div class="name">{name}</div> -->
-  <div class="quoteContainer">
-    <div class="quote">
-      <slot />
-    </div>
+  {#if from === "narrator"}
+    <slot />
     <slot name="after" />
-  </div>
+  {:else}
+    <Avatar charId={from} />
+    <div class="quoteContainer">
+      <div class="quote">
+        <slot />
+      </div>
+      <slot name="after" />
+    </div>
+  {/if}
 </div>
 
 <style>

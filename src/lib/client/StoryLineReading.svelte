@@ -14,44 +14,24 @@
 </script>
 
 <div class="reading">
-  {#if line.from === "narrator"}
-    <div>
-      {line.message}
+  <Message from={line.from} {flip}>
+    <div
+      class="withTooltip"
+      class:hasTranslation={!!line.translation}
+      data-tooltip={line.translation}
+    >
+      {#if audioPromise}
+        <AudioForLine {line} {audioPromise} playImmediately={!staticMode} />
+      {/if}
+      {#if line.alien}
+        <AlienText source={line.message} />
+      {:else}
+        <Sprachdown inline source={line.message} />
+      {/if}
     </div>
-  {:else if line.from === "explainer"}
-    <div class="explainer">
-      {line.message}
-    </div>
-  {:else}
-    <Message from={line.from} {flip}>
-      <div
-        class="withTooltip"
-        class:hasTranslation={!!line.translation}
-        data-tooltip={line.translation}
-      >
-        {#if audioPromise}
-          <AudioForLine {line} {audioPromise} playImmediately={!staticMode} />
-        {/if}
-        {#if line.alien}
-          <AlienText source={line.message} />
-        {:else}
-          <Sprachdown inline source={line.message} />
-        {/if}
-      </div>
-      <div slot="after">
-        <!-- <div class="translation">
-          <Sprachdown inline source={line.translation} />
-        </div> -->
-        {#if line.explanation}
-          <div class="explanation">
-            <Sprachdown inline source={line.explanation} />
-          </div>
-        {/if}
-      </div>
-    </Message>
-    {#if line.image}
-      <img alt={line.imageAlt} src={line.image} />
-    {/if}
+  </Message>
+  {#if line.image}
+    <img alt={line.imageAlt} src={line.image} />
   {/if}
 </div>
 
