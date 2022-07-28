@@ -1,7 +1,7 @@
 <script lang="ts">
   import _ from "lodash"
   import { createEventDispatcher, onDestroy, onMount } from "svelte"
-  import type { StoryLine, Story } from "$lib/Pattern"
+  import type { StoryLine, Story, ReadingLine } from "$lib/Pattern"
   import StoryLineReading from "$lib/client/StoryLineReading.svelte"
   import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
   import StoryLineChoice from "$lib/client/StoryLineChoice.svelte"
@@ -33,20 +33,18 @@
   // speaker changes
   $: lineFlips = ((lines: StoryLine[]) => {
     let flip = false
-    let prevFrom = lines[0] && "from" in lines[0] ? lines[0].from : null
-    const flips: boolean[] = []
-    for (const line of lines) {
-      if (!("from" in line)) {
-        continue
+    let prevFlippableLine: ReadingLine | null = null
+    return lines.map((line) => {
+      if (line.type !== "reading" || line.from === "narrator") {
+        return false
+      } else {
+        if (prevFlippableLine && prevFlippableLine.from !== line.from) {
+          flip = !flip
+        }
+        prevFlippableLine = line
+        return flip
       }
-
-      if (line.from !== prevFrom) {
-        flip = !flip
-        prevFrom = line.from
-      }
-      flips.push(flip)
-    }
-    return flips
+    })
   })(story)
 
   $: if (speech && $user?.enableSpeechSynthesis && !audioPromises.length) {
