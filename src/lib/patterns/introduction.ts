@@ -1,6 +1,8 @@
 import { definePattern, md } from "$lib/definePattern"
 import parkImg from "$lib/img/1-park.webp"
 import orbInParkImg from "$lib/img/1-orb-in-park.webp"
+import squirrelOnTreeImg from "$lib/img/1-squirrel-on-tree.webp"
+import squirrelImg from "$lib/img/squirrel.webp"
 
 // https://german.stackexchange.com/questions/3834/what-is-the-gender-distribution-of-nouns-in-the-german-language
 export default definePattern({
@@ -21,13 +23,15 @@ export default definePattern({
       from: "narrator",
       message: "Die Blätter flattern in der Frühlingsbrise.",
       translation: "The leaves flutter in the spring breeze.",
-      image: parkImg
+      image: parkImg,
+      imageAlt: "A picture of pretty green trees"
     },
     {
       from: "narrator",
       message: "Eine mysteriöse Kugel sitzt im Baum.",
       translation: "A mysterious orb sits in the tree.",
-      image: orbInParkImg
+      image: orbInParkImg,
+      imageAlt: "A mysterious featureless white orb hovering above a leaf"
     },
     {
       question: `Was bedeutet "Kugel"?`,
@@ -48,6 +52,37 @@ export default definePattern({
       from: "orb",
       message: "Ich bin da!",
       translation: "I have arrived!"
+    },
+    {
+      from: "orb",
+      message: "Diese Welt ist sehr grün.",
+      translation: "This world is very green."
+    },
+    {
+      from: "narrator",
+      message: "Die Kugel sieht Bewegung in den Blättern.",
+      translation: "The orb sees movement in the leaves.",
+    },
+    {
+      from: "narrator",
+      message: "Es ist ein Eichhörnchen!",
+      translation: "It is a squirrel!",
+      image: squirrelOnTreeImg,
+      imageAlt: "A squirrel climbing a tree"
+    },
+    {
+      from: "orb",
+      message: "Das gefällt mir!",
+      translation: "I like it!",
+    },
+    {
+      from: "orb",
+      message: "Zeit für Entdeckungen.",
+      translation: "Time for exploring.",
+      effect: {
+        type: 'transformAvatar',
+        target: squirrelImg
+      }
     }
   ],
   exercises: [

@@ -4,7 +4,6 @@ import type { ProgressItem, User } from '../api'
 import _ from 'lodash'
 import { flattenFauna, FaunaError, makeFaunaClient } from './faunaUtil'
 import type { FaunaDocument } from "./faunaUtil"
-import * as time from '../time'
 
 class FaunaConnector {
   _client?: faunadb.Client

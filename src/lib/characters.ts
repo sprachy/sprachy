@@ -15,6 +15,7 @@ import nils from "$lib/img/nils.webp"
 import fox from "$lib/img/fox.webp"
 import harald from "$lib/img/harald.webp"
 import klaus from "$lib/img/klaus.webp"
+import orbInPark from "$lib/img/1-orb-in-park.webp"
 import type { VoiceSynthesisRequestSchema } from "src/routes/api/synthesize"
 
 export type Character = {
@@ -106,6 +107,29 @@ const characters: Character[] = [
     fullname: "Töskirelon Uferlos Yi",
     profile: md`
 An extradimensional squirrel-like lifeform with vast psionic power. Töski is currently taking a vacation on Earth, a travel destination his mindspace identified as having "gemütliche Bäume" and a pleasant lack of reality-rending esper battles.
+    `,
+
+    audio: {
+      voice: {
+        name: "de-DE-Standard-F",
+        ssmlGender: "FEMALE"
+      },
+      audioConfig: {
+        speakingRate: 1.4,
+        pitch: 8
+      }
+    }
+    // rate: 1.05,
+    // pitch: 1.5
+  },
+
+  {
+    id: "orb",
+    avatar: orbInPark,
+    name: "Kugel",
+    fullname: "???",
+    profile: md`
+???
     `,
 
     audio: {
