@@ -29,12 +29,6 @@
 
   const { user, admin, restBonusAvailable, backgroundApi } = sprachy.maybeSPA()
 
-  let isOpen = false
-
-  function handleUpdate(event: CustomEvent<any>) {
-    isOpen = event.detail.isOpen
-  }
-
   function toggleMute() {
     $user!.enableSpeechSynthesis = !$user?.enableSpeechSynthesis
 
@@ -53,8 +47,8 @@
           <span class="envbadge dev">dev</span>
         {/if}
       </NavbarBrand>
-      <NavbarToggler on:click={() => (isOpen = !isOpen)} />
-      <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
+      <NavbarToggler id="navbarToggler" />
+      <Collapse navbar expand="md" toggler="#navbarToggler">
         <Nav class="ms-auto" navbar>
           <NavItem>
             <NavLink href="/learn">Learn</NavLink>
@@ -172,6 +166,10 @@
 <style>
   :root {
     --site-header-height: 62px;
+  }
+
+  :global(.collapsing) {
+    transition: none !important;
   }
 
   header.fixed {
