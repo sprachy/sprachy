@@ -50,12 +50,12 @@ svg.svelte-fa {
 /** Tooltips from https://svelte.dev/repl/3153faf7584d40bd8ddebecf39f24ac1?version=3 **/
 [data-tooltip] {
   position: relative;
-  z-index: 2;
   display: block;
 }
 
 [data-tooltip]:before,
 [data-tooltip]:after {
+  z-index: 2;
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
