@@ -3,12 +3,16 @@
   import LTable from "./LTable.svelte"
   import Tip from "./Tip.svelte"
   import TextHighlighter from "./TextHighlighter.svelte"
-  import type { Element } from "domhandler"
+
+  type Element = {
+    tagName: string
+    attribs: any
+  }
 
   export let node: Element
   export let innerHtml: string
   export let outerHtml: string
-  const attrs = node.attribs as any
+  const attrs = node.attribs
 </script>
 
 {#if node.tagName == "dialogueexample"}

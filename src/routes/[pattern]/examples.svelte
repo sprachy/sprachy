@@ -41,7 +41,7 @@
       <ul>
         {#each pattern.exercises as line}
           <li>
-            <FillblankAsExample {line} {pattern} />
+            <FillblankAsExample {line} />
           </li>
         {/each}
       </ul>

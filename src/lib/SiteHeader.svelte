@@ -188,11 +188,6 @@
     box-shadow: inherit;
   }
 
-  .review-count {
-    background-color: var(--sprachy-secondary);
-    color: white;
-  }
-
   .avatar {
     vertical-align: top;
     width: 30px;

@@ -75,8 +75,4 @@
     border-radius: 50%;
     margin-right: 15px;
   }
-
-  .line {
-    cursor: pointer;
-  }
 </style>

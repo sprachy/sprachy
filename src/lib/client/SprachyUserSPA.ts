@@ -5,7 +5,6 @@ import type { SprachyAPIClient } from "./SprachyAPIClient"
 import type { ProgressItem, User, ProgressSummary } from "$lib/api"
 import type { Exercise, Pattern } from "$lib/Pattern"
 import { sprachdex } from "$lib/sprachdex"
-import { time } from "$lib/time"
 import { CanvasEffects } from "$lib/client/CanvasEffects"
 import { SpeechSystem } from '$lib/SpeechSystem'
 import { derived, writable, type Writable } from 'svelte/store'

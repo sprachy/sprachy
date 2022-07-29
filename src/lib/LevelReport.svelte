@@ -24,13 +24,6 @@
   })
 
   let itemRefs: LevelReportItem[] = []
-
-  // let key = "waffles"
-  function testProgress() {
-    for (const ref of itemRefs) {
-      ref.testProgress()
-    }
-  }
 </script>
 
 <div>
@@ -51,14 +44,5 @@
   table {
     max-width: 800px;
     margin: auto;
-  }
-  h4 {
-    text-align: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .btn-debug {
-    margin-top: 2rem;
   }
 </style>

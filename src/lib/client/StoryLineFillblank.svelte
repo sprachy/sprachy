@@ -6,7 +6,6 @@
   import Sprachdown from "$lib/Sprachdown.svelte"
   import { matchAnswer } from "$lib/client/feedback"
   import sprachy from "$lib/sprachy"
-  import SoundIndicator from "$lib/SoundIndicator.svelte"
   import type { Base64Audio } from "$lib/SpeechSystem"
   import AudioForLine from "$lib/AudioForLine.svelte"
 
@@ -115,7 +114,6 @@
     <form on:submit|preventDefault={checkAnswer}>
       {#if audioPromise}
         <AudioForLine
-          {line}
           {audioPromise}
           bind:this={audio}
           disabled={!playingPostAnswerSound}

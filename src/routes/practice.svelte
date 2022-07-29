@@ -1,6 +1,5 @@
 <script lang="ts">
   import _ from "lodash"
-  import SiteLayout from "$lib/SiteLayout.svelte"
   import sprachy from "$lib/sprachy"
   import PracticeSession from "$lib/client/PracticeSession.svelte"
 
@@ -24,15 +23,3 @@
   </div> -->
   <PracticeSession {exercises} {expMultiplier} />
 {/if}
-
-<style>
-  .practice-header {
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-
-  .bonus {
-    font-size: 0.9rem;
-    color: var(--blue-highlight);
-  }
-</style>

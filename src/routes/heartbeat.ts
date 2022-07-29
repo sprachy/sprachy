@@ -1,7 +1,7 @@
-import { db } from "$lib/server/db"
-import { time } from "$lib/time"
-import { mailer } from "$lib/server/mailer"
-import { env } from "$lib/server/env"
+// import { db } from "$lib/server/db"
+// import { time } from "$lib/time"
+// import { mailer } from "$lib/server/mailer"
+// import { env } from "$lib/server/env"
 import faunadb from "faunadb"
 const q = faunadb.query
 

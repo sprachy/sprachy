@@ -1,8 +1,6 @@
 import { test, expect } from "vitest"
 import { testenv } from './testenv'
-import { sprachdex } from '../src/lib/sprachdex'
 import { db } from "$lib/server/db"
-import { time } from "$lib/time"
 
 test("srs progress updates", async () => {
   const asUser = await testenv.asUser()

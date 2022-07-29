@@ -29,7 +29,6 @@
   let revealedChars = 0
   let paths: string[] = []
 
-  let animation: number
   let start: number
   let timeToFullReveal = 1000
   function frame(timestamp: number) {
@@ -53,7 +52,7 @@
   }
 
   onMount(() => {
-    animation = requestAnimationFrame(frame)
+    requestAnimationFrame(frame)
   })
 
   // svg.innerHTML = '<path d="' + path + ' z" />'

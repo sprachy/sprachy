@@ -1,12 +1,10 @@
 <script lang="ts">
   import _ from "lodash"
-  import type { FillblankLine, ReadingLine } from "$lib/Pattern"
   import sprachy from "$lib/sprachy"
   import SoundIndicator from "$lib/SoundIndicator.svelte"
   import type { Base64Audio } from "$lib/SpeechSystem"
   import { onDestroy } from "svelte"
 
-  export let line: ReadingLine | FillblankLine
   export let audioPromise: Promise<Base64Audio> | undefined
   export let playImmediately: boolean = false
   export let disabled: boolean = false

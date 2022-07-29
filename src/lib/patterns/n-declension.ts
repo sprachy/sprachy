@@ -1,4 +1,3 @@
-import { faExclamation, faToiletsPortable } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "$lib/definePattern"
 
 export default definePattern({
@@ -6,7 +5,6 @@ export default definePattern({
   slug: "n-declension",
   title: "Dem und den Nachbarn",
   shortdesc: "Why some nouns share the same endings across all cases",
-  icon: faToiletsPortable,
   explanation: md`
 When dealing with noun endings across grammatical cases, you may have noticed the reoccuring _-en_ and _-n_ endings.
 

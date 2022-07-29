@@ -1,6 +1,4 @@
 import { db } from "$lib/server/db"
-import faunadb from "faunadb"
-const q = faunadb.query
 
 export async function get() {
   const users = await db.users.listAll()

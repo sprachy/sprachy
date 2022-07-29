@@ -1,6 +1,6 @@
 import type { RequestHandler } from "@sveltejs/kit"
-import { db } from '$lib/server/db'
-import { time } from "$lib/time"
+// import { db } from '$lib/server/db'
+// import { time } from "$lib/time"
 
 export const POST: RequestHandler = async ({ locals }) => {
   // if (!locals.session)

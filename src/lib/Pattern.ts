@@ -114,13 +114,13 @@ export function parsePattern(patternDef: PatternDef): Pattern {
   }
 
   return Object.assign({}, patternDef, {
-    story: patternDef.story.map(ex => parseLine(patternDef, ex)),
+    story: patternDef.story.map(ex => parseLine(patternDef, ex) as StoryLine),
     maxLevel: 9,
     exercises: exercises
   })
 }
 
-export function parseLine(patternDef: PatternDef, lineDef: LineDef): StoryLine {
+export function parseLine(patternDef: PatternDef, lineDef: LineDef): StoryLine | FillblankLine {
   const match = 'message' in lineDef && lineDef.message?.match(/\[(.+?)\]/)
   if (match) {
     const fillblankDef = lineDef as FillblankLineDef

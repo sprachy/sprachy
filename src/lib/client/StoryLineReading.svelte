@@ -18,7 +18,7 @@
     <Message from={line.from} {flip} tooltip={line.translation}>
       <div>
         {#if audioPromise}
-          <AudioForLine {line} {audioPromise} playImmediately={!staticMode} />
+          <AudioForLine {audioPromise} playImmediately={!staticMode} />
         {/if}
         <Sprachdown inline source={line.message} />
       </div>

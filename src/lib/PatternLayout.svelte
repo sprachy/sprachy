@@ -12,9 +12,9 @@
   import SiteLayout from "$lib/SiteLayout.svelte"
   import Sprachdown from "$lib/Sprachdown.svelte"
   import type { Pattern } from "$lib/Pattern"
-  import sprachy from "$lib/sprachy"
+  // import sprachy from "$lib/sprachy"
 
-  const { patternsAndProgress } = sprachy.spa ?? {}
+  // const { patternsAndProgress } = sprachy.spa ?? {}
 
   export let activeTab: "dialogue" | "explanation" | "examples"
   export let pattern: Pattern

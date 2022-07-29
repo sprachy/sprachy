@@ -37,7 +37,7 @@ const synthesizeSchema = z.object({
 
 export type VoiceSynthesisRequestSchema = z.infer<typeof synthesizeSchema>
 
-export const POST: RequestHandler = async ({ request, locals }) => {
+export const POST: RequestHandler = async ({ request }) => {
   const options = synthesizeSchema.parse(await request.json())
 
   const credentials = JSON.parse(atob(env.GOOGLE_CLOUD_CREDENTIALS!))

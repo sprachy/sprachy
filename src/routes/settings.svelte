@@ -1,7 +1,6 @@
 <script lang="ts">
   import sprachy from "$lib/sprachy"
   import SiteLayout from "$lib/SiteLayout.svelte"
-  import Modal from "$lib/client/Modal.svelte"
   const spa = sprachy.expectSPA()
   const { api, user } = spa
 

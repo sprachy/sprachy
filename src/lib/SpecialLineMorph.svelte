@@ -6,7 +6,6 @@
   import Sprachdown from "$lib/Sprachdown.svelte"
   import AudioForLine from "$lib/AudioForLine.svelte"
   import type { Base64Audio } from "$lib/SpeechSystem"
-  import Avatar from "./Avatar.svelte"
 
   export let line: ReadingLine
   export let flip: boolean = false
@@ -28,7 +27,7 @@
   {:else if line.message}
     <Message from="squirrel" {flip} tooltip={line.translation}>
       {#if audioPromise}
-        <AudioForLine {line} {audioPromise} playImmediately={!staticMode} />
+        <AudioForLine {audioPromise} playImmediately={!staticMode} />
       {/if}
       <Sprachdown inline source={line.message} />
     </Message>
