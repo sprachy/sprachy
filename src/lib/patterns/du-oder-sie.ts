@@ -62,6 +62,14 @@ Note that all three forms of sie/Sie change to ihr/Ihr for the possessive!
       message: "Können Sie mir sagen, welche Art von Mandeln Sie haben?",
       translation: "Could you tell me what kind of almonds you have?",
     },
+    {
+      question: `Why is Lukas using "Sie" for the cashier?`,
+      choices: [
+        { text: "he is being polite and formally addressing her", correct: true },
+        { text: "he is mockingly addressing her in 3rd person" },
+        { text: "he is calling her by her name 'Sie' directly" }
+      ]
+    },
   ],
   exercises: [
     {

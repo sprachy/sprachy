@@ -112,7 +112,7 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
     },
     {
       from: "squirrel",
-      message: "Kann ich er essen?",
+      message: "Kann ich ihn essen?",
       translation: "Can I eat it?"
     },
     {

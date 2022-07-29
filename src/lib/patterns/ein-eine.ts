@@ -63,6 +63,14 @@ When dealing with compound words, the last word within the compound word would d
       translation: "My people would call it a deadzone."
     },
     {
+      question: `What grammatical gender does "die Todeszone" have?`,
+      choices: [
+        { text: "neuter" },
+        { text: "masculine" },
+        { text: "feminine", correct: true }
+      ]
+    },
+    {
       from: "squirrel",
       message: "Für mich ist es wie ein ruhiger Ozean.",
       translation: "To me it's like a calm ocean."
