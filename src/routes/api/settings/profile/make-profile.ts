@@ -8,7 +8,7 @@ import slug from 'slug'
 const patchProfileForm = z.object({
   displayName: z.string()
 })
-export const post: RequestHandler = async ({ request, locals }) => {
+export const POST: RequestHandler = async ({ request, locals }) => {
   const { displayName } = patchProfileForm.parse(await request.json())
 
   let username = slug(displayName)

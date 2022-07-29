@@ -3,7 +3,7 @@ import { db } from "$lib/server/db"
 import * as z from 'zod'
 import { sessions } from "$lib/server/sessions"
 
-export const get: RequestHandler = async ({ locals }) => {
+export const GET: RequestHandler = async ({ locals }) => {
   const [user, progressItems] = await Promise.all([
     db.users.get(locals.session!.userId),
     db.progress.listAllFor(locals.session!.userId)
@@ -28,7 +28,7 @@ export const get: RequestHandler = async ({ locals }) => {
 }
 
 const progressReport = z.record(z.string(), z.number())
-export const post: RequestHandler = async ({ request, locals }) => {
+export const POST: RequestHandler = async ({ request, locals }) => {
   const experienceByPatternId = progressReport.parse(await request.json())
 
   const progressItems = await Promise.all(Object.keys(experienceByPatternId).map(patternId =>

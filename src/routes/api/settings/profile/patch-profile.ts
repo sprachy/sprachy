@@ -9,7 +9,7 @@ const patchProfileForm = z.object({
   bio: z.optional(z.string()),
   pfp: z.optional(z.string())
 })
-export const patch: RequestHandler = async ({ request, locals }) => {
+export const PATCH: RequestHandler = async ({ request, locals }) => {
   const changes = patchProfileForm.parse(await request.json())
 
   try {

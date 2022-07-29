@@ -1,7 +1,7 @@
 import type { RequestHandler } from "@sveltejs/kit"
 import { db } from "$lib/server/db"
 
-export const get: RequestHandler = async () => {
+export const GET: RequestHandler = async () => {
   const users = await db.users.listAll()
   return {
     status: 200,

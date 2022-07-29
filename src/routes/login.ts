@@ -17,7 +17,7 @@ const loginForm = z.object({
   email: z.string(),
   password: z.string()
 })
-export const post: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request }) => {
   const { email, password } = loginForm.parse(await request.json())
 
   try {

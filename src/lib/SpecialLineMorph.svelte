@@ -25,7 +25,7 @@
     <div class="avatar">
       <div class="pixel" />
     </div>
-  {:else}
+  {:else if line.message}
     <Message from="squirrel" {flip} tooltip={line.translation}>
       {#if audioPromise}
         <AudioForLine {line} {audioPromise} playImmediately={!staticMode} />

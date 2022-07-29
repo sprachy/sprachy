@@ -6,7 +6,7 @@ import { kvs } from '$lib/server/kvs'
 const confirmEmailChangeForm = z.object({
   token: z.string()
 })
-export const post: RequestHandler = async ({ request, locals }) => {
+export const POST: RequestHandler = async ({ request, locals }) => {
   const { token } = confirmEmailChangeForm.parse(await request.json())
 
   const json = await kvs.getJson<{ userId: string, email: string }>(`email_confirm_tokens:${token}`)

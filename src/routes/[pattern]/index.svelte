@@ -24,11 +24,11 @@
   import _ from "lodash"
 
   import Sprachdown from "$lib/Sprachdown.svelte"
-  import type { PatternDef } from "$lib/Pattern"
+  import type { Pattern } from "$lib/Pattern"
   import PatternLayout from "$lib/PatternLayout.svelte"
   import PublicPage from "$lib/PublicPage.svelte"
 
-  export let pattern: PatternDef
+  export let pattern: Pattern
 </script>
 
 <PublicPage

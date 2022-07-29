@@ -8,7 +8,7 @@ import { env } from "$lib/server/env"
 import http from "$lib/server/http"
 import { LIVE_MONTHLY_PRICE_ID, TEST_MONTHLY_PRICE_ID } from "$lib/constants"
 
-export const post: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request }) => {
   const event = await request.json() as any
 
   if (event.type === 'checkout.session.completed') {

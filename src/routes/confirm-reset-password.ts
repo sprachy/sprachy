@@ -3,7 +3,7 @@ import { db } from '$lib/server/db'
 import { kvs } from '$lib/server/kvs'
 import type { RequestHandler } from '@sveltejs/kit'
 
-export const get: RequestHandler = async ({ url }) => {
+export const GET: RequestHandler = async ({ url }) => {
   const token = url.searchParams.get("token")
   return {
     status: 200,
@@ -24,7 +24,7 @@ const confirmResetPassword = z.object({
   message: "Confirm password must be identical to password",
   path: ["confirmPassword"]
 })
-export const post: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request }) => {
   const { token, newPassword } = confirmResetPassword.parse(await request.json())
 
   const json = await kvs.getJson<{ userId: string }>(`reset_password_tokens:${token}`)

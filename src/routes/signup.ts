@@ -19,7 +19,7 @@ const signupForm = z.object({
   message: "Confirm password must be identical to password",
   path: ["confirmPassword"]
 })
-export const post: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request }) => {
   const { email, password, wantsReminderEmails } = signupForm.parse(await request.json())
   try {
     const user = await db.users.create({ email, password, wantsReminderEmails })

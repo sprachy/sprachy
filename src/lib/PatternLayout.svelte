@@ -11,17 +11,17 @@
 
   import SiteLayout from "$lib/SiteLayout.svelte"
   import Sprachdown from "$lib/Sprachdown.svelte"
-  import type { PatternDef } from "$lib/Pattern"
+  import type { Pattern } from "$lib/Pattern"
   import sprachy from "$lib/sprachy"
 
   const { patternsAndProgress } = sprachy.spa ?? {}
 
   export let activeTab: "dialogue" | "explanation" | "examples"
-  export let pattern: PatternDef
+  export let pattern: Pattern
 
-  const progress = $patternsAndProgress?.find(
-    (p) => p.id === pattern.id
-  )?.progress
+  // const progress = $patternsAndProgress?.find(
+  //   (p) => p.id === pattern.id
+  // )?.progress
 </script>
 
 <SiteLayout fixedHeader>

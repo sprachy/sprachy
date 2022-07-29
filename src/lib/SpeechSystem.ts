@@ -19,7 +19,7 @@ export class SpeechSystem {
   constructor(readonly spa: SprachyUserSPA) { }
 
   async synthesizeLine(line: ReadingLine | FillblankLine): Promise<Base64Audio> {
-    return this.synthesizeFromCharacter(line.from, line.message)
+    return this.synthesizeFromCharacter(line.from, line.message || "")
   }
 
   async synthesizeFromCharacter(characterId: CharacterId, text: string): Promise<Base64Audio> {

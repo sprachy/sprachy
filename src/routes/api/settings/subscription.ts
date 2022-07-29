@@ -5,7 +5,7 @@ import { db } from "$lib/server/db"
 import { env } from "$lib/server/env"
 import { LIVE_MONTHLY_PRICE_ID, LIVE_ANNUAL_PRICE_ID, TEST_MONTHLY_PRICE_ID, TEST_ANNUAL_PRICE_ID } from '$lib/constants'
 
-export const post: RequestHandler = async ({ request, locals, url }) => {
+export const POST: RequestHandler = async ({ request, locals, url }) => {
   const IS_LIVE = url.host === "sprachy.com"
   const MONTHLY_PRICE_ID = IS_LIVE ? LIVE_MONTHLY_PRICE_ID : TEST_MONTHLY_PRICE_ID
   const ANNUAL_PRICE_ID = IS_LIVE ? LIVE_ANNUAL_PRICE_ID : TEST_ANNUAL_PRICE_ID

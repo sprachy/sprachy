@@ -24,9 +24,7 @@
       {/if}
       {#each pattern.story as line}
         <div class="line">
-          {#if line.type === "fillblank"}
-            <StoryLineFillblank {line} />
-          {:else if line.type === "reading"}
+          {#if line.type === "reading"}
             <StoryLineReading {line} />
           {:else}
             <StoryLineChoice {line} />

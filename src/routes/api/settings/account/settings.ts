@@ -6,7 +6,7 @@ const settingsForm = z.object({
   wantsReminderEmails: z.optional(z.boolean()),
   enableSpeechSynthesis: z.optional(z.boolean())
 })
-export const patch: RequestHandler = async ({ request, locals }) => {
+export const PATCH: RequestHandler = async ({ request, locals }) => {
   const settingChanges = settingsForm.parse(await request.json())
 
   const updatedUser = await db.users.update(locals.session!.userId, settingChanges)

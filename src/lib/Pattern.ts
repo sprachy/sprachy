@@ -32,7 +32,7 @@ export type SpecialLineId = 'morph' | 'alien'
 
 export type ReadingLineDef = {
   from: CharacterId
-  message: string
+  message?: string
   translation?: string
   image?: string
   imageAlt?: string
@@ -84,7 +84,7 @@ export type MultipleChoiceLine = {
   choices: { text: string, correct?: boolean }[]
 }
 
-export type StoryLine = ReadingLine | FillblankLine | MultipleChoiceLine
+export type StoryLine = ReadingLine | MultipleChoiceLine
 
 
 export type Exercise = FillblankLine

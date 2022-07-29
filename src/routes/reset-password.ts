@@ -10,7 +10,7 @@ import { env } from '$lib/server/env'
 const resetPasswordForm = z.object({
   email: z.string()
 })
-export const post: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request }) => {
   const { email } = resetPasswordForm.parse(await request.json())
 
   const user = await db.users.getByEmail(email)

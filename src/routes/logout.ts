@@ -2,7 +2,7 @@ import type { RequestHandler } from "@sveltejs/kit"
 import { sessions } from "$lib/server/sessions"
 
 
-export const get: RequestHandler = async ({ url, locals }) => {
+export const GET: RequestHandler = async ({ url, locals }) => {
   if (locals.session) {
     await sessions.expire(locals.session.sessionKey)
     locals.session = null
