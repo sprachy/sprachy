@@ -4,6 +4,10 @@
   --sprachy-gradthree: #ff6361;
   --sprachy-secondary: #ffa600;
   --blue-highlight: rgb(28, 176, 246);
+
+  /* Stop weird outlines around buttons */
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-border-color: transparent;
 }
 
 html,

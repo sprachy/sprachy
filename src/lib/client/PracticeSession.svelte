@@ -5,9 +5,8 @@
   import successImg from "$lib/img/success.webp"
   import sprachy from "$lib/sprachy"
   import LevelReport from "$lib/LevelReport.svelte"
-  import { faClose } from "@fortawesome/free-solid-svg-icons"
-  import Fa from "svelte-fa"
   import { fly } from "svelte/transition"
+  import FocusHeader from "$lib/FocusHeader.svelte"
 
   const spa = sprachy.expectSPA()
   const { api, user, speech } = spa
@@ -79,13 +78,10 @@
     </div>
   </div>
 {:else}
+  <FocusHeader closeUrl={returnUrl}>
+    <h1>Practicing</h1>
+  </FocusHeader>
   <div class="practice">
-    <div class="context">
-      <a sveltekit:prefetch href={returnUrl} class="btn close">
-        <Fa fw size="2x" icon={faClose} color="#ccc" />
-      </a>
-      <h1>Practicing</h1>
-    </div>
     <div class="exercises" in:fly={{ y: 20, duration: 500 }}>
       {#key exerciseIndex}
         <StoryLineFillblank
@@ -109,15 +105,7 @@
     height: 100%;
   }
 
-  .context {
-    position: fixed;
-    left: 5vh;
-    top: 5vh;
-    display: flex;
-    align-items: center;
-  }
-
-  .context h1 {
+  h1 {
     color: #ccc;
     font-size: 2rem;
     margin: 0;

@@ -32,6 +32,7 @@
   import { faClose } from "@fortawesome/free-solid-svg-icons"
 
   import { afterNavigate } from "$app/navigation"
+  import FocusHeader from "$lib/FocusHeader.svelte"
 
   const spa = sprachy.expectSPA()
   const { api, patternAndProgressById, user } = spa
@@ -111,11 +112,7 @@
   No stories for this pattern yet! Let's write some~
 {:else if story && !complete}
   <div class="story-holder">
-    <div class="context">
-      <a sveltekit:prefetch href={returnPath} class="btn close">
-        <Fa fw size="2x" icon={faClose} color="#ccc" />
-      </a>
-    </div>
+    <FocusHeader closeUrl={returnPath} />
     <header>
       <h3>{pattern.title}</h3>
     </header>

@@ -19,23 +19,12 @@
   import { sprachdex } from "./sprachdex"
   import defaultProfileImage from "$lib/img/squirrel.webp"
   import Fa from "svelte-fa"
-  import {
-    faVolumeHigh,
-    faVolumeMute,
-    faMoon,
-  } from "@fortawesome/free-solid-svg-icons"
+  import { faMoon } from "@fortawesome/free-solid-svg-icons"
+  import MuteToggle from "./MuteToggle.svelte"
 
   export let fixed: boolean = false
 
-  const { user, admin, restBonusAvailable, backgroundApi } = sprachy.maybeSPA()
-
-  function toggleMute() {
-    $user!.enableSpeechSynthesis = !$user?.enableSpeechSynthesis
-
-    backgroundApi!.patchSettings({
-      enableSpeechSynthesis: $user?.enableSpeechSynthesis,
-    })
-  }
+  const { user, admin, restBonusAvailable } = sprachy.maybeSPA()
 </script>
 
 <template>
@@ -88,17 +77,7 @@
 
           {#if $user}
             <NavItem>
-              <button class="btn toggle-mute" on:click={toggleMute}>
-                <div>
-                  <Fa
-                    pull="left"
-                    icon={$user.enableSpeechSynthesis
-                      ? faVolumeHigh
-                      : faVolumeMute}
-                    color="#666"
-                  />
-                </div>
-              </button>
+              <MuteToggle />
             </NavItem>
 
             {#if $admin}
@@ -200,7 +179,8 @@
     align-items: center;
   }
 
-  .toggle-mute {
+  header :global(.toggle-mute) {
     width: 47px;
+    color: #666;
   }
 </style>
