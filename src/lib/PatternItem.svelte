@@ -16,7 +16,9 @@
 
 <li class:pattern={true}>
   <a
-    href={learned ? `/${pattern.slug}` : `/story/${pattern.slug}`}
+    href={learned || !sprachy.spa
+      ? `/${pattern.slug}`
+      : `/story/${pattern.slug}`}
     sveltekit:prefetch
   >
     <div class="pattern-inner">
