@@ -33,6 +33,8 @@ h6:focus {
 
 .btn-sprachy:hover {
   color: white;
+  background-color: #f09c00;
+  border-color: #f09c00;
 }
 
 .btn-link {

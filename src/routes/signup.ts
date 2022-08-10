@@ -10,8 +10,7 @@ import { env } from "$lib/server/env"
 const signupForm = z.object({
   email: z.string().email(),
   password: z.string(),
-  confirmPassword: z.string(),
-  wantsReminderEmails: z.boolean()
+  confirmPassword: z.string()
 }).refine(d => d.password.length >= 10, {
   message: "Password must be at least length 10",
   path: ["password"]
@@ -20,9 +19,9 @@ const signupForm = z.object({
   path: ["confirmPassword"]
 })
 export const POST: RequestHandler = async ({ request }) => {
-  const { email, password, wantsReminderEmails } = signupForm.parse(await request.json())
+  const { email, password } = signupForm.parse(await request.json())
   try {
-    const user = await db.users.create({ email, password, wantsReminderEmails })
+    const user = await db.users.create({ email, password })
     const progressItems = await db.progress.listAllFor(user.id)
     const sessionKey = await sessions.create(user.id)
 

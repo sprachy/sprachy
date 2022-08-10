@@ -16,7 +16,6 @@ export type SignupDetails = {
   email: string
   password: string
   confirmPassword: string
-  wantsReminderEmails: boolean
 }
 
 export type PriceId = typeof MONTHLY_PRICE_ID | typeof ANNUAL_PRICE_ID

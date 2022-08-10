@@ -118,7 +118,7 @@ export namespace db {
     /**
      * Create a new user. Will fail if email is taken, due to faunadb unique constraint.
      */
-    export async function create(props: Pick<User, 'email' | 'wantsReminderEmails'> & { password: string }): Promise<User> {
+    export async function create(props: Pick<User, 'email'> & { password: string }): Promise<User> {
       return await db.querySingle<User>(
         Create(
           Collection("users"),
