@@ -18,8 +18,6 @@
   } from "sveltestrap"
   import { sprachdex } from "./sprachdex"
   import defaultProfileImage from "$lib/img/squirrel.webp"
-  import Fa from "svelte-fa"
-  import { faMoon } from "@fortawesome/free-solid-svg-icons"
   import MuteToggle from "./MuteToggle.svelte"
 
   export let fixed: boolean = false
@@ -42,7 +40,7 @@
           <NavItem>
             <NavLink href="/learn">Learn</NavLink>
           </NavItem>
-          <NavItem>
+          <!-- <NavItem>
             <NavLink href="/practice">
               <div class="d-flex align-items-center">
                 Practice
@@ -51,14 +49,14 @@
                   <Fa icon={faMoon} color="#0787c3" class="ms-1" />
                 {/if}
 
-                <!-- {#if $reviewsForLeveling.length > 0}
+                {#if $reviewsForLeveling.length > 0}
                     <span class="badge review-count ms-1">
                       {$reviewsForLeveling.length}
                     </span>
-                  {/if} -->
+                  {/if}
               </div>
             </NavLink>
-          </NavItem>
+          </NavItem> -->
 
           <Dropdown nav inNavbar>
             <DropdownToggle nav caret>Patterns</DropdownToggle>

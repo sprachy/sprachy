@@ -1,17 +1,52 @@
 <script lang="ts">
-  import { goto } from "$app/navigation"
   import sprachy from "$lib/sprachy"
   import SiteLayout from "$lib/SiteLayout.svelte"
+  import Story from "$lib/Story.svelte"
+  import LearnCardExercises from "$lib/LearnCardExercises.svelte"
+  import LevelBar from "$lib/LevelBar.svelte"
 
-  const { nextPatternToLearn } = sprachy.expectSPA()
-  const pattern = $nextPatternToLearn
-  if (pattern) {
-    goto(`/story/${pattern.slug}`, { replaceState: true })
-  }
+  const { nextThingToLearn, totalExperience } = sprachy.expectSPA()
 </script>
 
 <SiteLayout>
-  {#if !pattern}
-    <p>You've learned all available patterns, congrats!</p>
-  {/if}
+  <h1>Learning Stuff</h1>
+  <div class="learn">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="overview">
+          Learning Level: something
+          <LevelBar expStart={$totalExperience} expGained={0} />
+        </div>
+      </div>
+      <div class="col">
+        <div class="learnable">
+          {#if $nextThingToLearn}
+            {#if $nextThingToLearn.type === "pattern"}
+              <Story story={$nextThingToLearn.pattern.story} />
+            {:else}
+              <LearnCardExercises
+                exercises={$nextThingToLearn.pattern.exercises}
+              />
+            {/if}
+          {:else}
+            <p>You've already learned everything?! Congrats!</p>
+          {/if}
+        </div>
+      </div>
+    </div>
+  </div>
 </SiteLayout>
+
+<style>
+  .overview {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+  }
+
+  .learnable {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+  }
+</style>

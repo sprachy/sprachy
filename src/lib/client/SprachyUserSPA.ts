@@ -118,6 +118,8 @@ export class SprachyUserSPA {
     return reviews
   })
 
+
+
   restBonusAvailable = derived(this.progressItems, $progressItems => {
     if (!$progressItems.length) return false
 
@@ -131,6 +133,31 @@ export class SprachyUserSPA {
       return item.lastExperienceGainAt < startOfDay
     })
   })
+
+  totalExperience = derived(this.progressItems, $progressItems => {
+    return $progressItems.reduce((total, item) => total + item.experience, 0)
+  })
+
+  nextThingToLearn = derived([this.patternsAndProgress, this.nextPatternToLearn],
+    ([$patternsAndProgress, $nextPatternToLearn]) => {
+      const pattern = $patternsAndProgress.find(p => p.progress.level < 2)
+      if (pattern) {
+        if (pattern.progress.level === 0) {
+          return {
+            type: 'dialogue',
+            pattern: pattern
+          }
+        } else {
+          return {
+            type: 'exercises',
+            pattern: pattern
+          }
+        }
+      } else {
+        return undefined
+      }
+
+    })
 
   /** Get reviews from patterns ready to level */
   // reviewsForLeveling = derived(this.patternsReadyToLevel, $patternsReadyToLevel => {
