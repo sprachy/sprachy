@@ -2,18 +2,27 @@
   import sprachy from "./sprachy"
   import { tweened } from "svelte/motion"
   import { cubicInOut } from "svelte/easing"
-  import { createEventDispatcher, onMount } from "svelte"
 
   const { effects } = sprachy.expectSPA()
 
-  export let expStart: number
-  export let expGained: number
-  const dispatch = createEventDispatcher()
+  export let experience: number
 
-  let renderExp = tweened(expStart, {
+  $: console.log(experience)
+
+  let expStart = experience
+  $: expGained = experience - expStart
+
+  $: renderExp = tweened(expStart, {
     duration: expGained,
     easing: cubicInOut,
   })
+
+  // Once the animation catches up, we use the new value for the next animation
+  $: if ($renderExp >= experience) {
+    expStart = experience
+  }
+
+  $: renderExp.set(experience)
 
   $: initialLevel = Math.floor(expStart / 1000)
   $: renderLevel = Math.floor($renderExp / 1000)

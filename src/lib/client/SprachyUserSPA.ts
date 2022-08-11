@@ -7,7 +7,7 @@ import type { Exercise, Pattern } from "$lib/Pattern"
 import { sprachdex } from "$lib/sprachdex"
 import { CanvasEffects } from "$lib/client/CanvasEffects"
 import { SpeechSystem } from '$lib/SpeechSystem'
-import { derived, writable, type Writable } from 'svelte/store'
+import { derived, get, writable, type Writable } from 'svelte/store'
 
 export type Review = Exercise & {
   pattern: PatternAndProgress
@@ -62,6 +62,34 @@ export class SprachyUserSPA {
       return items
     })
   }
+
+  /**
+   * Gain an amount of experience in a given pattern
+   * Updates local state immediately without waiting for backend confirmation
+   */
+  async gainPatternExperience(patternId: string, amount: number) {
+    this.progressItems.update(items => {
+      const item = items.find(item => item.patternId === patternId)
+      if (item) {
+        item.experience += amount
+      } else {
+        items.push({
+          id: 'none',
+          userId: get(this.user).id,
+          patternId,
+          initiallyLearnedAt: Date.now(),
+          lastExperienceGainAt: Date.now(),
+          lastLeveledAt: Date.now(),
+          experience: amount
+        })
+      }
+
+      return items
+    })
+
+    return this.api.gainExperience({ [patternId]: amount })
+  }
+
 
   allViewablePatterns = derived(this.admin,
     $admin => $admin ? sprachdex.patternsIncludingDrafts : sprachdex.publishedPatterns)

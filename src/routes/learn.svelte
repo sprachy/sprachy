@@ -6,6 +6,13 @@
   import LevelBar from "$lib/LevelBar.svelte"
 
   const { nextThingToLearn, totalExperience } = sprachy.expectSPA()
+
+  $: reviews = $nextThingToLearn?.pattern.exercises.map((ex) => {
+    return {
+      ...ex,
+      pattern: $nextThingToLearn!.pattern,
+    }
+  })!
 </script>
 
 <SiteLayout>
@@ -14,8 +21,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="overview">
-          Learning Level: something
-          <LevelBar expStart={$totalExperience} expGained={0} />
+          <LevelBar experience={$totalExperience} />
         </div>
       </div>
       <div class="col">
@@ -24,9 +30,7 @@
             {#if $nextThingToLearn.type === "pattern"}
               <Story story={$nextThingToLearn.pattern.story} />
             {:else}
-              <LearnCardExercises
-                exercises={$nextThingToLearn.pattern.exercises}
-              />
+              <LearnCardExercises exercises={reviews} />
             {/if}
           {:else}
             <p>You've already learned everything?! Congrats!</p>

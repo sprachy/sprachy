@@ -4,6 +4,7 @@
   import type { Review } from "$lib/client/SprachyUserSPA"
   import sprachy from "$lib/sprachy"
   import { fly } from "svelte/transition"
+  import type { Exercise } from "./Pattern"
 
   const spa = sprachy.expectSPA()
   const { api, user, speech } = spa
@@ -28,6 +29,10 @@
 
   async function nextExercise() {
     if (completing || completed) return
+
+    // Completed an exercise, gain experience
+    const expGained = 200 * expMultiplier
+    spa.gainPatternExperience(exercise.pattern.id, expGained)
 
     if (exerciseIndex >= exercises.length - 1) {
       // Completed all reviews
@@ -54,7 +59,7 @@
 </script>
 
 <div class="practice">
-  <div class="exercises" in:fly={{ y: 20, duration: 500 }}>
+  <div class="exercises">
     {#key exerciseIndex}
       <StoryLineFillblank
         line={exercise}

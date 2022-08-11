@@ -9,7 +9,7 @@
   import type { Base64Audio } from "$lib/SpeechSystem"
   import AudioForLine from "$lib/AudioForLine.svelte"
 
-  const { user, speech, effects } = sprachy.expectSPA()
+  const { speech, effects } = sprachy.expectSPA()
 
   export let line: FillblankLine
   export let flip: boolean = false
