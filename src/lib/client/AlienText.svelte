@@ -39,7 +39,6 @@
       source.length,
       Math.floor((timePassed / timeToFullReveal) * source.length)
     )
-    console.log(timePassed, revealedChars, source.length)
 
     paths = []
     for (let i = 0; i < revealedChars; i++) {

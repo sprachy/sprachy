@@ -13,7 +13,7 @@
 
   export let exercises: Review[]
   export let expMultiplier: number = 1.0
-  export let returnUrl: string = "/home"
+  export let returnUrl: string = "/learn"
 
   let experienceByPatternId: Record<string, number> = {}
   let exerciseIndex: number = 0

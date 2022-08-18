@@ -49,8 +49,8 @@
   let returnPath: string = `/${pattern.slug}/dialogue`
   afterNavigate((navigation) => {
     if (navigation?.from) {
-      if (["/home", "/learn"].includes(navigation.from.pathname)) {
-        returnPath = "/home"
+      if (["/learn"].includes(navigation.from.pathname)) {
+        returnPath = "/learn"
       }
       initialPageInteraction = true
     }

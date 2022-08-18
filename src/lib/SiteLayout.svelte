@@ -20,7 +20,7 @@
   {/if}
 </svelte:head>
 
-<div class="site-layout">
+<div class="SiteLayout" class:fixedHeader>
   <SiteHeader fixed={fixedHeader} />
   {#if noContainer}
     <slot />
@@ -32,11 +32,16 @@
 </div>
 
 <style>
-  .site-layout {
-    padding-bottom: 5rem;
+  .SiteLayout {
+    height: 100%;
+  }
+
+  .SiteLayout.fixedHeader {
+    padding-top: 62px;
   }
 
   main {
     padding-top: 1.5rem;
+    padding-bottom: 5rem;
   }
 </style>

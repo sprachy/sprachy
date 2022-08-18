@@ -1,56 +1,76 @@
 <script lang="ts">
   import sprachy from "$lib/sprachy"
   import SiteLayout from "$lib/SiteLayout.svelte"
-  import Story from "$lib/Story.svelte"
-  import LearnCardExercises from "$lib/LearnCardExercises.svelte"
+  import LearnModeDialogue from "$lib/LearnModeDialogue.svelte"
+  import LearnModeExercises from "$lib/LearnModeExercises.svelte"
   import LevelBar from "$lib/LevelBar.svelte"
+
+  let dialogue: LearnModeDialogue | null = null
 
   const { nextThingToLearn, totalExperience } = sprachy.expectSPA()
 
-  $: reviews = $nextThingToLearn?.pattern.exercises.map((ex) => {
-    return {
-      ...ex,
-      pattern: $nextThingToLearn!.pattern,
+  let learning = $nextThingToLearn
+
+  function continueStory() {
+    if (dialogue) {
+      dialogue.continueStory()
     }
-  })!
+  }
+
+  function nextLearning() {
+    learning = $nextThingToLearn
+  }
 </script>
 
-<SiteLayout>
-  <h1>Learning Stuff</h1>
-  <div class="learn">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="overview">
-          <LevelBar experience={$totalExperience} />
-        </div>
-      </div>
-      <div class="col">
-        <div class="learnable">
-          {#if $nextThingToLearn}
-            {#if $nextThingToLearn.type === "pattern"}
-              <Story story={$nextThingToLearn.pattern.story} />
-            {:else}
-              <LearnCardExercises exercises={reviews} />
-            {/if}
-          {:else}
-            <p>You've already learned everything?! Congrats!</p>
-          {/if}
-        </div>
-      </div>
+<SiteLayout noContainer fixedHeader>
+  <div class="sidebar">
+    <div class="overview">
+      {#if learning}
+        <div>{learning.why}</div>
+      {/if}
+      <LevelBar experience={$totalExperience} />
+      {#if learning?.type === "dialogue"}
+        <button class="btn btn-success btn-lg" on:click={continueStory}
+          >Continue</button
+        >
+      {/if}
     </div>
+  </div>
+  <div class="learnable">
+    {#if learning}
+      {#if learning.type === "dialogue"}
+        <LearnModeDialogue
+          pattern={learning.pattern}
+          bind:this={dialogue}
+          on:complete={nextLearning}
+        />
+      {:else}
+        <LearnModeExercises
+          pattern={learning.pattern}
+          on:complete={nextLearning}
+        />
+      {/if}
+    {:else}
+      <p>You've already learned everything?! Congrats!</p>
+    {/if}
   </div>
 </SiteLayout>
 
 <style>
-  .overview {
+  .sidebar {
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
     padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 1rem;
+    padding-top: 5rem;
+    border-right: 1px solid #ccc;
+    z-index: 1;
+    background-color: white;
+    width: 300px;
   }
 
   .learnable {
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 1rem;
+    padding-left: 300px;
   }
 </style>

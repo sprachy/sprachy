@@ -42,7 +42,7 @@
   async function signup() {
     const { api } = sprachy.expectBrowser()
 
-    prefetchRoutes([next || "/home"])
+    prefetchRoutes([next || "/learn"])
 
     errors = {}
     if (password != confirmPassword) {
@@ -63,7 +63,7 @@
       if (next) {
         goto(next, { replaceState: true })
       } else {
-        goto("/home", { replaceState: true })
+        goto("/learn", { replaceState: true })
       }
     } catch (err: any) {
       if (err?.response?.status == 422) {

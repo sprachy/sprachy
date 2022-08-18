@@ -5,7 +5,7 @@
     if (session.userId) {
       return {
         status: 303,
-        redirect: "/home",
+        redirect: "/learn",
       }
     } else {
       return {

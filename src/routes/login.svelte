@@ -6,7 +6,7 @@
     if (session.userId) {
       return {
         status: 303,
-        redirect: next || "/home",
+        redirect: next || "/learn",
       }
     }
 
@@ -39,7 +39,7 @@
   async function login() {
     const { api } = sprachy.expectBrowser()
 
-    prefetchRoutes([next || "/home"])
+    prefetchRoutes([next || "/learn"])
 
     loading = true
     errors = {}
@@ -50,7 +50,7 @@
       if (next) {
         goto(next, { replaceState: true })
       } else {
-        goto("/home", { replaceState: true })
+        goto("/learn", { replaceState: true })
       }
     } catch (err: any) {
       if (err?.response?.status == 422) {

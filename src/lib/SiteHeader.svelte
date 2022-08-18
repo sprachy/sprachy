@@ -16,7 +16,6 @@
     DropdownMenu,
     DropdownItem,
   } from "sveltestrap"
-  import { sprachdex } from "./sprachdex"
   import defaultProfileImage from "$lib/img/squirrel.webp"
   import MuteToggle from "./MuteToggle.svelte"
 
@@ -58,16 +57,9 @@
             </NavLink>
           </NavItem> -->
 
-          <Dropdown nav inNavbar>
-            <DropdownToggle nav caret>Patterns</DropdownToggle>
-            <DropdownMenu end>
-              {#each sprachdex.publishedPatterns as pattern}
-                <DropdownItem href={`/${pattern.slug}`}>
-                  {pattern.title}
-                </DropdownItem>
-              {/each}
-            </DropdownMenu>
-          </Dropdown>
+          <NavItem>
+            <NavLink href="/patterns">Patterns</NavLink>
+          </NavItem>
 
           <NavItem>
             <NavLink href="/faq">FAQ</NavLink>
@@ -151,7 +143,8 @@
 
   header.fixed {
     position: fixed;
-    z-index: 1;
+    top: 0;
+    z-index: 2;
     width: 100%;
   }
 

@@ -8,12 +8,11 @@ import { sprachdex } from "$lib/sprachdex"
 import { CanvasEffects } from "$lib/client/CanvasEffects"
 import { SpeechSystem } from '$lib/SpeechSystem'
 import { derived, get, writable, type Writable } from 'svelte/store'
+import { time } from '$lib/time'
 
 export type Review = Exercise & {
   pattern: PatternAndProgress
 }
-
-declare const window: any
 
 /**
  * Single page application state for when the user is signed in
@@ -31,12 +30,9 @@ export class SprachyUserSPA {
 
   constructor(readonly api: SprachyAPIClient, readonly backgroundApi: SprachyAPIClient, summary: ProgressSummary) {
     this.receiveProgress(summary)
-
-    // Expose some stuff for debugging
-    this.user.subscribe($user => window.user = $user)
   }
 
-  admin = derived(this.user, user => user.isAdmin)
+  admin = derived(this.user, $user => $user.isAdmin)
 
   async refreshProgress() {
     const summary = await this.api.getProgress()
@@ -104,7 +100,7 @@ export class SprachyUserSPA {
         return Object.assign({}, pattern, {
           progress: new PatternProgress(pattern, $progressItemByPatternId[pattern.id])
         })
-      })
+      }) as PatternAndProgress[]
     }
   )
 
@@ -146,8 +142,6 @@ export class SprachyUserSPA {
     return reviews
   })
 
-
-
   restBonusAvailable = derived(this.progressItems, $progressItems => {
     if (!$progressItems.length) return false
 
@@ -166,25 +160,49 @@ export class SprachyUserSPA {
     return $progressItems.reduce((total, item) => total + item.experience, 0)
   })
 
-  nextThingToLearn = derived([this.patternsAndProgress, this.nextPatternToLearn],
-    ([$patternsAndProgress, $nextPatternToLearn]) => {
-      const pattern = $patternsAndProgress.find(p => p.progress.level < 2)
+  /**
+   * Patterns we think the user should review, based on how long it has
+   * been since they last looked at them.
+   */
+  patternsToReview = derived(this.patternsAndProgress, $patternsAndProgress => {
+    return $patternsAndProgress.filter(p =>
+      p.progress.item && p.progress.item.lastExperienceGainAt < Date.now() - time.days(1))
+  })
+
+  nextThingToLearn = derived([this.patternsAndProgress, this.patternsToReview],
+    ([$patternsAndProgress, $patternsToReview]) => {
+      // First review anything that's ready for review
+      let pattern = $patternsToReview[0]
       if (pattern) {
-        if (pattern.progress.level === 0) {
-          return {
-            type: 'dialogue',
-            pattern: pattern
-          }
-        } else {
-          return {
-            type: 'exercises',
-            pattern: pattern
-          }
+        return {
+          type: 'exercises',
+          pattern: pattern,
+          why: `Reviewing ${pattern.title}`
         }
-      } else {
-        return undefined
       }
 
+      // Next, level any patterns that are only level 1
+      pattern = $patternsAndProgress.find(p => p.progress.level === 1)
+      if (pattern) {
+        return {
+          type: 'exercises',
+          pattern: pattern,
+          why: `Learning ${pattern.title}`
+        }
+      }
+
+      // Finally, learn a new pattern
+      pattern = $patternsAndProgress.find(p => p.progress.level < 1)
+      if (pattern) {
+        return {
+          type: 'dialogue',
+          pattern: pattern,
+          why: `Learning ${pattern.title}`
+        }
+      }
+
+      // Nothing left to learn!
+      return undefined
     })
 
   /** Get reviews from patterns ready to level */

@@ -5,31 +5,24 @@
 
   const { effects } = sprachy.expectSPA()
 
-  export let experience: number
-
-  $: console.log(experience)
-
-  let expStart = experience
-  $: expGained = experience - expStart
-
-  $: renderExp = tweened(expStart, {
-    duration: expGained,
-    easing: cubicInOut,
-  })
-
-  // Once the animation catches up, we use the new value for the next animation
-  $: if ($renderExp >= experience) {
-    expStart = experience
+  function levelFromExperience(exp: number) {
+    return Math.floor(exp / 1000)
   }
 
-  $: renderExp.set(experience)
+  export let experience: number
+  let shownExp = tweened(experience, {
+    duration: 500,
+    easing: cubicInOut,
+  })
+  let prevLevel = levelFromExperience(experience)
 
-  $: initialLevel = Math.floor(expStart / 1000)
-  $: renderLevel = Math.floor($renderExp / 1000)
-  $: fracProgress = ($renderExp % 1000) / 1000
+  $: shownExp.set(experience)
+  $: shownLevel = levelFromExperience($shownExp)
+  $: fracProgress = ($shownExp % 1000) / 1000
 
-  $: if (renderLevel > initialLevel) {
+  $: if (shownLevel > prevLevel) {
     effects.confetti.spawnAt(endpointRef)
+    prevLevel = shownLevel
   }
 
   let endpointRef: HTMLDivElement
@@ -40,7 +33,7 @@
     <div class="expbar-fill" style:width={`${fracProgress * 100}%`} />
   </div>
   <div class="level ms-2" bind:this={endpointRef}>
-    Lv {renderLevel}
+    Lv {shownLevel}
   </div>
 </div>
 
