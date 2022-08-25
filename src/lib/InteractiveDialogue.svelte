@@ -96,7 +96,7 @@
     }
   }
 
-  function continueStory() {
+  export function continueStory() {
     if (doingExercise) {
     } else if (lineIndex < story.length - 1) {
       nextLine()

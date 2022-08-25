@@ -35,6 +35,9 @@ export namespace sessions {
       httpOnly: true,
       // maxAge is in seconds
       maxAge: time.weeks(52) / 1000,
+      // Needed for cookie to be sent to every url accessed on the site
+      // rather than just /api
+      path: "/"
     })
   }
 }

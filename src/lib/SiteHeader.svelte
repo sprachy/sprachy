@@ -21,7 +21,7 @@
 
   export let fixed: boolean = false
 
-  const { user, admin, restBonusAvailable } = sprachy.maybeSPA()
+  const { user, admin } = sprachy.maybeSPA()
 </script>
 
 <template>
@@ -36,9 +36,11 @@
       <NavbarToggler id="navbarToggler" />
       <Collapse navbar expand="md" toggler="#navbarToggler">
         <Nav class="ms-auto" navbar>
-          <NavItem>
-            <NavLink href="/learn">Learn</NavLink>
-          </NavItem>
+          {#if $user}
+            <NavItem>
+              <NavLink href="/learn">Learn</NavLink>
+            </NavItem>
+          {/if}
           <!-- <NavItem>
             <NavLink href="/practice">
               <div class="d-flex align-items-center">

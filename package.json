@@ -14,11 +14,12 @@
     "initdb": "NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd --no-override node --loader ts-node/esm scripts/initdb.ts",
     "adminify": "NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd --no-override node --loader ts-node/esm scripts/adminify.ts",
     "test": "env-cmd --no-override vitest",
-    "faunadb": "docker run -d --rm --name fauna -p 8443:8443 -p 8084:8084 -v devdb:/var/lib/fauna fauna/faunadb"
+    "faunadb": "docker run -d --rm --name fauna -p 8443:8443 -p 8084:8084 -v devdb:/var/lib/fauna fauna/faunadb",
+    "upgrade": "npm-upgrade && npm i"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.14.1",
-    "@sveltejs/kit": "^1.0.0-next.436",
+    "@sveltejs/kit": "^1.0.0-next.437",
     "@types/bootstrap": "^5.2.3",
     "@types/cookie": "^0.5.1",
     "@types/domhandler": "^2.4.2",

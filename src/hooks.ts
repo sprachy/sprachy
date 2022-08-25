@@ -1,5 +1,5 @@
 import cookie from 'cookie'
-import type { Handle, GetSession } from '@sveltejs/kit'
+import type { Handle } from '@sveltejs/kit'
 import { sessions } from '$lib/server/sessions'
 import { ZodError } from 'zod'
 import { isAuthedRoute } from '$lib/routing'
@@ -23,8 +23,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   const session = sessionKey ? await sessions.get(sessionKey) : null
   event.locals.session = session
 
-
-  if (event.url.pathname.startsWith(`/pattern`)) {
+  if (event.url.pathname.startsWith(`/pattern/`)) {
     return new Response("", {
       status: 302,
       headers: {
@@ -33,8 +32,16 @@ export const handle: Handle = async ({ event, resolve }) => {
     })
   }
 
+
+
   // If it's an api route, we need to auth gate it here
-  if (event.url.pathname.startsWith('/api') && !session) {
+  const publicApiRoutes = [
+    '/api/login',
+    '/api/signup',
+    '/api/reset-password',
+    '/api/confirm-reset-password'
+  ]
+  if (!session && event.url.pathname.startsWith('/api') && !publicApiRoutes.includes(event.url.pathname)) {
     const json = { status: 401, code: "login required" }
     return new Response(
       JSON.stringify(json),
@@ -88,17 +95,17 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 }
 
-/** Client-side session */
-export const getSession: GetSession = async (event) => {
-  const { session } = event.locals
-  if (session) {
-    return {
-      userId: session.userId
-    }
-  } else {
-    return {}
-  }
-}
+// /** Client-side session */
+// export const getSession: GetSession = async (event) => {
+//   const { session } = event.locals
+//   if (session) {
+//     return {
+//       userId: session.userId
+//     }
+//   } else {
+//     return {}
+//   }
+// }
 
 // export const handleError: HandleError = async ({ error, event }) => {
 //   console.log("humm")

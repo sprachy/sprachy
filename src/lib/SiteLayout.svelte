@@ -2,9 +2,7 @@
   import SiteHeader from "./SiteHeader.svelte"
   import { sprachdex } from "./sprachdex"
   import successImg from "$lib/img/success.webp"
-
   export let title: string | null = null
-  export let fixedHeader: boolean = false
 </script>
 
 <svelte:head>
@@ -19,17 +17,13 @@
   {/if}
 </svelte:head>
 
-<div class="SiteLayout" class:fixedHeader>
-  <SiteHeader fixed={fixedHeader} />
+<div class="SiteLayout">
+  <SiteHeader />
   <slot />
 </div>
 
 <style>
   .SiteLayout {
     height: 100%;
-  }
-
-  .SiteLayout.fixedHeader {
-    padding-top: 62px;
   }
 </style>
