@@ -1,6 +1,8 @@
 /// <reference types="@sveltejs/kit" />
 /// <reference types="@cloudflare/workers-types" />
 
+import type { Pattern } from "$lib/Pattern"
+
 // See https://kit.svelte.dev/docs/types#the-app-namespace
 // for information about these interfaces
 declare namespace App {
@@ -49,6 +51,4 @@ declare namespace App {
   interface Session {
     userId?: string
   }
-
-  // interface Stuff {}
 }

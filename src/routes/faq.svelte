@@ -2,7 +2,6 @@
   import { md } from "$lib/util"
   import _ from "lodash"
   import Sprachdown from "$lib/Sprachdown.svelte"
-  import SiteLayout from "$lib/SiteLayout.svelte"
   import PublicPage from "$lib/PublicPage.svelte"
 
   const faq = md`
@@ -58,15 +57,13 @@ TODO expand this section for other platforms
   canonicalPath="/faq"
   cardDesc="Frequently asked questions"
 >
-  <SiteLayout>
-    <div class="faq">
-      <Sprachdown source={faq} />
-    </div>
-  </SiteLayout>
+  <main class="container">
+    <Sprachdown source={faq} />
+  </main>
 </PublicPage>
 
 <style>
-  .faq :global(h3) {
+  .container :global(h3) {
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
     font-size: 1.4rem;

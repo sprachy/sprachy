@@ -3,7 +3,6 @@
   import { onMount } from "svelte"
   import type { User } from "$lib/api"
   import sprachy from "$lib/sprachy"
-  import SiteLayout from "$lib/SiteLayout.svelte"
   let users: User[] = []
 
   const { api } = sprachy.expectSPA()
@@ -17,7 +16,7 @@
   // }
 </script>
 
-<SiteLayout>
+<main>
   <h1>Users</h1>
   <table class="table table-bordered mt-2">
     <thead>
@@ -33,7 +32,7 @@
       </tr>
     {/each}
   </table>
-</SiteLayout>
+</main>
 
 <style>
   h1 {

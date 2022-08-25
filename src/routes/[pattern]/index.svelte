@@ -25,7 +25,6 @@
 
   import Sprachdown from "$lib/Sprachdown.svelte"
   import type { Pattern } from "$lib/Pattern"
-  import PatternLayout from "$lib/PatternLayout.svelte"
   import PublicPage from "$lib/PublicPage.svelte"
 
   export let pattern: Pattern
@@ -36,11 +35,9 @@
   canonicalPath={`/${pattern.slug}`}
   cardDesc={pattern.shortdesc}
 >
-  <PatternLayout {pattern} activeTab="explanation">
-    <article class="explanation">
-      <Sprachdown source={pattern.explanation} />
-    </article>
-  </PatternLayout>
+  <article class="explanation">
+    <Sprachdown source={pattern.explanation} />
+  </article>
 </PublicPage>
 
 <style>

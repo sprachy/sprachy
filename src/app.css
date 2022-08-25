@@ -10,6 +10,11 @@
   --bs-btn-active-border-color: transparent;
 }
 
+main.container {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
 html,
 body,
 .svelte {

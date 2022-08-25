@@ -1,40 +1,16 @@
-<script lang="ts" context="module">
-  import { sprachdex } from "$lib/sprachdex"
-  import type { Load } from "@sveltejs/kit"
-
-  export const load: Load<{ pattern: string }> = async ({ params }) => {
-    const pattern = sprachdex.patternsIncludingDrafts.find(
-      (p) => p.slug === params.pattern
-    )
-
-    if (!pattern) {
-      return { status: 404 }
-    }
-
-    return {
-      status: 200,
-      props: {
-        pattern: pattern,
-      },
-    }
-  }
-</script>
-
 <script lang="ts">
   import _ from "lodash"
 
   import type { Pattern } from "$lib/Pattern"
-  import PatternLayout from "$lib/PatternLayout.svelte"
   import Story from "$lib/Story.svelte"
+  import { page } from "$app/stores"
 
-  export let pattern: Pattern
+  $: pattern = ($page.stuff as any).pattern as Pattern
 </script>
 
-<PatternLayout {pattern} activeTab="dialogue">
-  <article class="dialogue">
-    <Story staticMode story={pattern.story} />
-  </article>
-</PatternLayout>
+<article class="dialogue">
+  <Story staticMode story={pattern.story} />
+</article>
 
 <style>
 </style>

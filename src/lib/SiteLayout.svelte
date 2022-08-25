@@ -4,7 +4,6 @@
   import successImg from "$lib/img/success.webp"
 
   export let title: string | null = null
-  export let noContainer: boolean = false
   export let fixedHeader: boolean = false
 </script>
 
@@ -22,13 +21,7 @@
 
 <div class="SiteLayout" class:fixedHeader>
   <SiteHeader fixed={fixedHeader} />
-  {#if noContainer}
-    <slot />
-  {:else}
-    <main class="container">
-      <slot />
-    </main>
-  {/if}
+  <slot />
 </div>
 
 <style>
@@ -38,10 +31,5 @@
 
   .SiteLayout.fixedHeader {
     padding-top: 62px;
-  }
-
-  main {
-    padding-top: 1.5rem;
-    padding-bottom: 5rem;
   }
 </style>

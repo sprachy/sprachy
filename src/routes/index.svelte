@@ -20,7 +20,6 @@
   import PublicPage from "$lib/PublicPage.svelte"
   import _ from "lodash"
   import PatternIndex from "$lib/PatternIndex.svelte"
-  import SiteLayout from "$lib/SiteLayout.svelte"
   import backgroundImg from "$lib/img/sprachy-bg.webp"
   import {
     faBook,
@@ -45,7 +44,7 @@
   metaDesc={pageDesc}
   cardDesc={pageDesc}
 >
-  <SiteLayout noContainer={true}>
+  <main>
     <section class="banner" style={`background-image: url(${backgroundImg})`}>
       <div class="container">
         <div class="row">
@@ -118,7 +117,7 @@
         <PatternIndex />
       </div>
     </section>
-  </SiteLayout>
+  </main>
 </PublicPage>
 
 <style>

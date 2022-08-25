@@ -1,7 +1,6 @@
 <script lang="ts">
   import { loadStripe } from "@stripe/stripe-js"
   import { LIVE_MONTHLY_PRICE_ID, TEST_MONTHLY_PRICE_ID } from "$lib/constants"
-  import SiteLayout from "$lib/SiteLayout.svelte"
   import sprachy from "$lib/sprachy"
   const spa = sprachy.expectSPA()
   const { api, user } = spa
@@ -62,7 +61,7 @@
   </style>
 </svelte:head>
 
-<SiteLayout>
+<main>
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-3 pricing-tile">
       <h4>Lite</h4>
@@ -106,7 +105,7 @@
       {/if}
     </div>
   </div>
-</SiteLayout>
+</main>
 
 <style>
   .pricing-tile {

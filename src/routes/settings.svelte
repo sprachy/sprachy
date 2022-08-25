@@ -1,6 +1,5 @@
 <script lang="ts">
   import sprachy from "$lib/sprachy"
-  import SiteLayout from "$lib/SiteLayout.svelte"
   const spa = sprachy.expectSPA()
   const { api, user } = spa
 
@@ -73,7 +72,7 @@
   }
 </script>
 
-<SiteLayout>
+<main class="container">
   <h1>Account Settings</h1>
 
   <form>
@@ -157,7 +156,7 @@
       </ul>
     </div>
   </section>
-</SiteLayout>
+</main>
 
 <style>
   section {

@@ -1,6 +1,6 @@
 <script lang="ts">
   import sprachy from "$lib/sprachy"
-  import SiteLayout from "$lib/SiteLayout.svelte"
+  import main class="container" from "$lib/main class="container".svelte"
   import _ from "lodash"
   const spa = sprachy.expectSPA()
   const { api, user } = spa
@@ -108,7 +108,7 @@
   }
 </script>
 
-<SiteLayout>
+<main class="container">
   <h1>Profile Settings</h1>
   <form>
     <fieldset class="mb-3 col-md-6">
@@ -205,7 +205,7 @@
       disabled={bio === $user.bio}>Save Profile Bio</button
     >
   </form>
-</SiteLayout>
+</main class="container">
 
 <style>
   .inputForm {

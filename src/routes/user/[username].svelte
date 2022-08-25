@@ -1,6 +1,5 @@
 <script lang="ts">
   import sprachy from "$lib/sprachy"
-  import SiteLayout from "$lib/SiteLayout.svelte"
   import _ from "lodash"
   import type { User } from "$lib/api"
   import defaultProfileImage from "$lib/img/squirrel.webp"
@@ -15,7 +14,7 @@
   }
 </script>
 
-<SiteLayout>
+<main class="container">
   <div class="profile">
     <h2 class="header">{profileUser.displayName}'s profile</h2>
     <div class="profile shadow">
@@ -63,7 +62,7 @@
       </div>
     </div>
   </div>
-</SiteLayout>
+</main>
 
 <style>
   .header {

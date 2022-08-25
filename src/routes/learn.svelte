@@ -1,6 +1,5 @@
 <script lang="ts">
   import sprachy from "$lib/sprachy"
-  import SiteLayout from "$lib/SiteLayout.svelte"
   import LearnModeDialogue from "$lib/LearnModeDialogue.svelte"
   import LearnModeExercises from "$lib/LearnModeExercises.svelte"
   import LevelBar from "$lib/LevelBar.svelte"
@@ -22,7 +21,7 @@
   }
 </script>
 
-<SiteLayout noContainer fixedHeader>
+<main>
   <div class="sidebar">
     <div class="overview">
       {#if learning}
@@ -54,7 +53,7 @@
       <p>You've already learned everything?! Congrats!</p>
     {/if}
   </div>
-</SiteLayout>
+</main>
 
 <style>
   .sidebar {

@@ -27,6 +27,7 @@
   import { page } from "$app/stores"
   import sprachy from "$lib/sprachy"
   import PreloadingIndicator from "$lib/PreloadingIndicator.svelte"
+  import SiteLayout from "$lib/SiteLayout.svelte"
   let initializing: boolean = true
 
   let loadingPromises: Set<Promise<any>> = new Set()
@@ -64,5 +65,7 @@
 {/if}
 
 {#if !initializing}
-  <slot />
+  <SiteLayout>
+    <slot />
+  </SiteLayout>
 {/if}

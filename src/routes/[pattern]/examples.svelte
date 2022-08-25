@@ -1,34 +1,14 @@
-<script lang="ts" context="module">
-  import { sprachdex } from "$lib/sprachdex"
-  import type { Load } from "@sveltejs/kit"
-
-  export const load: Load<{ pattern: string }> = async ({ params }) => {
-    const pattern = sprachdex.patternsIncludingDrafts.find(
-      (p) => p.slug === params.pattern
-    )
-
-    if (!pattern) {
-      return { status: 404 }
-    }
-
-    return {
-      status: 200,
-      props: {
-        pattern: pattern,
-      },
-    }
-  }
-</script>
-
 <script lang="ts">
   import _ from "lodash"
 
-  import PatternLayout from "$lib/PatternLayout.svelte"
   import PublicPage from "$lib/PublicPage.svelte"
-  import type { Pattern } from "$lib/Pattern"
   import FillblankAsExample from "$lib/FillblankAsExample.svelte"
 
-  export let pattern: Pattern
+  import { page } from "$app/stores"
+  import type { Pattern } from "$lib/Pattern"
+
+  // TODO work out how to typescript this correctly
+  $: pattern = ($page.stuff as any).pattern as Pattern
 </script>
 
 <PublicPage
@@ -36,17 +16,15 @@
   canonicalPath={`/${pattern.slug}`}
   cardDesc={pattern.shortdesc}
 >
-  <PatternLayout {pattern} activeTab="examples">
-    <article class="examples">
-      <ul>
-        {#each pattern.exercises as line}
-          <li>
-            <FillblankAsExample {line} />
-          </li>
-        {/each}
-      </ul>
-    </article>
-  </PatternLayout>
+  <article class="examples">
+    <ul>
+      {#each pattern.exercises as line}
+        <li>
+          <FillblankAsExample {line} />
+        </li>
+      {/each}
+    </ul>
+  </article>
 </PublicPage>
 
 <style>
