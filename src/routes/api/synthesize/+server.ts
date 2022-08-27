@@ -48,7 +48,7 @@ export const POST: RequestHandler = async ({ request }) => {
   let audioContent = await kvs.getText(`voiceSynthesis:${hashkey}`)
 
   if (audioContent) {
-    return jsonResponse(audioContent)
+    return jsonResponse({ audioContent })
   } else {
     const res = await http.postJson(`https://texttospeech.googleapis.com/v1/text:synthesize`, options, {
       headers: {
@@ -60,6 +60,6 @@ export const POST: RequestHandler = async ({ request }) => {
     audioContent = json.audioContent
     await kvs.putText(`voiceSynthesis:${hashkey}`, audioContent)
 
-    return jsonResponse(audioContent)
+    return jsonResponse({ audioContent })
   }
 }
