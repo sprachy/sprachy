@@ -7,7 +7,8 @@
 
   let dialogue: LearnModeDialogue | null = null
 
-  const { nextThingToLearn, totalExperience } = sprachy.expectSPA()
+  const spa = sprachy.expectSPA()
+  const { nextThingToLearn, totalExperience } = spa
 
   let learning = $nextThingToLearn
 
@@ -15,6 +16,14 @@
     if (dialogue) {
       dialogue.continueStory()
     }
+  }
+
+  async function finishDialogue() {
+    const { pattern } = $nextThingToLearn!
+    if (pattern.progress.experience < 1000) {
+      await spa.gainPatternExperience(pattern.id, 1000)
+    }
+    nextLearning()
   }
 
   function nextLearning() {
@@ -32,9 +41,16 @@
       {/if}
       <LevelBar experience={$totalExperience} />
       {#if learning?.type === "dialogue"}
-        <button class="btn btn-success btn-lg" on:click={continueStory}
-          >Continue</button
+        <small class="text-secondary"
+          >&lt;&lt; Press Enter to continue dialogue &gt;&gt;</small
         >
+        <!-- <button class="btn btn-success btn-lg" on:click={continueStory}>
+          {#if readyForNext}
+            Next
+          {:else}
+            Continue
+          {/if}
+        </button> -->
       {/if}
     </div>
   </div>
@@ -44,7 +60,7 @@
         <LearnModeDialogue
           pattern={learning.pattern}
           bind:this={dialogue}
-          on:complete={nextLearning}
+          on:complete={finishDialogue}
         />
       {:else}
         <LearnModeExercises

@@ -5,7 +5,7 @@
 
 <div class="pattern-index">
   <ul>
-    {#each sprachdex.publishedPatterns as pattern}
+    {#each sprachdex.publishedPatterns.filter((p) => !p.hidden) as pattern}
       <PatternItem {pattern} />
     {/each}
   </ul>

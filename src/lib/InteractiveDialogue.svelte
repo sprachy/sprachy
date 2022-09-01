@@ -22,11 +22,11 @@
 
   $: visibleLines = story.slice(0, lineIndex + 1)
   $: currentLine = visibleLines[visibleLines.length - 1]!
-  let finished: boolean = staticMode ? true : false
+  let readyToComplete: boolean = staticMode ? true : false
   let lineRef: HTMLDivElement | null = null
   let audioPromises: (Promise<Base64Audio> | undefined)[] = []
 
-  $: doingExercise = !finished && currentLine.type !== "reading"
+  $: doingExercise = !readyToComplete && currentLine.type !== "reading"
 
   // We want to flip the line orientation each time the
   // speaker changes
@@ -91,17 +91,16 @@
     }
     if (lineIndex < story.length - 1) {
       lineIndex += 1
-    } else {
-      finished = true
+    } else if (!readyToComplete) {
+      readyToComplete = true
     }
   }
 
   export function continueStory() {
     if (doingExercise) {
-    } else if (lineIndex < story.length - 1) {
-      nextLine()
+      // User needs to do the exercise first, pass
     } else {
-      dispatch("complete")
+      nextLine()
     }
   }
 </script>
@@ -134,12 +133,18 @@
           <StoryLineChoice
             {line}
             on:correct={nextLine}
-            complete={finished || line !== currentLine}
+            complete={readyToComplete || line !== currentLine}
           />
         {/if}
       </div>
     {/each}
   </div>
+  {#if readyToComplete && !staticMode}
+    <button
+      class="btn btn-success mt-4 ms-4"
+      on:click={() => dispatch("complete")}>Complete dialogue</button
+    >
+  {/if}
 </div>
 
 <style>
