@@ -2,31 +2,36 @@
   import InteractiveDialogue from "./InteractiveDialogue.svelte"
   import type { PatternAndProgress } from "./client/SprachyUserSPA"
   import { createEventDispatcher } from "svelte"
+  import sprachy from "./sprachy"
+
+  const spa = sprachy.expectSPA()
 
   export let pattern: PatternAndProgress
-  let dialogue: InteractiveDialogue | null = null
+  let readingExplanation: boolean = false
 
   const dispatch = createEventDispatcher()
 
-  export function continueStory() {
-    if (dialogue) {
-      dialogue.continueStory()
+  async function completeDialogue() {
+    if (pattern.progress.experience < 1000) {
+      await spa.gainPatternExperience(pattern.id, 1000)
     }
-  }
-
-  async function onCompleteStory() {
     dispatch("complete")
   }
 </script>
 
 <div class="dialogueContainer">
-  {#key pattern.id}
-    <InteractiveDialogue
-      story={pattern.story}
-      bind:this={dialogue}
-      on:complete={onCompleteStory}
-    />
-  {/key}
+  {#if readingExplanation}
+    <div class="explanation">
+      {pattern.explanation}
+    </div>
+  {:else}
+    {#key pattern.id}
+      <InteractiveDialogue
+        story={pattern.story}
+        on:complete={completeDialogue}
+      />
+    {/key}
+  {/if}
 </div>
 
 <style>

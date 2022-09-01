@@ -4,11 +4,12 @@
   import sprachy from "$lib/sprachy"
   import type { Pattern } from "./Pattern"
   import { createEventDispatcher } from "svelte"
+  import type { PatternAndProgress } from "./client/SprachyUserSPA"
 
   const spa = sprachy.expectSPA()
   const { user, speech } = spa
 
-  export let pattern: Pattern
+  export let pattern: PatternAndProgress
   export let expMultiplier: number = 1.0
   const dispatch = createEventDispatcher()
 
@@ -27,7 +28,11 @@
 
   async function nextExercise() {
     if (exerciseIndex >= exercises.length - 1) {
-      dispatch("complete")
+      if (pattern.progress.level <= 2) {
+        exerciseIndex = 0
+      } else {
+        dispatch("complete")
+      }
     } else {
       // Completed an exercise, gain experience
       const expGained = 200 * expMultiplier

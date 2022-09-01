@@ -2,8 +2,10 @@
   import sprachy from "$lib/sprachy"
   import LearnModeDialogue from "$lib/LearnModeDialogue.svelte"
   import LearnModeExercises from "$lib/LearnModeExercises.svelte"
+  import LearnModeExplanation from "$lib/LearnModeExplanation.svelte"
   import LevelBar from "$lib/LevelBar.svelte"
   import PageStyling from "$lib/PageStyling.svelte"
+  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA"
 
   let dialogue: LearnModeDialogue | null = null
 
@@ -12,22 +14,18 @@
 
   let learning = $nextThingToLearn
 
-  function continueStory() {
-    if (dialogue) {
-      dialogue.continueStory()
-    }
+  let readExplanation = false
+  $: if (learning) {
+    readExplanation = false
   }
 
-  async function finishDialogue() {
-    const { pattern } = $nextThingToLearn!
-    if (pattern.progress.experience < 1000) {
-      await spa.gainPatternExperience(pattern.id, 1000)
-    }
-    nextLearning()
-  }
+  $: showExplanation =
+    !readExplanation &&
+    learning?.type === "exercises" &&
+    learning?.pattern.progress.level < 2
 
   function nextLearning() {
-    learning = $nextThingToLearn
+    learning = $nextThingToLearn as Learnable | undefined
   }
 </script>
 
@@ -60,13 +58,20 @@
         <LearnModeDialogue
           pattern={learning.pattern}
           bind:this={dialogue}
-          on:complete={finishDialogue}
-        />
-      {:else}
-        <LearnModeExercises
-          pattern={learning.pattern}
           on:complete={nextLearning}
         />
+      {:else if learning.type === "exercises"}
+        {#if showExplanation}
+          <LearnModeExplanation
+            pattern={learning.pattern}
+            on:complete={() => (readExplanation = true)}
+          />
+        {:else}
+          <LearnModeExercises
+            pattern={learning.pattern}
+            on:complete={nextLearning}
+          />
+        {/if}
       {/if}
     {:else}
       <p>You've already learned everything?! Congrats!</p>
