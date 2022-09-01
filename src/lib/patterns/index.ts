@@ -1,4 +1,5 @@
 import introduction from './introduction'
+import toski from './toski'
 import derdiedas from './der-die-das'
 import eineine from './ein-eine'
 import sein from './sein'
@@ -17,4 +18,4 @@ import ndeclension from './n-declension'
 import lich from './-lich'
 import ordinalnumbers from './ordinal-numbers'
 
-export default [introduction, derdiedas, eineine, sein, daschen, accusative, dative, derlernerdielernerin, duodersie, comparative, superlative, genitiv, imperativ, compoundWords, adjectiveEndings, ndeclension, lich, ordinalnumbers]
+export default [introduction, toski, derdiedas, eineine, sein, daschen, accusative, dative, derlernerdielernerin, duodersie, comparative, superlative, genitiv, imperativ, compoundWords, adjectiveEndings, ndeclension, lich, ordinalnumbers]

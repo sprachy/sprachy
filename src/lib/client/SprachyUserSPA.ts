@@ -182,7 +182,7 @@ export class SprachyUserSPA {
       }
 
       // Next, level any patterns that are only level 1
-      pattern = $patternsAndProgress.find(p => p.progress.level === 1)
+      pattern = $patternsAndProgress.find(p => p.progress.level === 1 && p.exercises.length)
       if (pattern) {
         return {
           type: 'exercises',

@@ -10,7 +10,6 @@ export type PatternId = string
  * definitions.
  */
 export type PatternDef = {
-  draft?: true
   id: string
   title: string
   slug: string
@@ -20,6 +19,18 @@ export type PatternDef = {
   story: LineDef[]
   exercises: LineDef[]
   feedback?: FeedbackDef[]
+
+  /**
+   * If set, the pattern will only be visible to admins.
+   */
+  draft?: true
+
+  /**
+   * If set, the pattern will not be shown in the list of patterns
+   * or accessible as an individual page.
+   * It will still appear to users in the learning sequence.
+   */
+  hidden?: true
 }
 
 export type FeedbackDef = {
