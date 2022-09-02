@@ -5,9 +5,7 @@
   import LearnModeExplanation from "$lib/LearnModeExplanation.svelte"
   import LevelBar from "$lib/LevelBar.svelte"
   import PageStyling from "$lib/PageStyling.svelte"
-  import type { PatternAndProgress } from "$lib/client/SprachyUserSPA"
-
-  let dialogue: LearnModeDialogue | null = null
+  import AppPage from "$lib/AppPage.svelte"
 
   const spa = sprachy.expectSPA()
   const { nextThingToLearn, totalExperience } = spa
@@ -31,7 +29,7 @@
 
 <PageStyling fixedHeader />
 
-<main>
+<AppPage title="Sprachy">
   <div class="sidebar">
     <div class="overview">
       {#if learning}
@@ -57,7 +55,6 @@
       {#if learning.type === "dialogue"}
         <LearnModeDialogue
           pattern={learning.pattern}
-          bind:this={dialogue}
           on:complete={nextLearning}
         />
       {:else if learning.type === "exercises"}
@@ -77,7 +74,7 @@
       <p>You've already learned everything?! Congrats!</p>
     {/if}
   </div>
-</main>
+</AppPage>
 
 <style>
   .sidebar {
