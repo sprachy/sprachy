@@ -28,6 +28,7 @@
 
   function nextLearning() {
     learning = $nextThingToLearn as Learnable | undefined
+    window.scrollTo(0, 0)
   }
 </script>
 

@@ -13,6 +13,10 @@
   const dispatch = createEventDispatcher()
 
   $: progress = $progressByPatternId[pattern.id]!
+  let startLevel: number
+  $: if (progress && startLevel == null) {
+    startLevel = progress.level
+  }
 
   let exerciseIndex = 0
   $: exercises = Array.from(pattern.exercises)
@@ -28,17 +32,15 @@
     : []
 
   async function nextExercise() {
-    if (exerciseIndex >= exercises.length - 1) {
-      exerciseIndex = 0
-    } else {
-      // Completed an exercise, gain experience
-      const expGained = 200 * expMultiplier
-      spa.gainPatternExperience(pattern.id, expGained)
-      exerciseIndex += 1
-    }
+    // Completed an exercise, gain experience
+    const expGained = 200 * expMultiplier
+    spa.gainPatternExperience(pattern.id, expGained)
+    exerciseIndex += 1
 
-    if (progress.level >= 2) {
+    if (progress.level > startLevel) {
       dispatch("complete")
+    } else if (exerciseIndex >= exercises.length - 1) {
+      exerciseIndex = 0
     }
   }
 </script>
