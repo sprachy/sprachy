@@ -1,43 +1,131 @@
 import { definePattern, md } from "$lib/definePattern"
+import parkImg from "$lib/img/1-park.webp"
+import orbInParkImg from "$lib/img/1-orb-in-park.webp"
+import squirrelOnTreeImg from "$lib/img/1-squirrel-on-tree.webp"
 
 // https://german.stackexchange.com/questions/3834/what-is-the-gender-distribution-of-nouns-in-the-german-language
 export default definePattern({
   id: "introduction",
   slug: "introduction",
-  title: "Introduction",
+  title: "Learning German",
   shortdesc: "",
-  hidden: true,
   explanation: md`
-  `,
+German and English are both Germanic languages and closely related to each other. Since they share the majority of their alphabets with similar pronunciation rules, it's easy for an English speaker to start learning German!
+
+There are only a few key differences from English at the typographic level.
+
+- German has three more vowels: ä, ö and ü. The little hat is called an _umlaut_.
+- The additional letter ß known as the Eszett or "sharp S".
+- Nouns in German are always written with a **C**apital.
+
+Much German vocabulary will also be recognizable to English speakers. Consider phrases like _der grüne Apfel_ (the green apple) or _die graue Maus_ (the gray mouse). This is increasingly true as the languages continue to borrow new words from each other, as in _das Baby_ or _der Computer_.
+
+<DialogueExample>
+squirrel:
+  Diese Welt ist sehr grün.
+</DialogueExample>
+
+Sprachy exercises will often ask you to make a reasonable guess at the meaning of things when it's possible to do so!
+`,
+  storyTitle: "Töski",
   story: [
     {
-      from: "lukas",
-      message: "Willkommen bei Sprachy!",
-      translation: "Welcome to Sprachy!"
+      from: "narrator",
+      message: "Es ist ein ruhiger Tag in Deutschland.",
+      translation: "It is a peaceful day in Germany.",
     },
     {
-      from: "lukas",
-      message: "This is a guided course for learning German."
+      from: "narrator",
+      message: "Die Blätter flattern in der Frühlingsbrise.",
+      translation: "The leaves flutter in the spring breeze.",
+      image: parkImg,
+      imageAlt: "A picture of pretty green trees"
     },
     {
-      from: "lukas",
-      message: "Sprachy teaches German through little dialogues, and tells a story along the way."
+      from: "narrator",
+      message: "Eine mysteriöse Kugel sitzt im Baum.",
+      translation: "A mysterious orb sits in the tree.",
+      image: orbInParkImg,
+      imageAlt: "A mysterious featureless white orb hovering above a leaf"
     },
     {
-      from: "lukas",
-      message: "After each dialogue, we'll go over a new pattern of language that the speakers used."
+      question: `Was bedeutet "Kugel"?`,
+      translation: "What does \"Kugel\" mean?",
+      choices: [
+        { text: "cube" },
+        { text: "orb", correct: true },
+        { text: "tail" },
+        { text: "hat" },
+      ]
     },
     {
-      from: "lukas",
-      message: "Then we practice that pattern with some exercises."
+      from: "narrator",
+      message: "Die Kugel denkt.",
+      translation: "The orb thinks.",
     },
     {
-      from: "lukas",
-      message: "Sollen wir anfangen?",
-      translation: "Shall we begin?"
+      from: "orb",
+      message: "Ich bin da!",
+      translation: "I have arrived!"
+    },
+    {
+      from: "orb",
+      message: "Diese Welt ist sehr grün.",
+      translation: "This world is very green."
+    },
+    {
+      from: "narrator",
+      message: "Die Kugel sieht Bewegung in den Blättern.",
+      translation: "The orb sees movement in the leaves.",
+    },
+    {
+      from: "narrator",
+      image: squirrelOnTreeImg,
+      imageAlt: "A squirrel climbing a tree"
+    },
+    {
+      from: "narrator",
+      message: "Es ist ein Eichhörnchen!",
+      translation: "It is a squirrel!",
+    },
+    {
+      from: "orb",
+      message: "Diese Form gefällt mir!",
+      translation: "I like this form!",
+    },
+    {
+      from: "orb",
+      message: "Zeit für Entdeckungen.",
+      translation: "Time for exploring.",
+      special: 'morph'
     }
   ],
-  exercises: []
+  exercises: [
+    {
+      from: "squirrel",
+      message: "[Die] Cashew ist auf eine höhere Ebene aufgestiegen.",
+      translation: "[The] cashew has ascended to a higher plane.",
+      hint: "[feminine]"
+    },
+    {
+      from: "lukas",
+      message: "[Die] außerirdische Lebensform ist niedlich.",
+      translation: "[The] alien lifeform is cute.",
+      hint: "[feminine]"
+    },
+    {
+      from: "lindenbaum",
+      message: "[Das] Universum ist größer als wir wissen.",
+      translation: "[The] universe is vaster than we know.",
+      hint: "[neuter]"
+    },
+    {
+      from: "fox",
+      message: "[Der] Shiba Inu ist ironisch.",
+      translation: "[The] Shiba Inu is ironic.",
+      hint: "[masculine]"
+    }
+  ]
 })
 
 

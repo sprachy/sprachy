@@ -89,7 +89,7 @@
   <div class="story-holder">
     <FocusHeader closeUrl={returnPath} />
     <header>
-      <h3>{pattern.title}</h3>
+      <h3>{pattern.storyTitle}</h3>
     </header>
     {#if !readyForStory}
       <div class="text-center">

@@ -16,6 +16,7 @@ export type PatternDef = {
   shortdesc: string
   icon?: IconDefinition
   explanation: string
+  storyTitle?: string
   story: LineDef[]
   exercises: LineDef[]
   feedback?: FeedbackDef[]
@@ -126,6 +127,7 @@ export function parsePattern(patternDef: PatternDef): Pattern {
 
   return Object.assign({}, patternDef, {
     story: patternDef.story.map(ex => parseLine(patternDef, ex) as StoryLine),
+    storyTitle: patternDef.storyTitle || patternDef.title,
     maxLevel: 9,
     exercises: exercises
   })

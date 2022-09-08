@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { Pattern } from "$lib/Pattern"
   import { createEventDispatcher } from "svelte"
-  import sprachy from "./sprachy"
-  import Sprachdown from "./Sprachdown.svelte"
+  import PatternExplanation from "./PatternExplanation.svelte"
 
   export let pattern: Pattern
 
@@ -17,7 +16,7 @@
   <h1>
     {pattern.title}
   </h1>
-  <Sprachdown source={pattern.explanation} />
+  <PatternExplanation {pattern} />
   <button class="btn btn-success" on:click={explanationRead}>
     Continue to exercises
   </button>

@@ -26,7 +26,7 @@
 <div class="dialogueContainer">
   {#if promptToBegin}
     <div class="prompt">
-      <h1>{pattern.title}</h1>
+      <h1>{pattern.storyTitle}</h1>
       <button class="btn btn-success" on:click={() => (promptToBegin = false)}>
         Start dialogue
       </button>
