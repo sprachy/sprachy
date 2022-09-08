@@ -8,7 +8,7 @@
   import AppPage from "$lib/AppPage.svelte"
 
   const spa = sprachy.expectSPA()
-  const { nextThingToLearn, totalExperience } = spa
+  const { nextThingToLearn, patternAndProgressById } = spa
 
   let learning = $nextThingToLearn
 
@@ -22,6 +22,10 @@
     learning?.type === "exercises" &&
     learning?.pattern.progress.level < 2
 
+  $: experience = learning
+    ? $patternAndProgressById[learning.pattern.id]!.progress.experience
+    : 0
+
   function nextLearning() {
     learning = $nextThingToLearn as Learnable | undefined
   }
@@ -34,8 +38,8 @@
     <div class="overview">
       {#if learning}
         <div>{learning.why}</div>
+        <LevelBar {experience} />
       {/if}
-      <LevelBar experience={$totalExperience} />
       {#if learning?.type === "dialogue"}
         <small class="text-secondary"
           >&lt;&lt; Press Enter to continue dialogue &gt;&gt;</small

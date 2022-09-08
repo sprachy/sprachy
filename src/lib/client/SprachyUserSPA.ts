@@ -107,6 +107,16 @@ export class SprachyUserSPA {
   patternAndProgressById = derived(this.patternsAndProgress,
     $patternsAndProgress => _.keyBy($patternsAndProgress, (p) => p.id))
 
+  progressByPatternId = derived(this.patternsAndProgress,
+    $patternsAndProgress => {
+      const progressByPatternId: { [patternId: string]: PatternProgress } = {}
+      for (const pattern of $patternsAndProgress) {
+        progressByPatternId[pattern.id] = pattern.progress
+      }
+      return progressByPatternId
+    }
+  )
+
   nextPatternToLearn = derived(this.patternsAndProgress, $patternsAndProgress => {
     return $patternsAndProgress.find((p) => p.progress.experience === 0) as PatternAndProgress | undefined
   })
