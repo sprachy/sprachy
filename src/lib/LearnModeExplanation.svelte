@@ -1,12 +1,10 @@
 <script lang="ts">
-  import type { PatternAndProgress } from "./client/SprachyUserSPA"
+  import type { Pattern } from "$lib/Pattern"
   import { createEventDispatcher } from "svelte"
   import sprachy from "./sprachy"
   import Sprachdown from "./Sprachdown.svelte"
 
-  const spa = sprachy.expectSPA()
-
-  export let pattern: PatternAndProgress
+  export let pattern: Pattern
 
   const dispatch = createEventDispatcher()
 

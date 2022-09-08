@@ -12,7 +12,7 @@
   import PageStyling from "$lib/PageStyling.svelte"
 
   const spa = sprachy.expectSPA()
-  const { api, patternAndProgressById, user } = spa
+  const { api, progressByPatternId, user } = spa
 
   export let data: PageData
   const { pattern } = data
@@ -35,7 +35,7 @@
   })
 
   $: story = pattern.story
-  $: progress = $patternAndProgressById[pattern.id]!.progress
+  $: progress = $progressByPatternId[pattern.id]!
 
   let showNext: boolean = false
 

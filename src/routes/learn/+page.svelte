@@ -39,24 +39,26 @@
   {/if}
   <div class="learnable">
     {#if learning}
-      {#if learning.type === "dialogue"}
-        <LearnModeDialogue
-          pattern={learning.pattern}
-          on:complete={nextLearning}
-        />
-      {:else if learning.type === "exercises"}
-        {#if showExplanation}
-          <LearnModeExplanation
-            pattern={learning.pattern}
-            on:complete={() => (readExplanation = true)}
-          />
-        {:else}
-          <LearnModeExercises
+      {#key learning.pattern.id}
+        {#if learning.type === "dialogue"}
+          <LearnModeDialogue
             pattern={learning.pattern}
             on:complete={nextLearning}
           />
+        {:else if learning.type === "exercises"}
+          {#if showExplanation}
+            <LearnModeExplanation
+              pattern={learning.pattern}
+              on:complete={() => (readExplanation = true)}
+            />
+          {:else}
+            <LearnModeExercises
+              pattern={learning.pattern}
+              on:complete={nextLearning}
+            />
+          {/if}
         {/if}
-      {/if}
+      {/key}
     {:else}
       <p>You've already learned everything?! Congrats!</p>
     {/if}

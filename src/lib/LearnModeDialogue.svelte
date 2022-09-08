@@ -1,19 +1,22 @@
 <script lang="ts">
   import InteractiveDialogue from "./InteractiveDialogue.svelte"
-  import type { PatternAndProgress } from "./client/SprachyUserSPA"
+  import type { Pattern } from "$lib/Pattern"
   import { createEventDispatcher } from "svelte"
   import sprachy from "./sprachy"
 
   const spa = sprachy.expectSPA()
+  const { progressByPatternId } = spa
 
-  export let pattern: PatternAndProgress
+  export let pattern: Pattern
   let promptToBegin: boolean = true
   let readingExplanation: boolean = false
 
   const dispatch = createEventDispatcher()
 
+  $: progress = $progressByPatternId[pattern.id]!
+
   async function completeDialogue() {
-    if (pattern.progress.experience < 1000) {
+    if (progress.experience < 1000) {
       await spa.gainPatternExperience(pattern.id, 1000)
     }
     dispatch("complete")
@@ -29,12 +32,7 @@
       </button>
     </div>
   {:else if !readingExplanation}
-    {#key pattern.id}
-      <InteractiveDialogue
-        story={pattern.story}
-        on:complete={completeDialogue}
-      />
-    {/key}
+    <InteractiveDialogue story={pattern.story} on:complete={completeDialogue} />
   {:else}
     <div class="explanation">
       {pattern.explanation}

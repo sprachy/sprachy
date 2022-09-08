@@ -5,9 +5,9 @@
 
   export let pattern: Pattern
 
-  const patternAndProgressById = sprachy.spa?.patternAndProgressById
-  const progress = $patternAndProgressById
-    ? $patternAndProgressById[pattern.id]?.progress
+  const progressByPatternId = sprachy.spa?.progressByPatternId
+  const progress = $progressByPatternId
+    ? $progressByPatternId[pattern.id]
     : null
 
   $: level = progress ? progress.level : 0
