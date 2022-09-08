@@ -6,7 +6,7 @@
   import { dev } from "$app/env"
 
   const spa = sprachy.expectSPA()
-  const { admin, progressByPatternId } = spa
+  const { progressByPatternId } = spa
 
   export let learning: Learnable
   $: experience = $progressByPatternId[learning.pattern.id]!.experience
@@ -15,7 +15,9 @@
 <div class="sidebar">
   <div class="overview">
     <div>{learning.why}</div>
-    <LevelBar {experience} />
+    {#key learning.pattern.id}
+      <LevelBar {experience} />
+    {/key}
     {#if learning.type === "dialogue"}
       <small class="text-secondary"
         >&lt;&lt; Press Enter to continue dialogue &gt;&gt;</small

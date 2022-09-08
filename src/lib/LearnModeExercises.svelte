@@ -39,7 +39,7 @@
 
     if (progress.level > startLevel) {
       dispatch("complete")
-    } else if (exerciseIndex >= exercises.length - 1) {
+    } else if (exerciseIndex >= exercises.length) {
       exerciseIndex = 0
     }
   }
