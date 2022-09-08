@@ -7,11 +7,17 @@ import type { Exercise, Pattern } from "$lib/Pattern"
 import { sprachdex } from "$lib/sprachdex"
 import { CanvasEffects } from "$lib/client/CanvasEffects"
 import { SpeechSystem } from '$lib/SpeechSystem'
-import { derived, get, writable, type Writable } from 'svelte/store'
+import { derived, get, writable, type Readable, type Writable } from 'svelte/store'
 import { time } from '$lib/time'
 
 export type Review = Exercise & {
   pattern: PatternAndProgress
+}
+
+export type Learnable = {
+  type: 'dialogue' | 'exercises'
+  pattern: Pattern
+  why: string
 }
 
 /**
@@ -84,6 +90,11 @@ export class SprachyUserSPA {
     })
 
     return this.api.gainExperience({ [patternId]: amount })
+  }
+
+  async reallyResetAllUserProgress() {
+    const summary = await this.api.resetProgress()
+    this.receiveProgress(summary)
   }
 
 
@@ -179,7 +190,7 @@ export class SprachyUserSPA {
       p.progress.item && p.progress.item.lastExperienceGainAt < Date.now() - time.days(1))
   })
 
-  nextThingToLearn = derived([this.patternsAndProgress, this.patternsToReview],
+  nextThingToLearn: Readable<Learnable | undefined> = derived([this.patternsAndProgress, this.patternsToReview],
     ([$patternsAndProgress, $patternsToReview]) => {
       // First review anything that's ready for review
       let pattern = $patternsToReview[0]
@@ -188,7 +199,7 @@ export class SprachyUserSPA {
           type: 'exercises',
           pattern: pattern,
           why: `Reviewing ${pattern.title}`
-        }
+        } as Learnable
       }
 
       // Next, level any patterns that are only level 1
@@ -198,7 +209,7 @@ export class SprachyUserSPA {
           type: 'exercises',
           pattern: pattern,
           why: `Learning ${pattern.title}`
-        }
+        } as Learnable
       }
 
       // Finally, learn a new pattern
@@ -208,7 +219,7 @@ export class SprachyUserSPA {
           type: 'dialogue',
           pattern: pattern,
           why: `Learning ${pattern.title}`
-        }
+        } as Learnable
       }
 
       // Nothing left to learn!

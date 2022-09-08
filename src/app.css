@@ -141,3 +141,7 @@ button:focus {
     0 0 0 .2rem #fff,
     0 0 0 .35rem #069;
 }
+
+.sprachy-dev-color {
+  color: red;
+}

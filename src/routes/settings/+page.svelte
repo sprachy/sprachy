@@ -67,8 +67,7 @@
   }
 
   async function reallyResetProgress() {
-    const summary = await api.resetProgress()
-    spa.receiveProgress(summary)
+    await spa.reallyResetAllUserProgress()
   }
 </script>
 
