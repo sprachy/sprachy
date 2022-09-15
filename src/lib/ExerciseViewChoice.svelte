@@ -22,10 +22,10 @@
 
   async function choose(choice: Choice) {
     chosen = chosen.add(choice)
-    effects.confetti.spawnAt(
-      choicesUl.children[exercise.choices.indexOf(choice)] as HTMLElement
-    )
     if (choice.correct) {
+      effects.confetti.spawnAt(
+        choicesUl.children[exercise.choices.indexOf(choice)] as HTMLElement
+      )
       dispatch("correct")
     }
   }
@@ -62,7 +62,12 @@
       </div>
     {/if} -->
   </Message>
-  <Sprachdown source={exercise.question} />
+  <div
+    class="hover-translate text-center mt-2 mb-2"
+    data-tooltip={exercise.questionTranslation}
+  >
+    <Sprachdown inline source={exercise.question} />
+  </div>
   <ul class="choices" bind:this={choicesUl}>
     {#each exercise.choices as choice, i}
       <li>

@@ -14,6 +14,7 @@ export type MultipleChoiceExerciseDef = {
   from: CharacterId
   message: string
   question: string
+  questionTranslation?: string
   translation?: string
   choices: { text: string; correct: boolean }[]
 }

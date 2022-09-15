@@ -123,6 +123,16 @@ svg.svelte-fa {
   opacity: 0;
 }
 
+
+.hover-translate[data-tooltip] p {
+  text-decoration: underline #ccc dotted;
+}
+
+.hover-translate[data-tooltip] {
+  cursor: default;
+}
+
+
 /**
  * Remove focus styles for non-keyboard focus.
  */

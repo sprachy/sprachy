@@ -104,13 +104,15 @@ Sprachy exercises will often ask you to make a reasonable guess at the meaning o
     {
       type: 'choice',
       from: "squirrel",
-      message: "Die Cashew ist auf eine höhere Ebene aufgestiegen.",
-      translation: "The cashew has ascended to a higher plane.",
-      question: "Was bedeutet Cashew?",
+      message: "Der Fisch schwimmt!",
+      question: `What might "Fisch" mean?`,
       choices: [
-        { text: "cashew", correct: true },
+        { text: "spaceship", correct: false },
+        { text: "laser", correct: false },
+        { text: "monkey", correct: false },
+        { text: "fish", correct: true }
       ]
-    },
+    }
   ]
 })
 

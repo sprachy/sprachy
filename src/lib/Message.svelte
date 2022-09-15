@@ -27,14 +27,6 @@
 </div>
 
 <style>
-  .text[data-tooltip] :global(p) {
-    text-decoration: underline #ccc dotted;
-  }
-
-  .text[data-tooltip] {
-    cursor: default;
-  }
-
   .message {
     display: flex;
   }
