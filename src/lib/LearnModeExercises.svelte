@@ -1,6 +1,6 @@
 <script lang="ts">
   import _ from "lodash"
-  import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
+  import ExerciseView from "$lib/ExerciseView.svelte"
   import sprachy from "$lib/sprachy"
   import { createEventDispatcher } from "svelte"
   import type { Pattern } from "./Pattern"
@@ -47,8 +47,8 @@
 
 <div class="practice">
   <div class="exercises">
-    <StoryLineFillblank
-      line={exercise}
+    <ExerciseView
+      {exercise}
       audioPromise={audioPromises[exercises.indexOf(exercise)]}
       on:correct={nextExercise}
       {pattern}

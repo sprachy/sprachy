@@ -2,21 +2,21 @@
   import _ from "lodash"
   import { createEventDispatcher, onMount } from "svelte"
   import Message from "$lib/Message.svelte"
-  import type { FillblankLine, Pattern } from "$lib/Pattern"
+  import type { Pattern } from "$lib/Pattern"
   import Sprachdown from "$lib/Sprachdown.svelte"
   import { matchAnswer } from "$lib/client/feedback"
   import sprachy from "$lib/sprachy"
   import type { Base64Audio } from "$lib/SpeechSystem"
   import AudioForLine from "$lib/AudioForLine.svelte"
+  import type { FillblankExercise } from "./Exercise"
 
   const { speech, effects } = sprachy.expectSPA()
 
-  export let line: FillblankLine
+  export let exercise: FillblankExercise
   export let flip: boolean = false
   export let complete: boolean = false
   export let pattern: Pattern | null = null
   export let audioPromise: Promise<Base64Audio> | undefined = undefined
-  let prevLine = line
   let attemptInput!: HTMLInputElement
   let attempt: string = ""
   let feedback: string = ""
@@ -33,38 +33,33 @@
     attemptInput.focus()
   })
 
-  $: if (line !== prevLine) {
-    attempt = ""
-    prevLine = line
-  }
-
-  $: parts = ((line: FillblankLine) => {
-    const [before, after] = line.message.split(/\[.+?\]/)
+  $: parts = ((exercise: FillblankExercise) => {
+    const [before, after] = exercise.message.split(/\[.+?\]/)
     return {
       before: before || "",
       after: after || "",
     }
-  })(line)
+  })(exercise)
 
   // How many characters we expect to go in the input
   // Length of the longest answer, or the hint if it's longer
-  $: inputWidthChars = ((line: FillblankLine) => {
-    const words = line.validAnswers
-    if (line.hint) {
-      words.push(line.hint)
+  $: inputWidthChars = ((exercise: FillblankExercise) => {
+    const words = exercise.validAnswers
+    if (exercise.hint) {
+      words.push(exercise.hint)
     }
     const longestAnswer = _.sortBy(words, (s) => -s.length)[0]
     return longestAnswer!.length
-  })(line)
+  })(exercise)
 
-  $: translation = ((line: FillblankLine) => {
-    return line.translation.replace(/\[.+?\]/, (substring) => {
+  $: translation = ((ex: FillblankExercise) => {
+    return exercise.translation?.replace(/\[.+?\]/, (substring) => {
       const highlight = substring.slice(1, -1)
       return `**${highlight}**`
     })
-  })(line)
+  })(exercise)
 
-  $: attemptMatch = matchAnswer(attempt, line)
+  $: attemptMatch = matchAnswer(attempt, exercise)
 
   function showAnswer() {
     showingAnswer = true
@@ -110,7 +105,7 @@
 </script>
 
 <div>
-  <Message from={line.from} {flip}>
+  <Message from={exercise.from} {flip}>
     <form on:submit|preventDefault={checkAnswer}>
       {#if audioPromise}
         <AudioForLine
@@ -126,7 +121,7 @@
         type="text"
         bind:this={attemptInput}
         bind:value={attempt}
-        placeholder={line.hint}
+        placeholder={exercise.hint}
         autocapitalize="off"
         autocomplete="off"
         autocorrect="off"
@@ -134,9 +129,9 @@
         size={inputWidthChars}
         disabled={complete}
       />
-      {#if line.hint && attempt.length}
+      {#if exercise.hint && attempt.length}
         <div class="overhint">
-          {line.hint}
+          {exercise.hint}
         </div>
       {/if}
       <Sprachdown inline source={parts.after} />
@@ -149,7 +144,7 @@
         <div class="feedback">
           <Sprachdown inline source={feedback} />
           <button class="btn-link show-answer" on:click={showAnswer}>
-            {#if line.explanation}
+            {#if exercise.explanation}
               Explain answer
             {:else}
               Show me
@@ -159,10 +154,10 @@
       {/if}
       {#if showingAnswer}
         <div class="explanation">
-          {#if line.explanation}
-            <Sprachdown inline source={line.explanation} />
+          {#if exercise.explanation}
+            <Sprachdown inline source={exercise.explanation} />
           {:else}
-            The answer is <em>{line.canonicalAnswer}</em>.
+            The answer is <em>{exercise.canonicalAnswer}</em>.
           {/if}
           {#if pattern}
             Pattern: <a target="_blank" href={`/${pattern.slug}`}

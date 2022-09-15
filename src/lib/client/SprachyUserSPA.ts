@@ -208,7 +208,7 @@ export class SprachyUserSPA {
         return {
           type: 'exercises',
           pattern: pattern,
-          why: `Learning ${pattern.title}`
+          why: `${pattern.title}`
         } as Learnable
       }
 
@@ -218,7 +218,7 @@ export class SprachyUserSPA {
         return {
           type: 'dialogue',
           pattern: pattern,
-          why: `Learning ${pattern.title}`
+          why: `${pattern.title}`
         } as Learnable
       }
 

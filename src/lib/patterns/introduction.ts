@@ -102,29 +102,15 @@ Sprachy exercises will often ask you to make a reasonable guess at the meaning o
   ],
   exercises: [
     {
+      type: 'choice',
       from: "squirrel",
-      message: "[Die] Cashew ist auf eine höhere Ebene aufgestiegen.",
-      translation: "[The] cashew has ascended to a higher plane.",
-      hint: "[feminine]"
+      message: "Die Cashew ist auf eine höhere Ebene aufgestiegen.",
+      translation: "The cashew has ascended to a higher plane.",
+      question: "Was bedeutet Cashew?",
+      choices: [
+        { text: "cashew", correct: true },
+      ]
     },
-    {
-      from: "lukas",
-      message: "[Die] außerirdische Lebensform ist niedlich.",
-      translation: "[The] alien lifeform is cute.",
-      hint: "[feminine]"
-    },
-    {
-      from: "lindenbaum",
-      message: "[Das] Universum ist größer als wir wissen.",
-      translation: "[The] universe is vaster than we know.",
-      hint: "[neuter]"
-    },
-    {
-      from: "fox",
-      message: "[Der] Shiba Inu ist ironisch.",
-      translation: "[The] Shiba Inu is ironic.",
-      hint: "[masculine]"
-    }
   ]
 })
 
