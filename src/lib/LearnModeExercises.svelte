@@ -47,12 +47,14 @@
 
 <div class="practice">
   <div class="exercises">
-    <ExerciseView
-      {exercise}
-      audioPromise={audioPromises[exercises.indexOf(exercise)]}
-      on:correct={nextExercise}
-      {pattern}
-    />
+    {#key pattern.id + "-" + exerciseIndex}
+      <ExerciseView
+        {exercise}
+        audioPromise={audioPromises[exercises.indexOf(exercise)]}
+        on:correct={nextExercise}
+        {pattern}
+      />
+    {/key}
   </div>
 </div>
 
