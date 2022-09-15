@@ -119,6 +119,10 @@
     />
     <label class="form-check-label" for="wantsReminderEmails">
       Send me a reminder email when patterns are ready to review
+
+      <div class="text-secondary">
+        Sprachy will never send you marketing emails, just opt-in notifications.
+      </div>
     </label>
   </div>
   <div class="form-check mt-2">
@@ -130,12 +134,11 @@
       on:change|preventDefault={toggleSpeechSynthesis}
     />
     <label class="form-check-label" for="enableSpeechSynthesis">
-      <span class="text-info">Experimental:</span> Enable speech synthesis for
-      stories
+      Enable speech synthesis
 
       <div class="text-secondary">
-        The pronunciation will not always be accurate to how humans would speak
-        German.
+        Not always accurate to how humans would speak German. It's decent
+        though, and we find audio improves the learning process a lot.
       </div>
     </label>
   </div>
