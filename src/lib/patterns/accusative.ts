@@ -62,6 +62,14 @@ Some masculine nouns change form when used in any case other than the nominative
       translation: "Fight to defend your house and honor!",
     },
     {
+      question: `Which one of these articles is used for "Ehre"?`,
+      choices: [
+        { text: "der Ehre" },
+        { text: "die Ehre", correct: true },
+        { text: "das Ehre" }
+      ]
+    },
+    {
       from: "lukas",
       message: "Töski, ich glaube nicht, dass er Deutsch spricht.",
       translation: "Töski, I don't think he speaks German.",

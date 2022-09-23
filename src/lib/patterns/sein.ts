@@ -55,6 +55,13 @@ formal/informal language!
       translation: "It is similar to me! But flat."
     },
     {
+      question: `What is Töski referring to with "sie ist"?`,
+      choices: [
+        { text: "die Kreatur", correct: true },
+        { text: "das Foto" }
+      ]
+    },
+    {
       from: "lukas",
       message: "Oh, das Eichhörnchen ist nicht flach, nur das Foto, das es darstellt.",
       translation: "Oh, the squirrel is not flat, only the photo that represents it."

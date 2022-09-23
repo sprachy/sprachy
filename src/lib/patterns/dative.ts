@@ -60,6 +60,13 @@ the dativeness, e.g. the use of an intransitive verb like _helfen_.
       translation: "The boy gives the squirrel an almond."
     },
     {
+      question: `Lukas is referring to "dem Eichhörnchen"...`,
+      choices: [
+        { text: "directly" },
+        { text: "indirectly", correct: true }
+      ]
+    },
+    {
       from: "squirrel",
       message: "Das Eichhörnchen dankt dem Jungen für sein Angebot.",
       translation: "The squirrel thanks the boy for his offering."
