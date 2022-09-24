@@ -24,8 +24,10 @@ class Sprachdex {
       }
 
       for (const line of pattern.exercises) {
-        for (const word of line.message.split(/\s+/)) {
-          this.knownGermanWords[word.toLowerCase().replace(/[[\]*".,!?_]/g, '')] = true
+        if ('message' in line && line.message) {
+          for (const word of line.message.split(/\s+/)) {
+            this.knownGermanWords[word.toLowerCase().replace(/[[\]*".,!?_]/g, '')] = true
+          }
         }
       }
     }

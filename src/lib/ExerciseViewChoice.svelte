@@ -50,24 +50,26 @@
   }
 </script>
 
-<div>
-  <Message from={exercise.from}>
-    {#if audioPromise}
-      <AudioForLine {audioPromise} />
-    {/if}
-    <Sprachdown inline source={exercise.message} />
-    <!-- {#if exercise.translation}
-      <div class="translation">
-        <Sprachdown inline source={exercise.translation} />
-      </div>
-    {/if} -->
-  </Message>
-  <div
-    class="hover-translate text-center mt-2 mb-2"
-    data-tooltip={exercise.questionTranslation}
-  >
-    <Sprachdown inline source={exercise.question} />
-  </div>
+<div class="exercise">
+  {#if exercise.from && exercise.message}}
+    <Message from={exercise.from}>
+      {#if audioPromise}
+        <AudioForLine {audioPromise} />
+      {/if}
+      <Sprachdown inline source={exercise.message} />
+    </Message>
+  {/if}
+  {#if exercise.image}
+    <img src={exercise.image} alt="Identify this" />
+  {/if}
+  {#if exercise.question}
+    <div
+      class="hover-translate text-center mt-2 mb-2"
+      data-tooltip={exercise.questionTranslation}
+    >
+      <Sprachdown inline source={exercise.question} />
+    </div>
+  {/if}
   <ul class="choices" bind:this={choicesUl}>
     {#each exercise.choices as choice, i}
       <li>
@@ -86,9 +88,19 @@
 </div>
 
 <style>
+  .exercise {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  img {
+    max-height: 50vh;
+  }
+
   .choices {
     display: flex;
     padding: 0;
+    margin: auto;
   }
 
   .choices li {

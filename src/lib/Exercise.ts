@@ -1,5 +1,7 @@
 import type { CharacterId, FeedbackDef, PatternDef } from "./Pattern"
 
+type ImageUrl = string
+
 export type FillblankExerciseDef = {
   from: CharacterId
   message: string
@@ -11,11 +13,12 @@ export type FillblankExerciseDef = {
 
 export type MultipleChoiceExerciseDef = {
   type: 'choice'
-  from: CharacterId
-  message: string
+  from?: CharacterId
+  message?: string
+  translation?: string
+  image?: ImageUrl
   question: string
   questionTranslation?: string
-  translation?: string
   choices: { text: string; correct: boolean }[]
 }
 

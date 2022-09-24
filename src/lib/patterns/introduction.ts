@@ -3,6 +3,7 @@ import parkImg from "$lib/img/1-park.webp"
 import orbInParkImg from "$lib/img/1-orb-in-park.webp"
 import squirrelOnTreeImg from "$lib/img/1-squirrel-on-tree.webp"
 
+
 // https://german.stackexchange.com/questions/3834/what-is-the-gender-distribution-of-nouns-in-the-german-language
 export default definePattern({
   id: "introduction",
@@ -103,6 +104,30 @@ Sprachy exercises will often ask you to make a reasonable guess at the meaning o
   exercises: [
     {
       type: 'choice',
+      image: squirrelOnTreeImg,
+      question: `Was ist das denn?`,
+      choices: [
+        {
+          text: "ein Eichhörnchen",
+          correct: true,
+          feedback: "Ja! Das ist ein flauschige Eichhörnchen!",
+          feedbackTranslation: "Yes! That is a fluffy squirrel!"
+        },
+        {
+          text: "ein Fisch",
+          correct: false
+        },
+        {
+          text: "ein Wombat",
+          correct: false
+        },
+        {
+          text: "ein Elefant",
+          correct: true
+        }
+      ]
+    }, {
+      type: 'choice',
       from: "squirrel",
       message: "Der Fisch schwimmt!",
       question: `What might "Fisch" mean?`,
@@ -112,7 +137,7 @@ Sprachy exercises will often ask you to make a reasonable guess at the meaning o
         { text: "monkey", correct: false },
         { text: "fish", correct: true }
       ]
-    }
+    },
   ]
 })
 
