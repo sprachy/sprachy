@@ -19,7 +19,7 @@ export type MultipleChoiceExerciseDef = {
   image?: ImageUrl
   question: string
   questionTranslation?: string
-  choices: { text: string; correct: boolean }[]
+  choices: { text: string; correct?: boolean }[]
 }
 
 export type ExerciseDef = FillblankExerciseDef | MultipleChoiceExerciseDef

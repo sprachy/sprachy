@@ -4,6 +4,7 @@
   import Sprachdown from "$lib/Sprachdown.svelte"
   import { createEventDispatcher, onDestroy, onMount } from "svelte"
   import { browser } from "$app/env"
+  import Choices from "$lib/Choices.svelte"
 
   export let line: MultipleChoiceLine
   export let complete: boolean = false
@@ -43,21 +44,10 @@
 
 <div>
   <Sprachdown source={line.question} />
-  <ul class="choices">
-    {#each line.choices as choice, i}
-      <li>
-        <button
-          class="btn btn-light"
-          class:incorrect={chosen.has(choice) && !choice.correct}
-          class:correct={chosen.has(choice) && choice.correct}
-          on:click={() => choose(choice)}
-        >
-          <span class="number">{i + 1}</span>
-          {choice.text}
-        </button>
-      </li>
-    {/each}
-  </ul>
+  <Choices
+    choices={line.choices}
+    on:correct={() => !complete && dispatch("correct")}
+  />
 </div>
 
 <style>

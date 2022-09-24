@@ -123,7 +123,7 @@ Sprachy exercises will often ask you to make a reasonable guess at the meaning o
         },
         {
           text: "ein Elefant",
-          correct: true
+          correct: false
         }
       ]
     }, {
