@@ -12,6 +12,16 @@
   let choicesUl: HTMLUListElement
   const dispatch = createEventDispatcher()
 
+  if (browser) {
+    onMount(() => {
+      window.addEventListener("keydown", onKeydown)
+    })
+
+    onDestroy(() => {
+      window.removeEventListener("keydown", onKeydown)
+    })
+  }
+
   async function choose(choice: Choice) {
     chosen = chosen.add(choice)
     if (choice.correct) {
@@ -31,20 +41,14 @@
     }
   }
 
-  if (browser) {
-    onMount(() => {
-      window.addEventListener("keydown", onKeydown)
-    })
-
-    onDestroy(() => {
-      window.removeEventListener("keydown", onKeydown)
-    })
+  function speakChoice(choice: Choice) {
+    speech.play({ from: "narrator", message: choice.text })
   }
 </script>
 
 <ul class="choices" bind:this={choicesUl}>
   {#each choices as choice, i}
-    <li>
+    <li on:mouseenter={() => speakChoice(choice)}>
       <button
         class="btn btn-light"
         class:incorrect={chosen.has(choice) && !choice.correct}

@@ -3,8 +3,7 @@
   import Sprachdown from "$lib/Sprachdown.svelte"
   import Message from "$lib/Message.svelte"
   import AudioForLine from "$lib/AudioForLine.svelte"
-  import { createEventDispatcher, onDestroy, onMount } from "svelte"
-  import { browser } from "$app/env"
+  import { createEventDispatcher } from "svelte"
   import type { MultipleChoiceExercise } from "./Exercise"
   import type { Base64Audio } from "./SpeechSystem"
   import Choices from "./Choices.svelte"
@@ -35,7 +34,7 @@
       <Sprachdown inline source={exercise.question} />
     </div>
   {/if}
-  <Choices choices={exercise.choices} />
+  <Choices choices={exercise.choices} on:correct={() => dispatch("correct")} />
 </div>
 
 <style>
