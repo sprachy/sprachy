@@ -5,18 +5,6 @@ import _ from 'lodash'
 import { flattenFauna, FaunaError, makeFaunaClient } from './faunaUtil'
 import type { FaunaDocument } from "./faunaUtil"
 
-let fns = {
-  A: (x: string) => 'a' + x,
-  B: (y: number) => 100 + y
-}
-
-type fn = typeof fns[keyof typeof fns]
-
-const combine = <T extends fn>(fn: T, param: Parameters<T>[0]) => {
-  return fn(param)
-}
-
-
 class FaunaConnector {
   _client?: faunadb.Client
   get client() {
