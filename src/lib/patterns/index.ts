@@ -16,5 +16,6 @@ import adjectiveEndings from './adjective-endings'
 import ndeclension from './n-declension'
 import lich from './-lich'
 import ordinalnumbers from './ordinal-numbers'
+import derwords from './der-words'
 
-export default [introduction, derdiedas, eineine, sein, daschen, accusative, dative, derlernerdielernerin, duodersie, comparative, superlative, genitiv, imperativ, compoundWords, adjectiveEndings, ndeclension, lich, ordinalnumbers]
+export default [introduction, derdiedas, eineine, sein, daschen, accusative, dative, derlernerdielernerin, duodersie, comparative, superlative, genitiv, imperativ, compoundWords, adjectiveEndings, ndeclension, lich, ordinalnumbers, derwords]
