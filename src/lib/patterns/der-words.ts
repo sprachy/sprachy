@@ -4,7 +4,7 @@ import { definePattern, md } from "$lib/definePattern"
 export default definePattern({
   id: "der-words",
   slug: "der-words",
-  title: "Indefinite articles",
+  title: "Alle Haselnüsse",
   shortdesc: "For when three articles aren't specific enough",
   icon: faListOl,
   explanation: md`
