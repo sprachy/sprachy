@@ -85,6 +85,11 @@ export class SpeechSystem {
     return promise
   }
 
+  async play(opts: { from: CharacterId, message: string }) {
+    const audioContent = await this.synthesizeFromCharacter(opts.from, opts.message)
+    await this.speak(audioContent)
+  }
+
   /**
    * Skip any currently playing speech and continue.
    */

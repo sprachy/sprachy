@@ -65,7 +65,7 @@ In this case the present tense form is used for the verb and you don't have to w
 
 <DialogueExample>
 lukas:
-  Kommt her ihr Eichörnchen.
+  Kommt her ihr Eichhörnchen.
 </DialogueExample>
 
 <Tip title="Und Sie?">

@@ -10,6 +10,11 @@
   --bs-btn-active-border-color: transparent;
 }
 
+main.container {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
 html,
 body,
 .svelte {
@@ -118,6 +123,16 @@ svg.svelte-fa {
   opacity: 0;
 }
 
+
+.hover-translate[data-tooltip] p {
+  text-decoration: underline #ccc dotted;
+}
+
+.hover-translate[data-tooltip] {
+  cursor: default;
+}
+
+
 /**
  * Remove focus styles for non-keyboard focus.
  */
@@ -135,4 +150,8 @@ button:focus {
   box-shadow:
     0 0 0 .2rem #fff,
     0 0 0 .35rem #069;
+}
+
+.sprachy-dev-color {
+  color: red;
 }

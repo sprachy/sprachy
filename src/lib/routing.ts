@@ -7,7 +7,6 @@ import { sprachdex } from "./sprachdex"
  * them only in the browser.
  */
 const authedRoutes = [
-  '/home',
   '/learn',
   '/practice',
   '/(.*)/practice',

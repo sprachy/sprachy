@@ -1,6 +1,5 @@
 <script lang="ts">
   import sprachy from "$lib/sprachy"
-  import SiteLayout from "$lib/SiteLayout.svelte"
   import _ from "lodash"
   import { goto } from "$app/navigation"
   const spa = sprachy.expectSPA()
@@ -14,7 +13,7 @@
   }
 </script>
 
-<SiteLayout>
+<main class="container">
   <div class="card">
     <div class="card-header">
       <h4 class="m-0">Make a Profile</h4>
@@ -37,7 +36,7 @@
       </form>
     </div>
   </div>
-</SiteLayout>
+</main>
 
 <style>
   .card {

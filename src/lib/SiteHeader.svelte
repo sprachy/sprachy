@@ -16,15 +16,12 @@
     DropdownMenu,
     DropdownItem,
   } from "sveltestrap"
-  import { sprachdex } from "./sprachdex"
   import defaultProfileImage from "$lib/img/squirrel.webp"
-  import Fa from "svelte-fa"
-  import { faMoon } from "@fortawesome/free-solid-svg-icons"
   import MuteToggle from "./MuteToggle.svelte"
 
   export let fixed: boolean = false
 
-  const { user, admin, restBonusAvailable } = sprachy.maybeSPA()
+  const { user, admin } = sprachy.maybeSPA()
 </script>
 
 <template>
@@ -39,10 +36,12 @@
       <NavbarToggler id="navbarToggler" />
       <Collapse navbar expand="md" toggler="#navbarToggler">
         <Nav class="ms-auto" navbar>
-          <NavItem>
-            <NavLink href="/learn">Learn</NavLink>
-          </NavItem>
-          <NavItem>
+          {#if $user}
+            <NavItem>
+              <NavLink href="/learn">Learn</NavLink>
+            </NavItem>
+          {/if}
+          <!-- <NavItem>
             <NavLink href="/practice">
               <div class="d-flex align-items-center">
                 Practice
@@ -51,25 +50,18 @@
                   <Fa icon={faMoon} color="#0787c3" class="ms-1" />
                 {/if}
 
-                <!-- {#if $reviewsForLeveling.length > 0}
+                {#if $reviewsForLeveling.length > 0}
                     <span class="badge review-count ms-1">
                       {$reviewsForLeveling.length}
                     </span>
-                  {/if} -->
+                  {/if}
               </div>
             </NavLink>
-          </NavItem>
+          </NavItem> -->
 
-          <Dropdown nav inNavbar>
-            <DropdownToggle nav caret>Patterns</DropdownToggle>
-            <DropdownMenu end>
-              {#each sprachdex.publishedPatterns as pattern}
-                <DropdownItem href={`/${pattern.slug}`}>
-                  {pattern.title}
-                </DropdownItem>
-              {/each}
-            </DropdownMenu>
-          </Dropdown>
+          <NavItem>
+            <NavLink href="/patterns">Patterns</NavLink>
+          </NavItem>
 
           <NavItem>
             <NavLink href="/faq">FAQ</NavLink>
@@ -153,7 +145,8 @@
 
   header.fixed {
     position: fixed;
-    z-index: 1;
+    top: 0;
+    z-index: 2;
     width: 100%;
   }
 

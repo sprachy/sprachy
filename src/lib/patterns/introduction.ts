@@ -2,16 +2,37 @@ import { definePattern, md } from "$lib/definePattern"
 import parkImg from "$lib/img/1-park.webp"
 import orbInParkImg from "$lib/img/1-orb-in-park.webp"
 import squirrelOnTreeImg from "$lib/img/1-squirrel-on-tree.webp"
+import fishImg from "$lib/img/intro-fish.webp"
+import catImg from "$lib/img/intro-cat.webp"
+import elephantImg from "$lib/img/intro-elephant.webp"
+import foxImg from "$lib/img/intro-fox.webp"
+
 
 // https://german.stackexchange.com/questions/3834/what-is-the-gender-distribution-of-nouns-in-the-german-language
 export default definePattern({
   id: "introduction",
   slug: "introduction",
-  title: "Introduction",
+  title: "Learning German",
   shortdesc: "",
-  draft: true,
   explanation: md`
-  `,
+German and English are both Germanic languages and closely related to each other. Since they share the majority of their alphabets with similar pronunciation rules, it's easy for an English speaker to start learning German!
+
+There are only a few key differences from English at the typographic level.
+
+- German has three more vowels: ä, ö and ü. The little hat is called an _umlaut_.
+- The additional letter ß known as the Eszett or "sharp S".
+- Nouns in German are always written with a **C**apital.
+
+Much German vocabulary will also be recognizable to English speakers. Consider phrases like _der grüne Apfel_ (the green apple) or _die graue Maus_ (the gray mouse). This is increasingly true as the languages continue to borrow new words from each other, as in _das Baby_ or _der Computer_.
+
+<DialogueExample>
+squirrel:
+  Diese Welt ist sehr grün.
+</DialogueExample>
+
+Sprachy exercises will often ask you to make a reasonable guess at the meaning of things when it's possible to do so!
+`,
+  storyTitle: "Töski",
   story: [
     {
       from: "narrator",
@@ -86,29 +107,65 @@ export default definePattern({
   ],
   exercises: [
     {
-      from: "squirrel",
-      message: "[Die] Cashew ist auf eine höhere Ebene aufgestiegen.",
-      translation: "[The] cashew has ascended to a higher plane.",
-      hint: "[feminine]"
+      type: 'choice',
+      image: fishImg,
+      question: `Was ist das?`,
+      choices: [
+        { text: "ein Wombat", correct: false },
+        { text: "eine Melone", correct: false },
+        { text: "ein Fisch", correct: true },
+        { text: "ein Hut", correct: false }
+      ]
     },
     {
-      from: "lukas",
-      message: "[Die] außerirdische Lebensform ist niedlich.",
-      translation: "[The] alien lifeform is cute.",
-      hint: "[feminine]"
+      type: 'choice',
+      image: catImg,
+      question: `Was ist das?`,
+      choices: [
+        { text: "ein Wombat", correct: false },
+        { text: "eine Katze", correct: true },
+        { text: "ein Fisch", correct: false },
+        { text: "eine Banane", correct: false }
+      ]
     },
     {
-      from: "lindenbaum",
-      message: "[Das] Universum ist größer als wir wissen.",
-      translation: "[The] universe is vaster than we know.",
-      hint: "[neuter]"
+      type: 'choice',
+      image: foxImg,
+      question: `Was ist das?`,
+      choices: [
+        { text: "ein Fuchs", correct: true },
+        { text: "eine Katze", correct: false },
+        { text: "eine Melone", correct: false },
+        { text: "ein Opossum", correct: false }
+      ]
     },
     {
-      from: "fox",
-      message: "[Der] Shiba Inu ist ironisch.",
-      translation: "[The] Shiba Inu is ironic.",
-      hint: "[masculine]"
-    }
+      type: 'choice',
+      image: elephantImg,
+      question: `Was ist das?`,
+      choices: [
+        { text: "ein Hund", correct: false },
+        { text: "ein Opossum", correct: false },
+        { text: "eine Banane", correct: false },
+        { text: "ein Elefant", correct: true },
+      ]
+    },
+    {
+      type: 'choice',
+      image: squirrelOnTreeImg,
+      question: `Was ist das?`,
+      choices: [
+        {
+          text: "ein Eichhörnchen",
+          correct: true,
+          feedback: "Ja! Das ist ein flauschige Eichhörnchen!",
+          feedbackTranslation: "Yes! That is a fluffy squirrel!"
+        },
+        { text: "ein Fisch", correct: false },
+        { text: "ein Wombat", correct: false },
+        { text: "ein Elefant", correct: false }
+      ]
+    },
   ]
 })
 

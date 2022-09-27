@@ -1,6 +1,5 @@
 <script lang="ts">
   import _ from "lodash"
-  import SiteLayout from "$lib/SiteLayout.svelte"
   import { sprachdex } from "$lib/sprachdex"
   import Sprachdown from "$lib/Sprachdown.svelte"
   import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
@@ -10,7 +9,7 @@
   const patterns = sprachdex.publishedPatterns
 </script>
 
-<SiteLayout>
+<main>
   <h1>Testall</h1>
   {#each patterns as pattern}
     <div class="pattern">
@@ -43,7 +42,7 @@
       {/each}
     </div>
   {/each}
-</SiteLayout>
+</main>
 
 <style>
   .pattern {

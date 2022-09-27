@@ -3,7 +3,6 @@
   import Message from "$lib/Message.svelte"
   import type { ReadingLine } from "$lib/Pattern"
   import Sprachdown from "$lib/Sprachdown.svelte"
-  import AlienText from "./AlienText.svelte"
   import AudioForLine from "$lib/AudioForLine.svelte"
   import type { Base64Audio } from "$lib/SpeechSystem"
 

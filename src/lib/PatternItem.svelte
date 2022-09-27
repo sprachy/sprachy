@@ -5,22 +5,16 @@
 
   export let pattern: Pattern
 
-  const patternAndProgressById = sprachy.spa?.patternAndProgressById
-  const progress = $patternAndProgressById
-    ? $patternAndProgressById[pattern.id]?.progress
+  const progressByPatternId = sprachy.spa?.progressByPatternId
+  const progress = $progressByPatternId
+    ? $progressByPatternId[pattern.id]
     : null
 
   $: level = progress ? progress.level : 0
-  $: learned = level > 0
 </script>
 
 <li class:pattern={true}>
-  <a
-    href={learned || !sprachy.spa
-      ? `/${pattern.slug}`
-      : `/story/${pattern.slug}`}
-    sveltekit:prefetch
-  >
+  <a href={`/${pattern.slug}`} sveltekit:prefetch>
     <div class="pattern-inner">
       <div class="level-part">
         <div class="levelbar">

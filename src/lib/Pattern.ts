@@ -1,5 +1,6 @@
 import type { IconDefinition } from "@fortawesome/fontawesome-common-types"
 import _ from "lodash"
+import { parseExercise, type Exercise, type ExerciseDef } from "./Exercise"
 
 export type CharacterId = string
 export type PatternId = string
@@ -10,16 +11,28 @@ export type PatternId = string
  * definitions.
  */
 export type PatternDef = {
-  draft?: true
   id: string
   title: string
   slug: string
   shortdesc: string
   icon?: IconDefinition
   explanation: string
+  storyTitle?: string
   story: LineDef[]
-  exercises: LineDef[]
+  exercises: ExerciseDef[]
   feedback?: FeedbackDef[]
+
+  /**
+   * If set, the pattern will only be visible to admins.
+   */
+  draft?: true
+
+  /**
+   * If set, the pattern will not be shown in the list of patterns
+   * or accessible as an individual page.
+   * It will still appear to users in the learning sequence.
+   */
+  hidden?: true
 }
 
 export type FeedbackDef = {
@@ -39,21 +52,12 @@ export type ReadingLineDef = {
   special?: SpecialLineId
 }
 
-export type FillblankLineDef = {
-  from: CharacterId
-  message: string
-  translation: string
-  explanation?: string
-  hint?: string
-  feedback?: { [attempt: string]: string }
-}
-
 export type MultipleChoiceLineDef = {
   question: string
   choices: { text: string, correct?: boolean }[]
 }
 
-export type LineDef = ReadingLineDef | FillblankLineDef | MultipleChoiceLineDef
+export type LineDef = ReadingLineDef | MultipleChoiceLineDef
 
 export type ReadingLine = {
   type: 'reading'
@@ -65,19 +69,6 @@ export type ReadingLine = {
   imageAlt?: string
   special?: SpecialLineId
 }
-
-export type FillblankLine = {
-  type: 'fillblank'
-  from: CharacterId
-  message: string
-  translation: string
-  canonicalAnswer: string
-  validAnswers: string[]
-  explanation?: string
-  hint?: string
-  feedback?: FeedbackDef[]
-}
-
 export type MultipleChoiceLine = {
   type: 'choice'
   question: string
@@ -85,9 +76,6 @@ export type MultipleChoiceLine = {
 }
 
 export type StoryLine = ReadingLine | MultipleChoiceLine
-
-
-export type Exercise = FillblankLine
 
 /**
  * A pattern after parsing the definition file. Structured
@@ -105,46 +93,23 @@ export type Story = Pattern['story']
 export function parsePattern(patternDef: PatternDef): Pattern {
   const exercises: Exercise[] = []
   for (const exerciseDef of patternDef.exercises) {
-    const line = parseLine(patternDef, exerciseDef)
-    if (line.type !== 'fillblank') {
-      console.error(`Discarding invalid exercise definition. Did we forget to define a fillblank? ${JSON.stringify(exerciseDef)}`)
-    } else {
-      exercises.push(line)
+    const ex = parseExercise(patternDef, exerciseDef)
+    if (ex) {
+      exercises.push(ex)
     }
   }
 
   return Object.assign({}, patternDef, {
-    story: patternDef.story.map(ex => parseLine(patternDef, ex) as StoryLine),
+    story: patternDef.story.map(lineDef => parseLine(lineDef)),
+    storyTitle: patternDef.storyTitle || patternDef.title,
     maxLevel: 9,
     exercises: exercises
   })
 }
 
-export function parseLine(patternDef: PatternDef, lineDef: LineDef): StoryLine | FillblankLine {
-  const match = 'message' in lineDef && lineDef.message?.match(/\[(.+?)\]/)
-  if (match) {
-    const fillblankDef = lineDef as FillblankLineDef
-    const canonicalAnswer = match[1]!
 
-    const lineSpecificFeedback: FeedbackDef[] = []
-    if (fillblankDef.feedback) {
-      for (const attempt in fillblankDef.feedback) {
-        lineSpecificFeedback.push({
-          answer: canonicalAnswer,
-          attempt: attempt,
-          message: fillblankDef.feedback[attempt]!
-        })
-      }
-    }
-
-    return {
-      type: 'fillblank',
-      canonicalAnswer: canonicalAnswer,
-      validAnswers: [canonicalAnswer],
-      ...fillblankDef,
-      feedback: lineSpecificFeedback.concat(patternDef.feedback || []),
-    }
-  } else if ('choices' in lineDef) {
+export function parseLine(lineDef: LineDef): StoryLine {
+  if ('choices' in lineDef) {
     return {
       type: 'choice',
       ...lineDef

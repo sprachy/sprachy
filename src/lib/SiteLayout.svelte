@@ -2,10 +2,7 @@
   import SiteHeader from "./SiteHeader.svelte"
   import { sprachdex } from "./sprachdex"
   import successImg from "$lib/img/success.webp"
-
   export let title: string | null = null
-  export let noContainer: boolean = false
-  export let fixedHeader: boolean = false
 </script>
 
 <svelte:head>
@@ -20,23 +17,13 @@
   {/if}
 </svelte:head>
 
-<div class="site-layout">
-  <SiteHeader fixed={fixedHeader} />
-  {#if noContainer}
-    <slot />
-  {:else}
-    <main class="container">
-      <slot />
-    </main>
-  {/if}
+<div class="SiteLayout">
+  <SiteHeader />
+  <slot />
 </div>
 
 <style>
-  .site-layout {
-    padding-bottom: 5rem;
-  }
-
-  main {
-    padding-top: 1.5rem;
+  .SiteLayout {
+    height: 100%;
   }
 </style>
