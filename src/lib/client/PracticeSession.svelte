@@ -1,12 +1,12 @@
 <script lang="ts">
   import _ from "lodash"
-  import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
   import type { Review } from "$lib/client/SprachyUserSPA"
   import successImg from "$lib/img/success.webp"
   import sprachy from "$lib/sprachy"
   import LevelReport from "$lib/LevelReport.svelte"
   import { fly } from "svelte/transition"
   import FocusHeader from "$lib/FocusHeader.svelte"
+  import ExerciseView from "$lib/ExerciseView.svelte"
 
   const spa = sprachy.expectSPA()
   const { api, user, speech } = spa
@@ -84,8 +84,8 @@
   <div class="practice">
     <div class="exercises" in:fly={{ y: 20, duration: 500 }}>
       {#key exerciseIndex}
-        <StoryLineFillblank
-          line={exercise}
+        <ExerciseView
+          {exercise}
           audioPromise={audioPromises[exerciseIndex]}
           on:correct={nextExercise}
           pattern={exercise.pattern}

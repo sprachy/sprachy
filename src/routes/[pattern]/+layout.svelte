@@ -55,12 +55,14 @@
             Explanation
           </a>
         </li>
-        <li class:active={activeTab === "examples"}>
-          <a sveltekit:prefetch href="/{pattern.slug}/examples">
-            <Fa fw icon={faList} />
-            Examples
-          </a>
-        </li>
+        {#if pattern.exercises.some((ex) => ex.type === "fillblank")}
+          <li class:active={activeTab === "examples"}>
+            <a sveltekit:prefetch href="/{pattern.slug}/examples">
+              <Fa fw icon={faList} />
+              Examples
+            </a>
+          </li>
+        {/if}
       </ul>
       <hr />
 
