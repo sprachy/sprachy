@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "env-cmd --no-override vite dev",
-    "build": "svelte-kit build",
+    "build": "vite build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
