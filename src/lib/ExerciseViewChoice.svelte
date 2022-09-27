@@ -15,7 +15,7 @@
 </script>
 
 <div class="exercise">
-  {#if exercise.from && exercise.message}}
+  {#if exercise.from && exercise.message}
     <Message from={exercise.from}>
       {#if audioPromise}
         <AudioForLine {audioPromise} />

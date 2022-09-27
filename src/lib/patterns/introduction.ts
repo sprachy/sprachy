@@ -2,6 +2,10 @@ import { definePattern, md } from "$lib/definePattern"
 import parkImg from "$lib/img/1-park.webp"
 import orbInParkImg from "$lib/img/1-orb-in-park.webp"
 import squirrelOnTreeImg from "$lib/img/1-squirrel-on-tree.webp"
+import fishImg from "$lib/img/intro-fish.webp"
+import catImg from "$lib/img/intro-cat.webp"
+import elephantImg from "$lib/img/intro-elephant.webp"
+import foxImg from "$lib/img/intro-fox.webp"
 
 
 // https://german.stackexchange.com/questions/3834/what-is-the-gender-distribution-of-nouns-in-the-german-language
@@ -104,8 +108,52 @@ Sprachy exercises will often ask you to make a reasonable guess at the meaning o
   exercises: [
     {
       type: 'choice',
+      image: fishImg,
+      question: `Was ist das?`,
+      choices: [
+        { text: "ein Wombat", correct: false },
+        { text: "eine Melone", correct: false },
+        { text: "ein Fisch", correct: true },
+        { text: "ein Hut", correct: false }
+      ]
+    },
+    {
+      type: 'choice',
+      image: catImg,
+      question: `Was ist das?`,
+      choices: [
+        { text: "ein Wombat", correct: false },
+        { text: "eine Katze", correct: true },
+        { text: "ein Fisch", correct: false },
+        { text: "eine Banane", correct: false }
+      ]
+    },
+    {
+      type: 'choice',
+      image: foxImg,
+      question: `Was ist das?`,
+      choices: [
+        { text: "ein Fuchs", correct: true },
+        { text: "eine Katze", correct: false },
+        { text: "eine Melone", correct: false },
+        { text: "ein Opossum", correct: false }
+      ]
+    },
+    {
+      type: 'choice',
+      image: elephantImg,
+      question: `Was ist das?`,
+      choices: [
+        { text: "ein Hund", correct: false },
+        { text: "ein Opossum", correct: false },
+        { text: "eine Banane", correct: false },
+        { text: "ein Elefant", correct: true },
+      ]
+    },
+    {
+      type: 'choice',
       image: squirrelOnTreeImg,
-      question: `Was ist das denn?`,
+      question: `Was ist das?`,
       choices: [
         {
           text: "ein Eichhörnchen",
@@ -113,29 +161,9 @@ Sprachy exercises will often ask you to make a reasonable guess at the meaning o
           feedback: "Ja! Das ist ein flauschige Eichhörnchen!",
           feedbackTranslation: "Yes! That is a fluffy squirrel!"
         },
-        {
-          text: "ein Fisch",
-          correct: false
-        },
-        {
-          text: "ein Wombat",
-          correct: false
-        },
-        {
-          text: "ein Elefant",
-          correct: false
-        }
-      ]
-    }, {
-      type: 'choice',
-      from: "squirrel",
-      message: "Der Fisch schwimmt!",
-      question: `What might "Fisch" mean?`,
-      choices: [
-        { text: "spaceship", correct: false },
-        { text: "laser", correct: false },
-        { text: "monkey", correct: false },
-        { text: "fish", correct: true }
+        { text: "ein Fisch", correct: false },
+        { text: "ein Wombat", correct: false },
+        { text: "ein Elefant", correct: false }
       ]
     },
   ]
