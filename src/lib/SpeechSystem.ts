@@ -13,6 +13,7 @@ export type SpeechOptions = {
 export type Base64Audio = string
 
 export class SpeechSystem {
+  audioCache: Record<string, Promise<Base64Audio>> = {}
   currentlySaying: HTMLAudioElement | null = null
 
   constructor(readonly spa: SprachyUserSPA) { }
@@ -28,6 +29,12 @@ export class SpeechSystem {
       voice: character.audio?.voice,
       audioConfig: character.audio?.audioConfig
     })
+  }
+
+  async preload(opts: { from: CharacterId, message: string }) {
+    const audioPromise = this.synthesizeFromCharacter(opts.from, opts.message)
+    const key = opts.from + ' ' + opts.message
+    this.audioCache[key] = audioPromise
   }
 
   // TODO there's currently a DOS vulnerability here-- a hostile client can send infinitely varying
@@ -85,9 +92,16 @@ export class SpeechSystem {
     return promise
   }
 
-  async play(opts: { from: CharacterId, message: string }) {
-    const audioContent = await this.synthesizeFromCharacter(opts.from, opts.message)
-    await this.speak(audioContent)
+  async get(opts: { from: CharacterId, message: string }) {
+    const key = opts.from + ' ' + opts.message
+    const audioContent = this.audioCache[key]
+    if (audioContent) {
+      return audioContent
+    }
+    else {
+      console.warn("Audio \"" + key + "\" has not been preloaded.")
+      return this.preload(opts)
+    }
   }
 
   /**

@@ -2,10 +2,9 @@
   import _ from "lodash"
   import sprachy from "$lib/sprachy"
   import SoundIndicator from "$lib/SoundIndicator.svelte"
-  import type { Base64Audio } from "$lib/SpeechSystem"
+  import { SpeechSystem, type Base64Audio } from "$lib/SpeechSystem"
   import { onDestroy } from "svelte"
 
-  export let audioPromise: Promise<Base64Audio> | undefined
   export let playImmediately: boolean = false
   export let disabled: boolean = false
 
@@ -18,7 +17,7 @@
   async function loadAudio() {
     loading = true
     try {
-      audio = await audioPromise
+      audio = await speech.get()
     } finally {
       loading = false
     }
