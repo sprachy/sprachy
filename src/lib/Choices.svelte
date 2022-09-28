@@ -11,11 +11,13 @@
   const { speech, effects, user } = sprachy.expectSPA()
   let chosen: Set<Choice> = new Set()
   let choicesUl: HTMLUListElement
+  let speechEnabled = false
   const dispatch = createEventDispatcher()
 
   if (browser) {
     onMount(() => {
       window.addEventListener("keydown", onKeydown)
+      setTimeout(enableSpeech, 50)
     })
 
     onDestroy(() => {
@@ -42,8 +44,12 @@
     }
   }
 
+  function enableSpeech() {
+    speechEnabled = true
+  }
+
   function speakChoice(choice: Choice) {
-    if ($user?.enableSpeechSynthesis) {
+    if ($user?.enableSpeechSynthesis && speechEnabled) {
       speech.play({ from: "narrator", message: choice.text })
     }
   }
