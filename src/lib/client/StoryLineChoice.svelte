@@ -3,7 +3,7 @@
   import type { MultipleChoiceLine } from "$lib/Pattern"
   import Sprachdown from "$lib/Sprachdown.svelte"
   import { createEventDispatcher, onDestroy, onMount } from "svelte"
-  import { browser } from "$app/env"
+  import { browser } from "$app/environment"
   import Choices from "$lib/Choices.svelte"
 
   export let line: MultipleChoiceLine

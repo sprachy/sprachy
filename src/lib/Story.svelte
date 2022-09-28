@@ -6,7 +6,7 @@
   import StoryLineChoice from "$lib/client/StoryLineChoice.svelte"
   import SpecialLineMorph from "$lib/SpecialLineMorph.svelte"
   import { fly } from "svelte/transition"
-  import { browser } from "$app/env"
+  import { browser } from "$app/environment"
   import sprachy from "./sprachy"
   import type { Base64Audio } from "./SpeechSystem"
 

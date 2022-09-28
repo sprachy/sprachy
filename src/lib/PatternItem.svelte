@@ -14,7 +14,7 @@
 </script>
 
 <li class:pattern={true}>
-  <a href={`/${pattern.slug}`} sveltekit:prefetch>
+  <a href={`/${pattern.slug}`} data-sveltekit-prefetch>
     <div class="pattern-inner">
       <div class="level-part">
         <div class="levelbar">

@@ -3,7 +3,7 @@
   import "bootstrap/dist/css/bootstrap.min.css"
   import "../app.css"
 
-  import { browser } from "$app/env"
+  import { browser } from "$app/environment"
   import { navigating } from "$app/stores"
   import { page } from "$app/stores"
   import sprachy from "$lib/sprachy"

@@ -32,8 +32,6 @@ export const handle: Handle = async ({ event, resolve }) => {
     })
   }
 
-
-
   // If it's an api route, we need to auth gate it here
   const publicApiRoutes = [
     '/api/login',
@@ -71,11 +69,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 
   try {
-    if (session && isAuthedRoute(event.url.pathname)) {
-      return await resolve(event, { ssr: false })
-    } else {
-      return await resolve(event)
-    }
+    return await resolve(event)
   } catch (err: any) {
     if (err instanceof ZodError) {
       const json = { status: 422, code: "validation failed", errors: err.issues }

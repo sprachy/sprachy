@@ -1,7 +1,7 @@
 <script lang="ts">
   import _ from "lodash"
   import sprachy from "$lib/sprachy"
-  import { dev } from "$app/env"
+  import { dev } from "$app/environment"
   import { page } from "$app/stores"
   import {
     Collapse,
@@ -105,7 +105,7 @@
                 {/if}
                 <DropdownItem href="/settings">Settings</DropdownItem>
                 <!-- <DropdownItem href="/subscribe">Subscription</DropdownItem> -->
-                <a href="/logout" class="dropdown-item" sveltekit:reload
+                <a href="/logout" class="dropdown-item" data-sveltekit-reload
                   >Log out</a
                 >
               </DropdownMenu>

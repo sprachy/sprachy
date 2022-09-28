@@ -3,8 +3,7 @@ import { sprachdex } from "./sprachdex"
 
 /**
  * Routes that can only be accessed when you're
- * logged in. We disable SSR for these and render
- * them only in the browser.
+ * logged in.
  */
 const authedRoutes = [
   '/learn',

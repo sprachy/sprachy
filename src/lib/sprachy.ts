@@ -1,5 +1,5 @@
 
-import { browser } from "$app/env"
+import { browser } from "$app/environment"
 
 import { SprachyAPIClient } from "$lib/client/SprachyAPIClient"
 import { SprachyUserSPA } from "$lib/client/SprachyUserSPA"

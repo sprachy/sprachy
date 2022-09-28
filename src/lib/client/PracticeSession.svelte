@@ -69,7 +69,7 @@
         on:animEnd={() => (showNext = true)}
       />
       <a
-        sveltekit:prefetch
+        data-sveltekit-prefetch
         style:opacity={showNext ? 1 : 0}
         class="btn btn-success mt-2"
         href={returnUrl}
