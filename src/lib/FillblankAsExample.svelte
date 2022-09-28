@@ -32,7 +32,7 @@
 
   if (browser) {
     onMount(() => {
-      audioPromise = speech?.synthesizeLine(line)
+      audioPromise = speech?.get(line)
     })
   }
 

@@ -26,11 +26,13 @@
   }
   $: exercise = exercises[exerciseIndex]!
 
-  $: audioPromises = $user?.enableSpeechSynthesis
-    ? exercises.map((ex) => {
-        return speech.synthesizeLine(ex)
-      })
-    : []
+  $: if ($user?.enableSpeechSynthesis) {
+    for (const ex of exercises) {
+      if (ex.from && ex.message) {
+        speech.preload({ from: ex.from, message: ex.message })
+      }
+    }
+  }
 
   async function nextExercise() {
     // Completed an exercise, gain experience
@@ -50,12 +52,7 @@
 <div class="practice">
   <div class="exercises">
     {#key pattern.id + "-" + exerciseIndex}
-      <ExerciseView
-        {exercise}
-        audioPromise={audioPromises[exercises.indexOf(exercise)]}
-        on:correct={nextExercise}
-        {pattern}
-      />
+      <ExerciseView {exercise} on:correct={nextExercise} {pattern} />
     {/key}
   </div>
 </div>

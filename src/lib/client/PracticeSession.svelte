@@ -24,11 +24,13 @@
 
   $: exercise = exercises[exerciseIndex]!
 
-  $: audioPromises = $user?.enableSpeechSynthesis
-    ? exercises.map((ex) => {
-        return speech.synthesizeLine(ex)
-      })
-    : []
+  if (speech && $user?.enableSpeechSynthesis) {
+    for (const ex of exercises) {
+      if (ex.from && ex.message) {
+        speech.preload({ from: ex.from, message: ex.message })
+      }
+    }
+  }
 
   async function nextExercise() {
     if (completing || completed) return
@@ -86,7 +88,6 @@
       {#key exerciseIndex}
         <ExerciseView
           {exercise}
-          audioPromise={audioPromises[exerciseIndex]}
           on:correct={nextExercise}
           pattern={exercise.pattern}
         />

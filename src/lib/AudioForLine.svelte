@@ -2,22 +2,29 @@
   import _ from "lodash"
   import sprachy from "$lib/sprachy"
   import SoundIndicator from "$lib/SoundIndicator.svelte"
-  import { SpeechSystem, type Base64Audio } from "$lib/SpeechSystem"
+  import type { SpeechSystem, Base64Audio } from "$lib/SpeechSystem"
   import { onDestroy } from "svelte"
 
   export let playImmediately: boolean = false
   export let disabled: boolean = false
+  export let opts: Partial<Parameters<SpeechSystem["get"]>[0]>
 
-  const { speech } = sprachy.expectSPA()
+  const { speech, user } = sprachy.expectSPA()
   let playingSound: boolean = false
   let loading = true
   let audio: Base64Audio | undefined
   let playedOnLoad: boolean = false
 
+  $: audioOpts =
+    opts.from && opts.message
+      ? { from: opts.from, message: opts.message }
+      : undefined
+  $: enabled = $user?.enableSpeechSynthesis && audioOpts
+
   async function loadAudio() {
     loading = true
     try {
-      audio = await speech.get()
+      audio = await speech.get(audioOpts!)
     } finally {
       loading = false
     }
@@ -28,7 +35,7 @@
     }
   }
 
-  $: if (audioPromise) {
+  $: if (enabled) {
     loadAudio()
   }
 

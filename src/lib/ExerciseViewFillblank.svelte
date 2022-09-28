@@ -6,17 +6,15 @@
   import Sprachdown from "$lib/Sprachdown.svelte"
   import { matchAnswer } from "$lib/client/feedback"
   import sprachy from "$lib/sprachy"
-  import type { Base64Audio } from "$lib/SpeechSystem"
   import AudioForLine from "$lib/AudioForLine.svelte"
   import type { FillblankExercise } from "./Exercise"
 
-  const { speech, effects } = sprachy.expectSPA()
+  const { speech, effects, user } = sprachy.expectSPA()
 
   export let exercise: FillblankExercise
   export let flip: boolean = false
   export let complete: boolean = false
   export let pattern: Pattern | null = null
-  export let audioPromise: Promise<Base64Audio> | undefined = undefined
   let attemptInput!: HTMLInputElement
   let attempt: string = ""
   let feedback: string = ""
@@ -107,13 +105,11 @@
 <div>
   <Message from={exercise.from} {flip}>
     <form on:submit|preventDefault={checkAnswer}>
-      {#if audioPromise}
-        <AudioForLine
-          {audioPromise}
-          bind:this={audio}
-          disabled={!playingPostAnswerSound}
-        />
-      {/if}
+      <AudioForLine
+        opts={exercise}
+        bind:this={audio}
+        disabled={!playingPostAnswerSound}
+      />
       <Sprachdown inline source={parts.before} />
       <!-- svelte-ignore a11y-autofocus -->
       <input

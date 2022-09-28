@@ -24,7 +24,6 @@
   $: currentLine = visibleLines[visibleLines.length - 1]!
   let finished: boolean = staticMode ? true : false
   let lineRef: HTMLDivElement | null = null
-  let audioPromises: (Promise<Base64Audio> | undefined)[] = []
 
   $: doingExercise = !finished && currentLine.type !== "reading"
 
@@ -46,16 +45,12 @@
     })
   })(story)
 
-  $: if (speech && $user?.enableSpeechSynthesis && !audioPromises.length) {
-    audioPromises = story.map((line) => {
-      if ("message" in line) {
-        return speech?.synthesizeLine(line)
-      } else {
-        return undefined
+  $: if (speech && $user?.enableSpeechSynthesis) {
+    for (const line of story) {
+      if (line.type === "reading" && line.from && line.message) {
+        speech.preload({ from: line.from, message: line.message })
       }
-    })
-  } else {
-    audioPromises = []
+    }
   }
 
   const dispatch = createEventDispatcher()
@@ -116,19 +111,9 @@
       >
         {#if line.type === "reading"}
           {#if line.special === "morph"}
-            <SpecialLineMorph
-              {staticMode}
-              audioPromise={audioPromises[i]}
-              {line}
-              flip={lineFlips[i]}
-            />
+            <SpecialLineMorph {staticMode} {line} flip={lineFlips[i]} />
           {:else}
-            <StoryLineReading
-              {staticMode}
-              audioPromise={audioPromises[i]}
-              {line}
-              flip={lineFlips[i]}
-            />
+            <StoryLineReading {staticMode} {line} flip={lineFlips[i]} />
           {/if}
         {:else if line.type === "choice"}
           <StoryLineChoice

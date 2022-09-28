@@ -8,23 +8,17 @@
 
   export let exercise: Exercise
   export let pattern: Pattern
-  export let audioPromise: Promise<Base64Audio> | undefined = undefined
   const dispatch = createEventDispatcher()
 </script>
 
 {#if exercise.type === "fillblank"}
   <ExerciseViewFillblank
     {exercise}
-    {audioPromise}
     on:correct={() => dispatch("correct")}
     {pattern}
   />
 {:else if exercise.type === "choice"}
-  <ExerciseViewChoice
-    {exercise}
-    {audioPromise}
-    on:correct={() => dispatch("correct")}
-  />
+  <ExerciseViewChoice {exercise} on:correct={() => dispatch("correct")} />
 {/if}
 
 <style>

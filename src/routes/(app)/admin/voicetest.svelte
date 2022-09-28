@@ -23,7 +23,10 @@
     return lines
   })(selectedCharacterId)
 
-  $: audioPromises = lines.map((line) => spa.speech.synthesizeLine(line))
+  $: for (const line of lines) {
+    const { from, message } = line
+    if (message) spa.speech.preload({ from, message })
+  }
 
   async function speak() {
     const audio = await spa.speech.synthesizeFromCharacter(
@@ -59,7 +62,7 @@
     </div>
     <button class="btn btn-primary mb-4">Speak</button>
     {#each lines as line, i}
-      <StoryLineReading staticMode {line} audioPromise={audioPromises[i]} />
+      <StoryLineReading staticMode {line} />
     {/each}
   </form>
 </main>

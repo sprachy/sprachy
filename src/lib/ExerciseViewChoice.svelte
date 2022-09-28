@@ -5,11 +5,9 @@
   import AudioForLine from "$lib/AudioForLine.svelte"
   import { createEventDispatcher } from "svelte"
   import type { MultipleChoiceExercise } from "./Exercise"
-  import type { Base64Audio } from "./SpeechSystem"
   import Choices from "./Choices.svelte"
 
   export let exercise: MultipleChoiceExercise
-  export let audioPromise: Promise<Base64Audio> | undefined = undefined
 
   const dispatch = createEventDispatcher()
 </script>
@@ -17,9 +15,7 @@
 <div class="exercise">
   {#if exercise.from && exercise.message}
     <Message from={exercise.from}>
-      {#if audioPromise}
-        <AudioForLine {audioPromise} />
-      {/if}
+      <AudioForLine opts={exercise} />
       <Sprachdown inline source={exercise.message} />
     </Message>
   {/if}

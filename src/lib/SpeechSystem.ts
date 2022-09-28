@@ -31,12 +31,6 @@ export class SpeechSystem {
     })
   }
 
-  async preload(opts: { from: CharacterId, message: string }) {
-    const audioPromise = this.synthesizeFromCharacter(opts.from, opts.message)
-    const key = opts.from + ' ' + opts.message
-    this.audioCache[key] = audioPromise
-  }
-
   // TODO there's currently a DOS vulnerability here-- a hostile client can send infinitely varying
   // requests to the server, potentially causing google to charge us a large amount of money
   //
@@ -92,6 +86,19 @@ export class SpeechSystem {
     return promise
   }
 
+  async preload(opts: { from: CharacterId, message: string }) {
+    const key = opts.from + ' ' + opts.message
+
+    let audioPromise = this.audioCache[key]
+    if (audioPromise) {
+      return audioPromise
+    } else {
+      audioPromise = this.synthesizeFromCharacter(opts.from, opts.message)
+      this.audioCache[key] = audioPromise
+      return audioPromise
+    }
+  }
+
   async get(opts: { from: CharacterId, message: string }) {
     const key = opts.from + ' ' + opts.message
     const audioContent = this.audioCache[key]
@@ -102,6 +109,11 @@ export class SpeechSystem {
       console.warn("Audio \"" + key + "\" has not been preloaded.")
       return this.preload(opts)
     }
+  }
+
+  async play(opts: { from: CharacterId, message: string }) {
+    const audioContent = await this.get(opts)
+    return this.speak(audioContent)
   }
 
   /**

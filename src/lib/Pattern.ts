@@ -69,6 +69,7 @@ export type ReadingLine = {
   imageAlt?: string
   special?: SpecialLineId
 }
+
 export type MultipleChoiceLine = {
   type: 'choice'
   question: string

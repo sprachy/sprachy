@@ -4,21 +4,17 @@
   import type { ReadingLine } from "$lib/Pattern"
   import Sprachdown from "$lib/Sprachdown.svelte"
   import AudioForLine from "$lib/AudioForLine.svelte"
-  import type { Base64Audio } from "$lib/SpeechSystem"
 
   export let line: ReadingLine
   export let flip: boolean = false
   export let staticMode: boolean = false
-  export let audioPromise: Promise<Base64Audio> | undefined = undefined
 </script>
 
 <div class="reading">
   {#if line.message}
     <Message from={line.from} {flip} tooltip={line.translation}>
       <div>
-        {#if audioPromise}
-          <AudioForLine {audioPromise} playImmediately={!staticMode} />
-        {/if}
+        <AudioForLine opts={line} playImmediately={!staticMode} />
         <Sprachdown inline source={line.message} />
       </div>
     </Message>
