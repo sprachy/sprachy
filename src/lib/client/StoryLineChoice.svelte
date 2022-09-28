@@ -2,8 +2,7 @@
   import _ from "lodash"
   import type { MultipleChoiceLine } from "$lib/Pattern"
   import Sprachdown from "$lib/Sprachdown.svelte"
-  import { createEventDispatcher, onDestroy, onMount } from "svelte"
-  import { browser } from "$app/environment"
+  import { createEventDispatcher } from "svelte"
   import Choices from "$lib/Choices.svelte"
 
   export let line: MultipleChoiceLine
@@ -11,62 +10,16 @@
 
   type Choice = MultipleChoiceLine["choices"][0]
   const dispatch = createEventDispatcher()
-
-  let chosen: Set<Choice> = new Set()
-
-  async function choose(choice: Choice) {
-    if (complete) return
-    chosen = chosen.add(choice)
-    if (choice.correct) {
-      dispatch("correct")
-    }
-  }
-
-  function onKeydown(ev: KeyboardEvent) {
-    for (let i = 0; i < line.choices.length; i++) {
-      const choice = line.choices[i]!
-      if (ev.key === (i + 1).toString()) {
-        choose(choice)
-      }
-    }
-  }
-
-  if (browser) {
-    onMount(() => {
-      window.addEventListener("keydown", onKeydown)
-    })
-
-    onDestroy(() => {
-      window.removeEventListener("keydown", onKeydown)
-    })
-  }
 </script>
 
 <div>
   <Sprachdown source={line.question} />
   <Choices
     choices={line.choices}
-    on:correct={() => !complete && dispatch("correct")}
+    on:correct={() => dispatch("correct")}
+    {complete}
   />
 </div>
 
 <style>
-  .choices {
-    display: flex;
-    padding: 0;
-  }
-
-  .choices li {
-    border: 1px solid #ccc;
-    margin-right: 0.5rem;
-    list-style: none;
-  }
-
-  .choices li button.correct {
-    background-color: #dff0d8;
-  }
-
-  .choices li button.incorrect {
-    background-color: #f2dede;
-  }
 </style>

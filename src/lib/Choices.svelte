@@ -7,6 +7,7 @@
 
   type Choice = MultipleChoiceExercise["choices"][0]
   export let choices: Choice[]
+  export let complete = false
 
   const { speech, effects, user } = sprachy.expectSPA()
   let chosen: Set<Choice> = new Set()
@@ -26,12 +27,14 @@
   }
 
   async function choose(choice: Choice) {
-    chosen = chosen.add(choice)
-    if (choice.correct) {
-      effects.confetti.spawnAt(
-        choicesUl.children[choices.indexOf(choice)] as HTMLElement
-      )
-      dispatch("correct")
+    if (!complete) {
+      chosen = chosen.add(choice)
+      if (choice.correct) {
+        effects.confetti.spawnAt(
+          choicesUl.children[choices.indexOf(choice)] as HTMLElement
+        )
+        dispatch("correct")
+      }
     }
   }
 
