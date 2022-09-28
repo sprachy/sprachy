@@ -69,7 +69,7 @@ Genitive / eines weichen Flaumes / einer ewigen Liebe / eines geheimen Wissens /
     {
       question: "Why does Lukas say 'grüner' instead of 'grüne'?",
       choices: [
-        { text: "Since there's no article, the adjective indicates the gender of \"der Tee\"", correct: true },
+        { text: "Since there's no article, the adjective indicates the gender of _der Tee_", correct: true },
         { text: "The phrase is in the dative case, which adds an -r" },
         { text: "He's secretly a pirate" }
       ]

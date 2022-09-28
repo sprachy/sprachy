@@ -3,6 +3,7 @@
   import { createEventDispatcher, onDestroy, onMount } from "svelte"
   import type { MultipleChoiceExercise } from "./Exercise"
   import sprachy from "./sprachy"
+  import Sprachdown from "$lib/Sprachdown.svelte"
 
   type Choice = MultipleChoiceExercise["choices"][0]
   export let choices: Choice[]
@@ -56,7 +57,7 @@
         on:click={() => choose(choice)}
       >
         <span class="number">{i + 1}</span>
-        {choice.text}
+        <Sprachdown inline source={choice.text} />
       </button>
     </li>
   {/each}
