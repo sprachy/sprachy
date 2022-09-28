@@ -3,7 +3,7 @@
   import Story from "$lib/Story.svelte"
   import successImg from "$lib/img/success.webp"
   import sprachy from "$lib/sprachy"
-  import { dev } from "$app/env"
+  import { dev } from "$app/environment"
   import LevelReport from "$lib/LevelReport.svelte"
 
   import { afterNavigate } from "$app/navigation"
@@ -27,7 +27,7 @@
   let returnPath: string = `/${pattern.slug}/dialogue`
   afterNavigate((navigation) => {
     if (navigation?.from) {
-      if (["/learn"].includes(navigation.from.pathname)) {
+      if (["/learn"].includes(navigation.from.url.pathname)) {
         returnPath = "/learn"
       }
       initialPageInteraction = true
@@ -115,7 +115,7 @@
           on:animEnd={() => (showNext = true)}
         />
         <a
-          sveltekit:prefetch
+          data-sveltekit-prefetch
           style:opacity={showNext ? 1 : 0}
           class="btn btn-success mt-2"
           href={`/${pattern.slug}`}

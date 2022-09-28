@@ -44,20 +44,20 @@
     <nav>
       <ul>
         <li class:active={activeTab === "dialogue"}>
-          <a sveltekit:prefetch href="/{pattern.slug}/dialogue">
+          <a data-sveltekit-prefetch href="/{pattern.slug}/dialogue">
             <Fa fw icon={faComments} />
             Dialogue
           </a>
         </li>
         <li class:active={activeTab === "explanation"}>
-          <a sveltekit:prefetch href="/{pattern.slug}">
+          <a data-sveltekit-prefetch href="/{pattern.slug}">
             <Fa fw icon={faBook} />
             Explanation
           </a>
         </li>
         {#if pattern.exercises.some((ex) => ex.type === "fillblank")}
           <li class:active={activeTab === "examples"}>
-            <a sveltekit:prefetch href="/{pattern.slug}/examples">
+            <a data-sveltekit-prefetch href="/{pattern.slug}/examples">
               <Fa fw icon={faList} />
               Examples
             </a>
@@ -68,7 +68,7 @@
 
       <a
         class="btn btn-outline-primary w-100"
-        sveltekit:prefetch
+        data-sveltekit-prefetch
         href="/story/{pattern.slug}"
       >
         <Fa fw icon={faPlay} />
@@ -76,7 +76,7 @@
       </a>
       <a
         class="btn btn-outline-primary w-100"
-        sveltekit:prefetch
+        data-sveltekit-prefetch
         href="/{pattern.slug}/practice"
       >
         <Fa fw icon={faDumbbell} />

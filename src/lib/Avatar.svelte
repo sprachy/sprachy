@@ -2,7 +2,7 @@
   import _ from "lodash"
   import { sprachdex } from "$lib/sprachdex"
   import Sprachdown from "./Sprachdown.svelte"
-  import { browser } from "$app/env"
+  import { browser } from "$app/environment"
   import { onDestroy, onMount } from "svelte"
 
   export let charId: string

@@ -96,7 +96,7 @@
       {/if}
     </fieldset>
     <div class="forgot-password">
-      <a sveltekit:prefetch href="/reset-password">Forgot password?</a>
+      <a data-sveltekit-prefetch href="/reset-password">Forgot password?</a>
     </div>
 
     {#if errors.other}
@@ -111,7 +111,7 @@
 
     <p class="signup-callout">
       New to Sprachy? <a
-        sveltekit:prefetch
+        data-sveltekit-prefetch
         href={next ? `/signup?next=${next}` : "/signup"}>Create an account</a
       >.
     </p>

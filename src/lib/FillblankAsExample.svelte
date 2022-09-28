@@ -5,7 +5,7 @@
   import Sprachdown from "$lib/Sprachdown.svelte"
   import sprachy from "$lib/sprachy"
   import SoundIndicator from "$lib/SoundIndicator.svelte"
-  import { browser } from "$app/env"
+  import { browser } from "$app/environment"
   import type { Base64Audio } from "./SpeechSystem"
   import { onMount } from "svelte"
 

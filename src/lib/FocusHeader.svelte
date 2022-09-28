@@ -8,7 +8,7 @@
 
 <div class="FocusHeader">
   <div>
-    <a sveltekit:prefetch href={closeUrl} class="btn close">
+    <a data-sveltekit-prefetch href={closeUrl} class="btn close">
       <Fa fw size="2x" icon={faClose} color="#ccc" />
     </a>
     <slot />

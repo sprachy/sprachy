@@ -1,6 +1,7 @@
 import { db } from "$lib/server/db"
 
 export async function get() {
+  return
   const users = await db.users.listAll()
 
   for (const user of users) {

@@ -3,7 +3,7 @@
   import LevelBar from "$lib/LevelBar.svelte"
   import LearnDevPanel from "$lib/LearnDevPanel.svelte"
   import sprachy from "./sprachy"
-  import { dev } from "$app/env"
+  import { dev } from "$app/environment"
 
   const spa = sprachy.expectSPA()
   const { progressByPatternId } = spa

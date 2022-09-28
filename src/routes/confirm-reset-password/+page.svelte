@@ -92,7 +92,7 @@
     {#if success}
       <div class="text-success">
         Password reset successfully. You can now <a
-          sveltekit:prefetch
+          data-sveltekit-prefetch
           href="/login">log in</a
         >.
       </div>

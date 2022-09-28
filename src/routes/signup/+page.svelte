@@ -5,7 +5,7 @@
   import SprachyLogo from "$lib/SprachyLogo.svelte"
   import { errorsByField } from "$lib/client/clientUtil"
   import { goto, prefetchRoutes } from "$app/navigation"
-  import { browser } from "$app/env"
+  import { browser } from "$app/environment"
   import PageStyling from "$lib/PageStyling.svelte"
   import { page } from "$app/stores"
   let loading: boolean = false
@@ -161,7 +161,7 @@
 
     <hr />
     <p class="callout">
-      <a sveltekit:prefetch href={next ? `/login?next=${next}` : "/login"}
+      <a data-sveltekit-prefetch href={next ? `/login?next=${next}` : "/login"}
         >Sign in to an existing account</a
       >
     </p>
