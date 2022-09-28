@@ -14,7 +14,7 @@
   }
 </script>
 
-<button class="btn toggle-mute" on:click={toggleMute}>
+<button class="btn toggle-mute" on:mousedown={toggleMute}>
   <div>
     <Fa
       pull="left"
