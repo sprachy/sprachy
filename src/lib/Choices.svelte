@@ -8,7 +8,7 @@
   type Choice = MultipleChoiceExercise["choices"][0]
   export let choices: Choice[]
 
-  const { speech, effects } = sprachy.expectSPA()
+  const { speech, effects, user } = sprachy.expectSPA()
   let chosen: Set<Choice> = new Set()
   let choicesUl: HTMLUListElement
   const dispatch = createEventDispatcher()
@@ -43,7 +43,9 @@
   }
 
   function speakChoice(choice: Choice) {
-    speech.play({ from: "narrator", message: choice.text })
+    if ($user?.enableSpeechSynthesis) {
+      speech.play({ from: "narrator", message: choice.text })
+    }
   }
 </script>
 
