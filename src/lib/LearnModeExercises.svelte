@@ -20,6 +20,7 @@
 
   let exerciseIndex = 0
   $: exercises = Array.from(pattern.exercises)
+
   $: if (exercises) {
     exerciseIndex = 0
   }
@@ -35,12 +36,13 @@
     // Completed an exercise, gain experience
     const expGained = 200 * expMultiplier
     spa.gainPatternExperience(pattern.id, expGained)
-    exerciseIndex += 1
 
     if (progress.level > startLevel) {
       dispatch("complete")
-    } else if (exerciseIndex >= exercises.length) {
+    } else if (exerciseIndex >= exercises.length - 1) {
       exerciseIndex = 0
+    } else {
+      exerciseIndex += 1
     }
   }
 </script>
