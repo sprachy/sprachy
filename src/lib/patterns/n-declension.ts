@@ -121,6 +121,14 @@ Genitive / des Herr**n** / der Herr**en**
       translation: "But we have the will for privacy...",
     },
     {
+      question: `Did you notice what the grammatical case of _Willen_ is?`,
+      choices: [
+        { text: "accusative", correct: true },
+        { text: "dative" },
+        { text: "nominative" }
+      ]
+    },
+    {
       from: "squirrel",
       message: "Was ist _Privatsphäre_?.",
       translation: "What is _privacy_?",
