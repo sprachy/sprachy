@@ -3,7 +3,8 @@
 import _ from 'lodash'
 import type { SprachyAPIClient } from "./SprachyAPIClient"
 import type { ProgressItem, User, ProgressSummary } from "$lib/api"
-import type { Exercise, Pattern } from "$lib/Pattern"
+import type { Pattern } from "$lib/Pattern"
+import type { Exercise } from '$lib/Exercise'
 import { sprachdex } from "$lib/sprachdex"
 import { CanvasEffects } from "$lib/client/CanvasEffects"
 import { SpeechSystem } from '$lib/SpeechSystem'
@@ -15,7 +16,7 @@ export type Review = Exercise & {
 }
 
 export type Learnable = {
-  type: 'dialogue' | 'exercises'
+  type: 'dialogue' | 'pattern' | 'review'
   pattern: Pattern
   why: string
 }
@@ -196,17 +197,17 @@ export class SprachyUserSPA {
       let pattern = $patternsToReview[0]
       if (pattern) {
         return {
-          type: 'exercises',
+          type: 'review',
           pattern: pattern,
           why: `Reviewing ${pattern.title}`
         } as Learnable
       }
 
-      // Next, level any patterns that are only level 1
+      // Next, level any patterns that are only level 1 (completed dialogue but no exercises)
       pattern = $patternsAndProgress.find(p => p.progress.level === 1 && p.exercises.length)
       if (pattern) {
         return {
-          type: 'exercises',
+          type: 'pattern',
           pattern: pattern,
           why: `${pattern.title}`
         } as Learnable
@@ -225,6 +226,10 @@ export class SprachyUserSPA {
       // Nothing left to learn!
       return undefined
     })
+
+  async devTimeSkip() {
+    this.receiveProgress(await this.api.devTimeSkip())
+  }
 
   /** Get reviews from patterns ready to level */
   // reviewsForLeveling = derived(this.patternsReadyToLevel, $patternsReadyToLevel => {

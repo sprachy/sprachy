@@ -1,10 +1,10 @@
 import _ from "lodash"
 import type { VoiceSynthesisRequestSchema } from "src/routes/api/synthesize"
 import type { SprachyUserSPA } from "./client/SprachyUserSPA"
-import type { ReadingLine, FillblankLine, CharacterId } from "./Pattern"
+import type { CharacterId } from "./Pattern"
 import { sprachdex } from "./sprachdex"
 
-export type SpeechOptions = {
+export type VoiceSynthesisOptions = {
   text: string
   voice?: Partial<VoiceSynthesisRequestSchema["voice"]>
   audioConfig?: Partial<VoiceSynthesisRequestSchema["audioConfig"]>
@@ -17,10 +17,6 @@ export class SpeechSystem {
   currentlySaying: HTMLAudioElement | null = null
 
   constructor(readonly spa: SprachyUserSPA) { }
-
-  async synthesizeLine(line: ReadingLine | FillblankLine): Promise<Base64Audio> {
-    return this.synthesizeFromCharacter(line.from, line.message || "")
-  }
 
   async synthesizeFromCharacter(characterId: CharacterId, text: string): Promise<Base64Audio> {
     const character = sprachdex.getCharacter(characterId)
@@ -36,7 +32,7 @@ export class SpeechSystem {
   //
   // Solution for later: have server responsible for calculating the audio configuration, and the
   // client just sends a line identifier or such, so the set of possible speech is finite
-  async synthesize(opts: SpeechOptions): Promise<Base64Audio> {
+  async synthesize(opts: VoiceSynthesisOptions): Promise<Base64Audio> {
     const voiceDefaults = {
       languageCode: "de-DE",
       name: "de-DE-Wavenet-C",
@@ -61,7 +57,7 @@ export class SpeechSystem {
     return audioContent
   }
 
-  async speak(audioContent: Base64Audio) {
+  async playAudioContent(audioContent: Base64Audio) {
     const snd = new Audio("data:audio/wav;base64," + audioContent)
 
     if (this.currentlySaying) {
@@ -111,9 +107,9 @@ export class SpeechSystem {
     }
   }
 
-  async play(opts: { from: CharacterId, message: string }) {
+  async say(opts: { from: CharacterId, message: string }) {
     const audioContent = await this.get(opts)
-    return this.speak(audioContent)
+    return this.playAudioContent(audioContent)
   }
 
   /**

@@ -20,10 +20,7 @@
 
   $: progress = learning ? $progressByPatternId[learning.pattern.id] : undefined
 
-  $: showExplanation =
-    !readExplanation &&
-    learning?.type === "exercises" &&
-    (!progress || progress.level < 2)
+  $: showExplanation = !readExplanation && learning?.type === "pattern"
 
   function nextLearning() {
     learning = $nextThingToLearn as Learnable | undefined
@@ -45,18 +42,17 @@
             pattern={learning.pattern}
             on:complete={nextLearning}
           />
-        {:else if learning.type === "exercises"}
-          {#if showExplanation}
-            <LearnModeExplanation
-              pattern={learning.pattern}
-              on:complete={() => (readExplanation = true)}
-            />
-          {:else}
-            <LearnModeExercises
-              pattern={learning.pattern}
-              on:complete={nextLearning}
-            />
-          {/if}
+        {:else if learning.type === "pattern" && showExplanation}
+          <LearnModeExplanation
+            pattern={learning.pattern}
+            on:complete={() => (readExplanation = true)}
+          />
+        {:else}
+          <LearnModeExercises
+            pattern={learning.pattern}
+            reviewIntro={learning.type === "review"}
+            on:complete={nextLearning}
+          />
         {/if}
       {/key}
     {:else}

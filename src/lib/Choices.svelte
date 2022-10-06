@@ -53,7 +53,7 @@
 
   function speakChoice(choice: Choice) {
     if ($user?.enableSpeechSynthesis && speechEnabled) {
-      speech.play({ from: "narrator", message: choice.text })
+      speech.say({ from: "narrator", message: choice.text })
     }
   }
 </script>

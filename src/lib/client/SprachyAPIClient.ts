@@ -70,6 +70,10 @@ export class SprachyAPIClient {
   async resetProgress() {
     return this.http.post(`/api/settings/reset-progress`)
   }
+
+  async devTimeSkip() {
+    return this.http.post(`/api/debug/timeskip`)
+  }
 }
 
 /**

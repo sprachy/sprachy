@@ -10,6 +10,8 @@
 
   export let pattern: Pattern
   export let expMultiplier: number = 1.0
+  export let reviewIntro: boolean = false
+  let startedReview = false
   const dispatch = createEventDispatcher()
 
   $: progress = $progressByPatternId[pattern.id]!
@@ -50,11 +52,18 @@
 </script>
 
 <div class="practice">
-  <div class="exercises">
-    {#key pattern.id + "-" + exerciseIndex}
-      <ExerciseView {exercise} on:correct={nextExercise} {pattern} />
-    {/key}
-  </div>
+  {#if reviewIntro && !startedReview}
+    <h2>Review session</h2>
+    <button class="btn btn-primary" on:click={() => (startedReview = true)}
+      >Start review</button
+    >
+  {:else}
+    <div class="exercises">
+      {#key pattern.id + "-" + exerciseIndex}
+        <ExerciseView {exercise} on:correct={nextExercise} {pattern} />
+      {/key}
+    </div>
+  {/if}
 </div>
 
 <style>

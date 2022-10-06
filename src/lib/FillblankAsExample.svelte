@@ -41,7 +41,7 @@
 
     playingSound = true
     try {
-      await speech.speak(await audioPromise)
+      await speech.playAudioContent(await audioPromise)
     } finally {
       playingSound = false
     }

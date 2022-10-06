@@ -15,6 +15,10 @@
     await spa.gainPatternExperience(learning.pattern.id, 1000)
   }
 
+  async function skipTime() {
+    spa.devTimeSkip()
+  }
+
   function togglePanel() {
     openPanel = !openPanel
   }
@@ -24,6 +28,9 @@
   {#if openPanel}
     <div class="card p-4">
       <button class="btn btn-success" on:click={gainLevel}> Gain level </button>
+      <button class="btn btn-secondary mt-2" on:click={skipTime}>
+        Skip time
+      </button>
       <button class="btn btn-danger mt-2" on:click={resetProgress}
         >Reset all progress</button
       >

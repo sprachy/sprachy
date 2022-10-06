@@ -33,7 +33,7 @@
       selectedCharacterId,
       text
     )
-    spa.speech.speak(audio)
+    spa.speech.playAudioContent(audio)
   }
 </script>
 
