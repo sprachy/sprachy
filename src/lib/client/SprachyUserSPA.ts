@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash'
 import type { SprachyAPIClient } from "./SprachyAPIClient"
 import type { ProgressItem, User, ProgressSummary } from "$lib/api"
@@ -164,20 +162,6 @@ export class SprachyUserSPA {
     return reviews
   })
 
-  restBonusAvailable = derived(this.progressItems, $progressItems => {
-    if (!$progressItems.length) return false
-
-    return $progressItems.every(item => {
-      // Get the start (midnight) of the current day in user's timezone as UTC timestamp
-      const date = new Date()
-      date.setHours(0, 0, 0, 0)
-      const startOfDay = date.valueOf()
-
-      // User has rest bonus if they haven't practiced since start of day
-      return item.lastExperienceGainAt < startOfDay
-    })
-  })
-
   totalExperience = derived(this.progressItems, $progressItems => {
     return $progressItems.reduce((total, item) => total + item.experience, 0)
   })
@@ -188,7 +172,7 @@ export class SprachyUserSPA {
    */
   patternsToReview = derived(this.patternsAndProgress, $patternsAndProgress => {
     return $patternsAndProgress.filter(p =>
-      p.progress.item && p.progress.item.lastExperienceGainAt < Date.now() - time.days(1))
+      p.progress.item && p.progress.level != 0 && p.progress.level != 9 && p.progress.item.lastExperienceGainAt < Date.now() - time.toNextSRSLevel(p.progress.level))
   })
 
   nextThingToLearn: Readable<Learnable | undefined> = derived([this.patternsAndProgress, this.patternsToReview],
