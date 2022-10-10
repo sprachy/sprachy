@@ -24,9 +24,14 @@
   {/if}
   {#if exercise.question}
     <div
-      class="hover-translate text-center mt-2 mb-2"
+      class="hover-translate question text-center mt-2 mb-2"
       data-tooltip={exercise.questionTranslation}
     >
+      <AudioForLine
+        opts={{ from: "narrator", message: exercise.question }}
+        playImmediately
+      />
+      <span class="me-1" />
       <Sprachdown inline source={exercise.question} />
     </div>
   {/if}
@@ -37,6 +42,11 @@
   .exercise {
     display: flex;
     flex-direction: column;
+    align-items: center;
+  }
+  .question {
+    font-size: 1.2rem;
+    display: flex;
     align-items: center;
   }
   img {
