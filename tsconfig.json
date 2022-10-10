@@ -9,7 +9,8 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitReturns": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
   },
   "include": [
     "./src/**/*.js",

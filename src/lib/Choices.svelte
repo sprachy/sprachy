@@ -15,6 +15,10 @@
   let speechEnabled = false
   const dispatch = createEventDispatcher()
 
+  for (const choice of choices) {
+    speech.preload({ from: "narrator", message: choice.text })
+  }
+
   if (browser) {
     onMount(() => {
       window.addEventListener("keydown", onKeydown)

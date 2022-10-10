@@ -25,5 +25,7 @@
 <style>
   .SiteLayout {
     height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 </style>
