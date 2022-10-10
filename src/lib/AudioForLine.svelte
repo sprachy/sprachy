@@ -13,7 +13,6 @@
   let playingSound: boolean = false
   let loading = true
   let audio: Base64Audio | undefined
-  let playedOnLoad: boolean = false
 
   $: audioOpts =
     opts.from && opts.message
@@ -30,12 +29,11 @@
     }
 
     if (playImmediately) {
-      playedOnLoad = true
       playSound()
     }
   }
 
-  $: if (enabled) {
+  $: if (enabled && !audio) {
     loadAudio()
   }
 
@@ -54,14 +52,12 @@
     // User muted the sound or went to another page, stop playing
     if (playingSound) speech.skip()
   })
-
-  $: if (playImmediately && !playedOnLoad) {
-    playSound()
-  }
 </script>
 
-<SoundIndicator
-  {loading}
-  playing={playingSound}
-  on:click={disabled ? () => null : playSound}
-/>
+{#if enabled}
+  <SoundIndicator
+    {loading}
+    playing={playingSound}
+    on:click={disabled ? () => null : playSound}
+  />
+{/if}
