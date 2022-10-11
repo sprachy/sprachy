@@ -10,7 +10,7 @@
 
   export let pattern: Pattern
   export let expMultiplier: number = 1.0
-  export let reviewIntro: boolean = false
+  export let isReviewing: boolean = false
   let startedReview = false
   const dispatch = createEventDispatcher()
 
@@ -28,12 +28,8 @@
   }
   $: exercise = exercises[exerciseIndex]!
 
-  $: if ($user?.enableSpeechSynthesis) {
-    for (const ex of exercises) {
-      if (ex.from && ex.message) {
-        speech.preload({ from: ex.from, message: ex.message })
-      }
-    }
+  for (const ex of exercises) {
+    speech.preloadExercise(ex)
   }
 
   async function nextExercise() {
@@ -52,7 +48,7 @@
 </script>
 
 <div class="practice">
-  {#if reviewIntro && !startedReview}
+  {#if isReviewing && !startedReview}
     <h2>Review session</h2>
     <button class="btn btn-primary" on:click={() => (startedReview = true)}
       >Start review</button

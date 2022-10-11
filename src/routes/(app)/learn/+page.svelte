@@ -50,7 +50,7 @@
         {:else}
           <LearnModeExercises
             pattern={learning.pattern}
-            reviewIntro={learning.type === "review"}
+            isReviewing={learning.type === "review"}
             on:complete={nextLearning}
           />
         {/if}

@@ -1,6 +1,7 @@
 import _ from "lodash"
 import type { VoiceSynthesisRequestSchema } from "src/routes/api/synthesize"
 import type { SprachyUserSPA } from "./client/SprachyUserSPA"
+import type { Exercise } from "./Exercise"
 import type { CharacterId } from "./Pattern"
 import { sprachdex } from "./sprachdex"
 
@@ -92,6 +93,21 @@ export class SpeechSystem {
       audioPromise = this.synthesizeFromCharacter(opts.from, opts.message)
       this.audioCache[key] = audioPromise
       return audioPromise
+    }
+  }
+
+  async preloadExercise(ex: Exercise) {
+    if (ex.from && ex.message) {
+      this.preload({ from: ex.from, message: ex.message })
+    }
+
+    if (ex.type === 'choice') {
+      if (ex.question) {
+        this.preload({ from: 'narrator', message: ex.question })
+      }
+      for (const choice of ex.choices) {
+        this.preload({ from: 'narrator', message: choice.text })
+      }
     }
   }
 

@@ -2,7 +2,6 @@
   import type { Exercise } from "./Exercise"
   import ExerciseViewFillblank from "./ExerciseViewFillblank.svelte"
   import ExerciseViewChoice from "./ExerciseViewChoice.svelte"
-  import type { Base64Audio } from "./SpeechSystem"
   import { createEventDispatcher } from "svelte"
   import type { Pattern } from "./Pattern"
 
