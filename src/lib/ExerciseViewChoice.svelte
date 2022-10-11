@@ -13,14 +13,16 @@
 </script>
 
 <div class="exercise">
-  {#if exercise.from && exercise.message}
-    <Message from={exercise.from}>
-      <AudioForLine opts={exercise} />
-      <Sprachdown inline source={exercise.message} />
-    </Message>
-  {/if}
   {#if exercise.image}
     <img src={exercise.image} alt="Identify this" />
+  {/if}
+  {#if exercise.from && exercise.message}
+    <div class="message">
+      <Message from={exercise.from} tooltip={exercise.translation}>
+        <AudioForLine opts={exercise} playImmediately />
+        <Sprachdown inline source={exercise.message} />
+      </Message>
+    </div>
   {/if}
   {#if exercise.question}
     <div
@@ -43,6 +45,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  .message {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
   .question {
     font-size: 1.2rem;

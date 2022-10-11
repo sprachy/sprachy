@@ -107,9 +107,11 @@ Sprachy exercises will often ask you to make a reasonable guess at the meaning o
   ],
   exercises: [
     {
+      from: 'squirrel',
       type: 'choice',
       image: fishImg,
-      question: `Was ist das?`,
+      message: `Was ist dieser schwimmende Oval?`,
+      translation: "What is this swimming oval?",
       choices: [
         { text: "ein Wombat", correct: false },
         { text: "eine Melone", correct: false },
@@ -118,9 +120,11 @@ Sprachy exercises will often ask you to make a reasonable guess at the meaning o
       ]
     },
     {
+      from: 'squirrel',
       type: 'choice',
       image: catImg,
-      question: `Was ist das?`,
+      message: `Was ist dieses gefährliche Raubtier?`,
+      translation: "What is this dangerous predator?",
       choices: [
         { text: "ein Wombat", correct: false },
         { text: "eine Katze", correct: true },
@@ -129,9 +133,11 @@ Sprachy exercises will often ask you to make a reasonable guess at the meaning o
       ]
     },
     {
+      from: 'squirrel',
       type: 'choice',
       image: foxImg,
-      question: `Was ist das?`,
+      message: `Was ist diese listige Kreatur?`,
+      translation: "What is this crafty creature?",
       choices: [
         { text: "ein Fuchs", correct: true },
         { text: "eine Katze", correct: false },
@@ -140,9 +146,11 @@ Sprachy exercises will often ask you to make a reasonable guess at the meaning o
       ]
     },
     {
+      from: 'squirrel',
       type: 'choice',
       image: elephantImg,
-      question: `Was ist das?`,
+      message: `Was ist dieser großer Stampfer?`,
+      translation: "What is this big stomper?",
       choices: [
         { text: "ein Hund", correct: false },
         { text: "ein Opossum", correct: false },
@@ -151,16 +159,19 @@ Sprachy exercises will often ask you to make a reasonable guess at the meaning o
       ]
     },
     {
+      from: 'squirrel',
       type: 'choice',
       image: squirrelOnTreeImg,
-      question: `Was ist das?`,
+      message: `Was ist dieses herzerweichende, flauschige Geschöpf?`,
+      translation: 'What is this heart-melting fluffy creature?',
       choices: [
-        {
-          text: "ein Eichhörnchen",
-          correct: true,
-          feedback: "Ja! Das ist ein flauschige Eichhörnchen!",
-          feedbackTranslation: "Yes! That is a fluffy squirrel!"
-        },
+        // {
+        //   text: "ein Eichhörnchen",
+        //   correct: true,
+        //   feedback: "Ja! Das ist ein flauschige Eichhörnchen!",
+        //   feedbackTranslation: "Yes! That is a fluffy squirrel!"
+        // },
+        { text: "ein Eichhörnchen", correct: true },
         { text: "ein Fisch", correct: false },
         { text: "ein Wombat", correct: false },
         { text: "ein Elefant", correct: false }
