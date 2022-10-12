@@ -117,6 +117,7 @@ export class SprachyUserSPA {
   async reallyResetAllUserProgress() {
     const summary = await this.api.resetProgress()
     this.receiveProgress(summary)
+    this.recalcCurrentLearning()
   }
 
   allViewablePatterns = derived(this.admin,
@@ -209,6 +210,11 @@ export class SprachyUserSPA {
 
   async devTimeSkip() {
     this.receiveProgress(await this.api.devTimeSkip())
+    this.recalcCurrentLearning()
+  }
+
+  async recalcCurrentLearning() {
+    this.learning.update(() => get(this.nextThingToLearn))
   }
 
   async skipCurrentLearning() {
@@ -227,7 +233,7 @@ export class SprachyUserSPA {
       }
     }
 
-    this.learning.update(() => get(this.nextThingToLearn))
+    this.recalcCurrentLearning()
   }
 
   /** Get reviews from patterns ready to level */

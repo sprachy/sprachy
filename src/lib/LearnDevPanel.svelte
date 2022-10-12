@@ -13,6 +13,10 @@
     spa.skipCurrentLearning()
   }
 
+  async function advanceTime() {
+    spa.devTimeSkip()
+  }
+
   function togglePanel() {
     openPanel = !openPanel
   }
@@ -21,7 +25,10 @@
 <div class="devpanel mt-auto">
   {#if openPanel}
     <div class="card p-4">
-      <button class="btn btn-secondary mt-2" on:click={skip}>Skip</button>
+      <button class="btn btn-success mt-2" on:click={skip}>Skip current</button>
+      <button class="btn btn-secondary mt-2" on:click={advanceTime}
+        >Advance time for reviews</button
+      >
       <button class="btn btn-danger mt-2" on:click={resetProgress}
         >Reset all progress</button
       >

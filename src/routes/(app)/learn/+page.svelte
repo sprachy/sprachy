@@ -26,7 +26,7 @@
 
 <AppPage title="Sprachy">
   {#if $learning}
-    <LearnSidebar learning={$learning} />
+    <LearnSidebar />
   {/if}
   <div class="learnable">
     {#if $learning}
