@@ -39,7 +39,6 @@
     </div>
   {/if}
   {#if exercise.hint}
-    <!-- <Hints hint={exercise.hint} /> -->
     <Choices
       choices={exercise.choices}
       hint={exercise.hint}

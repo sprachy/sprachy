@@ -66,7 +66,9 @@
 
 <ul class="choices" bind:this={choicesUl}>
   {#if hint != ""}
-    <Hints {hint} />
+    <li>
+      <Hints {hint} />
+    </li>
   {/if}
   {#each choices as choice, i}
     <li on:mouseenter={() => speakChoice(choice)}>
