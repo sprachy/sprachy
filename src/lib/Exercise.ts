@@ -17,6 +17,7 @@ export type MultipleChoiceExerciseDef = {
   message?: string
   translation?: string
   image?: ImageUrl
+  hint?: string
   question: string
   questionTranslation?: string
   choices: { text: string; correct?: boolean }[]
