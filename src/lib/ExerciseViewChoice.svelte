@@ -39,9 +39,19 @@
     </div>
   {/if}
   {#if exercise.hint}
-    <Hints hint={exercise.hint} />
+    <!-- <Hints hint={exercise.hint} /> -->
+    <Choices
+      choices={exercise.choices}
+      hint={exercise.hint}
+      on:correct={() => dispatch("correct")}
+    />
   {/if}
-  <Choices choices={exercise.choices} on:correct={() => dispatch("correct")} />
+  {#if !exercise.hint}
+    <Choices
+      choices={exercise.choices}
+      on:correct={() => dispatch("correct")}
+    />
+  {/if}
 </div>
 
 <style>

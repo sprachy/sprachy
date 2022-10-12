@@ -4,10 +4,12 @@
   import type { MultipleChoiceExercise } from "./Exercise"
   import sprachy from "./sprachy"
   import Sprachdown from "$lib/Sprachdown.svelte"
+  import Hints from "./Hints.svelte"
 
   type Choice = MultipleChoiceExercise["choices"][0]
   export let choices: Choice[]
   export let complete = false
+  export let hint = ""
 
   const { speech, effects, user } = sprachy.expectSPA()
   let chosen: Set<Choice> = new Set()
@@ -63,6 +65,9 @@
 </script>
 
 <ul class="choices" bind:this={choicesUl}>
+  {#if hint != ""}
+    <Hints {hint} />
+  {/if}
   {#each choices as choice, i}
     <li on:mouseenter={() => speakChoice(choice)}>
       <button

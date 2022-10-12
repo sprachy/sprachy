@@ -1,19 +1,12 @@
 <script lang="ts">
-  import { browser } from "$app/environment"
-  import { createEventDispatcher, onDestroy, onMount } from "svelte"
   import type { MultipleChoiceExercise } from "./Exercise"
-  import sprachy from "./sprachy"
   import Sprachdown from "$lib/Sprachdown.svelte"
 
   type Hint = MultipleChoiceExercise["hint"]
   export let hint: Hint
   export let engaged = false
 
-  const { user } = sprachy.expectSPA()
-  let chosen: Set<Hint> = new Set()
-
   let hintUl: HTMLElement
-  const dispatch = createEventDispatcher()
 
   async function engage() {
     engaged = !engaged
@@ -43,10 +36,10 @@
   }
 
   .hint button.disengaged {
-    background-color: #a39ece;
+    background-color: #d1cee9;
   }
 
   .hint button.engaged {
-    background-color: #a1d7db;
+    background-color: #b7d7da;
   }
 </style>
