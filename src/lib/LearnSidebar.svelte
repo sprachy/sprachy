@@ -9,15 +9,20 @@
   const { progressByPatternId } = spa
 
   export let learning: Learnable
-  $: experience = $progressByPatternId[learning.pattern.id]!.experience
+  $: experience =
+    "pattern" in learning
+      ? $progressByPatternId[learning.pattern.id]?.experience
+      : null
 </script>
 
 <div class="sidebar">
   <div class="overview">
     <div>{learning.why}</div>
-    {#key learning.pattern.id}
-      <LevelBar {experience} />
-    {/key}
+    {#if experience != null && "pattern" in learning}
+      {#key learning.pattern.id}
+        <LevelBar {experience} />
+      {/key}
+    {/if}
     {#if learning.type === "dialogue"}
       <small class="text-secondary"
         >&lt;&lt; Press Enter to continue dialogue &gt;&gt;</small

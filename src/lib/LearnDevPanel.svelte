@@ -1,6 +1,5 @@
 <script lang="ts">
   import sprachy from "$lib/sprachy"
-  import type { Learnable } from "./client/SprachyUserSPA"
 
   const spa = sprachy.expectSPA()
 
@@ -8,15 +7,10 @@
     await spa.reallyResetAllUserProgress()
   }
 
-  export let learning: Learnable
   let openPanel: boolean = false
 
-  async function gainLevel() {
-    await spa.gainPatternExperience(learning.pattern.id, 1000)
-  }
-
-  async function skipTime() {
-    spa.devTimeSkip()
+  async function skip() {
+    spa.skipCurrentLearning()
   }
 
   function togglePanel() {
@@ -27,10 +21,7 @@
 <div class="devpanel mt-auto">
   {#if openPanel}
     <div class="card p-4">
-      <button class="btn btn-success" on:click={gainLevel}> Gain level </button>
-      <button class="btn btn-secondary mt-2" on:click={skipTime}>
-        Skip time
-      </button>
+      <button class="btn btn-secondary mt-2" on:click={skip}>Skip</button>
       <button class="btn btn-danger mt-2" on:click={resetProgress}
         >Reset all progress</button
       >

@@ -1,5 +1,5 @@
 import _ from "lodash"
-import type { VoiceSynthesisRequestSchema } from "src/routes/api/synthesize"
+import type { VoiceSynthesisRequestSchema } from "../routes/api/synthesize"
 import type { SprachyUserSPA } from "./client/SprachyUserSPA"
 import type { Exercise } from "./Exercise"
 import type { CharacterId } from "./Pattern"

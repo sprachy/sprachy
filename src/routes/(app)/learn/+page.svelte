@@ -6,24 +6,18 @@
   import PageStyling from "$lib/PageStyling.svelte"
   import AppPage from "$lib/AppPage.svelte"
   import LearnSidebar from "$lib/LearnSidebar.svelte"
-  import type { Learnable } from "$lib/client/SprachyUserSPA"
+  import type { Learning } from "$lib/client/SprachyUserSPA"
+  import ReviewSession from "$lib/ReviewSession.svelte"
 
   const spa = sprachy.expectSPA()
-  const { nextThingToLearn, progressByPatternId } = spa
+  const { learning, nextThingToLearn } = spa
 
-  let learning = $nextThingToLearn
-
-  let readExplanation = false
-  $: if (learning) {
-    readExplanation = false
+  if (!$learning) {
+    $learning = $nextThingToLearn
   }
 
-  $: progress = learning ? $progressByPatternId[learning.pattern.id] : undefined
-
-  $: showExplanation = !readExplanation && learning?.type === "pattern"
-
   function nextLearning() {
-    learning = $nextThingToLearn as Learnable | undefined
+    $learning = $nextThingToLearn as Learning | undefined
     window.scrollTo(0, 0)
   }
 </script>
@@ -31,26 +25,27 @@
 <PageStyling fixedHeader />
 
 <AppPage title="Sprachy">
-  {#if learning}
-    <LearnSidebar {learning} />
+  {#if $learning}
+    <LearnSidebar learning={$learning} />
   {/if}
   <div class="learnable">
-    {#if learning}
-      {#key learning.pattern.id}
-        {#if learning.type === "dialogue"}
+    {#if $learning}
+      {#key $learning.why}
+        {#if $learning.type === "dialogue"}
           <LearnModeDialogue
-            pattern={learning.pattern}
+            pattern={$learning.pattern}
             on:complete={nextLearning}
           />
-        {:else if learning.type === "pattern" && showExplanation}
-          <LearnModeExplanation
-            pattern={learning.pattern}
-            on:complete={() => (readExplanation = true)}
+        {:else if $learning.type === "pattern" && !$learning.readExplanation}
+          <LearnModeExplanation />
+        {:else if $learning.type === "review"}
+          <ReviewSession
+            patterns={$learning.patterns}
+            on:complete={nextLearning}
           />
         {:else}
           <LearnModeExercises
-            pattern={learning.pattern}
-            isReviewing={learning.type === "review"}
+            pattern={$learning.pattern}
             on:complete={nextLearning}
           />
         {/if}

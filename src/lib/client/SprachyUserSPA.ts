@@ -13,11 +13,32 @@ export type Review = Exercise & {
   pattern: PatternAndProgress
 }
 
-export type Learnable = {
-  type: 'dialogue' | 'pattern' | 'review'
+export type LearningReviews = {
+  type: 'review'
+  patterns: Pattern[]
+  why: string
+}
+
+export type LearningDialogue = {
+  type: 'dialogue'
   pattern: Pattern
   why: string
 }
+
+export type LearningPattern = {
+  type: 'pattern'
+  pattern: Pattern
+  why: string
+  readExplanation: boolean
+}
+
+export type Learning = LearningReviews | LearningDialogue | LearningPattern
+
+// export type CurrentLearning = {
+//   type: 'review'
+//   patterns: Pattern[]
+// }
+
 
 /**
  * Single page application state for when the user is signed in
@@ -25,6 +46,8 @@ export type Learnable = {
 export class SprachyUserSPA {
   user: Writable<User> = writable({}) as any
   progressItems: Writable<ProgressItem[]> = writable([])
+
+  learning: Writable<Learning | undefined> = writable(undefined)
 
   speech = new SpeechSystem(this)
 
@@ -96,7 +119,6 @@ export class SprachyUserSPA {
     this.receiveProgress(summary)
   }
 
-
   allViewablePatterns = derived(this.admin,
     $admin => $admin ? sprachdex.patternsIncludingDrafts : sprachdex.publishedPatterns)
 
@@ -136,32 +158,6 @@ export class SprachyUserSPA {
     return $patternsAndProgress.filter(p => p.progress.experience > 0) as PatternAndProgress[]
   })
 
-  /**
-   * All learned patterns which are ready for levelup.
-   * Ordered by previous review time, so the patterns you haven't
-   * reviewed for the longest come first.
-   */
-  // patternsReadyToLevel = derived(this.learnedPatterns, $learnedPatterns => {
-  //   const patterns = $learnedPatterns.filter(p => p.progress.levelableAt && p.progress.levelableAt <= Date.now())
-  //   return _.sortBy(patterns, p => p.progress.levelableAt)
-  // })
-
-  // nextLevelablePattern = derived(this.learnedPatterns, $learnedPatterns => {
-  //   const patterns = _.sortBy($learnedPatterns, p => p.progress.levelableAt)
-  //   return patterns[0]
-  // })
-
-  /** Get exercises for all learned patterns, regardless of levelup availability */
-  allAvailableExercises = derived(this.learnedPatterns, $learnedPatterns => {
-    let reviews: Review[] = []
-    for (const pattern of $learnedPatterns) {
-      for (const exercise of pattern.exercises) {
-        reviews.push(Object.assign({}, exercise, { pattern }))
-      }
-    }
-    return reviews
-  })
-
   totalExperience = derived(this.progressItems, $progressItems => {
     return $progressItems.reduce((total, item) => total + item.experience, 0)
   })
@@ -175,26 +171,26 @@ export class SprachyUserSPA {
       p.progress.item && p.progress.level != 0 && p.progress.level != 9 && p.progress.item.lastExperienceGainAt < Date.now() - time.toNextSRSLevel(p.progress.level))
   })
 
-  nextThingToLearn: Readable<Learnable | undefined> = derived([this.patternsAndProgress, this.patternsToReview],
+  nextThingToLearn: Readable<Learning | undefined> = derived([this.patternsAndProgress, this.patternsToReview],
     ([$patternsAndProgress, $patternsToReview]) => {
       // First review anything that's ready for review
-      let pattern = $patternsToReview[0]
-      if (pattern) {
+      if ($patternsToReview.length) {
         return {
           type: 'review',
-          pattern: pattern,
-          why: `Reviewing ${pattern.title}`
-        } as Learnable
+          patterns: $patternsToReview,
+          why: `Reviewing ${$patternsToReview.length} patterns`
+        } as Learning
       }
 
       // Next, level any patterns that are only level 1 (completed dialogue but no exercises)
-      pattern = $patternsAndProgress.find(p => p.progress.level === 1 && p.exercises.length)
+      let pattern = $patternsAndProgress.find(p => p.progress.level === 1 && p.exercises.length)
       if (pattern) {
         return {
           type: 'pattern',
           pattern: pattern,
-          why: `${pattern.title}`
-        } as Learnable
+          why: `${pattern.title}`,
+          readExplanation: false
+        } as Learning
       }
 
       // Finally, learn a new pattern
@@ -204,7 +200,7 @@ export class SprachyUserSPA {
           type: 'dialogue',
           pattern: pattern,
           why: `${pattern.title}`
-        } as Learnable
+        } as Learning
       }
 
       // Nothing left to learn!
@@ -213,6 +209,25 @@ export class SprachyUserSPA {
 
   async devTimeSkip() {
     this.receiveProgress(await this.api.devTimeSkip())
+  }
+
+  async skipCurrentLearning() {
+    const $learning = get(this.learning)
+    if (!$learning) {
+      return
+    }
+
+    if ($learning.type === 'dialogue') {
+      await this.gainPatternExperience($learning.pattern.id, 1000)
+    } else if ($learning.type === 'pattern') {
+      await this.gainPatternExperience($learning.pattern.id, 1000)
+    } else if ($learning.type === 'review') {
+      for (const pattern of $learning.patterns) {
+        await this.gainPatternExperience(pattern.id, 1000)
+      }
+    }
+
+    this.learning.update(() => get(this.nextThingToLearn))
   }
 
   /** Get reviews from patterns ready to level */

@@ -1,9 +1,11 @@
 <script lang="ts">
-  import type { Pattern } from "$lib/Pattern"
   import { createEventDispatcher } from "svelte"
+  import type { Writable } from "svelte/store"
+  import type { LearningPattern } from "./client/SprachyUserSPA"
   import PatternExplanation from "./PatternExplanation.svelte"
+  import sprachy from "./sprachy"
 
-  export let pattern: Pattern
+  const learning = sprachy.expectSPA().learning as Writable<LearningPattern>
 
   const dispatch = createEventDispatcher()
 
@@ -14,9 +16,9 @@
 
 <article class="explanation">
   <h1>
-    {pattern.title}
+    {$learning.pattern.title}
   </h1>
-  <PatternExplanation {pattern} />
+  <PatternExplanation pattern={$learning.pattern} />
   <button class="btn btn-success" on:click={explanationRead}>
     Continue to exercises
   </button>
