@@ -1,5 +1,9 @@
 import { faDna } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "$lib/definePattern"
+import lookingSquirrelImg from "$lib/img/lookingSquirrelImg.webp"
+import forestSquirrelImg from "$lib/img/forestSquirrelImg.webp"
+import serverImg from "$lib/img/serverImg.webp"
+import carrotImg from "$lib/img/carrotImg.webp"
 
 export default definePattern({
   id: "sein",
@@ -89,25 +93,81 @@ formal/informal language!
   ],
   exercises: [
     {
-      from: "squirrel",
-      message: "Du [bist] sehr flach. Das ist irgendwie niedlich.",
-      translation: "You [are] very flat. It's kind of cute."
+      from: 'fox',
+      type: 'choice',
+      image: serverImg,
+      message: `Wie bereit sehen die Systeme aus?`,
+      translation: "How ready do the systems seem?`",
+      hint: "plural, 3rd person",
+      choices: [
+        { text: "sie bin bereit", correct: false },
+        { text: "sie ist bereit", correct: false },
+        { text: "sie seid bereit", correct: false },
+        { text: "sie sind bereit.", correct: true }
+      ]
     },
     {
-      from: "lukas",
-      message: "Er [ist] _holprig_? Was soll das bedeuten?",
-      translation: "He [is] _bumpy_? What does that mean?"
+      from: 'squirrel',
+      type: 'choice',
+      image: forestSquirrelImg,
+      message: `Wie sehe ich aus?`,
+      translation: "How do I look?`",
+      hint: "singular, 2nd person",
+      choices: [
+        { text: "du bist flauschig", correct: true },
+        { text: "du ist flauschig", correct: false },
+        { text: "du bin flauschig", correct: false },
+        { text: "du seid flauschig.", correct: false }
+      ]
     },
     {
-      from: "lindenbaum",
-      message: "Ich [bin] auf das Experiment vorbereitet.",
-      translation: "I [am] prepared for the experiment."
+      from: 'squirrel',
+      type: 'choice',
+      image: lookingSquirrelImg,
+      message: `Was für ein Tier bist du?`,
+      translation: "What kind of animal are you?`",
+      hint: "singular, 1st person",
+      choices: [
+        { text: "ich sind ein Mensch", correct: false },
+        { text: "ich ist ein Mensch", correct: false },
+        { text: "ich bin ein Mensch", correct: true },
+        { text: "ich bist ein Mensch.", correct: false }
+      ]
     },
     {
-      from: "fox",
-      message: "Die vier Tafeln [sind] durchdacht angeordnet.",
-      translation: "The four panels [are] thoughtfully arranged."
-    }
+      from: 'cashier',
+      type: 'choice',
+      image: carrotImg,
+      message: `Was haben Sie in dem Beutel?`,
+      translation: "What do you have in the bag?`",
+      hint: "plural, 3rd person",
+      choices: [
+        { text: "das ist Möhren", correct: false },
+        { text: "das sind Möhren", correct: true },
+        { text: "das seid Möhren", correct: false },
+        { text: "das bin Möhren.", correct: false }
+      ]
+    },
+    // {
+    //   from: "squirrel",
+    //   message: "Du [bist] sehr flach. Das ist irgendwie niedlich.",
+    //   translation: "You [are] very flat. It's kind of cute."
+    // },
+    // {
+    //   from: "lukas",
+    //   message: "Er [ist] _holprig_? Was soll das bedeuten?",
+    //   translation: "He [is] _bumpy_? What does that mean?"
+    // },
+    // {
+    //   from: "lindenbaum",
+    //   message: "Ich [bin] auf das Experiment vorbereitet.",
+    //   translation: "I [am] prepared for the experiment."
+    // },
+    // {
+    //   from: "fox",
+    //   message: "Die vier Tafeln [sind] durchdacht angeordnet.",
+    //   translation: "The four panels [are] thoughtfully arranged."
+    // }
   ]
   // LEVEL 2
   // {
