@@ -166,7 +166,7 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
       image: acornImg,
       message: `Wie nennt man diese köstliche Frucht?`,
       translation: "What do you call this delicious fruit?",
-      //hint: "feminine",
+      hint: "feminine",
       choices: [
         { text: "der Eichel", correct: false },
         { text: "die Eichel", correct: true },
@@ -180,7 +180,7 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
       image: bunnyImg,
       message: `Wer springt herum?`,
       translation: "Who is hopping around?",
-      //hint: "masculine",
+      hint: "masculine",
       choices: [
         { text: "eine Hase", correct: false },
         { text: "der Hase", correct: true },
@@ -194,7 +194,7 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
       image: treeHouseImg,
       message: `Wie nennt man diese Unterkunft?`,
       translation: "What do you call this dwelling?",
-      //hint: "neuter",
+      hint: "neuter",
       choices: [
         { text: "den Baumhaus", correct: false },
         { text: "der Baumhaus", correct: false },
@@ -208,7 +208,7 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
       image: shoppingCartImg,
       message: `Wie nennt man diese viele Rad-Kisten?`,
       translation: "What do you call these many wheel boxes?",
-      //hint: "plural",
+      hint: "plural",
       choices: [
         { text: "eine Einkaufswagen", correct: false },
         { text: "dem Einkaufswagen", correct: false },

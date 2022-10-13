@@ -96,6 +96,7 @@
     border: 1px solid #ccc;
     margin-right: 0.5rem;
     list-style: none;
+    display: flex;
   }
 
   .choices li button.correct {
