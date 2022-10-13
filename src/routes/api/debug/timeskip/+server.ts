@@ -9,7 +9,7 @@ export const POST: RequestHandler = async ({ locals }) => {
 
   const items = await db.progress.listAllFor(locals.session.userId)
   await Promise.all(items.map(item => {
-    return db.progress.update(item.id, { lastExperienceGainAt: item.lastExperienceGainAt - time.days(1) })
+    return db.progress.update(item.id, { lastExperienceGainAt: item.lastExperienceGainAt - time.days(100) })
   }))
   const [user, progressItems] = await Promise.all([
     db.users.expect(locals.session.userId),

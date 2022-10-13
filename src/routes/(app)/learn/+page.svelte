@@ -6,7 +6,6 @@
   import PageStyling from "$lib/PageStyling.svelte"
   import AppPage from "$lib/AppPage.svelte"
   import LearnSidebar from "$lib/LearnSidebar.svelte"
-  import type { Learning } from "$lib/client/SprachyUserSPA"
   import ReviewSession from "$lib/ReviewSession.svelte"
 
   const spa = sprachy.expectSPA()
@@ -16,9 +15,12 @@
     $learning = $nextThingToLearn
   }
 
-  function nextLearning() {
-    $learning = $nextThingToLearn as Learning | undefined
+  $: if ($learning) {
     window.scrollTo(0, 0)
+  }
+
+  function nextLearning() {
+    spa.recalcCurrentLearning()
   }
 </script>
 
@@ -39,10 +41,7 @@
         {:else if $learning.type === "pattern" && !$learning.readExplanation}
           <LearnModeExplanation />
         {:else if $learning.type === "review"}
-          <ReviewSession
-            patterns={$learning.patterns}
-            on:complete={nextLearning}
-          />
+          <ReviewSession patterns={$learning.patterns} />
         {:else}
           <LearnModeExercises
             pattern={$learning.pattern}
@@ -60,5 +59,6 @@
   .learnable {
     padding-top: 5rem;
     padding-left: 300px;
+    height: 100%;
   }
 </style>

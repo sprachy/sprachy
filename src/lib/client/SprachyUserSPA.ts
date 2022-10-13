@@ -96,6 +96,7 @@ export class SprachyUserSPA {
       const item = items.find(item => item.patternId === patternId)
       if (item) {
         item.experience += amount
+        item.lastExperienceGainAt = Date.now()
       } else {
         items.push({
           id: 'none',
