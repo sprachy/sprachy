@@ -84,8 +84,7 @@ export class TestEnvironment {
       const { summary } = await api.signUp({
         email: email,
         password: password,
-        confirmPassword: password,
-        wantsReminderEmails: opts.wantsReminderEmails || false
+        confirmPassword: password
       })
       this.userClient = { api, user: summary.user, password: password }
     }
