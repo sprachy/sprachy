@@ -22,6 +22,11 @@
   function nextLearning() {
     spa.recalcCurrentLearning()
   }
+
+  function finishExplanation() {
+    if ($learning?.type !== "pattern") return
+    $learning.readExplanation = true
+  }
 </script>
 
 <PageStyling fixedHeader />
@@ -39,7 +44,7 @@
             on:complete={nextLearning}
           />
         {:else if $learning.type === "pattern" && !$learning.readExplanation}
-          <LearnModeExplanation />
+          <LearnModeExplanation on:complete={finishExplanation} />
         {:else if $learning.type === "review"}
           <ReviewSession patterns={$learning.patterns} />
         {:else}
