@@ -170,7 +170,7 @@ export class SprachyUserSPA {
    */
   patternsToReview = derived(this.patternsAndProgress, $patternsAndProgress => {
     return $patternsAndProgress.filter(p =>
-      p.progress.item && p.progress.level != 0 && p.progress.level != 9 && p.progress.item.lastExperienceGainAt < Date.now() - time.toNextSRSLevel(p.progress.level))
+      p.progress.item && p.progress.level > 0 && p.progress.level < 9 && p.progress.item.lastExperienceGainAt < Date.now() - time.toNextSRSLevel(p.progress.level))
   })
 
   nextThingToLearn: Readable<Learning | undefined> = derived([this.patternsAndProgress, this.patternsToReview],
