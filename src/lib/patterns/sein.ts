@@ -100,10 +100,10 @@ formal/informal language!
       translation: "How ready do the systems seem?`",
       hint: "plural, 3rd person",
       choices: [
-        { text: "sie bin bereit", correct: false },
-        { text: "sie ist bereit", correct: false },
-        { text: "sie seid bereit", correct: false },
-        { text: "sie sind bereit.", correct: true }
+        { text: "sie **bin** bereit", correct: false },
+        { text: "sie **ist** bereit", correct: false },
+        { text: "sie **seid** bereit", correct: false },
+        { text: "sie **sind** bereit", correct: true }
       ]
     },
     {
@@ -114,10 +114,10 @@ formal/informal language!
       translation: "How do I look?`",
       hint: "singular, 2nd person",
       choices: [
-        { text: "du bist flauschig", correct: true },
-        { text: "du ist flauschig", correct: false },
-        { text: "du bin flauschig", correct: false },
-        { text: "du seid flauschig.", correct: false }
+        { text: "du **bist** flauschig", correct: true },
+        { text: "du **ist** flauschig", correct: false },
+        { text: "du **bin** flauschig", correct: false },
+        { text: "du **seid** flauschig", correct: false }
       ]
     },
     {
@@ -128,10 +128,10 @@ formal/informal language!
       translation: "What kind of animal are you?`",
       hint: "singular, 1st person",
       choices: [
-        { text: "ich sind ein Mensch", correct: false },
-        { text: "ich ist ein Mensch", correct: false },
-        { text: "ich bin ein Mensch", correct: true },
-        { text: "ich bist ein Mensch.", correct: false }
+        { text: "ich **sind** ein Mensch", correct: false },
+        { text: "ich **ist** ein Mensch", correct: false },
+        { text: "ich **bin** ein Mensch", correct: true },
+        { text: "ich **bist** ein Mensch", correct: false }
       ]
     },
     {
@@ -142,10 +142,10 @@ formal/informal language!
       translation: "What do you have in the bag?`",
       hint: "plural, 3rd person",
       choices: [
-        { text: "das ist Möhren", correct: false },
-        { text: "das sind Möhren", correct: true },
-        { text: "das seid Möhren", correct: false },
-        { text: "das bin Möhren.", correct: false }
+        { text: "das **ist** Möhren", correct: false },
+        { text: "das **sind** Möhren", correct: true },
+        { text: "das **seid** Möhren", correct: false },
+        { text: "das **bin** Möhren", correct: false }
       ]
     },
     // {
