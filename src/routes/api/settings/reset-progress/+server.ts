@@ -4,14 +4,14 @@ import { jsonResponse } from "$lib/server/util"
 
 export const POST: RequestHandler = async ({ locals }) => {
   if (!locals.session)
-    return jsonResponse({ error: "Not logged in" }, { status: 401 })
+    return jsonResponse(401, { error: "Not logged in" })
 
   await db.progress.resetFor(locals.session.userId)
   const [user, progressItems] = await Promise.all([
     db.users.expect(locals.session.userId),
     db.progress.listAllFor(locals.session.userId)
   ])
-  return jsonResponse({
+  return jsonResponse(200, {
     user, progressItems
   })
 }

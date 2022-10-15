@@ -90,7 +90,7 @@ export class GlobalErrorHandler {
 
         // Don't report 404s to Sentry, they're a bit noisy
         if (response.status !== 404) {
-          const detailedErr = new Error(`${response.status} ${response.statusText} from ${axiosErr.config.url}`)
+          const detailedErr = new Error(`${response.status} ${response.statusText} from ${axiosErr.config?.url}`)
           detailedErr.stack = axiosErr.stack
           Sentry.captureException(detailedErr)
         }

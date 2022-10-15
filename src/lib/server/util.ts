@@ -1,6 +1,6 @@
 import { omit } from 'lodash'
 
-export function jsonResponse(body: any, init?: ResponseInit): Response {
+export function jsonResponse(statusCode: number, body: any, init?: ResponseInit): Response {
   const headers = Object.assign({
     'content-type': 'application/json;charset=UTF-8'
   }, init?.headers)
@@ -8,7 +8,7 @@ export function jsonResponse(body: any, init?: ResponseInit): Response {
   return new Response(
     JSON.stringify(body),
     Object.assign({
-      status: 200,
+      status: statusCode,
       headers,
     }, omit(init, 'headers'))
   )

@@ -4,7 +4,7 @@
   import { onMount } from "svelte"
   import SprachyLogo from "$lib/SprachyLogo.svelte"
   import { errorsByField } from "$lib/client/clientUtil"
-  import { goto, prefetchRoutes } from "$app/navigation"
+  import { prefetchRoutes } from "$app/navigation"
   import { browser } from "$app/environment"
   import PageStyling from "$lib/PageStyling.svelte"
   import { page } from "$app/stores"
@@ -198,11 +198,5 @@
   form button {
     margin-top: 1rem;
     width: 100%;
-  }
-
-  .form-check {
-    margin-top: 1rem;
-    font-size: 0.95rem;
-    color: #333;
   }
 </style>

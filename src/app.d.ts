@@ -1,8 +1,6 @@
 /// <reference types="@sveltejs/kit" />
 /// <reference types="@cloudflare/workers-types" />
 
-import type { Pattern } from "$lib/Pattern"
-
 // See https://kit.svelte.dev/docs/types#the-app-namespace
 // for information about these interfaces
 declare namespace App {
@@ -41,14 +39,5 @@ declare namespace App {
     context: {
       waitUntil(promise: Promise<any>): void
     }
-  }
-
-  /**
-   * A SvelteKit Session is available on both the server and the client.
-   * Defined by getSession in hooks.ts.
-   * Don't put sensitive info in here!
-   */
-  interface Session {
-    userId?: string
   }
 }

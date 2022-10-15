@@ -16,7 +16,7 @@ import fox from "$lib/img/fox.webp"
 import harald from "$lib/img/harald.webp"
 import klaus from "$lib/img/klaus.webp"
 import orbInPark from "$lib/img/1-orb-in-park.webp"
-import type { VoiceSynthesisRequestSchema } from "src/routes/api/synthesize"
+import type { VoiceSynthesisRequestSchema } from "src/routes/api/synthesize/+server"
 
 export type Character = {
   id: string

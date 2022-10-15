@@ -30,10 +30,10 @@ export const POST: RequestHandler = async ({ request }) => {
   const accessToken = await getGoogleAuthToken(credentials.client_email, credentials.private_key, "https://www.googleapis.com/auth/cloud-platform")
 
   const hashkey = SparkMD5.hash(JSON.stringify(options))
-  const cached = await kvs.getJson(`translation:${hashkey}`)
+  const cached = await kvs.getJson(`translation:${hashkey}`) as { translations: string[] } | undefined
 
   if (cached) {
-    return jsonResponse({ translations: cached.translations })
+    return jsonResponse(200, { translations: cached.translations })
   } else {
     const res = await http.postJson(`https://translate.googleapis.com/v3beta1/projects/140437958737:translateText`, googleOptions, {
       headers: {
@@ -51,6 +51,6 @@ export const POST: RequestHandler = async ({ request }) => {
     const translations = json.translations.map(t => t.translatedText)
     await kvs.putJson(`translation:${hashkey}`, { translations })
 
-    return jsonResponse({ translations })
+    return jsonResponse(200, { translations })
   }
 }

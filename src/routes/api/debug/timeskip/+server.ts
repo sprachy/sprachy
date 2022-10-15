@@ -5,7 +5,7 @@ import { jsonResponse } from "$lib/server/util"
 
 export const POST: RequestHandler = async ({ locals }) => {
   if (!locals.session)
-    return { status: 401 }
+    return jsonResponse(401, { error: "Not logged in" })
 
   const items = await db.progress.listAllFor(locals.session.userId)
   await Promise.all(items.map(item => {
@@ -15,5 +15,5 @@ export const POST: RequestHandler = async ({ locals }) => {
     db.users.expect(locals.session.userId),
     db.progress.listAllFor(locals.session.userId)
   ])
-  return jsonResponse({ user, progressItems })
+  return jsonResponse(200, { user, progressItems })
 }

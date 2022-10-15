@@ -4,6 +4,7 @@ import * as stripe from '$lib/server/stripe'
 import { db } from "$lib/server/db"
 import { env } from "$lib/server/env"
 import { LIVE_MONTHLY_PRICE_ID, LIVE_ANNUAL_PRICE_ID, TEST_MONTHLY_PRICE_ID, TEST_ANNUAL_PRICE_ID } from '$lib/constants'
+import { jsonResponse } from '$lib/server/util'
 
 export const POST: RequestHandler = async ({ request, locals, url }) => {
   const IS_LIVE = url.host === "sprachy.com"
@@ -39,11 +40,7 @@ export const POST: RequestHandler = async ({ request, locals, url }) => {
   if (user.subscription) {
     if (user.subscription.priceId === priceId) {
       // User already subscribed to this plan, just pretend we did something
-      return {
-        body: {
-          user: user
-        }
-      }
+      return jsonResponse(200, { user: user })
     } else {
       // User is currently subscribed to different plan than requested, let's change it
       const { subscriptionId } = user.subscription
@@ -68,7 +65,7 @@ export const POST: RequestHandler = async ({ request, locals, url }) => {
         }
       })
 
-      return { user: newUser }
+      return jsonResponse(200, { user: newUser })
     }
   } else {
     // User has no currently active subscription, do a checkout session
@@ -84,10 +81,8 @@ export const POST: RequestHandler = async ({ request, locals, url }) => {
       cancel_url: `${env.FRONTEND_BASE_URL}/subscribe`,
     })
 
-    return {
-      body: {
-        checkoutSessionId: session.id
-      }
-    }
+    return jsonResponse(200, {
+      checkoutSessionId: session.id
+    })
   }
 }

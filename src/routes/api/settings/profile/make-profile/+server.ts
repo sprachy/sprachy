@@ -18,7 +18,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
     try {
       const updatedUser = await db.users.update(locals.session!.userId, { username, displayName })
 
-      return jsonResponse(updatedUser)
+      return jsonResponse(200, updatedUser)
     } catch (err: any) {
       if (err instanceof FaunaError && err.code === "instance not unique") {
         username += (Math.random() * 10).toString()[0]

@@ -3,7 +3,7 @@
   import _ from "lodash"
   import SprachyLogo from "$lib/SprachyLogo.svelte"
   import PageStyling from "$lib/PageStyling.svelte"
-  import { goto, prefetchRoutes } from "$app/navigation"
+  import { prefetchRoutes } from "$app/navigation"
   import { errorsByField } from "$lib/client/clientUtil"
   import type { PageData } from "./$types"
 

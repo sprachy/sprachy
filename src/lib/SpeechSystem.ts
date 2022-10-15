@@ -1,5 +1,5 @@
 import _ from "lodash"
-import type { VoiceSynthesisRequestSchema } from "../routes/api/synthesize"
+import type { VoiceSynthesisRequestSchema } from "src/routes/api/synthesize/+server"
 import type { SprachyUserSPA } from "./client/SprachyUserSPA"
 import type { Exercise } from "./Exercise"
 import type { CharacterId } from "./Pattern"
@@ -68,7 +68,7 @@ export class SpeechSystem {
     }
 
     this.currentlySaying = snd
-    const promise = new Promise<void>((resolve, reject) => {
+    const promise = new Promise<void>(resolve => {
       const onEnd = () => {
         if (this.currentlySaying === snd) {
           this.currentlySaying = null

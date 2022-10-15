@@ -36,7 +36,7 @@ export const POST: RequestHandler = async ({ request }) => {
     const sessionKey = await sessions.create(user.id)
     const progressItems = await db.progress.listAllFor(user.id)
 
-    return jsonResponse({
+    return jsonResponse(200, {
       summary: { user, progressItems }
     }, {
       headers: {
@@ -45,9 +45,8 @@ export const POST: RequestHandler = async ({ request }) => {
     })
   } catch (err) {
     if (err instanceof FaunaError && err.code === "authentication failed") {
-      return jsonResponse(
+      return jsonResponse(401,
         { message: "The password doesn't match the user" },
-        { status: 401 }
       )
     } else {
       throw err

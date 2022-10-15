@@ -18,7 +18,9 @@
     <ul>
       {#each pattern.exercises as line}
         <li>
-          <FillblankAsExample {line} />
+          {#if line.type === "fillblank"}
+            <FillblankAsExample {line} />
+          {/if}
         </li>
       {/each}
     </ul>

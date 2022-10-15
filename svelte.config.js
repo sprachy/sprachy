@@ -9,7 +9,7 @@ const config = {
 
   kit: {
     adapter: adapterCloudflareWorkers()
-  }
+  },
 }
 
 export default config
