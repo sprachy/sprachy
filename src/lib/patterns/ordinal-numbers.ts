@@ -1,4 +1,4 @@
-import { faExclamation, faToiletsPortable } from "@fortawesome/free-solid-svg-icons"
+import { faToiletsPortable } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "$lib/definePattern"
 
 export default definePattern({
@@ -80,7 +80,6 @@ If the ordinal number is written as a digit, you simply follow the digit by a pe
       from: "squirrel",
       message: "Ähnlich wie eure Bakterien, nur oft ein wenig größer.",
       translation: "Similar to your bacteries, but often a bit bigger.",
-      hint: "groß"
     },
     {
       from: "lukas",
@@ -91,7 +90,6 @@ If the ordinal number is written as a digit, you simply follow the digit by a pe
       from: "squirrel",
       message: "Ja, aber es gibt nicht viele in eurem Universum.",
       translation: "Yes, but there are not many in your universe",
-      hint: "euer (dative singular)"
     },
     {
       from: "squirrel",

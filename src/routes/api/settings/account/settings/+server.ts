@@ -10,5 +10,5 @@ const settingsForm = z.object({
 export const PATCH: RequestHandler = async ({ request, locals }) => {
   const settingChanges = settingsForm.parse(await request.json())
   const updatedUser = await db.users.update(locals.session!.userId, settingChanges)
-  return jsonResponse(updatedUser)
+  return jsonResponse(200, updatedUser)
 }

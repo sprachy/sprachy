@@ -2,7 +2,6 @@
   import _ from "lodash"
   import { sprachdex } from "$lib/sprachdex"
   import Sprachdown from "$lib/Sprachdown.svelte"
-  import StoryLineFillblank from "$lib/client/StoryLineFillblank.svelte"
   import StoryLineReading from "$lib/client/StoryLineReading.svelte"
   import StoryLineChoice from "$lib/client/StoryLineChoice.svelte"
 
@@ -35,11 +34,11 @@
       {#if !pattern.exercises || !pattern.exercises.length}
         <h1 class="text-danger">No exercises defined for this pattern!</h1>
       {/if}
-      {#each pattern.exercises as line}
+      <!-- {#each pattern.exercises as line}
         <div class="line">
           <StoryLineFillblank {line} {pattern} />
         </div>
-      {/each}
+      {/each} -->
     </div>
   {/each}
 </main>

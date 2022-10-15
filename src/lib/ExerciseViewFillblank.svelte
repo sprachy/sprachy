@@ -9,7 +9,7 @@
   import AudioForLine from "$lib/AudioForLine.svelte"
   import type { FillblankExercise } from "./Exercise"
 
-  const { speech, effects, user } = sprachy.expectSPA()
+  const { speech, effects } = sprachy.expectSPA()
 
   export let exercise: FillblankExercise
   export let flip: boolean = false
@@ -133,9 +133,11 @@
       <Sprachdown inline source={parts.after} />
     </form>
     <div slot="after">
-      <div class="translation">
-        <Sprachdown inline source={translation} />
-      </div>
+      {#if translation}
+        <div class="translation">
+          <Sprachdown inline source={translation} />
+        </div>
+      {/if}
       {#if feedback}
         <div class="feedback">
           <Sprachdown inline source={feedback} />

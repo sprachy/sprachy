@@ -1,7 +1,7 @@
 <script lang="ts">
   import _ from "lodash"
   import Message from "$lib/Message.svelte"
-  import type { FillblankLine } from "$lib/Pattern"
+  import type { FillblankExercise } from "$lib/Exercise"
   import Sprachdown from "$lib/Sprachdown.svelte"
   import sprachy from "$lib/sprachy"
   import SoundIndicator from "$lib/SoundIndicator.svelte"
@@ -11,11 +11,11 @@
 
   const { speech, user } = sprachy.spa || {}
 
-  export let line: FillblankLine
+  export let line: FillblankExercise
   let playingSound: boolean = false
   let audioPromise: Promise<Base64Audio> | undefined
 
-  $: parts = ((line: FillblankLine) => {
+  $: parts = ((line: FillblankExercise) => {
     const [before, after] = line.message.split(/\[.+?\]/)
     return {
       before: before || "",
@@ -23,7 +23,7 @@
     }
   })(line)
 
-  $: translation = ((line: FillblankLine) => {
+  $: translation = ((line: FillblankExercise) => {
     return line.translation.replace(/\[.+?\]/, (substring) => {
       const highlight = substring.slice(1, -1)
       return `**${highlight}**`

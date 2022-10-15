@@ -28,5 +28,5 @@ Please click here to reset your password: ${env.FRONTEND_BASE_URL}/confirm-reset
     })
   }
 
-  return jsonResponse({ success: true })
+  return jsonResponse(200, { success: true })
 }

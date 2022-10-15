@@ -8,7 +8,6 @@
   import { fly } from "svelte/transition"
   import { browser } from "$app/environment"
   import sprachy from "./sprachy"
-  import type { Base64Audio } from "./SpeechSystem"
 
   const { speech, user } = sprachy.maybeSPA()
 

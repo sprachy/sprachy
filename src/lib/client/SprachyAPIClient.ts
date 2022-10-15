@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import type { ProgressItem, User, ProgressSummary, SignupDetails, PriceId } from '$lib/api'
 import { HTTPProvider } from './HTTPProvider'
-import type { VoiceSynthesisRequestSchema } from '$lib/../routes/api/synthesize'
+import type { VoiceSynthesisRequestSchema } from 'src/routes/api/synthesize/+server'
 
 export class SprachyAPIClient {
   http: HTTPProvider

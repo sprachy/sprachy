@@ -6,7 +6,6 @@
   import { createEventDispatcher } from "svelte"
   import type { MultipleChoiceExercise } from "./Exercise"
   import Choices from "./Choices.svelte"
-  import Hints from "./Hints.svelte"
 
   export let exercise: MultipleChoiceExercise
 
@@ -38,19 +37,11 @@
       <Sprachdown inline source={exercise.question} />
     </div>
   {/if}
-  {#if exercise.hint}
-    <Choices
-      choices={exercise.choices}
-      hint={exercise.hint}
-      on:correct={() => dispatch("correct")}
-    />
-  {/if}
-  {#if !exercise.hint}
-    <Choices
-      choices={exercise.choices}
-      on:correct={() => dispatch("correct")}
-    />
-  {/if}
+  <Choices
+    choices={exercise.choices}
+    hint={exercise.hint}
+    on:correct={() => dispatch("correct")}
+  />
 </div>
 
 <style>

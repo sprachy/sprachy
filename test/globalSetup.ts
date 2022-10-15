@@ -37,12 +37,11 @@ export async function setup() {
   // Clean up any process left around from previous test
   shell.exec("kill $(lsof -t -i:5998)", { silent: true })
 
-
-  devServerProcess = shell.exec(`TESTING=1 FAUNA_ADMIN_KEY=${secret} npm run dev -- -p 5998`, { async: true })
+  devServerProcess = shell.exec(`TESTING=1 FAUNA_ADMIN_KEY=${secret} npm run dev -- --host 127.0.0.1 --port 5998`, { async: true })
 
   const devServerReady = new Promise<void>(resolve => {
     devServerProcess.stdout!.on('data', (data: string) => {
-      if (data.includes("local:")) {
+      if (data.includes("Local:")) {
         resolve()
       }
     })

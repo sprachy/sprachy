@@ -6,6 +6,7 @@ import { kvs } from '$lib/server/kvs'
 import { time } from '$lib/time'
 import { db } from '$lib/server/db'
 import { env } from '$lib/server/env'
+import { jsonResponse } from '$lib/server/util'
 
 
 const changeEmailForm = z.object({
@@ -16,7 +17,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
   const existingUser = await db.users.getByEmail(newEmail)
   if (existingUser) {
-    return { status: 409, error: "Email already in use" }
+    return jsonResponse(409, { error: "Email already in use" })
   }
 
   const token = uuidv4()
@@ -36,5 +37,5 @@ Please click here to confirm: ${env.FRONTEND_BASE_URL}/settings?emailConfirmToke
     `
   })
 
-  return { status: 200 }
+  return jsonResponse(200, { success: true })
 }

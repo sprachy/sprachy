@@ -1,4 +1,4 @@
-import type { FillblankLine } from "$lib/Pattern"
+import type { FillblankExercise } from "$lib/Exercise"
 import { levenshtein } from "$lib/levenshtein"
 import { deumlautify } from "$lib/util"
 
@@ -32,7 +32,7 @@ const defaultFeedback: Record<string, Record<string, string>> = {
   }
 }
 
-export function matchAnswer(attempt: string, line: FillblankLine): { validAnswer?: string, feedback?: string } {
+export function matchAnswer(attempt: string, line: FillblankExercise): { validAnswer?: string, feedback?: string } {
   const validAnswer = line.validAnswers.find(ans => ans.toLowerCase() === attempt.toLowerCase())
   if (validAnswer) {
     return {
@@ -48,7 +48,7 @@ export function matchAnswer(attempt: string, line: FillblankLine): { validAnswer
 /**
  * Get some feedback for a wrong answer to a fillblank.
  */
-function getFeedback(attempt: string, line: FillblankLine): string | undefined {
+function getFeedback(attempt: string, line: FillblankExercise): string | undefined {
   for (const answer of line.validAnswers) {
     const ans = answer.toLowerCase()
 

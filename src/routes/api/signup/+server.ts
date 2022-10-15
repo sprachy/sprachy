@@ -38,7 +38,7 @@ export const POST: RequestHandler = async ({ request }) => {
       // platform.context.waitUntil(req)
     }
 
-    return jsonResponse({
+    return jsonResponse(200, {
       summary: { user, progressItems }
     }, {
       headers: {
@@ -47,9 +47,8 @@ export const POST: RequestHandler = async ({ request }) => {
     })
   } catch (err) {
     if (err instanceof FaunaError && err.code === "instance not unique") {
-      return jsonResponse(
+      return jsonResponse(409,
         { message: "Email is already in use" },
-        { status: 409 }
       )
     } else {
       throw err

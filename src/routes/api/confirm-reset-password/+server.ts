@@ -22,11 +22,10 @@ export const POST: RequestHandler = async ({ request }) => {
   const user = await db.users.get(json?.userId || "")
   if (user) {
     await db.users.changePassword(user.id, newPassword)
-    return jsonResponse({ success: true })
+    return jsonResponse(200, { success: true })
   } else {
-    return jsonResponse(
+    return jsonResponse(401,
       { message: "Invalid or expired token" },
-      { status: 401 }
     )
   }
 }

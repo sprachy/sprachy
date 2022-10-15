@@ -5,7 +5,7 @@ type ImageUrl = string
 export type FillblankExerciseDef = {
   from: CharacterId
   message: string
-  translation?: string
+  translation: string
   explanation?: string
   hint?: string
   feedback?: { [attempt: string]: string }
@@ -27,7 +27,7 @@ export type ExerciseDef = FillblankExerciseDef | MultipleChoiceExerciseDef
 
 export type FillblankExercise = Omit<FillblankExerciseDef, 'feedback'> & {
   type: 'fillblank'
-  translation?: string
+  translation: string
   canonicalAnswer: string
   validAnswers: string[]
   feedback?: FeedbackDef[]

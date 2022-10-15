@@ -10,8 +10,7 @@ test("sign up for Sprachy", async () => {
   await asRando.api.signUp({
     email: email,
     password: "yuhyuhyuhyuh",
-    confirmPassword: "yuhyuhyuhyuh",
-    wantsReminderEmails: false
+    confirmPassword: "yuhyuhyuhyuh"
   })
 
   const summary = await asRando.api.getProgress()

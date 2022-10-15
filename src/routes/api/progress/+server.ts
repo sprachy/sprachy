@@ -13,15 +13,12 @@ export const GET: RequestHandler = async ({ locals }) => {
   if (!user) {
     // Invalid session, e.g. when the user was deleted
     await sessions.expire(locals.session!.sessionKey)
-    return jsonResponse({
-      status: 401,
+    return jsonResponse(401, {
       code: 'login required'
-    }, {
-      status: 401
     })
   }
 
-  return jsonResponse({
+  return jsonResponse(200, {
     user, progressItems
   })
 }
@@ -34,5 +31,5 @@ export const POST: RequestHandler = async ({ request, locals }) => {
     db.progress.gainExperience(locals.session!.userId, patternId, experienceByPatternId[patternId]!)
   ))
 
-  return jsonResponse(progressItems)
+  return jsonResponse(200, progressItems)
 }

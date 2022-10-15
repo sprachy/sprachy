@@ -16,10 +16,10 @@ export const PATCH: RequestHandler = async ({ request, locals }) => {
   try {
     const updatedUser = await db.users.update(locals.session!.userId, changes)
 
-    return jsonResponse(updatedUser)
+    return jsonResponse(200, updatedUser)
   } catch (err: any) {
     if (err instanceof FaunaError) {
-      return jsonResponse({ error: err.message }, { status: err.status })
+      return jsonResponse(err.status, { error: err.message })
     } else {
       throw err
     }

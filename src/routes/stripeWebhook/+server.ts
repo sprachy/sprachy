@@ -7,6 +7,7 @@ import type { PriceId } from "$lib/api"
 import { env } from "$lib/server/env"
 import http from "$lib/server/http"
 import { LIVE_MONTHLY_PRICE_ID, TEST_MONTHLY_PRICE_ID } from "$lib/constants"
+import { jsonResponse } from "$lib/server/util"
 
 export const POST: RequestHandler = async ({ request }) => {
   const event = await request.json() as any
@@ -41,10 +42,6 @@ export const POST: RequestHandler = async ({ request }) => {
   }
 
 
-  return {
-    body: {
-      received: true
-    }
-  }
+  return jsonResponse(200, { received: true })
 }
 

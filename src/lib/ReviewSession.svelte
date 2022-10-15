@@ -2,8 +2,9 @@
   import _, { flatten, shuffle } from "lodash"
   import ExerciseView from "$lib/ExerciseView.svelte"
   import sprachy from "$lib/sprachy"
-  import { createEventDispatcher } from "svelte"
   import type { Pattern } from "./Pattern"
+  import LevelReport from "$lib/LevelReport.svelte"
+  import successImg from "$lib/img/success.webp"
 
   const spa = sprachy.expectSPA()
   const { user, speech } = spa
@@ -11,7 +12,9 @@
   export let patterns: Pattern[]
 
   let startedReview = false
-  const dispatch = createEventDispatcher()
+  let completedReview = false
+  let showNext = false
+  let experienceByPatternId: { [id: string]: number } = {}
 
   const reviews = shuffle(
     flatten(
@@ -34,11 +37,20 @@
     // Completed an exercise, gain experience
     spa.gainPatternExperience(review.pattern.id, 200)
 
+    if (!(review.pattern.id in experienceByPatternId)) {
+      experienceByPatternId[review.pattern.id] = 0
+    }
+    experienceByPatternId[review.pattern.id] += 200
+
     if (reviewIndex >= reviews.length - 1) {
-      dispatch("complete")
+      completedReview = true
     } else {
       reviewIndex += 1
     }
+  }
+
+  async function finish() {
+    spa.recalcCurrentLearning()
   }
 </script>
 
@@ -48,6 +60,24 @@
     <button class="btn btn-primary" on:click={() => (startedReview = true)}
       >Start review</button
     >
+  {:else if completedReview}
+    <div class="complete">
+      <div>
+        <img src={successImg} alt="Happy squirrel" />
+      </div>
+      <div>
+        <h4>Review complete!</h4>
+        <LevelReport
+          {experienceByPatternId}
+          on:animEnd={() => (showNext = true)}
+        />
+        <button
+          class="btn btn-primary mt-2"
+          on:click={finish}
+          style:opacity={showNext ? 1 : 0}>Continue</button
+        >
+      </div>
+    </div>
   {:else}
     <div class="exercises">
       {#key reviewIndex}
@@ -69,5 +99,17 @@
     justify-content: center;
     height: 100%;
     padding: 2rem 0;
+  }
+
+  .complete {
+    margin: auto;
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    gap: 2rem;
+  }
+
+  .complete > div:last-child {
+    flex-grow: 1;
   }
 </style>
