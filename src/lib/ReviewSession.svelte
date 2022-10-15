@@ -54,6 +54,14 @@
   }
 </script>
 
+<svelte:head>
+  {#each reviews as review}
+    {#if "image" in review.exercise}
+      <link rel="preload" as="image" href={review.exercise.image} />
+    {/if}
+  {/each}
+</svelte:head>
+
 <div class="practice">
   {#if !startedReview}
     <h2>Review session</h2>

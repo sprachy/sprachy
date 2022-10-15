@@ -47,6 +47,14 @@
   }
 </script>
 
+<svelte:head>
+  {#each exercises as exercise}
+    {#if "image" in exercise}
+      <link rel="preload" as="image" href={exercise.image} />
+    {/if}
+  {/each}
+</svelte:head>
+
 <div class="practice">
   <div class="exercises">
     {#key pattern.id + "-" + exerciseIndex}
