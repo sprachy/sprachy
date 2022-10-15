@@ -1,9 +1,14 @@
 #!/bin/bash
 
-if [ -z "$1" ] || [ -z "$2" ]; then
-    echo "Usage: add-image.sh <path-to-input-image> <output-image-name>"
+if [ -z "$1" ]; then
+    echo "Usage: add-image.sh <paths-to-input-images>"
     exit
 fi
 
+for path in $@; do
+  filename=$(basename -- "$path")
+  filename_noext="${filename%.*}"
 
-cwebp $1 -o src/lib/img/$2.webp
+
+  cwebp $path -o src/lib/img/${filename_noext%.*}.webp
+done
