@@ -1,5 +1,9 @@
 import { faCat } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "$lib/definePattern"
+import kätzchen from "$lib/img/kätzchen.webp"
+import brötchen from "$lib/img/brötchen.webp"
+import nickerchen from "$lib/img/nickerchen.webp"
+import mäuschen from "$lib/img/mäuschen.webp"
 
 export default definePattern({
   id: "das-chen",
@@ -65,25 +69,77 @@ Some nouns are used mainly in their diminutive form. For example, _das Eichhörn
   ],
   exercises: [
     {
-      from: "squirrel",
-      message: "[Die] Nüsschen auf diesem Planeten sind besonders lecker. Zu Hause ist das ein gut gehütetes Geheimnis.",
-      translation: "[The] little nuts on this planet are especially delicious. It's a well-kept secret back home."
+      from: 'squirrel',
+      type: 'choice',
+      image: kätzchen,
+      message: `Wie heißt diese niedliche Kreatur?`,
+      translation: "What is the name of this cute creature?",
+      choices: [
+        { text: "die Kätzchen", correct: false },
+        { text: "das Kätzchen", correct: true },
+        { text: "die Katzchen", correct: false },
+        { text: "das Katzchen", correct: false }
+      ]
     },
     {
-      from: "lukas",
-      message: "Kann [ein] außerirdisches Eichhörnchen überhaupt die irdische Flora verdauen...?",
-      translation: "Can [an] alien squirrel even digest Earth flora...?"
+      from: 'squirrel',
+      type: 'choice',
+      image: mäuschen,
+      message: `Wie heißt die Kreatur, die meiner Projektion ähnelt?`,
+      translation: "What is the name of the creature that resembles my projection?",
+      choices: [
+        { text: "das Mäuschen", correct: true },
+        { text: "die Mäuschen", correct: false },
+        { text: "das Mauschen", correct: false },
+        { text: "die Mauschen", correct: false }
+      ]
     },
     {
-      from: "lindenbaum",
-      message: "[Das] Pantoffeltierchen hat mehrere Zellkerne. Eine große Zelle muss viele Proteine herstellen!",
-      translation: "[The] paramecium has many nuclei. A big cell must make lots of proteins!"
+      from: 'squirrel',
+      type: 'choice',
+      image: nickerchen,
+      message: `Was macht das Kätzchen?`,
+      translation: "What is the kitten doing?",
+      choices: [
+        { text: "das Nickerchen", correct: false },
+        { text: "die Nickerchen", correct: false },
+        { text: "ein Nickerchen", correct: true },
+        { text: "eine Nickerchen", correct: false }
+      ]
     },
     {
-      from: "fox",
-      message: "Wie kann [das] tote Mäuschen so gute Musik machen?",
-      translation: "How does [the] little dead mouse make such good music?"
-    }
+      from: 'squirrel',
+      type: 'choice',
+      image: brötchen,
+      message: `Was isst du zum Frühstück?`,
+      translation: "What do you eat for breakfast?",
+      choices: [
+        { text: "eine Brotchen", correct: false },
+        { text: "ein Brotchen", correct: false },
+        { text: "eine Brötchen", correct: false },
+        { text: "ein Brötchen", correct: true }
+      ]
+    },
+    // {
+    //   from: "squirrel",
+    //   message: "[Die] Nüsschen auf diesem Planeten sind besonders lecker. Zu Hause ist das ein gut gehütetes Geheimnis.",
+    //   translation: "[The] little nuts on this planet are especially delicious. It's a well-kept secret back home."
+    // },
+    // {
+    //   from: "lukas",
+    //   message: "Kann [ein] außerirdisches Eichhörnchen überhaupt die irdische Flora verdauen...?",
+    //   translation: "Can [an] alien squirrel even digest Earth flora...?"
+    // },
+    // {
+    //   from: "lindenbaum",
+    //   message: "[Das] Pantoffeltierchen hat mehrere Zellkerne. Eine große Zelle muss viele Proteine herstellen!",
+    //   translation: "[The] paramecium has many nuclei. A big cell must make lots of proteins!"
+    // },
+    // {
+    //   from: "fox",
+    //   message: "Wie kann [das] tote Mäuschen so gute Musik machen?",
+    //   translation: "How does [the] little dead mouse make such good music?"
+    // }
   ],
   feedback: [
     {
