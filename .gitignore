@@ -14,3 +14,5 @@ workers-site
 devdb
 src/lib/mlquestions.json
 src/lib/img/val2014
+data
+static/val2014

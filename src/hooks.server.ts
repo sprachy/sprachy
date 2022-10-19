@@ -5,6 +5,7 @@ import { ZodError } from 'zod'
 import { db } from '$lib/server/db'
 import { env } from '$lib/server/env'
 import _ from 'lodash'
+import { dev } from '$app/environment'
 
 /**
  * All requests to the server are wrapped by this hook.
@@ -38,6 +39,9 @@ export const handle: Handle = async ({ event, resolve }) => {
     '/api/reset-password',
     '/api/confirm-reset-password'
   ]
+  if (dev) {
+    publicApiRoutes.push('/api/translate')
+  }
   if (!session && event.url.pathname.startsWith('/api') && !publicApiRoutes.includes(event.url.pathname)) {
     const json = { status: 401, code: "login required" }
     return new Response(
