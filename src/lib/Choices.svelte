@@ -90,11 +90,14 @@
     display: flex;
     padding: 0;
     margin: auto;
+    max-width: 800px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
   }
 
   .choices li {
     border: 1px solid #ccc;
-    margin-right: 0.5rem;
     list-style: none;
     display: flex;
   }
