@@ -1,5 +1,9 @@
 import { faHandPointRight } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "$lib/definePattern"
+import forestSquirrelImg from "$lib/img/forestSquirrelImg.webp"
+import hazelnutSquirrelImg from "$lib/img/hazelnutSquirrelImg.webp"
+import emailImg from "$lib/img/emailImg.webp"
+import particleAcceleratorImg from "$lib/img/particleAcceleratorImg.webp"
 
 export default definePattern({
   id: "akkusativ",
@@ -97,29 +101,85 @@ Some masculine nouns change form when used in any case other than the nominative
   ],
   exercises: [
     {
-      from: "fox",
-      message: "Ich habe früher wie Sie eine Sprache gelernt. Dann bekam ich [einen] Pfeil ins Knie...",
-      translation: "I used to be a language-learner like you. Then I took [an] arrow to the knee...",
-      hint: "[masculine]"
+      from: 'squirrel',
+      type: 'choice',
+      image: forestSquirrelImg,
+      message: `Was findest du an ihm am flauschigsten?`,
+      translation: "What do you find fluffiest about him?",
+      hint: "masculine",
+      choices: [
+        { text: "sein Schwanz", correct: false },
+        { text: "sein**es** Schwanz**es**", correct: false },
+        { text: "sein**en** Schwanz", correct: true },
+        { text: "sein**er** Schwanz", correct: false }
+      ]
     },
     {
-      from: "squirrel",
-      message: "Eure Technologie ist obsolet, Damit kriegt ihr nicht [die] Haselnuss!",
-      translation: "Your technology is obsolete. You won't get [the] hazelnut with it!",
-      hint: "[feminine]"
+      from: 'lindenbaum',
+      type: 'choice',
+      image: particleAcceleratorImg,
+      message: `Wir haben weiterhin Zugriff auf...`,
+      translation: "We still have access to...",
+      hint: "masculine",
+      choices: [
+        { text: "**den** Teilchenbeschleuniger", correct: true },
+        { text: "**des** Teilchenbeschleuniger**s**", correct: false },
+        { text: "**dem** Teilchenbeschleuniger", correct: false },
+        { text: "**der** Teilchenbeschleuniger", correct: false }
+      ]
     },
     {
-      from: "lukas",
-      message: "Oh je, pass mit [deinen] Schwanz auf!",
-      translation: "Oh dear, watch it with [your] tail!",
-      hint: "[masculine]"
+      from: 'fox',
+      type: 'choice',
+      image: emailImg,
+      message: `Der Präsident des Komitees für Astrophysischen Ereignisse sendete Ihnen...`,
+      translation: "The president of the Astrophysical Events Committee sent you...",
+      hint: "feminine",
+      choices: [
+        { text: "**einen** E-Mail", correct: false },
+        { text: "**einer** E-Mail", correct: false },
+        { text: "**ein** E-Mail", correct: false },
+        { text: "**eine** E-Mail", correct: true }
+      ]
     },
     {
-      from: "lindenbaum",
-      message: "Und Sie nennen es \"[den] Durchbruch\"?",
-      translation: "And you call it \"[the] breakthrough\"?",
-      hint: "[masculine]"
+      from: 'squirrel',
+      type: 'choice',
+      image: hazelnutSquirrelImg,
+      message: `Eure Technologie ist obsolet, Damit kriegt ihr nicht..`,
+      translation: "Your technology is obsolete. With that you won't get..",
+      hint: "feminine",
+      choices: [
+        { text: "**den** Haselnuss", correct: false },
+        { text: "**die** Haselnuss", correct: true },
+        { text: "**der** Haselnuss", correct: false },
+        { text: "**eine** Haselnuss", correct: false }
+      ]
     },
+    // {
+    //   from: "fox",
+    //   message: "Ich habe früher wie Sie eine Sprache gelernt. Dann bekam ich [einen] Pfeil ins Knie...",
+    //   translation: "I used to be a language-learner like you. Then I took [an] arrow to the knee...",
+    //   hint: "[masculine]"
+    // },
+    // {
+    //   from: "squirrel",
+    //   message: "Eure Technologie ist obsolet, Damit kriegt ihr nicht [die] Haselnuss!",
+    //   translation: "Your technology is obsolete. You won't get [the] hazelnut with it!",
+    //   hint: "[feminine]"
+    // },
+    // {
+    //   from: "lukas",
+    //   message: "Oh je, pass mit [deinen] Schwanz auf!",
+    //   translation: "Oh dear, watch it with [your] tail!",
+    //   hint: "[masculine]"
+    // },
+    // {
+    //   from: "lindenbaum",
+    //   message: "Und Sie nennen es \"[den] Durchbruch\"?",
+    //   translation: "And you call it \"[the] breakthrough\"?",
+    //   hint: "[masculine]"
+    // },
   ]
 })
 
