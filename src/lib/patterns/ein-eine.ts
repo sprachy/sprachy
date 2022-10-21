@@ -1,5 +1,9 @@
 import { faListOl } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "$lib/definePattern"
+import groceryBagImg from "$lib/img/groceryBagImg.webp"
+import duckScratchImg from "$lib/img/duckScratchingImg.webp"
+import tropicalGardenImg from "$lib/img/tropicalGardenImg.webp"
+import duckCityImg from "$lib/img/duckCityImg.webp"
 
 export default definePattern({
   id: "ein-eine",
@@ -78,28 +82,84 @@ When dealing with compound words, the last word within the compound word would d
   ],
   exercises: [
     {
-      from: "squirrel",
-      message: `Was bedeutet es, wenn mich [ein] Mensch "flauschig" nennt?`,
-      translation: `What does it mean when [a] human calls me "fluffy"?`,
-      hint: "[masculine]"
+      from: 'squirrel',
+      type: 'choice',
+      image: duckScratchImg,
+      message: `Was kratzt es?`,
+      translation: "What is it scratching?",
+      hint: "accusative",
+      choices: [
+        { text: "**seine** Rücken", correct: false },
+        { text: "**dein** Rücken", correct: false },
+        { text: "**deine** Rücken", correct: false },
+        { text: "**seinen** Rücken", correct: true }
+      ]
     },
     {
-      from: "lukas",
-      message: "[Eine] flauschige Textur lässt das Herz vor Sanftheit singen.",
-      translation: "[A] fluffy texture makes the heart sing from softness.",
-      hint: "[feminine]"
+      from: 'squirrel',
+      type: 'choice',
+      image: duckCityImg,
+      message: `Auf was schauen die Enten?`,
+      translation: "What are the ducks looking at?",
+      hint: "feminine",
+      choices: [
+        { text: "auf **keine** Stadt", correct: false },
+        { text: "auf **keine** Städte", correct: false },
+        { text: "auf **eine** Stadt", correct: true },
+        { text: "auf **ein** Stadt", correct: false }
+      ]
     },
     {
-      from: "lindenbaum",
-      message: "Das atomares Modell ist nur [eine] Abstraktion der quantenphysikalischen Realität.",
-      translation: "The atomic model is only [an] abstraction of quantum physical reality.",
-      hint: "[feminine]"
+      from: 'cashier',
+      type: 'choice',
+      image: groceryBagImg,
+      message: `Wessen Einkaufstasche ist das?`,
+      translation: "Whose grocery bag is this?",
+      hint: "feminine",
+      choices: [
+        { text: "das ist **meine** Einkaufstasche", correct: true },
+        { text: "das ist **mein** Einkaufstasche", correct: false },
+        { text: "das ist **eine** Einkaufstasche", correct: false },
+        { text: "das ist **ein** Einkaufstasche", correct: false }
+      ]
     },
     {
-      from: "fox",
-      message: "Warum sind [seine] Frösche so deprimiert?",
-      translation: "Why are [his] frogs so depressed?"
-    }
+      from: 'squirrel',
+      type: 'choice',
+      image: tropicalGardenImg,
+      message: `Wie viele Eichhörnchen gibt es dort?`,
+      translation: "How many squirrels are there?",
+      hint: "plural",
+      choices: [
+        { text: "es gibt **keine** Eichhörnchen", correct: true },
+        { text: "es gibt **meine** Eichhörnchen", correct: false },
+        { text: "es gibt **kein** Eichhörnchen", correct: false },
+        { text: "es gibt **mein** Eichhörnchen", correct: true }
+      ]
+    },
+    // {
+    //   from: "squirrel",
+    //   message: `Was bedeutet es, wenn mich [ein] Mensch "flauschig" nennt?`,
+    //   translation: `What does it mean when [a] human calls me "fluffy"?`,
+    //   hint: "[masculine]"
+    // },
+    // {
+    //   from: "lukas",
+    //   message: "[Eine] flauschige Textur lässt das Herz vor Sanftheit singen.",
+    //   translation: "[A] fluffy texture makes the heart sing from softness.",
+    //   hint: "[feminine]"
+    // },
+    // {
+    //   from: "lindenbaum",
+    //   message: "Das atomares Modell ist nur [eine] Abstraktion der quantenphysikalischen Realität.",
+    //   translation: "The atomic model is only [an] abstraction of quantum physical reality.",
+    //   hint: "[feminine]"
+    // },
+    // {
+    //   from: "fox",
+    //   message: "Warum sind [seine] Frösche so deprimiert?",
+    //   translation: "Why are [his] frogs so depressed?"
+    // }
   ]
 })
 
