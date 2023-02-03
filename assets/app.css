@@ -1,0 +1,157 @@
+:root {
+  --sprachy-primary: #58508d;
+  --sprachy-gradtwo: #bc5090;
+  --sprachy-gradthree: #ff6361;
+  --sprachy-secondary: #ffa600;
+  --blue-highlight: rgb(28, 176, 246);
+
+  /* Stop weird outlines around buttons */
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-border-color: transparent;
+}
+
+main.container {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+html,
+body,
+.svelte {
+  height: 100%;
+}
+
+h1:focus,
+h2:focus,
+h3:focus,
+h4:focus,
+h5:focus,
+h6:focus {
+  outline: none;
+}
+
+.btn-sprachy {
+  background-color: var(--sprachy-secondary);
+  border-color: var(--sprachy-secondary);
+  color: white;
+}
+
+.btn-sprachy:hover {
+  color: white;
+  background-color: #f09c00;
+  border-color: #f09c00;
+}
+
+.btn-link {
+  border: 0;
+  padding: 0;
+  background: none;
+}
+
+.form-check input,
+.form-check label {
+  cursor: pointer;
+}
+
+/** Make font-awesome icons inherit the color of their surrounding text by default */
+svg.svelte-fa {
+  color: inherit;
+}
+
+/** Tooltips from https://svelte.dev/repl/3153faf7584d40bd8ddebecf39f24ac1?version=3 **/
+[data-tooltip] {
+  position: relative;
+  display: block;
+}
+
+[data-tooltip]:before,
+[data-tooltip]:after {
+  z-index: 2;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: .2s ease-out;
+  transform: translate(-50%, 5px)
+}
+
+[data-tooltip]:before {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 5px;
+  padding: 7px;
+  width: 100%;
+  min-width: 70px;
+  max-width: 250px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #000;
+  background-color: hsla(0, 0%, 20%, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.2;
+  transition: .2s ease-out
+}
+
+[data-tooltip]:after {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 0;
+  border-top: 5px solid #000;
+  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
+}
+
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0)
+}
+
+[data-tooltip=false]:hover:before,
+[data-tooltip=false]:hover:after {
+  visibility: hidden;
+  opacity: 0;
+}
+
+
+.hover-translate[data-tooltip] p {
+  text-decoration: underline #ccc dotted;
+}
+
+.hover-translate[data-tooltip] {
+  cursor: default;
+}
+
+
+/**
+ * Remove focus styles for non-keyboard focus.
+ */
+button:focus:not(:focus-visible) {
+  outline: 0;
+  box-shadow: none;
+}
+
+/**
+ * Cross-browser styles for explicit focus via 
+ * keyboard-based (eg Tab) navigation
+ */
+button:focus {
+  outline: 0;
+  box-shadow:
+    0 0 0 .2rem #fff,
+    0 0 0 .35rem #069;
+}
+
+.sprachy-dev-color {
+  color: red;
+}

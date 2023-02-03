@@ -15,6 +15,8 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@trpc/client": "^10.9.1",
     "@trpc/server": "^10.9.1",
+    "accessible-nprogress": "^2.1.2",
+    "bootstrap": "^5.2.3",
     "lodash": "^4.17.21",
     "typescript": "^4.9.5"
   }
