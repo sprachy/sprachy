@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // import PatternIndex from "$lib/PatternIndex.svelte"
-import backgroundImg from "@/lib/img/sprachy-bg.webp"
+import backgroundImg from "~/assets/sprachy-bg.webp"
 import {
   faBook,
   faCircleNodes,

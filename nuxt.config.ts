@@ -2,5 +2,8 @@
 export default defineNuxtConfig({
   imports: {
     autoImport: false
+  },
+  alias: {
+    '~': __dirname
   }
 })
