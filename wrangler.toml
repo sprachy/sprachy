@@ -1,0 +1,31 @@
+main = ".cloudflare/worker/worker.mjs"
+compatibility_flags = []
+compatibility_date = "2022-09-10"
+account_id = "e24de7c361b035e990d2814691027093"
+
+[site]
+bucket = "./.output/public"
+
+[build]
+command = ""
+
+[env.staging]
+workers_dev = true
+name = "sprachy-staging"
+kv_namespaces = [ 
+  { binding = "STORE", id = "1eac321c4c6549d9b0273011bd353be1" }
+]
+
+[env.staging.vars]
+FRONTEND_BASE_URL = "https://sprachy-staging.toggly.workers.dev"
+
+[env.live]
+workers_dev = false
+route = "https://sprachy.com/*"
+name = "sprachy"
+kv_namespaces = [ 
+  { binding = "STORE", id = "bb9faad68907458c8ee529bf390f853e" } 
+]
+
+[env.live.vars]
+FRONTEND_BASE_URL = "https://sprachy.com"

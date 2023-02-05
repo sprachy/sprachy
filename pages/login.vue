@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: false
+})
+
 // import sprachy from "$lib/sprachy"
 // import _ from "lodash"
 // import SprachyLogo from "$lib/SprachyLogo.svelte"
@@ -16,32 +20,35 @@ const state = reactive({
 })
 
 async function login() {
-  //   const { api } = sprachy.expectBrowser()
+  const api = useSprachyAPI()
 
-  //   prefetchRoutes([next || "/learn"])
+  state.loading = true
+  state.errors = {}
+  try {
+    const { summary } = await api.login({
+      email: state.email,
+      password: state.password
+    })
+    // await sprachy.initSPA(summary)
+    // window.location.replace(next || "/learn")
+    // if (next) {
+    //   goto(next, { replaceState: true })
+    // } else {
+    //   goto("/learn", { replaceState: true })
+    // }
+  } catch (err: any) {
+    // if (err?.response?.status == 422) {
+    //   errors = errorsByField(err.response.data.errors)
+    // } else 
 
-  //   loading = true
-  //   errors = {}
-  //   try {
-  //     const { summary } = await api.login({ email, password })
-  //     await sprachy.initSPA(summary)
-  //     window.location.replace(next || "/learn")
-  //     // if (next) {
-  //     //   goto(next, { replaceState: true })
-  //     // } else {
-  //     //   goto("/learn", { replaceState: true })
-  //     // }
-  //   } catch (err: any) {
-  //     if (err?.response?.status == 422) {
-  //       errors = errorsByField(err.response.data.errors)
-  //     } else if (err?.response?.data?.message) {
-  //       errors.other = err.response.data.message
-  //     } else {
-  //       throw err
-  //     }
-  //   } finally {
-  //     loading = false
-  //   }
+    if (err?.response?.data?.message) {
+      state.errors.other = err.response.data.message
+    } else {
+      throw err
+    }
+  } finally {
+    state.loading = false
+  }
 }
 </script>
 

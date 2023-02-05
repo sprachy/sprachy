@@ -29,7 +29,7 @@ const route = useRoute()
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li v-if="user" class="nav-item">
               <NuxtLink class="nav-link" aria-current="page" href="/learn">Learn</NuxtLink>
             </li>
@@ -39,7 +39,7 @@ const route = useRoute()
             <!-- <li v-if="user" class="nav-item">
               <MuteToggle/>
             </li> -->
-            <li v-if="user" class="nav-item">
+            <li class="nav-item">
               <NuxtLink class="nav-link" aria-current="page" href="/faq">FAQ</NuxtLink>
             </li>
 
@@ -65,7 +65,7 @@ const route = useRoute()
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 <img v-if="user.pfp" :src="user.pfp" :alt="user.email" class="avatar" />
-                <img v-else src="~/assets/img/squirrel.webp" :alt="user.email" class="avatar" />
+                <img v-else src="~/assets/squirrel.webp" :alt="user.email" class="avatar" />
               </a>
               <ul class="dropdown-menu">
                 <li v-if="user.username">

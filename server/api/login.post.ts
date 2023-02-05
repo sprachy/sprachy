@@ -1,0 +1,66 @@
+// import type { RequestHandler } from "@sveltejs/kit"
+import * as z from 'zod'
+import faunadb from 'faunadb'
+const { Index, Login, Match } = faunadb.query
+
+import { db } from "~/server/db"
+// import { sessions } from "$lib/server/sessions"
+import { FaunaError } from "~/server/faunaUtil"
+import { time } from '~/lib/time'
+import { sessions } from '~/server/sessions'
+// import { jsonResponse } from "$lib/server/util"
+
+type FaunaLoginToken = {
+  ref: { value: { id: string } } // Token ref
+  ts: number
+  instance: { value: { id: string } } // User ref
+  secret: string
+}
+
+const loginForm = z.object({
+  email: z.string(),
+  password: z.string()
+})
+export default defineEventHandler(async (event) => {
+  const { email, password } = loginForm.parse(await readBody(event))
+
+  try {
+    const result = await db.faunaQuery(
+      Login(
+        Match(Index("users_by_email"), email),
+        { password: password },
+      )
+    ) as FaunaLoginToken
+
+    // Note that we're not actually using fauna's access control here; we only ask
+    // them to check the user's password, and then take it from there
+    const user = await db.users.expect(result.instance.value.id)
+    const sessionKey = await sessions.create(user.id)
+    const progressItems = await db.progress.listAllFor(user.id)
+
+    setCookie(event, "sprachySessionKey", sessionKey, {
+      httpOnly: true,
+      // maxAge is in seconds
+      maxAge: time.weeks(52) / 1000,
+      // Needed for cookie to be sent to every url accessed on the site
+      // rather than just /api
+      path: "/"
+    })
+
+    return {
+      summary: { user, progressItems }
+    }
+    // headers: {
+    //   'set-cookie': sessions.asCookie(sessionKey),
+    // }
+  } catch (err) {
+    if (err instanceof FaunaError && err.code === "authentication failed") {
+      throw createError({
+        statusCode: 401,
+        statusMessage: "The password doesn't match the user"
+      })
+    } else {
+      throw err
+    }
+  }
+})

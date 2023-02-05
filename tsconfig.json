@@ -10,5 +10,8 @@
         "./*"
       ]
     }
+  },
+  "ts-node": {
+    "transpileOnly": true,
   }
 }
