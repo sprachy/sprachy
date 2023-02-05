@@ -34,6 +34,8 @@ export default defineEventHandler(async (event) => {
       )
     ) as FaunaLoginToken
 
+    console.log(result)
+
     // Note that we're not actually using fauna's access control here; we only ask
     // them to check the user's password, and then take it from there
     const user = await db.users.expect(result.instance.value.id)
