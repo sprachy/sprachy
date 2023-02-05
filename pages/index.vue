@@ -6,11 +6,8 @@ import {
   faCircleNodes,
   faComments,
 } from "@fortawesome/free-solid-svg-icons"
-import { useFetch, useHead, useRouter } from "~/.nuxt/imports"
 import { reactive } from "vue"
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-const res = await useFetch("/api/hello")
 
 const state = reactive({
   email: ""
