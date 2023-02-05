@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // import _ from "lodash"
-// import sprachy from "$lib/sprachy"
+// import sprachy from "~/lib/sprachy"
 // import { dev } from "$app/environment"
 // import { page } from "$app/stores"
 // import defaultProfileImage from "$"

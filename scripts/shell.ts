@@ -1,5 +1,5 @@
 import repl from 'repl'
-import { db } from '$lib/server/db'
+import { db } from '~/lib/server/db'
 const vm = require("vm")
 const { processTopLevelAwait } = require("node-repl-await")
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import PatternIndex from "$lib/PatternIndex.svelte"
+// import PatternIndex from "~/lib/PatternIndex.svelte"
 import backgroundImg from "~/assets/sprachy-bg.webp"
 import {
   faBook,
@@ -88,7 +88,7 @@ useHead({
     <section class="patterns">
       <div class="container">
         <h2>All patterns</h2>
-        <!-- <PatternIndex /> -->
+        <PatternIndex />
       </div>
     </section>
   </main>

@@ -4,11 +4,11 @@ import faunadb from 'faunadb'
 const { Index, Login, Match } = faunadb.query
 
 import { db } from "~/server/db"
-// import { sessions } from "$lib/server/sessions"
+// import { sessions } from "~/lib/server/sessions"
 import { FaunaError } from "~/server/faunaUtil"
 import { time } from '~/lib/time'
 import { sessions } from '~/server/sessions'
-// import { jsonResponse } from "$lib/server/util"
+// import { jsonResponse } from "~/lib/server/util"
 
 type FaunaLoginToken = {
   ref: { value: { id: string } } // Token ref

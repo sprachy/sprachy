@@ -1,0 +1,37 @@
+<script setup lang="ts">
+import { sprachdex } from "~/lib/sprachdex"
+import PatternItem from "./PatternItem.vue"
+</script>
+
+<template>
+  <div class="pattern-index">
+    <ul>
+      <PatternItem v-for="pattern in sprachdex.publishedPatterns.filter(p => !p.hidden)" :pattern="pattern" />
+    </ul>
+    <p><em>More patterns coming soon!</em></p>
+  </div>
+</template>
+
+<style scoped>
+.pattern-index ul {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
+
+.pattern-index ul :global(li) {
+  flex-basis: 33%;
+}
+
+@media only screen and (max-width: 1200px) {
+  .pattern-index ul :global(li) {
+    flex-basis: 50%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .pattern-index ul :global(li) {
+    flex-basis: 100%;
+  }
+}
+</style>

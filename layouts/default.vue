@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import SiteHeader from "~/components/SiteHeader.vue"
 // import { sprachdex } from "./sprachdex"
-// import successImg from "$lib/img/success.webp"
+// import successImg from "~/assets/success.webp"
 // export let title: string | null = null
 
   // import "accessible-nprogress/dist/accessible-nprogress.css"
@@ -11,9 +11,9 @@ import SiteHeader from "~/components/SiteHeader.vue"
   // import { browser } from "$app/environment"
   // import { navigating } from "$app/stores"
   // import { page } from "$app/stores"
-  // import sprachy from "$lib/sprachy"
-  // import PreloadingIndicator from "$lib/PreloadingIndicator.svelte"
-  // import SiteLayout from "$lib/SiteLayout.svelte"
+  // import sprachy from "~/lib/sprachy"
+  // import PreloadingIndicator from "~/lib/PreloadingIndicator.svelte"
+  // import SiteLayout from "~/lib/SiteLayout.svelte"
   // let initializing: boolean = true
 
   // export let data: { userId?: string }

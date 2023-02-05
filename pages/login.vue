@@ -3,12 +3,12 @@ definePageMeta({
   layout: false
 })
 
-// import sprachy from "$lib/sprachy"
+// import sprachy from "~/lib/sprachy"
 // import _ from "lodash"
-// import SprachyLogo from "$lib/SprachyLogo.svelte"
-// import PageStyling from "$lib/PageStyling.svelte"
+// import SprachyLogo from "~/lib/SprachyLogo.svelte"
+// import PageStyling from "~/lib/PageStyling.svelte"
 // import { prefetchRoutes } from "$app/navigation"
-// import { errorsByField } from "$lib/client/clientUtil"
+// import { errorsByField } from "~/lib/client/clientUtil"
 // import type { PageData } from "./$types"
 
 let next = ""

@@ -1,6 +1,6 @@
 import faunadb from 'faunadb'
 import type { ProgressItem, User } from '../api'
-import _ from 'lodash'
+import { omit } from 'lodash-es'
 import { flattenFauna, FaunaError, makeFaunaClient } from './faunaUtil'
 import type { FaunaDocument } from "./faunaUtil"
 
@@ -129,7 +129,7 @@ export namespace db {
             credentials: {
               password: props.password
             },
-            data: _.omit(props, 'password')
+            data: omit(props, 'password')
           }
         )
       )

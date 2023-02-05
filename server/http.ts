@@ -1,4 +1,3 @@
-import _ from 'lodash'
 // @ts-ignore
 import { serialize } from 'object-to-formdata'
 
@@ -46,7 +45,7 @@ namespace http {
     return http.request(url, {
       body: serialize(body, {}, new URLSearchParams()),
       method: 'POST',
-      headers: _.extend({
+      headers: Object.assign({
         'content-type': 'application/x-www-form-urlencoded',
       }, options.headers || {})
     })
@@ -56,7 +55,7 @@ namespace http {
     return http.request(url, {
       body: JSON.stringify(body),
       method: 'POST',
-      headers: _.extend({
+      headers: Object.assign({
         'content-type': 'application/json;charset=UTF-8',
       }, options.headers || {})
     })

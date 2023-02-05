@@ -1,4 +1,3 @@
-import _ from 'lodash'
 // import type { ProgressItem, User, ProgressSummary, SignupDetails, PriceId } from './apiTypes'
 import { HTTPProvider } from './HTTPProvider'
 // import type { VoiceSynthesisRequestSchema } from 'src/routes/api/synthesize/+server'
