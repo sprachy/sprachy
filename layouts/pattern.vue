@@ -40,7 +40,7 @@ const state = reactive({
 })
 </script>
 
-<template>
+<template v-if="pattern">
   <SiteHeader />
   <div class="patternLayout">
     <aside class="sidebar">

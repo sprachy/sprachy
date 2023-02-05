@@ -107,7 +107,7 @@ const route = useRoute()
   --site-header-height: 62px;
 }
 
-:global(.collapsing) {
+.collapsing {
   transition: none !important;
 }
 
@@ -123,7 +123,7 @@ header.fixed {
   font-size: 1rem;
 }
 
-:global(.navbar-light .navbar-toggler):hover {
+.navbar-light .navbar-toggler:hover {
   background-color: inherit;
   box-shadow: inherit;
 }
@@ -135,10 +135,15 @@ header.fixed {
   border-radius: 50%;
 }
 
-:global(.nav-item) {
+.nav-item {
+  white-space: nowrap;
+}
+
+/* 
+.nav-item {
   display: flex;
   align-items: center;
-}
+} */
 
 header :global(.toggle-mute) {
   width: 47px;
