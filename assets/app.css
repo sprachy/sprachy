@@ -54,7 +54,8 @@ h6:focus {
 }
 
 /** Make font-awesome icons inherit the color of their surrounding text by default */
-svg.svelte-fa {
+svg[role="img"] {
+  margin: 0;
   color: inherit;
 }
 

@@ -64,7 +64,7 @@ const state = reactive({
             </NuxtLink>
           </li>
           <li v-if="pattern.exercises.some((ex) => ex.type === 'fillblank')"
-            :class="{ active: state.activeTab === 'examples' }" }>
+            :class="{ active: state.activeTab === 'examples' }">
             <NuxtLink :href="`/${pattern.slug}/examples`">
               <FontAwesomeIcon fixedWidth :icon="faList" />
               Examples
@@ -129,7 +129,8 @@ const state = reactive({
   text-align: left;
 }
 
-.sidebar li a :global(svg) {
+.sidebar li a svg {
+  margin: 0;
   margin-right: 0.5rem;
 }
 
