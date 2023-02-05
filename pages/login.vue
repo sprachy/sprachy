@@ -15,39 +15,39 @@ const state = reactive({
   errors: {} as any
 })
 
-// async function login() {
-//   const { api } = sprachy.expectBrowser()
+async function login() {
+  //   const { api } = sprachy.expectBrowser()
 
-//   prefetchRoutes([next || "/learn"])
+  //   prefetchRoutes([next || "/learn"])
 
-//   loading = true
-//   errors = {}
-//   try {
-//     const { summary } = await api.login({ email, password })
-//     await sprachy.initSPA(summary)
-//     window.location.replace(next || "/learn")
-//     // if (next) {
-//     //   goto(next, { replaceState: true })
-//     // } else {
-//     //   goto("/learn", { replaceState: true })
-//     // }
-//   } catch (err: any) {
-//     if (err?.response?.status == 422) {
-//       errors = errorsByField(err.response.data.errors)
-//     } else if (err?.response?.data?.message) {
-//       errors.other = err.response.data.message
-//     } else {
-//       throw err
-//     }
-//   } finally {
-//     loading = false
-//   }
-// }
+  //   loading = true
+  //   errors = {}
+  //   try {
+  //     const { summary } = await api.login({ email, password })
+  //     await sprachy.initSPA(summary)
+  //     window.location.replace(next || "/learn")
+  //     // if (next) {
+  //     //   goto(next, { replaceState: true })
+  //     // } else {
+  //     //   goto("/learn", { replaceState: true })
+  //     // }
+  //   } catch (err: any) {
+  //     if (err?.response?.status == 422) {
+  //       errors = errorsByField(err.response.data.errors)
+  //     } else if (err?.response?.data?.message) {
+  //       errors.other = err.response.data.message
+  //     } else {
+  //       throw err
+  //     }
+  //   } finally {
+  //     loading = false
+  //   }
+}
 </script>
 
 <template>
   <main>
-    <form on:submit|preventDefault={login}>
+    <form @submit.prevent="login">
       <div class="form-header">
         <a href="/" class="header-logo">
           <SprachyLogo />
@@ -76,7 +76,7 @@ const state = reactive({
         </div>
       </fieldset>
       <div class="forgot-password">
-        <a data-sveltekit-prefetch href="/reset-password">Forgot password?</a>
+        <NuxtLink href="/reset-password">Forgot password?</NuxtLink>
       </div>
 
 
@@ -88,14 +88,13 @@ const state = reactive({
 
       <p class="signup-callout">
         New to Sprachy?
-        <Link :href="next ? `/signup?next=${next}` : '/signup'">Create an
-        account</Link>.
+        <NuxtLink :href="next ? `/signup?next=${next}` : '/signup'">Create an account</NuxtLink>.
       </p>
     </form>
   </main>
 </template>
 
-<style>
+<style scoped>
 main {
   height: 100%;
   display: flex;

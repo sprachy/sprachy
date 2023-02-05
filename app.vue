@@ -5,5 +5,7 @@ import "~/assets/app.css"
 </script>
 
 <template>
-  <NuxtPage />
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>

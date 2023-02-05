@@ -94,7 +94,7 @@ useHead({
   </main>
 </template>
 
-<style>
+<style scoped>
 .container {
   position: relative;
 }
