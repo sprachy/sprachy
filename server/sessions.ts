@@ -1,6 +1,7 @@
 // We use Cloudflare's KV storage for sessions, which are transient expirable data
 // So no need to put them in a more stable database
 
+import { H3Event } from "h3"
 import { v4 as uuidv4 } from "uuid"
 // import * as cookie from "cookie"
 import * as time from "~/lib/time"
@@ -28,6 +29,17 @@ export namespace sessions {
 
   export async function expire(sessionKey: string) {
     return await kvs.delete(`sessions:${sessionKey}`)
+  }
+
+  export function setSessionCookie(event: H3Event, sessionKey: string) {
+    setCookie(event, "sprachySessionKey", sessionKey, {
+      httpOnly: true,
+      // maxAge is in seconds
+      maxAge: time.weeks(52) / 1000,
+      // Needed for cookie to be sent to every url accessed on the site
+      // rather than just /api
+      path: "/"
+    })
   }
 }
 //   export function asCookie(sessionKey: string) {

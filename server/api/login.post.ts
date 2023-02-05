@@ -24,6 +24,8 @@ const loginForm = z.object({
 export default defineEventHandler(async (event) => {
   const { email, password } = loginForm.parse(await readBody(event))
 
+  console.log(email, password)
+
   try {
     const result = await db.faunaQuery(
       Login(
@@ -38,14 +40,7 @@ export default defineEventHandler(async (event) => {
     const sessionKey = await sessions.create(user.id)
     const progressItems = await db.progress.listAllFor(user.id)
 
-    setCookie(event, "sprachySessionKey", sessionKey, {
-      httpOnly: true,
-      // maxAge is in seconds
-      maxAge: time.weeks(52) / 1000,
-      // Needed for cookie to be sent to every url accessed on the site
-      // rather than just /api
-      path: "/"
-    })
+    sessions.setSessionCookie(event, sessionKey)
 
     return {
       summary: { user, progressItems }
