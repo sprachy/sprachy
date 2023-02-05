@@ -6,6 +6,7 @@ const props = defineProps<{
   source: string
   inline?: boolean
 }>()
+
   // const parsedSource = source.replace(/=[^=\n]+=/, (substring) => {
   //   const highlight = substring.slice(1, -1)
   //   return `<InlineTranslation original="${highlight}"/>`
@@ -18,12 +19,12 @@ const props = defineProps<{
   </div>
 </template>
 
-<style>
+<style scoped>
 .markdown-inline {
   display: inline;
 }
 
-.markdown-inline :global(p) {
+.markdown-inline p {
   margin: 0;
   display: inline;
 }
