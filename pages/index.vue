@@ -11,7 +11,6 @@ import { reactive } from "vue"
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const res = await useFetch("/api/hello")
-console.log(res)
 
 const state = reactive({
   email: ""
