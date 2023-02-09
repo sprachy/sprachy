@@ -47,9 +47,6 @@ export default defineEventHandler(async (event) => {
     return {
       summary: { user, progressItems }
     }
-    // headers: {
-    //   'set-cookie': sessions.asCookie(sessionKey),
-    // }
   } catch (err) {
     if (err instanceof FaunaError && err.code === "authentication failed") {
       throw createError({

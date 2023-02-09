@@ -6,10 +6,9 @@ import {
   faCircleNodes,
   faComments,
 } from "@fortawesome/free-solid-svg-icons"
-import { reactive } from "vue"
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-const state = reactive({
+const state = useLocalReactive({
   email: ""
 })
 

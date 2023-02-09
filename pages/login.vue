@@ -11,7 +11,7 @@ definePageMeta({
 // import { errorsByField } from "~/lib/client/clientUtil"
 // import type { PageData } from "./$types"
 
-let next = ""
+const next = useRoute().params.next
 const state = reactive({
   email: "",
   password: "",
@@ -29,13 +29,15 @@ async function login() {
       email: state.email,
       password: state.password
     })
-    // await sprachy.initSPA(summary)
-    // window.location.replace(next || "/learn")
-    // if (next) {
-    //   goto(next, { replaceState: true })
-    // } else {
-    //   goto("/learn", { replaceState: true })
-    // }
+
+    await initSPA()
+
+    const router = useRouter()
+    if (next) {
+      router.push(next as string)
+    } else {
+      router.push("/learn")
+    }
   } catch (err: any) {
     // if (err?.response?.status == 422) {
     //   errors = errorsByField(err.response.data.errors)
