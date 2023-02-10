@@ -30,7 +30,7 @@ async function login() {
       password: state.password
     })
 
-    await initSPA()
+    await initSPA(summary)
 
     const router = useRouter()
     if (next) {

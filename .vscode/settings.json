@@ -12,4 +12,5 @@
     "tmp/": true,
     "package-lock.json": true,
   },
+  "volar.completion.preferredAttrNameCase": "camel"
 }
