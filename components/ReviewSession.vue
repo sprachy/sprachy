@@ -3,7 +3,7 @@ import { flatten, shuffle } from "lodash"
 import ExerciseView from "~/components/ExerciseView.vue"
 import type { Pattern } from "~/lib/Pattern"
 import LevelReport from "~/components/LevelReport.vue"
-import successImg from "$lib/img/success.webp"
+import successImg from "~/assets/success.webp"
 
 const spa = useSprachyApp()
 const { user, speech } = spa

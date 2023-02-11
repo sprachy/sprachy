@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import _ from "lodash"
-import type { StoryLine, Story, ReadingLine } from "~/lib/Pattern"
+import type { Story, ReadingLine } from "~/lib/Pattern"
 import StoryLineReading from "~/components/StoryLineReading.vue"
 import StoryLineChoice from "~/components/StoryLineChoice.vue"
 import SpecialLineMorph from "~/components/SpecialLineMorph.vue"

@@ -1,6 +1,6 @@
-import type { FillblankExercise } from "$lib/Exercise"
-import { levenshtein } from "$lib/levenshtein"
-import { deumlautify } from "$lib/util"
+import type { FillblankExercise } from "~/lib/Exercise"
+import { levenshtein } from "~/lib/levenshtein"
+import { deumlautify } from "~/lib/util"
 
 /**
  * Feedback to be applied across all fillblank exercises, unless
