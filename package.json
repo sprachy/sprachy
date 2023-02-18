@@ -21,8 +21,11 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@popperjs/core": "^2.11.6",
+    "@sidebase/nuxt-auth": "^0.4.1",
     "@trpc/client": "^10.9.1",
     "@trpc/server": "^10.9.1",
+    "@types/bootstrap": "^5.2.6",
     "@types/lodash": "^4.14.191",
     "@types/lodash-es": "^4.17.6",
     "@types/uuid": "^9.0.0",

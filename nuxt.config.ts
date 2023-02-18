@@ -36,4 +36,7 @@ export default defineNuxtConfig({
       frontendBaseUrl: 'http://localhost:5999',
     }
   },
+  routeRules: {
+    '/admin/**': { ssr: false }
+  }
 })

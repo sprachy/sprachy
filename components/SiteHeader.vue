@@ -6,14 +6,15 @@
 // import defaultProfileImage from "$"
 // import MuteToggle from "./MuteToggle.svelte"
 
-let fixed: boolean = false
-const user = false as any
-const admin = false
-const dev = false
-// const { user, admin } = sprachy.maybeSPA()
+
+defineProps<{
+  fixed?: boolean
+}>()
+
+const { user, admin } = maybeLoggedIn()
+const { dev } = process
 
 const route = useRoute()
-
 </script>
 
 <template>

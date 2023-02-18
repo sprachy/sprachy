@@ -5,6 +5,7 @@ import LearnModeExplanation from "~/components/LearnModeExplanation.vue"
 import LearnSidebar from "~/components/LearnSidebar.vue"
 import ReviewSession from "~/components/ReviewSession.vue"
 
+
 const spa = useSprachyApp()
 
 if (!spa.learning) {

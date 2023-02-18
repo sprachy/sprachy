@@ -15,3 +15,7 @@ export function useSprachyApp() {
   }
   return app
 }
+
+export function maybeLoggedIn() {
+  return app || {} as Partial<SprachyUserSPA>
+}

@@ -1,6 +1,6 @@
 import { keyBy } from 'lodash'
 import type { SprachyAPIClient } from "./SprachyAPIClient"
-import type { ProgressItem, User, ProgressSummary } from "~/lib/api"
+import type { ProgressItem, User, ProgressSummary } from "~/lib/types"
 import type { Pattern } from "~/lib/Pattern"
 import type { Exercise } from '~/lib/Exercise'
 import { sprachdex } from "~/lib/sprachdex"

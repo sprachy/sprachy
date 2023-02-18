@@ -39,6 +39,9 @@ async function signup() {
       confirmPassword: state.confirmPassword
     })
 
+    await initSPA(summary)
+    navigateTo(next as string || "/learn")
+
     // await sprachy.initSPA(summary)
     // window.location.replace(next || "/learn")
     // if (next) {
@@ -75,8 +78,7 @@ async function signup() {
         <label for="email">Email address</label>
         <!-- svelte-ignore a11y-autofocus -->
         <input v-model="state.email" name="email" id="email" type="email"
-          :class="{ 'form-control': true, 'is-invalid': !!state.errors.email }" placeholder="Email" required
-          autofocus />
+          :class="{ 'form-control': true, 'is-invalid': !!state.errors.email }" placeholder="Email" required autofocus />
         <div v-if="state.errors.email" class="invalid-feedback">
           {{ state.errors.email }}
         </div>
@@ -102,18 +104,18 @@ async function signup() {
       </fieldset>
 
       <!-- <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        checked={wantsReminderEmails}
-        id="wantsReminderEmails"
-        on:change|preventDefault={() =>
-          (wantsReminderEmails = !wantsReminderEmails)}
-      />
-      <label class="form-check-label" for="wantsReminderEmails">
-        Send me reminder emails when patterns are ready to review
-      </label>
-    </div> -->
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  checked={wantsReminderEmails}
+                  id="wantsReminderEmails"
+                  on:change|preventDefault={() =>
+                    (wantsReminderEmails = !wantsReminderEmails)}
+                />
+                <label class="form-check-label" for="wantsReminderEmails">
+                  Send me reminder emails when patterns are ready to review
+                </label>
+              </div> -->
 
       <div v-if="state.errors.other" class="text-danger">
         {{ state.errors.other }}

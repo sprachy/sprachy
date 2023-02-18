@@ -19,7 +19,8 @@ export default defineEventHandler(async (event) => {
     '/api/login',
     '/api/signup',
     '/api/reset-password',
-    '/api/confirm-reset-password'
+    '/api/confirm-reset-password',
+    '/api/whoami'
   ]
   if (!session && event.path.startsWith('/api') && !publicApiRoutes.includes(event.path)) {
     throw createError({
