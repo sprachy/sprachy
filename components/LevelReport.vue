@@ -15,7 +15,7 @@ const { patternsAndProgress } = useSprachyApp()
 
 const itemRefs = [] as Ref<typeof LevelReportItem>[]
 
-const state = useLocalReactive({
+const state = defineState({
   get gainingPatterns() {
     return patternsAndProgress.filter((p) => p.id in props.experienceByPatternId)
   },

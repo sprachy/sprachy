@@ -17,7 +17,7 @@ const emit = defineEmits<{
   (e: "complete"): void
 }>()
 
-const state = useLocalReactive({
+const state = defineState({
   startLevel: -1,
   exerciseIndex: 0,
 
@@ -70,7 +70,6 @@ async function nextExercise() {
 
 
 <template>
-
   <Head>
     <template v-for="ex in state.exercises">
       <link v-if="'image' in ex" rel="preload" as="image" :href="ex.image" />
@@ -78,8 +77,8 @@ async function nextExercise() {
   </Head>
   <div class="practice">
     <div class="exercises">
-      <ExerciseView :key="props.pattern.id + '-' + state.exerciseIndex" :exercise="state.exercise"
-        @correct="nextExercise" :pattern="props.pattern" />
+      <ExerciseView :key="props.pattern.id + '-' + state.exerciseIndex" :exercise="state.exercise" @correct="nextExercise"
+        :pattern="props.pattern" />
     </div>
   </div>
 </template>

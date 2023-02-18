@@ -6,7 +6,7 @@ const props = defineProps<{
   charId: string
 }>()
 
-const state = useLocalReactive({
+const state = defineState({
   showProfile: false,
 
   get character() {

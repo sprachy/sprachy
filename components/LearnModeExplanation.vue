@@ -8,7 +8,7 @@ const emit = defineEmits<{
   (e: "complete"): void
 }>()
 
-const state = useLocalReactive({
+const state = defineState({
   get learning() {
     return spa.learning as LearningPattern
   }

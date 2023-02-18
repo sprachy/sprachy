@@ -17,7 +17,7 @@ defineExpose({
 
 const { speech, user } = useSprachyApp()
 
-const state = useLocalReactive({
+const state = defineState({
   playingSound: false,
   loading: true,
   audio: undefined as Base64Audio | undefined,

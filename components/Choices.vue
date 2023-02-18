@@ -22,7 +22,7 @@ const { speech, effects, user } = useSprachyApp()
 
 const choicesUl = ref<HTMLUListElement | null>(null)
 
-const state = useLocalReactive({
+const state = defineState({
   chosen: new Set<Choice>(),
   speechEnabled: false
 })

@@ -27,7 +27,7 @@ if (!pattern) {
   })
 }
 
-const state = useLocalReactive({
+const state = defineState({
   get activeTab() {
     if (route.path.endsWith("/dialogue")) {
       return "dialogue"

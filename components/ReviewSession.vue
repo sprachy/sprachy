@@ -12,7 +12,7 @@ const props = defineProps<{
   patterns: Pattern[]
 }>()
 
-const state = useLocalReactive({
+const state = defineState({
   startedReview: false,
   completedReview: false,
   showNext: false,
@@ -69,7 +69,6 @@ async function finish() {
 </script>
 
 <template>
-
   <Head>
     <template v-for="review in state.reviews">
       <Link v-if="'image' in review.exercise" rel="preload" as="image" :href="review.exercise.image" />

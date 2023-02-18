@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<{
   loading: false
 })
 
-const state = useLocalReactive({
+const state = defineState({
   icon: faVolumeHigh,
   interval: null as ReturnType<typeof setInterval> | null
 })

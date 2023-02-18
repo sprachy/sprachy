@@ -19,7 +19,7 @@ const emit = defineEmits<{
 
 const lineRef = ref(null) as Ref<HTMLDivElement | null>
 
-const state = useLocalReactive({
+const state = defineState({
   lineIndex: 0,
   readyToComplete: props.staticMode ? true : false,
 

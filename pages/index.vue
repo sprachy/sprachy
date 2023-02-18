@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-const state = useLocalReactive({
+const state = defineState({
   email: ""
 })
 
@@ -44,8 +44,8 @@ useHead({
             <form @submit.prevent="gotoSignup">
               <fieldset class="form-group">
                 <label for="email">Email</label>
-                <input v-model="state.email" name="email" id="email" type="email" class="form-control"
-                  placeholder="Email" required />
+                <input v-model="state.email" name="email" id="email" type="email" class="form-control" placeholder="Email"
+                  required />
               </fieldset>
               <button class="btn btn-sprachy btn-lg" type="submit">Sign up for Sprachy</button>
             </form>

@@ -8,7 +8,7 @@ const props = defineProps<{
   experience: number
 }>()
 
-const state = useLocalReactive({
+const state = defineState({
   shownExp: 0,
   prevLevel: levelFromExperience(props.experience),
 

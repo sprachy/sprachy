@@ -10,7 +10,7 @@ const props = defineProps<{
   expGained: number
 }>()
 
-const state = useLocalReactive({
+const state = defineState({
   renderExp: 0,
 
   get initialLevel() {

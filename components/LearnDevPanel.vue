@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const spa = useSprachyApp()
 
-const state = useLocalReactive({
+const state = defineState({
   openPanel: false
 })
 

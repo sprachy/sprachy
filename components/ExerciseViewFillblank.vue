@@ -19,7 +19,7 @@ const emit = defineEmits<{
   (e: "correct"): void
 }>()
 
-const state = useLocalReactive({
+const state = defineState({
   attempt: "",
   feedback: "",
   showingAnswer: false,

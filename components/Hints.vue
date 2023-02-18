@@ -5,7 +5,7 @@ defineProps<{
   hint: string
 }>()
 
-const state = useLocalReactive({
+const state = defineState({
   engaged: false
 })
 

@@ -10,7 +10,7 @@ defineProps<{
   staticMode?: boolean
 }>()
 
-const state = useLocalReactive({
+const state = defineState({
   finished: false
 })
 

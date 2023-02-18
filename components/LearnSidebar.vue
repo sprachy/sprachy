@@ -5,7 +5,7 @@ import LearnDevPanel from "./LearnDevPanel.vue"
 const spa = useSprachyApp()
 const { dev } = process
 
-const state = useLocalReactive({
+const state = defineState({
   get experience() {
     if (!spa.learning || !("pattern" in spa.learning))
       return null
@@ -29,7 +29,6 @@ const state = useLocalReactive({
     </template>
     <LearnDevPanel v-if="dev" />
   </div>
-
 </template>
 
 <style>

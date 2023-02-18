@@ -8,7 +8,7 @@ const props = defineProps<{
   pattern: Pattern
 }>()
 
-const state = useLocalReactive({
+const state = defineState({
   promptToBegin: true,
   readingExplanation: false,
 
