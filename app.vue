@@ -18,6 +18,7 @@ if (data.value?.status === 'user') {
 
 <template>
   <NuxtLayout>
+    <NuxtLoadingIndicator />
     <NuxtPage />
   </NuxtLayout>
 </template>
