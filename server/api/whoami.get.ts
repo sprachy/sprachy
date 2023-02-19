@@ -1,6 +1,6 @@
 import { db } from "~/server/db"
 import { sessions } from '~/server/sessions'
-import { ProgressSummary } from '~/lib/types'
+import type { ProgressSummary } from '~/lib/types'
 
 export default defineEventHandler(async function whoami(event): Promise<{ status: 'guest' } | { status: 'user', summary: ProgressSummary }> {
   const { session } = event.context

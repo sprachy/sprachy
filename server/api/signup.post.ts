@@ -1,10 +1,10 @@
 import * as z from 'zod'
 
-import { db } from "~/server/db"
 import { sessions } from "~/server/sessions"
-import { FaunaError } from "~/server/faunaUtil"
 import http from "~/server/http"
 import { env } from "~/server/env"
+import bcrypt from 'bcryptjs'
+import { prisma } from '~/server/prisma'
 
 const signupForm = z.object({
   email: z.string().email(),
@@ -20,8 +20,15 @@ const signupForm = z.object({
 export default defineEventHandler(async (event) => {
   const { email, password } = signupForm.parse(await readBody(event))
   try {
-    const user = await db.users.create({ email, password })
-    const progressItems = await db.progress.listAllFor(user.id)
+    const hashedPassword = bcrypt.hashSync(password, 10)
+
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword
+      }
+    })
+
     const sessionKey = await sessions.create(user.id)
 
     if (env.DISCORD_SIGNUP_WEBHOOK && !env.TESTING) {
@@ -32,24 +39,22 @@ export default defineEventHandler(async (event) => {
       }
 
       http.postJson(env.DISCORD_SIGNUP_WEBHOOK, params)
-      // const req = http.postJson(env.DISCORD_SIGNUP_WEBHOOK, params)
-      // platform.context.waitUntil(req)
     }
 
     sessions.setSessionCookie(event, sessionKey)
 
     return {
-      summary: { user, progressItems }
+      summary: { user, progressItems: [] }
     }
 
   } catch (err) {
-    if (err instanceof FaunaError && err.code === "instance not unique") {
-      throw createError({
-        statusCode: 409,
-        statusMessage: "Email is already in use",
-      })
-    } else {
-      throw err
-    }
+    // if (err instanceof FaunaError && err.code === "instance not unique") {
+    //   throw createError({
+    //     statusCode: 409,
+    //     statusMessage: "Email is already in use",
+    //   })
+    // } else {
+    throw err
+    // }
   }
 })

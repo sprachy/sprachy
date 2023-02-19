@@ -32,13 +32,6 @@ export type User = {
   lastExperienceGainAt?: number
   wantsReminderEmails?: boolean
   enableSpeechSynthesis?: boolean
-  customerId?: string
-  subscription?: {
-    priceId: PriceId
-    subscriptionId: string
-    customerId: string
-    subscribedAt: number
-  }
 }
 
 export type ProgressItem = {

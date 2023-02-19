@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { FetchError } from 'ofetch'
+
 definePageMeta({
   layout: false
 })
@@ -12,7 +14,7 @@ definePageMeta({
 // import type { PageData } from "./$types"
 
 const next = useRoute().params.next
-const state = reactive({
+const state = defineState({
   email: "",
   password: "",
   loading: false,
@@ -20,8 +22,6 @@ const state = reactive({
 })
 
 async function login() {
-  const api = useSprachyAPI()
-
   state.loading = true
   state.errors = {}
   try {
@@ -38,13 +38,9 @@ async function login() {
     } else {
       router.push("/learn")
     }
-  } catch (err: any) {
-    // if (err?.response?.status == 422) {
-    //   errors = errorsByField(err.response.data.errors)
-    // } else 
-
-    if (err?.response?.data?.message) {
-      state.errors.other = err.response.data.message
+  } catch (err) {
+    if (err instanceof FetchError) {
+      state.errors.other = err.data.message
     } else {
       throw err
     }
@@ -68,8 +64,7 @@ async function login() {
         <label for="email">Email address</label>
         <!-- svelte-ignore a11y-autofocus -->
         <input v-model="state.email" name="email" id="email" type="email"
-          :class="{ 'form-control': true, 'is-invalid': !!state.errors.email }" placeholder="Email" required
-          autofocus />
+          :class="{ 'form-control': true, 'is-invalid': !!state.errors.email }" placeholder="Email" required autofocus />
         <div v-if="state.errors.email" class="invalid-feedback">
           {{ state.errors.email }}
         </div>

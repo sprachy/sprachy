@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(uuid())
+  email         String         @unique
+  password      String
+  name          String         @default("")
+  progressItems ProgressItem[]
+}
+
+model ProgressItem {
+  id                   String @id @default(uuid())
+  userId               String
+  patternId            String
+  initiallyLearnedAt   Int
+  lastExperienceGainAt Int
+  lastLeveledAt        Int
+  experience           Int
+  User                 User   @relation(fields: [userId], references: [id])
+}
