@@ -1,7 +1,8 @@
+import { FetchError } from 'ofetch'
 import type { UseFetchOptions } from "nuxt/dist/app"
 import type { LoginForm } from "~/server/api/login.post"
 import type { ResetPasswordForm } from "~/server/api/reset-password.post"
-import { FetchError } from 'ofetch'
+import type { ConfirmResetPasswordForm } from "~/server/api/confirm-reset-password.post"
 
 class SprachyAPI {
   async get<T extends string>(url: T) {
@@ -20,6 +21,10 @@ class SprachyAPI {
 
   async sendPasswordResetEmail(opts: ResetPasswordForm) {
     return await $fetch(`/api/reset-password`, { method: 'POST', body: opts })
+  }
+
+  async confirmPasswordReset(opts: ConfirmResetPasswordForm) {
+    return await $fetch(`/api/confirm-reset-password`, { method: 'POST', body: opts })
   }
 }
 

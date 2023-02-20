@@ -41,8 +41,7 @@ async function sendPasswordResetEmail() {
 
       <fieldset class="form-group">
         <label for="email">Email address</label>
-        <!-- svelte-ignore a11y-autofocus -->
-        <input bind:value={email} name="email" id="email" type="email"
+        <input v-model="state.email" name="email" id="email" type="email"
           :class="{ 'form-control': true, 'is-invalid': !!state.errors.email }" placeholder="Email" required autofocus />
         <div v-if="state.errors.email" class="invalid-feedback">
           {{ state.errors.email }}

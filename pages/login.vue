@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { FetchError } from 'ofetch'
-
 definePageMeta({
   layout: false
 })
@@ -82,7 +80,6 @@ async function login() {
       <div class="forgot-password">
         <NuxtLink href="/reset-password">Forgot password?</NuxtLink>
       </div>
-
 
       <div v-if="state.errors.other" class="text-danger">
         {{ state.errors.other }}
