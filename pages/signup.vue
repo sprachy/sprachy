@@ -69,9 +69,9 @@ async function signup() {
   <main>
     <form @submit.prevent="signup">
       <div class="form-header">
-        <a href="/" class="header-logo">
+        <NuxtLink href="/" class="header-logo">
           <SprachyLogo />
-        </a>
+        </NuxtLink>
       </div>
 
       <fieldset class="form-group">
@@ -104,18 +104,18 @@ async function signup() {
       </fieldset>
 
       <!-- <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  checked={wantsReminderEmails}
-                  id="wantsReminderEmails"
-                  on:change|preventDefault={() =>
-                    (wantsReminderEmails = !wantsReminderEmails)}
-                />
-                <label class="form-check-label" for="wantsReminderEmails">
-                  Send me reminder emails when patterns are ready to review
-                </label>
-              </div> -->
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    checked={wantsReminderEmails}
+                    id="wantsReminderEmails"
+                    on:change|preventDefault={() =>
+                      (wantsReminderEmails = !wantsReminderEmails)}
+                  />
+                  <label class="form-check-label" for="wantsReminderEmails">
+                    Send me reminder emails when patterns are ready to review
+                  </label>
+                </div> -->
 
       <div v-if="state.errors.other" class="text-danger">
         {{ state.errors.other }}

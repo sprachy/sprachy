@@ -52,9 +52,9 @@ async function login() {
   <main>
     <form @submit.prevent="login">
       <div class="form-header">
-        <a href="/" class="header-logo">
+        <NuxtLink href="/" class="header-logo">
           <SprachyLogo />
-        </a>
+        </NuxtLink>
       </div>
 
       <h1>Sign in to Sprachy</h1>

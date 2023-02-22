@@ -11,9 +11,8 @@ defineProps<{
   fixed?: boolean
 }>()
 
-
 const { user, admin } = maybeLoggedIn()
-const { dev } = process
+const dev = process.dev
 
 const route = useRoute()
 </script>
@@ -38,9 +37,6 @@ const route = useRoute()
             <li class="nav-item">
               <NuxtLink class="nav-link" href="/patterns">Patterns</NuxtLink>
             </li>
-            <!-- <li v-if="user" class="nav-item">
-                <MuteToggle/>
-              </li> -->
             <li class="nav-item">
               <NuxtLink class="nav-link" aria-current="page" href="/faq">FAQ</NuxtLink>
             </li>
