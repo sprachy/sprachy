@@ -17,6 +17,7 @@ export default defineEventHandler(async (event) => {
   // Whitelist public API routes, require auth for the rest
   const publicApiRoutes = [
     '/api/login',
+    '/api/logout',
     '/api/signup',
     '/api/reset-password',
     '/api/confirm-reset-password',

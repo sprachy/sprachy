@@ -5,12 +5,15 @@
 // server middleware which gates the API endpoints.
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  // const user = await getCurrentUser()
+  const user = await getCurrentUser()
 
-  // console.log(user)
-  // 
-  // if (to.params.id === '1') {
-  //   return abortNavigation()
-  // }
-  // return navigateTo('/')
+  if (!user && to.meta.needsUser) {
+    if (!user) {
+      navigateTo('/login')
+    }
+  }
+
+  if (!user?.isAdmin && to.path.split('/')[1] === 'admin') {
+    navigateTo('/login')
+  }
 })

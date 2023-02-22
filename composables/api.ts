@@ -19,6 +19,10 @@ class SprachyAPI {
     return await $fetch('/api/login', { method: 'POST', body: opts })
   }
 
+  async logout() {
+    return await $fetch('/api/logout', { method: 'POST' })
+  }
+
   async sendPasswordResetEmail(opts: ResetPasswordForm) {
     return await $fetch(`/api/reset-password`, { method: 'POST', body: opts })
   }

@@ -11,6 +11,7 @@ defineProps<{
   fixed?: boolean
 }>()
 
+
 const { user, admin } = maybeLoggedIn()
 const { dev } = process
 
@@ -38,15 +39,14 @@ const route = useRoute()
               <NuxtLink class="nav-link" href="/patterns">Patterns</NuxtLink>
             </li>
             <!-- <li v-if="user" class="nav-item">
-              <MuteToggle/>
-            </li> -->
+                <MuteToggle/>
+              </li> -->
             <li class="nav-item">
               <NuxtLink class="nav-link" aria-current="page" href="/faq">FAQ</NuxtLink>
             </li>
 
             <li v-if="admin" class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Admin
               </a>
               <ul class="dropdown-menu">
@@ -63,8 +63,7 @@ const route = useRoute()
             </li>
 
             <li v-if="user" class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img v-if="user.pfp" :src="user.pfp" :alt="user.email" class="avatar" />
                 <img v-else src="~/assets/squirrel.webp" :alt="user.email" class="avatar" />
               </a>

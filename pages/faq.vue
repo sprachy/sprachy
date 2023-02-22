@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { md } from "~/lib/util"
-import _ from "lodash"
-import Sprachdown from "~/components/Sprachdown.vue"
-import PublicPage from "~/components/PublicPage.vue"
 
 const faq = md`
 # Frequently asked questions
@@ -50,17 +47,6 @@ Here's how to type them on an English keyboard.
 
 TODO expand this section for other platforms
   `
-
-
-useHead({
-  title: "FAQ - Sprachy",
-  meta: [
-    {
-      name: 'description',
-      content: "Frequently asked questions"
-    }
-  ]
-})
 </script>
 
 <template>
@@ -68,9 +54,15 @@ useHead({
     <Sprachdown :source="faq" />
   </main>
 </template>
+<!-- <PublicPage
+  title="FAQ"
+  canonicalPath="/faq"
+  cardDesc="Frequently asked questions"
+>
+</PublicPage> -->
 
 <style scoped>
-.container h3 {
+.container :global(h3) {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   font-size: 1.4rem;
