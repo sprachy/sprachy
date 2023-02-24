@@ -8,7 +8,6 @@ import PatternItem from "./PatternItem.vue"
     <ul>
       <PatternItem v-for="pattern in sprachdex.publishedPatterns.filter(p => !p.hidden)" :pattern="pattern" />
     </ul>
-    <p><em>More patterns coming soon!</em></p>
   </div>
 </template>
 

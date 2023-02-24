@@ -19,12 +19,12 @@ const progress = null
       <div class="pattern-inner">
         <div class="level-part">
           <!-- <div class="levelbar">
-            {#each { length: 5 } as _, i}
-            <div class:pip={true} class:filled={level>= i + 1} />
-              {/each}
-            </div>
-            Lv. {level}
-          </div> -->
+              {#each { length: 5 } as _, i}
+              <div class:pip={true} class:filled={level>= i + 1} />
+                {/each}
+              </div>
+              Lv. {level}
+            </div> -->
           <div class="text-part">
             <h6>
               {{ props.pattern.title }}

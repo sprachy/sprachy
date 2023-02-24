@@ -21,9 +21,9 @@ export default defineEventHandler(async (event) => {
     '/api/signup',
     '/api/reset-password',
     '/api/confirm-reset-password',
-    '/api/whoami'
+    '/api/whoami',
   ]
-  if (!session && event.path.startsWith('/api') && !publicApiRoutes.includes(event.path)) {
+  if (!session && event.path.startsWith('/api') && !publicApiRoutes.includes(event.path) && !event.path.startsWith('/api/_content')) {
     throw createError({
       statusCode: 401,
       statusMessage: "Unauthorized",

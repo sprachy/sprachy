@@ -66,15 +66,15 @@ import SiteHeader from "~/components/SiteHeader.vue"
   <SiteHeader />
   <slot />
   <!-- 
-{#if initializing || $navigating || loadingPromises.size > 0}
-  <PreloadingIndicator />
-{/if}
+    {#if initializing || $navigating || loadingPromises.size > 0}
+      <PreloadingIndicator />
+    {/if}
 
-{#if !initializing}
-  <SiteLayout>
-    <slot />
-  </SiteLayout>
-{/if} -->
+    {#if !initializing}
+      <SiteLayout>
+        <slot />
+      </SiteLayout>
+    {/if} -->
 </template>
 
 <style scoped>
