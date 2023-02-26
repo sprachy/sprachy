@@ -41,7 +41,7 @@ const props = defineProps<{
   text-align: center;
 }
 
-.message:not(.flip) :global(.avatar img) {
+.message:not(.flip) :deep(.avatar img) {
   margin-top: calc(4px - 0.125rem);
   width: 50px;
   height: 50px;
@@ -82,7 +82,7 @@ const props = defineProps<{
   flex-direction: row-reverse;
 }
 
-.message.flip :global(.avatar img) {
+.message.flip :deep(.avatar img) {
   margin-top: calc(4px - 0.125rem);
   width: 50px;
   height: 50px;

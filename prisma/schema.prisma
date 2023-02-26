@@ -16,6 +16,7 @@ model User {
   password      String
   name          String         @default("")
   progressItems ProgressItem[]
+  isAdmin       Boolean        @default(false)
 }
 
 model ProgressItem {

@@ -8,9 +8,7 @@ const props = defineProps<{
   inlines?: boolean
 }>()
 
-// Hacky! https://stackoverflow.com/a/71112772/16811479
-const slots = useSlots() as any
-const text = slots.default!()[0].children.default!()[0].children as string
+const text = useSlotText()
 
 const state = defineState({
   get headerRow() {
@@ -58,7 +56,7 @@ const state = defineState({
   border-bottom: none;
 }
 
-.ltable :global(p) {
+.ltable :deep(p) {
   margin: 0;
 }
 </style>

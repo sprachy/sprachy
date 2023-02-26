@@ -1,11 +1,23 @@
 <script setup lang="ts">
-import Markdown from 'vue3-markdown-it'
 // import SprachdownHTML from "./SprachdownHTML.svelte"
+import MarkdownIt from 'markdown-it'
+const md = new MarkdownIt()
 
 const props = defineProps<{
   source: string
   inline?: boolean
 }>()
+
+const state = defineState({
+  get renderedMarkdown() {
+    if (props.inline) {
+      return md.renderInline(props.source)
+    } else {
+      return md.render(props.source)
+    }
+  }
+})
+
 
   // const parsedSource = source.replace(/=[^=\n]+=/, (substring) => {
   //   const highlight = substring.slice(1, -1)
@@ -14,18 +26,6 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div :class="{ markdown: true, 'markdown-inline': props.inline }">
-    <Markdown :source="props.source" />
-  </div>
+  <span class="markdown" v-if="props.inline" v-html="state.renderedMarkdown" />
+  <div class="markdown" v-else v-html="state.renderedMarkdown" />
 </template>
-
-<style scoped>
-.markdown-inline {
-  display: inline;
-}
-
-.markdown-inline p {
-  margin: 0;
-  display: inline;
-}
-</style>

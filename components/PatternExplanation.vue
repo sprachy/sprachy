@@ -17,16 +17,16 @@ defineProps<{ pattern: Pattern }>()
   line-height: 28px;
 }
 
-.explanation :global(strong) {
+.explanation :deep(strong) {
   color: rgb(28, 176, 246);
 }
 
-.explanation :global(.btn) {
+.explanation :deep(.btn) {
   margin-right: 0.5rem;
 }
 
 @media only screen and (max-width: 768px) {
-  .explanation :global(table) {
+  .explanation :deep(table) {
     font-size: 90%;
   }
 }

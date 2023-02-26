@@ -7,8 +7,8 @@ type Choice = MultipleChoiceExercise["choices"][0]
 
 const props = withDefaults(defineProps<{
   choices: Choice[]
-  complete: boolean
-  hint: string
+  complete?: boolean
+  hint?: string
 }>(), {
   complete: false,
   hint: ""
@@ -116,5 +116,9 @@ function speakChoice(choice: Choice) {
 
 .choices li button.incorrect {
   background-color: #f2dede;
+}
+
+span.number {
+  margin-right: 0.25rem;
 }
 </style>

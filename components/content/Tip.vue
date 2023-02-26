@@ -22,11 +22,11 @@ const props = withDefaults(defineProps<{
   color: #333;
 }
 
-.tip :global(strong) {
+.tip :deep(strong) {
   color: #64b5f6 !important;
 }
 
-.tip :global(p):last-child {
+.tip :deep(p):last-child {
   margin-bottom: 0;
 }
 </style>

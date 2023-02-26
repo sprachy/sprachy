@@ -1,17 +1,12 @@
 <script setup lang="ts">
-// import _ from "lodash"
-// import sprachy from "~/lib/sprachy"
-// import { dev } from "$app/environment"
-// import { page } from "$app/stores"
 // import defaultProfileImage from "$"
 // import MuteToggle from "./MuteToggle.svelte"
-
 
 defineProps<{
   fixed?: boolean
 }>()
 
-const { user, admin } = maybeLoggedIn()
+const currentUser = await getCurrentUser()
 const dev = process.dev
 
 const route = useRoute()
@@ -31,7 +26,7 @@ const route = useRoute()
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li v-if="user" class="nav-item">
+            <li v-if="currentUser" class="nav-item">
               <NuxtLink class="nav-link" aria-current="page" href="/learn">Learn</NuxtLink>
             </li>
             <li class="nav-item">
@@ -41,34 +36,35 @@ const route = useRoute()
               <NuxtLink class="nav-link" aria-current="page" href="/faq">FAQ</NuxtLink>
             </li>
 
-            <li v-if="admin" class="nav-item dropdown">
+            <li v-if="currentUser?.isAdmin" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Admin
               </a>
               <ul class="dropdown-menu">
+
                 <li>
-                  <NuxtLink class="dropdown-item" href="/admin/users">Users</NuxtLink>
+                  <NuxtLink class="dropdown-item" href="/admin/exercises">Exercises</NuxtLink>
                 </li>
                 <li>
-                  <NuxtLink class="dropdown-item" href="/admin/testall">Testall</NuxtLink>
+                  <!-- <NuxtLink class="dropdown-item" href="/admin/users">Users</NuxtLink> -->
                 </li>
                 <li>
-                  <NuxtLink class="dropdown-item" href="/admin/voicetest">Voicetest</NuxtLink>
+                  <!-- <NuxtLink class="dropdown-item" href="/admin/testall">Testall</NuxtLink> -->
+                </li>
+                <li>
+                  <!-- <NuxtLink class="dropdown-item" href="/admin/voicetest">Voicetest</NuxtLink> -->
                 </li>
               </ul>
             </li>
 
-            <li v-if="user" class="nav-item dropdown">
+            <li v-if="currentUser" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img v-if="user.pfp" :src="user.pfp" :alt="user.email" class="avatar" />
-                <img v-else src="~/assets/squirrel.webp" :alt="user.email" class="avatar" />
+                <img v-if="currentUser.pfp" :src="currentUser.pfp" :alt="currentUser.email" class="avatar" />
+                <img v-else src="~/assets/squirrel.webp" :alt="currentUser.email" class="avatar" />
               </a>
               <ul class="dropdown-menu">
-                <li v-if="user.username">
-                  <NuxtLink class="dropdown-item" :href="`/user/${user.username}`">Profile</NuxtLink>
-                </li>
-                <li v-else>
-                  <NuxtLink class="dropdown-item" href="/profile/setup">Profile</NuxtLink>
+                <li v-if="currentUser.username">
+                  <NuxtLink class="dropdown-item" :href="`/user/${currentUser.username}`">Profile</NuxtLink>
                 </li>
                 <li>
                   <NuxtLink class="dropdown-item" href="/settings">Settings</NuxtLink>
@@ -80,7 +76,7 @@ const route = useRoute()
             </li>
 
             <!-- Login and signup links if not already logged in -->
-            <template v-if="!user">
+            <template v-if="!currentUser">
               <li class="nav-item">
                 <NuxtLink class="nav-link" aria-current="page"
                   :href="route.path === '/' ? '/login' : `/login?next=${route.fullPath}`">Login</NuxtLink>
@@ -141,7 +137,7 @@ header.fixed {
   align-items: center;
 } */
 
-header :global(.toggle-mute) {
+header :deep(.toggle-mute) {
   width: 47px;
   color: #666;
 }

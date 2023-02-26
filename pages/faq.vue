@@ -62,7 +62,7 @@ TODO expand this section for other platforms
 </PublicPage> -->
 
 <style scoped>
-.container :global(h3) {
+.container :deep(h3) {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   font-size: 1.4rem;

@@ -18,18 +18,18 @@ import PatternItem from "./PatternItem.vue"
   padding-left: 0;
 }
 
-.pattern-index ul :global(li) {
+.pattern-index ul :deep(li) {
   flex-basis: 33%;
 }
 
 @media only screen and (max-width: 1200px) {
-  .pattern-index ul :global(li) {
+  .pattern-index ul :deep(li) {
     flex-basis: 50%;
   }
 }
 
 @media only screen and (max-width: 768px) {
-  .pattern-index ul :global(li) {
+  .pattern-index ul :deep(li) {
     flex-basis: 100%;
   }
 }

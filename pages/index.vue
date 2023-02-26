@@ -165,7 +165,7 @@ section.neat-parts {
   text-align: center;
 }
 
-.neat-parts-card :global(svg) {
+.neat-parts-card :deep(svg) {
   margin: 1rem;
   color: var(--sprachy-primary);
 }

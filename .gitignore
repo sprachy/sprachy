@@ -9,3 +9,4 @@ dist
 .mf
 prisma/dev.db
 prisma/dev.db-journal
+public/val2014

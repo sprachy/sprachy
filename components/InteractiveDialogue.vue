@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import _ from "lodash"
 import type { Story, ReadingLine } from "~/lib/Pattern"
 import StoryLineReading from "~/components/StoryLineReading.vue"
 import StoryLineChoice from "~/components/StoryLineChoice.vue"
@@ -17,7 +16,7 @@ const emit = defineEmits<{
   (e: "complete"): void
 }>()
 
-const lineRef = ref(null) as Ref<HTMLDivElement | null>
+const lineRef = ref(null) as Ref<HTMLDivElement[] | null>
 
 const state = defineState({
   lineIndex: 0,
@@ -95,7 +94,7 @@ async function nextLine() {
   if (lineRef.value) {
     // This is necessary for the window keydown event listener
     // to fire for the next line on firefox
-    lineRef.value.querySelector("input")?.blur()
+    lineRef.value[0].querySelector("input")?.blur()
   }
   if (state.lineIndex < props.story.length - 1) {
     state.lineIndex += 1

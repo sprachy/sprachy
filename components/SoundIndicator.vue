@@ -47,7 +47,7 @@ watchEffect(() => {
   margin-right: 0.2rem;
 }
 
-.SoundIndicator :global(svg) {
+.SoundIndicator :deep(svg) {
   cursor: pointer;
   color: #666;
 }

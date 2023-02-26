@@ -8,9 +8,6 @@ import type { FaunaDocument } from "./faunaUtil"
 class FaunaConnector {
   _client?: faunadb.Client
   get client() {
-    if (!this._client) {
-      this._client = makeFaunaClient()
-    }
     return this._client
   }
 }

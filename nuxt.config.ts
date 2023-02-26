@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
-    '@nuxt/content'
+    '@nuxt/content',
   ],
   app: {
     head: {
@@ -40,6 +40,7 @@ export default defineNuxtConfig({
     }
   },
   routeRules: {
+    '/learn': { ssr: false },
     '/admin/**': { ssr: false }
   }
 })

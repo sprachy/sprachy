@@ -1,6 +1,6 @@
-import { db } from "~/server/db"
 import { sessions } from '~/server/sessions'
-import type { ProgressSummary } from '~/lib/types'
+import type { ProgressItem, ProgressSummary } from '~/lib/types'
+import { prisma } from "../prisma"
 
 export default defineEventHandler(async function whoami(event): Promise<{ status: 'guest' } | { status: 'user', summary: ProgressSummary }> {
   const { session } = event.context
@@ -9,10 +9,21 @@ export default defineEventHandler(async function whoami(event): Promise<{ status
     return { status: 'guest' }
   }
 
-  const [user, progressItems] = await Promise.all([
-    db.users.get(session.userId),
-    db.progress.listAllFor(session.userId)
-  ])
+  const user = await prisma.user.findUnique({
+    where: {
+      id: session.userId
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      isAdmin: true
+    }
+  })
+
+  // TODO
+  const progressItems: ProgressItem[] = []
+
 
   if (!user) {
     // Invalid session, e.g. when the user was deleted

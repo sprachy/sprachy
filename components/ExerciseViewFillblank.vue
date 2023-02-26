@@ -151,7 +151,7 @@ async function checkAnswer() {
 </template>
 
 <style scoped>
-.translation :global(strong) {
+.translation :deep(strong) {
   color: #86abff;
 }
 
