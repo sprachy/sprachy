@@ -9,7 +9,7 @@ const resetPasswordForm = z.object({
   email: z.string()
 })
 
-export type ResetPasswordForm = z.infer<typeof resetPasswordForm>
+export type ResetPasswordSchema = z.infer<typeof resetPasswordForm>
 
 export default defineEventHandler(async (event) => {
   const { email } = resetPasswordForm.parse(await readBody(event))

@@ -11,7 +11,6 @@ import { sprachdex } from "~/lib/sprachdex"
 // TODO: deduplicate with layout
 
 const route = useRoute()
-console.log(route.params.pattern)
 </script>
 
 <template>

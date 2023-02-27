@@ -47,7 +47,7 @@ export class SpeechSystem {
     // Strip any unspeakable characters (e.g. fillblank markup or emoji)
     let text = opts.text.replace(/[^a-zA-Z0-9,.!?:;üäöß ]/g, "")
 
-    const { audioContent } = await this.spa.api.synthesizeSpeech({
+    const { audioContent } = await api.synthesizeSpeech({
       input: {
         text: text
       },

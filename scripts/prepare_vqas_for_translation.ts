@@ -1,5 +1,4 @@
 import fs from 'fs/promises'
-import { uniq, sampleSize, shuffle } from 'lodash-es'
 
 type VQADataset = {
   info: {
@@ -43,38 +42,31 @@ type VQAAnnotationsDataset = VQADataset & {
 }
 
 async function main() {
-  const questionsDataset: VQAQuestionsDataset = JSON.parse(
+  const vqaDataset: VQAQuestionsDataset = JSON.parse(
     await fs.readFile('data/v2_OpenEnded_mscoco_val2014_questions.json', 'utf-8'))
   const annotationsDataset: VQAAnnotationsDataset = JSON.parse(await fs.readFile('data/v2_mscoco_val2014_annotations.json', 'utf-8'))
 
-  const exercises: any[] = []
+  const vqas: any[] = []
 
-  const allPossibleAnswers = uniq(annotationsDataset.annotations.flatMap(ann => ann.answers.map(a => a.answer)))
-
-  for (let i = 0; i < 1000; i++) {
-    const question = questionsDataset.questions[i]
+  for (let i = 0; i < vqaDataset.questions.length; i++) {
+    const origVQA = vqaDataset.questions[i]
     const annotation = annotationsDataset.annotations[i]
 
-    let choices: string[] = []
-    if (annotation.question_type === 'yes/no') {
-      choices = ['yes', 'no']
-    } else {
-      const incorrectAnswers = sampleSize(allPossibleAnswers, 3)
-      choices = shuffle([annotation.multiple_choice_answer, ...incorrectAnswers])
+    const question = {
+      questionId: origVQA.question_id,
+      imageId: origVQA.image_id,
+      question: origVQA.question,
+      answer: annotation.multiple_choice_answer
     }
 
-    const exercise = {
-      questionId: question.question_id,
-      imageId: question.image_id,
-      question: question.question,
-      answer: annotation.multiple_choice_answer,
-      choices: choices,
-    }
+    vqas.push(question)
 
-    exercises.push(exercise)
+    if (i % 1000 === 0) {
+      console.log(`${i} / ${vqaDataset.questions.length}`)
+    }
   }
 
-  await fs.writeFile('data/vqa-exercises-en.json', JSON.stringify(exercises, null, 2))
+  await fs.writeFile('data/untranslated-vqas.json', JSON.stringify(vqas, null, 2))
 }
 
 main()

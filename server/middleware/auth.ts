@@ -23,6 +23,12 @@ export default defineEventHandler(async (event) => {
     '/api/confirm-reset-password',
     '/api/whoami',
   ]
+
+  // Allow non-authed translation for scripts
+  if (process.dev) {
+    publicApiRoutes.push('/api/translate')
+  }
+
   if (!session && event.path.startsWith('/api') && !publicApiRoutes.includes(event.path) && !event.path.startsWith('/api/_content')) {
     throw createError({
       statusCode: 401,

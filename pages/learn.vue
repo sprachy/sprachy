@@ -2,7 +2,7 @@
 import mlquestions from "~/assets/mlquestions.json"
 import Choices from "~/components/Choices.vue"
 
-const { api, speech } = useSprachyApp()
+const { speech } = useSprachyApp()
 
 const questionsDataset = mlquestions
 const savedQuestionId = localStorage.getItem("mlLastQuestionId")
@@ -33,8 +33,9 @@ const state = defineState({
   }
 })
 
-function toNextQuestion() {
+async function toNextQuestion() {
   state.questionIndex += 1
+  await prepareNext()
 }
 
 watch(() => state.currentQuestion, () => {

@@ -15,7 +15,7 @@ const confirmResetPasswordForm = z.object({
   path: ["confirmPassword"]
 })
 
-export type ConfirmResetPasswordForm = z.infer<typeof confirmResetPasswordForm>
+export type ConfirmResetPasswordSchema = z.infer<typeof confirmResetPasswordForm>
 
 export default defineEventHandler(async (event) => {
   const { token, newPassword } = confirmResetPasswordForm.parse(await readBody(event))

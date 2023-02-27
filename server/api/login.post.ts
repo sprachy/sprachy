@@ -10,7 +10,7 @@ const loginForm = z.object({
   password: z.string()
 })
 
-export type LoginForm = z.infer<typeof loginForm>
+export type LoginSchema = z.infer<typeof loginForm>
 
 export default defineEventHandler(async (event) => {
   const { email, password } = loginForm.parse(await readBody(event))

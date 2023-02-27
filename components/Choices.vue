@@ -68,7 +68,7 @@ function enableSpeech() {
 }
 
 function speakChoice(choice: Choice) {
-  if (user.enableSpeechSynthesis && state.speechEnabled) {
+  if (state.speechEnabled) {
     speech.say({ from: "narrator", message: choice.text })
   }
 }

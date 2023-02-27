@@ -27,7 +27,6 @@ function calculateTextCommonalityScore(text: string, countByWord: Map<string, nu
 async function main() {
   const wordlist = await readGoetheWordlist()
 
-  console.log(wordlist)
 
   // console.log(wordlist)
 

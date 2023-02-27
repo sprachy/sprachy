@@ -1,8 +1,9 @@
 import { FetchError } from 'ofetch'
 import type { UseFetchOptions } from "nuxt/dist/app"
-import type { LoginForm } from "~/server/api/login.post"
-import type { ResetPasswordForm } from "~/server/api/reset-password.post"
-import type { ConfirmResetPasswordForm } from "~/server/api/confirm-reset-password.post"
+import type { LoginSchema } from "~/server/api/login.post"
+import type { ResetPasswordSchema } from "~/server/api/reset-password.post"
+import type { ConfirmResetPasswordSchema } from "~/server/api/confirm-reset-password.post"
+import type { VoiceSynthesisSchema } from '~/server/api/synthesize.post'
 
 class SprachyAPI {
   async get<T extends string>(url: T) {
@@ -15,7 +16,7 @@ class SprachyAPI {
     return data.value!
   }
 
-  async login(opts: LoginForm) {
+  async login(opts: LoginSchema) {
     return await $fetch('/api/login', { method: 'POST', body: opts })
   }
 
@@ -23,12 +24,16 @@ class SprachyAPI {
     return await $fetch('/api/logout', { method: 'POST' })
   }
 
-  async sendPasswordResetEmail(opts: ResetPasswordForm) {
+  async sendPasswordResetEmail(opts: ResetPasswordSchema) {
     return await $fetch(`/api/reset-password`, { method: 'POST', body: opts })
   }
 
-  async confirmPasswordReset(opts: ConfirmResetPasswordForm) {
+  async confirmPasswordReset(opts: ConfirmResetPasswordSchema) {
     return await $fetch(`/api/confirm-reset-password`, { method: 'POST', body: opts })
+  }
+
+  async synthesizeSpeech(opts: VoiceSynthesisSchema) {
+    return await $fetch(`/api/synthesize`, { method: 'POST', body: opts })
   }
 }
 
