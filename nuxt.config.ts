@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   modules: [
     '@nuxt/content',
+    'nuxt-vitest'
   ],
   app: {
     head: {
