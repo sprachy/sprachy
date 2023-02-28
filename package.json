@@ -10,7 +10,8 @@
     "td": "npm run build && wrangler publish --env staging",
     "faunadb": "docker run -d --rm --name fauna -p 8443:8443 -p 8084:8084 -v devdb:/var/lib/fauna fauna/faunadb",
     "initdb": "cross-env NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd --no-override node --loader ts-node/esm scripts/initdb.ts",
-    "upgrade": "npm-upgrade"
+    "upgrade": "npm-upgrade",
+    "test": "vitest"
   },
   "devDependencies": {
     "@nuxt/content": "^2.4.3",
@@ -19,7 +20,9 @@
     "miniflare": "^2.12.1",
     "npm-upgrade": "^3.1.0",
     "nuxt": "^3.2.2",
+    "pos": "^0.4.2",
     "ts-node": "^10.9.1",
+    "vitest": "^0.29.1",
     "wrangler": "^2.11.0"
   },
   "dependencies": {
@@ -45,6 +48,7 @@
     "faunadb": "^4.8.0",
     "lodash-es": "^4.17.21",
     "markdown-it": "^13.0.1",
+    "num-words-de": "^1.0.5",
     "object-to-formdata": "^4.4.2",
     "prisma": "^4.10.1",
     "spark-md5": "^3.0.2",

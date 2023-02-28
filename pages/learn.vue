@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import mlquestions from "~/assets/mlquestions.json"
+import exercises from "~/assets/vqa-exercises.json"
 import Choices from "~/components/Choices.vue"
 
 const { speech } = useSprachyApp()
 
-const questionsDataset = mlquestions
 const savedQuestionId = localStorage.getItem("mlLastQuestionId")
 
-let initialQuestionIndex = questionsDataset.findIndex(
+let initialQuestionIndex = exercises.findIndex(
   (q) => q.questionId.toString() === savedQuestionId
 )
 initialQuestionIndex = initialQuestionIndex === -1 ? 0 : initialQuestionIndex
@@ -16,13 +15,13 @@ const state = defineState({
   questionIndex: initialQuestionIndex,
 
   get currentQuestion() {
-    return questionsDataset[this.questionIndex]
+    return exercises[this.questionIndex]
   },
 
   get choices() {
-    return this.currentQuestion.choices.map((c) => ({
+    return this.currentQuestion.choices.map(c => ({
       text: c.de,
-      correct: c.de === this.currentQuestion.answer.de,
+      correct: c.correct
     }))
   },
 
@@ -47,7 +46,7 @@ watch(() => state.currentQuestion, () => {
 })
 
 async function prepareNext() {
-  const nextQuestion = questionsDataset[state.questionIndex + 1]
+  const nextQuestion = exercises[state.questionIndex + 1]
   if (!nextQuestion) return
 
   speech.preload({

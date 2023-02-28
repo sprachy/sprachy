@@ -52,3 +52,17 @@ export type ProgressSummary = {
   user: User
   progressItems: ProgressItem[]
 }
+
+export type VQAExercise = {
+  questionId: number
+  imageId: number
+  question: {
+    en: string
+    de: string
+  }
+  choices: {
+    en: string
+    de: string
+    correct: boolean
+  }[]
+}

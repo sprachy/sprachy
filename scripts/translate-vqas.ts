@@ -21,6 +21,8 @@ async function main() {
   let amountTranslated = translatedVQAs.length
   const remainingUntranslated = englishVQAs.slice(amountTranslated)
 
+  // TODO: chunk these by imageId instead and translate all text related to an image together
+  // may improve contextual awareness
   for (const vqas of chunk(remainingUntranslated, 100)) {
     const texts = vqas.map(vqa => vqa.question + "\n" + vqa.answer)
 
