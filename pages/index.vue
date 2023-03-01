@@ -8,6 +8,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+const currentUser = await getCurrentUser()
+const router = useRouter()
+
+if (currentUser) {
+  router.replace("/learn")
+} else {
+  router.replace("/login")
+}
+
 const state = defineState({
   email: ""
 })
