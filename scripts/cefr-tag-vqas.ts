@@ -51,7 +51,9 @@ async function main() {
     let vqaIndex = 0
     let collectedResults: DAFlexResult[] = []
     for (const result of daflex) {
-      collectedResults.push(result)
+      if (result.token !== 'END') {
+        collectedResults.push(result)
+      }
       if (result.token === 'END' || result === daflex[daflex.length - 1]) {
         taggedVQAs.push({
           ...batchVQAs[vqaIndex],

@@ -1,23 +1,9 @@
 import fs from 'fs/promises'
 import { groupBy, sampleSize, sortBy, uniq, uniqBy } from 'lodash-es'
-import type { VQAExercise } from '../lib/types'
 import { getMultipleChoiceAnswerType, numToWord } from '../lib/languageUtil'
 
-type TranslatedVQA = {
-  questionId: number
-  imageId: number
-  question: {
-    en: string
-    de: string
-  }
-  answer: {
-    en: string
-    de: string
-  }
-}
-
 async function main() {
-  const vqas = JSON.parse(await fs.readFile('data/translated-vqas.json', 'utf-8')) as TranslatedVQA[]
+  const vqas = JSON.parse(await fs.readFile('data/sorted-vqas.json', 'utf-8')) as TranslatedVQA[]
 
   const annotatedVQAs = vqas.map(v => {
     return {
@@ -35,6 +21,7 @@ async function main() {
 
   let i = 0
   const exercises: VQAExercise[] = annotatedVQAs.map((vqa) => {
+    console.log(vqa.question.de + ' ' + vqa.answer.de)
     const answer = { en: vqa.answer.en, de: vqa.answer.de, correct: true }
     const possibleWrongAnswers = possibleAnswersByType[vqa.answerType].filter((answer) => answer.en !== vqa.answer.en)
     const wrongAnswers = sampleSize(possibleWrongAnswers, 3).map(ans => ({ en: ans.en, de: ans.de, correct: false }))

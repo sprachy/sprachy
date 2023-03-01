@@ -74,13 +74,24 @@ declare global {
     }
   }
 
+
+  /** 
+   * "The CEFR organises language proficiency in six levels, A1 to C2, 
+   * which can be regrouped into three broad levels: Basic User, Independent 
+   * User and Proficient User, and that can be further subdivided according 
+   * to the needs of the local context."
+   **/
+  type CEFRLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
+
   /**
    * Result from a DAFlex POST request, after parsing the statistics string.
    * Used for tagging VQAs with CEFR levels.
    * https://cental.uclouvain.be/cefrlex/daflex/analyse/
    */
-  type DAFlexResult = {
-    cefr: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
+  type DAFlexResult = DAFlexResultValid | DAFlexResultInvalid
+
+  type DAFlexResultValid = {
+    cefr: CEFRLevel
     lemma: string
     pos: string
     sense: string
@@ -92,6 +103,15 @@ declare global {
       freq_C1: number
       freq_C2: number
     }
+    token: string
+  }
+
+  type DAFlexResultInvalid = {
+    cefr: 'IGNORED' | 'UNKNOWN'
+    lemma: string
+    pos: string
+    sense: string
+    statistics: null
     token: string
   }
 
