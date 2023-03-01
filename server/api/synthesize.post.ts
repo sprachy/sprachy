@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
   if (audioContent) {
     return { audioContent }
   } else {
-    const res = await http.postJson(`https://texttospeech.googleapis.com/v1/text:synthesize`, options, {
+    const res = await http.post(`https://texttospeech.googleapis.com/v1/text:synthesize`, options, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }

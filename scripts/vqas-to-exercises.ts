@@ -1,7 +1,7 @@
 import fs from 'fs/promises'
 import { groupBy, sampleSize, sortBy, uniq, uniqBy } from 'lodash-es'
-import type { VQAExercise } from '~/lib/types'
-import { getMultipleChoiceAnswerType, numToWord } from '~/lib/languageUtil'
+import type { VQAExercise } from '../lib/types'
+import { getMultipleChoiceAnswerType, numToWord } from '../lib/languageUtil'
 
 type TranslatedVQA = {
   questionId: number

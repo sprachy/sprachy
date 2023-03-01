@@ -41,7 +41,7 @@ namespace http {
     })
   }
 
-  export async function post(url: string, body: any, options: HttpOptions = {}) {
+  export async function postForm(url: string, body: any, options: HttpOptions = {}) {
     return http.request(url, {
       body: serialize(body, {}, new URLSearchParams()),
       method: 'POST',
@@ -51,7 +51,7 @@ namespace http {
     })
   }
 
-  export async function postJson(url: string, body: any, options: HttpOptions = {}) {
+  export async function post(url: string, body: any, options: HttpOptions = {}) {
     return http.request(url, {
       body: JSON.stringify(body),
       method: 'POST',

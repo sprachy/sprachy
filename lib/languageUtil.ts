@@ -10,6 +10,13 @@ export function deumlautify(str: string) {
   return str.replace(/ä/, 'a').replace(/ü/, 'u').replace(/ö/, 'o')
 }
 
+/**
+ * Make the first letter of a string uppercase.
+ */
+export function titleCase(str: string) {
+  return str[0].toUpperCase() + str.slice(1)
+}
+
 /** 
  * Given a number, returns a textual representation
  * of that number in German
@@ -37,7 +44,7 @@ export type MultipleChoiceAnswerType = 'yes/no' | 'numeric' | string
  * "What is the man doing? snowboarding"
  */
 export function getMultipleChoiceAnswerType(qatext: string): MultipleChoiceAnswerType {
-  const answer = qatext.split(' ').slice(-1)[0]
+  const answer = qatext.split('? ').slice(-1)[0]
 
   if (answer === 'yes' || answer === 'no') {
     return 'yes/no'

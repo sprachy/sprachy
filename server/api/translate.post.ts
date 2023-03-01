@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
   if (cached) {
     return { translations: cached.translations }
   } else {
-    const res = await http.postJson(`https://translate.googleapis.com/v3beta1/projects/140437958737:translateText`, googleOptions, {
+    const res = await http.post(`https://translate.googleapis.com/v3beta1/projects/140437958737:translateText`, googleOptions, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }

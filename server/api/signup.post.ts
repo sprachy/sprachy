@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
         content: `Yuh new learny person **${email}** appeared! ❤️🐿️`,
       }
 
-      http.postJson(env.DISCORD_SIGNUP_WEBHOOK, params)
+      http.post(env.DISCORD_SIGNUP_WEBHOOK, params)
     }
 
     sessions.setSessionCookie(event, sessionKey)

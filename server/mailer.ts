@@ -42,7 +42,7 @@ export class Mailer {
     if (env.TESTING) {
       this.testMailsSent.push(msg)
     } else if (env.MAILGUN_SECRET) {
-      await http.post("https://api.mailgun.net/v3/mg.sprachy.com/messages", body, {
+      await http.postForm("https://api.mailgun.net/v3/mg.sprachy.com/messages", body, {
         headers: {
           Authorization: `Basic ${btoa(`api:${env.MAILGUN_SECRET}`)}`
         }
