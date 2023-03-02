@@ -1,7 +1,5 @@
 import fs from 'fs/promises'
-import { chunk, groupBy, keyBy } from 'lodash-es'
-import { titleCase } from '../lib/languageUtil'
-import http from '../server/http'
+import { keyBy } from 'lodash-es'
 
 async function main() {
   const vqas = JSON.parse(await fs.readFile('data/vqas.json', 'utf-8')) as PartialVQA[]
@@ -22,6 +20,7 @@ async function main() {
         if (!lemma) {
           lemma = { lemma: r.lemma }
           lemmas.push(lemma)
+          lemmaLookup[r.lemma] = lemma
         }
         lemma.statistics = r.statistics
       }
