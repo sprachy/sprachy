@@ -81,6 +81,18 @@ declare global {
     alternativeAnswers?: string[]
   }
 
+  type Lemma = {
+    lemma: string
+    statistics?: {
+      freq_A1: number
+      freq_A2: number
+      freq_B1: number
+      freq_B2: number
+      freq_C1: number
+      freq_C2: number
+    }
+  }
+
 
   /** 
    * "The CEFR organises language proficiency in six levels, A1 to C2, 
