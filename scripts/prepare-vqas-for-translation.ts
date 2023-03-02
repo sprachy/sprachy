@@ -1,4 +1,5 @@
 import fs from 'fs/promises'
+import { sortBy, uniq } from 'lodash-es'
 
 type VQADataset = {
   info: {
@@ -43,8 +44,8 @@ type VQAAnnotationsDataset = VQADataset & {
 
 async function main() {
   const vqaDataset: VQAQuestionsDataset = JSON.parse(
-    await fs.readFile('data/v2_OpenEnded_mscoco_val2014_questions.json', 'utf-8'))
-  const annotationsDataset: VQAAnnotationsDataset = JSON.parse(await fs.readFile('data/v2_mscoco_val2014_annotations.json', 'utf-8'))
+    await fs.readFile('rawdata/v2_OpenEnded_mscoco_val2014_questions.json', 'utf-8'))
+  const annotationsDataset: VQAAnnotationsDataset = JSON.parse(await fs.readFile('rawdata/v2_mscoco_val2014_annotations.json', 'utf-8'))
 
   const vqas: any[] = []
 
@@ -52,11 +53,20 @@ async function main() {
     const origVQA = vqaDataset.questions[i]
     const annotation = annotationsDataset.annotations[i]
 
+    const answers = annotation.answers.map(a => a.answer)
+    const uniqAnswers = uniq(answers).filter(a => a !== annotation.multiple_choice_answer)
+    const alternatives = sortBy(uniqAnswers, a => answers.filter(a2 => a2 === a).length).reverse()
+
     const question = {
       questionId: origVQA.question_id,
       imageId: origVQA.image_id,
-      question: origVQA.question,
-      answer: annotation.multiple_choice_answer
+      question: {
+        en: origVQA.question
+      },
+      answer: {
+        en: annotation.multiple_choice_answer
+      },
+      alternativeAnswers: alternatives.length ? alternatives : undefined
     }
 
     vqas.push(question)
@@ -66,7 +76,7 @@ async function main() {
     }
   }
 
-  await fs.writeFile('data/untranslated-vqas.json', JSON.stringify(vqas, null, 2))
+  await fs.writeFile('rawdata/untranslated-vqas.json', JSON.stringify(vqas, null, 2))
 }
 
 main()
