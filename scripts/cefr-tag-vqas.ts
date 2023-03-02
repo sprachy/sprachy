@@ -14,6 +14,20 @@ type TranslatedVQA = PartialVQA & {
   }
 }
 
+async function getDaflexTokens(text: string): Promise<DAFlexResult[]> {
+  const response = await http.post('https://cental.uclouvain.be/cefrlex/daflex/analyse/', {
+    resource: "DAFlex",
+    tagger: "TreeTagger - German",
+    user_text: text,
+    version: "First observation"
+  })
+  const json = await response.json()
+  for (const result of json) {
+    result.statistics = JSON.parse(result.statistics)
+  }
+  return json
+}
+
 async function main() {
   const vqas = JSON.parse(await fs.readFile('data/vqas.json', 'utf-8')) as PartialVQA[]
   const lemmas = JSON.parse(await fs.readFile('data/lemmas.json', 'utf-8')) as Lemma[]
@@ -39,17 +53,7 @@ async function main() {
       text += '\n'
     }
 
-    const response = await http.post('https://cental.uclouvain.be/cefrlex/daflex/analyse/', {
-      resource: "DAFlex",
-      tagger: "TreeTagger - German",
-      user_text: text,
-      version: "First observation"
-    })
-    const json = await response.json()
-    for (const result of json) {
-      result.statistics = JSON.parse(result.statistics)
-    }
-    const daflex: DAFlexResult[] = json
+    const daflex = await getDaflexTokens(text)
 
     // Now we need to line up the DAFlex results with the VQAs
     const batchVQAs = batch.flat()
