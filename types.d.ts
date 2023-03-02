@@ -59,19 +59,26 @@ declare global {
   }
 
   /**
-   * VQA intermediary result after running it through DeepL translation.
+   * VQA source data that may not yet be complete.
    */
-  type TranslatedVQA = {
-    questionId: number
+  type PartialVQA = {
+    id: number
     imageId: number
+    cefr?: CEFRLevel
     question: {
       en: string
-      de: string
+      de?: string
     }
     answer: {
       en: string
-      de: string
+      de?: string
     }
+    tokens?: {
+      token: string
+      lemma: string
+      pos: string
+    }[]
+    alternativeAnswers?: string[]
   }
 
 
