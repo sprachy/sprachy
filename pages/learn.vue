@@ -7,7 +7,7 @@ const { speech } = useSprachyApp()
 const savedQuestionId = localStorage.getItem("mlLastQuestionId")
 
 let initialQuestionIndex = exercises.findIndex(
-  (q) => q.questionId.toString() === savedQuestionId
+  (q) => q.id.toString() === savedQuestionId
 )
 initialQuestionIndex = initialQuestionIndex === -1 ? 0 : initialQuestionIndex
 
@@ -40,7 +40,7 @@ async function toNextQuestion() {
 watch(() => state.currentQuestion, () => {
   localStorage.setItem(
     "mlLastQuestionId",
-    state.currentQuestion.questionId.toString()
+    state.currentQuestion.id.toString()
   )
   speech.say({ from: "narrator", message: state.currentQuestion.question.de })
 })
@@ -66,7 +66,7 @@ async function prepareNext() {
   <main>
     <div v-if="state.currentQuestion">
       <img :src="state.imgUrl" alt="Identify this" />
-      <div :key="state.currentQuestion.questionId">
+      <div :key="state.currentQuestion.id">
         <p class="hover-translate" :data-tooltip="state.currentQuestion.question.en">
           {{ state.currentQuestion.question.de }}
         </p>

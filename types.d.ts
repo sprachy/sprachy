@@ -79,6 +79,25 @@ declare global {
       pos: string
     }[]
     alternativeAnswers?: string[]
+    answerType?: string
+    choices?: {
+      en: string
+      de: string
+      correct: boolean
+    }[]
+  }
+
+  type TranslatedVQA = PartialVQA & {
+    id: number
+    imageId: number
+    question: {
+      en: string
+      de: string
+    }
+    answer: {
+      en: string
+      de: string
+    }
   }
 
   type Lemma = {

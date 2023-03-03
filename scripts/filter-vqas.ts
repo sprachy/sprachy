@@ -43,7 +43,8 @@ function filterAmbiguousNumericQuestions(vqas: VQA[]) {
 
 function filterSportsQuestions(vqas: VQA[]) {
   const removed = remove(vqas, v => {
-    return v.question.en.toLowerCase().match(/football|baseball|tennis/)
+    const text = (v.question.en + ' ' + v.answer.en).toLowerCase()
+    return text.match(/football|baseball|tennis|sport/)
   })
 
   console.log(`Removing ${removed.length} boring sports questions`)
