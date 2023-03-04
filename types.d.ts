@@ -102,13 +102,14 @@ declare global {
 
   type Lemma = {
     lemma: string
-    statistics?: {
+    statistics: {
       freq_A1: number
       freq_A2: number
       freq_B1: number
       freq_B2: number
       freq_C1: number
       freq_C2: number
+      freq_total: number
     }
   }
 

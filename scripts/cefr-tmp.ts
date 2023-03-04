@@ -11,7 +11,7 @@ async function main() {
   const lemmaLookup = keyBy(lemmas, l => l.lemma)
 
   for (const tv of taggedVQAs) {
-    const vqa = vqaById[tv.questionId]
+    const vqa = vqaById[tv.id]
     if (!vqa) continue
 
     vqa.tokens = tv.daflex.map(r => {

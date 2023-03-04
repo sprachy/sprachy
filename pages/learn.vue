@@ -2,9 +2,11 @@
 import exercises from "~/assets/vqa-exercises.json"
 import Choices from "~/components/Choices.vue"
 
-const { speech } = useSprachyApp()
+const app = useSprachyApp()
+const { speech } = app
 
 const savedQuestionId = localStorage.getItem("mlLastQuestionId")
+
 
 let initialQuestionIndex = exercises.findIndex(
   (q) => q.id.toString() === savedQuestionId

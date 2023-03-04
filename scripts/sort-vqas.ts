@@ -1,32 +1,43 @@
 import fs from 'fs/promises'
-import { groupBy, includes, keyBy, meanBy, sortBy } from 'lodash-es'
-import { delay } from '../lib/util'
+import { groupBy, keyBy, meanBy, sortBy } from 'lodash-es'
 
 const cefrLevels: CEFRLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 
 async function main() {
   const vqas = JSON.parse(await fs.readFile('data/vqas.json', 'utf-8')) as PartialVQA[]
-  const lemmas = JSON.parse(await fs.readFile('data/lemmas.json', 'utf-8')) as Lemma[]
-  const lemmasByLemma = keyBy(lemmas, l => l.lemma)
+  const allLemmas = JSON.parse(await fs.readFile('data/lemmas.json', 'utf-8')) as Lemma[]
+  const lemmasByLemma = keyBy(allLemmas, l => l.lemma)
+  const translatedVQAs = vqas.filter(v => v.question.de && v.answer.de)
 
   function findCEFRLevel(vqa: PartialVQA): CEFRLevel | undefined {
-    if (!vqa.tokens || !vqa.tokens.length)
-      return undefined
+    // Need to come back to this; for now, just use the first level
+    return 'A1'
 
-    const lemmas = vqa.tokens.map(t => lemmasByLemma[t.lemma]).filter(l => l?.statistics)
+    // if (!vqa.tokens || !vqa.tokens.length)
+    //   return undefined
 
-    // We define the overall level of the VQA as the highest mean of 
-    // the leveled frequencies of the individual lemmas
-    const cefrLevelFreqs = cefrLevels.map(cefr => ({
-      cefr: cefr,
-      frequency: meanBy(lemmas, l => l.statistics![`freq_${cefr}`])
-    }))
-    const cefr = sortBy(cefrLevelFreqs, c => 1 / c.frequency)[0].cefr
+    // const nonPunctuationTokens = vqa.tokens.filter(t => t.token.match(/^[a-zäöüß]+$/i))
+    // const lemmas = nonPunctuationTokens.map(t => lemmasByLemma[t.lemma])
 
-    return cefr
+    // let lemmaCefrs = []
+    // for (const l of lemmas) {
+    //   for (const cefr of cefrLevels) {
+    //     if (!l || l.statistics[`freq_${cefr}`] > 0) {
+    //       lemmaCefrs.push(cefr)
+    //       break
+    //     }
+    //     lemmaCefrs.push('C2')
+    //   }
+    // }
+
+    // for (const cefr of cefrLevels) {
+    //   if (lemmaCefrs.every(c => c <= cefr)) {
+    //     return cefr
+    //   }
+    // }
   }
 
-  for (const v of vqas) {
+  for (const v of translatedVQAs) {
     v.cefr = findCEFRLevel(v)
   }
 
@@ -38,8 +49,8 @@ async function main() {
   // Therefore, we will select the next VQA from the same level which uses the smallest
   // number of new words.
 
-  const vqasByCEFR = groupBy(vqas, v => v.cefr)
-  const totalVQAsWithCEFR = vqas.filter(v => v.cefr).length
+  const vqasByCEFR = groupBy(translatedVQAs, v => v.cefr)
+  const totalVQAsWithCEFR = translatedVQAs.filter(v => v.cefr).length
 
   const learnedLemmas = new Set()
   let sortedVQAs: PartialVQA[] = []
@@ -52,8 +63,6 @@ async function main() {
     let vqa = nextVQA
     sortedVQAs.push(vqa)
 
-    console.log(vqa.question.de + ' ' + vqa.answer.de)
-
     for (const t of vqa.tokens!) {
       learnedLemmas.add(t.lemma)
     }
@@ -61,7 +70,7 @@ async function main() {
     if (cefrVQAs.length === 0) {
       // Finished this level
       const nextCEFR = cefrLevels[cefrLevels.indexOf(vqa.cefr!) + 1]
-      if (!nextCEFR) {
+      if (!nextCEFR || !vqasByCEFR[nextCEFR]) {
         // Finished all the levels
         break
       }
@@ -70,12 +79,14 @@ async function main() {
 
     // Find the next VQA which uses the smallest number of new words
     cefrVQAs = sortBy(cefrVQAs, v => {
-      const lemmas = v.tokens!.map(t => t.lemma)
+      const nonPunctuationTokens = v.tokens!.filter(t => t.token.match(/^[a-zäöüß]+$/i))
+      const lemmas = nonPunctuationTokens.map(t => t.lemma)
       const newLemmas = lemmas.filter(l => !learnedLemmas.has(l))
 
+      // Tiebreaker: favor introducing more frequent words first
       const freq = meanBy(newLemmas, l => {
         const lemma = lemmasByLemma[l]
-        return lemma?.statistics ? lemma.statistics[`freq_${v.cefr!}`] : 0
+        return lemma?.statistics ? lemma.statistics[`freq_total`] : 0
       })
 
       return [1 / (newLemmas.length / lemmas.length), 1 / freq]
