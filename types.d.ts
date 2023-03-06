@@ -59,12 +59,40 @@ declare global {
   }
 
   /**
-   * VQA source data that may not yet be complete.
+   * A VQA with all data needed to create exercises.
    */
-  type PartialVQA = {
+  type CompleteVQA = {
     id: number
     imageId: number
-    cefr?: CEFRLevel
+    cefr: CEFRLevel
+    question: {
+      en: string
+      de: string
+    }
+    answer: {
+      en: string
+      de: string
+    }
+    tokens: {
+      token: string
+      lemma: string
+      pos: string
+    }[]
+    alternativeAnswers: string[]
+    answerType: string
+    choices: {
+      en: string
+      de: string
+      correct: boolean
+    }[]
+  }
+
+  /**
+   * VQA source data that may not yet be complete.
+   */
+  type PartialVQA = Partial<CompleteVQA> & {
+    id: number
+    imageId: number
     question: {
       en: string
       de?: string
@@ -73,18 +101,6 @@ declare global {
       en: string
       de?: string
     }
-    tokens?: {
-      token: string
-      lemma: string
-      pos: string
-    }[]
-    alternativeAnswers?: string[]
-    answerType?: string
-    choices?: {
-      en: string
-      de: string
-      correct: boolean
-    }[]
   }
 
   type TranslatedVQA = PartialVQA & {

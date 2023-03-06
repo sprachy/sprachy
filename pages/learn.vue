@@ -4,9 +4,9 @@ import Choices from "~/components/Choices.vue"
 
 const app = useSprachyApp()
 const { speech } = app
+const learnedLemmas = {}
 
 const savedQuestionId = localStorage.getItem("mlLastQuestionId")
-
 
 let initialQuestionIndex = exercises.findIndex(
   (q) => q.id.toString() === savedQuestionId
@@ -70,7 +70,8 @@ async function prepareNext() {
       <img :src="state.imgUrl" alt="Identify this" />
       <div :key="state.currentQuestion.id">
         <p class="hover-translate" :data-tooltip="state.currentQuestion.question.en">
-          {{ state.currentQuestion.question.de }}
+          <span :class="{ token: true, punctuation: token.token.match(/^[.,!?]$/) }"
+            v-for="token in state.currentQuestion.questionTokens">{{ token.token }}</span>
         </p>
         <Choices :choices="state.choices" @correct="toNextQuestion" />
       </div>
@@ -97,5 +98,9 @@ main>div {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.token:not(.punctuation):not(:first-child) {
+  margin-left: 0.2rem;
 }
 </style>
