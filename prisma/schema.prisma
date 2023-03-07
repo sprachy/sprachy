@@ -17,6 +17,15 @@ model User {
   name          String         @default("")
   progressItems ProgressItem[]
   isAdmin       Boolean        @default(false)
+  LearnedLemma  LearnedLemma[]
+}
+
+model LearnedLemma {
+  lemma  String
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+
+  @@unique([lemma, userId])
 }
 
 model ProgressItem {

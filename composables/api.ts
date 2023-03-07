@@ -4,6 +4,7 @@ import type { LoginSchema } from "~/server/api/login.post"
 import type { ResetPasswordSchema } from "~/server/api/reset-password.post"
 import type { ConfirmResetPasswordSchema } from "~/server/api/confirm-reset-password.post"
 import type { VoiceSynthesisSchema } from '~/server/api/synthesize.post'
+import type { ReportProgressSchema } from '~/server/api/progress.post'
 
 class SprachyAPI {
   async get<T extends string>(url: T) {
@@ -34,6 +35,10 @@ class SprachyAPI {
 
   async synthesizeSpeech(opts: VoiceSynthesisSchema) {
     return await $fetch(`/api/synthesize`, { method: 'POST', body: opts })
+  }
+
+  async reportProgress(opts: ReportProgressSchema) {
+    return await $fetch(`/api/progress`, { method: 'POST', body: opts })
   }
 }
 

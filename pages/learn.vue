@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import exercises from "~/assets/vqa-exercises.json"
 import Choices from "~/components/Choices.vue"
+import { uniq } from 'lodash-es'
 
 const app = useSprachyApp()
 const { speech } = app
@@ -35,6 +36,10 @@ const state = defineState({
 })
 
 async function toNextQuestion() {
+  const tokens = state.currentQuestion.questionTokens.concat(state.currentQuestion.answerTokens)
+  api.reportProgress({
+    learnedLemmas: uniq(tokens.map(t => t.lemma)),
+  })
   state.questionIndex += 1
   await prepareNext()
 }
