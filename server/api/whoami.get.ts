@@ -1,8 +1,8 @@
 import { sessions } from '~/server/sessions'
-import type { ProgressItem, ProgressSummary } from '~/lib/types'
 import { prisma } from "../prisma"
 
-export default defineEventHandler(async function whoami(event): Promise<{ status: 'guest' } | { status: 'user', summary: ProgressSummary }> {
+
+export default defineEventHandler(async function whoami(event): Promise<{ status: 'guest' } | { status: 'user', user: UserWithProgress }> {
   const { session } = event.context
 
   if (!session) {
@@ -17,12 +17,14 @@ export default defineEventHandler(async function whoami(event): Promise<{ status
       id: true,
       name: true,
       email: true,
-      isAdmin: true
+      isAdmin: true,
+      learnedLemmas: {
+        select: {
+          lemma: true
+        }
+      }
     }
   })
-
-  // TODO
-  const progressItems: ProgressItem[] = []
 
 
   if (!user) {
@@ -33,6 +35,9 @@ export default defineEventHandler(async function whoami(event): Promise<{ status
 
   return {
     status: 'user',
-    summary: { user, progressItems }
+    user: {
+      ...user,
+      learnedLemmas: user.learnedLemmas.map(l => l.lemma)
+    }
   }
 })

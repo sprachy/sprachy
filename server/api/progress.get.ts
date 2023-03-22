@@ -1,13 +1,27 @@
 import { db } from "~/server/db"
 import { sessions } from '~/server/sessions'
+import { prisma } from "../prisma"
 
 export default defineEventHandler(async (event) => {
   const { session } = event.context
 
-  const [user, progressItems] = await Promise.all([
-    db.users.get(session!.userId),
-    db.progress.listAllFor(session!.userId)
-  ])
+  const userWithProgress = prisma.user.findUnique({
+    where: {
+      id: session!.userId
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      isAdmin: true,
+      learnedLemmas: {
+        select: {
+          lemma: true
+        }
+      }
+    },
+  })
+
 
   if (!user) {
     // Invalid session, e.g. when the user was deleted

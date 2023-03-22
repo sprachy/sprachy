@@ -36,7 +36,10 @@ declare global {
     lastExperienceGainAt?: number
     wantsReminderEmails?: boolean
     enableSpeechSynthesis?: boolean
-    password: never
+  }
+
+  type UserWithProgress = User & {
+    learnedLemmas: string[]
   }
 
   type ProgressItem = {

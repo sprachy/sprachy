@@ -4,8 +4,10 @@ import Choices from "~/components/Choices.vue"
 import { uniq } from 'lodash-es'
 
 const app = useSprachyApp()
+const user = await getCurrentUser()
 const { speech } = app
-const learnedLemmas = {}
+
+const learnedLemmaSet = new Set(user.learnedLemmas)
 
 const savedQuestionId = localStorage.getItem("mlLastQuestionId")
 
@@ -75,7 +77,8 @@ async function prepareNext() {
       <img :src="state.imgUrl" alt="Identify this" />
       <div :key="state.currentQuestion.id">
         <p class="hover-translate" :data-tooltip="state.currentQuestion.question.en">
-          <span :class="{ token: true, punctuation: token.token.match(/^[.,!?]$/) }"
+          <span
+            :class="{ token: true, punctuation: token.token.match(/^[.,!?]$/), new: !learnedLemmaSet.has(token.lemma) }"
             v-for="token in state.currentQuestion.questionTokens">{{ token.token }}</span>
         </p>
         <Choices :choices="state.choices" @correct="toNextQuestion" />
@@ -107,5 +110,9 @@ main>div {
 
 .token:not(.punctuation):not(:first-child) {
   margin-left: 0.2rem;
+}
+
+.token.new {
+  color: blue;
 }
 </style>

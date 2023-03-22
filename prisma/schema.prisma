@@ -17,13 +17,15 @@ model User {
   name          String         @default("")
   progressItems ProgressItem[]
   isAdmin       Boolean        @default(false)
-  LearnedLemma  LearnedLemma[]
+  learnedLemmas LearnedLemma[]
+  createdAt     DateTime       @default(now())
 }
 
 model LearnedLemma {
-  lemma  String
-  userId String
-  User   User   @relation(fields: [userId], references: [id])
+  lemma     String
+  userId    String
+  createdAt DateTime @default(now())
+  User      User     @relation(fields: [userId], references: [id])
 
   @@unique([lemma, userId])
 }
