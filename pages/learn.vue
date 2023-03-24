@@ -2,9 +2,12 @@
 import exercises from "~/assets/vqa-exercises.json"
 import Choices from "~/components/Choices.vue"
 import { uniq } from 'lodash-es'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons"
 
 const app = useSprachyApp()
 const user = await getCurrentUser()
+const isDev = process.dev
 const { speech } = app
 
 const learnedLemmaSet = new Set(user.learnedLemmas)
@@ -83,14 +86,28 @@ async function prepareNext() {
     })
   }
 }
+
+async function deleteExercise() {
+  const deletingQuestionId = state.currentQuestion.id
+  state.questionIndex += 1
+  await Promise.all([
+    prepareNext(),
+    api.deleteExercise(deletingQuestionId)
+  ])
+}
 </script>
 
 <template>
   <main>
-    <div v-if="state.currentQuestion">
+    <div v-if="isDev" class="devbar">
+      <button class="btn s-btn-faded" @click="deleteExercise">
+        <FontAwesomeIcon fixedWidth :icon="faTrash" />
+      </button>
+    </div>
+    <div v-if="state.currentQuestion" class="exercise">
       <img :src="state.imgUrl" alt="Identify this" />
       <div :key="state.currentQuestion.id">
-        <p class="hover-translate" :data-tooltip="state.currentQuestion.question.en">
+        <p class="question hover-translate" :data-tooltip="state.currentQuestion.question.en">
           <span
             :class="{ token: true, punctuation: token.token.match(/^[.,!?]$/), new: !learnedLemmaSet.has(token.lemma) }"
             v-for="token in state.questionTokens">{{ token.token }}</span>
@@ -103,23 +120,31 @@ async function prepareNext() {
 
 <style scoped>
 main {
+  position: relative;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-p {
-  font-size: 1.1rem;
-  margin-top: 1rem;
-  text-align: center;
+.devbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2rem;
 }
 
-main>div {
+.exercise {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.question {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  text-align: center;
 }
 
 .token:not(.punctuation):not(:first-child) {

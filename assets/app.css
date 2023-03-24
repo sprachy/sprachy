@@ -156,3 +156,7 @@ button:focus {
 .sprachy-dev-color {
   color: red;
 }
+
+.s-btn-faded {
+  opacity: 0.5;
+}

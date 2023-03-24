@@ -40,6 +40,10 @@ class SprachyAPI {
   async reportProgress(opts: ReportProgressSchema) {
     return await $fetch(`/api/progress`, { method: 'POST', body: opts })
   }
+
+  async deleteExercise(exerciseId: number) {
+    return await $fetch(`/api/dev/exercises/${exerciseId}`, { method: 'DELETE' })
+  }
 }
 
 export const api = new SprachyAPI()
