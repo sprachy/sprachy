@@ -23,6 +23,17 @@ const state = defineState({
     return exercises[this.questionIndex]
   },
 
+  get questionTokens() {
+    const questionTokens: CompleteVQA['tokens'] = []
+    for (const t of vqa.tokens) {
+      questionTokens.push(t)
+      if (t.token === '?') {
+        break
+      }
+    }
+    return questionTokens
+  },
+
   get choices() {
     return this.currentQuestion.choices.map(c => ({
       text: c.de,
@@ -38,9 +49,8 @@ const state = defineState({
 })
 
 async function toNextQuestion() {
-  const tokens = state.currentQuestion.questionTokens.concat(state.currentQuestion.answerTokens)
   api.reportProgress({
-    learnedLemmas: uniq(tokens.map(t => t.lemma)),
+    learnedLemmas: uniq(state.currentQuestion.tokens.map(t => t.lemma)),
   })
   state.questionIndex += 1
   await prepareNext()
@@ -79,7 +89,7 @@ async function prepareNext() {
         <p class="hover-translate" :data-tooltip="state.currentQuestion.question.en">
           <span
             :class="{ token: true, punctuation: token.token.match(/^[.,!?]$/), new: !learnedLemmaSet.has(token.lemma) }"
-            v-for="token in state.currentQuestion.questionTokens">{{ token.token }}</span>
+            v-for="token in state.questionTokens">{{ token.token }}</span>
         </p>
         <Choices :choices="state.choices" @correct="toNextQuestion" />
       </div>
