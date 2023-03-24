@@ -25,7 +25,7 @@ const state = defineState({
 
   get questionTokens() {
     const questionTokens: CompleteVQA['tokens'] = []
-    for (const t of vqa.tokens) {
+    for (const t of this.currentQuestion.tokens) {
       questionTokens.push(t)
       if (t.token === '?') {
         break
@@ -49,8 +49,12 @@ const state = defineState({
 })
 
 async function toNextQuestion() {
+  const newLemmas = uniq(state.currentQuestion.tokens.map(t => t.lemma))
+  for (const lemma of newLemmas) {
+    learnedLemmaSet.add(lemma)
+  }
   api.reportProgress({
-    learnedLemmas: uniq(state.currentQuestion.tokens.map(t => t.lemma)),
+    learnedLemmas: newLemmas,
   })
   state.questionIndex += 1
   await prepareNext()

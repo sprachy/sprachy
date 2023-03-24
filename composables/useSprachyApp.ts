@@ -1,5 +1,4 @@
 import { SprachyUserSPA } from "~/lib/SprachyUserSPA"
-import { ProgressSummary } from "~/lib/types"
 
 let app: SprachyUserSPA
 
