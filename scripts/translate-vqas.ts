@@ -1,6 +1,6 @@
 import fs from 'fs/promises'
 import * as deepl from 'deepl-node'
-import { chunk } from 'lodash-es'
+import { groupBy } from 'lodash-es'
 
 async function main() {
   const vqas = JSON.parse(await fs.readFile('data/vqas.json', 'utf-8')) as PartialVQA[]
@@ -13,9 +13,12 @@ async function main() {
   let amountTranslated = 0
 
 
-  // TODO: chunk these by imageId instead and translate all text related to an image together
-  // may improve contextual awareness
-  for (const vqas of chunk(untranslatedVQAs, 100)) {
+  // We translate questions about the same image together as part of
+  // the one text. This is to help DeepL understand the context, since
+  // it can't see the image itself
+  const groups = groupBy(untranslatedVQAs, vqa => vqa.imageId)
+
+  for (const vqas of Object.values(groups)) {
     const texts = vqas.map(vqa => vqa.question + "\n" + vqa.answer)
 
     const results = await translator.translateText(
