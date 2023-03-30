@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import exercises from "~/assets/vqa-exercises.json"
+import vqas from "~/data/vqas.json"
 import Choices from "~/components/Choices.vue"
 import { uniq } from 'lodash-es'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -9,8 +9,11 @@ const app = useSprachyApp()
 const user = await getCurrentUser()
 const isDev = process.dev
 const { speech } = app
+const allVQAs = vqas as PartialVQA[]
 
-const learnedLemmaSet = new Set(user.learnedLemmas)
+const exercises = allVQAs.filter(v => v.question.de && v.answer.de && v.tokens && v.choices?.length) as CompleteVQA[]
+
+const learnedLemmaSet = new Set(user!.learnedLemmas)
 
 const savedQuestionId = localStorage.getItem("mlLastQuestionId")
 

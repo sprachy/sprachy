@@ -1,4 +1,3 @@
-import type { ZodIssue } from 'zod'
 // import type { MONTHLY_PRICE_ID, ANNUAL_PRICE_ID } from '~/lib/constants'
 
 // type LoginResult =
@@ -175,19 +174,4 @@ type DAFlexResultInvalid = {
 /** Intermediary VQA result after tagging with DAFlex. */
 type TaggedVQA = TranslatedVQA & {
   daflex: DAFlexResult[]
-}
-
-/** The final from of the VQA used in production. */
-type VQAExercise = {
-  questionId: number
-  imageId: number
-  question: {
-    en: string
-    de: string
-  }
-  choices: {
-    en: string
-    de: string
-    correct: boolean
-  }[]
 }
