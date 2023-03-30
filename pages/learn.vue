@@ -3,7 +3,7 @@ import exercises from "~/assets/vqa-exercises.json"
 import Choices from "~/components/Choices.vue"
 import { uniq } from 'lodash-es'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faPencil, faTrash, faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 
 const app = useSprachyApp()
 const user = await getCurrentUser()
@@ -87,6 +87,10 @@ async function prepareNext() {
   }
 }
 
+async function gotoPrev() {
+  state.questionIndex -= 1
+}
+
 async function deleteExercise() {
   const deletingQuestionId = state.currentQuestion.id
   state.questionIndex += 1
@@ -100,6 +104,9 @@ async function deleteExercise() {
 <template>
   <main>
     <div v-if="isDev" class="devbar">
+      <button class="btn s-btn-faded" v-if="state.questionIndex > 0" @click="gotoPrev">
+        <FontAwesomeIcon fixedWidth :icon="faArrowLeft" />
+      </button>
       <button class="btn s-btn-faded" @click="deleteExercise">
         <FontAwesomeIcon fixedWidth :icon="faTrash" />
       </button>
