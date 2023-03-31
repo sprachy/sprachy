@@ -87,6 +87,20 @@ async function prepareNext() {
   }
 }
 
+onMounted(() => {
+  window.addEventListener("keydown", onKeydown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener("keydown", onKeydown)
+})
+
+function onKeydown(ev: KeyboardEvent) {
+  if (ev.key === 'Backspace') {
+    deleteExercise()
+  }
+}
+
 async function gotoPrev() {
   state.questionIndex -= 1
 }
