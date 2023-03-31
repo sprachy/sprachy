@@ -3,7 +3,8 @@ import vqas from "~/data/vqas.json"
 import Choices from "~/components/Choices.vue"
 import { uniq } from 'lodash-es'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faPencil, faTrash, faArrowLeft } from "@fortawesome/free-solid-svg-icons"
+import { faPencil, faSave, faTrash, faArrowLeft } from "@fortawesome/free-solid-svg-icons"
+import { tokenize } from "~/lib/tokenize"
 
 const app = useSprachyApp()
 const user = await getCurrentUser()
@@ -11,7 +12,9 @@ const isDev = process.dev
 const { speech } = app
 const allVQAs = vqas as PartialVQA[]
 
-const exercises = allVQAs.filter(v => v.question.de && v.answer.de && v.tokens && v.choices?.length) as CompleteVQA[]
+const exercises = reactive(
+  allVQAs.filter(v => v.question.de && v.choices?.length) as CompleteVQA[]
+)
 
 const learnedLemmaSet = new Set(user!.learnedLemmas)
 
@@ -24,20 +27,14 @@ initialQuestionIndex = initialQuestionIndex === -1 ? 0 : initialQuestionIndex
 
 const state = defineState({
   questionIndex: initialQuestionIndex,
+  editingVQA: null as CompleteVQA | null,
 
   get currentQuestion() {
     return exercises[this.questionIndex]
   },
 
   get questionTokens() {
-    const questionTokens: CompleteVQA['tokens'] = []
-    for (const t of this.currentQuestion.tokens) {
-      questionTokens.push(t)
-      if (t.token === '?') {
-        break
-      }
-    }
-    return questionTokens
+    return tokenize(this.currentQuestion.question.de)
   },
 
   get choices() {
@@ -55,7 +52,7 @@ const state = defineState({
 })
 
 async function toNextQuestion() {
-  const newLemmas = uniq(state.currentQuestion.tokens.map(t => t.lemma))
+  const newLemmas = uniq(state.questionTokens.map(t => t.value))
   for (const lemma of newLemmas) {
     learnedLemmaSet.add(lemma)
   }
@@ -94,12 +91,22 @@ async function gotoPrev() {
   state.questionIndex -= 1
 }
 
+async function toggleEditMode() {
+  if (state.editingVQA) {
+    exercises[state.questionIndex] = state.editingVQA
+    await api.dev.updateExercise(state.editingVQA.id, state.editingVQA)
+    state.editingVQA = null
+  } else {
+    state.editingVQA = { ...state.currentQuestion }
+  }
+}
+
 async function deleteExercise() {
   const deletingQuestionId = state.currentQuestion.id
   state.questionIndex += 1
   await Promise.all([
     prepareNext(),
-    api.deleteExercise(deletingQuestionId)
+    api.dev.deleteExercise(deletingQuestionId)
   ])
 }
 </script>
@@ -110,21 +117,30 @@ async function deleteExercise() {
       <button class="btn s-btn-faded" v-if="state.questionIndex > 0" @click="gotoPrev">
         <FontAwesomeIcon fixedWidth :icon="faArrowLeft" />
       </button>
+      <button class="btn s-btn-faded" @click="toggleEditMode">
+        <FontAwesomeIcon fixedWidth :icon="state.editingVQA ? faSave : faPencil" />
+      </button>
       <button class="btn s-btn-faded" @click="deleteExercise">
         <FontAwesomeIcon fixedWidth :icon="faTrash" />
       </button>
     </div>
-    <div v-if="state.currentQuestion" class="exercise">
-      <img :src="state.imgUrl" alt="Identify this" />
-      <div :key="state.currentQuestion.id">
-        <p class="question hover-translate" :data-tooltip="state.currentQuestion.question.en">
-          <span
-            :class="{ token: true, punctuation: token.token.match(/^[.,!?]$/), new: !learnedLemmaSet.has(token.lemma) }"
-            v-for="token in state.questionTokens">{{ token.token }}</span>
-        </p>
-        <Choices :choices="state.choices" @correct="toNextQuestion" />
+    <template v-if="state.currentQuestion">
+      <div v-if="!state.editingVQA" class="exercise">
+        <img :src="state.imgUrl" alt="Identify this" />
+        <div :key="state.currentQuestion.id">
+          <p class="question hover-translate" :data-tooltip="state.currentQuestion.question.en">
+            <span
+              :class="{ token: true, punctuation: token.value.match(/^[.,!?]$/), new: !learnedLemmaSet.has(token.value) }"
+              v-for="token in state.questionTokens">{{ token.value }}</span>
+          </p>
+          <Choices :choices="state.choices" @correct="toNextQuestion" />
+        </div>
       </div>
-    </div>
+      <div v-else>
+        <VQAEditor v-model="state.editingVQA" />
+      </div>
+    </template>
+
   </main>
 </template>
 

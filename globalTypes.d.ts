@@ -70,15 +70,6 @@ type CompleteVQA = {
     en: string
     de: string
   }
-  answer: {
-    en: string
-    de: string
-  }
-  tokens: {
-    token: string
-    lemma: string
-    pos: string
-  }[]
   alternativeAnswers: string[]
   answerType: string
   choices: {
@@ -95,10 +86,6 @@ type PartialVQA = Partial<CompleteVQA> & {
   id: number
   imageId: number
   question: {
-    en: string
-    de?: string
-  }
-  answer: {
     en: string
     de?: string
   }

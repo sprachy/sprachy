@@ -1,21 +1,13 @@
 import { FetchError } from 'ofetch'
-import type { UseFetchOptions } from "nuxt/dist/app"
 import type { LoginSchema } from "~/server/api/login.post"
 import type { ResetPasswordSchema } from "~/server/api/reset-password.post"
 import type { ConfirmResetPasswordSchema } from "~/server/api/confirm-reset-password.post"
 import type { VoiceSynthesisSchema } from '~/server/api/synthesize.post'
 import type { ReportProgressSchema } from '~/server/api/progress.post'
+import type { PutExerciseSchema } from '~/server/api/dev/exercises/[exerciseId].put'
 
 class SprachyAPI {
-  async get<T extends string>(url: T) {
-    const { data } = await useFetch(url)
-    return data.value!
-  }
-
-  async post<T extends string>(url: T, body: UseFetchOptions<T>['body'], options?: UseFetchOptions<T>) {
-    const { data } = await useFetch(url, Object.assign({ method: 'POST', body }, options))
-    return data.value!
-  }
+  dev = new SprachyDevAPI()
 
   async login(opts: LoginSchema) {
     return await $fetch('/api/login', { method: 'POST', body: opts })
@@ -40,9 +32,15 @@ class SprachyAPI {
   async reportProgress(opts: ReportProgressSchema) {
     return await $fetch(`/api/progress`, { method: 'POST', body: opts })
   }
+}
 
+class SprachyDevAPI {
   async deleteExercise(exerciseId: number) {
     return await $fetch(`/api/dev/exercises/${exerciseId}`, { method: 'DELETE' })
+  }
+
+  async updateExercise(exerciseId: number, vqa: PutExerciseSchema) {
+    return await $fetch(`/api/dev/exercises/${exerciseId}`, { method: 'PUT', body: vqa })
   }
 }
 

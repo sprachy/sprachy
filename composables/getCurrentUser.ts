@@ -9,7 +9,7 @@ let authStatus: { status: 'user', user: UserWithProgress } | { status: 'guest' }
  */
 export async function getCurrentUser() {
   if (process.server) {
-    const result = await api.get('/api/whoami')
+    const result = await $fetch('/api/whoami')
     if (result.status === 'user') {
       return result.user
     } else {
@@ -17,7 +17,7 @@ export async function getCurrentUser() {
     }
   } else {
     if (!authStatus) {
-      authStatus = await api.get('/api/whoami')
+      authStatus = await $fetch('/api/whoami')
     }
 
     if (authStatus.status === 'guest') {
