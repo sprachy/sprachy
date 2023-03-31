@@ -4,12 +4,11 @@ import Choices from "~/components/Choices.vue"
 import { uniq } from 'lodash-es'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faPencil, faSave, faTrash, faArrowLeft } from "@fortawesome/free-solid-svg-icons"
-import { tokenize } from "~/lib/tokenize"
+import { VQATask } from "~/lib/VQATask"
 
 const app = useSprachyApp()
 const user = await getCurrentUser()
 const isDev = process.dev
-const { speech } = app
 const allVQAs = vqas as PartialVQA[]
 
 const exercises = reactive(
@@ -30,29 +29,24 @@ const state = defineState({
   editingVQA: null as CompleteVQA | null,
 
   get currentQuestion() {
-    return exercises[this.questionIndex]
+    return new VQATask(exercises[this.questionIndex])
   },
 
-  get questionTokens() {
-    return tokenize(this.currentQuestion.question.de)
+  get nextQuestion() {
+    const def = exercises[this.questionIndex + 1]
+    return def ? new VQATask(def) : null
   },
 
   get choices() {
-    return this.currentQuestion.choices.map(c => ({
+    return this.currentQuestion.def.choices.map(c => ({
       text: c.de,
       correct: c.correct
     }))
   },
-
-  get imgUrl() {
-    return `/val2014/COCO_val2014_${this.currentQuestion.imageId
-      .toString()
-      .padStart(12, "0")}.jpg`
-  }
 })
 
 async function toNextQuestion() {
-  const newLemmas = uniq(state.questionTokens.map(t => t.value))
+  const newLemmas = uniq(state.currentQuestion.questionTokens.map(t => t.value))
   for (const lemma of newLemmas) {
     learnedLemmaSet.add(lemma)
   }
@@ -66,25 +60,15 @@ async function toNextQuestion() {
 watch(() => state.currentQuestion, () => {
   localStorage.setItem(
     "mlLastQuestionId",
-    state.currentQuestion.id.toString()
+    state.currentQuestion.def.id.toString()
   )
-  speech.say({ from: "narrator", message: state.currentQuestion.question.de })
+  speech.say({ from: "narrator", message: state.currentQuestion.def.question.de })
 })
 
 async function prepareNext() {
   const nextQuestion = exercises[state.questionIndex + 1]
   if (!nextQuestion) return
 
-  speech.preload({
-    from: "narrator",
-    message: nextQuestion.question.de,
-  })
-  for (const choice of nextQuestion.choices) {
-    speech.preload({
-      from: "narrator",
-      message: choice.de,
-    })
-  }
 }
 
 onMounted(() => {
@@ -111,12 +95,12 @@ async function toggleEditMode() {
     await api.dev.updateExercise(state.editingVQA.id, state.editingVQA)
     state.editingVQA = null
   } else {
-    state.editingVQA = { ...state.currentQuestion }
+    state.editingVQA = { ...state.currentQuestion.def }
   }
 }
 
 async function deleteExercise() {
-  const deletingQuestionId = state.currentQuestion.id
+  const deletingQuestionId = state.currentQuestion.def.id
   state.questionIndex += 1
   await Promise.all([
     prepareNext(),
@@ -140,12 +124,12 @@ async function deleteExercise() {
     </div>
     <template v-if="state.currentQuestion">
       <div v-if="!state.editingVQA" class="exercise">
-        <nuxt-img :src="state.imgUrl" alt="Identify this" />
-        <div :key="state.currentQuestion.id">
-          <p class="question hover-translate" :data-tooltip="state.currentQuestion.question.en">
+        <NuxtImg :src="state.currentQuestion.imgUrl" placeholder alt="Identify this" />
+        <div :key="state.currentQuestion.def.id">
+          <p class="question hover-translate" :data-tooltip="state.currentQuestion.def.question.en">
             <span
               :class="{ token: true, punctuation: token.value.match(/^[.,!?]$/), new: !learnedLemmaSet.has(token.value) }"
-              v-for="token in state.questionTokens">{{ token.value }}</span>
+              v-for="token in state.currentQuestion.questionTokens">{{ token.value }}</span>
           </p>
           <Choices :choices="state.choices" @correct="toNextQuestion" />
         </div>
@@ -154,7 +138,9 @@ async function deleteExercise() {
         <VQAEditor v-model="state.editingVQA" />
       </div>
     </template>
-
+    <template v-if="state.nextQuestion">
+      <TaskPreloader :task="state.nextQuestion" />
+    </template>
   </main>
 </template>
 

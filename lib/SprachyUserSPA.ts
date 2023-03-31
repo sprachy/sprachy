@@ -4,7 +4,6 @@ import type { Pattern } from "~/lib/Pattern"
 import type { Exercise } from '~/lib/Exercise'
 import { sprachdex } from "~/lib/sprachdex"
 import { CanvasEffects } from "~/lib/CanvasEffects"
-import { SpeechSystem } from '~/lib/SpeechSystem'
 import { time } from '~/lib/time'
 
 export type Review = Exercise & {
