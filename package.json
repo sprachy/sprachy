@@ -30,6 +30,7 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@johmun/vue-tags-input": "^2.1.0",
     "@peculiar/webcrypto": "^1.4.1",
     "@popperjs/core": "^2.11.6",
     "@prisma/client": "^4.10.1",
@@ -62,6 +63,7 @@
     "vite-plugin-vue-markdown": "^0.22.4",
     "vue-define-state": "^0.0.3",
     "vue3-markdown-it": "^1.0.10",
+    "vue3-tags-input": "^1.0.7",
     "wink-tokenizer": "^5.3.0",
     "zod": "^3.20.6"
   }

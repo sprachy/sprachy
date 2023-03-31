@@ -16,7 +16,8 @@ const putExerciseSchema = z.object({
       de: z.string(),
       correct: z.boolean()
     })
-  )
+  ),
+  tags: z.array(z.string())
 })
 
 export type PutExerciseSchema = z.infer<typeof putExerciseSchema>
@@ -30,8 +31,10 @@ export default defineEventHandler(async (event) => {
   const oldVQAIndex = vqas.findIndex(vqa => vqa.id === exerciseId)
   if (oldVQAIndex === -1) {
     vqas.push(newVQA)
+    console.log(`Added VQA ${newVQA.id}`)
   } else {
     vqas[oldVQAIndex] = newVQA
+    console.log(`Updated VQA ${newVQA.id}`)
   }
 
   await saveVQAs(vqas)

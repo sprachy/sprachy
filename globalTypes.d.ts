@@ -77,6 +77,7 @@ type CompleteVQA = {
     de: string
     correct: boolean
   }[]
+  tags: string[]
 }
 
 /**

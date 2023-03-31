@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCheck, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
+import Vue3TagsInput from 'vue3-tags-input'
 
 const props = defineProps<{
   modelValue: PartialVQA
@@ -21,10 +22,13 @@ const vqa = reactive({
     { de: "", en: "", correct: false },
     { de: "", en: "", correct: false },
     { de: "", en: "", correct: false }
-  ]
+  ],
+  tags: props.modelValue.tags || []
 })
 
 const state = defineState({
+  tag: '',
+
   get imgUrl() {
     return `/val2014/COCO_val2014_${vqa.imageId
       .toString()
@@ -78,6 +82,7 @@ function setCorrect(choice: CompleteVQA['choices'][number]) {
           </button>
         </li>
       </ul>
+      <Vue3TagsInput :tags="vqa.tags" placeholder="Add tags" @on-tags-changed="newTags => vqa.tags = newTags" />
     </form>
   </div>
 </template>
