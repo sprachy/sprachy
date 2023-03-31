@@ -15,8 +15,10 @@
   },
   "devDependencies": {
     "@nuxt/content": "^2.4.3",
+    "@nuxt/image-edge": "^1.0.0-28004283.2a7f5cd",
     "cross-env": "^7.0.3",
     "env-cmd": "^10.1.0",
+    "glob": "^9.3.2",
     "miniflare": "^2.12.1",
     "npm-upgrade": "^3.1.0",
     "nuxt": "^3.2.2",

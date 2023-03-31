@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCheck, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
+// @ts-ignore
 import Vue3TagsInput from 'vue3-tags-input'
 
 const props = defineProps<{
@@ -42,7 +43,8 @@ const state = defineState({
 
 watch(
   () => state.updatedVQA,
-  v => emit('update:modelValue', v)
+  v => emit('update:modelValue', v),
+  { immediate: true }
 )
 
 function setCorrect(choice: CompleteVQA['choices'][number]) {
@@ -58,14 +60,14 @@ function setCorrect(choice: CompleteVQA['choices'][number]) {
     <img :src="state.imgUrl" alt="Identify this" />
     <form @submit.prevent="() => null">
       <div class="question">
-        <input class="form-control" type="text" v-model="vqa.question.de" />
-        <input class="form-control" type="text" v-model="vqa.question.en" />
+        <input class="form-control" type="text" v-model="vqa.question.de" required />
+        <input class="form-control" type="text" v-model="vqa.question.en" required />
       </div>
       <ul class="choices">
         <li v-for="(choice, i) in vqa.choices" :key="i">
           <div>
-            <input class="form-control" type="text" v-model="choice.de" />
-            <input class="form-control" type="text" v-model="choice.en" />
+            <input class="form-control" type="text" v-model="choice.de" required />
+            <input class="form-control" type="text" v-model="choice.en" required />
           </div>
           <div>
             <button :class="['btn s-btn-faded', { correct: choice.correct }]" @click="setCorrect(choice)">
@@ -82,7 +84,8 @@ function setCorrect(choice: CompleteVQA['choices'][number]) {
           </button>
         </li>
       </ul>
-      <Vue3TagsInput :tags="vqa.tags" placeholder="Add tags" @on-tags-changed="newTags => vqa.tags = newTags" />
+      <Vue3TagsInput :tags="vqa.tags" placeholder="Add tags"
+        @on-tags-changed="(newTags: string[]) => vqa.tags = newTags" />
     </form>
   </div>
 </template>

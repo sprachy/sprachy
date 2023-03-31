@@ -140,7 +140,7 @@ async function deleteExercise() {
     </div>
     <template v-if="state.currentQuestion">
       <div v-if="!state.editingVQA" class="exercise">
-        <img :src="state.imgUrl" alt="Identify this" />
+        <nuxt-img :src="state.imgUrl" alt="Identify this" />
         <div :key="state.currentQuestion.id">
           <p class="question hover-translate" :data-tooltip="state.currentQuestion.question.en">
             <span
