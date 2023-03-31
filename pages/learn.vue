@@ -27,26 +27,31 @@ initialQuestionIndex = initialQuestionIndex === -1 ? 0 : initialQuestionIndex
 const state = defineState({
   questionIndex: initialQuestionIndex,
   editingVQA: null as CompleteVQA | null,
+  questionsLoaded: new Set<number>(),
 
-  get currentQuestion() {
+  get task() {
     return new VQATask(exercises[this.questionIndex])
   },
 
-  get nextQuestion() {
+  get loaded() {
+    return this.questionsLoaded.has(this.task.id)
+  },
+
+  get nextTask() {
     const def = exercises[this.questionIndex + 1]
     return def ? new VQATask(def) : null
   },
 
   get choices() {
-    return this.currentQuestion.def.choices.map(c => ({
+    return this.task.def.choices.map(c => ({
       text: c.de,
       correct: c.correct
     }))
   },
 })
 
-async function toNextQuestion() {
-  const newLemmas = uniq(state.currentQuestion.questionTokens.map(t => t.value))
+async function toNextTask() {
+  const newLemmas = uniq(state.task.questionTokens.map(t => t.value))
   for (const lemma of newLemmas) {
     learnedLemmaSet.add(lemma)
   }
@@ -54,22 +59,15 @@ async function toNextQuestion() {
     learnedLemmas: newLemmas,
   })
   state.questionIndex += 1
-  await prepareNext()
 }
 
-watch(() => state.currentQuestion, () => {
+watch(() => state.task, () => {
   localStorage.setItem(
     "mlLastQuestionId",
-    state.currentQuestion.def.id.toString()
+    state.task.def.id.toString()
   )
-  speech.say({ from: "narrator", message: state.currentQuestion.def.question.de })
+  speech.say({ from: "narrator", message: state.task.def.question.de })
 })
-
-async function prepareNext() {
-  const nextQuestion = exercises[state.questionIndex + 1]
-  if (!nextQuestion) return
-
-}
 
 onMounted(() => {
   window.addEventListener("keydown", onKeydown)
@@ -95,17 +93,14 @@ async function toggleEditMode() {
     await api.dev.updateExercise(state.editingVQA.id, state.editingVQA)
     state.editingVQA = null
   } else {
-    state.editingVQA = { ...state.currentQuestion.def }
+    state.editingVQA = { ...state.task.def }
   }
 }
 
 async function deleteExercise() {
-  const deletingQuestionId = state.currentQuestion.def.id
+  const deletingQuestionId = state.task.def.id
   state.questionIndex += 1
-  await Promise.all([
-    prepareNext(),
-    api.dev.deleteExercise(deletingQuestionId)
-  ])
+  await api.dev.deleteExercise(deletingQuestionId)
 }
 </script>
 
@@ -122,24 +117,27 @@ async function deleteExercise() {
         <FontAwesomeIcon fixedWidth :icon="faTrash" />
       </button>
     </div>
-    <template v-if="state.currentQuestion">
+    <template v-if="!state.loaded">
+      <LoadingIndicator />
+    </template>
+    <template v-else-if="state.task">
       <div v-if="!state.editingVQA" class="exercise">
-        <NuxtImg :src="state.currentQuestion.imgUrl" placeholder alt="Identify this" />
-        <div :key="state.currentQuestion.def.id">
-          <p class="question hover-translate" :data-tooltip="state.currentQuestion.def.question.en">
+        <NuxtImg :src="state.task.imgUrl" placeholder alt="Identify this" />
+        <div :key="state.task.def.id">
+          <p class="question hover-translate" :data-tooltip="state.task.def.question.en">
             <span
               :class="{ token: true, punctuation: token.value.match(/^[.,!?]$/), new: !learnedLemmaSet.has(token.value) }"
-              v-for="token in state.currentQuestion.questionTokens">{{ token.value }}</span>
+              v-for="token in state.task.questionTokens">{{ token.value }}</span>
           </p>
-          <Choices :choices="state.choices" @correct="toNextQuestion" />
+          <Choices :choices="state.choices" @correct="toNextTask" />
         </div>
       </div>
       <div v-else>
         <VQAEditor v-model="state.editingVQA" />
       </div>
     </template>
-    <template v-if="state.nextQuestion">
-      <TaskPreloader :task="state.nextQuestion" />
+    <template v-for="task in [state.task, state.nextTask]">
+      <TaskPreloader v-if="task" :task="task" @loaded="state.questionsLoaded.add(task.id)" />
     </template>
   </main>
 </template>
