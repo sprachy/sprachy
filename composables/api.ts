@@ -5,6 +5,7 @@ import type { ConfirmResetPasswordSchema } from "~/server/api/confirm-reset-pass
 import type { VoiceSynthesisSchema } from '~/server/api/synthesize.post'
 import type { ReportProgressSchema } from '~/server/api/progress.post'
 import type { PutExerciseSchema } from '~/server/api/dev/exercises/[exerciseId].put'
+import type { SignupSchema } from '~/server/api/signup.post'
 
 class SprachyAPI {
   dev = new SprachyDevAPI()
@@ -15,6 +16,10 @@ class SprachyAPI {
 
   async logout() {
     return await $fetch('/api/logout', { method: 'POST' })
+  }
+
+  async signup(opts: SignupSchema) {
+    return await $fetch('/api/signup', { method: 'POST', body: opts })
   }
 
   async sendPasswordResetEmail(opts: ResetPasswordSchema) {

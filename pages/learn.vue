@@ -98,6 +98,9 @@ async function toggleEditMode() {
 }
 
 async function deleteExercise() {
+  if (state.editingVQA) {
+    state.editingVQA = null
+  }
   const deletingQuestionId = state.task.def.id
   state.questionIndex += 1
   await api.dev.deleteExercise(deletingQuestionId)
@@ -121,7 +124,7 @@ async function deleteExercise() {
       <LoadingIndicator />
     </template>
     <template v-else-if="state.task">
-      <div v-if="!state.editingVQA" class="exercise">
+      <div v-if="!state.editingVQA" class="task">
         <NuxtImg :src="state.task.imgUrl" placeholder alt="Identify this" />
         <div :key="state.task.def.id">
           <p class="question hover-translate" :data-tooltip="state.task.def.question.en">
@@ -158,11 +161,15 @@ main {
   padding: 2rem;
 }
 
-.exercise {
+.task {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.task img {
+  max-height: calc(100vh - 350px);
 }
 
 .question {

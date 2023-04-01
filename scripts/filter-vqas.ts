@@ -21,10 +21,6 @@ async function main() {
   filterSportsQuestions(vqas)
   filterGenderQuestions(vqas)
 
-  for (const vqa of vqas) {
-    vqa.tokens = undefined
-  }
-
   await fs.writeFile('data/vqas.json', JSON.stringify(vqas, null, 2))
 }
 

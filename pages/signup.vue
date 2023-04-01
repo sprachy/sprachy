@@ -24,8 +24,6 @@ if (process.browser) {
 }
 
 async function signup() {
-  const api = useSprachyAPI()
-
   state.errors = {}
   if (state.password != state.confirmPassword) {
     state.errors.confirmPassword = "This doesn't match the password"
@@ -104,18 +102,18 @@ async function signup() {
       </fieldset>
 
       <!-- <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    checked={wantsReminderEmails}
-                    id="wantsReminderEmails"
-                    on:change|preventDefault={() =>
-                      (wantsReminderEmails = !wantsReminderEmails)}
-                  />
-                  <label class="form-check-label" for="wantsReminderEmails">
-                    Send me reminder emails when patterns are ready to review
-                  </label>
-                </div> -->
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          checked={wantsReminderEmails}
+                          id="wantsReminderEmails"
+                          on:change|preventDefault={() =>
+                            (wantsReminderEmails = !wantsReminderEmails)}
+                        />
+                        <label class="form-check-label" for="wantsReminderEmails">
+                          Send me reminder emails when patterns are ready to review
+                        </label>
+                      </div> -->
 
       <div v-if="state.errors.other" class="text-danger">
         {{ state.errors.other }}

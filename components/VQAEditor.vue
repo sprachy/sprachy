@@ -123,4 +123,10 @@ ul.choices li button.correct {
 ul.choices li button:not(.correct) {
   opacity: 0.2;
 }
+
+img {
+  display: block;
+  margin: auto;
+  max-height: calc(100vh - 400px);
+}
 </style>

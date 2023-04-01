@@ -17,6 +17,9 @@ const signupForm = z.object({
   message: "Confirm password must be identical to password",
   path: ["confirmPassword"]
 })
+
+export type SignupSchema = z.infer<typeof signupForm>
+
 export default defineEventHandler(async (event) => {
   const { email, password } = signupForm.parse(await readBody(event))
   try {
