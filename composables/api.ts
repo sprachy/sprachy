@@ -37,15 +37,19 @@ class SprachyAPI {
   async reportProgress(opts: ReportProgressSchema) {
     return await $fetch(`/api/progress`, { method: 'POST', body: opts })
   }
+
+  async getTasks() {
+    return await $fetch(`/api/tasks`)
+  }
 }
 
 class SprachyDevAPI {
-  async deleteExercise(exerciseId: number) {
-    return await $fetch(`/api/dev/exercises/${exerciseId}`, { method: 'DELETE' })
+  async deleteTask(taskId: string) {
+    return await $fetch(`/api/dev/exercises/${taskId}`, { method: 'DELETE' })
   }
 
-  async updateExercise(exerciseId: number, vqa: PutExerciseSchema) {
-    return await $fetch(`/api/dev/exercises/${exerciseId}`, { method: 'PUT', body: vqa })
+  async updateTask(taskId: string, vqa: PutExerciseSchema) {
+    return await $fetch(`/api/dev/exercises/${taskId}`, { method: 'PUT', body: vqa })
   }
 }
 

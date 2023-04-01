@@ -1,36 +1,32 @@
 <script setup lang="ts">
-import vqas from "~/data/vqas.json"
 import Choices from "~/components/Choices.vue"
 import { uniq } from 'lodash-es'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faPencil, faSave, faTrash, faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { VQATask } from "~/lib/VQATask"
+import type { vqaTaskDef } from ".prisma/client"
 
 const app = useSprachyApp()
 const user = await getCurrentUser()
+const allTasks = await api.getTasks()
 const isDev = process.dev
-const allVQAs = vqas as PartialVQA[]
-
-const exercises = reactive(
-  allVQAs.filter(v => v.question.de && v.choices?.length) as CompleteVQA[]
-)
 
 const learnedLemmaSet = new Set(user!.learnedLemmas)
 
 const savedQuestionId = localStorage.getItem("mlLastQuestionId")
 
-let initialQuestionIndex = exercises.findIndex(
+let initialQuestionIndex = allTasks.findIndex(
   (q) => q.id.toString() === savedQuestionId
 )
 initialQuestionIndex = initialQuestionIndex === -1 ? 0 : initialQuestionIndex
 
 const state = defineState({
   questionIndex: initialQuestionIndex,
-  editingVQA: null as CompleteVQA | null,
-  questionsLoaded: new Set<number>(),
+  editingVQA: null as vqaTaskDef | null,
+  questionsLoaded: new Set<string>(),
 
   get task() {
-    return new VQATask(exercises[this.questionIndex])
+    return new VQATask(allTasks[this.questionIndex])
   },
 
   get loaded() {
@@ -38,15 +34,8 @@ const state = defineState({
   },
 
   get nextTask() {
-    const def = exercises[this.questionIndex + 1]
+    const def = allTasks[this.questionIndex + 1]
     return def ? new VQATask(def) : null
-  },
-
-  get choices() {
-    return this.task.def.choices.map(c => ({
-      text: c.de,
-      correct: c.correct
-    }))
   },
 })
 
@@ -66,10 +55,10 @@ watch(() => state.task, () => {
     "mlLastQuestionId",
     state.task.def.id.toString()
   )
-  speech.say({ from: "narrator", message: state.task.def.question.de })
+  speech.say({ from: "narrator", message: state.task.questionDe })
 })
 
-onMounted(() => {
+onMounted(async () => {
   window.addEventListener("keydown", onKeydown)
 })
 
@@ -89,8 +78,8 @@ async function gotoPrev() {
 
 async function toggleEditMode() {
   if (state.editingVQA) {
-    exercises[state.questionIndex] = state.editingVQA
-    await api.dev.updateExercise(state.editingVQA.id, state.editingVQA)
+    allTasks[state.questionIndex] = state.editingVQA
+    await api.dev.updateTask(state.editingVQA.id, state.editingVQA)
     state.editingVQA = null
   } else {
     state.editingVQA = { ...state.task.def }
@@ -103,7 +92,7 @@ async function deleteExercise() {
   }
   const deletingQuestionId = state.task.def.id
   state.questionIndex += 1
-  await api.dev.deleteExercise(deletingQuestionId)
+  await api.dev.deleteTask(deletingQuestionId)
 }
 </script>
 
@@ -127,12 +116,12 @@ async function deleteExercise() {
       <div v-if="!state.editingVQA" class="task">
         <NuxtImg :src="state.task.imgUrl" placeholder alt="Identify this" />
         <div :key="state.task.def.id">
-          <p class="question hover-translate" :data-tooltip="state.task.def.question.en">
+          <p class="question hover-translate" :data-tooltip="state.task.questionEn">
             <span
               :class="{ token: true, punctuation: token.value.match(/^[.,!?]$/), new: !learnedLemmaSet.has(token.value) }"
               v-for="token in state.task.questionTokens">{{ token.value }}</span>
           </p>
-          <Choices :choices="state.choices" @correct="toNextTask" />
+          <Choices :choices="state.task.choices" @correct="toNextTask" />
         </div>
       </div>
       <div v-else>

@@ -2,29 +2,29 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCheck, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
 // @ts-ignore
-import Vue3TagsInput from 'vue3-tags-input'
+// import Vue3TagsInput from 'vue3-tags-input'
+import type { vqaTaskDef } from '@prisma/client'
 
 const props = defineProps<{
-  modelValue: PartialVQA
+  modelValue: vqaTaskDef
 }>()
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', v: PartialVQA): void
+  (e: 'update:modelValue', v: vqaTaskDef): void
 }>()
 
 const vqa = reactive({
   ...props.modelValue,
   question: {
-    de: props.modelValue.question.de || "",
-    en: props.modelValue.question.en || ""
+    de: props.modelValue.questionDe,
+    en: props.modelValue.questionEn
   },
-  choices: props.modelValue.choices || [
+  choices: [
     { de: "", en: "", correct: false },
     { de: "", en: "", correct: false },
     { de: "", en: "", correct: false },
     { de: "", en: "", correct: false }
   ],
-  tags: props.modelValue.tags || []
 })
 
 const state = defineState({
@@ -84,8 +84,8 @@ function setCorrect(choice: CompleteVQA['choices'][number]) {
           </button>
         </li>
       </ul>
-      <Vue3TagsInput :tags="vqa.tags" placeholder="Add tags"
-        @on-tags-changed="(newTags: string[]) => vqa.tags = newTags" />
+      <!-- <Vue3TagsInput :tags="vqa.tags" placeholder="Add tags"
+            @on-tags-changed="(newTags: string[]) => vqa.tags = newTags" /> -->
     </form>
   </div>
 </template>

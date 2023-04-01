@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { VQATask } from '~/lib/VQATask'
-const { speech } = useSprachyApp()
 
 const props = defineProps<{
   task: VQATask
@@ -22,12 +21,12 @@ watchEffect(() => {
 
   promises.push(speech.preload({
     from: "narrator",
-    message: props.task.question.de,
+    message: props.task.questionDe,
   }))
   for (const choice of props.task.choices) {
     promises.push(speech.preload({
       from: "narrator",
-      message: choice.de,
+      message: choice.text,
     }))
   }
 
@@ -45,7 +44,7 @@ watchEffect(() => {
 
 <template>
   <div class="preloader">
-    <nuxt-img :src="task.imgUrl" @vnodeBeforeMount="state.imageLoaded = false" @load="state.imageLoaded = true" />
+    <NuxtImg :src="task.imgUrl" @vnodeBeforeMount="state.imageLoaded = false" @load="state.imageLoaded = true" />
   </div>
 </template>
 

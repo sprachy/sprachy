@@ -96,11 +96,10 @@ export class SpeechSystem {
 
   async get(opts: { from: CharacterId, message: string }) {
     const key = opts.from + ' ' + opts.message
-    const audioContent = this.audioCache[key]
-    if (audioContent) {
-      return audioContent
-    }
-    else {
+    const promise = this.audioCache[key]
+    if (promise) {
+      return promise
+    } else {
       console.warn("Audio \"" + key + "\" has not been preloaded.")
       return this.preload(opts)
     }
