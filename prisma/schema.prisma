@@ -10,13 +10,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model VQATaskDef {
+model vqaTaskDef {
   id         String @id @default(uuid())
   imageId    String
   questionEn String
   questionDe String
   answerEn   String
   answerDe   String
+
+  @@map("VQATaskDef")
 }
 
 model User {
