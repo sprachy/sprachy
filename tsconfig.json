@@ -2,7 +2,7 @@
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "importsNotUsedAsValues": "error",
+    "verbatimModuleSyntax": true,
     "paths": {
       "~": [
         "."
