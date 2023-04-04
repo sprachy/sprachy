@@ -9,8 +9,10 @@ if (process.client) {
 </script>
 
 <template>
-  <NuxtLayout>
-    <NuxtLoadingIndicator />
-    <NuxtPage />
-  </NuxtLayout>
+  <GlobalErrorHandler>
+    <NuxtLayout>
+      <NuxtLoadingIndicator />
+      <NuxtPage />
+    </NuxtLayout>
+  </GlobalErrorHandler>
 </template>
