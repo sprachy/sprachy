@@ -16,6 +16,11 @@ export class VQATask {
     return tokenize(this.def.questionDe)
   }
 
+  get questionLemmas() {
+    // TODO lemmatization
+    return this.questionTokens.filter(t => t.tag !== 'punctuation').map(t => t.value)
+  }
+
   get imgUrl() {
     return `/val2014/COCO_val2014_${this.def.imageId
       .toString()

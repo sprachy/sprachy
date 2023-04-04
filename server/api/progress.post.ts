@@ -11,8 +11,8 @@ export default defineEventHandler(async (event) => {
   const { session } = event.context
   const { learnedLemmas } = progressSchema.parse(await readBody(event))
 
-  await Promise.all(learnedLemmas.map(lemma =>
-    prisma.learnedLemma.upsert({
+  for (const lemma of learnedLemmas) {
+    await prisma.learnedLemma.upsert({
       where: {
         lemma_userId: {
           lemma: lemma,
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
       },
       update: {}
     })
-  ))
+  }
 
   return { success: true }
 })

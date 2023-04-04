@@ -40,13 +40,15 @@ const state = defineState({
 })
 
 async function toNextTask() {
-  const newLemmas = uniq(state.task.questionTokens.map(t => t.value))
-  for (const lemma of newLemmas) {
-    learnedLemmaSet.add(lemma)
+  const newLemmas = uniq(state.task.questionLemmas).filter(w => !learnedLemmaSet.has(w))
+  if (newLemmas.length) {
+    for (const lemma of newLemmas) {
+      learnedLemmaSet.add(lemma)
+    }
+    api.reportProgress({
+      learnedLemmas: newLemmas,
+    })
   }
-  api.reportProgress({
-    learnedLemmas: newLemmas,
-  })
   state.questionIndex += 1
 }
 
