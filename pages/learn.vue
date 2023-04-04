@@ -4,7 +4,7 @@ import { uniq } from 'lodash-es'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faPencil, faSave, faTrash, faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { VQATask } from "~/lib/VQATask"
-import type { vqaTaskDef } from ".prisma/client"
+import type { TaskDefVQA } from "@prisma/client"
 
 const app = useSprachyApp()
 const user = await getCurrentUser()
@@ -22,7 +22,7 @@ initialQuestionIndex = initialQuestionIndex === -1 ? 0 : initialQuestionIndex
 
 const state = defineState({
   questionIndex: initialQuestionIndex,
-  editingVQA: null as vqaTaskDef | null,
+  editingVQA: null as TaskDefVQA | null,
   questionsLoaded: new Set<string>(),
 
   get task() {

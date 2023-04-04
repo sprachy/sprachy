@@ -1,14 +1,14 @@
-import type { vqaTaskDef } from "@prisma/client"
+import type { TaskDefVQA } from "@prisma/client"
 import { tokenize } from "./tokenize"
 
-export interface VQATask extends vqaTaskDef { }
+export interface VQATask extends TaskDefVQA { }
 
 /**
  * Runtime model for a VQA exercise that computes
  * additional properties from the raw data.
  */
 export class VQATask {
-  constructor(readonly def: vqaTaskDef) {
+  constructor(readonly def: TaskDefVQA) {
     Object.assign(this, def)
   }
 

@@ -9,7 +9,7 @@ const deleteExerciseSchema = z.object({
 export default defineEventHandler(async (event) => {
   const { taskId } = deleteExerciseSchema.parse(event.context.params)
 
-  await prisma.vqaTaskDef.delete({
+  await prisma.taskDefVQA.delete({
     where: {
       id: taskId
     }

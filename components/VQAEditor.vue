@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCheck, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
 // @ts-ignore
 // import Vue3TagsInput from 'vue3-tags-input'
-import type { vqaTaskDef } from '@prisma/client'
+import type { TaskDefVQA } from '@prisma/client'
 
 const props = defineProps<{
-  modelValue: vqaTaskDef
+  modelValue: TaskDefVQA
 }>()
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', v: vqaTaskDef): void
+  (e: 'update:modelValue', v: TaskDefVQA): void
 }>()
 
 const vqa = reactive({
@@ -85,7 +85,7 @@ function setCorrect(choice: CompleteVQA['choices'][number]) {
         </li>
       </ul>
       <!-- <Vue3TagsInput :tags="vqa.tags" placeholder="Add tags"
-            @on-tags-changed="(newTags: string[]) => vqa.tags = newTags" /> -->
+                @on-tags-changed="(newTags: string[]) => vqa.tags = newTags" /> -->
     </form>
   </div>
 </template>
