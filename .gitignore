@@ -10,3 +10,4 @@ dist
 prisma/dev.db-journal
 public/val2014
 assets/vqa-exercises.json
+tsconfig.tsbuildinfo

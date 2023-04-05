@@ -23,6 +23,9 @@ export default defineNuxtConfig({
   nitro: {
     preset: "cloudflare"
   },
+  vite: {
+    clearScreen: false
+  },
   runtimeConfig: {
     faunaAdminKey: '',
     faunaDomain: '',
