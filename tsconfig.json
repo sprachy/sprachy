@@ -16,6 +16,10 @@
     "transpileOnly": true,
     "require": [
       "tsconfig-paths/register"
+    ],
+    // https://github.com/TypeStrong/ts-node/issues/1971
+    "ignoreDiagnostics": [
+      5104
     ]
   }
 }
