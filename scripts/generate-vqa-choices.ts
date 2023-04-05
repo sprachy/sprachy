@@ -1,6 +1,6 @@
 import fs from 'fs/promises'
 import { groupBy, sampleSize, sortBy, uniq, uniqBy } from 'lodash-es'
-import { getMultipleChoiceAnswerType, numToWord } from '../lib/languageUtil'
+import { getMultipleChoiceAnswerType, numToWord } from '../lib/nlp'
 
 async function main() {
   const vqas = JSON.parse(await fs.readFile('data/vqas.json', 'utf-8')) as PartialVQA[]

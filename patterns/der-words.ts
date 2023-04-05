@@ -6,7 +6,6 @@ export default definePattern({
   slug: "der-words",
   title: "Indefinite articles",
   shortdesc: "For when three articles aren't specific enough",
-  icon: faListOl,
   explanation: md`
 In English, we use indefinite articles to specify the context of its associated object, for instance: _this squirrel_ has a different meaning than _a squirrel_, as the former is directed at a specific squirrel while the latter can be pointed at any squirrel.
 

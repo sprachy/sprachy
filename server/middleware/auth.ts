@@ -1,5 +1,5 @@
-import { db } from "../db"
 import { sessions } from "../sessions"
+import { prisma } from '~/server/prisma'
 
 export default defineEventHandler(async (event) => {
   const sessionKey = getCookie(event, 'sprachySessionKey')
@@ -35,7 +35,11 @@ export default defineEventHandler(async (event) => {
       statusMessage: "Unauthorized",
     })
   } else if (event.path.startsWith(`/api/admin`)) {
-    const user = await db.users.get(session!.userId)
+    const user = await prisma.user.findUnique({
+      where: {
+        id: session!.userId
+      }
+    })
     if (!user?.isAdmin) {
       throw createError({
         statusCode: 403,

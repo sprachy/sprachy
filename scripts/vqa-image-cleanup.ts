@@ -1,7 +1,7 @@
 import fs from 'fs/promises'
 import { chunk, groupBy, keyBy } from 'lodash-es'
 import { loadVQAs, saveVQAs } from '../server/dev/vqaProcessing'
-import { titleCase } from '../lib/languageUtil'
+import { titleCase } from '../lib/nlp'
 import { glob } from 'glob'
 
 /**

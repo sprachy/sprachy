@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SpeechSystem, Base64Audio } from "~/lib/SpeechSystem"
+import type { SpeechSystem, Base64Audio } from "~/composables/speech"
 import SoundIndicator from "~/components/SoundIndicator.vue"
 
 const props = withDefaults(defineProps<{

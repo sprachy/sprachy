@@ -1,4 +1,3 @@
-import type { IconDefinition } from "@fortawesome/fontawesome-common-types"
 import { parseExercise, type Exercise, type ExerciseDef } from "./Exercise"
 
 export type CharacterId = string
@@ -14,7 +13,6 @@ export type PatternDef = {
   title: string
   slug: string
   shortdesc: string
-  icon?: IconDefinition
   explanation: string
   storyTitle?: string
   story: LineDef[]

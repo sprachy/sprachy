@@ -3,7 +3,6 @@ import { sessions } from '~/server/sessions'
 import { prisma } from '~/server/prisma'
 import bcrypt from 'bcryptjs'
 import { omit } from 'lodash-es'
-import type { ProgressSummary } from '~/lib/types'
 
 const loginForm = z.object({
   email: z.string(),

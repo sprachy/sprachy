@@ -7,7 +7,6 @@ export default definePattern({
   slug: "-lich",
   title: "The suffix \"-lich\"",
   shortdesc: `As in endlich ("endly": finite)`,
-  icon: faHandPointRight,
   explanation: md`
 "-lich" is cognate to the English "-ly", and is used to make adjectives like "endlich" (finally/finite) or "niedlich" (cute!).
 

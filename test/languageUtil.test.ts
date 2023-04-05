@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { getMultipleChoiceAnswerType, numToWord } from '~/lib/languageUtil'
+import { getMultipleChoiceAnswerType, numToWord } from '~/lib/nlp'
 
 test('numToWord', () => {
   expect(numToWord(0)).toBe('Null')

@@ -1,6 +1,6 @@
 import fs from 'fs/promises'
 import { chunk, groupBy, keyBy } from 'lodash-es'
-import { titleCase } from '../lib/languageUtil'
+import { titleCase } from '../lib/nlp'
 import http from '../server/http'
 
 type TranslatedVQA = PartialVQA & {

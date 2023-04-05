@@ -5,6 +5,7 @@ import { matchAnswer } from "~/lib/feedback"
 import Message from "~/components/Message.vue"
 import Sprachdown from "~/components/Sprachdown.vue"
 import AudioForLine from "~/components/AudioForLine.vue"
+import { sortBy } from "lodash-es"
 
 const { speech, effects } = useSprachyApp()
 
@@ -40,7 +41,7 @@ const state = defineState({
     if (props.exercise.hint) {
       words.push(props.exercise.hint)
     }
-    const longestAnswer = _.sortBy(words, (s) => -s.length)[0]
+    const longestAnswer = sortBy(words, (s) => -s.length)[0]
     return longestAnswer!.length
   },
 
