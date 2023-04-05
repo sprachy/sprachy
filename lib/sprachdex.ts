@@ -5,15 +5,13 @@ import patternDefs from "~/patterns"
 
 class Sprachdex {
   characters = characters
-  patternsIncludingDrafts = patternDefs.map((p) => parsePattern(p))
-  publishedPatterns = this.patternsIncludingDrafts.filter((p) => !p.draft)
-  draftPatterns = this.patternsIncludingDrafts.filter((p) => p.draft)
+  patterns = patternDefs.map((p) => parsePattern(p))
 
   /** Words used in any story */
   knownGermanWords: { [key: string]: true } = {}
 
   constructor() {
-    for (const pattern of this.patternsIncludingDrafts) {
+    for (const pattern of this.patterns) {
       for (const line of pattern.story) {
         if ('message' in line && line.message) {
           for (const word of line.message.split(/\s+/)) {
