@@ -2,42 +2,29 @@
 import * as z from 'zod'
 import { remove } from 'lodash-es'
 import { loadVQAs, saveVQAs } from '~/server/dev/vqaProcessing'
+import { prisma } from '~/server/prisma'
 
 const putTaskSchema = z.object({
-  id: z.number(),
-  imageId: z.number(),
-  question: z.object({
-    en: z.string(),
-    de: z.string()
-  }),
-  choices: z.array(
-    z.object({
-      en: z.string(),
-      de: z.string(),
-      correct: z.boolean()
-    })
-  ),
-  tags: z.array(z.string())
+  id: z.string(),
+  imageId: z.string(),
+  questionEn: z.string(),
+  questionDe: z.string(),
+  answerEn: z.string(),
+  answerDe: z.string()
 })
 
 export type PutTaskSchema = z.infer<typeof putTaskSchema>
 
 export default defineEventHandler(async (event) => {
-  const { exerciseId } = z.object({ exerciseId: z.coerce.number() }).parse(event.context.params)
+  const { taskId } = z.object({ taskId: z.string() }).parse(event.context.params)
 
   const newVQA = putTaskSchema.parse(await readBody(event))
 
-  const vqas = await loadVQAs()
-  const oldVQAIndex = vqas.findIndex(vqa => vqa.id === exerciseId)
-  if (oldVQAIndex === -1) {
-    vqas.push(newVQA)
-    console.log(`Added VQA ${newVQA.id}`)
-  } else {
-    vqas[oldVQAIndex] = newVQA
-    console.log(`Updated VQA ${newVQA.id}`)
-  }
-
-  await saveVQAs(vqas)
+  await prisma.taskDefVQA.upsert({
+    where: { id: taskId },
+    create: newVQA,
+    update: newVQA
+  })
 
   return { success: true }
 })

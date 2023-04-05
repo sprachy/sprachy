@@ -8,7 +8,7 @@ import type { TaskDefVQA } from "@prisma/client"
 
 const app = useSprachyApp()
 const user = await getCurrentUser()
-const allTasks = await api.getTasks()
+const allTasks = reactive(await api.getTasks())
 const isDev = process.dev
 
 const learnedLemmaSet = new Set(user!.learnedLemmas)
