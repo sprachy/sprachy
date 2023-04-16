@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LTableTranslation from "./LTableTranslation.vue"
-import Sprachdown from "../Sprachdown.vue"
+import Sprachdown from "./Sprachdown.vue"
 
 const props = defineProps<{
   header?: string,

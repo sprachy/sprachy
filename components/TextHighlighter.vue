@@ -6,6 +6,7 @@ const props = defineProps<{
 }>()
 
 const text = useSlotText()
+console.log(text)
 
 function estimateTextWidth(text: string) {
   return pixelWidth(text, { size: 16, font: "arial" })

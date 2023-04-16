@@ -6,7 +6,6 @@ import { faPencil, faSave, faTrash, faArrowLeft } from "@fortawesome/free-solid-
 import { VQATask } from "~/lib/VQATask"
 import type { TaskDefVQA } from "@prisma/client"
 
-const app = useSprachyApp()
 const user = await getCurrentUser()
 const allTasks = reactive(await api.getTasks())
 const isDev = process.dev

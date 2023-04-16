@@ -1,5 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  experimental: {
+    runtimeVueCompiler: true,
+    externalVue: false
+  },
   modules: [
     '@nuxt/image-edge',
     'nuxt-vitest'

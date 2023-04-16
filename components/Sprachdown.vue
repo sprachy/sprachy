@@ -1,7 +1,12 @@
 <script setup lang="ts">
 // import SprachdownHTML from "./SprachdownHTML.svelte"
 import MarkdownIt from 'markdown-it'
-const md = new MarkdownIt()
+import { componentPlugin } from '@mdit-vue/plugin-component'
+import LTable from './LTable.vue'
+
+const md = MarkdownIt({ html: true }).use(componentPlugin, {
+  // options
+})
 
 const props = defineProps<{
   source: string
@@ -19,6 +24,11 @@ const state = defineState({
 })
 
 
+const root = defineComponent({
+  components: { LTable },
+  template: state.renderedMarkdown,
+})
+
   // const parsedSource = source.replace(/=[^=\n]+=/, (substring) => {
   //   const highlight = substring.slice(1, -1)
   //   return `<InlineTranslation original="${highlight}"/>`
@@ -26,6 +36,5 @@ const state = defineState({
 </script>
 
 <template>
-  <span class="markdown" v-if="props.inline" v-html="state.renderedMarkdown" />
-  <div class="markdown" v-else v-html="state.renderedMarkdown" />
+  <root />
 </template>
