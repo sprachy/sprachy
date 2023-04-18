@@ -23,7 +23,6 @@ const state = defineState({
   }
 })
 
-
 const root = defineComponent({
   components: { LTable },
   template: state.renderedMarkdown,

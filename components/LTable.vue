@@ -4,11 +4,14 @@ import Sprachdown from "./Sprachdown.vue"
 
 const props = defineProps<{
   header?: string,
+  content: string,
   translate?: boolean,
   inlines?: boolean
 }>()
 
-const text = useSlotText()
+// const text = useSlotText()
+
+console.log(props.content)
 
 const state = defineState({
   get headerRow() {
@@ -16,7 +19,7 @@ const state = defineState({
   },
 
   get lines() {
-    return text.trim().split("\n")
+    return props.content.trim().split("\n")
   },
 
   get rows() {

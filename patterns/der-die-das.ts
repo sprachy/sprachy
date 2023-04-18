@@ -16,11 +16,11 @@ export default definePattern({
   explanation: md`
 Der, die, and das are three ways of saying _the_ in German. Which one you use depends on the _grammatical gender_ of the noun that follows.
 
-<LTable header="Gender / Deutsch / Meaning">
+<LTable header="Gender / Deutsch / Meaning" content="
 neuter / **das** Eichhörnchen / **the** squirrel
 masculine / **der** Baum / **the** tree
 feminine / **die** unendliche Leere / **the** infinite void
-</LTable>
+"/>
 
 These are all in what's called the _nominative case_, the case where we're talking about the subject of a sentence (like a squirrel), unmodified by any verbs.
 
