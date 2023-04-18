@@ -68,9 +68,8 @@ onUnmounted(() => {
 })
 
 function onKeydown(ev: KeyboardEvent) {
-  if (ev.key === 'Backspace') {
+  if (ev.key === "Backspace" && !state.editingVQA)
     deleteExercise()
-  }
 }
 
 async function gotoPrev() {
