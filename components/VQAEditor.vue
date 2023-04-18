@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faCheck, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
 // @ts-ignore
 // import Vue3TagsInput from 'vue3-tags-input'
 import type { TaskDefVQA } from '@prisma/client'
@@ -15,12 +13,12 @@ const emit = defineEmits<{
 
 const vqa = reactive({
   ...props.modelValue,
-  choices: [
-    // { de: "", en: "", correct: false },
-    // { de: "", en: "", correct: false },
-    // { de: "", en: "", correct: false },
-    // { de: "", en: "", correct: false }
-  ],
+  // choices: [
+  //   // { de: "", en: "", correct: false },
+  //   // { de: "", en: "", correct: false },
+  //   // { de: "", en: "", correct: false },
+  //   // { de: "", en: "", correct: false }
+  // ],
 })
 
 const state = defineState({
@@ -59,29 +57,29 @@ watch(
         <input class="form-control" type="text" v-model="vqa.questionDe" required />
         <input class="form-control" type="text" v-model="vqa.questionEn" required />
       </div>
-      <!-- <ul class="choices">
-          <li v-for="(choice, i) in vqa.choices" :key="i">
-            <div>
-              <input class="form-control" type="text" v-model="choice.de" required />
-              <input class="form-control" type="text" v-model="choice.en" required />
-            </div>
-            <div>
-              <button :class="['btn s-btn-faded', { correct: choice.correct }]" @click="setCorrect(choice)">
-                <FontAwesomeIcon :icon="faCheck" size="lg" />
-              </button>
-              <button class="btn s-btn-faded" @click="vqa.choices.splice(i, 1)">
-                <FontAwesomeIcon :icon="faTrash" />
-              </button>
-            </div>
-          </li>
-          <li>
-            <button class="btn s-btn-faded" @click="vqa.choices.push({ de: '', en: '', correct: false })">
-              <FontAwesomeIcon :icon="faPlus" size="lg" />
-            </button>
-          </li>
-        </ul> -->
+      <!--   <ul class="choices">
+                                 <l i v-for="(choice, i) in vqa.choices" :key="i">
+                                    <div>
+                                      <input class="form-control" type="text" v-model="choice.de" required />
+                                      <input class="form-control" type="text" v-model="choice.en" required />
+                                    </div>
+                                    <div>
+                                      <button :class="['btn s-btn-faded', { correct: choice.correct }]" @click="setCorrect(choice)">
+                                        <FontAwesomeIcon :icon="faCheck" size="lg" />
+                                      </button>
+                                     <b utton class="btn s-btn-faded" @click="vqa.choices.splice(i, 1)">
+                                        <FontAwesomeIcon :icon="faTrash" />
+                                      </button>
+                                    </div>
+                                  </li>
+                                  <li>
+                                  <b  utton class="btn s-btn-faded" @click="vqa.choices.push({ de: '', en: '', correct: false })">
+                                      <FontAwesomeIcon :icon="faPlus" size="lg" />
+                                    </button>
+                                  </li>
+                              </ul> -->
       <!-- <Vue3TagsInput :tags="vqa.tags" placeholder="Add tags"
-                    @on-tags-changed="(newTags: string[]) => vqa.tags = newTags" /> -->
+                                          @on-tags-changed="(newTags: string[]) => vqa.tags = newTags" /> -->
     </form>
   </div>
 </template>
