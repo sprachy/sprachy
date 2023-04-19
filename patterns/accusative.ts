@@ -10,45 +10,41 @@ export default definePattern({
   slug: "accusative",
   title: "Den Akkusativ",
   shortdesc: "For ~~accusing people~~ direct objects",
-  icon: faHandPointRight,
   explanation: md`
 In English, the nominative pronouns "he" and "she" change to "him" and "her" when the person
 is the direct object of a sentence, being acted on by a verb. For example:
 
-<LTable header="Nominative / Accusative">
+<LTable header="Nominative / Accusative" content="
 _he_ is very fluffy / I want to pet _him_
 _she_ is very good at Tetris / it's hard to win against _her_
-</LTable>
+"/>
 
 In German, this change applies not only to pronouns but also to an equivalent of "the"
 (called the definite article): "der" changes to "den", when you're talking about doing
 something _to_ a masculine noun.
 
-<DialogueExample>
+<DialogueExample content="
 squirrel:
   Sie dürfen **den** Esper-Prinzen streicheln, wenn Sie Mandeln haben.
   You may pet **the** Esper Prince, if you have almonds.
-</DialogueExample>
+"/>
 
 This _only_ happens with masculine nouns. "die" and "das" stay the same
 in accusative mode. That goes for the plural "die", too.
 
-<LTable>
+<LTable content="
 _ / Masculine / Feminine / Neuter
 Nominative / der / die / das
 Accusative / **den** / die / das
-</LTable>
+"/>
 
 _ein_ words follow the same pattern, changing to **einen** in accusative only for
 masculine nouns. If it's a neuter or feminine noun, it always looks the same in
 accusative!
 
-<Tip title="Einen Jungen">
+<Tip title="Einen Jungen" content="
 Some masculine nouns change form when used in any case other than the nominative, gaining a new _-n_ or _-en_ ending. You will often see phrases like _den Prinzen_, _einen Herren_, or _deinen Studenten_.
-</Tip>
-
-
-  `,
+"/>`,
   story: [
     {
       from: "squirrel",

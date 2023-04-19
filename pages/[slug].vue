@@ -11,6 +11,7 @@ if (!pattern) {
 
 <template>
   <main class="container">
+    <h1>{{ pattern.title }}</h1>
     <PatternExplanation :pattern="pattern" />
   </main>
 </template>

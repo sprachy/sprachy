@@ -6,53 +6,52 @@ export default definePattern({
   slug: "adjective-endings",
   title: "Grüner Tee",
   shortdesc: "Adjective endings for nouns without articles",
-  icon: faExclamation,
   explanation: md`
 Consider the difference between these two phrases:
 
-<DialogueExample>
+<DialogueExample content="
 lukas:
   Das Eichhörnchen und der starke Kaffee vertragen sich nicht.
   The squirrel and the strong coffee don't mix.
-</DialogueExample>
+"/>
 
-<DialogueExample>
+<DialogueExample content="
 lukas:
   Eichhörnchen und starke**r** Kaffee vertragen sich nicht.
   Squirrels and strong coffee don't mix.
-</DialogueExample>
+"/>
 
 Notice how an **r** gets added to the adjective in the second example? Because there is no _der_, the adjective _starke_ becomes _starker_ to indicate the gender of the masculine noun _Kaffee_.
 
 The general pattern is: when there is no _der-_ or _ein-_ type word preceding a noun, it is instead the adjective that indicates gender and case.
 
-<LTable>
+<LTable content="
 _ / Masculine / Feminine / Neuter / Plural
 Nominative / weich**er** Flaum / ewig**e** Liebe / geheim**es** Wissen / süß**e** Freunde
 Accusative / weich**en** Flaum / ewig**e** Liebe / geheim**es** Wissen / süß**e** Freunde
 Dative / weich**em** Flaum / ewig**er** Liebe / geheim**em** Wissen / süß**en** Freunden
 Genitive / weich**en** Flaumes / ewig**er** Liebe / geheim**en** Wissens / süß**er** Freunde
-</LTable>
+"/>
 
 In the example with the article you can also notice that it's _der starke Kaffee_, where the adjective _stark_ has an **e** added to it.
 
 Even though it's the article's job to indicate the gender and case, the adjective still changes, it is different for _der-_ and _ein-_ words:
 
-<LTable>
+<LTable content="
 der- words / Masculine / Feminine / Neuter / Plural
 Nominative / **der** weich**e** Flaum / **die** ewig**e** Liebe / **das** geheim**e** Wissen / **die** süß**en** Freunde
 Accusative / **den** weich**en** Flaum / **die** ewig**e** Liebe / **das** geheim**e** Wissen / **die** süß**en** Freunde
 Dative / **dem** weich**en** Flaum / **der** ewig**en** Liebe / **dem** geheim**en** Wissen / **den** süß**en** Freunden
 Genitive / **des** weich**en** Flaumes / **der** ewig**en** Liebe / **des** geheimen Wissens / **der** süß**en** Freunde
-</LTable>
+"/>
 
-<LTable>
+<LTable content="
 ein- words / Masculine / Feminine / Neuter / Plural
 Nominative / **ein** weich**er** Flaum / **eine** ewig**e** Liebe / **ein** geheim**es** Wissen / **meine** süß**en** Freunde
 Accusative / **einen** weich**en** Flaum / **eine** ewig**e** Liebe / **ein** geheim**es** Wissen / **meine** süß**en** Freunde
 Dative / **einem** weich**en** Flaum / **einer** ewig**en** Liebe / **einem** geheim**en** Wissen / **meinen** süß**en** Freunden
 Genitive / **eines** weich**en** Flaumes / **einer** ewig**en** Liebe / **eines** geheim**en** Wissens / **meiner** süß**en** Freunde
-</LTable>
+"/>
 `
   ,
   story: [

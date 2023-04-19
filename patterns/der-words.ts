@@ -9,7 +9,7 @@ export default definePattern({
   explanation: md`
 In English, we use indefinite articles to specify the context of its associated object, for instance: _this squirrel_ has a different meaning than _a squirrel_, as the former is directed at a specific squirrel while the latter can be pointed at any squirrel.
 
-<LTable>
+<LTable content="
 dieses Eichhörnchen / this squirrel
 jedes Eichhörnchen / each, every squirrel
 jenes Eichhörnchen / that squirrel
@@ -17,33 +17,33 @@ jenes Eichhörnchen / that squirrel
 (ein) solches Eichhörnchen / such (a) squirrel
 welches Eichhörnchen / which, what squirrel
 alle Eichhörnchen / all squirrels
-</LTable>
+"/>
 
-<Tip title="All the squirrels">
+<Tip title="All the squirrels" content="
 You may have noticed on the table that _alle_ uses the plural of squirrel, this is because _alle_ is the only indefinite article which can't be used in its singular.
-</Tip>
+"/>
 
 Unlike the three definite articles, indefinite articles have different endings for each combination of gender and case. Luckily for us these endings are regular so indefinite articles share the same endings as _dies-_:
 
-<LTable>
+<LTable content="
 _ / Masculine / Feminine / Neuter / Plural
 Nominative / dies**er** / dies**e** / dies**es** / dies*e*
 Accusative / dies**en** / dies**e** / dies**es** / dies**e**
 Dative / dies**em** / dies**er** / dies**em** / dies**en**
 Genitive / dies**es** / dies**er** / dies**es** / dies**er**
-</LTable>
+"/>
 
-<DialogueExample>
+<DialogueExample content="
 squirrel:
   Mein Glanz spiegelt sich in diesen Fenster**n**.
   My shine is reflected in those windows.
-</DialogueExample>
+"/>
 
 Just like with _der_, _die_, _das_, the associated word of the indefinite article, the _der- word_, gets a weak noun ending if necessary, such as _-n_ on dative, plural.
 
-<Tip title="The latter and the former">
+<Tip title="The latter and the former" content="
 _Dieses_ and _jenes_ can also appear as _the latter_ and _the former_ respectively. In this case these are not used like regular articles and don't follow up with its noun.
-</Tip>
+"/>
   `,
   story: [
     // LEVEL 1

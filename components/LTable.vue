@@ -9,10 +9,6 @@ const props = defineProps<{
   inlines?: boolean
 }>()
 
-// const text = useSlotText()
-
-console.log(props.content)
-
 const state = defineState({
   get headerRow() {
     return props.header?.split(" / ")

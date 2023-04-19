@@ -1,4 +1,3 @@
-import { faListOl } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "~/lib/definePattern"
 
 export default definePattern({
@@ -6,39 +5,38 @@ export default definePattern({
   slug: "ein-words",
   title: "Ein und eine",
   shortdesc: "Like a/an but with more gender",
-  icon: faListOl,
   explanation: md`
 In English, we choose to use either _a_ or _an_ depending on the following word. Similarly, German switches between _ein_ or _eine_ depending on the grammatical gender of the noun being referred to.
 
-<LTable translate header="Gender / The Noun / A Noun">
+<LTable translate header="Gender / The Noun / A Noun" content="
 masculine / der Ort / ein Ort
 feminine / die Welt / eine Welt
 neuter / das Eichhörnchen / ein Eichhörnchen
-</LTable>
+"/>
 
 Note that the masculine and neuter forms of ein are the same, unlike with der and das!
 
-<DialogueExample>
+<DialogueExample content="
 fish:
   Der Ozean ist **mein** Ozean!
   The ocean is **my** ocean!
-</DialogueExample>
+"/>
 
 There are several other "ein-style" words that follow the same gendered inflection pattern as ein/eine. Keep their different meanings in mind!
 
-<LTable translate header="Noun / Mein / Dein / Sein / Kein">
+<LTable translate header="Noun / Mein / Dein / Sein / Kein" content="
 der Ozean / mein Ozean / dein Ozean / sein Ozean / kein Ozean
 die Krabbe / meine Krabbe / deine Krabbe / seine Krabbe / keine Krabbe
 das Problem / mein Problem / dein Problem / sein Problem / kein Problem
-</LTable>
+"/>
 
-<Tip title="Deine Plurale">
-It makes no sense to say "eine Plurale" (an plurals), but words like _meine_ or _keine_ can be used for plurals. Like with _die Plurale_, they follow the feminine form, regardless of the noun's original gender.
-</Tip>
+<Tip title="Deine Plurale" content="
+It makes no sense to say 'eine Plurale' (an plurals), but words like _meine_ or _keine_ can be used for plurals. Like with _die Plurale_, they follow the feminine form, regardless of the noun's original gender.
+"/>
 
-<Tip title="Compound words">
+<Tip title="Compound words" content="
 When dealing with compound words, the last word within the compound word would define the gender of the noun. For instance the noun _Spiegelei_ includes the words _Spiegel_ (masculine) and _Ei_ (neuter), so in this case the ending-word of _Ei_ would be definining gender for Spiegelei.
-</Tip>
+"/>
   `,
   story: [
     // LEVEL 1

@@ -6,30 +6,29 @@ export default definePattern({
   slug: "formal",
   title: "Du oder Sie",
   shortdesc: "How to not be an overly familiar rando",
-  icon: faUserTie,
   explanation: md`
 German has different ways to say _you_ depending on who you're talking to. In casual conversation, like with friends or family, you can use _du_. When talking to strangers or authority figures, it's common to use _Sie_ instead.
 
-<ltable header="Deutsch / Meaning">
+<LTable header="Deutsch / Meaning" content="
 Du bist sehr süß / You are very cute (informal)
 Sie sind eine brillante Wissenschaftlerin / You are a brilliant scientist (formal)
-</ltable>
+"/>
 
 Note that _Sie_ when capitalized means the formal you, but the lowercase _sie_ also means "they" or "she". Don't get them mixed up!
 
-<ltable header="Deutsch / Meaning">
 Ja, Sie sind richtig / Yes, you are right (formal)
 Nein, sie sind keine Kamele / No, they are not camels
 Vorsicht, sie ist eine furchtbare Feindin / Beware, she is a fearsome enemy
-</ltable>
+<ltable header="Deutsch / Meaning" content="
+"/>
 
 Similar to "they" in English, the singular _Sie_ and plural _sie_ both use _Sie sind_ like "they are". The "she" meaning of sie uses _sie ist_. This sind/ist difference, along with the casing, can help you figure out from context which of the three meanings is being used.
 
-<DialogueExample>
+<DialogueExample content="
 cashier:
   Ist das Ihr Eichhörnchen, Sir?
   Is that your squirrel, sir?
-</DialogueExample>
+"/>
 
 Note that all three forms of sie/Sie change to ihr/Ihr for the possessive!
   `,

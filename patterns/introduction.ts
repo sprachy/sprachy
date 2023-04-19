@@ -13,7 +13,7 @@ export default definePattern({
   id: "introduction",
   slug: "introduction",
   title: "Learning German",
-  shortdesc: "",
+  shortdesc: "Some introductory guidance",
   explanation: md`
 German and English are both Germanic languages and closely related to each other. Since they share the majority of their alphabets with similar pronunciation rules, it's easy for an English speaker to start learning German!
 
@@ -25,10 +25,10 @@ There are only a few key differences from English at the typographic level.
 
 Much German vocabulary will also be recognizable to English speakers. Consider phrases like _der grüne Apfel_ (the green apple) or _die graue Maus_ (the gray mouse). This is increasingly true as the languages continue to borrow new words from each other, as in _das Baby_ or _der Computer_.
 
-<DialogueExample>
+<DialogueExample content="
 squirrel:
   Diese Welt ist sehr grün.
-</DialogueExample>
+"/>
 
 Sprachy exercises will often ask you to make a reasonable guess at the meaning of things when it's possible to do so!
 `,

@@ -1,4 +1,3 @@
-import { faMedal } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "~/lib/definePattern"
 
 export default definePattern({
@@ -9,19 +8,20 @@ export default definePattern({
   explanation: md`
 If you want to say that something is the best you use the _superlative_ which is the highest level of the comparsion adjectives.
 
-<ltable translate header="Positive / Comparative / Superlative">
+<LTable translate header="Positive / Comparative / Superlative" content="
 klein / kleiner / kleinst-
 gut / besser / best-
 alt / älter / ältest-
-</ltable>
+"/>
 
 Have you noticed the pattern? Generally the superlative ends in an _-st_, with the exception that the positive of the adjective is ending in _-d_ or _-t_, in this case the superlatives ends in _-est_ instead.
 
 However the superlative would never appear on its own unlike the comparative, the according adjective endings follow up after the superlative suffix.
 
-<Tip title="Am besten">
+<Tip title="Am besten" content="
 You would commonly see the word _am_ like in the phrase _am besten_ placed infront of a superlative which is similar to the _the_ in _the best_. Although you may also use an article infront of the superlative if you're explicitly referring to someone or something, keep in mind the changes to the adjective endings then which generally is the _-en_ ending.
-</Tip>`,
+"/>
+`,
   story: [
     // LEVEL 2
     {

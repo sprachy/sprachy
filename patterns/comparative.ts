@@ -6,23 +6,22 @@ export default definePattern({
   slug: "comparative",
   title: "Das Komparativ",
   shortdesc: "For when you have a way better idea",
-  icon: faChartLine,
   explanation: md`
 Just like in English you can use comparsion to express that something is better. For now we're going to focus on the first degree of comparsions which is the _comparative_.
 
-<ltable translate header="Positive / Comparative">
+<LTable translate header="Positive / Comparative" content="
 klein / kleiner
 gut / besser
 lecker / leckerer
-</ltable>
+"/>
 
 The pattern is straightforward so you can always expect a comparative to end in _-er_. Keep in mind though that some adjectives already end in _-er_ just how we noticed on _lecker_, we simply add another _-er_ then.
 
 You also have to keep the correct adjective endings in mind. If an adjective is in front of a masculine noun like in _kleiner Baum_, it already uses an _-er_ ending which wouldn't be the comparative. To make the adjective a comparative you simply concatenate another _-er_ and you get _kleinerer Baum_. The adjective ending always appears after the comparative ending.
 
-<Tip title="Umlaut">
-It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ for example _groß_ would turn into _größer_, keep in mind though that there are many exceptions to it,
-</Tip>`,
+<Tip title="Umlaut" content="
+It's also common thing for comparatives to use the Umlaut of _a_, _o_ and _u_ for example _groß_ would turn into _größer_, keep in mind though that there are many exceptions to it.
+"/>`,
   story: [
     // LEVEL 1
     {

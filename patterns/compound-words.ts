@@ -1,4 +1,3 @@
-import { faCodeMerge } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "~/lib/definePattern"
 
 export default definePattern({
@@ -6,23 +5,22 @@ export default definePattern({
   slug: "compound-words",
   title: "Compound words",
   shortdesc: `Fledermaus (bat) is "flutter mouse"`,
-  icon: faCodeMerge,
   explanation: md`
 In many languages, humans like to create new words by smooshing together two or more existing ones. The meaning of the new word may be immediately obvious from the roots, or it might derive it in a more subtle or historical way. For example, in English:
 
-<LTable header="Compound / Etymology">
+<LTable header="Compound / Etymology" content="
 blueberry / blue + berry: Obviously it's a berry, and it's blue. Note how it doesn't refer to _any_ blue berry though, only the blueberry!
-flashback / flash + back: A "flash" of memory back to the past, by analogy to a flash of light.
+flashback / flash + back: A 'flash' of memory back to the past, by analogy to a flash of light.
 strawberry / straw + berry: Not in the sense of the material "straw", but rather the historical meaning "that which has been strewn".
-</LTable>
+"/>
 
 Recognizing this pattern is helpful when learning a language: you can sometimes infer the meaning of an unknown compound word if you already know the roots. It can also help you recall words once you do know the meaning, since the literal translations are often quite silly and memorable. For example:
 
-<LTable header="Compound / Etymology">
-die Fledermaus (the bat) / "flutter mouse" - From Old German fledarōn (flutter) and _die Maus_.
-das Faultier (the sloth) / "lazy animal" - From _faul_ + _das Tier_.
-das Wasserschwein (the capybara) / "water pig" - From _das Wasser_ + _das Schwein_.
-</LTable>
+<LTable header="Compound / Etymology" content="
+die Fledermaus (the bat) / 'flutter mouse' - From Old German fledarōn (flutter) and _die Maus_.
+das Faultier (the sloth) / 'lazy animal' - From _faul_ + _das Tier_.
+das Wasserschwein (the capybara) / 'water pig' - From _das Wasser_ + _das Schwein_.
+"/>
 
 Note how compound nouns inherit the gender of their ending root. The many German animal names ending in _tier_ all use _das_.
 

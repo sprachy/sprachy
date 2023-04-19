@@ -1,4 +1,3 @@
-import onboarding from './onboarding'
 import introduction from './introduction'
 import derdiedas from './der-die-das'
 import eineine from './ein-eine'
@@ -19,4 +18,4 @@ import lich from './-lich'
 import ordinalnumbers from './ordinal-numbers'
 import derwords from './der-words'
 
-export default [onboarding, introduction, derdiedas, sein, daschen, accusative, dative, derlernerdielernerin, duodersie, genitiv, eineine, imperativ, compoundWords, derwords, adjectiveEndings, comparative, superlative, ndeclension, lich, ordinalnumbers]
+export default [introduction, derdiedas, sein, daschen, accusative, dative, derlernerdielernerin, duodersie, genitiv, eineine, imperativ, compoundWords, derwords, adjectiveEndings, comparative, superlative, ndeclension, lich, ordinalnumbers]

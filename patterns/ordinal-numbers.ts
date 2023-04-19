@@ -6,19 +6,18 @@ export default definePattern({
   slug: "ordinal-numbers",
   title: "Das erste Eichhörnchen",
   shortdesc: "Why the first and the third are different from the second.",
-  icon: faToiletsPortable,
   explanation: md`
-<DialogueExample>
+<DialogueExample content="
 squirrel:
   Ich bin also das **erste** außerirdische Eichhörnchen?
   So I am the **first** alien squirrel?
-</DialogueExample>
+"/>
 
 Just like in English, ordinal numbers are used to state the order for which a thing appears in.
 
 To form the ordinal number, you add an _-te_ ending to numbers between one and 19 and the ending _ste_ to all other numbers which don't end in one to 19.
 
-<ltable header="Cardinal / Ordinal">
+<LTable header="Cardinal / Ordinal" content="
 eins / das erste Haus
 zwei / das zweite Haus
 drei / das dritte Haus
@@ -28,21 +27,21 @@ sechs / das sechste Haus
 sieben / das siebte Haus
 zwanzig / das zwanzigste Haus
 einhundertundzwei / das einhundertundzweite Haus
-</ltable>
+"/>
 
 However there are some irregular numbers as you've seen on the table above, _das erste_, _das dritte_, and _das siebte_, are all irregular ordinal numbers, which change up the cardinal number.
 
-<DialogueExample>
+<DialogueExample content="
 squirrel:
   Das ist bereits der **38543.** Planet, den ich besucht habe.
   This already is the **38543rd** planet that I have visited.
-</DialogueExample>
+"/>
 
 If the ordinal number is written as a digit, you simply follow the digit by a period, similar to the _-th_ ending in English.
 
-<Tip title="Beim ersten Haus">
-  Ordinal numbers follow the same rules as adjectives, as such the ending may change accordingly, for example the ending changes to _-ten_ when the number is used for a dative noun: **dem ersten Eichhörnchen**
-</Tip>
+<Tip title="Beim ersten Haus" content="
+Ordinal numbers follow the same rules as adjectives, as such the ending may change accordingly, for example the ending changes to _-ten_ when the number is used for a dative noun: **dem ersten Eichhörnchen**
+"/>
 `
   ,
   story: [
