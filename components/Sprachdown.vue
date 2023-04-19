@@ -3,6 +3,8 @@
 import MarkdownIt from 'markdown-it'
 import { componentPlugin } from '@mdit-vue/plugin-component'
 import LTable from './LTable.vue'
+import DialogueExample from './DialogueExample.vue'
+import Tip from './Tip.vue'
 
 const md = MarkdownIt({ html: true }).use(componentPlugin, {
   // options
@@ -24,7 +26,7 @@ const state = defineState({
 })
 
 const root = defineComponent({
-  components: { LTable },
+  components: { LTable, DialogueExample, Tip },
   template: state.renderedMarkdown,
 })
 

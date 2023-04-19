@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import Sprachdown from "../Sprachdown.vue"
-
 const props = withDefaults(defineProps<{
   title?: string
+  content: string
 }>(), {
   title: "Tip"
 })
@@ -10,8 +9,8 @@ const props = withDefaults(defineProps<{
 
 <template>
   <div class="tip alert alert-info">
-    <strong>{{ title }}: </strong>
-    <ContentSlot :use="$slots.default" unwrap="p" />
+    <strong>{{ props.title }}: </strong>
+    <Sprachdown :source="props.content" />
   </div>
 </template>
 

@@ -12,7 +12,6 @@ export default definePattern({
   slug: "nominative",
   title: "Der, die, das",
   shortdesc: "Ah yes, the three genders",
-  icon: faVenusMars,
   explanation: md`
 Der, die, and das are three ways of saying _the_ in German. Which one you use depends on the _grammatical gender_ of the noun that follows.
 
@@ -30,17 +29,17 @@ Generally, you want to learn the gender together with the word. Rather than reme
 
 Roughly speaking, around 40% of nouns are masculine, 40% are feminine, and 20% are neuter. A very small number of words have more than one gender. They're fancy and rare like shiny Pokémon!
 
-<DialogueExample>
+<DialogueExample content="
 squirrel:
   Aber **die** Plurale!
   But **the** plurals!
-</DialogueExample>
+"/>
 
 For plurals, we always use _die_, regardless of the noun's base gender. For example, _der Baum_ would become _die Bäume_ when talking about mulitiple trees. Meanwhile, _das_ when used without a noun can also have the meaning of "that" or "it".
 
-<Tip>
+<Tip content="
 Unlike in English, the first letter of every noun in German is **C**apitalized. This is particularly useful when learning the language, as it makes nouns easy to identify.
-</Tip>
+"/>
   `,
   /**
    * Since this is the first pattern, we only expect user to remember these points:
