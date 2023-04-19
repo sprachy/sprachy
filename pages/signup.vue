@@ -7,7 +7,7 @@ const route = useRoute()
 const next = route.query['next'] || ""
 
 const state = reactive({
-  email: route.query['email'] || "",
+  email: route.query['email'] as string || "",
   password: "",
   confirmPassword: "",
   loading: false,
@@ -31,13 +31,13 @@ async function signup() {
   }
 
   try {
-    const { summary } = await api.signUp({
+    const { summary } = await api.signup({
       email: state.email,
       password: state.password,
       confirmPassword: state.confirmPassword
     })
 
-    await initSPA(summary)
+    // await initSPA(summary.user)
     navigateTo(next as string || "/learn")
 
     // await sprachy.initSPA(summary)
@@ -102,18 +102,18 @@ async function signup() {
       </fieldset>
 
       <!-- <div class="form-check">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          checked={wantsReminderEmails}
-                          id="wantsReminderEmails"
-                          on:change|preventDefault={() =>
-                            (wantsReminderEmails = !wantsReminderEmails)}
-                        />
-                        <label class="form-check-label" for="wantsReminderEmails">
-                          Send me reminder emails when patterns are ready to review
-                        </label>
-                      </div> -->
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                checked={wantsReminderEmails}
+                                id="wantsReminderEmails"
+                                on:change|preventDefault={() =>
+                                  (wantsReminderEmails = !wantsReminderEmails)}
+                              />
+                              <label class="form-check-label" for="wantsReminderEmails">
+                                Send me reminder emails when patterns are ready to review
+                              </label>
+                            </div> -->
 
       <div v-if="state.errors.other" class="text-danger">
         {{ state.errors.other }}

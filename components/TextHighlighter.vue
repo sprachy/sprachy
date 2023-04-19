@@ -3,10 +3,8 @@ import pixelWidth from "string-pixel-width"
 
 const props = defineProps<{
   parts: string
+  content: string
 }>()
-
-const text = useSlotText()
-console.log(text)
 
 function estimateTextWidth(text: string) {
   return pixelWidth(text, { size: 16, font: "arial" })
@@ -33,12 +31,12 @@ const state = defineState({
     const fragments: TextFragment[] = []
     let highlightIndex = 0
 
-    const matches = [...text.matchAll(/\[.+?\]/g)]
+    const matches = [...props.content.matchAll(/\[.+?\]/g)]
     let i = 0
     for (const m of matches) {
       if (!m || !m.index || !m[0]) continue
       fragments.push({
-        text: text.slice(i, m.index),
+        text: props.content.slice(i, m.index),
       })
 
       const highlight = this.highlights[highlightIndex]!

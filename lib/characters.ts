@@ -16,7 +16,7 @@ import fox from "~/assets/fox.webp"
 import harald from "~/assets/harald.webp"
 import klaus from "~/assets/klaus.webp"
 import orbInPark from "~/assets/1-orb-in-park.webp"
-import type { VoiceSynthesisRequestSchema } from "src/routes/api/synthesize/+server"
+import type { VoiceSynthesisSchema } from "~/server/api/synthesize.post"
 
 export type Character = {
   id: string
@@ -25,8 +25,8 @@ export type Character = {
   fullname: string
   profile?: string
   audio?: {
-    voice: Partial<VoiceSynthesisRequestSchema["voice"]>,
-    audioConfig?: Partial<VoiceSynthesisRequestSchema["audioConfig"]>
+    voice: Partial<VoiceSynthesisSchema["voice"]>,
+    audioConfig?: Partial<VoiceSynthesisSchema["audioConfig"]>
   }
 }
 

@@ -6,7 +6,7 @@ import PatternItem from "./PatternItem.vue"
 <template>
   <div class="pattern-index">
     <ul>
-      <PatternItem v-for="pattern in sprachdex.patterns.filter(p => !p.hidden)" :pattern="pattern" />
+      <PatternItem v-for="pattern in sprachdex.patterns" :pattern="pattern" />
     </ul>
   </div>
 </template>

@@ -2,8 +2,8 @@ import { SprachyUserSPA } from "~/lib/SprachyUserSPA"
 
 let app: SprachyUserSPA
 
-export async function initSPA(summary?: ProgressSummary) {
-  app = new SprachyUserSPA(api, api, summary)
+export async function initSPA(user: UserWithProgress) {
+  app = new SprachyUserSPA(user)
   return app
 }
 

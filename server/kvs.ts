@@ -31,6 +31,10 @@ export class DummyStore {
   }
 }
 
+declare global {
+  const STORE: KVNamespace
+}
+
 class KVStoreClient {
   _devStore?: KVNamespace
   get STORE() {
@@ -41,7 +45,7 @@ class KVStoreClient {
       return this._devStore
     }
 
-    return env.STORE!
+    return STORE
   }
 
   async getText(key: string): Promise<string | null> {

@@ -15,6 +15,9 @@
       "@cloudflare/workers-types"
     ]
   },
+  "exclude": [
+    "scripts"
+  ],
   "ts-node": {
     "transpileOnly": true,
     "require": [

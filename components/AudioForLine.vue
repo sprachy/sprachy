@@ -15,8 +15,6 @@ defineExpose({
   playSound
 })
 
-const { speech, user } = useSprachyApp()
-
 const state = defineState({
   playingSound: false,
   loading: true,
@@ -29,7 +27,7 @@ const state = defineState({
   },
 
   get enabled() {
-    return user.enableSpeechSynthesis && this.audioOpts
+    return speech.enabled && this.audioOpts
   }
 })
 

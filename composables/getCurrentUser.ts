@@ -20,10 +20,10 @@ export async function getCurrentUser() {
       authStatus = await $fetch('/api/whoami')
     }
 
-    if (authStatus.status === 'guest') {
+    if (authStatus!.status === 'guest') {
       return null
     } else {
-      return authStatus.user
+      return authStatus!.user
     }
   }
 }
