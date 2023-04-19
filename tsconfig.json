@@ -10,7 +10,10 @@
       "~/*": [
         "./*"
       ]
-    }
+    },
+    "types": [
+      "@cloudflare/workers-types"
+    ]
   },
   "ts-node": {
     "transpileOnly": true,
