@@ -1,4 +1,4 @@
-main = ".cloudflare/worker/worker.mjs"
+main = "./.output/server/index.mjs"
 compatibility_flags = []
 compatibility_date = "2022-09-10"
 account_id = "e24de7c361b035e990d2814691027093"

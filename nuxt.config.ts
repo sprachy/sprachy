@@ -25,7 +25,7 @@ export default defineNuxtConfig({
     '~': __dirname
   },
   nitro: {
-    preset: "cloudflare"
+    preset: "cloudflare",
   },
   vite: {
     clearScreen: false
