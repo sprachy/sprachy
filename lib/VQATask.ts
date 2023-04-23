@@ -22,9 +22,7 @@ export class VQATask {
   }
 
   get imgUrl() {
-    return `/val2014/COCO_val2014_${this.def.imageId
-      .toString()
-      .padStart(12, "0")}.jpg`
+    return `https://images.sprachy.com/${this.def.imageId}.webp`
   }
 
   get choices() {
