@@ -11,12 +11,12 @@ const uploadFileSchema = z.object({
   answerDe: z.string()
 })
 
-export type UploadFileSchema = z.infer<typeof putTaskSchema>
+export type UploadFileSchema = z.infer<typeof uploadFileSchema>
 
 export default defineEventHandler(async (event) => {
   const { taskId } = z.object({ taskId: z.string() }).parse(event.context.params)
 
-  const newVQA = putTaskSchema.parse(await readBody(event))
+  const newVQA = uploadFileSchema.parse(await readBody(event))
 
   await prisma.taskDefVQA.upsert({
     where: { id: taskId },
