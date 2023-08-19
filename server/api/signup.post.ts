@@ -22,42 +22,31 @@ export type SignupSchema = z.infer<typeof signupForm>
 
 export default defineEventHandler(async (event) => {
   const { email, password } = signupForm.parse(await readBody(event))
-  try {
-    const hashedPassword = bcrypt.hashSync(password, 10)
 
-    const user = await prisma.user.create({
-      data: {
-        email,
-        password: hashedPassword
-      }
-    })
+  const hashedPassword = bcrypt.hashSync(password, 10)
 
-    const sessionKey = await sessions.create(user.id)
+  const user = await prisma.user.create({
+    data: {
+      email,
+      password: hashedPassword
+    }
+  })
 
-    if (env.DISCORD_SIGNUP_WEBHOOK && !env.TESTING) {
-      const params = {
-        username: "SignUp",
-        avatar_url: "",
-        content: `Yuh new learny person **${email}** appeared! ❤️🐿️`,
-      }
+  const sessionKey = await sessions.create(user.id)
 
-      http.post(env.DISCORD_SIGNUP_WEBHOOK, params)
+  if (env.DISCORD_SIGNUP_WEBHOOK && !env.TESTING) {
+    const params = {
+      username: "SignUp",
+      avatar_url: "",
+      content: `Yuh new learny person **${email}** appeared! ❤️🐿️`,
     }
 
-    sessions.setSessionCookie(event, sessionKey)
+    http.post(env.DISCORD_SIGNUP_WEBHOOK, params)
+  }
 
-    return {
-      summary: { user, progressItems: [] }
-    }
+  sessions.setSessionCookie(event, sessionKey)
 
-  } catch (err) {
-    // if (err instanceof FaunaError && err.code === "instance not unique") {
-    //   throw createError({
-    //     statusCode: 409,
-    //     statusMessage: "Email is already in use",
-    //   })
-    // } else {
-    throw err
-    // }
+  return {
+    summary: { user, progressItems: [] }
   }
 })

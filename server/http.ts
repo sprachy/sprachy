@@ -43,7 +43,7 @@ namespace http {
 
   export async function postForm(url: string, body: any, options: HttpOptions = {}) {
     return http.request(url, {
-      body: serialize(body, {}, new URLSearchParams()),
+      body: serialize(body, {}),
       method: 'POST',
       headers: Object.assign({
         'content-type': 'application/x-www-form-urlencoded',

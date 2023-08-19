@@ -1,7 +1,6 @@
 import { sessions } from '~/server/sessions'
 import { prisma } from "../prisma"
 
-
 export default defineEventHandler(async function whoami(event): Promise<{ status: 'guest' } | { status: 'user', user: UserWithProgress }> {
   const { session } = event.context
 
