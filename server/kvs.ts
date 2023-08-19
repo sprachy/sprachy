@@ -24,7 +24,6 @@ async function getKVNamespace() {
   }
 }
 
-
 class KVStoreClient {
   async getText(key: string): Promise<string | null> {
     return (await getKVNamespace()).get(key, "text")

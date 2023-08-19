@@ -44,7 +44,7 @@ watchEffect(() => {
 
 <template>
   <div class="preloader">
-    <NuxtImg :src="task.imgUrl" @vnodeBeforeMount="state.imageLoaded = false" @load="state.imageLoaded = true" />
+    <NuxtImg :src="task.imgUrl" @vue:beforeMount="state.imageLoaded = false" @load="state.imageLoaded = true" />
   </div>
 </template>
 
