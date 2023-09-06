@@ -15,7 +15,7 @@ const progress = null
 
 <template>
   <li class="pattern">
-    <NuxtLink :href="`/${props.pattern.slug}`">
+    <NuxtLink :href="`/pattern/${props.pattern.slug}`">
       <div class="pattern-inner">
         <div class="level-part">
           <!-- <div class="levelbar">

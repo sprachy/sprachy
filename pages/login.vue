@@ -30,11 +30,10 @@ async function login() {
 
     // await initSPA(summary)
 
-    const router = useRouter()
     if (next) {
-      router.push(next as string)
+      navigateTo(next as string)
     } else {
-      router.push("/learn")
+      navigateTo("/learn")
     }
   } catch (err) {
     if (err instanceof FetchError) {
@@ -50,7 +49,7 @@ async function login() {
 
 <template>
   <main>
-    <form @submit.prevent="login">
+    <form method="POST" @submit.prevent="login">
       <div class="form-header">
         <NuxtLink href="/" class="header-logo">
           <SprachyLogo />

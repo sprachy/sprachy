@@ -6,6 +6,8 @@ defineProps<{
   fixed?: boolean
 }>()
 
+const auth = useAuthStatus()
+
 const currentUser = await getCurrentUser()
 const dev = process.dev
 

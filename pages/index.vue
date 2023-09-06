@@ -37,8 +37,8 @@ useHead({
         <li>Made by a native speaker and his German-learning boyfriend 🥰</li>
       </ul>
       <div>
-        <a class="btn btn-success login" href="/login">Login</a>
-        <a class="btn btn-primary signup" href="/signup">Sign up</a>
+        <NuxtLink class="btn btn-success login" to="/login">Login</NuxtLink>
+        <NuxtLink class="btn btn-primary signup" to="/signup">Sign up</NuxtLink>
       </div>
     </div>
   </main>

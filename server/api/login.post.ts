@@ -2,7 +2,7 @@ import * as z from 'zod'
 import { sessions } from '~/server/sessions'
 import { prisma } from '~/server/prisma'
 import bcrypt from 'bcryptjs'
-import { omit } from 'lodash-es'
+import { pick } from 'lodash-es'
 
 const loginForm = z.object({
   email: z.string(),
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
       email: email
     },
     include: {
-      progressItems: true
+      learnedLemmas: true
     }
   })
 
@@ -35,8 +35,8 @@ export default defineEventHandler(async (event) => {
 
   return {
     summary: {
-      user: omit(user, 'password', 'progressItems'),
-      progressItems: user.progressItems
+      user: pick(user, 'id', 'name', 'email'),
+      learnedLemmas: user.learnedLemmas
     } as any as ProgressSummary
   }
 })

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { sprachdex } from "~/lib/sprachdex"
-const { slug } = useRoute().params
+const { patternSlug } = useRoute().params
 
-const pattern = sprachdex.patterns.find(p => p.slug === slug)
+const pattern = sprachdex.patterns.find(p => p.slug === patternSlug)
 if (!pattern) {
   throw createError({ statusCode: 404, statusMessage: 'Page Not Found' })
 }
@@ -15,3 +15,9 @@ if (!pattern) {
     <PatternExplanation :pattern="pattern" />
   </main>
 </template>
+
+<style scoped>
+main.container {
+  max-width: 800px;
+}
+</style>
