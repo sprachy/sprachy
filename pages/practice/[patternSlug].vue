@@ -6,16 +6,17 @@ const pattern = sprachdex.patterns.find(p => p.slug === patternSlug)
 if (!pattern) {
   throw createError({ statusCode: 404, statusMessage: 'Page Not Found' })
 }
+
+const exercise = pattern.exercises[0]
+
+const ready = process.client
 </script>
 
 
 <template>
-  <main class="container">
+  <main v-if="ready" class="container">
     <h1>{{ pattern.title }}</h1>
-    <PatternExplanation :pattern="pattern" />
-    <NuxtLink class="btn btn-sprachy" :href="`/practice/${pattern.slug}`">
-      Practice
-    </NuxtLink>
+    <ExerciseView :exercise="exercise" />
   </main>
 </template>
 

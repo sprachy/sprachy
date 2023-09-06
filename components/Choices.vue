@@ -18,7 +18,7 @@ const emit = defineEmits<{
   (e: "correct"): void
 }>()
 
-const { effects, user } = useSprachyApp()
+const { effects } = useSprachyApp()
 
 const choicesUl = ref<HTMLUListElement | null>(null)
 
