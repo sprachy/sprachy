@@ -16,7 +16,7 @@ const ready = process.client
 <template>
   <main v-if="ready" class="container">
     <h1>{{ pattern.title }}</h1>
-    <ExerciseView :exercise="exercise" />
+    <ExerciseView :exercise="exercise" :pattern="pattern" />
   </main>
 </template>
 

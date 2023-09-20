@@ -22,6 +22,7 @@ export default defineEventHandler(async (event) => {
     '/api/reset-password',
     '/api/confirm-reset-password',
     '/api/whoami',
+    '/api/synthesize'
   ]
 
   // Allow non-authed translation for scripts

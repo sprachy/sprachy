@@ -5,7 +5,6 @@ import backgroundImg from "~/assets/sprachy-bg.webp"
 const pageDesc =
   "Sprachy is a German learning web app with dorky characters, linguistic patterns, SRS, and extradimensional squirrels."
 
-
 useHead({
   title: "Sprachy, a German learning application",
   meta: [{

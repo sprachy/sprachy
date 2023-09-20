@@ -28,9 +28,9 @@ const route = useRoute()
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li v-if="currentUser" class="nav-item">
+            <!-- <li v-if="currentUser" class="nav-item">
               <NuxtLink class="nav-link" aria-current="page" href="/learn">Learn</NuxtLink>
-            </li>
+            </li> -->
             <li class="nav-item">
               <NuxtLink class="nav-link" href="/patterns">Patterns</NuxtLink>
             </li>
@@ -38,7 +38,7 @@ const route = useRoute()
               <NuxtLink class="nav-link" aria-current="page" href="/faq">FAQ</NuxtLink>
             </li>
 
-            <li v-if="currentUser?.isAdmin" class="nav-item dropdown">
+            <!-- <li v-if="currentUser?.isAdmin" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Admin
               </a>
@@ -48,18 +48,18 @@ const route = useRoute()
                   <NuxtLink class="dropdown-item" href="/admin/exercises">Exercises</NuxtLink>
                 </li>
                 <li>
-                  <!-- <NuxtLink class="dropdown-item" href="/admin/users">Users</NuxtLink> -->
+                  <NuxtLink class="dropdown-item" href="/admin/users">Users</NuxtLink>
                 </li>
                 <li>
-                  <!-- <NuxtLink class="dropdown-item" href="/admin/testall">Testall</NuxtLink> -->
+                  <NuxtLink class="dropdown-item" href="/admin/testall">Testall</NuxtLink>
                 </li>
                 <li>
-                  <!-- <NuxtLink class="dropdown-item" href="/admin/voicetest">Voicetest</NuxtLink> -->
+                  <NuxtLink class="dropdown-item" href="/admin/voicetest">Voicetest</NuxtLink>
                 </li>
               </ul>
-            </li>
+            </li> -->
 
-            <li v-if="currentUser" class="nav-item dropdown">
+            <!-- <li v-if="currentUser" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img v-if="currentUser.pfp" :src="currentUser.pfp" :alt="currentUser.email" class="avatar" />
                 <img v-else src="~/assets/squirrel.webp" :alt="currentUser.email" class="avatar" />
@@ -77,7 +77,6 @@ const route = useRoute()
               </ul>
             </li>
 
-            <!-- Login and signup links if not already logged in -->
             <template v-if="!currentUser">
               <li class="nav-item">
                 <NuxtLink class="nav-link" aria-current="page"
@@ -88,7 +87,7 @@ const route = useRoute()
                   :href="route.path === '/' ? '/signup' : `/signup?next=${route.fullPath}`">Sign up</NuxtLink>
               </li>
 
-            </template>
+            </template> -->
           </ul>
         </div>
       </div>

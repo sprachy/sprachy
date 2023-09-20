@@ -22,9 +22,9 @@ const emit = defineEmits<{
     <pre>{{ error.stack }}</pre>
 
     <template #footer>
-      <b-button variant="primary" @click="$emit('hidden')">
+      <button class="btn" variant="primary" @click="$emit('hidden')">
         Continue
-      </b-button>
+      </button>
     </template>
   </Modal>
 </template>
