@@ -16,7 +16,7 @@ async function getKVNamespace() {
         kvNamespaces: [namespace],
         kvPersist: true
       })
-      devStore = await mf.getKVNamespace(namespace) as KVNamespace
+      devStore = await mf.getKVNamespace(namespace) as any as KVNamespace
     }
     return devStore
   } else {

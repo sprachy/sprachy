@@ -19,8 +19,9 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230922.0",
     "@nuxt/content": "^2.8.5",
-    "@nuxt/image-edge": "^1.0.0-rc.2-28266411.adbdff3",
-    "@types/node": "^20.7.1",
+    "@nuxt/image-edge": "^1.0.0-rc.2-28266507.41ef546",
+    "@types/node": "^20.7.2",
+    "assert": "^2.1.0",
     "concurrently": "^8.2.1",
     "cross-env": "^7.0.3",
     "env-cmd": "^10.1.0",

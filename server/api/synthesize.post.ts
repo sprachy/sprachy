@@ -36,9 +36,12 @@ const synthesizeSchema = z.object({
 
 export type VoiceSynthesisSchema = z.infer<typeof synthesizeSchema>
 
+import assert from 'node:assert'
 
 export default defineEventHandler(async (event) => {
   const options = synthesizeSchema.parse(await readBody(event))
+
+  console.log(assert)
 
   const credentials = JSON.parse(atob(env.GOOGLE_CLOUD_CREDENTIALS!))
   const accessToken = await getGoogleAuthToken(credentials.client_email, credentials.private_key, "https://www.googleapis.com/auth/cloud-platform")

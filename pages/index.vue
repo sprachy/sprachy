@@ -132,7 +132,7 @@ section.neat-parts {
 .neat-parts-card {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   padding: 1rem;
   gap: 1rem;
