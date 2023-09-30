@@ -8,13 +8,11 @@ if (!pattern) {
 }
 
 const exercise = pattern.exercises[0]
-
-const ready = process.client
 </script>
 
 
 <template>
-  <main v-if="ready" class="container">
+  <main class="container">
     <h1>{{ pattern.title }}</h1>
     <ExerciseView :exercise="exercise" :pattern="pattern" />
   </main>

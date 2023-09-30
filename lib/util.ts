@@ -16,3 +16,24 @@ export async function delay(amount: number) {
     _.delay(resolve, amount)
   })
 }
+
+/**
+ * Returns true if user interaction has already bypassed the autoplay policy.
+ * Otherwise, we probably need to have the user click a button before we
+ * can play audio.
+ */
+export async function checkAudioPlayability(): Promise<boolean> {
+  const audio = new Audio()
+
+  // Use a short silent audio data as the source.
+  audio.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA="
+
+  try {
+    await audio.play()
+    return true
+  } catch (err) {
+    return false
+  }
+}
+
+checkAudioPlayability()

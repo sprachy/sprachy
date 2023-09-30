@@ -4,6 +4,7 @@
 import ExerciseViewChoice from "~/components/ExerciseViewChoice.vue"
 import type { Pattern } from "~/lib/Pattern"
 import type { Exercise } from "~/lib/Exercise"
+import { checkAudioPlayability } from "~/lib/util"
 
 const state = defineState({
   ready: false
@@ -18,7 +19,11 @@ const emit = defineEmits<{
   (event: "correct"): void
 }>()
 
-console.log(props.exercise)
+onMounted(async () => {
+  if (!speech.enabled || await checkAudioPlayability()) {
+    state.ready = true
+  }
+})
 </script>
 
 <template>
@@ -28,6 +33,6 @@ console.log(props.exercise)
   <template v-else>
     <!-- <ExerciseViewFillblank v-if="exercise.type === 'fillblank'" :exercise="exercise" :pattern="pattern"
     @correct="emit('correct')" /> -->
-    <ExerciseViewChoice v-if="exercise.type === 'choice'" :exercise="exercise" @correct="emit('correct')" />
+    <ExerciseViewChoice v-if="props.exercise.type === 'choice'" :exercise="props.exercise" @correct="emit('correct')" />
   </template>
 </template>
