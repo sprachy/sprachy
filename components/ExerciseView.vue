@@ -31,8 +31,12 @@ onMounted(async () => {
     Start
   </button>
   <template v-else>
-    <!-- <ExerciseViewFillblank v-if="exercise.type === 'fillblank'" :exercise="exercise" :pattern="pattern"
-    @correct="emit('correct')" /> -->
-    <ExerciseViewChoice v-if="props.exercise.type === 'choice'" :exercise="props.exercise" @correct="emit('correct')" />
+    <ExerciseViewFillblank v-if="exercise.type === 'fillblank'" :exercise="exercise" :pattern="pattern"
+      @correct="emit('correct')" />
+    <ExerciseViewChoice v-else-if="props.exercise.type === 'choice'" :exercise="props.exercise"
+      @correct="emit('correct')" />
+    <p v-else>
+      Unknown exercise type: {{ props.exercise.type }}
+    </p>
   </template>
 </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Avatar from "./Avatar.vue"
 
-const props = defineProps<{
+defineProps<{
   from: string
   flip?: boolean
   tooltip?: string

@@ -1,4 +1,3 @@
-import { faUserTie } from "@fortawesome/free-solid-svg-icons"
 import { definePattern, md } from "~/lib/definePattern"
 
 export default definePattern({
@@ -16,10 +15,10 @@ Sie sind eine brillante Wissenschaftlerin / You are a brilliant scientist (forma
 
 Note that _Sie_ when capitalized means the formal you, but the lowercase _sie_ also means "they" or "she". Don't get them mixed up!
 
+<LTable header="Deutsch / Meaning" content="
 Ja, Sie sind richtig / Yes, you are right (formal)
 Nein, sie sind keine Kamele / No, they are not camels
 Vorsicht, sie ist eine furchtbare Feindin / Beware, she is a fearsome enemy
-<ltable header="Deutsch / Meaning" content="
 "/>
 
 Similar to "they" in English, the singular _Sie_ and plural _sie_ both use _Sie sind_ like "they are". The "she" meaning of sie uses _sie ist_. This sind/ist difference, along with the casing, can help you figure out from context which of the three meanings is being used.
@@ -108,34 +107,34 @@ Note that all three forms of sie/Sie change to ihr/Ihr for the possessive!
 })
 
 
-    // // LEVEL 1
-    // {
-    //   lines: [
-    //     {
-    //       from: "lindenbaum",
-    //       message: "Haben [Sie] manchmal das Gefühl, dass es der Menschheit an Ehrgeiz fehlt?",
-    //       translation: "Do [you] ever feel like humanity lacks ambition?",
-    //       hint: "[formal]"
-    //     },
-    //     {
-    //       from: "lindenbaum",
-    //       message: "[Sie] sind ein funkelndes Juwel der Selbsterkenntnis in einem Universum voller Leere.",
-    //       translation: "[You] are a sparkling jewel of self-awareness in a universe filled with void."
-    //     },
-    //     {
-    //       from: "lindenbaum",
-    //       message: "Und doch vergeuden wir [Ihre] Talente mit der Arbeit einer Maschine.",
-    //       translation: "Yet we waste [your] talents doing the work of a machine."
-    //     },
-    //     {
-    //       from: "cashier",
-    //       message: "Äh... haben [Sie] eine Bonuskarte?",
-    //       translation: "Er... do [you] have a rewards card?"
-    //     },
-    //     {
-    //       from: "lindenbaum",
-    //       message: "*seufz*",
-    //       translation: "*sigh*"
-    //     }
-    //   ],
-    // }
+// // LEVEL 1
+// {
+//   lines: [
+//     {
+//       from: "lindenbaum",
+//       message: "Haben [Sie] manchmal das Gefühl, dass es der Menschheit an Ehrgeiz fehlt?",
+//       translation: "Do [you] ever feel like humanity lacks ambition?",
+//       hint: "[formal]"
+//     },
+//     {
+//       from: "lindenbaum",
+//       message: "[Sie] sind ein funkelndes Juwel der Selbsterkenntnis in einem Universum voller Leere.",
+//       translation: "[You] are a sparkling jewel of self-awareness in a universe filled with void."
+//     },
+//     {
+//       from: "lindenbaum",
+//       message: "Und doch vergeuden wir [Ihre] Talente mit der Arbeit einer Maschine.",
+//       translation: "Yet we waste [your] talents doing the work of a machine."
+//     },
+//     {
+//       from: "cashier",
+//       message: "Äh... haben [Sie] eine Bonuskarte?",
+//       translation: "Er... do [you] have a rewards card?"
+//     },
+//     {
+//       from: "lindenbaum",
+//       message: "*seufz*",
+//       translation: "*sigh*"
+//     }
+//   ],
+// }

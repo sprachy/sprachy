@@ -25,17 +25,12 @@ const state = defineState({
   }
 })
 
-const root = defineComponent({
-  components: { LTable, DialogueExample, Tip },
-  template: state.renderedMarkdown,
-})
-
-  // const parsedSource = source.replace(/=[^=\n]+=/, (substring) => {
-  //   const highlight = substring.slice(1, -1)
-  //   return `<InlineTranslation original="${highlight}"/>`
-  // })
+// const parsedSource = source.replace(/=[^=\n]+=/, (substring) => {
+//   const highlight = substring.slice(1, -1)
+//   return `<InlineTranslation original="${highlight}"/>`
+// })
 </script>
 
 <template>
-  <root />
+  <SprachdownComponentProvider :key="state.renderedMarkdown" :renderedMarkdown="state.renderedMarkdown" />
 </template>
