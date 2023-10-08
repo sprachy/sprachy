@@ -117,7 +117,7 @@ async function checkAnswer() {
         <div v-if="state.showingAnswer" class="explanation">
           <Sprachdown v-if="exercise.explanation" inline :source="exercise.explanation" />
           <template v-else>
-            The answer is <em>{exercise.canonicalAnswer}</em>.
+            The answer is <em>{{ exercise.canonicalAnswer }}</em>.
           </template>
           <template v-if="pattern">
             Pattern: <a target="_blank" :href="`/${pattern.slug}`">{{ pattern.title }}</a>
