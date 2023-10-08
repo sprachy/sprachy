@@ -6,15 +6,18 @@ import Message from "~/components/Message.vue"
 import Sprachdown from "~/components/Sprachdown.vue"
 import AudioForLine from "~/components/AudioForLine.vue"
 import { sortBy } from "lodash-es"
+
 const props = defineProps<{
   exercise: FillblankExercise
   flip?: boolean
   complete?: boolean
   pattern?: Pattern
 }>()
+
 const emit = defineEmits<{
   (e: "correct"): void
 }>()
+
 const state = defineState({
   attempt: "",
   feedback: "",
@@ -47,8 +50,10 @@ const state = defineState({
     return matchAnswer(state.attempt, props.exercise)
   }
 })
+
 const attemptInput = ref<HTMLInputElement>()
 const audioForLine = ref<typeof AudioForLine>()
+
 onMounted(() => {
   attemptInput.value!.focus()
 })
@@ -74,6 +79,7 @@ async function checkAnswer() {
     // for any variation in casing or typo etc
     state.attempt = state.attemptMatch.validAnswer
     // effects.confetti.spawnAt(attemptInput.value!)
+    await audioForLine.value?.playSound()
     emit("correct")
   } else {
     if (state.attemptMatch.feedback) {
