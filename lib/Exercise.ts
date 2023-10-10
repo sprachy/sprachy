@@ -37,7 +37,6 @@ export type MultipleChoiceExercise = MultipleChoiceExerciseDef
 
 export type Exercise = FillblankExercise | MultipleChoiceExercise
 
-
 export function parseExercise(patternDef: PatternDef, exerciseDef: ExerciseDef): Exercise | null {
   if ('type' in exerciseDef && exerciseDef.type === 'choice') {
     return exerciseDef
