@@ -3,6 +3,7 @@
 </script>
 
 <template>
+  <LearnSidebar />
   <main>
     No tasks??
   </main>
