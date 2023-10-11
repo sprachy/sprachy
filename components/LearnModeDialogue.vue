@@ -1,0 +1,54 @@
+<script lang="ts" setup>
+import type { Pattern } from "~/lib/Pattern"
+
+const props = defineProps<{
+  pattern: Pattern
+}>()
+
+const emit = defineEmits<{
+  (e: "complete"): void
+}>()
+
+const state = defineState({
+  promptToBegin: true,
+  readingExplanation: false,
+
+  get progress() {
+    return progressStore.progressablePatternById[props.pattern.id].progress
+  }
+})
+
+async function completeDialogue() {
+  if (state.progress.experience < 1000) {
+    await progressStore.gainPatternExperience(props.pattern.id, 1000)
+  }
+  emit("complete")
+}
+</script>
+
+<template>
+  <div class="dialogueContainer">
+    <div class="prompt" v-if="state.promptToBegin">
+      <h1>{{ pattern.storyTitle }}</h1>
+      <button class="btn btn-success" @click="state.promptToBegin = false">
+        Start dialogue
+      </button>
+    </div>
+    <InteractiveDialogue v-else-if="!state.readingExplanation" :story="pattern.story" @complete="completeDialogue" />
+    <div class="explanation" v-else>
+      {{ pattern.explanation }}
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.dialogueContainer {
+  margin-top: 2rem;
+  padding-bottom: calc(50vh - 61px);
+}
+
+.prompt {
+  width: fit-content;
+  margin: auto;
+}
+</style>

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-const learnable = computed(() => progressStore.currentLearnable)
+const learnable = toRefs(progressStore).currentLearnable
 
 const experience = 100
 </script>
