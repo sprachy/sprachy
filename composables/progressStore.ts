@@ -3,6 +3,7 @@ import { keyBy } from "lodash"
 import type { Pattern } from "~/lib/Pattern"
 import { PatternProgress } from "~/lib/PatternProgress"
 import { sprachdex } from "~/lib/sprachdex"
+import { time } from "~/lib/time"
 
 type LocalProgressItem = Omit<ProgressItem, 'userId'> & {
   userId?: string
@@ -97,12 +98,16 @@ export class ProgressStore {
     }
 
     // Nothing left to learn!
-    return undefined
+    return null
+  }
+
+  updateCurrentLearnable() {
+    this.currentLearnable = this.nextThingToLearn
   }
 
   /**
    * Gain an amount of experience in a given pattern
-   * Updates local state immediately without waiting for backend confirmation
+   * Updates local state immediately; persisted to backend only if user is logged in
    */
   async gainPatternExperience(patternId: string, amount: number) {
     const item = this.progressItemByPatternId[patternId]

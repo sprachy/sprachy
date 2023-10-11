@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 
-const learnable = progressStore.currentLearnable
-const isDev = process.dev
+const learnable = computed(() => progressStore.currentLearnable)
 
 const experience = 100
 </script>

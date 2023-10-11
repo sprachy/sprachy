@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+onMounted(() => progressStore.updateCurrentLearnable())
 </script>
 
 <template>
