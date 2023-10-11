@@ -28,7 +28,7 @@ const route = useRoute()
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <!-- <li v-if="currentUser" class="nav-item">
+            <!-- <li class="nav-item">
               <NuxtLink class="nav-link" aria-current="page" href="/learn">Learn</NuxtLink>
             </li> -->
             <li class="nav-item">

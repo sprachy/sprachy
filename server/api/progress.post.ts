@@ -2,30 +2,38 @@ import * as z from 'zod'
 import { prisma } from '../prisma'
 
 const progressSchema = z.object({
-  learnedLemmas: z.array(z.string())
+  experienceByPatternId: z.record(z.string(), z.number())
 })
 
 export type ReportProgressSchema = z.infer<typeof progressSchema>
 
 export default defineEventHandler(async (event) => {
   const { session } = event.context
-  const { learnedLemmas } = progressSchema.parse(await readBody(event))
+  const { experienceByPatternId } = progressSchema.parse(await readBody(event))
 
-  for (const lemma of learnedLemmas) {
-    await prisma.learnedLemma.upsert({
+  await Promise.all(Object.entries(experienceByPatternId).map(([patternId, experience]) => {
+    prisma.progressItem.upsert({
       where: {
-        lemma_userId: {
-          lemma: lemma,
-          userId: session.userId
+        userId_patternId: {
+          userId: session.userId,
+          patternId: patternId
         }
       },
       create: {
         userId: session.userId,
-        lemma: lemma
+        patternId: patternId,
+        experience: experience,
+        initiallyLearnedAt: Date.now(),
+        lastExperienceGainAt: Date.now()
       },
-      update: {}
+      update: {
+        experience: {
+          increment: experience
+        },
+        lastExperienceGainAt: Date.now()
+      }
     })
-  }
+  }))
 
   return { success: true }
 })

@@ -47,9 +47,9 @@ async function toNextTask() {
     for (const lemma of newLemmas) {
       learnyStore.addLemma(lemma)
     }
-    api.reportProgress({
-      learnedLemmas: newLemmas,
-    })
+    // api.reportProgress({
+    //   learnedLemmas: newLemmas,
+    // })
   }
   state.questionIndex += 1
 }
