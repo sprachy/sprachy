@@ -15,15 +15,17 @@ function finishExplanation() {
 </script>
 
 <template>
-  <LearnSidebar />
-  <main class="learnable" v-if="currentLearnable">
-    <LearnModeDialogue v-if="currentLearnable.type === 'dialogue'" :pattern="currentLearnable.pattern"
-      @complete="nextLearnable" />
-    <LearnModeExplanation v-else-if="currentLearnable.type === 'pattern' && !currentLearnable.readExplanation"
-      @complete="finishExplanation" />
-    <ReviewSession v-else-if="currentLearnable.type === 'review'" :patterns="currentLearnable.patterns" />
-    <LearnModeExercises v-else :pattern="currentLearnable.pattern" @complete="nextLearnable" />
-  </main>
+  <NuxtLayout name="default" fixedHeader>
+    <LearnSidebar />
+    <main class="learnable" v-if="currentLearnable">
+      <LearnModeDialogue v-if="currentLearnable.type === 'dialogue'" :pattern="currentLearnable.pattern"
+        @complete="nextLearnable" />
+      <LearnModeExplanation v-else-if="currentLearnable.type === 'pattern' && !currentLearnable.readExplanation"
+        @complete="finishExplanation" />
+      <ReviewSession v-else-if="currentLearnable.type === 'review'" :patterns="currentLearnable.patterns" />
+      <LearnModeExercises v-else :pattern="currentLearnable.pattern" @complete="nextLearnable" />
+    </main>
+  </NuxtLayout>
 </template>
 
 <style scoped>
