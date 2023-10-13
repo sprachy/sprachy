@@ -39,6 +39,10 @@ export class ProgressStore {
 
   constructor() {
     (window as any).progressStore = this
+
+    if (!this.user) {
+      this.loadAnonymousProgressItems()
+    }
   }
 
   get progressItemByPatternId() {
@@ -105,6 +109,10 @@ export class ProgressStore {
     return null
   }
 
+  loadAnonymousProgressItems() {
+    this.progressItems = clientStorage.getJSON('localProgressItems') as LocalProgressItem[] || []
+  }
+
   updateCurrentLearnable() {
     this.currentLearnable = this.nextThingToLearn
   }
@@ -114,7 +122,10 @@ export class ProgressStore {
    * Updates local state immediately; persisted to backend only if user is logged in
    */
   async gainPatternExperience(patternId: string, amount: number) {
-    console.log("gaining experience", patternId, amount)
+    if (!this.user) {
+      this.loadAnonymousProgressItems()
+    }
+
     const item = this.progressItemByPatternId[patternId]
     if (item) {
       item.experience += amount
@@ -129,12 +140,15 @@ export class ProgressStore {
       })
     }
 
-    if (this.user)
+    if (this.user) {
       await api.reportProgress({
         experienceByPatternId: {
           [patternId]: amount
         }
       })
+    } else {
+      clientStorage.setJSON('localProgressItems', this.progressItems)
+    }
   }
 }
 

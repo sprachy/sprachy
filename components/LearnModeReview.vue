@@ -2,7 +2,7 @@
 import { flatten, shuffle } from "lodash"
 import ExerciseView from "./ExerciseView.vue"
 import LevelReport from "./LevelReport.vue"
-import successImg from "$lib/img/success.webp"
+import successImg from "~/lib/img/success.webp"
 import type { LearnableReviews } from "~/composables/progressStore"
 
 const props = defineProps<{
