@@ -4,10 +4,10 @@ import type { StoryLine, Story, ReadingLine } from "~/lib/Pattern"
 
 const linesRef = ref<HTMLDivElement[]>()
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   story: Story
   staticMode: boolean
-}>()
+}>(), { staticMode: false })
 
 const emit = defineEmits<{
   (e: "complete"): void
