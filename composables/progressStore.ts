@@ -41,7 +41,7 @@ export class ProgressStore {
     (window as any).progressStore = this
 
     if (!this.user) {
-      this.loadAnonymousProgressItems()
+      this.loadAnonymousProgress()
     }
   }
 
@@ -109,7 +109,11 @@ export class ProgressStore {
     return null
   }
 
-  loadAnonymousProgressItems() {
+  saveAnonymousProgress() {
+    clientStorage.setJSON('localProgressItems', this.progressItems)
+  }
+
+  loadAnonymousProgress() {
     this.progressItems = clientStorage.getJSON('localProgressItems') as LocalProgressItem[] || []
   }
 
@@ -123,7 +127,7 @@ export class ProgressStore {
    */
   async gainPatternExperience(patternId: string, amount: number) {
     if (!this.user) {
-      this.loadAnonymousProgressItems()
+      this.loadAnonymousProgress()
     }
 
     const item = this.progressItemByPatternId[patternId]
@@ -147,8 +151,51 @@ export class ProgressStore {
         }
       })
     } else {
-      clientStorage.setJSON('localProgressItems', this.progressItems)
+      this.saveAnonymousProgress()
     }
+  }
+
+  /** Skip the current learnable, gaining experience as though 
+   * the user had completed it */
+  async skipCurrentLearnable() {
+    const { currentLearnable } = this
+    if (!currentLearnable) return
+
+    if (currentLearnable.type === 'dialogue') {
+      await this.gainPatternExperience(currentLearnable.pattern.id, 1000)
+    } else if (currentLearnable.type === 'pattern') {
+      await this.gainPatternExperience(currentLearnable.pattern.id, 1000)
+    } else if (currentLearnable.type === 'review') {
+      for (const pattern of currentLearnable.patterns) {
+        await this.gainPatternExperience(pattern.id, 1000)
+      }
+    }
+
+    this.updateCurrentLearnable()
+  }
+
+  async devTimeSkip() {
+    // this.receiveProgress(await this.api.devTimeSkip())
+    if (!this.user) {
+      for (const item of this.progressItems) {
+        item.lastExperienceGainAt = item.lastExperienceGainAt - time.days(100)
+      }
+    } else {
+
+    }
+    this.updateCurrentLearnable()
+  }
+
+  async reallyResetAllUserProgress() {
+    if (!this.user) {
+      this.progressItems = []
+      this.saveAnonymousProgress()
+    } else {
+      // const summary = await this.api.resetProgress()
+      // this.receiveProgress(summary)
+    }
+
+    this.updateCurrentLearnable()
   }
 }
 

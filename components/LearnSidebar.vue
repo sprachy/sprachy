@@ -14,7 +14,7 @@ const experience = 100
         &gt;&gt;</small>
     </div>
 
-    <!-- <LearnDevPanel v-if="isDev" /> -->
+    <LearnDevPanel v-if="dev" />
   </aside>
 </template>
 

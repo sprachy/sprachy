@@ -2,8 +2,6 @@
 // import { tweened } from "svelte/motion"
 // import { cubicInOut } from "svelte/easing"
 
-const { effects } = useSprachyApp()
-
 const props = defineProps<{
   experience: number
 }>()
@@ -27,7 +25,7 @@ function levelFromExperience(exp: number) {
 
 watchEffect(() => {
   if (state.shownLevel > state.prevLevel) {
-    effects.confetti.spawnAt(endpointRef.value!)
+    // effects.confetti.spawnAt(endpointRef.value!)
     state.prevLevel = state.shownLevel
   }
 })
