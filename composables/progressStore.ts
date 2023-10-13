@@ -37,6 +37,10 @@ export class ProgressStore {
   progressItems: LocalProgressItem[] = []
   currentLearnable: Learnable | null = null
 
+  constructor() {
+    (window as any).progressStore = this
+  }
+
   get progressItemByPatternId() {
     return keyBy(this.progressItems, p => p.patternId)
   }
@@ -48,7 +52,7 @@ export class ProgressStore {
   get progressablePatterns() {
     return this.allViewablePatterns.map(pattern => {
       return Object.assign({}, pattern, {
-        progress: new PatternProgress(this.progressItemByPatternId[pattern.id])
+        progress: new PatternProgress(this, pattern.id)
       })
     }) as ProgressablePattern[]
   }
@@ -110,6 +114,7 @@ export class ProgressStore {
    * Updates local state immediately; persisted to backend only if user is logged in
    */
   async gainPatternExperience(patternId: string, amount: number) {
+    console.log("gaining experience", patternId, amount)
     const item = this.progressItemByPatternId[patternId]
     if (item) {
       item.experience += amount
