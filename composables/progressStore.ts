@@ -23,7 +23,7 @@ export type LearnableDialogue = {
 
 export type LearnablePattern = {
   type: 'pattern'
-  pattern: Pattern
+  pattern: ProgressablePattern
   why: string
   readExplanation: boolean
 }

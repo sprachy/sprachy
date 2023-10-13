@@ -21,9 +21,11 @@ function finishExplanation() {
       <LearnModeDialogue v-if="currentLearnable.type === 'dialogue'" :pattern="currentLearnable.pattern"
         @complete="nextLearnable" />
       <LearnModeExplanation v-else-if="currentLearnable.type === 'pattern' && !currentLearnable.readExplanation"
-        @complete="finishExplanation" />
-      <ReviewSession v-else-if="currentLearnable.type === 'review'" :patterns="currentLearnable.patterns" />
-      <LearnModeExercises v-else :pattern="currentLearnable.pattern" @complete="nextLearnable" />
+        :learnable="currentLearnable" @complete="finishExplanation" />
+      <LearnModeExercises v-else-if="currentLearnable.type === 'pattern' && currentLearnable.readExplanation"
+        :learnable="currentLearnable" @complete="nextLearnable" />
+      <LearnModeReview v-else-if="currentLearnable.type === 'review'" :learnable="currentLearnable"
+        @complete="nextLearnable" />
     </main>
   </NuxtLayout>
 </template>
