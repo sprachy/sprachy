@@ -1,3 +1,5 @@
+import type { Pattern } from "./Pattern"
+
 export class PatternProgress {
   constructor(readonly pattern: Pattern, readonly item?: ProgressItem) { }
 
