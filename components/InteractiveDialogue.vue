@@ -63,7 +63,7 @@ watchEffect(() => {
 })
 
 watchEffect(() => {
-  if (linesRef.value && !props.staticMode) {
+  if (state.visibleLines.length && !props.staticMode) {
     window.scrollTo({
       top: document.body.scrollHeight,
       behavior: "smooth",
