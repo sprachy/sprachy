@@ -6,7 +6,7 @@ const linesRef = ref<HTMLDivElement[]>()
 
 const props = withDefaults(defineProps<{
   story: Story
-  staticMode: boolean
+  staticMode?: boolean
 }>(), { staticMode: false })
 
 const emit = defineEmits<{

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 withDefaults(defineProps<{
-  fixedHeader: boolean
+  fixedHeader?: boolean
 }>(), {
   fixedHeader: false
 })
