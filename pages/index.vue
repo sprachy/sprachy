@@ -12,6 +12,14 @@ useHead({
     content: pageDesc
   }]
 })
+
+const state = defineState({
+  email: ""
+})
+
+async function gotoSignup() {
+  navigateTo("/signup?email=" + encodeURIComponent(state.email))
+}
 </script>
 
 <template>
@@ -27,11 +35,19 @@ useHead({
               memorable dialogue exercises. Also it involves extradimensional
               squirrels.
             </p>
+            <form @submit.prevent="gotoSignup">
+              <fieldset class="form-group">
+                <input class="form-control" v-model="state.email" name="email" id="email" type="email"
+                  placeholder="Email address" required />
+              </fieldset>
+
+              <button class="btn btn-sprachy btn-lg" type="submit">Sign up for Sprachy</button>
+            </form>
           </div>
         </div>
       </div>
     </section>
-    <!-- <section class="neat-parts">
+    <section class="neat-parts">
       <div class="container py-5">
         <div class="d-flex justify-content-between">
           <div class="neat-parts-card">
@@ -61,7 +77,7 @@ useHead({
           </div>
         </div>
       </div>
-    </section> -->
+    </section>
     <section class="patterns">
       <div class="container">
         <h2>All patterns</h2>
