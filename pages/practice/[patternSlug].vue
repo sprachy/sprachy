@@ -15,17 +15,15 @@ const state = defineState({
   }
 })
 
-watch(
-  () => speech.enabled,
-  () => {
+watchEffect(() => {
+  if (speech.enabled) {
     pattern.exercises.map(ex => {
       if (ex.type === 'fillblank') {
         speech.preload({ from: ex.from, message: ex.message })
       }
     })
-  },
-  { immediate: true }
-)
+  }
+})
 
 function nextExercise() {
   state.exerciseIndex++

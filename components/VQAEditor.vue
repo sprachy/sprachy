@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // @ts-ignore
 // import Vue3TagsInput from 'vue3-tags-input'
-import type { TaskDefVQA } from '@prisma/client'
+import type { TaskDefVQA } from '@prisma/client/edge'
 
 const props = defineProps<{
   modelValue: TaskDefVQA

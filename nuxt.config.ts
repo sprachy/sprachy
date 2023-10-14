@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  nitro: {
+    preset: "cloudflare",
+  },
   experimental: {
     externalVue: false
   },
@@ -26,10 +29,8 @@ export default defineNuxtConfig({
   alias: {
     '~': __dirname
   },
-  nitro: {
-    preset: "cloudflare",
-  },
   vite: {
+    // Stop vite messing with the terminal output
     clearScreen: false
   },
   runtimeConfig: {
@@ -48,9 +49,5 @@ export default defineNuxtConfig({
     public: {
       frontendBaseUrl: 'http://localhost:5999',
     }
-  },
-  routeRules: {
-    '/learn': { ssr: false },
-    '/admin/**': { ssr: false }
   }
 })

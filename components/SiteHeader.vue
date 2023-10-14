@@ -6,9 +6,7 @@ defineProps<{
   fixed?: boolean
 }>()
 
-const auth = useAuthStatus()
-
-const currentUser = await getCurrentUser()
+const { user } = toRefs(authStatus)
 
 const route = useRoute()
 </script>
@@ -37,7 +35,7 @@ const route = useRoute()
               <NuxtLink class="nav-link" aria-current="page" href="/faq">FAQ</NuxtLink>
             </li>
 
-            <li v-if="currentUser?.isAdmin" class="nav-item dropdown">
+            <li v-if="user?.isAdmin" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Admin
               </a>
@@ -58,14 +56,14 @@ const route = useRoute()
               </ul>
             </li>
 
-            <li v-if="currentUser" class="nav-item dropdown">
+            <li v-if="user" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img v-if="currentUser.pfp" :src="currentUser.pfp" :alt="currentUser.email" class="avatar" />
-                <img v-else src="~/assets/squirrel.webp" :alt="currentUser.email" class="avatar" />
+                <img v-if="user.pfp" :src="user.pfp" :alt="user.email" class="avatar" />
+                <img v-else src="~/assets/squirrel.webp" :alt="user.email" class="avatar" />
               </a>
               <ul class="dropdown-menu">
-                <li v-if="currentUser.username">
-                  <NuxtLink class="dropdown-item" :href="`/user/${currentUser.username}`">Profile</NuxtLink>
+                <li v-if="user.username">
+                  <NuxtLink class="dropdown-item" :href="`/user/${user.username}`">Profile</NuxtLink>
                 </li>
                 <li>
                   <NuxtLink class="dropdown-item" href="/settings">Settings</NuxtLink>
@@ -76,7 +74,7 @@ const route = useRoute()
               </ul>
             </li>
 
-            <template v-if="!currentUser">
+            <template v-if="!user">
               <li class="nav-item">
                 <NuxtLink class="nav-link" aria-current="page"
                   :href="route.path === '/' ? '/login' : `/login?next=${route.fullPath}`">Login</NuxtLink>

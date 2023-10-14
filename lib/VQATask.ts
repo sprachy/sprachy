@@ -1,4 +1,4 @@
-import type { TaskDefVQA } from "@prisma/client"
+import type { TaskDefVQA } from "@prisma/client/edge"
 import { tokenize } from "./tokenize"
 
 export interface VQATask extends TaskDefVQA { }

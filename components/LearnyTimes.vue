@@ -4,7 +4,7 @@ import { uniq } from 'lodash-es'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faPencil, faSave, faTrash, faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { VQATask } from "~/lib/VQATask"
-import type { TaskDefVQA } from "@prisma/client"
+import type { TaskDefVQA } from "@prisma/client/edge"
 
 const props = defineProps<{
   user: UserWithProgress,

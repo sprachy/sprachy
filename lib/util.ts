@@ -35,5 +35,3 @@ export async function checkAudioPlayability(): Promise<boolean> {
     return false
   }
 }
-
-checkAudioPlayability()

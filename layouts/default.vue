@@ -6,10 +6,6 @@ withDefaults(defineProps<{
   fixedHeader: false
 })
 
-import "accessible-nprogress/dist/accessible-nprogress.css"
-import "bootstrap/dist/css/bootstrap.min.css"
-import "../assets/app.css"
-
 import SiteHeader from "~/components/SiteHeader.vue"
 // import { sprachdex } from "./sprachdex"
 // import successImg from "~/assets/success.webp"

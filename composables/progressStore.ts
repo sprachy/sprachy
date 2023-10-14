@@ -33,12 +33,15 @@ export type Learnable = LearnableReviews | LearnableDialogue | LearnablePattern
 export type ProgressablePattern = Pattern & { progress: PatternProgress }
 
 export class ProgressStore {
-  user: User | null = null
   progressItems: LocalProgressItem[] = []
   currentLearnable: Learnable | null = null
 
+  get user() {
+    return authStatus.user
+  }
+
   constructor() {
-    (window as any).progressStore = this
+    $debug.$progressStore = this
 
     if (!this.user) {
       this.loadAnonymousProgress()
@@ -109,14 +112,21 @@ export class ProgressStore {
     return null
   }
 
+  /** Save the user's progress to localStorage. Used only when signed out. */
   saveAnonymousProgress() {
     clientStorage.setJSON('localProgressItems', this.progressItems)
   }
 
+  /** Load the user's progress from localStorage. Used only when signed out. */
   loadAnonymousProgress() {
     this.progressItems = clientStorage.getJSON('localProgressItems') as LocalProgressItem[] || []
   }
 
+  /** 
+   * Sets currentLearnable based on the user's current progress.
+   * Learn page calls this when progress had been made and it's 
+   * ready to move on. 
+   **/
   updateCurrentLearnable() {
     this.currentLearnable = this.nextThingToLearn
   }
