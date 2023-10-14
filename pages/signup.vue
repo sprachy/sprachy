@@ -6,7 +6,7 @@ definePageMeta({
 const route = useRoute()
 const next = route.query['next'] || ""
 
-const state = reactive({
+const state = defineState({
   email: route.query['email'] as string || "",
   password: "",
   confirmPassword: "",
@@ -14,14 +14,12 @@ const state = reactive({
   errors: {} as Record<string, string>
 })
 
-if (process.browser) {
-  onMounted(() => {
-    if (state.email) {
-      const el = document.getElementById("password")! as HTMLInputElement
-      el.focus()
-    }
-  })
-}
+onMounted(() => {
+  if (state.email) {
+    const el = document.getElementById("password")! as HTMLInputElement
+    el.focus()
+  }
+})
 
 async function signup() {
   state.errors = {}

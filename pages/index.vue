@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import PatternIndex from "~/components/PatternIndex.vue"
 import backgroundImg from "~/assets/sprachy-bg.webp"
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faCircleNodes, faComments, faBook } from "@fortawesome/free-solid-svg-icons"
 
 const pageDesc =
   "Sprachy is a German learning web app with dorky characters, linguistic patterns, SRS, and extradimensional squirrels."
@@ -51,7 +53,7 @@ async function gotoSignup() {
       <div class="container py-5">
         <div class="d-flex justify-content-between">
           <div class="neat-parts-card">
-            <Fa size="3x" icon={faCircleNodes} />
+            <FontAwesomeIcon size="3x" :icon="faCircleNodes" />
             <h5>Pattern-based</h5>
             <p>
               Sprachy teaches the <em>patterns</em> in German, like how some noun
@@ -60,7 +62,7 @@ async function gotoSignup() {
           </div>
 
           <div class="neat-parts-card">
-            <Fa size="3x" icon={faComments} />
+            <FontAwesomeIcon size="3x" :icon="faComments" />
             <h5>Comprehensible input</h5>
             <p>
               Learn patterns with dialogues between cute characters, to see how
@@ -69,7 +71,7 @@ async function gotoSignup() {
           </div>
 
           <div class="neat-parts-card">
-            <Fa size="3x" icon={faBook} />
+            <FontAwesomeIcon size="3x" :icon="faBook" />
             <h5>Clear explanations</h5>
             <p>
               We don't just throw sentences at you: Sprachy tells you <em>why</em> each exercise has a given answer.
@@ -87,7 +89,7 @@ async function gotoSignup() {
   </main>
 </template>
 
-<style>
+<style scoped>
 .container {
   position: relative;
 }
@@ -159,7 +161,7 @@ section.neat-parts {
   text-align: center;
 }
 
-.neat-parts-card :global(svg) {
+.neat-parts-card svg {
   margin: 1rem;
   color: var(--sprachy-primary);
 }
