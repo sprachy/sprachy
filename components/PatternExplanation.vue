@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type { Pattern } from "~/lib/Pattern"
-import Sprachdown from "~/components/Sprachdown.vue"
 
 defineProps<{ pattern: Pattern }>()
 </script>
 
 <template>
   <article class="explanation">
-    <Sprachdown :source="pattern.explanation" />
+    <ContentRenderer :value="pattern" />
   </article>
 </template>
 

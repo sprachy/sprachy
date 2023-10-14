@@ -1,16 +1,13 @@
-<script setup lang="ts">
-import { sprachdex } from "~/lib/sprachdex"
-const { patternSlug } = useRoute().params
 
-const pattern = sprachdex.patterns.find(p => p.slug === patternSlug)
-if (!pattern) {
-  throw createError({ statusCode: 404, statusMessage: 'Page Not Found' })
-}
+<script setup lang="ts">
+const { patternSlug } = useRoute().params
+console.log(patternSlug)
+const { data: pattern } = await useAsyncData(`pattern/${patternSlug}`, () => queryContent(patternSlug).findOne())
 </script>
 
 
 <template>
-  <main class="container">
+  <main class="container" v-if="pattern">
     <h1>{{ pattern.title }}</h1>
     <PatternExplanation :pattern="pattern" />
     <NuxtLink class="btn btn-sprachy" :href="`/practice/${pattern.slug}`">
