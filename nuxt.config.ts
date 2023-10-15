@@ -9,6 +9,11 @@ export default defineNuxtConfig({
   vue: {
     runtimeCompiler: true
   },
+  content: {
+    navigation: {
+      fields: ['shortdesc']
+    }
+  },
   modules: [
     '@nuxt/image-edge',
     '@nuxt/content',

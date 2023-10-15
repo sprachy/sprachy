@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { sprachdex } from "~/lib/sprachdex"
 import PatternItem from "./PatternItem.vue"
+
+const { data: patterns } = await useAsyncData('patternIndex', () => fetchPatternIndex())
 </script>
 
 <template>
   <div class="pattern-index">
     <ul>
-      <PatternItem v-for="pattern in sprachdex.patterns" :pattern="pattern" />
+      <PatternItem v-for="pattern in patterns" :pattern="pattern" />
     </ul>
   </div>
 </template>

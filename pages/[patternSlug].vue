@@ -1,7 +1,6 @@
 
 <script setup lang="ts">
 const { patternSlug } = useRoute().params
-console.log(patternSlug)
 const { data: pattern } = await useAsyncData(`pattern/${patternSlug}`, () => queryContent(patternSlug).findOne())
 </script>
 

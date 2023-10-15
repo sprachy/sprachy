@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { Pattern } from "~/lib/Pattern"
 import Sprachdown from "~/components/Sprachdown.vue"
 
-const props = defineProps<{ pattern: Pattern }>()
+defineProps<{ pattern: PatternNavigationItem }>()
 
 // const progressByPatternId = sprachy.spa?.progressByPatternId
 // const progress = $progressByPatternId
@@ -15,7 +14,7 @@ const progress = null
 
 <template>
   <li class="pattern">
-    <NuxtLink :href="`/pattern/${props.pattern.slug}`">
+    <NuxtLink :href="`/${pattern.slug}`">
       <div class="pattern-inner">
         <div class="level-part">
           <!-- <div class="levelbar">
@@ -27,10 +26,10 @@ const progress = null
             </div> -->
           <div class="text-part">
             <h6>
-              {{ props.pattern.title }}
+              {{ pattern.title }}
             </h6>
             <div class="shortdesc">
-              <Sprachdown inline :source="props.pattern.shortdesc" />
+              <Sprachdown inline :source="pattern.shortdesc" />
             </div>
           </div>
         </div>
