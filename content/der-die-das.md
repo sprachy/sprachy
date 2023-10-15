@@ -1,6 +1,6 @@
 ---
-title: Der, die, das
 id: nominative
+title: Der, die, das
 shortdesc: Ah yes, the three genders
 
 dialogue:
