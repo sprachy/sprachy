@@ -1,7 +1,6 @@
 ---
 title: Der, die, das
 id: nominative
-slug: nominative
 shortdesc: Ah yes, the three genders
 ---
 

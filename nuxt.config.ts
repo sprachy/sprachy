@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   },
   content: {
     navigation: {
-      fields: ['shortdesc']
+      fields: ['id', 'shortdesc']
     }
   },
   modules: [

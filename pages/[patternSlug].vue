@@ -7,11 +7,13 @@ const { data: pattern } = await useAsyncData(`pattern/${patternSlug}`, () => que
 
 <template>
   <main class="container" v-if="pattern">
-    <h1>{{ pattern.title }}</h1>
-    <PatternExplanation :pattern="pattern" />
-    <NuxtLink class="btn btn-sprachy" :href="`/practice/${pattern.slug}`">
-      Practice
-    </NuxtLink>
+    <article>
+      <h1>{{ pattern.title }}</h1>
+      <PatternExplanation :pattern="pattern" />
+      <NuxtLink class="btn btn-sprachy" :href="`/practice/${pattern.slug}`">
+        Practice
+      </NuxtLink>
+    </article>
   </main>
 </template>
 

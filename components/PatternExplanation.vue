@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import type { Pattern } from "~/lib/Pattern"
+import type { ParsedContent } from "@nuxt/content/dist/runtime/types"
 
-defineProps<{ pattern: Pattern }>()
+defineProps<{ pattern: ParsedContent }>()
 </script>
 
 <template>
-  <article class="explanation">
-    <ContentRenderer :value="pattern" />
-  </article>
+  <ContentRenderer :value="pattern" class="explanation" />
 </template>
 
 <style scoped>

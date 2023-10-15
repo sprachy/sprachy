@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import _ from "lodash"
-import type { StoryLine, Story, ReadingLine } from "~/lib/Pattern"
+import type { Story, ReadingLine } from "~/lib/Pattern"
 
 const linesRef = ref<HTMLDivElement[]>()
 

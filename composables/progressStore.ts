@@ -1,9 +1,9 @@
 import type { ProgressItem } from "@prisma/client"
 import { keyBy } from "lodash"
-import type { Pattern } from "~/lib/Pattern"
 import { PatternProgress } from "~/lib/PatternProgress"
 import { sprachdex } from "~/lib/sprachdex"
 import { time } from "~/lib/time"
+import type { PatternNavigationItem } from "./sprachdex"
 
 type LocalProgressItem = Omit<ProgressItem, 'userId'> & {
   userId?: string
@@ -11,13 +11,13 @@ type LocalProgressItem = Omit<ProgressItem, 'userId'> & {
 
 export type LearnableReviews = {
   type: 'review'
-  patterns: Pattern[]
+  patterns: PatternNavigationItem[]
   why: string
 }
 
 export type LearnableDialogue = {
   type: 'dialogue'
-  pattern: Pattern
+  pattern: PatternNavigationItem
   why: string
 }
 
@@ -30,9 +30,10 @@ export type LearnablePattern = {
 
 export type Learnable = LearnableReviews | LearnableDialogue | LearnablePattern
 
-export type ProgressablePattern = Pattern & { progress: PatternProgress }
+export type ProgressablePattern = PatternNavigationItem & { progress: PatternProgress }
 
 export class ProgressStore {
+  patterns: PatternNavigationItem[] = []
   progressItems: LocalProgressItem[] = []
   currentLearnable: Learnable | null = null
 
