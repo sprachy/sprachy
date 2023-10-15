@@ -91,7 +91,7 @@ const exerciseFillblankSchemaBase = z.object({
   message: z.string(),
   translation: z.string(),
   hint: z.string().optional(),
-  feedback: z.record(z.string()).optional()
+  feedback: z.any() // TODO
 })
 
 export const exerciseFillblankSchema = exerciseFillblankSchemaBase.transform(def => {

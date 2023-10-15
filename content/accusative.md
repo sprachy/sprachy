@@ -4,118 +4,119 @@ title: Den Akkusativ
 shortdesc: For ~~accusing people~~ direct objects
 
 dialogue:
-- from: squirrel
-  message: 'Du willst den Esper-Prinzen herausfordern, Sterblicher?'
-  translation: 'You would challenge the Esper Prince, mortal?'
-- from: squirrel
-  message: So sei es! Entfalte deinen Kampfgeist!
-  translation: So be it! Reveal your warrior spirit!
-- from: squirrel
-  message: 'Kämpfe, um dein Haus und deine Ehre zu verteidigen!'
-  translation: Fight to defend your house and honor!
-- question: Which one of these articles is used for "Ehre"?
-  choices:
-    - text: der Ehre
-    - text: die Ehre
-      correct: true
-    - text: das Ehre
-- from: lukas
-  message: 'Töski, ich glaube nicht, dass er Deutsch spricht.'
-  translation: 'Töski, I don''t think he speaks German.'
-- from: dog
-  message: '*wuff!*'
-  translation: '*woof!*'
-- from: squirrel
-  message: Wart ab! Dein hinterlistiges Manöver hat keinen Nutzen für dich!
-  translation: Wait and see! Your deceitful maneuver is of no use to you!
-- from: dog
-  message: '*wuff!!*'
-  translation: '*woof!!*'
-- from: lukas
-  message: 'Bitte lass den Hund in Ruhe, du machst in unruhig!'
-  translation: 'Please leave the dog alone, you make him anxious!'
-
-  exercises:
+  lines:
   - from: squirrel
-    type: choice
-    image: forestSquirrelImg.webp
-    message: Was findest du an ihm am flauschigsten?
-    translation: What do you find fluffiest about him?
-    hint: masculine
-    choices:
-      - text: sein Schwanz
-        correct: false
-      - text: sein**es** Schwanz**es**
-        correct: false
-      - text: sein**en** Schwanz
-        correct: true
-      - text: sein**er** Schwanz
-        correct: false
-  - from: lindenbaum
-    type: choice
-    image: particleAcceleratorImg.webp
-    message: Wir haben weiterhin Zugriff auf...
-    translation: We still have access to...
-    hint: masculine
-    choices:
-      - text: '**den** Teilchenbeschleuniger'
-        correct: true
-      - text: '**des** Teilchenbeschleuniger**s**'
-        correct: false
-      - text: '**dem** Teilchenbeschleuniger'
-        correct: false
-      - text: '**der** Teilchenbeschleuniger'
-        correct: false
-  - from: fox
-    type: choice
-    image: emailImg.webp
-    message: Der Präsident des Komitees für Astrophysischen Ereignisse sendete Ihnen...
-    translation: The president of the Astrophysical Events Committee sent you...
-    hint: feminine
-    choices:
-      - text: '**einen** E-Mail'
-        correct: false
-      - text: '**einer** E-Mail'
-        correct: false
-      - text: '**ein** E-Mail'
-        correct: false
-      - text: '**eine** E-Mail'
-        correct: true
+    message: 'Du willst den Esper-Prinzen herausfordern, Sterblicher?'
+    translation: 'You would challenge the Esper Prince, mortal?'
   - from: squirrel
-    type: choice
-    image: hazelnutSquirrelImg.webp
-    message: 'Eure Technologie ist obsolet, Damit kriegt ihr nicht..'
-    translation: Your technology is obsolete. With that you won't get..
-    hint: feminine
-    choices:
-      - text: '**den** Haselnuss'
-        correct: false
-      - text: '**die** Haselnuss'
-        correct: true
-      - text: '**der** Haselnuss'
-        correct: false
-      - text: '**eine** Haselnuss'
-        correct: false
-  - from: fox
-    message: >-
-      Ich habe früher wie Sie eine Sprache gelernt. Dann bekam ich [einen] Pfeil
-      ins Knie...
-    translation: >-
-      I used to be a language-learner like you. Then I took [an] arrow to the
-      knee...
-    hint: '[masculine]'
+    message: So sei es! Entfalte deinen Kampfgeist!
+    translation: So be it! Reveal your warrior spirit!
   - from: squirrel
-    message: 'Eure Technologie ist obsolet, Damit kriegt ihr nicht [die] Haselnuss!'
-    translation: 'Your technology is obsolete. You won''t get [the] hazelnut with it!'
-    hint: '[feminine]'
+    message: 'Kämpfe, um dein Haus und deine Ehre zu verteidigen!'
+    translation: Fight to defend your house and honor!
+  - question: Which one of these articles is used for "Ehre"?
+    choices:
+      - text: der Ehre
+      - text: die Ehre
+        correct: true
+      - text: das Ehre
   - from: lukas
-    message: 'Oh je, pass mit [deinen] Schwanz auf!'
-    translation: 'Oh dear, watch it with [your] tail!'
-    hint: '[masculine]'
-  - from: lindenbaum
-    message: 'Und Sie nennen es "[den] Durchbruch"?'
-    translation: 'And you call it "[the] breakthrough"?'
-    hint: '[masculine]'
+    message: 'Töski, ich glaube nicht, dass er Deutsch spricht.'
+    translation: 'Töski, I don''t think he speaks German.'
+  - from: dog
+    message: '*wuff!*'
+    translation: '*woof!*'
+  - from: squirrel
+    message: Wart ab! Dein hinterlistiges Manöver hat keinen Nutzen für dich!
+    translation: Wait and see! Your deceitful maneuver is of no use to you!
+  - from: dog
+    message: '*wuff!!*'
+    translation: '*woof!!*'
+  - from: lukas
+    message: 'Bitte lass den Hund in Ruhe, du machst in unruhig!'
+    translation: 'Please leave the dog alone, you make him anxious!'
+
+exercises:
+- from: squirrel
+  type: choice
+  image: forestSquirrelImg.webp
+  message: Was findest du an ihm am flauschigsten?
+  translation: What do you find fluffiest about him?
+  hint: masculine
+  choices:
+    - text: sein Schwanz
+      correct: false
+    - text: sein**es** Schwanz**es**
+      correct: false
+    - text: sein**en** Schwanz
+      correct: true
+    - text: sein**er** Schwanz
+      correct: false
+- from: lindenbaum
+  type: choice
+  image: particleAcceleratorImg.webp
+  message: Wir haben weiterhin Zugriff auf...
+  translation: We still have access to...
+  hint: masculine
+  choices:
+    - text: '**den** Teilchenbeschleuniger'
+      correct: true
+    - text: '**des** Teilchenbeschleuniger**s**'
+      correct: false
+    - text: '**dem** Teilchenbeschleuniger'
+      correct: false
+    - text: '**der** Teilchenbeschleuniger'
+      correct: false
+- from: fox
+  type: choice
+  image: emailImg.webp
+  message: Der Präsident des Komitees für Astrophysischen Ereignisse sendete Ihnen...
+  translation: The president of the Astrophysical Events Committee sent you...
+  hint: feminine
+  choices:
+    - text: '**einen** E-Mail'
+      correct: false
+    - text: '**einer** E-Mail'
+      correct: false
+    - text: '**ein** E-Mail'
+      correct: false
+    - text: '**eine** E-Mail'
+      correct: true
+- from: squirrel
+  type: choice
+  image: hazelnutSquirrelImg.webp
+  message: 'Eure Technologie ist obsolet, Damit kriegt ihr nicht..'
+  translation: Your technology is obsolete. With that you won't get..
+  hint: feminine
+  choices:
+    - text: '**den** Haselnuss'
+      correct: false
+    - text: '**die** Haselnuss'
+      correct: true
+    - text: '**der** Haselnuss'
+      correct: false
+    - text: '**eine** Haselnuss'
+      correct: false
+# - from: fox
+#   message: >-
+#     Ich habe früher wie Sie eine Sprache gelernt. Dann bekam ich [einen] Pfeil
+#     ins Knie...
+#   translation: >-
+#     I used to be a language-learner like you. Then I took [an] arrow to the
+#     knee...
+#   hint: '[masculine]'
+# - from: squirrel
+#   message: 'Eure Technologie ist obsolet, Damit kriegt ihr nicht [die] Haselnuss!'
+#   translation: 'Your technology is obsolete. You won''t get [the] hazelnut with it!'
+#   hint: '[feminine]'
+# - from: lukas
+#   message: 'Oh je, pass mit [deinen] Schwanz auf!'
+#   translation: 'Oh dear, watch it with [your] tail!'
+#   hint: '[masculine]'
+# - from: lindenbaum
+#   message: 'Und Sie nennen es "[den] Durchbruch"?'
+#   translation: 'And you call it "[the] breakthrough"?'
+#   hint: '[masculine]'
 
 
 

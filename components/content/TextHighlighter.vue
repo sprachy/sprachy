@@ -65,7 +65,7 @@ const state = defineState({
     <template v-for="fragment in state.fragments">
       <span v-if="fragment.highlight" :class="`highlight ${fragment.highlight}`"
         :style="fragment.minWidth ? `min-width: ${fragment.minWidth}px` : undefined">
-        {fragment.text}
+        {{ fragment.text }}
       </span>
       <template v-else>
         {{ fragment.text }}
