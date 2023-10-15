@@ -10,7 +10,8 @@ const props = withDefaults(defineProps<{
 <template>
   <div class="tip alert alert-info">
     <strong>{{ props.title }}: </strong>
-    <Sprachdown :source="props.content" />
+    <Sprachdown v-if="props.content" :source="props.content" />
+    <slot />
   </div>
 </template>
 
