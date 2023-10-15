@@ -7,7 +7,7 @@ const props = defineProps<{
 }>()
 
 const { data: patternData } = await useAsyncData(`pattern/${props.learnable.pattern.id}`,
-  () => fetchPatternById(props.learnable.pattern.id)
+  () => sprachdex.fetchPatternById(props.learnable.pattern.id)
 )
 
 const emit = defineEmits<{

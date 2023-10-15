@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import type { Story, ReadingLine } from "~/lib/Pattern"
+import type { Dialogue, DialogueLineReading } from "~/lib/Dialogue"
 
 const linesRef = ref<HTMLDivElement[]>()
 
 const props = withDefaults(defineProps<{
-  dialogue: FullPatternData['dialogue']
+  dialogue: Dialogue
   staticMode?: boolean
 }>(), { staticMode: false })
 
@@ -32,7 +32,7 @@ const state = defineState({
     // We want to flip the line orientation each time the
     // speaker changes
     let flip = false
-    let prevFlippableLine: ReadingLine | null = null
+    let prevFlippableLine: DialogueLineReading | null = null
     return props.dialogue.lines.map((line) => {
       if (line.type !== "reading" || line.from === "narrator") {
         return false

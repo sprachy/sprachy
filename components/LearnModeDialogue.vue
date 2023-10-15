@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { PatternNavigationItem } from '~/lib/Pattern'
+
 const props = defineProps<{
   pattern: PatternNavigationItem
 }>()
@@ -8,7 +10,7 @@ const emit = defineEmits<{
 }>()
 
 const { data: patternData } = await useAsyncData(`pattern/${props.pattern.id}`,
-  () => fetchPatternById(props.pattern.id)
+  () => sprachdex.fetchPatternById(props.pattern.id)
 )
 
 const state = defineState({

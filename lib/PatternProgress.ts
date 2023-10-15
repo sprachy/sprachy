@@ -1,8 +1,7 @@
-import type { PatternId } from "./Pattern"
 import type { ProgressStore } from "~/composables/progressStore"
 
 export class PatternProgress {
-  constructor(readonly progressStore: ProgressStore, readonly patternId: PatternId) { }
+  constructor(readonly progressStore: ProgressStore, readonly patternId: string) { }
 
   get item() {
     return this.progressStore.progressItemByPatternId[this.patternId]

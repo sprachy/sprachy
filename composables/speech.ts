@@ -1,6 +1,4 @@
 import _ from "lodash"
-import type { CharacterId } from "~/lib/Pattern"
-import { sprachdex } from "~/lib/sprachdex"
 import type { VoiceSynthesisSchema } from "~/server/api/synthesize.post"
 
 export type VoiceSynthesisOptions = {
@@ -18,7 +16,7 @@ export class SpeechSystem {
 
   constructor() { }
 
-  async synthesizeFromCharacter(characterId: CharacterId, text: string): Promise<Base64Audio> {
+  async synthesizeFromCharacter(characterId: string, text: string): Promise<Base64Audio> {
     const character = sprachdex.getCharacter(characterId)
     return this.synthesize({
       text,
@@ -82,7 +80,7 @@ export class SpeechSystem {
     return promise
   }
 
-  async preload(opts: { from: CharacterId, message: string }) {
+  async preload(opts: { from: string, message: string }) {
     const key = opts.from + ' ' + opts.message
 
     let audioPromise = this.audioCache[key]
@@ -95,7 +93,7 @@ export class SpeechSystem {
     }
   }
 
-  async get(opts: { from: CharacterId, message: string }) {
+  async get(opts: { from: string, message: string }) {
     const key = opts.from + ' ' + opts.message
     const promise = this.audioCache[key]
     if (promise) {
@@ -106,7 +104,7 @@ export class SpeechSystem {
     }
   }
 
-  async say(opts: { from: CharacterId, message: string }) {
+  async say(opts: { from: string, message: string }) {
     const audioContent = await this.get(opts)
     return this.playAudioContent(audioContent)
   }

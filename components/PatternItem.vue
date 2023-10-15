@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Sprachdown from "~/components/Sprachdown.vue"
+import type { PatternNavigationItem } from "~/lib/Pattern"
 
 defineProps<{ pattern: PatternNavigationItem }>()
 

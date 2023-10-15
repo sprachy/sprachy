@@ -13,6 +13,14 @@ const emit = defineEmits<{
   (e: "complete"): void
 }>()
 
+const { data: patterns } = await useAsyncData(`patterns/${props.learnable.patterns.map(p => p.id).join(',')}}`,
+  () => sprachdex.fetchPatterns({
+    id: {
+      $in: props.learnable.patterns.map(p => p.id)
+    }
+  })
+)
+
 const state = defineState({
   startedReview: false,
   completedReview: false,
@@ -20,10 +28,14 @@ const state = defineState({
   experienceByPatternId: {} as { [patternId: string]: number },
   reviewIndex: 0,
 
+  get patterns() {
+    return patterns.value || []
+  },
+
   get reviews() {
     return shuffle(
       flatten(
-        props.learnable.patterns.map((p) =>
+        this.patterns.map((p) =>
           p.exercises.map((ex) => ({ pattern: p, exercise: ex }))
         )
       )

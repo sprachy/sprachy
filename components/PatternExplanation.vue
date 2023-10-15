@@ -1,5 +1,7 @@
 <script setup lang="ts">
-defineProps<{ pattern: FullPatternData }>()
+import type { Pattern } from '~/lib/Pattern'
+
+defineProps<{ pattern: Pattern }>()
 </script>
 
 <template>

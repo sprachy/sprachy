@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { MultipleChoiceLine } from "~/lib/Pattern"
+import type { DialogueLineChoice } from "~/lib/Dialogue"
 import Sprachdown from "~/components/Sprachdown.vue"
 import Choices from "~/components/Choices.vue"
 import AudioForLine from "~/components/AudioForLine.vue"
 
 defineProps<{
-  line: MultipleChoiceLine
+  line: DialogueLineChoice
   complete: boolean
 }>()
 
@@ -25,6 +25,4 @@ const emit = defineEmits<{
   </div>
 </template>
 
-<style>
-
-</style>
+<style></style>

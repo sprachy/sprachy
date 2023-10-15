@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { sprachdex } from "~/lib/sprachdex"
 import Sprachdown from "~/components/Sprachdown.vue"
 
 const props = defineProps<{

@@ -11,7 +11,6 @@ function finishExplanation() {
   if (progressStore.currentLearnable?.type !== 'pattern') return
   progressStore.currentLearnable.readExplanation = true
 }
-
 </script>
 
 <template>

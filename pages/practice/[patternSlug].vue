@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { sprachdex } from "~/lib/sprachdex"
 const { patternSlug } = useRoute().params
 
-const pattern = sprachdex.patterns.find(p => p.slug === patternSlug)
-if (!pattern) {
-  throw createError({ statusCode: 404, statusMessage: 'Page Not Found' })
-}
+const { data: pattern } = useAsyncData(`pattern/${patternSlug}`, () => sprachdex.fetchPatternBySlug(patternSlug as string))
 
 const state = defineState({
   exerciseIndex: 0,
 
+  get exercises() {
+    return pattern.value?.exercises || []
+  },
+
   get exercise() {
-    return pattern.exercises[state.exerciseIndex]
+    return this.exercises[state.exerciseIndex]
   }
 })
 
 watchEffect(() => {
   if (speech.enabled) {
-    pattern.exercises.map(ex => {
+    state.exercises.map(ex => {
       if (ex.type === 'fillblank') {
         speech.preload({ from: ex.from, message: ex.message })
       }
@@ -32,7 +32,7 @@ function nextExercise() {
 
 
 <template>
-  <main class="container">
+  <main class="container" v-if="pattern">
     <h1>{{ pattern.title }}</h1>
     <ExerciseView @correct="nextExercise" v-if="state.exercise" :exercise="state.exercise" :pattern="pattern" />
     <p v-else>

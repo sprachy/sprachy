@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { MultipleChoiceExercise } from "~/lib/Exercise"
+import type { ExerciseMultipleChoice } from "~/lib/Exercise"
 import Sprachdown from "~/components/Sprachdown.vue"
 import Message from "~/components/Message.vue"
 import AudioForLine from "~/components/AudioForLine.vue"
 import Choices from "~/components/Choices.vue"
 
-defineProps<{
-  exercise: MultipleChoiceExercise
+const props = defineProps<{
+  exercise: ExerciseMultipleChoice
 }>()
 
 const emit = defineEmits<{
@@ -16,18 +16,18 @@ const emit = defineEmits<{
 
 <template>
   <div class="exercise">
-    <img v-if="exercise.image" :src="exercise.image" alt="Identify this" />
+    <img v-if="exercise.image" :src="imageLibrary[exercise.image]" alt="Identify this" />
     <div v-if="exercise.from && exercise.message" class="message">
       <Message :from="exercise.from" :tooltip="exercise.translation">
         <AudioForLine :opts="exercise" playImmediately />
         <Sprachdown inline :source="exercise.message" />
       </Message>
     </div>
-    <div v-if="exercise.question" class="hover-translate question text-center mt-2 mb-2"
-      :data-tooltip="exercise.questionTranslation">
-      <AudioForLine :opts="{ from: 'narrator', message: exercise.question }" playImmediately />
+    <div v-if="exercise.message" class="hover-translate question text-center mt-2 mb-2"
+      :data-tooltip="exercise.translation">
+      <AudioForLine :opts="{ from: 'narrator', message: exercise.message }" playImmediately />
       <span class="me-1" />
-      <Sprachdown inline :source="exercise.question" />
+      <Sprachdown inline :source="exercise.message" />
     </div>
     <Choices :choices="exercise.choices" :hint="exercise.hint" @correct="emit('correct')" />
   </div>

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { ReadingLine } from "~/lib/Pattern"
+import type { DialogueLineReading } from "~/lib/Dialogue"
 import Message from "~/components/Message.vue"
 import Sprachdown from "~/components/Sprachdown.vue"
 import AudioForLine from "~/components/AudioForLine.vue"
 
 defineProps<{
-  line: ReadingLine
+  line: DialogueLineReading
   flip?: boolean
   staticMode?: boolean
 }>()

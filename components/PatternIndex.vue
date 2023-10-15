@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import PatternItem from "./PatternItem.vue"
 
-const { data: patterns } = await useAsyncData('patternIndex', () => fetchPatternIndex())
+const { data: patterns } = await useAsyncData('patternIndex', () => sprachdex.fetchPatternIndex())
 </script>
 
 <template>

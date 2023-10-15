@@ -59,7 +59,7 @@ dialogue:
 exercises:
 - from: squirrel
   type: choice
-  image: acornImg
+  image: acorn.webp
   message: Wie nennt man diese köstliche Frucht?
   translation: What do you call this delicious fruit?
   hint: feminine
@@ -70,7 +70,7 @@ exercises:
   - { text: "**ein** Eichel", correct: false }
 - from: squirrel
   type: choice
-  image: bunnyImg
+  image: bunny.webp
   message: Wer springt herum?
   translation: Who is hopping around?
   hint: masculine
@@ -81,7 +81,7 @@ exercises:
   - { text: "**die** Hase", correct: false }
 - from: squirrel
   type: choice
-  image: treeHouseImg
+  image: tree-house.webp
   message: Wie nennt man diese Unterkunft?
   translation: What do you call this dwelling?
   hint: neuter
@@ -92,7 +92,7 @@ exercises:
   - { text: "**die** Baumhaus", correct: false }
 - from: squirrel
   type: choice
-  image: shoppingCartImg
+  image: shopping-cart.webp
   message: Wie nennt man diese viele Rad-Kisten?
   translation: What do you call these many wheel boxes?
   hint: plural

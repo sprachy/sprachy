@@ -1,9 +1,15 @@
 
 <script setup lang="ts">
 const { patternSlug } = useRoute().params
-const { data: pattern } = await useAsyncData(`pattern/${patternSlug}`, () => queryContent(patternSlug).findOne())
-</script>
 
+const { data: pattern, error } = await useAsyncData(`pattern/${patternSlug}`,
+  () => sprachdex.fetchPatternBySlug(patternSlug as string)
+)
+
+if (error.value) {
+  throw createError(error.value)
+}
+</script>
 
 <template>
   <main class="container" v-if="pattern">

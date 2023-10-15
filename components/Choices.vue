@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { MultipleChoiceExercise } from "~/lib/Exercise"
+import type { ExerciseMultipleChoice } from "~/lib/Exercise"
 import Sprachdown from "~/components/Sprachdown.vue"
 import Hints from "./Hints.vue"
 
-type Choice = MultipleChoiceExercise["choices"][0]
+type Choice = ExerciseMultipleChoice["choices"][0]
 
 const props = withDefaults(defineProps<{
   choices: Choice[]
