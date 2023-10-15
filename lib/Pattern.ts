@@ -14,14 +14,19 @@ const patternSchema = z.object({
 
 export type Pattern = z.infer<typeof patternSchema>
 
-export function parsePattern(patternDef: any) {
-  const result = patternSchema.safeParse({ slug: patternDef._path?.slice(1), ...patternDef })
+export function parsePattern(def: any) {
+  def = {
+    ...def,
+    slug: def._path.slice(1)
+  }
+
+  const result = patternSchema.safeParse({ slug: def._path?.slice(1), ...def })
 
   if (result.success) {
     return result.data
   } else {
-    console.warn(`Invalid pattern data ${patternDef.id}`, patternDef, result.error)
-    return patternDef as any as Pattern
+    console.warn(`Invalid pattern data ${def.id}`, def, result.error)
+    return def as any as Pattern
   }
 }
 

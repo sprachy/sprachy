@@ -3,8 +3,8 @@ import * as z from 'zod'
 export const dialogueLineReadingSchema = z.object({
   type: z.literal("reading").default("reading"),
   from: z.string(),
-  message: z.string(),
-  translation: z.string(),
+  message: z.string().optional(),
+  translation: z.string().optional(),
   image: z.string().optional(),
   imageAlt: z.string().optional()
 })

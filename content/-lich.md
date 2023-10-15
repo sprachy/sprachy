@@ -1,21 +1,13 @@
-import { faHandPointRight } from "@fortawesome/free-solid-svg-icons"
-import { definePattern, md } from "~/lib/definePattern"
+---
+draft: true
+id: -lich
+title: The suffix "-lich"
+shortdesc: 'As in endlich ("endly": finite)'
+---
 
-export default definePattern({
-  draft: true,
-  id: "-lich",
-  slug: "-lich",
-  title: "The suffix \"-lich\"",
-  shortdesc: `As in endlich ("endly": finite)`,
-  explanation: md`
 "-lich" is cognate to the English "-ly", and is used to make adjectives like "endlich" (finally/finite) or "niedlich" (cute!).
 
 The stem vowel of a -lich word sometimes gains an umlaut, as in ängstlich (timid, anxious) or brüderlich (brotherly), but this isn't universal.
-  `,
-  story: [],
-  exercises: [
-  ]
-})
 
 
     // LEVEL 2

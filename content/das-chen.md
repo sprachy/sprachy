@@ -154,9 +154,9 @@ Some non-English languages have a standard way to modify nouns to create _diminu
 translate: true
 header: Original / Diminutive
 content: |
-die Katze / das Kätzchen
-das Brot / das Brötchen
-der Pantoffel, das Tier / das Pantoffeltierchen
+  die Katze / das Kätzchen
+  das Brot / das Brötchen
+  der Pantoffel, das Tier / das Pantoffeltierchen
 ---
 ::
 

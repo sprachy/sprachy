@@ -55,7 +55,7 @@ In English, we use indefinite articles to specify the context of its associated 
 
 ::LTable
 ---
-content:
+content: |
   dieses Eichhörnchen / this squirrel
   jedes Eichhörnchen / each, every squirrel
   jenes Eichhörnchen / that squirrel
@@ -79,7 +79,7 @@ Unlike the three definite articles, indefinite articles have different endings f
 
 ::LTable
 ---
-content:
+content: |
   _ / Masculine / Feminine / Neuter / Plural
   Nominative / dies**er** / dies**e** / dies**es** / dies*e*
   Accusative / dies**en** / dies**e** / dies**es** / dies**e**
