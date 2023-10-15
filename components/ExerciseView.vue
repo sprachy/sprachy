@@ -1,8 +1,4 @@
 <script setup lang="ts">
-// import type { Exercise } from "~/lib/Exercise"
-// import ExerciseViewFillblank from "~/components/ExerciseViewFillblank.vue"
-import ExerciseViewChoice from "~/components/ExerciseViewChoice.vue"
-import type { Pattern } from "~/lib/Pattern"
 import type { Exercise } from "~/lib/Exercise"
 import { checkAudioPlayability } from "~/lib/util"
 
@@ -12,7 +8,7 @@ const state = defineState({
 
 const props = defineProps<{
   exercise: Exercise
-  pattern: Pattern
+  pattern: PatternNavigationItem
 }>()
 
 const emit = defineEmits<{

@@ -82,62 +82,7 @@ Unlike in English, the first letter of every noun in German is **C**apitalized. 
     //   translation: "[The] Shiba Inu is ironic.",
     //   hint: "[masculine]"
     // }
-    {
-      from: 'squirrel',
-      type: 'choice',
-      image: acornImg,
-      message: `Wie nennt man diese köstliche Frucht?`,
-      translation: "What do you call this delicious fruit?",
-      hint: "feminine",
-      choices: [
-        { text: "**der** Eichel", correct: false },
-        { text: "**die** Eichel", correct: true },
-        { text: "**das** Eichel", correct: false },
-        { text: "**ein** Eichel", correct: false }
-      ]
-    },
-    {
-      from: 'squirrel',
-      type: 'choice',
-      image: bunnyImg,
-      message: `Wer springt herum?`,
-      translation: "Who is hopping around?",
-      hint: "masculine",
-      choices: [
-        { text: "**eine** Hase", correct: false },
-        { text: "**der** Hase", correct: true },
-        { text: "**das** Hase", correct: false },
-        { text: "**die** Hase", correct: false }
-      ]
-    },
-    {
-      from: 'squirrel',
-      type: 'choice',
-      image: treeHouseImg,
-      message: `Wie nennt man diese Unterkunft?`,
-      translation: "What do you call this dwelling?",
-      hint: "neuter",
-      choices: [
-        { text: "**den** Baumhaus", correct: false },
-        { text: "**der** Baumhaus", correct: false },
-        { text: "**das** Baumhaus", correct: true },
-        { text: "**die** Baumhaus", correct: false }
-      ]
-    },
-    {
-      from: 'squirrel',
-      type: 'choice',
-      image: shoppingCartImg,
-      message: `Wie nennt man diese viele Rad-Kisten?`,
-      translation: "What do you call these many wheel boxes?",
-      hint: "plural",
-      choices: [
-        { text: "**eine** Einkaufswagen", correct: false },
-        { text: "**dem** Einkaufswagen", correct: false },
-        { text: "**das** Einkaufswagen", correct: false },
-        { text: "**die** Einkaufswagen", correct: true }
-      ]
-    },
+
   ]
 })
 

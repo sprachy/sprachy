@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { Pattern } from "~/lib/Pattern"
 import type { FillblankExercise } from "~/lib/Exercise"
 import { matchAnswer } from "~/lib/feedback"
 import Message from "~/components/Message.vue"
@@ -11,7 +10,7 @@ const props = defineProps<{
   exercise: FillblankExercise
   flip?: boolean
   complete?: boolean
-  pattern?: Pattern
+  pattern?: PatternNavigationItem
 }>()
 
 const emit = defineEmits<{

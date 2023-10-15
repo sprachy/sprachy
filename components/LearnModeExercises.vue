@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import ExerciseView from "./ExerciseView.vue"
-
 const props = defineProps<{
   learnable: LearnablePattern
 }>()
@@ -9,12 +7,17 @@ const emit = defineEmits<{
   (e: "complete"): void
 }>()
 
+
+const { data: patternData } = await useAsyncData(`pattern/${props.learnable.pattern.id}`,
+  () => fetchPatternById(props.learnable.pattern.id)
+)
+
 const state = defineState({
   startLevel: 0,
   exerciseIndex: 0,
 
   get exercises() {
-    return props.learnable.pattern.exercises
+    return patternData.value?.exercises || []
   },
 
   get exercise() {
@@ -33,7 +36,7 @@ watch(
 
 watchEffect(() => {
   if (speech.enabled) {
-    for (const ex of props.learnable.pattern.exercises) {
+    for (const ex of state.exercises) {
       if (ex.type === 'fillblank')
         speech.preload(ex)
     }

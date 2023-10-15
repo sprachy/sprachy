@@ -41,27 +41,67 @@ export async function fetchPatternIndex() {
   return patterns
 }
 
+const dialogueLineReadingSchema = z.object({
+  from: z.string(),
+  message: z.string(),
+  translation: z.string(),
+  image: z.string().optional(),
+  imageAlt: z.string().optional()
+})
+
+export type DialogueLineReadingDef = z.infer<typeof dialogueLineReadingSchema>
+
+const dialogueLineChoiceSchema = z.object({
+  question: z.string(),
+  choices: z.array(z.object({
+    text: z.string(),
+    correct: z.boolean().optional(),
+  }))
+})
+
+export type DialogueLineChoiceDef = z.infer<typeof dialogueLineChoiceSchema>
+
+const exerciseMultipleChoiceSchema = z.object({
+  from: z.string(),
+  type: z.literal('choice'),
+  image: z.string().optional(),
+  message: z.string(),
+  translation: z.string(),
+  hint: z.string().optional(),
+  choices: z.array(z.object({
+    text: z.string(),
+    correct: z.boolean().optional().default(false),
+  }))
+})
+
+export type ExerciseMultipleChoiceDef = z.infer<typeof exerciseMultipleChoiceSchema>
+
+const exerciseFillblankSchema = z.object({
+  from: z.string(),
+  type: z.literal('fillblank'),
+  image: z.string().optional(),
+  message: z.string(),
+  translation: z.string(),
+  hint: z.string().optional(),
+})
+
+export type ExerciseFillblankDef = z.infer<typeof exerciseMultipleChoiceSchema>
+
 const fullPatternDataSchema = patternNavigationItemSchema.extend({
   dialogue: z.object({
     lines: z.array(
       z.union([
-        z.object({
-          from: z.string(),
-          message: z.string(),
-          translation: z.string(),
-          image: z.string().optional(),
-          imageAlt: z.string().optional()
-        }),
-        z.object({
-          question: z.string(),
-          choices: z.array(z.object({
-            text: z.string(),
-            correct: z.boolean().optional(),
-          }))
-        })
+        dialogueLineReadingSchema,
+        dialogueLineChoiceSchema
       ]).transform(lineDef => parseLine(lineDef))
     )
   }),
+  exercises: z.array(
+    z.union([
+      exerciseMultipleChoiceSchema,
+      exerciseFillblankSchema
+    ])
+  ),
   body: z.any()
 })
 
