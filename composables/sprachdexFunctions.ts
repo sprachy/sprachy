@@ -1,6 +1,5 @@
 import { parseLine, type PatternId } from "~/lib/Pattern"
 import * as z from 'zod'
-import type { MarkdownRoot } from "@nuxt/content/dist/runtime/types"
 
 // Nuxt-content doesn't validate the schema of the content files
 // much, so we use Zod here to catch any malformed pattern data.
@@ -82,5 +81,4 @@ export async function fetchPatternById(patternId: PatternId) {
     console.error(`Invalid pattern data ${patternId}`, content, result.error.format())
     return content as any as FullPatternData
   }
-
 }

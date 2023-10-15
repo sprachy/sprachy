@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import type { ParsedContent } from "@nuxt/content/dist/runtime/types"
-
-defineProps<{ pattern: ParsedContent }>()
+defineProps<{ pattern: FullPatternData }>()
 </script>
 
 <template>

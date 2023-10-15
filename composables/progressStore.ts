@@ -1,9 +1,7 @@
 import type { ProgressItem } from "@prisma/client"
 import { keyBy } from "lodash"
 import { PatternProgress } from "~/lib/PatternProgress"
-import { sprachdex } from "~/lib/sprachdex"
 import { time } from "~/lib/time"
-import type { PatternNavigationItem } from "./sprachdex"
 
 type LocalProgressItem = Omit<ProgressItem, 'userId'> & {
   userId?: string
@@ -89,7 +87,7 @@ export class ProgressStore {
     }
 
     // Next, level any patterns that are only level 1 (completed dialogue but no exercises)
-    let pattern = this.progressablePatterns.find(p => p.progress.level === 1 && p.exercises.length)
+    let pattern = this.progressablePatterns.find(p => p.progress.level === 1)
     if (pattern) {
       return {
         type: 'pattern',

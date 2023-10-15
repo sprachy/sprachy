@@ -2,9 +2,13 @@
 import type { LearnablePattern } from "~/composables/progressStore"
 import PatternExplanation from "./PatternExplanation.vue"
 
-defineProps<{
+const props = defineProps<{
   learnable: LearnablePattern
 }>()
+
+const { data: patternData } = await useAsyncData(`pattern/${props.learnable.pattern.id}`,
+  () => fetchPatternById(props.learnable.pattern.id)
+)
 
 const emit = defineEmits<{
   (e: "complete"): void
@@ -12,9 +16,9 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <article class="explanation">
+  <article class="explanation" v-if="patternData">
     <h1>{{ learnable.pattern.title }}</h1>
-    <PatternExplanation :pattern="learnable.pattern" />
+    <PatternExplanation :pattern="patternData" />
     <button class="btn btn-success" @click="emit('complete')">
       Continue to exercises
     </button>
