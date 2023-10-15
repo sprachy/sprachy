@@ -4,7 +4,7 @@ import type { Story, ReadingLine } from "~/lib/Pattern"
 const linesRef = ref<HTMLDivElement[]>()
 
 const props = withDefaults(defineProps<{
-  story: Story
+  dialogue: FullPatternData['dialogue']
   staticMode?: boolean
 }>(), { staticMode: false })
 
@@ -17,7 +17,7 @@ const state = defineState({
   readyToComplete: props.staticMode,
 
   get visibleLines() {
-    return props.story.slice(0, state.lineIndex + 1)
+    return props.dialogue.lines.slice(0, state.lineIndex + 1)
   },
 
   get currentLine() {
@@ -33,7 +33,7 @@ const state = defineState({
     // speaker changes
     let flip = false
     let prevFlippableLine: ReadingLine | null = null
-    return props.story.map((line) => {
+    return props.dialogue.lines.map((line) => {
       if (line.type !== "reading" || line.from === "narrator") {
         return false
       } else {
@@ -48,12 +48,12 @@ const state = defineState({
 })
 
 watchEffect(() => {
-  state.lineIndex = props.staticMode ? props.story.length : 0
+  state.lineIndex = props.staticMode ? props.dialogue.lines.length : 0
 })
 
 watchEffect(() => {
   if (speech.enabled) {
-    for (const line of props.story) {
+    for (const line of props.dialogue.lines) {
       if (line.type === "reading" && line.from && line.message) {
         speech.preload({ from: line.from, message: line.message })
       }
@@ -90,7 +90,7 @@ async function nextLine() {
     // to fire for the next line on firefox
     linesRef.value[linesRef.value.length - 1].querySelector("input")?.blur()
   }
-  if (state.lineIndex < props.story.length - 1) {
+  if (state.lineIndex < props.dialogue.lines.length - 1) {
     state.lineIndex += 1
   } else if (!state.readyToComplete) {
     state.readyToComplete = true

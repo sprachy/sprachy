@@ -17,15 +17,20 @@ function finishExplanation() {
 <template>
   <NuxtLayout name="default" fixedHeader>
     <LearnSidebar />
-    <main class="learnable" v-if="currentLearnable">
-      <LearnModeDialogue v-if="currentLearnable.type === 'dialogue'" :pattern="currentLearnable.pattern"
-        @complete="nextLearnable" />
-      <LearnModeExplanation v-else-if="currentLearnable.type === 'pattern' && !currentLearnable.readExplanation"
-        :learnable="currentLearnable" @complete="finishExplanation" />
-      <LearnModeExercises v-else-if="currentLearnable.type === 'pattern' && currentLearnable.readExplanation"
-        :learnable="currentLearnable" @complete="nextLearnable" />
-      <LearnModeReview v-else-if="currentLearnable.type === 'review'" :learnable="currentLearnable"
-        @complete="nextLearnable" />
+    <main class="learnable">
+      <template v-if="currentLearnable">
+        <LearnModeDialogue v-if="currentLearnable.type === 'dialogue'" :pattern="currentLearnable.pattern"
+          @complete="nextLearnable" />
+        <LearnModeExplanation v-else-if="currentLearnable.type === 'pattern' && !currentLearnable.readExplanation"
+          :learnable="currentLearnable" @complete="finishExplanation" />
+        <LearnModeExercises v-else-if="currentLearnable.type === 'pattern' && currentLearnable.readExplanation"
+          :learnable="currentLearnable" @complete="nextLearnable" />
+        <LearnModeReview v-else-if="currentLearnable.type === 'review'" :learnable="currentLearnable"
+          @complete="nextLearnable" />
+      </template>
+      <template v-else>
+        <p>You've finished learning everything we have!</p>
+      </template>
     </main>
   </NuxtLayout>
 </template>

@@ -1,4 +1,4 @@
-import type { PatternId } from "~/lib/Pattern"
+import { parseLine, type PatternId } from "~/lib/Pattern"
 import * as z from 'zod'
 import type { MarkdownRoot } from "@nuxt/content/dist/runtime/types"
 
@@ -43,6 +43,26 @@ export async function fetchPatternIndex() {
 }
 
 const fullPatternDataSchema = patternNavigationItemSchema.extend({
+  dialogue: z.object({
+    lines: z.array(
+      z.union([
+        z.object({
+          from: z.string(),
+          message: z.string(),
+          translation: z.string(),
+          image: z.string().optional(),
+          imageAlt: z.string().optional()
+        }),
+        z.object({
+          question: z.string(),
+          choices: z.array(z.object({
+            text: z.string(),
+            correct: z.boolean().optional(),
+          }))
+        })
+      ]).transform(lineDef => parseLine(lineDef))
+    )
+  }),
   body: z.any()
 })
 
@@ -55,12 +75,12 @@ export type FullPatternData = z.infer<typeof fullPatternDataSchema>
 export async function fetchPatternById(patternId: PatternId) {
   const content = await queryContent().where({ id: patternId }).findOne()
 
-  const result = fullPatternDataSchema.safeParse(content)
+  const result = fullPatternDataSchema.safeParse({ slug: content._path?.slice(1), ...content })
   if (result.success) {
     return result.data
   } else {
     console.error(`Invalid pattern data ${patternId}`, content, result.error.format())
-    return content as any
+    return content as any as FullPatternData
   }
 
 }

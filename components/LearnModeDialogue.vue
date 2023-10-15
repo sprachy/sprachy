@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import type { PatternNavigationItem } from "~/composables/sprachdex"
-
 const props = defineProps<{
   pattern: PatternNavigationItem
 }>()
@@ -9,14 +7,12 @@ const emit = defineEmits<{
   (e: "complete"): void
 }>()
 
-
 const { data: patternData } = await useAsyncData(`pattern/${props.pattern.id}`,
   () => fetchPatternById(props.pattern.id)
 )
 
 const state = defineState({
   promptToBegin: true,
-  readingExplanation: false,
 
   get progress() {
     return progressStore.progressablePatternById[props.pattern.id].progress
@@ -34,15 +30,12 @@ async function completeDialogue() {
 <template>
   <div class="dialogueContainer" v-if="patternData">
     <div class="prompt" v-if="state.promptToBegin">
-      <h1>{{ patternData.storyTitle }}</h1>
+      <h1>{{ patternData.title }}</h1>
       <button class="btn btn-success" @click="state.promptToBegin = false">
         Start dialogue
       </button>
     </div>
-    <InteractiveDialogue v-else-if="!state.readingExplanation" :story="patternData.story" @complete="completeDialogue" />
-    <div class="explanation" v-else>
-      {{ patternData.explanation }}
-    </div>
+    <InteractiveDialogue v-else :dialogue="patternData.dialogue" @complete="completeDialogue" />
   </div>
 </template>
 

@@ -2,6 +2,58 @@
 title: Der, die, das
 id: nominative
 shortdesc: Ah yes, the three genders
+dialogue:
+  lines:
+  - from: squirrel
+    message: Lukas, was ist das?
+    translation: Lukas, what is that?
+    image: sonne
+    imageAlt: The sun shining brightly
+  - from: lukas
+    message: Das ist die Sonne.
+    translation: That is the sun.
+    # explanation: `Lukas uses the word _die_ to mean _the_ here, because _Sonne_ is a feminine noun. `
+  - from: lukas
+    message: Sie gibt unserem Planeten Wärme und Energie.
+    translation: It gives our planet energy and heat.
+    explanation: Lukas refers to the sun using the feminine pronoun _sie_.
+  - from: squirrel
+    message: Und was ist das Blaue?
+    translation: And what is the blue?
+    # explanation: `Töski uses _das_ because Blaue is a neuter noun.`
+  - from: lukas
+    message: Das ist der Himmel.
+    translation: That is the sky.
+  - from: lukas
+    message: Vögel🐦 fliegen dort.
+    translation: Birds fly there.
+  - from: squirrel
+    message: Warum ist er blau?
+    translation: Why is it blue?
+  - question: What is Töski referring to with "er"?
+    choices:
+    - text: der Himmel
+      correct: true
+    - text: die Sonne
+    - text: die Vogel
+  - from: lukas
+    message: Das ist... kompliziert.
+    translation: That is... complicated.
+  - from: lukas
+    message: Es geht um die Physik des Lichts.
+    translation: It has to do with the physics of light.
+  - from: squirrel
+    message: Kann ich ihn essen?
+    translation: Can I eat it?
+  - from: lukas
+    message: ...du willst den Himmel essen?
+    translation: ...you want to eat the sky?
+  - from: squirrel
+    message: Ja, er sieht lecker aus.
+    translation: Yes, it looks tasty.
+  - from: lukas
+    message: Bitte nicht.
+    translation: Please don't.
 ---
 
 Der, die, and das are three ways of saying _the_ in German. Which one you use depends on the _grammatical gender_ of the noun that follows.

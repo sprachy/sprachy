@@ -54,7 +54,7 @@ export class ProgressStore {
   }
 
   get allViewablePatterns() {
-    return sprachdex.patterns
+    return this.patterns
   }
 
   get progressablePatterns() {
