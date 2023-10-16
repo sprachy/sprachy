@@ -62,9 +62,8 @@ watch(
 watchEffect(() => {
   if (speech.enabled) {
     for (const review of state.reviews) {
-      if (review.exercise.type === 'fillblank') {
-        speech.preload(review.exercise)
-      }
+      console.log(review)
+      speech.preloadExercise(review.exercise)
     }
   }
 })

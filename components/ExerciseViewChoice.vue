@@ -23,7 +23,7 @@ const emit = defineEmits<{
         <Sprachdown inline :source="exercise.message" />
       </Message>
     </div>
-    <div v-if="exercise.message" class="hover-translate question text-center mt-2 mb-2"
+    <div v-else-if="exercise.message" class="hover-translate question text-center mt-2 mb-2"
       :data-tooltip="exercise.translation">
       <AudioForLine :opts="{ from: 'narrator', message: exercise.message }" playImmediately />
       <span class="me-1" />
