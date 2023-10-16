@@ -11,10 +11,18 @@ const loginForm = z.object({
 
 export type LoginSchema = z.infer<typeof loginForm>
 
+
+import { drizzle } from 'drizzle-orm/better-sqlite3'
+import type { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3'
+import Database from 'better-sqlite3'
+
+const sqlite = new Database('sqlite.db')
+const db: BetterSQLite3Database = drizzle(sqlite)
+
 export default defineEventHandler(async (event) => {
   const { email, password } = loginForm.parse(await readBody(event))
 
-  const user = await prisma.user.findUnique({
+  const user = await db.user.findUnique({
     where: {
       email: email
     },
