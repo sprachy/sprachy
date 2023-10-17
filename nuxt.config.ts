@@ -3,12 +3,6 @@ export default defineNuxtConfig({
   nitro: {
     preset: "cloudflare_module",
   },
-  experimental: {
-    externalVue: false
-  },
-  vue: {
-    runtimeCompiler: true
-  },
   content: {
     navigation: {
       fields: ['id', 'shortdesc']
