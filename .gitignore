@@ -9,5 +9,4 @@ dist
 .mf
 db/dev.db
 public/val2014
-assets/vqa-exercises.json
 tsconfig.tsbuildinfo

@@ -1,5 +1,4 @@
 import repl from 'repl'
-import { prisma } from '~/server/prisma'
 const vm = require("vm")
 const { processTopLevelAwait } = require("node-repl-await")
 
@@ -30,5 +29,5 @@ let shelling: boolean = false
 export async function runShell() {
   shelling = true
   const r = repl.start({ prompt: "> ", eval: myEval })
-  r.context.prisma = prisma
+  // r.context.prisma = prisma
 }

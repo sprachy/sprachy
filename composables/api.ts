@@ -5,11 +5,8 @@ import type { ConfirmResetPasswordSchema } from "~/server/api/confirm-reset-pass
 import type { VoiceSynthesisSchema } from '~/server/api/synthesize.post'
 import type { ReportProgressSchema } from '~/server/api/progress.post'
 import type { SignupSchema } from '~/server/api/signup.post'
-import type { PutTaskSchema } from '~/server/api/dev/tasks/[taskId].put'
 
 class SprachyAPI {
-  dev = new SprachyDevAPI()
-
   async login(opts: LoginSchema) {
     return await $fetch('/api/login', { method: 'POST', body: opts })
   }
@@ -40,16 +37,6 @@ class SprachyAPI {
 
   async getTasks() {
     return await $fetch(`/api/tasks`)
-  }
-}
-
-class SprachyDevAPI {
-  async deleteTask(taskId: string) {
-    return await $fetch(`/api/dev/tasks/${taskId}`, { method: 'DELETE' })
-  }
-
-  async updateTask(taskId: string, vqa: PutTaskSchema) {
-    return await $fetch(`/api/dev/tasks/${taskId}`, { method: 'PUT', body: vqa })
   }
 }
 

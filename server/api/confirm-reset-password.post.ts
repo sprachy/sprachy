@@ -1,7 +1,8 @@
 import * as z from 'zod'
-import { prisma } from '~/server/prisma'
 import { getKVStore } from '~/server/kvs'
 import bcrypt from 'bcryptjs'
+import { getDatabase, schema } from '~/db'
+import { eq } from 'drizzle-orm'
 
 const confirmResetPasswordForm = z.object({
   token: z.string(),
@@ -19,9 +20,10 @@ export type ConfirmResetPasswordSchema = z.infer<typeof confirmResetPasswordForm
 
 export default defineEventHandler(async (event) => {
   const kvs = await getKVStore(event)
+  const db = await getDatabase(event)
   const { token, newPassword } = confirmResetPasswordForm.parse(await readBody(event))
 
-  const json = await kvs.getJson<{ userId: string }>(`reset_password_tokens:${token}`)
+  const json = await kvs.getJson<{ userId: number }>(`reset_password_tokens:${token}`)
   if (!json?.userId) {
     throw createError({
       statusCode: 401,
@@ -29,8 +31,8 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const user = await prisma.user.findUnique({
-    where: { id: json.userId }
+  const user = await db.query.users.findFirst({
+    where: eq(schema.users.id, json.userId)
   })
 
   if (!user) {
@@ -40,12 +42,9 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  await prisma.user.update({
-    where: { id: user.id },
-    data: {
-      password: bcrypt.hashSync(newPassword, 10)
-    }
-  })
+  await db.update(schema.users)
+    .set({ hashedPassword: bcrypt.hashSync(newPassword, 10) })
+    .where(eq(schema.users.id, user.id))
 
   return { success: true }
 })
