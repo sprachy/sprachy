@@ -18,9 +18,9 @@
     "migrate:live": "wrangler d1 migrations --env live apply live"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231010.0",
+    "@cloudflare/workers-types": "^4.20231016.0",
     "@nuxt/content": "^2.8.5",
-    "@nuxt/image-edge": "^1.0.0-rc.3-28282346.a10323e",
+    "@nuxt/image-edge": "^1.0.0-rc.3-28291130.a4b5d45",
     "@types/node": "^20.8.6",
     "assert": "^2.1.0",
     "better-sqlite3": "^9.0.0",
