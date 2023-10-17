@@ -110,6 +110,10 @@ function speakChoice(choice: Choice) {
   display: flex;
 }
 
+.choices li button {
+  display: flex;
+}
+
 .choices li button.correct {
   background-color: #dff0d8;
 }
