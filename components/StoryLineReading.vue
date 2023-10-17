@@ -19,7 +19,7 @@ defineProps<{
         <Sprachdown inline :source="line.message" />
       </div>
     </Message>
-    <img v-if="line.image" :alt="line.imageAlt" :src="line.image" />
+    <img v-if="line.image" :alt="line.imageAlt" :src="imageLibrary[line.image]" />
   </div>
 </template>
 
