@@ -15,6 +15,10 @@ export class SpeechSystem {
 
   constructor() { }
 
+  toggleMute() {
+    this.enabled = !this.enabled
+  }
+
   async synthesizeFromCharacter(characterId: string, text: string): Promise<Base64Audio> {
     const character = sprachdex.getCharacter(characterId)
     return this.synthesize({

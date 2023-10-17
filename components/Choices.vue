@@ -24,7 +24,7 @@ const choicesUl = ref<HTMLUListElement | null>(null)
 
 const state = defineState({
   chosen: new Set<Choice>(),
-  speechEnabled: false
+  choiceSpeechReady: false
 })
 
 watchEffect(() => {
@@ -35,7 +35,9 @@ watchEffect(() => {
 
 onMounted(() => {
   window.addEventListener("keydown", onKeydown)
-  setTimeout(enableSpeech, 50)
+  // Short delay before enabling audio to prevent it from playing
+  // immediately after question pops in
+  setTimeout(() => { state.choiceSpeechReady = true }, 50)
 })
 
 onUnmounted(() => {
@@ -63,12 +65,8 @@ function onKeydown(ev: KeyboardEvent) {
   }
 }
 
-function enableSpeech() {
-  state.speechEnabled = true
-}
-
 function speakChoice(choice: Choice) {
-  if (state.speechEnabled) {
+  if (speech.enabled && state.choiceSpeechReady) {
     speech.say({ from: "narrator", message: choice.text })
   }
 }

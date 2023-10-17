@@ -35,6 +35,10 @@ const route = useRoute()
               <NuxtLink class="nav-link" aria-current="page" href="/faq">FAQ</NuxtLink>
             </li>
 
+            <li class="nav-item d-flex">
+              <MuteToggle />
+            </li>
+
             <li v-if="user?.isAdmin" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Admin
