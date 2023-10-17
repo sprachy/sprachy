@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { Confetti } from './Confetti'
 
 export class CanvasEffects {

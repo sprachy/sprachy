@@ -4,7 +4,6 @@ definePageMeta({
 })
 
 // import sprachy from "~/lib/sprachy"
-// import _ from "lodash"
 // import SprachyLogo from "~/lib/SprachyLogo.svelte"
 // import PageStyling from "~/lib/PageStyling.svelte"
 // import { prefetchRoutes } from "$app/navigation"

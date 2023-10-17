@@ -1,5 +1,5 @@
 import type { ProgressItem } from "@prisma/client"
-import { keyBy } from "lodash"
+import { keyBy } from "lodash-es"
 import type { PatternNavigationItem } from "~/lib/Pattern"
 import { PatternProgress } from "~/lib/PatternProgress"
 import { time } from "~/lib/time"

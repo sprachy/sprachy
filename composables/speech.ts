@@ -1,4 +1,3 @@
-import _ from "lodash"
 import type { VoiceSynthesisSchema } from "~/server/api/synthesize.post"
 
 export type VoiceSynthesisOptions = {

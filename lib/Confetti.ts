@@ -1,5 +1,3 @@
-import _ from 'lodash'
-
 const confettiColors = [
   '#FFFF04',
   '#EA4C89',

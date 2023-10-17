@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { flatten, shuffle } from "lodash"
+import { flatten, shuffle } from "lodash-es"
 import ExerciseView from "./ExerciseView.vue"
 import LevelReport from "./LevelReport.vue"
 import successImg from "~/assets/success.webp"
