@@ -28,6 +28,13 @@ const state = defineState({
   chosen: new Set<Choice>(),
 })
 
+watch(
+  () => props.choices,
+  () => {
+    state.chosen.clear()
+  }
+)
+
 watchEffect(() => {
   if (speech.enabled) {
     for (const choice of props.choices) {
