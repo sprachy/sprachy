@@ -4,21 +4,23 @@
 import type { H3Event } from "h3"
 import { v4 as uuidv4 } from "uuid"
 import * as time from "~/lib/time"
-import { kvs } from "~/server/kvs"
+import { type KVStoreClient, getKVStore } from "./kvs"
 
-export namespace sessions {
-  export async function get(sessionKey: string): Promise<Session | null> {
-    const sess = await kvs.getJson(`sessions:${sessionKey}`)
+export class SessionStore {
+  constructor(readonly kvs: KVStoreClient) { }
+
+  async get(sessionKey: string): Promise<Session | null> {
+    const sess = await this.kvs.getJson(`sessions:${sessionKey}`)
     if (sess === null) {
       return null
     } else {
-      return Object.assign({}, { sessionKey: sessionKey }, sess as { userId: string })
+      return Object.assign({}, { sessionKey: sessionKey }, sess as { userId: number })
     }
   }
 
-  export async function create(userId: number): Promise<string> {
+  async create(userId: number): Promise<string> {
     const sessionKey = uuidv4()
-    await kvs.putJson(
+    await this.kvs.putJson(
       `sessions:${sessionKey}`,
       { userId: userId },
       { expirationTtl: time.weeks(52) / 1000 }
@@ -26,11 +28,11 @@ export namespace sessions {
     return sessionKey
   }
 
-  export async function expire(sessionKey: string) {
-    return await kvs.delete(`sessions:${sessionKey}`)
+  async expire(sessionKey: string) {
+    return await this.kvs.delete(`sessions:${sessionKey}`)
   }
 
-  export function setSessionCookie(event: H3Event, sessionKey: string) {
+  setSessionCookie(event: H3Event, sessionKey: string) {
     setCookie(event, "sprachySessionKey", sessionKey, {
       httpOnly: true,
       // maxAge is in seconds
@@ -40,6 +42,10 @@ export namespace sessions {
       path: "/"
     })
   }
+}
+
+export async function getSessionStore(event: Parameters<Parameters<typeof defineEventHandler>[0]>[0]) {
+  return new SessionStore(await getKVStore(event))
 }
 //   export function asCookie(sessionKey: string) {
 //     return cookie.serialize("sprachySessionKey", sessionKey, {

@@ -1,10 +1,10 @@
 import * as z from 'zod'
 
-import { sessions } from "~/server/sessions"
 import http from "~/server/http"
 import { env } from "~/server/env"
 import bcrypt from 'bcryptjs'
-import { prisma } from '~/server/prisma'
+import { getDatabase, schema } from '~/db'
+import { getSessionStore } from '~/server/sessions'
 
 const signupForm = z.object({
   email: z.string().email(),
@@ -21,16 +21,18 @@ const signupForm = z.object({
 export type SignupSchema = z.infer<typeof signupForm>
 
 export default defineEventHandler(async (event) => {
+  const sessions = await getSessionStore(event)
   const { email, password } = signupForm.parse(await readBody(event))
+  const db = await getDatabase(event)
 
   const hashedPassword = bcrypt.hashSync(password, 10)
 
-  const user = await prisma.user.create({
-    data: {
-      email,
-      password: hashedPassword
-    }
-  })
+  const [user] = await db.insert(schema.users).values({
+    email,
+    hashedPassword,
+    username: email.split("@")[0] + Math.floor(Math.random() * 1000),
+    displayName: email.split("@")[0]
+  }).returning()
 
   const sessionKey = await sessions.create(user.id)
 

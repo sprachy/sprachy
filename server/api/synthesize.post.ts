@@ -1,7 +1,7 @@
 import * as z from 'zod'
 import http from '~/server/http'
 import { env } from "~/server/env"
-import { kvs } from "~/server/kvs"
+import { getKVStore } from "~/server/kvs"
 import SparkMD5 from "spark-md5"
 
 // @ts-ignore
@@ -36,12 +36,9 @@ const synthesizeSchema = z.object({
 
 export type VoiceSynthesisSchema = z.infer<typeof synthesizeSchema>
 
-import assert from 'node:assert'
-
 export default defineEventHandler(async (event) => {
+  const kvs = await getKVStore(event)
   const options = synthesizeSchema.parse(await readBody(event))
-
-  console.log(assert)
 
   const credentials = JSON.parse(atob(env.GOOGLE_CLOUD_CREDENTIALS!))
   const accessToken = await getGoogleAuthToken(credentials.client_email, credentials.private_key, "https://www.googleapis.com/auth/cloud-platform")

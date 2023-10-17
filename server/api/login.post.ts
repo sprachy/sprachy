@@ -1,5 +1,5 @@
 import * as z from 'zod'
-import { sessions } from '~/server/sessions'
+import { getSessionStore } from '~/server/sessions'
 import bcrypt from 'bcryptjs'
 import { pick } from 'lodash-es'
 import { getDatabase } from '~/db'
@@ -14,6 +14,7 @@ export type LoginSchema = z.infer<typeof loginForm>
 export default defineEventHandler(async (event) => {
   const { email, password } = loginForm.parse(await readBody(event))
   const db = await getDatabase(event)
+  const sessions = await getSessionStore(event)
 
   const user = await db.query.users.findFirst({
     where: (users, { eq }) => eq(users.email, email)

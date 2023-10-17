@@ -1,5 +1,5 @@
-import { sessions } from '~/server/sessions'
-import { prisma } from "../prisma"
+import { getSessionStore } from '~/server/sessions'
+import { getDatabase } from '~/db'
 
 export default defineEventHandler(async function whoami(event): Promise<{ status: 'guest' } | { status: 'user', user: UserWithProgress }> {
   const { session } = event.context
@@ -8,35 +8,28 @@ export default defineEventHandler(async function whoami(event): Promise<{ status
     return { status: 'guest' }
   }
 
-  const user = await prisma.user.findUnique({
-    where: {
-      id: session.userId
-    },
-    select: {
+  const db = await getDatabase(event)
+  const user = await db.query.users.findFirst({
+    where: (users, { eq }) => eq(users.id, session.userId),
+    columns: {
       id: true,
-      name: true,
+      username: true,
+      displayName: true,
       email: true,
-      isAdmin: true,
-      learnedLemmas: {
-        select: {
-          lemma: true
-        }
-      }
+      isAdmin: true
     }
   })
 
 
   if (!user) {
     // Invalid session, e.g. when the user was deleted
+    const sessions = await getSessionStore(event)
     await sessions.expire(session.sessionKey)
     return { status: 'guest' }
   }
 
   return {
     status: 'user',
-    user: {
-      ...user,
-      learnedLemmas: user.learnedLemmas.map(l => l.lemma)
-    }
+    user
   }
 })

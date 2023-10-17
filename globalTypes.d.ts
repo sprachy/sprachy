@@ -23,7 +23,7 @@ type SignupDetails = {
  * User information available to the frontend.
  */
 type User = {
-  id: string
+  id: number
   email: string
   displayName?: string
   username?: string
@@ -37,7 +37,6 @@ type User = {
 }
 
 type UserWithProgress = User & {
-  learnedLemmas: string[]
 }
 
 type ProgressItem = {

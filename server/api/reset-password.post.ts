@@ -1,9 +1,9 @@
 import * as z from 'zod'
-import { prisma } from '~/server/prisma'
 import { v4 as uuidv4 } from 'uuid'
-import { kvs } from '~/server/kvs'
 import { mailer } from '~/server/mailer'
 import { time } from '~/lib/time'
+import { getKVStore } from '~/server/kvs'
+import { getDatabase } from '~/db'
 
 const resetPasswordForm = z.object({
   email: z.string()
@@ -12,12 +12,12 @@ const resetPasswordForm = z.object({
 export type ResetPasswordSchema = z.infer<typeof resetPasswordForm>
 
 export default defineEventHandler(async (event) => {
+  const db = await getDatabase(event)
+  const kvs = await getKVStore(event)
   const { email } = resetPasswordForm.parse(await readBody(event))
 
-  const user = await prisma.user.findUnique({
-    where: {
-      email: email
-    }
+  const user = await db.query.users.findFirst({
+    where: (users, { eq }) => eq(users.email, email)
   })
 
   if (user) {

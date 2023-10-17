@@ -1,4 +1,4 @@
 type Session = {
   sessionKey: string
-  userId: string
+  userId: number
 }

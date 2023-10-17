@@ -1,11 +1,11 @@
 import * as z from 'zod'
 import http from '~/server/http'
 import { env } from "~/server/env"
-import { kvs } from "~/server/kvs"
 import SparkMD5 from "spark-md5"
 
 // @ts-ignore
 import { getGoogleAuthToken } from "~/server/getGoogleAuthToken"
+import { getKVStore } from '../kvs'
 
 const translateSchema = z.object({
   from: z.string(),
@@ -16,6 +16,7 @@ const translateSchema = z.object({
 export type TranslateSchema = z.infer<typeof translateSchema>
 
 export default defineEventHandler(async (event) => {
+  const kvs = await getKVStore(event)
   const options = translateSchema.parse(await readBody(event))
 
   const googleOptions = {

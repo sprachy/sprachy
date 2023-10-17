@@ -1,36 +1,12 @@
-import { env } from "./env"
+export class KVStoreClient {
+  constructor(readonly STORE: KVNamespace) { }
 
-declare global {
-  const STORE: KVNamespace
-}
-
-let devStore: KVNamespace
-
-async function getKVNamespace() {
-  if (process.dev) {
-    if (!devStore) {
-      const { Miniflare } = await import("miniflare")
-      const namespace = env.TESTING ? "TESTSTORE" : "STORE"
-      const mf = new Miniflare({
-        script: "",
-        kvNamespaces: [namespace],
-        kvPersist: true
-      })
-      devStore = await mf.getKVNamespace(namespace) as any as KVNamespace
-    }
-    return devStore
-  } else {
-    return STORE
-  }
-}
-
-class KVStoreClient {
   async getText(key: string): Promise<string | null> {
-    return (await getKVNamespace()).get(key, "text")
+    return this.STORE.get(key, "text")
   }
 
   async getJson<T>(key: string): Promise<T | null> {
-    return (await getKVNamespace()).get(key, "json")
+    return this.STORE.get(key, "json")
   }
 
   async putText(
@@ -42,7 +18,7 @@ class KVStoreClient {
     if (options?.expirationTtl) {
       options = { expirationTtl: options.expirationTtl }
     }
-    return (await getKVNamespace()).put(key, value, options)
+    return this.STORE.put(key, value, options)
   }
 
   async putJson(
@@ -53,12 +29,12 @@ class KVStoreClient {
     if (options?.expirationTtl) {
       options = { expirationTtl: options.expirationTtl }
     }
-    return (await getKVNamespace()).put(key, JSON.stringify(value), options)
+    return this.STORE.put(key, JSON.stringify(value), options)
   }
 
   async delete(key: string) {
     try {
-      return (await getKVNamespace()).delete(key)
+      return this.STORE.delete(key)
     } catch (err) {
       // We don't really care that much about errors in deletion
       console.error(err)
@@ -66,4 +42,23 @@ class KVStoreClient {
   }
 }
 
-export const kvs = new KVStoreClient()
+let _kvs: KVStoreClient
+export async function getKVStore(event: Parameters<Parameters<typeof defineEventHandler>[0]>[0]) {
+  if (!_kvs) {
+    if (process.dev) {
+      const { Miniflare } = await import("miniflare")
+      const namespace = process.env.TESTING ? "TESTSTORE" : "STORE"
+      const mf = new Miniflare({
+        script: "",
+        kvNamespaces: [namespace],
+        kvPersist: true
+      })
+      const STORE = await mf.getKVNamespace(namespace) as any as KVNamespace
+      _kvs = new KVStoreClient(STORE)
+    } else {
+      const { cloudflare } = event.context
+      _kvs = new KVStoreClient(cloudflare.env.STORE)
+    }
+  }
+  return _kvs
+}

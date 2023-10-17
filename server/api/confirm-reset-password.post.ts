@@ -1,6 +1,6 @@
 import * as z from 'zod'
 import { prisma } from '~/server/prisma'
-import { kvs } from '~/server/kvs'
+import { getKVStore } from '~/server/kvs'
 import bcrypt from 'bcryptjs'
 
 const confirmResetPasswordForm = z.object({
@@ -18,6 +18,7 @@ const confirmResetPasswordForm = z.object({
 export type ConfirmResetPasswordSchema = z.infer<typeof confirmResetPasswordForm>
 
 export default defineEventHandler(async (event) => {
+  const kvs = await getKVStore(event)
   const { token, newPassword } = confirmResetPasswordForm.parse(await readBody(event))
 
   const json = await kvs.getJson<{ userId: string }>(`reset_password_tokens:${token}`)
