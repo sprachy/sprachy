@@ -9,9 +9,11 @@ const props = withDefaults(defineProps<{
   choices: Choice[]
   complete?: boolean
   hint?: string
+  muted?: boolean
 }>(), {
   complete: false,
-  hint: ""
+  hint: "",
+  muted: false
 })
 
 const emit = defineEmits<{
@@ -24,20 +26,18 @@ const choicesUl = ref<HTMLUListElement | null>(null)
 
 const state = defineState({
   chosen: new Set<Choice>(),
-  choiceSpeechReady: false
 })
 
 watchEffect(() => {
-  for (const choice of props.choices) {
-    speech.preload({ from: "narrator", message: choice.text })
+  if (speech.enabled) {
+    for (const choice of props.choices) {
+      speech.preload({ from: "narrator", message: choice.text })
+    }
   }
 })
 
 onMounted(() => {
   window.addEventListener("keydown", onKeydown)
-  // Short delay before enabling audio to prevent it from playing
-  // immediately after question pops in
-  setTimeout(() => { state.choiceSpeechReady = true }, 50)
 })
 
 onUnmounted(() => {
@@ -66,7 +66,7 @@ function onKeydown(ev: KeyboardEvent) {
 }
 
 function speakChoice(choice: Choice) {
-  if (speech.enabled && state.choiceSpeechReady) {
+  if (speech.enabled && !props.muted) {
     speech.say({ from: "narrator", message: choice.text })
   }
 }

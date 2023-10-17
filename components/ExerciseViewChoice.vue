@@ -12,6 +12,10 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: "correct"): void
 }>()
+
+const state = defineState({
+  choiceAudioReady: false
+})
 </script>
 
 <template>
@@ -19,17 +23,19 @@ const emit = defineEmits<{
     <img v-if="exercise.image" :src="imageLibrary[exercise.image]" alt="Identify this" />
     <div v-if="exercise.from && exercise.message" class="message">
       <Message :from="exercise.from" :tooltip="exercise.translation">
-        <AudioForLine :opts="exercise" playImmediately />
+        <AudioForLine :opts="exercise" playImmediately @finished="state.choiceAudioReady = true" />
         <Sprachdown inline :source="exercise.message" />
       </Message>
     </div>
-    <div v-else-if="exercise.message" class="hover-translate question text-center mt-2 mb-2"
+    <div v-else-if="exercise.message"
+      class="hover-translate question text-center mt-2 mb-2"
       :data-tooltip="exercise.translation">
       <AudioForLine :opts="{ from: 'narrator', message: exercise.message }" playImmediately />
       <span class="me-1" />
       <Sprachdown inline :source="exercise.message" />
     </div>
-    <Choices :choices="exercise.choices" :hint="exercise.hint" @correct="emit('correct')" />
+    <Choices :choices="exercise.choices" :hint="exercise.hint" @correct="emit('correct')"
+      :muted="!state.choiceAudioReady" />
   </div>
 </template>
 

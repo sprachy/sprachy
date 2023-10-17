@@ -11,6 +11,10 @@ const props = withDefaults(defineProps<{
   disabled: false
 })
 
+const emit = defineEmits<{
+  (e: "finished"): void
+}>()
+
 defineExpose({
   playSound
 })
@@ -58,6 +62,7 @@ async function playSound() {
     await speech.playAudioContent(state.audio)
   } finally {
     state.playingSound = false
+    emit("finished")
   }
 }
 
