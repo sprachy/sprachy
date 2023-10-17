@@ -16,6 +16,13 @@ const emit = defineEmits<{
 const state = defineState({
   choiceAudioReady: false
 })
+
+watch(
+  () => props.exercise,
+  () => {
+    state.choiceAudioReady = false
+  }
+)
 </script>
 
 <template>
