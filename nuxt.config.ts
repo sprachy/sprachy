@@ -39,11 +39,6 @@ export default defineNuxtConfig({
     clearScreen: false
   },
   runtimeConfig: {
-    faunaAdminKey: '',
-    faunaDomain: '',
-    faunaPort: '',
-    faunaScheme: '',
-
     frontendBaseUrl: 'http://localhost:5999',
 
     discordSignupWebhook: '',

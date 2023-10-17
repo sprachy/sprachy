@@ -62,7 +62,6 @@
     "bootstrap": "^5.3.2",
     "deepl-node": "^1.10.2",
     "drizzle-orm": "^0.28.6",
-    "faunadb": "^4.8.0",
     "lodash-es": "^4.17.21",
     "markdown-it": "^13.0.2",
     "num-words-de": "https://github.com/togglejoy/num-words-de.git",
