@@ -37,8 +37,7 @@ watch(
 watchEffect(() => {
   if (speech.enabled) {
     for (const ex of state.exercises) {
-      if (ex.type === 'fillblank')
-        speech.preload(ex)
+      speech.preloadExercise(ex)
     }
   }
 })

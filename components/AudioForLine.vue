@@ -45,7 +45,7 @@ async function loadAudio() {
 }
 
 watchEffect(() => {
-  if (state.enabled && state.audioOpts && !state.audio) {
+  if (state.enabled && state.audioOpts) {
     loadAudio()
   }
 })

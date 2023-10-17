@@ -1,3 +1,4 @@
+import type { Exercise } from "~/lib/Exercise"
 import type { VoiceSynthesisSchema } from "~/server/api/synthesize.post"
 
 export type VoiceSynthesisOptions = {
