@@ -1,11 +1,10 @@
-import type { ProgressItem } from "@prisma/client"
 import { keyBy } from "lodash-es"
 import type { PatternNavigationItem } from "~/lib/Pattern"
 import { PatternProgress } from "~/lib/PatternProgress"
 import { time } from "~/lib/time"
 
 type LocalProgressItem = Omit<ProgressItem, 'userId'> & {
-  userId?: string
+  userId?: number
 }
 
 export type LearnableReviews = {

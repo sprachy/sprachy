@@ -1,3 +1,5 @@
+import { clamp } from 'lodash-es'
+
 const confettiColors = [
   '#FFFF04',
   '#EA4C89',
@@ -44,7 +46,7 @@ export class Confetti {
       p.update()
       ctx.beginPath()
       ctx.fillStyle = p.color
-      const t = _.clamp((Date.now() - p.birth) / p.lifetime, 0, 1)
+      const t = clamp((Date.now() - p.birth) / p.lifetime, 0, 1)
       ctx.globalAlpha = 1 - easeOutCubic(t)
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
       ctx.fill()

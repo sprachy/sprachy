@@ -37,11 +37,11 @@ type User = {
 }
 
 type UserWithProgress = User & {
+  progressItems: ProgressItem[]
 }
 
 type ProgressItem = {
-  id: string
-  userId: string
+  userId: number
   patternId: string
   initiallyLearnedAt: number
   lastExperienceGainAt: number

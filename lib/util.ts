@@ -1,3 +1,5 @@
+import { delay as _delay } from 'lodash-es'
+
 /** 
  * This is just a reimplementation of default template literals
  * Used to inform syntax highlighting of markdown
@@ -11,7 +13,7 @@ export function md(strs: TemplateStringsArray, ...substs: any[]) {
 
 export async function delay(amount: number) {
   return new Promise(resolve => {
-    _.delay(resolve, amount)
+    _delay(resolve, amount)
   })
 }
 

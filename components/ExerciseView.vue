@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Exercise } from "~/lib/Exercise"
+import type { PatternNavigationItem } from "~/lib/Pattern"
 import { checkAudioPlayability } from "~/lib/util"
 
 const state = defineState({
