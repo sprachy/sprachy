@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   nitro: {
-    preset: "cloudflare_module",
+    preset: "cloudflare_pages",
   },
   content: {
     navigation: {
