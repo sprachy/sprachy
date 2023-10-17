@@ -1,3 +1,8 @@
+
+/**
+ * Wrapper around browser localStorage providing JSON conversion
+ * and context availability checks.
+ */
 class ClientStorage {
   available = typeof window !== "undefined" && !!window.localStorage;
 

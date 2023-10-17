@@ -1,8 +1,8 @@
 import * as z from 'zod'
 import { sessions } from '~/server/sessions'
-import { prisma } from '~/server/prisma'
 import bcrypt from 'bcryptjs'
 import { pick } from 'lodash-es'
+import { getDatabase } from '~/db'
 
 const loginForm = z.object({
   email: z.string(),
@@ -11,27 +11,15 @@ const loginForm = z.object({
 
 export type LoginSchema = z.infer<typeof loginForm>
 
-
-import { drizzle } from 'drizzle-orm/better-sqlite3'
-import type { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3'
-import Database from 'better-sqlite3'
-
-const sqlite = new Database('sqlite.db')
-const db: BetterSQLite3Database = drizzle(sqlite)
-
 export default defineEventHandler(async (event) => {
   const { email, password } = loginForm.parse(await readBody(event))
+  const db = await getDatabase(event)
 
-  const user = await db.user.findUnique({
-    where: {
-      email: email
-    },
-    include: {
-      learnedLemmas: true
-    }
+  const user = await db.query.users.findFirst({
+    where: (users, { eq }) => eq(users.email, email)
   })
 
-  if (!user || !bcrypt.compareSync(password, user.password)) {
+  if (!user || !bcrypt.compareSync(password, user.hashedPassword)) {
     throw createError({
       statusCode: 401,
       statusMessage: "The password doesn't match the user"
@@ -44,7 +32,6 @@ export default defineEventHandler(async (event) => {
   return {
     summary: {
       user: pick(user, 'id', 'name', 'email'),
-      learnedLemmas: user.learnedLemmas
     } as any as ProgressSummary
   }
 })

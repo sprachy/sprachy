@@ -3,7 +3,6 @@
 
 import type { H3Event } from "h3"
 import { v4 as uuidv4 } from "uuid"
-// import * as cookie from "cookie"
 import * as time from "~/lib/time"
 import { kvs } from "~/server/kvs"
 
@@ -17,7 +16,7 @@ export namespace sessions {
     }
   }
 
-  export async function create(userId: string): Promise<string> {
+  export async function create(userId: number): Promise<string> {
     const sessionKey = uuidv4()
     await kvs.putJson(
       `sessions:${sessionKey}`,

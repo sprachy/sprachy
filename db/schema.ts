@@ -7,7 +7,7 @@ export const users = sqliteTable('users', {
   hashedPassword: text('hashed_password').notNull(),
   username: text('username').notNull(),
   displayName: text('display_name').notNull(),
-  createdAt: integer('created_at').notNull().default(sql`CURRENT_TIMESTAMP()`),
+  createdAt: integer('created_at').notNull().default(sql`CURRENT_TIMESTAMP`),
   isAdmin: integer('is_admin', { mode: 'boolean' }).notNull().default(false),
 }, (users) => ({
   emailIndex: uniqueIndex('email').on(users.username),
@@ -15,7 +15,7 @@ export const users = sqliteTable('users', {
 }))
 
 export const progressItems = sqliteTable('progress_items', {
-  userId: integer('user_id').notNull(),
+  userId: integer('user_id').notNull().references(() => users.id),
   patternId: integer('pattern_id').notNull(),
   experience: integer('experience').notNull().default(0),
   initiallyLearnedAt: integer('initially_learned_at').notNull(),

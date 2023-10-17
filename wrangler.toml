@@ -12,9 +12,14 @@ command = ""
 [env.staging]
 workers_dev = true
 name = "sprachy-staging"
-kv_namespaces = [ 
-  { binding = "STORE", id = "1eac321c4c6549d9b0273011bd353be1" }
-]
+kv_namespaces = [{ binding = "STORE", id = "1eac321c4c6549d9b0273011bd353be1" }]
+
+[[env.staging.d1_databases]]
+binding = "D1"
+database_name = "staging"
+database_id = "71ddfe44-a140-4541-a71f-d1385b8dae85"
+migrations_table = "d1_migrations"
+migrations_dir = "drizzle"
 
 [env.staging.vars]
 FRONTEND_BASE_URL = "https://sprachy-staging.toggly.workers.dev"
@@ -23,9 +28,7 @@ FRONTEND_BASE_URL = "https://sprachy-staging.toggly.workers.dev"
 workers_dev = false
 route = "https://sprachy.com/*"
 name = "sprachy"
-kv_namespaces = [ 
-  { binding = "STORE", id = "bb9faad68907458c8ee529bf390f853e" } 
-]
+kv_namespaces = [{ binding = "STORE", id = "bb9faad68907458c8ee529bf390f853e" }]
 
 [env.live.vars]
 FRONTEND_BASE_URL = "https://sprachy.com"
