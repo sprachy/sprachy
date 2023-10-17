@@ -25,7 +25,7 @@ const emit = defineEmits<{
   </article>
 </template>
 
-<style>
+<style scoped>
 article {
   max-width: 800px;
   margin: auto;

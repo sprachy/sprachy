@@ -57,7 +57,7 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .modal {
   display: block !important;
   text-align: left;

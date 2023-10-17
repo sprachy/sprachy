@@ -40,5 +40,3 @@ onUnmounted(() => {
     <button class="btn" @click="state.openPanel = !state.openPanel">Dev Options</button>
   </div>
 </template>
-
-<style></style>

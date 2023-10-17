@@ -24,5 +24,3 @@ const emit = defineEmits<{
     <Choices :choices="line.choices" @correct="emit('correct')" :complete="complete" />
   </div>
 </template>
-
-<style></style>

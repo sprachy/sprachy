@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <div :class="{ 'message': true, 'flip': flip }">
+  <div :class="{ message: true, flip: flip }">
     <template v-if="from === 'narrator'">
       <div class="text" :data-tooltip="tooltip">
         <slot />
