@@ -69,5 +69,5 @@ onUnmounted(() => {
 
 <template>
   <SoundIndicator v-if="state.enabled" :loading="state.loading" :playing="state.playingSound"
-    @click.prevent="props.disabled ? () => null : playSound" />
+    @click.prevent="props.disabled ? () => null : playSound()" />
 </template>

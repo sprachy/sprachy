@@ -126,4 +126,4 @@ export class SpeechSystem {
   }
 }
 
-export const speech = new SpeechSystem()
+export const speech = defineState(new SpeechSystem())

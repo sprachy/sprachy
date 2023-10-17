@@ -14,10 +14,8 @@ defineProps<{
 <template>
   <div class="reading">
     <Message v-if="line.message" :from="line.from" :flip="flip" :tooltip="line.translation">
-      <div>
-        <AudioForLine :opts="line" :playImmediately="!staticMode" />
-        <Sprachdown inline :source="line.message" />
-      </div>
+      <AudioForLine :opts="line" :playImmediately="!staticMode" />
+      <Sprachdown inline :source="line.message" />
     </Message>
     <img v-if="line.image" :alt="line.imageAlt" :src="imageLibrary[line.image]" />
   </div>

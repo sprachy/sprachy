@@ -29,6 +29,6 @@ const state = defineState({
 </script>
 
 <template>
-  <div v-html="state.renderedMarkdown" />
+  <div class="Sprachdown" v-html="state.renderedMarkdown" />
   <!-- <SprachdownComponentProvider :key="state.renderedMarkdown" :renderedMarkdown="state.renderedMarkdown" /> -->
 </template>

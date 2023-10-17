@@ -11,7 +11,7 @@ defineProps<{
 <template>
   <div :class="{ message: true, flip: flip }">
     <template v-if="from === 'narrator'">
-      <div class="text" :data-tooltip="tooltip">
+      <div class="quoteInner" :data-tooltip="tooltip">
         <slot />
       </div>
       <slot name="after" />
@@ -22,7 +22,7 @@ defineProps<{
       </slot>
       <div class="quoteContainer">
         <div class="quote">
-          <div class="text" :data-tooltip="tooltip">
+          <div class="quoteInner" :data-tooltip="tooltip">
             <slot />
           </div>
         </div>
@@ -39,6 +39,11 @@ defineProps<{
 
 .quoteContainer {
   text-align: center;
+}
+
+.quoteInner {
+  display: flex;
+  align-items: center;
 }
 
 .message:not(.flip) :deep(.avatar img) {
