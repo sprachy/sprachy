@@ -106,7 +106,7 @@ async function checkAnswer() {
         </div>
         <Sprachdown inline :source="state.parts.after" />
       </form>
-      <div slot="after">
+      <template #after>
         <div v-if="state.translation" class="translation">
           <Sprachdown inline :source="state.translation" />
         </div>
@@ -130,12 +130,17 @@ async function checkAnswer() {
             Pattern: <a target="_blank" :href="`/${pattern.slug}`">{{ pattern.title }}</a>
           </template>
         </div>
-      </div>
+      </template>
     </Message>
   </div>
 </template>
 
 <style scoped>
+form {
+  display: flex;
+  align-items: center;
+}
+
 .translation :deep(strong) {
   color: #86abff;
 }
@@ -160,6 +165,7 @@ input.fillblank {
   display: inline-block;
   text-align: center;
   line-height: 1.5rem;
+  appearance: none;
   -webkit-appearance: none;
 }
 
