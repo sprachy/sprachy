@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: false
+})
+
 onMounted(() => progressStore.updateCurrentLearnable())
 
 const { currentLearnable } = toRefs(progressStore)
