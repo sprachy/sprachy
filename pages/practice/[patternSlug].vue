@@ -18,9 +18,7 @@ const state = defineState({
 watchEffect(() => {
   if (speech.enabled) {
     state.exercises.map(ex => {
-      if (ex.type === 'fillblank') {
-        speech.preload({ from: ex.from, message: ex.message })
-      }
+      speech.preloadExercise(ex)
     })
   }
 })
