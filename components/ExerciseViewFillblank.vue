@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ExerciseFillblank } from "~/lib/Exercise"
+import type { FillblankExercise } from "~/lib/Exercise"
 import { matchAnswer } from "~/lib/feedback"
 import Message from "~/components/Message.vue"
 import Sprachdown from "~/components/Sprachdown.vue"
@@ -8,7 +8,7 @@ import { sortBy } from "lodash-es"
 import type { PatternNavigationItem } from "~/lib/Pattern"
 
 const props = defineProps<{
-  exercise: ExerciseFillblank
+  exercise: FillblankExercise
   flip?: boolean
   complete?: boolean
   pattern?: PatternNavigationItem

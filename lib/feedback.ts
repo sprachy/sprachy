@@ -1,4 +1,4 @@
-import type { ExerciseFillblank } from "~/lib/Exercise"
+import type { FillblankExercise } from "~/lib/Exercise"
 import { levenshtein } from "~/lib/levenshtein"
 import { deumlautify } from "~/lib/nlp"
 
@@ -32,15 +32,15 @@ const defaultFeedback: Record<string, Record<string, string>> = {
   }
 }
 
-export function matchAnswer(attempt: string, line: ExerciseFillblank): { validAnswer?: string, feedback?: string } {
-  const validAnswer = line.validAnswers.find(ans => ans.toLowerCase() === attempt.toLowerCase())
+export function matchAnswer(attempt: string, ex: FillblankExercise): { validAnswer?: string, feedback?: string } {
+  const validAnswer = ex.validAnswers.find(ans => ans.toLowerCase() === attempt.toLowerCase())
   if (validAnswer) {
     return {
       validAnswer: validAnswer
     }
   } else {
     return {
-      feedback: getFeedback(attempt, line)
+      feedback: getFeedback(attempt, ex)
     }
   }
 }
@@ -48,14 +48,14 @@ export function matchAnswer(attempt: string, line: ExerciseFillblank): { validAn
 /**
  * Get some feedback for a wrong answer to a fillblank.
  */
-function getFeedback(attempt: string, line: ExerciseFillblank): string | undefined {
-  for (const answer of line.validAnswers) {
+function getFeedback(attempt: string, ex: FillblankExercise): string | undefined {
+  for (const answer of ex.validAnswers) {
     const ans = answer.toLowerCase()
 
-    // Prioritize any exercise/pattern-specific feedback
-    const specificFeedback = line.feedback && line.feedback.find(f => f.answer.toLowerCase() === ans && f.attempt.toLowerCase() === attempt.toLowerCase())
-    if (specificFeedback)
-      return specificFeedback.message
+    // // Prioritize any exercise/pattern-specific feedback
+    // const specificFeedback = ex.feedback && ex.feedback.find(f => f.answer.toLowerCase() === ans && f.attempt.toLowerCase() === attempt.toLowerCase())
+    // if (specificFeedback)
+    //   return specificFeedback.message
 
     // Otherwise, we might have some general site-wide feedback for this attempt/answer pair
     const generalFeedback = (defaultFeedback[ans] || {})[attempt]
@@ -68,18 +68,18 @@ function getFeedback(attempt: string, line: ExerciseFillblank): string | undefin
   //   return "That's the right spelling, but the answer has a different capitalization."
   // }
 
-  const ans = line.validAnswers.find(ans => deumlautify(ans) === deumlautify(attempt))
+  const ans = ex.validAnswers.find(ans => deumlautify(ans) === deumlautify(attempt))
   if (ans) {
     return `Note the <a href="/faq#typing-in-german" target="_blank">umlauts</a>: _${ans}_!`
   }
 
   // Otherwise give some generic feedback based on character diff
-  if (line.canonicalAnswer.length < attempt.length) {
+  if (ex.canonicalAnswer.length < attempt.length) {
     return "The answer is shorter."
-  } else if (line.canonicalAnswer.length > attempt.length) {
+  } else if (ex.canonicalAnswer.length > attempt.length) {
     return "The answer is longer."
   } else {
-    const diff = levenshtein(line.canonicalAnswer.toLowerCase(), attempt.toLowerCase())
+    const diff = levenshtein(ex.canonicalAnswer.toLowerCase(), attempt.toLowerCase())
     return `The answer is the same length, but ${diff} character${diff == 1 ? ' is' : 's are'} different.`
   }
 }

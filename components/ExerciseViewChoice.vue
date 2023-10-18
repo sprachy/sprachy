@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { ExerciseMultipleChoice } from "~/lib/Exercise"
+import type { MultipleChoiceExercise } from "~/lib/Exercise"
 import Sprachdown from "~/components/Sprachdown.vue"
 import Message from "~/components/Message.vue"
 import AudioForLine from "~/components/AudioForLine.vue"
 import Choices from "~/components/Choices.vue"
 
 const props = defineProps<{
-  exercise: ExerciseMultipleChoice
+  exercise: MultipleChoiceExercise
 }>()
 
 const emit = defineEmits<{

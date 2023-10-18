@@ -1,6 +1,6 @@
 import * as z from 'zod'
 import { dialogueSchema } from './Dialogue'
-import { exerciseSchema } from './Exercise'
+import { parseExercise, type Exercise } from './Exercise'
 
 const patternSchema = z.object({
   id: z.string(),
@@ -8,13 +8,13 @@ const patternSchema = z.object({
   slug: z.string(),
   shortdesc: z.string(),
   dialogue: dialogueSchema,
-  exercises: z.array(exerciseSchema),
+  exercises: z.any().transform(d => d.map(parseExercise)),
   body: z.any()
 })
 
-export type Pattern = z.infer<typeof patternSchema>
+export type Pattern = Omit<z.infer<typeof patternSchema>, 'exercises'> & { exercises: Exercise[] }
 
-export function parsePattern(def: any) {
+export function parsePattern(def: any): Pattern {
   def = {
     ...def,
     slug: def._path.slice(1)
@@ -23,7 +23,7 @@ export function parsePattern(def: any) {
   const result = patternSchema.safeParse({ slug: def._path?.slice(1), ...def })
 
   if (result.success) {
-    return result.data
+    return result.data as Pattern
   } else {
     console.warn(`Invalid pattern data ${def.id}`, def, result.error)
     return def as any as Pattern

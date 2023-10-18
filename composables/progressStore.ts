@@ -31,13 +31,10 @@ export type Learnable = LearnableReviews | LearnableDialogue | LearnablePattern
 export type ProgressablePattern = PatternNavigationItem & { progress: PatternProgress }
 
 export class ProgressStore {
+  user: User | null = null
   patterns: PatternNavigationItem[] = []
   progressItems: LocalProgressItem[] = []
   currentLearnable: Learnable | null = null
-
-  get user() {
-    return authStatus.user
-  }
 
   constructor() {
     $debug.$progressStore = this

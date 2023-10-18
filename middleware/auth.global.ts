@@ -16,8 +16,4 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   if (!user?.isAdmin && to.path.split('/')[1] === 'admin') {
     navigateTo('/login')
   }
-
-  if (user && process.client) {
-    await initSPA(user)
-  }
 })

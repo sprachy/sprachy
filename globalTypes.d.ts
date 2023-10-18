@@ -45,7 +45,6 @@ type ProgressItem = {
   patternId: string
   initiallyLearnedAt: number
   lastExperienceGainAt: number
-  lastLeveledAt: number
   experience: number
 }
 
