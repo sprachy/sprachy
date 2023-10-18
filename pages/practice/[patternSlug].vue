@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { patternSlug } = useRoute().params
 
-const { data: pattern } = useAsyncData(`pattern/${patternSlug}`, () => sprachdex.fetchPatternBySlug(patternSlug as string))
+const { data: pattern } = await useAsyncData(`pattern/${patternSlug}`, () => sprachdex.fetchPatternBySlug(patternSlug as string))
 
 const state = defineState({
   exerciseIndex: 0,
@@ -30,6 +30,11 @@ function nextExercise() {
 
 
 <template>
+  <Head>
+    <template v-for="exercise in state.exercises">
+      <link v-if="exercise.image" rel="preload" as="image" :href="imageLibrary[exercise.image]" />
+    </template>
+  </Head>
   <main class="container" v-if="pattern">
     <h1>{{ pattern.title }}</h1>
     <ExerciseView @correct="nextExercise" v-if="state.exercise" :exercise="state.exercise" :pattern="pattern" />
