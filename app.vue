@@ -5,6 +5,10 @@ import "../assets/app.css"
 
 const { data: patterns } = await useAsyncData('patternIndex', () => sprachdex.fetchPatternIndex())
 progressStore.patterns = patterns.value!
+
+if (process.browser) {
+  await effects.initialize()
+}
 </script>
 
 <template>

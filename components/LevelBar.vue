@@ -25,7 +25,7 @@ function levelFromExperience(exp: number) {
 
 watchEffect(() => {
   if (state.shownLevel > state.prevLevel) {
-    // effects.confetti.spawnAt(endpointRef.value!)
+    effects.confetti.spawnAt(endpointRef.value!)
     state.prevLevel = state.shownLevel
   }
 })

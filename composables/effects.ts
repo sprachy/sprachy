@@ -1,10 +1,11 @@
-import { Confetti } from './Confetti'
+import type { Confetti } from '~/lib/Confetti'
 
 export class CanvasEffects {
-  canvas: HTMLCanvasElement
-  confetti: Confetti
+  canvas?: HTMLCanvasElement
+  _confetti?: Confetti
 
-  constructor() {
+  async initialize() {
+    const { Confetti } = await import('../lib/Confetti')
     this.canvas = document.createElement('canvas')
     this.canvas.id = "effectCanvas"
     document.body.appendChild(this.canvas)
@@ -19,11 +20,20 @@ export class CanvasEffects {
     this.canvas.style.pointerEvents = "none"
     this.canvas.style.zIndex = "1"
 
-    this.confetti = new Confetti(this.canvas)
+    this._confetti = new Confetti(this.canvas)
+  }
+
+  get confetti() {
+    if (!this._confetti) {
+      throw new Error("CanvasEffects not initialized")
+    }
+    return this._confetti
   }
 
   private resize() {
-    this.canvas.width = window.innerWidth
-    this.canvas.height = window.innerHeight
+    this.canvas!.width = window.innerWidth
+    this.canvas!.height = window.innerHeight
   }
 }
+
+export const effects = new CanvasEffects()

@@ -55,9 +55,9 @@ async function choose(choice: Choice) {
   if (!props.complete) {
     state.chosen.add(choice)
     if (choice.correct) {
-      // effects.confetti.spawnAt(
-      //   choicesUl.value!.children[props.choices.indexOf(choice)] as HTMLElement
-      // )
+      effects.confetti.spawnAt(
+        choicesUl.value!.children[props.choices.indexOf(choice)] as HTMLElement
+      )
       emit("correct")
     }
   }

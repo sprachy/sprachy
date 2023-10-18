@@ -78,7 +78,7 @@ async function checkAnswer() {
     // Change user's input as needed to show them we're accounting
     // for any variation in casing or typo etc
     state.attempt = state.attemptMatch.validAnswer
-    // effects.confetti.spawnAt(attemptInput.value!)
+    effects.confetti.spawnAt(attemptInput.value!)
     state.playingPostAnswerSound = true
     await audioForLine.value?.playSound()
     emit("correct")
