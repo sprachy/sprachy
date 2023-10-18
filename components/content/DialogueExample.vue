@@ -19,9 +19,11 @@ const messages = blocks.map((b) => {
   <div class="dialogue">
     <Message v-for="message in messages" :from="message.from">
       <Sprachdown inline :source="message.original" />
-      <div class="translation" slot="after">
-        <Sprachdown inline :source="message.translation" />
-      </div>
+      <template #after>
+        <div class="translation">
+          <Sprachdown inline :source="message.translation" />
+        </div>
+      </template>
     </Message>
   </div>
 </template>
