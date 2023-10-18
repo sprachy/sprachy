@@ -108,6 +108,16 @@ export class ProgressStore {
     return null
   }
 
+  async syncProgressToServer() {
+    const { progressItems } = await $fetch('/api/syncProgress', {
+      method: 'POST',
+      body: {
+        progressItems: this.progressItems
+      }
+    })
+    this.progressItems = progressItems
+  }
+
   /** Save the user's progress to localStorage. Used only when signed out. */
   saveAnonymousProgress() {
     clientStorage.setJSON('localProgressItems', this.progressItems)

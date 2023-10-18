@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm"
-import { sqliteTable, text, integer, uniqueIndex } from 'drizzle-orm/sqlite-core'
+import { sqliteTable, text, integer, uniqueIndex, primaryKey } from 'drizzle-orm/sqlite-core'
 
 export const users = sqliteTable('users', {
   id: integer('id').primaryKey(),
@@ -16,10 +16,10 @@ export const users = sqliteTable('users', {
 
 export const progressItems = sqliteTable('progress_items', {
   userId: integer('user_id').notNull().references(() => users.id),
-  patternId: integer('pattern_id').notNull(),
+  patternId: text('pattern_id').notNull(),
   experience: integer('experience').notNull().default(0),
   initiallyLearnedAt: integer('initially_learned_at').notNull(),
   lastExperienceGainAt: integer('last_experience_gain_at').notNull(),
 }, (progressItems) => ({
-  userPatternIdx: uniqueIndex('user_pattern').on(progressItems.userId, progressItems.patternId),
+  userAndPatternId: primaryKey(progressItems.userId, progressItems.patternId),
 }))

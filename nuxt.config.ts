@@ -14,7 +14,6 @@ export default defineNuxtConfig({
     }
   },
   modules: [
-    '@nuxt/image-edge',
     '@nuxt/content',
     'nuxt-vitest'
   ],
