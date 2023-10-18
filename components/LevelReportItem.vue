@@ -2,8 +2,6 @@
 // import { tweened } from "svelte/motion"
 // import { cubicInOut } from "svelte/easing"
 
-const { effects } = useSprachyApp()
-
 const props = defineProps<{
   title: string
   expStart: number
