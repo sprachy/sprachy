@@ -25,6 +25,19 @@ class TestClient {
       Object.assign(headers, { cookie: this.cookie })
     }
 
+    return ofetch.raw(`http://localhost:5998${path}`, {
+      headers,
+      ignoreResponseError: true,
+      ...omit(options, 'headers')
+    })
+  }
+
+  async ofetch(path: string, options?: Parameters<typeof ofetch>[1]) {
+    const headers: HeadersInit = options?.headers || {}
+    if (this.cookie) {
+      Object.assign(headers, { cookie: this.cookie })
+    }
+
     return ofetch(`http://localhost:5998${path}`, {
       headers,
       ...omit(options, 'headers')
@@ -39,4 +52,8 @@ export async function signUpNewUser(opts?: { email: string, password: string }) 
     password: uuid()
   })
   return client
+}
+
+export async function visitAsGuest() {
+  return new TestClient()
 }

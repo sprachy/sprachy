@@ -5,7 +5,7 @@ test('syncProgress', async () => {
   const asUser = await signUpNewUser()
 
   // Syncing a new user with no progress-- should get empty array back
-  const res1 = await asUser.fetch('/api/syncProgress', {
+  const res1 = await asUser.ofetch('/api/syncProgress', {
     method: 'POST'
   })
 
@@ -21,7 +21,7 @@ test('syncProgress', async () => {
       experience: 100
     }
   ]
-  const res2 = await asUser.fetch('/api/syncProgress', {
+  const res2 = await asUser.ofetch('/api/syncProgress', {
     method: 'POST',
     body: {
       progressItems
@@ -31,14 +31,14 @@ test('syncProgress', async () => {
   expect(res2.progressItems).toEqual(progressItems)
 
   // Now sync with nothing again, should get the previous ones
-  const res3 = await asUser.fetch('/api/syncProgress', {
+  const res3 = await asUser.ofetch('/api/syncProgress', {
     method: 'POST'
   })
 
   expect(res3.progressItems).toEqual(progressItems)
 
   // Sync with a lower-experience item; result should be unchanged
-  const res4 = await asUser.fetch('/api/syncProgress', {
+  const res4 = await asUser.ofetch('/api/syncProgress', {
     method: 'POST',
     body: {
       progressItems: [{
@@ -63,7 +63,7 @@ test('syncProgress', async () => {
     }
   ]
 
-  const res5 = await asUser.fetch('/api/syncProgress', {
+  const res5 = await asUser.ofetch('/api/syncProgress', {
     method: 'POST',
     body: {
       progressItems: progressItems3
