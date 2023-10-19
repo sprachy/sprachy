@@ -1,6 +1,6 @@
 import shell from "shelljs"
 import type { ChildProcess } from 'child_process'
-import waitPort from 'wait-port'
+import waitOn from 'wait-on'
 
 let devServerProcess: ChildProcess
 
@@ -13,9 +13,10 @@ export async function setup() {
 
   devServerProcess = shell.exec(`TESTING=1 ./node_modules/.bin/nuxt dev --port=5998 --no-clear --no-fork`, { async: true })
 
-  await waitPort({
-    host: 'localhost',
-    port: 5998
+  await waitOn({
+    resources: [
+      'http://localhost:5998'
+    ]
   })
 }
 
