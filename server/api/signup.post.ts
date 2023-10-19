@@ -50,9 +50,6 @@ export default defineEventHandler(async (event) => {
   sessions.setSessionCookie(event, session)
 
   return {
-    summary: {
-      user: omit(user, 'hashedPassword'),
-      progressItems: []
-    }
+    user: omit(user, 'hashedPassword')
   }
 })
