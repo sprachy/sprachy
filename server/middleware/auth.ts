@@ -7,8 +7,7 @@ export default defineEventHandler(async (event) => {
 
   const sessions = await getSessionStore(event)
   const db = await getDatabase(event)
-  const sessionKey = getCookie(event, 'sprachySessionKey')
-  const session = sessionKey ? await sessions.get(sessionKey) : null
+  const session = await sessions.getFromCookie(event)
   event.context.session = session
 
   // I don't know when/why this could be undefined, but let's make sure it's not

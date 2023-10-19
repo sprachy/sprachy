@@ -5,6 +5,7 @@ import { env } from "~/server/env"
 import bcrypt from 'bcryptjs'
 import { getDatabase, schema } from '~/db'
 import { getSessionStore } from '~/server/sessions'
+import { omit } from 'lodash-es'
 
 const signupForm = z.object({
   email: z.string().email(),
@@ -34,7 +35,7 @@ export default defineEventHandler(async (event) => {
     displayName: email.split("@")[0]
   }).returning()
 
-  const sessionKey = await sessions.create(user.id)
+  const session = await sessions.create(user.id)
 
   if (env.DISCORD_SIGNUP_WEBHOOK && !env.TESTING) {
     const params = {
@@ -46,9 +47,12 @@ export default defineEventHandler(async (event) => {
     http.post(env.DISCORD_SIGNUP_WEBHOOK, params)
   }
 
-  sessions.setSessionCookie(event, sessionKey)
+  sessions.setSessionCookie(event, session)
 
   return {
-    summary: { user, progressItems: [] }
+    summary: {
+      user: omit(user, 'hashedPassword'),
+      progressItems: []
+    }
   }
 })
