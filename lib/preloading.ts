@@ -22,6 +22,9 @@ export async function preloadDialogueAssets(dialogue: Dialogue) {
     if (line.type === 'reading' && line.message) {
       speech.preload({ from: line.from || 'narrator', message: line.message })
     }
+    if (line.type === 'reading' && line.from) {
+      preloadImage(sprachdex.getCharacter(line.from).avatar)
+    }
     if (line.type === 'choice') {
       if (line.question)
         speech.preload({ from: 'narrator', message: line.question })
@@ -38,6 +41,9 @@ export async function preloadExerciseAssets(exercises: Exercise[]) {
   for (const ex of exercises) {
     if (ex.image) {
       preloadImage(imageLibrary[ex.image])
+    }
+    if (ex.from) {
+      preloadImage(sprachdex.getCharacter(ex.from).avatar)
     }
     if (ex.message) {
       speech.preload({ from: ex.from || 'narrator', message: ex.message })
