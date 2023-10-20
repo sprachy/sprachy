@@ -1,4 +1,4 @@
-import { keyBy } from "lodash-es"
+import { isEqual, keyBy } from "lodash-es"
 import type { Pattern, PatternNavigationItem } from "~/lib/Pattern"
 import { PatternProgress } from "~/lib/PatternProgress"
 import { combineProgress } from "~/lib/progress"
@@ -143,7 +143,8 @@ export class ProgressStore {
    * ready to move on. 
    **/
   updateCurrentLearnable() {
-    this.currentLearnable = this.nextThingToLearn
+    if (!isEqual(this.nextThingToLearn, this.currentLearnable))
+      this.currentLearnable = this.nextThingToLearn
   }
 
   /**

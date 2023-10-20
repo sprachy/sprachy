@@ -2,7 +2,7 @@
 import type { LearnablePattern } from "~/composables/progressStore"
 import PatternExplanation from "./PatternExplanation.vue"
 
-const props = defineProps<{
+defineProps<{
   learnable: Required<LearnablePattern>
 }>()
 
@@ -12,7 +12,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <article class="explanation" v-if="learnable.data">
+  <article class="explanation">
     <h1>{{ learnable.pattern.title }}</h1>
     <PatternExplanation :pattern="learnable.data" />
     <button class="btn btn-success" @click="emit('complete')">

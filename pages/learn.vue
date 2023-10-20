@@ -13,24 +13,19 @@ const loadedLearnable = ref(null as Required<Learnable> | null)
 
 // Load any needed data for the current learnable when we get a new one
 watch(currentLearnable, async (learnable) => {
-  loadedLearnable.value = null
-  if (!learnable) return
+  if (!learnable?.data) {
+    loadedLearnable.value = null
+    if (!learnable) return
 
-  if (learnable.type === 'review') {
-    const data = await sprachdex.fetchPatterns({ id: { $in: learnable.patterns.map(p => p.id) } })
-    loadedLearnable.value = {
-      ...learnable,
-      data
-    }
-  } else {
-    const data = await sprachdex.fetchPatternById(learnable.pattern.id)
-
-    loadedLearnable.value = {
-      ...learnable,
-      data
+    if (learnable.type === 'review') {
+      learnable.data = await sprachdex.fetchPatterns({ id: { $in: learnable.patterns.map(p => p.id) } })
+    } else {
+      learnable.data = await sprachdex.fetchPatternById(learnable.pattern.id)
     }
   }
-})
+
+  loadedLearnable.value = learnable as Required<Learnable>
+}, { immediate: true })
 
 function nextLearnable() {
   progressStore.updateCurrentLearnable()
