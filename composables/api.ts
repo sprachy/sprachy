@@ -18,7 +18,7 @@ class SprachyAPI {
   async signup(opts: SignupSchema) {
     return await $fetch('/api/signup', { method: 'POST', body: opts })
   }
-  w
+
   async sendPasswordResetEmail(opts: ResetPasswordSchema) {
     return await $fetch(`/api/reset-password`, { method: 'POST', body: opts })
   }

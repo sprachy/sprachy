@@ -21,7 +21,13 @@ export default defineEventHandler(async (event) => {
   const { userId } = event.context.session
 
   const existingProgressItems = await db.query.progressItems.findMany({
-    where: eq(schema.progressItems.userId, userId)
+    where: eq(schema.progressItems.userId, userId),
+    columns: {
+      patternId: true,
+      initiallyLearnedAt: true,
+      lastExperienceGainAt: true,
+      experience: true
+    }
   })
 
   const existingProgressItemsByPatternId = keyBy(existingProgressItems, 'patternId')
