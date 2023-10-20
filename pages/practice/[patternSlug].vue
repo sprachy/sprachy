@@ -27,7 +27,7 @@ const state = defineState({
 })
 
 watchEffect(() => {
-  if (pattern.value)
+  if (process.browser && pattern.value)
     preloadExerciseAssets(pattern.value.exercises)
 })
 
