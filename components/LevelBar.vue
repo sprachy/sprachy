@@ -1,13 +1,14 @@
 <script setup lang="ts">
 // import { tweened } from "svelte/motion"
 // import { cubicInOut } from "svelte/easing"
+import gsap from 'gsap'
 
 const props = defineProps<{
   experience: number
 }>()
 
 const state = defineState({
-  shownExp: 0,
+  shownExp: props.experience,
   prevLevel: levelFromExperience(props.experience),
 
   get shownLevel() {
@@ -28,6 +29,10 @@ watchEffect(() => {
     effects.confetti.spawnAt(endpointRef.value!)
     state.prevLevel = state.shownLevel
   }
+})
+
+watch(() => props.experience, (exp) => {
+  gsap.to(state, { duration: 0.5, shownExp: exp })
 })
 
 const endpointRef = ref<HTMLDivElement>()

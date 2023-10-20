@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 
 const learnable = toRefs(progressStore).currentLearnable
-
-const experience = 100
 </script>
 
 <template>
   <aside class="sidebar">
     <div class="overview" v-if="learnable">
       <div>{{ learnable.why }}</div>
-      <LevelBar v-if="learnable.type === 'pattern'" :key="learnable.pattern.id" :experience="experience" />
+      <LevelBar v-if="learnable.type === 'pattern'" :key="learnable.pattern.id"
+        :experience="learnable.pattern.progress.experience" />
       <small v-if="learnable.type === 'dialogue'" class="text-secondary">&lt;&lt; Press Enter to continue dialogue
         &gt;&gt;</small>
     </div>
