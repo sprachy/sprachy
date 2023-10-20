@@ -1,12 +1,17 @@
 import type { Dialogue } from "./Dialogue"
 import type { Exercise } from "./Exercise"
 
+const preloadedImages: Record<string, boolean> = {}
 export async function preloadImage(href: string) {
+  if (href in preloadedImages) return
+
   const el = document.createElement('link')
   el.rel = 'preload'
   el.as = 'image'
   el.href = href
   document.head.appendChild(el)
+
+  preloadedImages[href] = true
 }
 
 export async function preloadDialogueAssets(dialogue: Dialogue) {
@@ -14,8 +19,8 @@ export async function preloadDialogueAssets(dialogue: Dialogue) {
     if ('image' in line && line.image) {
       preloadImage(imageLibrary[line.image])
     }
-    if (line.type === 'reading' && line.from && line.message) {
-      speech.preload({ from: line.from, message: line.message })
+    if (line.type === 'reading' && line.message) {
+      speech.preload({ from: line.from || 'narrator', message: line.message })
     }
     if (line.type === 'choice') {
       if (line.question)
