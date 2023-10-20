@@ -10,7 +10,7 @@ export type VoiceSynthesisOptions = {
 export type Base64Audio = string
 
 export class SpeechSystem {
-  enabled: boolean = true
+  enabled: boolean = false
   audioCache: Record<string, Promise<Base64Audio>> = {}
   currentlySaying: HTMLAudioElement | null = null
 
