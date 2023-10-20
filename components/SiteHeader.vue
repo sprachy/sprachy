@@ -18,6 +18,7 @@ const route = useRoute()
         <NuxtLink class="navbar-brand" href="/">
           Sprachy
           <span v-if="dev" class="envbadge dev">dev</span>
+          <span v-else class="envbadge beta">beta</span>
         </NuxtLink>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,7 +113,7 @@ header.fixed {
   width: 100%;
 }
 
-.envbadge.dev {
+.envbadge {
   color: green;
   font-size: 1rem;
 }
