@@ -1,23 +1,18 @@
 <script lang="ts" setup>
 const props = defineProps<{
-  learnable: LearnablePattern
+  learnable: Required<LearnablePattern>
 }>()
 
 const emit = defineEmits<{
   (e: "complete"): void
 }>()
 
-
-const { data: patternData } = await useAsyncData(`pattern/${props.learnable.pattern.id}`,
-  () => sprachdex.getPatternById(props.learnable.pattern.id)
-)
-
 const state = defineState({
   startLevel: 0,
   exerciseIndex: 0,
 
   get exercises() {
-    return patternData.value?.exercises || []
+    return props.learnable.data.exercises
   },
 
   get exercise() {

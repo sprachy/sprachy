@@ -9,6 +9,22 @@ onMounted(() => {
 
 const { currentLearnable } = toRefs(progressStore)
 
+const loadedLearnable = ref(null as Required<Learnable> | null)
+
+// Load any needed data for the current learnable when we get a new one
+watch(currentLearnable, async (learnable) => {
+  if (!learnable) return
+  loadedLearnable.value = null
+
+  if (learnable.type === 'review') {
+    learnable.data = await sprachdex.fetchPatterns({ id: { $in: learnable.patterns.map(p => p.id) } })
+  } else {
+    learnable.data = await sprachdex.fetchPatternById(learnable.pattern.id)
+  }
+
+  loadedLearnable.value = learnable as Required<Learnable>
+})
+
 function nextLearnable() {
   progressStore.updateCurrentLearnable()
 }
@@ -23,18 +39,23 @@ function finishExplanation() {
   <NuxtLayout name="default" fixedHeader>
     <LearnSidebar />
     <main class="learnable">
-      <template v-if="currentLearnable">
-        <LearnModeDialogue v-if="currentLearnable.type === 'dialogue'" :pattern="currentLearnable.pattern"
+      <template v-if="loadedLearnable">
+        <LearnModeDialogue v-if="loadedLearnable.type === 'dialogue'" :learnable="loadedLearnable"
           @complete="nextLearnable" />
-        <LearnModeExplanation v-else-if="currentLearnable.type === 'pattern' && !currentLearnable.readExplanation"
-          :learnable="currentLearnable" @complete="finishExplanation" />
-        <LearnModeExercises v-else-if="currentLearnable.type === 'pattern' && currentLearnable.readExplanation"
-          :learnable="currentLearnable" @complete="nextLearnable" />
-        <LearnModeReview v-else-if="currentLearnable.type === 'review'" :learnable="currentLearnable"
+        <LearnModeExplanation v-else-if="loadedLearnable.type === 'pattern' && !loadedLearnable.readExplanation"
+          :learnable="loadedLearnable" @complete="finishExplanation" />
+        <LearnModeExercises v-else-if="loadedLearnable.type === 'pattern' && loadedLearnable.readExplanation"
+          :learnable="loadedLearnable" @complete="nextLearnable" />
+        <LearnModeReview v-else-if="loadedLearnable.type === 'review'" :learnable="loadedLearnable"
           @complete="nextLearnable" />
       </template>
-      <template v-else>
+      <template v-else-if="!progressStore.nextThingToLearn">
         <p>You've finished learning everything we have!</p>
+      </template>
+      <template v-else>
+        <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
+          <LoadingIndicator />
+        </div>
       </template>
     </main>
   </NuxtLayout>

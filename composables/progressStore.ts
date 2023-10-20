@@ -1,5 +1,5 @@
 import { keyBy } from "lodash-es"
-import type { PatternNavigationItem } from "~/lib/Pattern"
+import type { Pattern, PatternNavigationItem } from "~/lib/Pattern"
 import { PatternProgress } from "~/lib/PatternProgress"
 import { combineProgress } from "~/lib/progress"
 import { time } from "~/lib/time"
@@ -8,16 +8,11 @@ type LocalProgressItem = Omit<ProgressItem, 'userId'> & {
   userId?: number
 }
 
-export type LearnableReviews = {
-  type: 'review'
-  patterns: PatternNavigationItem[]
-  why: string
-}
-
 export type LearnableDialogue = {
   type: 'dialogue'
   pattern: PatternNavigationItem
   why: string
+  data?: Pattern
 }
 
 export type LearnablePattern = {
@@ -25,6 +20,14 @@ export type LearnablePattern = {
   pattern: ProgressablePattern
   why: string
   readExplanation: boolean
+  data?: Pattern
+}
+
+export type LearnableReviews = {
+  type: 'review'
+  patterns: PatternNavigationItem[]
+  why: string
+  data?: Pattern[]
 }
 
 export type Learnable = LearnableReviews | LearnableDialogue | LearnablePattern

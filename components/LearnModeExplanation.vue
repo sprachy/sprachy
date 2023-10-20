@@ -3,12 +3,8 @@ import type { LearnablePattern } from "~/composables/progressStore"
 import PatternExplanation from "./PatternExplanation.vue"
 
 const props = defineProps<{
-  learnable: LearnablePattern
+  learnable: Required<LearnablePattern>
 }>()
-
-const { data: patternData } = await useAsyncData(`pattern/${props.learnable.pattern.id}`,
-  () => sprachdex.fetchPatternById(props.learnable.pattern.id)
-)
 
 const emit = defineEmits<{
   (e: "complete"): void
@@ -16,9 +12,9 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <article class="explanation" v-if="patternData">
+  <article class="explanation" v-if="learnable.data">
     <h1>{{ learnable.pattern.title }}</h1>
-    <PatternExplanation :pattern="patternData" />
+    <PatternExplanation :pattern="learnable.data" />
     <button class="btn btn-success" @click="emit('complete')">
       Continue to exercises
     </button>

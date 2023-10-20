@@ -1,43 +1,37 @@
 <script lang="ts" setup>
-import type { PatternNavigationItem } from '~/lib/Pattern'
-
 const props = defineProps<{
-  pattern: PatternNavigationItem
+  learnable: Required<LearnableDialogue>
 }>()
 
 const emit = defineEmits<{
   (e: "complete"): void
 }>()
 
-const { data: patternData } = await useAsyncData(`pattern/${props.pattern.id}`,
-  () => sprachdex.fetchPatternById(props.pattern.id)
-)
-
 const state = defineState({
   promptToBegin: true,
 
   get progress() {
-    return progressStore.progressablePatternById[props.pattern.id].progress
+    return progressStore.progressablePatternById[props.learnable.pattern.id].progress
   }
 })
 
 async function completeDialogue() {
   if (state.progress.experience < 1000) {
-    await progressStore.gainPatternExperience(props.pattern.id, 1000)
+    await progressStore.gainPatternExperience(props.learnable.pattern.id, 1000)
   }
   emit("complete")
 }
 </script>
 
 <template>
-  <div class="dialogueContainer" v-if="patternData">
+  <div class="dialogueContainer">
     <div class="prompt" v-if="state.promptToBegin">
-      <h1>{{ patternData.title }}</h1>
+      <h1>{{ learnable.data.title }}</h1>
       <button class="btn btn-success" @click="state.promptToBegin = false">
         Start dialogue
       </button>
     </div>
-    <InteractiveDialogue v-else :dialogue="patternData.dialogue" @complete="completeDialogue" />
+    <InteractiveDialogue v-else :dialogue="learnable.data.dialogue" @complete="completeDialogue" />
   </div>
 </template>
 
