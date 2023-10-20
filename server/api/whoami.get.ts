@@ -1,35 +1,28 @@
-import { getSessionStore } from '~/server/sessions'
-import { getDatabase } from '~/db'
+import { getDatabase, schema } from '~/db'
+import { eq } from 'drizzle-orm'
+import { omit } from 'lodash-es'
 
-export default defineEventHandler(async function whoami(event): Promise<{ status: 'guest' } | { status: 'user', user: UserWithProgress }> {
-  const { session } = event.context
-
-  if (!session) {
-    return { status: 'guest' }
-  }
-
+export default defineEventHandler(async (event) => {
   const db = await getDatabase(event)
+
+  if (!event.context.session)
+    return { status: 'guest' }
+
+  const { userId } = event.context.session
+
   const user = await db.query.users.findFirst({
-    where: (users, { eq }) => eq(users.id, session.userId),
-    columns: {
-      id: true,
-      username: true,
-      displayName: true,
-      email: true,
-      isAdmin: true
+    where: eq(schema.users.id, userId),
+    with: {
+      progressItems: true
     }
   })
 
-
-  if (!user) {
-    // Invalid session, e.g. when the user was deleted
-    const sessions = await getSessionStore(event)
-    await sessions.expire(session.sessionKey)
+  if (!user)
     return { status: 'guest' }
-  }
 
   return {
     status: 'user',
-    user
+    user: omit(user, ['hashedPassword', 'progressItems']),
+    progressItems: user.progressItems
   }
 })

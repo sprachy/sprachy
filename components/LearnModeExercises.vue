@@ -9,7 +9,7 @@ const emit = defineEmits<{
 
 
 const { data: patternData } = await useAsyncData(`pattern/${props.learnable.pattern.id}`,
-  () => sprachdex.fetchPatternById(props.learnable.pattern.id)
+  () => sprachdex.getPatternById(props.learnable.pattern.id)
 )
 
 const state = defineState({

@@ -18,7 +18,7 @@ class SprachyAPI {
   async signup(opts: SignupSchema) {
     return await $fetch('/api/signup', { method: 'POST', body: opts })
   }
-
+  w
   async sendPasswordResetEmail(opts: ResetPasswordSchema) {
     return await $fetch(`/api/reset-password`, { method: 'POST', body: opts })
   }
@@ -35,8 +35,8 @@ class SprachyAPI {
     return await $fetch(`/api/progress`, { method: 'POST', body: opts })
   }
 
-  async getTasks() {
-    return await $fetch(`/api/tasks`)
+  async whoami(): Promise<{ status: 'guest' } | { status: 'user', user: User, progressItems: ProgressItem[] }> {
+    return await $fetch(`/api/whoami`)
   }
 }
 

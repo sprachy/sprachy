@@ -27,8 +27,8 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const sessionKey = await sessions.create(user.id)
-  sessions.setSessionCookie(event, sessionKey)
+  const sessionId = await sessions.create(user.id)
+  sessions.setSessionCookie(event, sessionId)
 
   return {
     summary: {

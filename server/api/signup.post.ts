@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
     displayName: email.split("@")[0]
   }).returning()
 
-  const session = await sessions.create(user.id)
+  const sessionId = await sessions.create(user.id)
 
   if (env.DISCORD_SIGNUP_WEBHOOK && !env.TESTING) {
     const params = {
@@ -47,7 +47,7 @@ export default defineEventHandler(async (event) => {
     http.post(env.DISCORD_SIGNUP_WEBHOOK, params)
   }
 
-  sessions.setSessionCookie(event, session)
+  sessions.setSessionCookie(event, sessionId)
 
   return {
     user: omit(user, 'hashedPassword')

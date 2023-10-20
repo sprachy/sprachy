@@ -1,10 +1,11 @@
 import type { QueryBuilderWhere } from "@nuxt/content/dist/runtime/types"
-import { parsePattern, parsePatternNavigationItem, type PatternNavigationItem } from "~/lib/Pattern"
+import { parsePattern, parsePatternNavigationItem, type Pattern, type PatternNavigationItem } from "~/lib/Pattern"
 import characters from "~/lib/characters"
 import type { Character } from "~/lib/characters"
 
 class Sprachdex {
   characters = characters
+  patternCache: Record<string, Pattern> = {}
 
   getCharacter(characterId: string): Character {
     return characters.find((c) => c.id === characterId) || characters[0]!
@@ -34,7 +35,11 @@ class Sprachdex {
   }
 
   async fetchPatternById(patternId: string) {
-    return this.fetchPattern({ id: patternId })
+    if (this.patternCache[patternId]) {
+      return this.patternCache[patternId]
+    } else {
+      return this.fetchPattern({ id: patternId })
+    }
   }
 
   async fetchPatternBySlug(patternSlug: string) {

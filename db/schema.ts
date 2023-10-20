@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm"
+import { relations, sql } from "drizzle-orm"
 import { sqliteTable, text, integer, uniqueIndex, primaryKey } from 'drizzle-orm/sqlite-core'
 
 export const users = sqliteTable('users', {
@@ -14,6 +14,10 @@ export const users = sqliteTable('users', {
   usernameIdx: uniqueIndex('username').on(users.username),
 }))
 
+export const usersRelations = relations(users, ({ many }) => ({
+  progressItems: many(progressItems),
+}))
+
 export const progressItems = sqliteTable('progress_items', {
   userId: integer('user_id').notNull().references(() => users.id),
   patternId: text('pattern_id').notNull(),
@@ -22,4 +26,11 @@ export const progressItems = sqliteTable('progress_items', {
   lastExperienceGainAt: integer('last_experience_gain_at').notNull(),
 }, (progressItems) => ({
   userAndPatternId: primaryKey(progressItems.userId, progressItems.patternId),
+}))
+
+export const progressItemsRelations = relations(progressItems, ({ one }) => ({
+  user: one(users, {
+    fields: [progressItems.userId],
+    references: [users.id],
+  }),
 }))

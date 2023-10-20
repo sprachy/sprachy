@@ -1,6 +1,7 @@
 import { keyBy } from "lodash-es"
 import type { PatternNavigationItem } from "~/lib/Pattern"
 import { PatternProgress } from "~/lib/PatternProgress"
+import { combineProgress } from "~/lib/progress"
 import { time } from "~/lib/time"
 
 type LocalProgressItem = Omit<ProgressItem, 'userId'> & {
@@ -31,17 +32,17 @@ export type Learnable = LearnableReviews | LearnableDialogue | LearnablePattern
 export type ProgressablePattern = PatternNavigationItem & { progress: PatternProgress }
 
 export class ProgressStore {
-  user: User | null = null
   patterns: PatternNavigationItem[] = []
   progressItems: LocalProgressItem[] = []
   currentLearnable: Learnable | null = null
 
   constructor() {
     $debug.$progressStore = this
+    this.loadLocalProgress()
+  }
 
-    if (!this.user) {
-      this.loadAnonymousProgress()
-    }
+  get user() {
+    return authStatus.user
   }
 
   get progressItemByPatternId() {
@@ -108,24 +109,27 @@ export class ProgressStore {
     return null
   }
 
-  async syncProgressToServer() {
+  async syncProgressWithServer() {
     const { progressItems } = await $fetch('/api/syncProgress', {
       method: 'POST',
       body: {
         progressItems: this.progressItems
       }
     })
-    this.progressItems = progressItems
+    this.progressItems = combineProgress(this.progressItems, progressItems)
   }
 
-  /** Save the user's progress to localStorage. Used only when signed out. */
-  saveAnonymousProgress() {
-    clientStorage.setJSON('localProgressItems', this.progressItems)
+  saveLocalProgress() {
+    return
+    const localProgressItems = clientStorage.getJSON('localProgressItems') as LocalProgressItem[] || []
+    const newLocalProgressItems = combineProgress(localProgressItems, this.progressItems)
+    clientStorage.setJSON('localProgressItems', newLocalProgressItems)
   }
 
-  /** Load the user's progress from localStorage. Used only when signed out. */
-  loadAnonymousProgress() {
-    this.progressItems = clientStorage.getJSON('localProgressItems') as LocalProgressItem[] || []
+  loadLocalProgress() {
+    return
+    const localProgressItems = clientStorage.getJSON('localProgressItems') as LocalProgressItem[] || []
+    this.progressItems = combineProgress(this.progressItems, localProgressItems)
   }
 
   /** 
@@ -142,32 +146,23 @@ export class ProgressStore {
    * Updates local state immediately; persisted to backend only if user is logged in
    */
   async gainPatternExperience(patternId: string, amount: number) {
-    if (!this.user) {
-      this.loadAnonymousProgress()
-    }
-
-    const item = this.progressItemByPatternId[patternId]
+    let item = this.progressItemByPatternId[patternId]
     if (item) {
       item.experience += amount
       item.lastExperienceGainAt = Date.now()
     } else {
-      this.progressItems.push({
-        userId: this.user?.id,
+      item = {
         patternId,
         initiallyLearnedAt: Date.now(),
         lastExperienceGainAt: Date.now(),
         experience: amount
-      })
+      }
+      this.progressItems.push(item)
     }
 
+    this.saveLocalProgress()
     if (this.user) {
-      await api.reportProgress({
-        experienceByPatternId: {
-          [patternId]: amount
-        }
-      })
-    } else {
-      this.saveAnonymousProgress()
+      await this.syncProgressWithServer()
     }
   }
 
@@ -203,13 +198,10 @@ export class ProgressStore {
   }
 
   async reallyResetAllUserProgress() {
-    if (!this.user) {
-      this.progressItems = []
-      this.saveAnonymousProgress()
-    } else {
-      // const summary = await this.api.resetProgress()
-      // this.receiveProgress(summary)
-    }
+    clientStorage.setJSON('localProgressItems', [])
+    this.progressItems = []
+    // const summary = await this.api.resetProgress()
+    // this.receiveProgress(summary)
 
     this.updateCurrentLearnable()
   }

@@ -3,7 +3,9 @@ definePageMeta({
   layout: false
 })
 
-onMounted(() => progressStore.updateCurrentLearnable())
+onMounted(() => {
+  progressStore.updateCurrentLearnable()
+})
 
 const { currentLearnable } = toRefs(progressStore)
 

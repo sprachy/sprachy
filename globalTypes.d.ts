@@ -40,13 +40,15 @@ type UserWithProgress = User & {
   progressItems: ProgressItem[]
 }
 
-type ProgressItem = {
+type DBProgressItem = {
   userId: number
   patternId: string
   initiallyLearnedAt: number
   lastExperienceGainAt: number
   experience: number
 }
+
+type ProgressItem = Omit<DBProgressItem, 'userId'> & { userId?: number }
 
 /**
  * Package of initial information sent to the frontend

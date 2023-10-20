@@ -1,7 +1,8 @@
 import * as z from 'zod'
 import { getDatabase, schema } from '~/db'
 import { and, eq } from 'drizzle-orm'
-import { omit } from 'lodash-es'
+import { keyBy, omit } from 'lodash-es'
+import { combineProgress } from '~/lib/progress'
 
 const syncProgressSchema = z.object({
   progressItems: z.array(z.object({
@@ -23,25 +24,19 @@ export default defineEventHandler(async (event) => {
     where: eq(schema.progressItems.userId, userId)
   })
 
-  const progressItemsByPatternId: Record<string, Omit<ProgressItem, 'userId'>> = {}
-  for (const item of existingProgressItems) {
-    progressItemsByPatternId[item.patternId] = omit(item, 'userId')
-  }
+  const existingProgressItemsByPatternId = keyBy(existingProgressItems, 'patternId')
 
-  // Find any new or updated progress and prepare to store it
-  const itemsToInsert: ProgressItem[] = []
-  const itemsToUpdate: ProgressItem[] = []
-  for (const newItem of newProgressItems) {
-    const existingItem = progressItemsByPatternId[newItem.patternId]
+  const combinedProgressItems = combineProgress(existingProgressItems, newProgressItems)
+
+  // Prepare items for the database
+  const itemsToInsert: DBProgressItem[] = []
+  const itemsToUpdate: DBProgressItem[] = []
+  for (const item of combinedProgressItems) {
+    const existingItem = existingProgressItemsByPatternId[item.patternId]
     if (!existingItem) {
-      const itemToInsert = { userId, ...newItem }
-      progressItemsByPatternId[newItem.patternId] = newItem
-      itemsToInsert.push(itemToInsert)
-    } else if (newItem.experience > existingItem.experience) {
-      const itemToUpdate = { userId, ...existingItem }
-      itemToUpdate.experience = newItem.experience
-      itemToUpdate.lastExperienceGainAt = newItem.lastExperienceGainAt
-      itemsToUpdate.push(itemToUpdate)
+      itemsToInsert.push({ userId, ...item })
+    } else if (item.experience > existingItem.experience) {
+      itemsToUpdate.push({ userId, ...item })
     }
   }
 
@@ -63,8 +58,7 @@ export default defineEventHandler(async (event) => {
   }
   await Promise.all(operations)
 
-
   return {
-    progressItems: Object.values(progressItemsByPatternId)
+    progressItems: combinedProgressItems
   }
 })

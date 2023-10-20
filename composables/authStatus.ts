@@ -1,15 +1,24 @@
+import { combineProgress } from "~/lib/progress"
+
 export class AuthStatus {
-  loading = true
   user: null | User = null
 
-  async refresh() {
-    const res = await $fetch('/api/whoami')
-    if (res.status === 'user') {
-      this.user = res.user
-    }
-    this.loading = false
+  constructor() {
+    $debug.authStatus = this
+    this.user = clientStorage.getJSON('user') as User
   }
 
+  async refresh() {
+    const whoami = await api.whoami()
+    if (whoami.status === 'guest') {
+      this.user = null
+    } else {
+      this.user = whoami.user
+      progressStore.progressItems = combineProgress(progressStore.progressItems, whoami.progressItems)
+      progressStore.saveLocalProgress()
+      progressStore.updateCurrentLearnable()
+    }
+  }
 }
 
 export const authStatus = defineState(new AuthStatus())
