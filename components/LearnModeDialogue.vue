@@ -19,7 +19,11 @@ async function completeDialogue() {
   if (state.progress.experience < 1000) {
     await progressStore.gainPatternExperience(props.learnable.pattern.id, 1000)
   }
-  emit("complete")
+
+  // Give the experience bar a moment to animate
+  setTimeout(() => {
+    emit("complete")
+  }, 1000)
 }
 </script>
 

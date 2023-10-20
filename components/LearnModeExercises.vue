@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { delay } from '~/lib/util'
+
 const props = defineProps<{
   learnable: Required<LearnablePattern>
 }>()
@@ -43,6 +45,8 @@ async function nextExercise() {
   progressStore.gainPatternExperience(props.learnable.pattern.id, expGained)
 
   if (props.learnable.pattern.progress.level > state.startLevel) {
+    // Give the experience bar a moment to update
+    await delay(1000)
     emit("complete")
   } else if (state.exerciseIndex >= state.exercises.length - 1) {
     state.exerciseIndex = 0

@@ -1,10 +1,12 @@
 <script setup lang="ts">
-// import { tweened } from "svelte/motion"
-// import { cubicInOut } from "svelte/easing"
 import gsap from 'gsap'
 
 const props = defineProps<{
   experience: number
+}>()
+
+const emit = defineEmits<{
+  (e: "animEnd"): () => void
 }>()
 
 const state = defineState({
@@ -32,7 +34,10 @@ watchEffect(() => {
 })
 
 watch(() => props.experience, (exp) => {
-  gsap.to(state, { duration: 0.5, shownExp: exp })
+  const tween = gsap.to(state, { duration: 0.5, shownExp: exp })
+  tween.then(() => {
+    emit("animEnd")
+  })
 })
 
 const endpointRef = ref<HTMLDivElement>()

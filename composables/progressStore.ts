@@ -6,7 +6,7 @@ import { time } from "~/lib/time"
 
 export type LearnableDialogue = {
   type: 'dialogue'
-  pattern: PatternNavigationItem
+  pattern: ProgressablePattern
   why: string
   data?: Pattern
 }
@@ -21,7 +21,7 @@ export type LearnablePattern = {
 
 export type LearnableReviews = {
   type: 'review'
-  patterns: PatternNavigationItem[]
+  patterns: ProgressablePattern[]
   why: string
   data?: Pattern[]
 }

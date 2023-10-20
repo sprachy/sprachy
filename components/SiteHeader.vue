@@ -66,12 +66,12 @@ const route = useRoute()
                 <img v-else src="~/assets/squirrel.webp" :alt="user.email" class="avatar" />
               </a>
               <ul class="dropdown-menu">
-                <li v-if="user.username">
+                <!-- <li v-if="user.username">
                   <NuxtLink class="dropdown-item" :href="`/user/${user.username}`">Profile</NuxtLink>
                 </li>
                 <li>
                   <NuxtLink class="dropdown-item" href="/settings">Settings</NuxtLink>
-                </li>
+                </li> -->
                 <li>
                   <NuxtLink class="dropdown-item" href="/logout">Log out</NuxtLink>
                 </li>
