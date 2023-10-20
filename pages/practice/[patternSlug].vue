@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { parsePattern } from '~/lib/Pattern'
+import { preloadExerciseAssets } from '~/lib/preloading'
 
 const { patternSlug } = useRoute().params
 
@@ -26,11 +27,8 @@ const state = defineState({
 })
 
 watchEffect(() => {
-  if (speech.enabled) {
-    state.exercises.map(ex => {
-      speech.preloadExercise(ex)
-    })
-  }
+  if (pattern.value)
+    preloadExerciseAssets(pattern.value.exercises)
 })
 
 function nextExercise() {

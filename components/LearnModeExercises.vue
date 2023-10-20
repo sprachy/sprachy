@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { preloadExerciseAssets } from '~/lib/preloading'
 import { delay } from '~/lib/util'
 
 const props = defineProps<{
@@ -27,18 +28,10 @@ watch(
   () => {
     state.startLevel = props.learnable.pattern.progress.level
     state.exerciseIndex = 0
+    preloadExerciseAssets(props.learnable.data.exercises)
   },
   { immediate: true }
 )
-
-watchEffect(() => {
-  if (speech.enabled) {
-    for (const ex of state.exercises) {
-      speech.preloadExercise(ex)
-    }
-  }
-})
-
 async function nextExercise() {
   // Completed an exercise, gain experience
   const expGained = 200

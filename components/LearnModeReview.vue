@@ -4,6 +4,7 @@ import ExerciseView from "./ExerciseView.vue"
 import LevelReport from "./LevelReport.vue"
 import successImg from "~/assets/success.webp"
 import type { LearnableReviews } from "~/composables/progressStore"
+import { preloadExerciseAssets } from "~/lib/preloading"
 
 const props = defineProps<{
   learnable: LearnableReviews
@@ -55,17 +56,10 @@ watch(
     state.showNext = false
     state.experienceByPatternId = {}
     state.reviewIndex = 0
+    preloadExerciseAssets(state.reviews.map(r => r.exercise))
   },
   { immediate: true }
 )
-
-watchEffect(() => {
-  if (speech.enabled) {
-    for (const review of state.reviews) {
-      speech.preloadExercise(review.exercise)
-    }
-  }
-})
 
 function nextExercise() {
   // Completed an exercise, gain experience

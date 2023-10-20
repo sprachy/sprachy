@@ -106,12 +106,6 @@ export class SpeechSystem {
     }
   }
 
-  async preloadExercise(ex: Exercise) {
-    if (ex.from && ex.message) {
-      return this.preload({ from: ex.from, message: ex.message })
-    }
-  }
-
   async get(opts: { from: string, message: string }) {
     const key = opts.from + ' ' + opts.message
     const promise = this.audioCache[key]
