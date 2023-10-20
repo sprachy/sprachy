@@ -61,6 +61,8 @@ export async function syncProgress(db: DrizzleSqliteDB, userId: number, newProgr
     )
   }
   await Promise.all(operations)
+
+  return combinedProgressItems
 }
 
 export default defineEventHandler(async (event) => {

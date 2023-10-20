@@ -13,16 +13,23 @@ const loadedLearnable = ref(null as Required<Learnable> | null)
 
 // Load any needed data for the current learnable when we get a new one
 watch(currentLearnable, async (learnable) => {
-  if (!learnable) return
   loadedLearnable.value = null
+  if (!learnable) return
 
   if (learnable.type === 'review') {
-    learnable.data = await sprachdex.fetchPatterns({ id: { $in: learnable.patterns.map(p => p.id) } })
+    const data = await sprachdex.fetchPatterns({ id: { $in: learnable.patterns.map(p => p.id) } })
+    loadedLearnable.value = {
+      ...learnable,
+      data
+    }
   } else {
-    learnable.data = await sprachdex.fetchPatternById(learnable.pattern.id)
-  }
+    const data = await sprachdex.fetchPatternById(learnable.pattern.id)
 
-  loadedLearnable.value = learnable as Required<Learnable>
+    loadedLearnable.value = {
+      ...learnable,
+      data
+    }
+  }
 })
 
 function nextLearnable() {

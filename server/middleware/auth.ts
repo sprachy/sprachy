@@ -9,9 +9,10 @@ export default defineEventHandler(async (event) => {
   const db = await getDatabase(event)
   const session = await sessions.getFromCookie(event)
   event.context.session = session
+  const path = getRequestPath(event)
 
   // I don't know when/why this could be undefined, but let's make sure it's not
-  if (!event.path) {
+  if (!path) {
     throw createError({
       statusCode: 404,
       statusMessage: "Not Found",
@@ -34,12 +35,12 @@ export default defineEventHandler(async (event) => {
     publicApiRoutes.push('/api/translate')
   }
 
-  if (!session && event.path.startsWith('/api') && !publicApiRoutes.includes(event.path) && !event.path.startsWith('/api/_content')) {
+  if (!session && path.startsWith('/api') && !publicApiRoutes.includes(path) && !path.startsWith('/api/_content')) {
     throw createError({
       statusCode: 401,
       statusMessage: "Unauthorized",
     })
-  } else if (event.path.startsWith(`/api/admin`)) {
+  } else if (path.startsWith(`/api/admin`)) {
     const user = session ? await db.query.users.findFirst({
       where: (users, { eq }) => eq(users.id, session.userId)
     }) : null

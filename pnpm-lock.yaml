@@ -35,6 +35,9 @@ dependencies:
   drizzle-orm:
     specifier: ^0.28.6
     version: 0.28.6(@cloudflare/workers-types@4.20231016.0)(better-sqlite3@9.0.0)
+  h3:
+    specifier: ^1.8.2
+    version: 1.8.2
   js-cookie:
     specifier: ^3.0.5
     version: 3.0.5
@@ -145,6 +148,9 @@ devDependencies:
   npm-upgrade:
     specifier: ^3.1.0
     version: 3.1.0
+  num-words-de:
+    specifier: https://github.com/evrys/num-words-de.git
+    version: github.com/evrys/num-words-de/1a521d421fbc2b21d80a4e87b03ed788db0edfea
   nuxt:
     specifier: ^3.8.0
     version: 3.8.0(@types/node@20.8.7)(typescript@5.2.2)(vite@4.5.0)(vue-tsc@1.8.19)
@@ -11598,7 +11604,7 @@ packages:
   /wide-align@1.1.5:
     resolution: {integrity: sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==}
     dependencies:
-      string-width: 1.0.2
+      string-width: 4.2.3
     dev: true
 
   /widest-line@3.1.0:
@@ -11845,4 +11851,10 @@ packages:
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
+    dev: true
+
+  github.com/evrys/num-words-de/1a521d421fbc2b21d80a4e87b03ed788db0edfea:
+    resolution: {tarball: https://codeload.github.com/evrys/num-words-de/tar.gz/1a521d421fbc2b21d80a4e87b03ed788db0edfea}
+    name: num-words-de
+    version: 1.0.5
     dev: true
