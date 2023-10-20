@@ -15,8 +15,8 @@
     "upgrade": "npm-upgrade",
     "test": "vitest",
     "migrate": "drizzle-kit generate:sqlite && cross-env NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd --no-override node --loader ts-node/esm scripts/migrate.ts",
-    "migrate:staging": "wrangler d1 migrations --env staging apply staging",
-    "migrate:live": "wrangler d1 migrations --env live apply live"
+    "migrate:staging": "wrangler d1 migrations --env staging apply d1_sprachy_staging",
+    "migrate:live": "wrangler d1 migrations --env live apply d1_sprachy_live"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231016.0",

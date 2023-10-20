@@ -1,0 +1,13 @@
+[[env.staging.d1_databases]]
+binding = "D1"
+database_name = "d1_sprachy_staging"
+database_id = "d38a6236-4d96-43de-84bf-6cb3a37a5b6f"
+migrations_table = "d1_migrations"
+migrations_dir = "drizzle"
+
+[[env.live.d1_databases]]
+binding = "D1"
+database_name = "d1_sprachy_live"
+database_id = "2242ba42-0b7f-4eec-84c3-3cc63bb63fd9"
+migrations_table = "d1_migrations"
+migrations_dir = "drizzle"
