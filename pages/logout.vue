@@ -1,4 +1,6 @@
 <script setup lang="ts">
-await api.logout()
-navigateTo("/")
+
+onBeforeMount(() => {
+  authStatus.logout()
+})
 </script>

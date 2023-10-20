@@ -10,7 +10,7 @@ export class SessionStore {
   constructor(readonly kvs: KVStoreClient) { }
 
   setSessionCookie(event: H3Event, sessionId: string) {
-    setCookie(event, "sprachySession", sessionId, {
+    setCookie(event, "sprachySessionId", sessionId, {
       httpOnly: true,
       // maxAge is in seconds
       maxAge: time.weeks(52) / 1000,
@@ -39,7 +39,7 @@ export class SessionStore {
   }
 
   async getFromCookie(event: H3Event): Promise<Session | null> {
-    const sessionId = getCookie(event, 'sprachySession')
+    const sessionId = getCookie(event, 'sprachySessionId')
     if (!sessionId) return null
 
     return this.getById(sessionId)

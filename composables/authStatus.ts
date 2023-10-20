@@ -15,6 +15,15 @@ export class AuthStatus {
     this.user = clientStorage.getJSON('user') as User
   }
 
+  async logout() {
+    if (!this.user) return
+
+    await api.logout()
+    this.user = null
+    progressStore.clearLocalProgress()
+    navigateTo('/')
+  }
+
   async refresh() {
     const whoami = await api.whoami()
     if (whoami.status === 'guest') {

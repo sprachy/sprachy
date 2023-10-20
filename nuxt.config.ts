@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  routeRules: {
+    '/logout': { ssr: false }
+  },
   nitro: {
     preset: "cloudflare_pages",
     prerender: {

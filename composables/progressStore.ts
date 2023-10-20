@@ -132,6 +132,11 @@ export class ProgressStore {
     this.progressItems = combineProgress(this.progressItems, localProgressItems)
   }
 
+  clearLocalProgress() {
+    clientStorage.setJSON(this.localProgressKey, [])
+    this.progressItems = []
+  }
+
   /** 
    * Sets currentLearnable based on the user's current progress.
    * Learn page calls this when progress had been made and it's 
