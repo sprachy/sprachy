@@ -1,7 +1,17 @@
 <script setup lang="ts">
+import { parsePattern } from '~/lib/Pattern'
+
 const { patternSlug } = useRoute().params
 
-const { data: pattern } = await useAsyncData(`pattern/${patternSlug}`, () => sprachdex.fetchPatternBySlug(patternSlug as string))
+const { data: patternData, error } = await useAsyncData(`pattern/${patternSlug}`,
+  () => queryContent(`/${patternSlug}`).findOne()
+)
+
+const pattern = computed(() => patternData.value ? parsePattern(patternData.value) : null)
+
+if (error.value) {
+  throw createError(error.value)
+}
 
 const state = defineState({
   exerciseIndex: 0,
