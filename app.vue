@@ -6,11 +6,16 @@ import "../assets/app.css"
 const { data: patterns } = await useAsyncData('patternIndex', () => sprachdex.fetchPatternIndex())
 progressStore.patterns = patterns.value!
 
-onMounted(() => {
-  import("bootstrap")
-  authStatus.refresh()
-  effects.initialize()
-  progressStore.syncProgressWithServer()
+onMounted(async () => {
+  // Client-side setup
+
+  authStatus.loadLocalUser()
+  progressStore.loadLocalProgress()
+  await Promise.all([
+    import("bootstrap"),
+    authStatus.refresh(),
+    effects.initialize()
+  ])
 })
 </script>
 

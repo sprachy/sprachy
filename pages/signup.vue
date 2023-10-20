@@ -29,22 +29,16 @@ async function signup() {
   }
 
   try {
-    const { summary } = await api.signup({
+    const { user } = await api.signup({
       email: state.email,
       password: state.password,
-      confirmPassword: state.confirmPassword
+      confirmPassword: state.confirmPassword,
+      progressItems: progressStore.progressItems
     })
 
-    // await initSPA(summary.user)
-    navigateTo(next as string || "/learn")
+    authStatus.user = user
 
-    // await sprachy.initSPA(summary)
-    // window.location.replace(next || "/learn")
-    // if (next) {
-    //   goto(next, { replaceState: true })
-    // } else {
-    //   goto("/learn", { replaceState: true })
-    // }
+    navigateTo(next as string || "/learn")
   } catch (err: any) {
     // if (err?.response?.status == 422) {
     //   state.errors = errorsByField(err.response.data.errors)

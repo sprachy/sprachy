@@ -1,14 +1,9 @@
 <script setup lang="ts">
+import { combineProgress } from '~/lib/progress'
+
 definePageMeta({
   layout: false
 })
-
-// import sprachy from "~/lib/sprachy"
-// import SprachyLogo from "~/lib/SprachyLogo.svelte"
-// import PageStyling from "~/lib/PageStyling.svelte"
-// import { prefetchRoutes } from "$app/navigation"
-// import { errorsByField } from "~/lib/client/clientUtil"
-// import type { PageData } from "./$types"
 
 const next = useRoute().params.next
 const state = defineState({
@@ -22,12 +17,16 @@ async function login() {
   state.loading = true
   state.errors = {}
   try {
-    const { summary } = await api.login({
+    const { user, progressItems } = await api.login({
       email: state.email,
-      password: state.password
+      password: state.password,
+      progressItems: progressStore.progressItems
     })
 
-    // await initSPA(summary)
+    authStatus.user = user
+    progressStore.progressItems = combineProgress(progressStore.progressItems, progressItems)
+    progressStore.saveLocalProgress()
+    progressStore.updateCurrentLearnable()
 
     if (next) {
       navigateTo(next as string)

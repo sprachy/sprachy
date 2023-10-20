@@ -5,6 +5,13 @@ export class AuthStatus {
 
   constructor() {
     $debug.authStatus = this
+
+    watch(() => this.user, (user) => {
+      clientStorage.setJSON('user', user)
+    })
+  }
+
+  loadLocalUser() {
     this.user = clientStorage.getJSON('user') as User
   }
 

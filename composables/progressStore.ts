@@ -4,10 +4,6 @@ import { PatternProgress } from "~/lib/PatternProgress"
 import { combineProgress } from "~/lib/progress"
 import { time } from "~/lib/time"
 
-type LocalProgressItem = Omit<ProgressItem, 'userId'> & {
-  userId?: number
-}
-
 export type LearnableDialogue = {
   type: 'dialogue'
   pattern: PatternNavigationItem
@@ -36,16 +32,19 @@ export type ProgressablePattern = PatternNavigationItem & { progress: PatternPro
 
 export class ProgressStore {
   patterns: PatternNavigationItem[] = []
-  progressItems: LocalProgressItem[] = []
+  progressItems: ProgressItem[] = []
   currentLearnable: Learnable | null = null
 
   constructor() {
     $debug.$progressStore = this
-    this.loadLocalProgress()
   }
 
   get user() {
     return authStatus.user
+  }
+
+  get localProgressKey() {
+    return `localProgressItems:${this.user?.id || 'guest'}`
   }
 
   get progressItemByPatternId() {
@@ -123,15 +122,13 @@ export class ProgressStore {
   }
 
   saveLocalProgress() {
-    return
-    const localProgressItems = clientStorage.getJSON('localProgressItems') as LocalProgressItem[] || []
+    const localProgressItems = clientStorage.getJSON(this.localProgressKey) as ProgressItem[] || []
     const newLocalProgressItems = combineProgress(localProgressItems, this.progressItems)
-    clientStorage.setJSON('localProgressItems', newLocalProgressItems)
+    clientStorage.setJSON(this.localProgressKey, newLocalProgressItems)
   }
 
   loadLocalProgress() {
-    return
-    const localProgressItems = clientStorage.getJSON('localProgressItems') as LocalProgressItem[] || []
+    const localProgressItems = clientStorage.getJSON(this.localProgressKey) as ProgressItem[] || []
     this.progressItems = combineProgress(this.progressItems, localProgressItems)
   }
 
@@ -201,7 +198,7 @@ export class ProgressStore {
   }
 
   async reallyResetAllUserProgress() {
-    clientStorage.setJSON('localProgressItems', [])
+    clientStorage.setJSON(this.localProgressKey, [])
     this.progressItems = []
     // const summary = await this.api.resetProgress()
     // this.receiveProgress(summary)

@@ -6,11 +6,13 @@ import bcrypt from 'bcryptjs'
 import { getDatabase, schema } from '~/db'
 import { getSessionStore } from '~/server/sessions'
 import { omit } from 'lodash-es'
+import { progressItemSchema, syncProgress } from './syncProgress.post'
 
 const signupForm = z.object({
   email: z.string().email(),
   password: z.string(),
-  confirmPassword: z.string()
+  confirmPassword: z.string(),
+  progressItems: z.array(progressItemSchema)
 }).refine(d => d.password.length >= 10, {
   message: "Password must be at least length 10",
   path: ["password"]
@@ -23,7 +25,7 @@ export type SignupSchema = z.infer<typeof signupForm>
 
 export default defineEventHandler(async (event) => {
   const sessions = await getSessionStore(event)
-  const { email, password } = signupForm.parse(await readBody(event))
+  const { email, password, progressItems } = signupForm.parse(await readBody(event))
   const db = await getDatabase(event)
 
   const hashedPassword = bcrypt.hashSync(password, 10)
@@ -45,6 +47,11 @@ export default defineEventHandler(async (event) => {
     }
 
     http.post(env.DISCORD_SIGNUP_WEBHOOK, params)
+  }
+
+  if (progressItems.length) {
+    // Store any previous guest progress when the user signs up
+    await syncProgress(db, user.id, progressItems)
   }
 
   sessions.setSessionCookie(event, sessionId)
