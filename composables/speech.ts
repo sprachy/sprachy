@@ -16,8 +16,17 @@ export class SpeechSystem {
 
   constructor() { }
 
+  loadMute() {
+    this.enabled = !clientStorage.getJSON('muteAudio')
+  }
+
   toggleMute() {
     this.enabled = !this.enabled
+    if (this.enabled) {
+      clientStorage.deleteJSON('muteAudio')
+    } else {
+      clientStorage.setJSON('muteAudio', true)
+    }
   }
 
   async synthesizeFromCharacter(characterId: string, text: string): Promise<Base64Audio> {

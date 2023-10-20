@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { faVolumeHigh, faVolumeMute } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
+
+onMounted(() => {
+  speech.loadMute()
+})
 </script>
 
 <template>
