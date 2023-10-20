@@ -10,5 +10,5 @@ for path in $@; do
   filename_noext="${filename%.*}"
 
 
-  cwebp $path -o src/lib/img/${filename_noext%.*}.webp
+  cwebp $path -o assets/${filename_noext%.*}.webp
 done
