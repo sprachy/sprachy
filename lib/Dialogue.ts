@@ -30,6 +30,7 @@ export const dialogueLineSchema = z.union([
 export type DialogueLine = z.infer<typeof dialogueLineSchema>
 
 export const dialogueSchema = z.object({
+  title: z.string(),
   lines: z.array(dialogueLineSchema)
 })
 

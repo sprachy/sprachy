@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { Dialogue, DialogueLineReading } from "~/lib/Dialogue"
+import { preloadDialogueAssets } from "~/lib/preloading"
 
 const linesRef = ref<HTMLDivElement[]>()
 
@@ -13,6 +14,7 @@ const emit = defineEmits<{
 }>()
 
 const state = defineState({
+  promptToBegin: true,
   lineIndex: 0,
   readyToComplete: props.staticMode,
 
@@ -46,6 +48,14 @@ const state = defineState({
     })
   }
 })
+
+watch(
+  () => props.dialogue,
+  () => {
+    preloadDialogueAssets(props.dialogue)
+  },
+  { immediate: true }
+)
 
 watchEffect(() => {
   state.lineIndex = props.staticMode ? props.dialogue.lines.length : 0
@@ -109,8 +119,14 @@ function continueStory() {
 <!-- in:fly={staticMode ? undefined : { y: 20, duration: 500 }} -->
 
 <template>
-  <div class="Story">
-    <div class="lines">
+  <div class="InteractiveDialogue">
+    <div class="prompt" v-if="state.promptToBegin">
+      <h1>{{ dialogue.title }}</h1>
+      <button class="btn btn-success" @click="state.promptToBegin = false">
+        Start dialogue
+      </button>
+    </div>
+    <div class="lines" v-else>
       <div v-for="(line, i) in state.visibleLines" class="line" ref="linesRef">
         <template v-if="line.type === 'reading'">
           <!-- <SpecialLineMorph {staticMode} {line} flip={lineFlips[i]} /> -->
@@ -129,16 +145,21 @@ function continueStory() {
 </template>
 
 <style scoped>
-.Story {
+.InteractiveDialogue {
   margin: auto;
   max-width: 600px;
 }
 
-.Story .line:not(:first-child) {
+.InteractiveDialogue .line:not(:first-child) {
   margin-top: 1rem;
 }
 
-.Story :global(strong) {
+.InteractiveDialogue :global(strong) {
   color: rgb(28, 176, 246);
+}
+
+.prompt {
+  width: fit-content;
+  margin: auto;
 }
 </style>

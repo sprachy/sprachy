@@ -20,7 +20,12 @@ export function parsePattern(def: any): Pattern {
     slug: def._path.slice(1)
   }
 
+  if (def.dialogue && !def.dialogue.title) {
+    def.dialogue.title = def.title
+  }
+
   const result = patternSchema.safeParse({ slug: def._path?.slice(1), ...def })
+
 
   if (result.success) {
     return result.data as Pattern
