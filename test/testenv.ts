@@ -7,13 +7,14 @@ class TestClient {
 
   constructor() { }
 
-  async signUp(opts: { email: string, password: string }) {
+  async signUp(opts: { email: string, password: string, progressItems: ProgressItem[] }) {
     const res = await ofetch.raw('http://localhost:5998/api/signup', {
       method: 'POST',
       body: {
         email: opts.email,
         password: opts.password,
-        confirmPassword: opts.password
+        confirmPassword: opts.password,
+        progressItems: opts.progressItems
       }
     })
     this.cookie = res.headers.get('Set-Cookie')!
@@ -45,11 +46,12 @@ class TestClient {
   }
 }
 
-export async function signUpNewUser(opts?: { email: string, password: string }) {
+export async function signUpNewUser(opts: { email?: string, password?: string, progressItems?: ProgressItem[] } = {}) {
   const client = new TestClient()
-  await client.signUp(opts || {
-    email: `testdork+${uuid()}@yuh.com`,
-    password: uuid()
+  await client.signUp({
+    email: opts.email || `testdork+${uuid()}@yuh.com`,
+    password: opts.password || uuid(),
+    progressItems: opts.progressItems || []
   })
   return client
 }

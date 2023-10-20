@@ -21,7 +21,8 @@ test('login', async () => {
     method: 'POST',
     body: {
       email: 'basil@example.com',
-      password: 'sunflowerboy'
+      password: 'sunflowerboy',
+      progressItems: []
     }
   })
   expect(res1.status).toBe(401)
@@ -32,7 +33,8 @@ test('login', async () => {
     method: 'POST',
     body: {
       email: 'sunny@example.com',
-      password: 'manydreams'
+      password: 'manydreams',
+      progressItems: []
     }
   })
   expect(res2.status).toBe(200)

@@ -10,7 +10,8 @@ test('signup', async () => {
     body: {
       email: 'kel@example.com',
       password: 'orangejoetime',
-      confirmPassword: 'orangejoetime'
+      confirmPassword: 'orangejoetime',
+      progressItems: []
     }
   })
   expect(res1.user.email).toBe('kel@example.com')
