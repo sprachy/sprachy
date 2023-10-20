@@ -14,7 +14,13 @@ Sprachy is built with [Nuxt 3](https://nuxt.com/docs/getting-started/introductio
 
 ### Installing dependencies
 
-You will need [node](https://nodejs.org/en/) and [@antfu/ni](https://github.com/antfu/ni).
+You will need the latest [node LTS version](https://nodejs.org/en/). I usually install node via [nvm](https://github.com/nvm-sh/nvm).
+
+Install [@antfu/ni](https://github.com/antfu/ni) to get helpful shortcuts:
+
+```
+npm i -g @antfu/ni
+```
 
 Inside the repo, use ni to install dependencies.
 
@@ -37,7 +43,6 @@ cp .env.example .env
 In development, the database is just a local file at `db/dev.db`. Run migrations to generate it:
 
 `nr migrate`
-
 
 ### Running development server
 
