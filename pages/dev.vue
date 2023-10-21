@@ -32,7 +32,7 @@ const state = defineState({
   },
 
   get shownImages() {
-    return state.images.filter(image => image.path.includes(state.searchQuery))
+    return state.unusedImages.filter(image => image.path.includes(state.searchQuery))
   }
 })
 
@@ -42,6 +42,7 @@ onMounted(async () => {
     sprachdex.fetchPatterns({})
   ])
   state.images = images
+  state.patterns = patterns
   state.loading = false
 
   window.addEventListener("dragover", onDragOver)
