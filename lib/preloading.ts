@@ -4,7 +4,6 @@ import type { Exercise } from "./Exercise"
 const preloadedImages: Record<string, boolean> = {}
 export async function preloadImage(href: string) {
   if (href in preloadedImages) return
-  console.log(href)
 
   const el = document.createElement('link')
   el.rel = 'prefetch'

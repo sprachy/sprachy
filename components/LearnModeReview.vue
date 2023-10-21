@@ -7,20 +7,12 @@ import type { LearnableReviews } from "~/composables/progressStore"
 import { preloadExerciseAssets } from "~/lib/preloading"
 
 const props = defineProps<{
-  learnable: LearnableReviews
+  learnable: Required<LearnableReviews>
 }>()
 
 const emit = defineEmits<{
   (e: "complete"): void
 }>()
-
-const { data: patterns } = await useAsyncData(`patterns/${props.learnable.patterns.map(p => p.id).join(',')}}`,
-  () => sprachdex.fetchPatterns({
-    id: {
-      $in: props.learnable.patterns.map(p => p.id)
-    }
-  })
-)
 
 const state = defineState({
   startedReview: false,
@@ -30,7 +22,7 @@ const state = defineState({
   reviewIndex: 0,
 
   get patterns() {
-    return patterns.value || []
+    return props.learnable.data
   },
 
   get reviews() {
