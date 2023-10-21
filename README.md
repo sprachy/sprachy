@@ -16,11 +16,13 @@ Sprachy is built with [Nuxt 3](https://nuxt.com/docs/getting-started/introductio
 
 You will need the latest [node LTS version](https://nodejs.org/en/). I usually install node via [nvm](https://github.com/nvm-sh/nvm).
 
-Install [@antfu/ni](https://github.com/antfu/ni) to get helpful shortcuts:
+Install [@antfu/ni](https://github.com/antfu/ni) and [pnpm](https://pnpm.io/) to get helpful shortcuts:
 
 ```
-npm i -g @antfu/ni
+npm i -g @antfu/ni pnpm
 ```
+
+(you may need `sudo` for this depending on how you installed node)
 
 Inside the repo, use ni to install dependencies.
 
