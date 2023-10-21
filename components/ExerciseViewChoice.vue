@@ -27,7 +27,7 @@ watch(
 
 <template>
   <div class="exercise">
-    <img v-if="exercise.image" :src="imageLibrary[exercise.image]" alt="Identify this" />
+    <img v-if="exercise.image" :src="getUploadedImageUrl(exercise.image)" alt="Identify this" />
     <div v-if="exercise.from && exercise.message" class="message">
       <Message :from="exercise.from" :tooltip="exercise.translation">
         <AudioForLine :opts="exercise" playImmediately @finished="state.choiceAudioReady = true" />
