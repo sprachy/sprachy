@@ -1,3 +1,4 @@
+import { defineEventHandler } from 'h3'
 import { ListObjectsV2Command } from '@aws-sdk/client-s3'
 import { R2 } from './r2'
 import { sortBy } from 'lodash-es'

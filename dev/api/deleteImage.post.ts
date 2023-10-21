@@ -1,3 +1,4 @@
+import { defineEventHandler } from 'h3'
 import { DeleteObjectCommand } from '@aws-sdk/client-s3'
 import { R2 } from './r2'
 import * as z from 'zod'

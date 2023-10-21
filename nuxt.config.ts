@@ -1,3 +1,7 @@
+import listImages from './dev/api/listImages.get'
+import uploadImage from './dev/api/uploadImage.post'
+import deleteImage from './dev/api/deleteImage.post'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   routeRules: {
@@ -10,7 +14,21 @@ export default defineNuxtConfig({
       crawlLinks: true,
       routes: ['/'],
       ignore: ["/api", "/login?next", "/signup?next", "/dev"]
-    }
+    },
+    devHandlers: [
+      {
+        route: '/api/dev/listImages',
+        handler: listImages
+      },
+      {
+        route: '/api/dev/uploadImage',
+        handler: uploadImage
+      },
+      {
+        route: '/api/dev/deleteImage',
+        handler: deleteImage
+      }
+    ]
   },
   content: {
     navigation: {
