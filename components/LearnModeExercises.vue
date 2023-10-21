@@ -49,14 +49,6 @@ async function nextExercise() {
 }
 </script>
 
-<!-- <svelte:head>
-  {#each exercises as exercise}
-    {#if "image" in exercise}
-      <link rel="preload" as="image" href={exercise.image} />
-    {/if}
-  {/each}
-</svelte:head> -->
-
 <template>
   <div class="practice">
     <div class="exercises">

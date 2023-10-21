@@ -38,11 +38,6 @@ function nextExercise() {
 
 
 <template>
-  <Head>
-    <template v-for="exercise in state.exercises">
-      <link v-if="exercise.image" rel="preload" as="image" :href="imageLibrary[exercise.image]" />
-    </template>
-  </Head>
   <main class="container" v-if="pattern">
     <h1>{{ pattern.title }}</h1>
     <ExerciseView @correct="nextExercise" v-if="state.exercise" :exercise="state.exercise" :pattern="pattern" />

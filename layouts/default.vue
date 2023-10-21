@@ -52,20 +52,6 @@ import SiteHeader from "~/components/SiteHeader.vue"
 // }
 </script>
 
-<!-- 
-<svelte:head>
-  {#each sprachdex.characters as character}
-    <link rel="preload" as="image" href={character.avatar} />
-  {/each}
-  <link rel="preload" as="image" href={successImg} />
-  {#if title}
-    <title>{title} - Sprachy</title>
-  {:else}
-    <title>Sprachy</title>
-  {/if}
-</svelte:head> -->
-
-
 <template>
   <SiteHeader :fixed="fixedHeader" />
   <slot />

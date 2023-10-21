@@ -4,9 +4,10 @@ import type { Exercise } from "./Exercise"
 const preloadedImages: Record<string, boolean> = {}
 export async function preloadImage(href: string) {
   if (href in preloadedImages) return
+  console.log(href)
 
   const el = document.createElement('link')
-  el.rel = 'preload'
+  el.rel = 'prefetch'
   el.as = 'image'
   el.href = href
   document.head.appendChild(el)
@@ -40,7 +41,7 @@ export async function preloadDialogueAssets(dialogue: Dialogue) {
 export async function preloadExerciseAssets(exercises: Exercise[]) {
   for (const ex of exercises) {
     if (ex.image) {
-      preloadImage(imageLibrary[ex.image])
+      preloadImage(getUploadedImageUrl(ex.image))
     }
     if (ex.from) {
       preloadImage(sprachdex.getCharacter(ex.from).avatar)
