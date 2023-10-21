@@ -58,3 +58,12 @@ type ProgressSummary = {
   user: User
   progressItems: ProgressItem[]
 }
+
+/**
+ * Information we can get from listing the R2 bucket
+ */
+type UploadedImageListItem = {
+  path: string
+  size: number
+  lastModified: number
+}

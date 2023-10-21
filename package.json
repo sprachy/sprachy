@@ -4,7 +4,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev:nuxt": "nuxt dev --port=5999 --no-clear",
-    "dev:tsc": "vue-tsc --pretty --noEmit --incremental --watch",
+    "dev:tsc": "vue-tsc --pretty --noEmit --incremental --watch --preserveWatchOutput",
     "dev:vitest": "vitest",
     "dev": "concurrently --kill-others --names \"nuxt,tsc,vitest\" -c \"bgMagenta.bold,bgBlue.bold\" \"npm run dev:nuxt\" \"npm run dev:tsc\" \"npm run dev:vitest\"",
     "generate": "nuxt generate",
@@ -42,7 +42,6 @@
     "drizzle-kit": "^0.19.13",
     "env-cmd": "^10.1.0",
     "glob": "^10.3.10",
-    "h3-formidable": "^1.0.0",
     "miniflare": "^2.13.0",
     "npm-upgrade": "^3.1.0",
     "num-words-de": "https://github.com/evrys/num-words-de.git",

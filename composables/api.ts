@@ -46,8 +46,24 @@ class SprachyAPI {
 }
 
 class SprachyDevAPI {
-  async listImages() {
+  async listImages(): Promise<UploadedImageListItem[]> {
     return await $fetch('/api/dev/listImages')
+  }
+
+  async uploadImage(file: File) {
+    const formData = new FormData()
+    formData.append("file", file)
+    return await $fetch('/api/dev/uploadImage', {
+      method: 'POST',
+      body: formData,
+    })
+  }
+
+  async deleteImage(path: string) {
+    return await $fetch('/api/dev/deleteImage', {
+      method: 'POST',
+      body: { path },
+    })
   }
 }
 
