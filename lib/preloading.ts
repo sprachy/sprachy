@@ -17,7 +17,7 @@ export async function preloadImage(href: string) {
 export async function preloadDialogueAssets(dialogue: Dialogue) {
   for (const line of dialogue.lines) {
     if ('image' in line && line.image) {
-      preloadImage(imageLibrary[line.image])
+      preloadImage(getUploadedImageUrl(line.image))
     }
     if (line.type === 'reading' && line.message) {
       speech.preload({ from: line.from || 'narrator', message: line.message })
