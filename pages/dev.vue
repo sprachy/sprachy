@@ -1,12 +1,34 @@
 <script lang="ts" setup>
+import type { Pattern } from '~/lib/Pattern'
 import { chooseFilePrompt } from '~/lib/util'
-
-const config = useRuntimeConfig()
 
 const state = defineState({
   loading: true,
-  images: [] as any[],
+  images: [] as UploadedImageListItem[],
+  patterns: [] as Pattern[],
   searchQuery: "",
+
+  get usedImagePaths() {
+    const usedImagePaths: Record<string, boolean> = {}
+
+    for (const pattern of this.patterns) {
+      for (const exercise of pattern.exercises) {
+        if (exercise.image)
+          usedImagePaths[exercise.image] = true
+      }
+
+      for (const line of pattern.dialogue.lines) {
+        if ('image' in line && line.image)
+          usedImagePaths[line.image] = true
+      }
+    }
+
+    return usedImagePaths
+  },
+
+  get unusedImages() {
+    return this.images.filter(image => !(image.path in this.usedImagePaths))
+  },
 
   get shownImages() {
     return state.images.filter(image => image.path.includes(state.searchQuery))
@@ -14,7 +36,12 @@ const state = defineState({
 })
 
 onMounted(async () => {
-  state.images = await api.dev.listImages()
+  const [images, patterns] = await Promise.all([
+    api.dev.listImages(),
+    sprachdex.fetchPatterns({})
+  ])
+  state.images = images
+  console.log(patterns)
   state.loading = false
 })
 
@@ -42,15 +69,19 @@ function onImageDeleted(path: string) {
     </div>
     <button class="btn btn-sprachy" @click="uploadImage">Upload image</button>
     <h2 class="mt-4">Uploaded images</h2>
-    <p>These images are stored in the R2 bucket at <code>{{ config.public.imagesBaseUrl }}</code>.</p>
+    <p>These are all the images that haven't been used in an exercise yet. Click an image to copy the path for use in an
+      exercise.</p>
     <input class="form-control" type="search" placeholder="Search filenames..." v-model="state.searchQuery" />
     <div class="loading" v-if="state.loading">
       <LoadingIndicator />
     </div>
-    <ul class="mt-3" v-else>
+    <ul class="mt-3" v-else-if="state.shownImages.length">
       <DevImageItem v-for="image in state.shownImages" :key="image.path" :image="image"
         @delete="onImageDeleted(image.path)" />
     </ul>
+    <div class="mt-3" v-else>
+      No results!
+    </div>
   </main>
 </template>
 
