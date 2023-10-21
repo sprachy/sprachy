@@ -37,7 +37,7 @@ export async function checkAudioPlayability(): Promise<boolean> {
 }
 
 /** Prompt the user to choose a file for upload. */
-export async function chooseFilePrompt(): Promise<File> {
+export async function chooseFilePrompt(): Promise<File | undefined> {
   return new Promise((resolve) => {
     const input = document.createElement('input')
     input.type = 'file'

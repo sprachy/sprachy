@@ -23,7 +23,7 @@ export class FillblankExercise {
       console.error(`Discarding invalid exercise definition. Did we forget to define a fillblank?`, def)
     }
 
-    this.canonicalAnswer = match ? match[1] : ''
+    this.canonicalAnswer = match && match[1] ? match[1] : ''
     this.validAnswers = [this.canonicalAnswer]
   }
 }

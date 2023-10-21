@@ -44,7 +44,7 @@ const state = defineState({
   },
 
   get review() {
-    return state.reviews[state.reviewIndex]
+    return state.reviews[state.reviewIndex]!
   },
 })
 

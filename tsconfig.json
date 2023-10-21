@@ -3,6 +3,7 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "verbatimModuleSyntax": true,
+    "noUncheckedIndexedAccess": true,
     "types": [
       "@cloudflare/workers-types"
     ]

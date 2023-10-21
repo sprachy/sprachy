@@ -30,12 +30,12 @@ export default defineEventHandler(async (event) => {
 
   const hashedPassword = bcrypt.hashSync(password, 10)
 
-  const [user] = await db.insert(schema.users).values({
+  const user = (await db.insert(schema.users).values({
     email,
     hashedPassword,
-    username: email.split("@")[0] + Math.floor(Math.random() * 1000),
-    displayName: email.split("@")[0]
-  }).returning()
+    username: email.split("@")[0]! + Math.floor(Math.random() * 1000),
+    displayName: email.split("@")[0]!
+  }).returning())[0]!
 
   const sessionId = await sessions.create(user.id)
 

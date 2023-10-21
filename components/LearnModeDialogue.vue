@@ -8,15 +8,11 @@ const emit = defineEmits<{
 }>()
 
 const state = defineState({
-  promptToBegin: true,
-
-  get progress() {
-    return progressStore.progressablePatternById[props.learnable.pattern.id].progress
-  }
+  promptToBegin: true
 })
 
 async function completeDialogue() {
-  if (state.progress.experience < 1000) {
+  if (props.learnable.pattern.progress.experience < 1000) {
     await progressStore.gainPatternExperience(props.learnable.pattern.id, 1000)
   }
 

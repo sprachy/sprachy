@@ -14,6 +14,8 @@ export function deumlautify(str: string) {
  * Make the first letter of a string uppercase.
  */
 export function titleCase(str: string) {
+  if (!str[0])
+    return str
   return str[0].toUpperCase() + str.slice(1)
 }
 
@@ -48,7 +50,7 @@ export function getMultipleChoiceAnswerType(qatext: string): MultipleChoiceAnswe
 
   if (answer === 'yes' || answer === 'no') {
     return 'yes/no'
-  } else if (answer.match(/^\d+$/)) {
+  } else if (answer?.match(/^\d+$/)) {
     return 'numeric'
   }
 

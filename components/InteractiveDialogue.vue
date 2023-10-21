@@ -98,7 +98,7 @@ async function nextLine() {
   if (linesRef.value?.length) {
     // This is necessary for the window keydown event listener
     // to fire for the next line on firefox
-    linesRef.value[linesRef.value.length - 1].querySelector("input")?.blur()
+    linesRef.value[linesRef.value.length - 1]?.querySelector("input")?.blur()
   }
   if (state.lineIndex < props.dialogue.lines.length - 1) {
     state.lineIndex += 1
