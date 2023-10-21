@@ -13,7 +13,7 @@ let db: DrizzleSqliteDB
 export async function getDatabase(event: Parameters<Parameters<typeof defineEventHandler>[0]>[0]) {
   if (!db) {
     if (process.dev) {
-      const sqlite = new Database(process.env.DATABASE_URL!)
+      const sqlite = new Database(process.env.DEV_DATABASE_URL!)
       db = drizzle(sqlite, { schema })
     } else {
       const { cloudflare } = event.context
