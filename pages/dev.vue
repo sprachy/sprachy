@@ -7,6 +7,7 @@ const state = defineState({
   images: [] as UploadedImageListItem[],
   patterns: [] as Pattern[],
   searchQuery: "",
+  dropzone: false,
 
   get usedImagePaths() {
     const usedImagePaths: Record<string, boolean> = {}
@@ -41,33 +42,74 @@ onMounted(async () => {
     sprachdex.fetchPatterns({})
   ])
   state.images = images
-  console.log(patterns)
   state.loading = false
+
+  window.addEventListener("dragover", onDragOver)
+  window.addEventListener("dragenter", onDragEnter)
+  window.addEventListener("dragleave", onDragLeave)
+  window.addEventListener("drop", onDrop)
 })
 
-async function uploadImage() {
+onUnmounted(() => {
+  window.removeEventListener("dragover", onDragOver)
+  window.removeEventListener("dragenter", onDragEnter)
+  window.removeEventListener("dragleave", onDragLeave)
+  window.removeEventListener("drop", onDrop)
+})
+
+async function uploadImage(file: File) {
+  state.loading = true
+  try {
+    const img = await api.dev.uploadImage(file)
+    state.images.unshift(img)
+  } finally {
+    state.loading = false
+  }
+}
+
+async function chooseFileToUpload() {
   const file = await chooseFilePrompt()
   if (!file) return
 
-  const img = await api.dev.uploadImage(file)
-  state.images.unshift(img)
+  uploadImage(file)
 }
 
 function onImageDeleted(path: string) {
   state.images = state.images.filter(image => image.path !== path)
 }
 
+function onDragOver(ev: DragEvent) {
+  ev.preventDefault()
+}
+
+function onDragEnter() {
+  state.dropzone = true
+}
+
+function onDragLeave() {
+  state.dropzone = false
+}
+
+async function onDrop(ev: DragEvent) {
+  ev.preventDefault()
+  state.dropzone = false
+  if (!ev.dataTransfer) return
+
+  const fileItems = Array.from(ev.dataTransfer.items).filter(item => item.kind === "file")
+
+  await Promise.all(fileItems.map(item => uploadImage(item.getAsFile()!)))
+}
 </script>
 
 <template>
-  <main class="container">
+  <main :class="{ container: true, dropzone: state.dropzone }">
     <div class="d-flex justify-content-between">
       <h1>Sprachy dev panel</h1>
       <Message from="squirrel">
         Lasst uns gemeinsam süße Übungen machen!
       </Message>
     </div>
-    <button class="btn btn-sprachy" @click="uploadImage">Upload image</button>
+    <button class="btn btn-sprachy" @click="chooseFileToUpload">Upload image</button>
     <h2 class="mt-4">Uploaded images</h2>
     <p>These are all the images that haven't been used in an exercise yet. Click an image to copy the path for use in an
       exercise.</p>
@@ -86,6 +128,10 @@ function onImageDeleted(path: string) {
 </template>
 
 <style scoped>
+main {
+  height: 100%;
+}
+
 .loading {
   display: flex;
   justify-content: center;
@@ -97,5 +143,10 @@ ul {
   column-count: 3;
   column-gap: 15px;
   padding: 0;
+}
+
+.dropzone {
+  background-color: #f8f9fa;
+  border: 2px dashed #ced4da;
 }
 </style>
