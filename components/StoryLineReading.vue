@@ -17,7 +17,7 @@ defineProps<{
       <AudioForLine :opts="line" :playImmediately="!staticMode" />
       <Sprachdown inline :source="line.message" />
     </Message>
-    <img v-if="line.image" :alt="line.imageAlt" :src="imageLibrary[line.image]" />
+    <img v-if="line.image" :alt="line.imageAlt" :src="getUploadedImageUrl(line.image)" />
   </div>
 </template>
 
