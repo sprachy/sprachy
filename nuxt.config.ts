@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       routes: ['/'],
-      ignore: ["/api", "/login?next", "/signup?next"]
+      ignore: ["/api", "/login?next", "/signup?next", "/dev"]
     }
   },
   content: {
@@ -51,6 +51,7 @@ export default defineNuxtConfig({
 
     public: {
       frontendBaseUrl: 'http://localhost:5999',
+      imagesBaseUrl: 'https://images.sprachy.com'
     }
   }
 })

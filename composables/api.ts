@@ -7,6 +7,11 @@ import type { ReportProgressSchema } from '~/server/api/progress.post'
 import type { SignupSchema } from '~/server/api/signup.post'
 
 class SprachyAPI {
+  dev: SprachyDevAPI
+  constructor() {
+    this.dev = new SprachyDevAPI()
+  }
+
   async login(opts: LoginSchema) {
     return await $fetch('/api/login', { method: 'POST', body: opts })
   }
@@ -37,6 +42,12 @@ class SprachyAPI {
 
   async whoami(): Promise<{ status: 'guest' } | { status: 'user', user: User, progressItems: ProgressItem[] }> {
     return await $fetch(`/api/whoami`)
+  }
+}
+
+class SprachyDevAPI {
+  async listImages() {
+    return await $fetch('/api/dev/listImages')
   }
 }
 

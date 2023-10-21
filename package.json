@@ -19,6 +19,7 @@
     "migrate:live": "wrangler d1 migrations --env live apply d1_sprachy_live"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.433.0",
     "@cloudflare/workers-types": "^4.20231016.0",
     "@nuxt/content": "^2.8.5",
     "@nuxt/image-edge": "^1.0.0-rc.3-28291130.a4b5d45",
@@ -41,6 +42,7 @@
     "drizzle-kit": "^0.19.13",
     "env-cmd": "^10.1.0",
     "glob": "^10.3.10",
+    "h3-formidable": "^1.0.0",
     "miniflare": "^2.13.0",
     "npm-upgrade": "^3.1.0",
     "num-words-de": "https://github.com/evrys/num-words-de.git",

@@ -74,6 +74,9 @@ const route = useRoute()
                   <NuxtLink class="dropdown-item" href="/settings">Settings</NuxtLink>
                 </li> -->
                 <li>
+                  <NuxtLink v-if="dev" class="dropdown-item" href="/dev">Dev</NuxtLink>
+                </li>
+                <li>
                   <NuxtLink class="dropdown-item" href="/logout">Log out</NuxtLink>
                 </li>
               </ul>
