@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import PatternIndex from "~/components/PatternIndex.vue"
-import backgroundImg from "~/assets/sprachy-bg.webp"
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCircleNodes, faComments, faBook } from "@fortawesome/free-solid-svg-icons"
 
 const pageDesc =
   "Sprachy is a German learning web app with dorky characters, linguistic patterns, SRS, and extradimensional squirrels."
 
-useHead({
-  title: "Sprachy, a German learning application",
-  meta: [{
-    name: 'description',
-    content: pageDesc
-  }]
+useSeoMeta({
+  title: 'Sprachy, a German learning application',
+  ogTitle: 'Sprachy, a German learning application',
+  description: pageDesc,
+  ogDescription: pageDesc,
+  ogImage: 'https://sprachy.com/sprachy-bg.webp',
+  twitterCard: 'summary_large_image',
 })
 
 const state = defineState({
@@ -26,7 +26,7 @@ async function gotoSignup() {
 
 <template>
   <main>
-    <section class="banner" :style="{ backgroundImage: `url(${backgroundImg})` }">
+    <section class="banner" :style="{ backgroundImage: `url(/sprachy-bg.webp)` }">
       <div class="container">
         <div class="row">
           <div class="signup">

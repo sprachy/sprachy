@@ -12,6 +12,7 @@
     "postinstall": "nuxt prepare",
     "td": "npm run build && wrangler pages deploy --project-name sprachy-staging --commit-dirty=true dist/",
     "deploy": "npm run build && wrangler pages deploy --project-name sprachy-live --branch live dist/ && env-cmd node scripts/post-deploy.js",
+    "qd": "npm run build && wrangler pages deploy --project-name sprachy-live --branch live dist/",
     "upgrade": "npm-upgrade",
     "test": "vitest",
     "migrate": "drizzle-kit generate:sqlite && cross-env NODE_OPTIONS='--experimental-specifier-resolution=node' env-cmd --no-override node --loader ts-node/esm scripts/migrate.ts",
