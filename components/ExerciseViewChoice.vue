@@ -14,12 +14,28 @@ const emit = defineEmits<{
 }>()
 
 const state = defineState({
-  choiceAudioReady: false
+  choiceAudioReady: false,
+  mode: 'start' as 'start' | 'hint' | 'done'
+})
+
+function onKeydown(e: KeyboardEvent) {
+  if (e.key === 'Enter' && state.mode === 'done') {
+    emit('correct')
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', onKeydown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', onKeydown)
 })
 
 watch(
   () => props.exercise,
   () => {
+    state.mode = 'start'
     state.choiceAudioReady = false
   }
 )
@@ -41,8 +57,17 @@ watch(
       <span class="me-1" />
       <Sprachdown inline :source="exercise.message" />
     </div>
-    <Choices :choices="exercise.choices" :hint="exercise.hint" @correct="emit('correct')"
-      :muted="!state.choiceAudioReady" />
+    <Choices :choices="exercise.choices" :hint="exercise.hint" @correct="state.mode = 'done'"
+      @incorrect="state.mode = 'hint'" :muted="!state.choiceAudioReady" :complete="state.mode === 'done'" />
+    <Sprachdown class="hint" v-if="state.mode === 'hint' && exercise.hint" :source="'Hint: ' + exercise.hint" />
+
+    <template v-if="state.mode === 'done'">
+      <div class="text-center mt-4">
+        <Sprachdown class="correct" v-if="exercise.correct" :source="exercise.correct" />
+        <button class="btn btn-outline-success" @click="emit('correct')">Continue</button>
+        <!-- <Keyhint class="mt-1">Enter</Keyhint> -->
+      </div>
+    </template>
   </div>
 </template>
 
@@ -66,5 +91,9 @@ watch(
 
 img {
   max-height: 50vh;
+}
+
+.hint {
+  margin-top: 1rem;
 }
 </style>

@@ -39,7 +39,7 @@ function nextExercise() {
 
 <template>
   <main class="container" v-if="pattern">
-    <h1>{{ pattern.title }}</h1>
+    <h1 class="text-center">Practice: {{ pattern.title }}</h1>
     <ExerciseView @correct="nextExercise" v-if="state.exercise" :exercise="state.exercise" :pattern="pattern" />
     <p v-else>
       All exercises complete!
@@ -49,6 +49,12 @@ function nextExercise() {
 
 <style scoped>
 main.container {
+  padding-top: 1rem;
   max-width: 800px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 </style>

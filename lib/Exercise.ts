@@ -34,8 +34,10 @@ export type MultipleChoiceExerciseDef = {
   message: string
   translation: string
   image?: string
-  hint?: string
+  explanation: string
   choices: { text: string; correct?: boolean }[]
+  hint?: string
+  correct?: string
 }
 
 export interface MultipleChoiceExercise extends MultipleChoiceExerciseDef { }

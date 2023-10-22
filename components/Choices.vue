@@ -12,12 +12,12 @@ const props = withDefaults(defineProps<{
   muted?: boolean
 }>(), {
   complete: false,
-  hint: "",
   muted: false
 })
 
 const emit = defineEmits<{
   (e: "correct"): void
+  (e: "incorrect"): void
 }>()
 
 const choicesUl = ref<HTMLUListElement | null>(null)
@@ -57,6 +57,8 @@ async function choose(choice: Choice) {
         choicesUl.value!.children[props.choices.indexOf(choice)] as HTMLElement
       )
       emit("correct")
+    } else {
+      emit("incorrect")
     }
   }
 }
@@ -79,9 +81,6 @@ function speakChoice(choice: Choice) {
 
 <template>
   <ul class="choices" ref="choicesUl">
-    <li v-if="hint != ''">
-      <Hints :hint="hint" />
-    </li>
     <li v-for="(choice, i) in choices" @mouseenter="speakChoice(choice)">
       <button :class="{
         'btn': true,
