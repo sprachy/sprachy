@@ -1,4 +1,4 @@
-import { defineEventHandler } from 'h3'
+import { defineEventHandler, readMultipartFormData } from 'h3'
 import { PutObjectCommand } from '@aws-sdk/client-s3'
 import crypto from 'crypto'
 import sharp from 'sharp'
