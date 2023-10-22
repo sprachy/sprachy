@@ -12,7 +12,10 @@ export type Base64Audio = string
 export class SpeechSystem {
   enabled: boolean = false
   audioCache: Record<string, Promise<Base64Audio>> = {}
-  currentlySaying: HTMLAudioElement | null = null
+  currentlySaying: {
+    audioContent: Base64Audio,
+    el: HTMLAudioElement
+  } | null = null
 
   constructor() { }
 
@@ -69,6 +72,8 @@ export class SpeechSystem {
   }
 
   async playAudioContent(audioContent: Base64Audio) {
+    if (!this.enabled) return
+
     const snd = new Audio("data:audio/wav;base64," + audioContent)
 
     if (this.currentlySaying) {
@@ -77,10 +82,10 @@ export class SpeechSystem {
       this.skip()
     }
 
-    this.currentlySaying = snd
+    this.currentlySaying = { el: snd, audioContent }
     const promise = new Promise<void>(resolve => {
       const onEnd = () => {
-        if (this.currentlySaying === snd) {
+        if (this.currentlySaying?.el === snd) {
           this.currentlySaying = null
         }
         resolve()
@@ -128,8 +133,8 @@ export class SpeechSystem {
   async skip() {
     // https://stackoverflow.com/questions/14834520/html5-audio-stop-function
     if (this.currentlySaying) {
-      this.currentlySaying.pause()
-      this.currentlySaying.currentTime = 0
+      this.currentlySaying.el.pause()
+      this.currentlySaying.el.currentTime = 0
     }
   }
 }

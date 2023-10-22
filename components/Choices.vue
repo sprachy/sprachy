@@ -33,14 +33,6 @@ watch(
   }
 )
 
-watchEffect(() => {
-  if (speech.enabled) {
-    for (const choice of props.choices) {
-      speech.preload({ from: "narrator", message: choice.text })
-    }
-  }
-})
-
 onMounted(() => {
   window.addEventListener("keydown", onKeydown)
 })
@@ -53,6 +45,9 @@ async function choose(choice: Choice) {
   if (!props.complete) {
     state.chosen.add(choice)
     if (choice.correct) {
+      if (speech.currentlySaying?.audioContent !== await speech.get({ from: "narrator", message: choice.text })) {
+        speakChoice(choice, true)
+      }
       effects.confetti.spawnAt(
         choicesUl.value!.children[props.choices.indexOf(choice)] as HTMLElement
       )
@@ -72,8 +67,8 @@ function onKeydown(ev: KeyboardEvent) {
   }
 }
 
-function speakChoice(choice: Choice) {
-  if (speech.enabled && !props.muted) {
+function speakChoice(choice: Choice, force: boolean = false) {
+  if (!props.muted || force) {
     speech.say({ from: "narrator", message: choice.text })
   }
 }
