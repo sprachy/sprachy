@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import type { MultipleChoiceExercise } from "~/lib/Exercise"
 import Sprachdown from "~/components/Sprachdown.vue"
-import Hints from "./Hints.vue"
 
 type Choice = MultipleChoiceExercise["choices"][0]
 
 const props = withDefaults(defineProps<{
+  responder?: string
   choices: Choice[]
   complete?: boolean
   hint?: string
   muted?: boolean
 }>(), {
+  responder: "narrator",
   complete: false,
   muted: false
 })
@@ -45,7 +46,7 @@ async function choose(choice: Choice) {
   if (!props.complete) {
     state.chosen.add(choice)
     if (choice.correct) {
-      if (speech.currentlySaying?.audioContent !== await speech.get({ from: "narrator", message: choice.text })) {
+      if (speech.currentlySaying?.audioContent !== await speech.get({ from: props.responder, message: choice.text })) {
         speakChoice(choice, true)
       }
       effects.confetti.spawnAt(
@@ -69,7 +70,7 @@ function onKeydown(ev: KeyboardEvent) {
 
 function speakChoice(choice: Choice, force: boolean = false) {
   if (!props.muted || force) {
-    speech.say({ from: "narrator", message: choice.text })
+    speech.say({ from: props.responder, message: choice.text })
   }
 }
 </script>

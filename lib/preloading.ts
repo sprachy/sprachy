@@ -50,7 +50,7 @@ export async function preloadExerciseAssets(exercises: Exercise[]) {
     }
     if ('choices' in ex) {
       for (const choice of ex.choices) {
-        speech.preload({ from: 'narrator', message: choice.text })
+        speech.preload({ from: ex.responder || 'narrator', message: choice.text })
       }
     }
   }

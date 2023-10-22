@@ -58,7 +58,8 @@ watch(
       <Sprachdown inline :source="exercise.message" />
     </div>
     <Choices :choices="exercise.choices" :hint="exercise.hint" @correct="state.mode = 'done'"
-      @incorrect="state.mode = 'hint'" :muted="!state.choiceAudioReady" :complete="state.mode === 'done'" />
+      @incorrect="state.mode = 'hint'" :muted="!state.choiceAudioReady" :complete="state.mode === 'done'"
+      :responder="exercise.responder" />
     <Sprachdown class="hint" v-if="state.mode === 'hint' && exercise.hint" :source="'Hint: ' + exercise.hint" />
 
     <template v-if="state.mode === 'done'">
