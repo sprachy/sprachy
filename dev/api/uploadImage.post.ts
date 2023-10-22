@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const basename = file.filename!.split('.').slice(0, -1).join('.')
-  const img = await sharp(file.data).resize({ width: 960, height: 540, fit: 'inside' }).webp().toBuffer()
+  const img = await sharp(file.data).resize({ width: 1200, height: 628, fit: 'inside' }).webp().toBuffer()
   const hash = crypto.createHash('md5')
     .update(img)
     .digest("hex")
