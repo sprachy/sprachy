@@ -26,8 +26,8 @@ a mobile app, we'll investigate building one.
 
 ### Who made this?
 
-Sprachy is made by [Toggle](https://github.com/tgle) and [Twokay](https://github.com/two-kay).
-Toggle wanted to learn German, and it's Twokay's native language, so we decided to team up
+Sprachy is made by [Evan](https://github.com/evrys) and [Twokay](https://github.com/two-kay).
+Evan wanted to learn German, and it's Twokay's native language, so we decided to team up
 and make a fancy website for it!
 
 ### Typing in German
