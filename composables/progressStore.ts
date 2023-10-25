@@ -192,14 +192,16 @@ export class ProgressStore {
   }
 
   async devTimeSkip() {
-    // this.receiveProgress(await this.api.devTimeSkip())
-    if (!this.user) {
+    if (this.user) {
+      const { progressItems } = await api.timeskip()
+      this.progressItems = progressItems
+    } else {
       for (const item of this.progressItems) {
         item.lastExperienceGainAt = item.lastExperienceGainAt - time.days(100)
       }
-    } else {
-
     }
+
+    this.saveLocalProgress()
     this.updateCurrentLearnable()
   }
 

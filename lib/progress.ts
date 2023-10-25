@@ -13,7 +13,7 @@ export function combineProgress(progressItems: ProgressItem[], otherProgressItem
     const existingItem = progressItemsByPatternId[item.patternId]
     if (!existingItem) {
       progressItemsByPatternId[item.patternId] = item
-    } else if (item.experience > existingItem.experience) {
+    } else if (item.experience > existingItem.experience || (item.experience >= existingItem.experience && item.lastExperienceGainAt < existingItem.lastExperienceGainAt)) {
       progressItemsByPatternId[item.patternId] = item
     }
   }

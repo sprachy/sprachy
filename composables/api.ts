@@ -47,6 +47,10 @@ class SprachyAPI {
   async resetProgress() {
     return await $fetch(`/api/resetProgress`, { method: 'POST' })
   }
+
+  async timeskip() {
+    return await $fetch(`/api/timeskip`, { method: 'POST' })
+  }
 }
 
 class SprachyDevAPI {
