@@ -74,8 +74,12 @@ function nextExercise() {
 <template>
   <div class="practice">
     <template v-if="!state.startedReview">
-      <h2>Review session</h2>
-      <button class="btn btn-primary" @click="state.startedReview = true">Start review</button>
+      <div class="d-flex justify-content-center">
+        <div>
+          <h2>Review session</h2>
+          <button class="btn btn-primary" @click="state.startedReview = true">Start review</button>
+        </div>
+      </div>
     </template>
     <template v-else-if="state.completedReview">
       <div class="complete">
@@ -100,10 +104,6 @@ function nextExercise() {
 
 <style scoped>
 .practice {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100%;
   padding: 2rem 0;
 }
