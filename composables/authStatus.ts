@@ -5,14 +5,14 @@ export class AuthStatus {
 
   constructor() {
     $debug.authStatus = this
+  }
+
+  initialize() {
+    this.user = clientStorage.getJSON('user') as User
 
     watch(() => this.user, (user) => {
       clientStorage.setJSON('user', user)
     })
-  }
-
-  loadLocalUser() {
-    this.user = clientStorage.getJSON('user') as User
   }
 
   async logout() {

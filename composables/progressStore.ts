@@ -204,11 +204,10 @@ export class ProgressStore {
   }
 
   async reallyResetAllUserProgress() {
-    clientStorage.setJSON(this.localProgressKey, [])
-    this.progressItems = []
-    // const summary = await this.api.resetProgress()
-    // this.receiveProgress(summary)
+    if (this.user)
+      await api.resetProgress()
 
+    this.clearLocalProgress()
     this.updateCurrentLearnable()
   }
 }

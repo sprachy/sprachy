@@ -9,7 +9,7 @@ progressStore.patterns = patterns.value!
 onMounted(async () => {
   // Client-side setup
 
-  authStatus.loadLocalUser()
+  authStatus.initialize()
   progressStore.loadLocalProgress()
   await Promise.all([
     import("bootstrap"),

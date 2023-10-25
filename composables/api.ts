@@ -43,6 +43,10 @@ class SprachyAPI {
   async whoami(): Promise<{ status: 'guest' } | { status: 'user', user: User, progressItems: ProgressItem[] }> {
     return await $fetch(`/api/whoami`)
   }
+
+  async resetProgress() {
+    return await $fetch(`/api/resetProgress`, { method: 'POST' })
+  }
 }
 
 class SprachyDevAPI {
