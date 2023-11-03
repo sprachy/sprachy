@@ -31,7 +31,7 @@ class Sprachdex {
    * dialogue and exercises.
    */
   async fetchPattern(query: Partial<PatternNavigationItem> & QueryBuilderWhere) {
-    return parsePattern(await queryContent().where(query).findOne())
+    return parsePattern(await queryContent().where(query).findOne() as any)
   }
 
   async fetchPatternById(patternId: string) {

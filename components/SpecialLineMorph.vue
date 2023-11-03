@@ -2,10 +2,10 @@
 import Message from "~/components/Message.vue"
 import Sprachdown from "~/components/Sprachdown.vue"
 import AudioForLine from "~/components/AudioForLine.vue"
-import type { DialogueLineReading } from "~/lib/Dialogue"
+import type { Line } from "~/lib/Line"
 
 defineProps<{
-  line: DialogueLineReading
+  line: Line
   flip?: boolean
   staticMode?: boolean
 }>()

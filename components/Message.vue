@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import Avatar from "./Avatar.vue"
 
-defineProps<{
+withDefaults(defineProps<{
   from: string
   flip?: boolean
   tooltip?: string
-}>()
+}>(), { from: 'narrator' })
 </script>
 
 <template>
   <div :class="{ message: true, flip: flip }">
-    <template v-if="from === 'narrator'">
+    <div v-if="from === 'narrator'" class="narration">
       <div class="quoteInner" :data-tooltip="tooltip">
         <slot />
       </div>
       <slot name="after" />
-    </template>
+    </div>
     <template v-else>
       <slot name="avatar">
         <Avatar :charId="from" />

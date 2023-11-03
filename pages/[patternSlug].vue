@@ -8,7 +8,7 @@ const { data: patternData, error } = await useAsyncData(`pattern/${patternSlug}`
   () => queryContent(`/${patternSlug}`).findOne()
 )
 
-const pattern = computed(() => patternData.value ? parsePattern(patternData.value) : null)
+const pattern = computed(() => patternData.value ? parsePattern(patternData.value as any) : null)
 
 if (error.value) {
   throw createError(error.value)

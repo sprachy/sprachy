@@ -32,6 +32,7 @@ watch(
   },
   { immediate: true }
 )
+
 async function nextExercise() {
   // Completed an exercise, gain experience
   const expGained = 200

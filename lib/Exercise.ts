@@ -1,64 +1,25 @@
-export type FillblankExerciseDef = {
-  type: 'fillblank'
-  from: string
-  message: string
-  translation: string
-  hint?: string
-  feedback?: { [attempt: string]: string }
-  explanation?: string
-  image?: string
-}
+import { omit } from "lodash-es"
+import { Line, type LineDef } from "./Line"
 
-export interface FillblankExercise extends FillblankExerciseDef { }
+export type ExerciseDef = (LineDef & { lines?: undefined }) | { lines: LineDef[] }
 
-export class FillblankExercise {
-  canonicalAnswer: string
-  validAnswers: string[]
+export interface Exercise extends LineDef { }
 
-  constructor(def: FillblankExerciseDef) {
-    Object.assign(this, def)
+export class Exercise {
+  lines: Line[] = []
+  constructor(def: ExerciseDef) {
+    Object.assign(this, omit(def, 'lines'))
 
-    const match = def.message?.match(/\[(.+?)\]/)
-    if (!match) {
-      console.error(`Discarding invalid exercise definition. Did we forget to define a fillblank?`, def)
+    if (def.lines) {
+      for (const line of def.lines) {
+        this.lines.push(new Line(line))
+      }
+    } else {
+      this.lines.push(new Line(def))
     }
-
-    this.canonicalAnswer = match && match[1] ? match[1] : ''
-    this.validAnswers = [this.canonicalAnswer]
   }
 }
-
-export type MultipleChoiceExerciseDef = {
-  type: 'choice'
-  from: string
-  message: string
-  translation: string
-  image?: string
-  explanation: string
-  choices: { text: string; correct?: boolean }[]
-  hint?: string
-  correct?: string
-  responder?: string
-}
-
-export interface MultipleChoiceExercise extends MultipleChoiceExerciseDef { }
-
-export class MultipleChoiceExercise {
-  constructor(def: MultipleChoiceExerciseDef) {
-    Object.assign(this, def)
-  }
-}
-
-export type ExerciseDef = FillblankExerciseDef | MultipleChoiceExerciseDef
-
-export type Exercise = FillblankExercise | MultipleChoiceExercise
 
 export function parseExercise(def: ExerciseDef) {
-  if (def.type === 'fillblank') {
-    return new FillblankExercise(def)
-  } else if (def.type === 'choice') {
-    return new MultipleChoiceExercise(def)
-  } else {
-    throw new Error(`Unknown excercise type '${(def as any).type}'`)
-  }
+  return new Exercise(def)
 }

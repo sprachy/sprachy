@@ -14,8 +14,9 @@ const state = defineState({
 
     for (const pattern of this.patterns) {
       for (const exercise of pattern.exercises) {
-        if (exercise.image)
-          usedImagePaths[exercise.image] = true
+        for (const line of exercise.lines)
+          if (line.image)
+            usedImagePaths[line.image] = true
       }
 
       for (const line of pattern.dialogue.lines) {

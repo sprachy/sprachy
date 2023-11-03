@@ -1,37 +1,22 @@
-import * as z from 'zod'
+import { omit } from 'lodash-es'
+import type { Line, LineDef } from './Line'
+import { parseLine } from './Line'
 
-export const dialogueLineReadingSchema = z.object({
-  type: z.literal("reading").default("reading"),
-  from: z.string(),
-  message: z.string().optional(),
-  translation: z.string().optional(),
-  image: z.string().optional(),
-  imageAlt: z.string().optional()
-})
+export type DialogueDef = {
+  title: string
+  lines: LineDef[]
+}
 
-export type DialogueLineReading = z.infer<typeof dialogueLineReadingSchema>
+export interface Dialogue extends DialogueDef { }
 
-export const dialogueLineChoiceSchema = z.object({
-  type: z.literal("choice").default("choice"),
-  question: z.string(),
-  choices: z.array(z.object({
-    text: z.string(),
-    correct: z.boolean().optional().default(false),
-  }))
-})
+export class Dialogue {
+  lines: Line[]
+  constructor(readonly def: DialogueDef) {
+    Object.assign(this, omit(def, 'lines'))
+    this.lines = def.lines.map(d => parseLine(d))
+  }
+}
 
-export type DialogueLineChoice = z.infer<typeof dialogueLineChoiceSchema>
-
-export const dialogueLineSchema = z.union([
-  dialogueLineReadingSchema,
-  dialogueLineChoiceSchema
-])
-
-export type DialogueLine = z.infer<typeof dialogueLineSchema>
-
-export const dialogueSchema = z.object({
-  title: z.string(),
-  lines: z.array(dialogueLineSchema)
-})
-
-export type Dialogue = z.infer<typeof dialogueSchema>
+export function parseDialogue(def: DialogueDef) {
+  return new Dialogue(def)
+}

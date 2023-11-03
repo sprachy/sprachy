@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { MultipleChoiceExercise } from "~/lib/Exercise"
+import type { Line } from "~/lib/Line"
 import Sprachdown from "~/components/Sprachdown.vue"
 
-type Choice = MultipleChoiceExercise["choices"][0]
+type Choice = Line["choices"][0]
 
 const props = withDefaults(defineProps<{
   responder?: string
@@ -93,6 +93,7 @@ function speakChoice(choice: Choice, force: boolean = false) {
 
 <style scoped>
 .choices {
+  margin-top: 1rem;
   display: flex;
   padding: 0;
   margin: auto;

@@ -25,7 +25,7 @@ async function completeDialogue() {
 
 <template>
   <div class="dialogueContainer">
-    <InteractiveDialogue :dialogue="learnable.data.dialogue" @complete="completeDialogue" />
+    <InteractiveSequence :lines="learnable.data.dialogue.lines" @complete="completeDialogue" />
   </div>
 </template>
 

@@ -1,103 +1,105 @@
 <script setup lang="ts">
-import type { FillblankExercise } from "~/lib/Exercise"
-import { matchAnswer } from "~/lib/feedback"
-import Message from "~/components/Message.vue"
-import Sprachdown from "~/components/Sprachdown.vue"
-import AudioForLine from "~/components/AudioForLine.vue"
-import { sortBy } from "lodash-es"
-import type { PatternNavigationItem } from "~/lib/Pattern"
+// import type { Exercise } from "~/lib/Exercise"
+// import { matchAnswer } from "~/lib/feedback"
+// import Message from "~/components/Message.vue"
+// import Sprachdown from "~/components/Sprachdown.vue"
+// import AudioForLine from "~/components/AudioForLine.vue"
+// import { sortBy } from "lodash-es"
+// import type { PatternNavigationItem } from "~/lib/Pattern"
 
-const props = defineProps<{
-  exercise: FillblankExercise
-  flip?: boolean
-  complete?: boolean
-  pattern?: PatternNavigationItem
-}>()
+// const props = defineProps<{
+//   exercise: Exercise
+//   flip?: boolean
+//   complete?: boolean
+//   pattern?: PatternNavigationItem
+// }>()
 
-const emit = defineEmits<{
-  (e: "correct"): void
-}>()
+// const emit = defineEmits<{
+//   (e: "correct"): void
+// }>()
 
-const state = defineState({
-  attempt: "",
-  feedback: "",
-  showingAnswer: false,
-  playingPostAnswerSound: false,
-  get parts() {
-    const [before, after] = props.exercise.message.split(/\[.+?\]/)
-    return {
-      before: before || "",
-      after: after || "",
-    }
-  },
-  // How many characters we expect to go in the input
-  // Length of the longest answer, or the hint if it's longer
-  get inputWidthChars() {
-    const words = props.exercise.validAnswers
-    if (props.exercise.hint) {
-      words.push(props.exercise.hint)
-    }
-    const longestAnswer = sortBy(words, (s) => -s.length)[0]
-    return longestAnswer!.length
-  },
-  get translation() {
-    return props.exercise.translation?.replace(/\[.+?\]/, (substring) => {
-      const highlight = substring.slice(1, -1)
-      return `**${highlight}**`
-    })
-  },
-  get attemptMatch() {
-    return matchAnswer(state.attempt, props.exercise)
-  }
-})
+// const state = defineState({
+//   attempt: "",
+//   feedback: "",
+//   showingAnswer: false,
+//   playingPostAnswerSound: false,
+//   get parts() {
+//     const [before, after] = props.exercise.message.split(/\[.+?\]/)
+//     return {
+//       before: before || "",
+//       after: after || "",
+//     }
+//   },
 
-const attemptInput = ref<HTMLInputElement>()
-const audioForLine = ref<typeof AudioForLine>()
+//   // How many characters we expect to go in the input
+//   // Length of the longest answer, or the hint if it's longer
+//   get inputWidthChars() {
+//     const words = props.exercise.validAnswers
+//     if (props.exercise.hint) {
+//       words.push(props.exercise.hint)
+//     }
+//     const longestAnswer = sortBy(words, (s) => -s.length)[0]
+//     return longestAnswer!.length
+//   },
 
-onMounted(() => {
-  attemptInput.value!.focus()
-})
+//   get translation() {
+//     return props.exercise.translation?.replace(/\[.+?\]/, (substring) => {
+//       const highlight = substring.slice(1, -1)
+//       return `**${highlight}**`
+//     })
+//   },
 
-function showAnswer() {
-  state.showingAnswer = true
-  state.attempt = ""
-  state.feedback = ""
-  attemptInput.value!.focus()
-}
+//   get attemptMatch() {
+//     return matchAnswer(state.attempt, props.exercise)
+//   }
+// })
 
-async function checkAnswer() {
-  state.feedback = ""
-  state.showingAnswer = false
-  if (state.attempt === "") return
-  if (state.playingPostAnswerSound) {
-    // User pressed enter twice or such, skip sound and continue
-    speech.skip()
-    return
-  }
-  if (state.attemptMatch.validAnswer) {
-    // Change user's input as needed to show them we're accounting
-    // for any variation in casing or typo etc
-    state.attempt = state.attemptMatch.validAnswer
-    effects.confetti.spawnAt(attemptInput.value!)
-    state.playingPostAnswerSound = true
-    await audioForLine.value?.playSound()
-    emit("correct")
-  } else {
-    if (state.attemptMatch.feedback) {
-      state.feedback = state.attemptMatch.feedback
-    }
-    attemptInput.value!.focus()
-  }
-}
+// const attemptInput = ref<HTMLInputElement>()
+// const audioForLine = ref<typeof AudioForLine>()
+
+// onMounted(() => {
+//   attemptInput.value!.focus()
+// })
+
+// function showAnswer() {
+//   state.showingAnswer = true
+//   state.attempt = ""
+//   state.feedback = ""
+//   attemptInput.value!.focus()
+// }
+
+// async function checkAnswer() {
+//   state.feedback = ""
+//   state.showingAnswer = false
+//   if (state.attempt === "") return
+//   if (state.playingPostAnswerSound) {
+//     // User pressed enter twice or such, skip sound and continue
+//     speech.skip()
+//     return
+//   }
+//   if (state.attemptMatch.validAnswer) {
+//     // Change user's input as needed to show them we're accounting
+//     // for any variation in casing or typo etc
+//     state.attempt = state.attemptMatch.validAnswer
+//     effects.confetti.spawnAt(attemptInput.value!)
+//     state.playingPostAnswerSound = true
+//     await audioForLine.value?.playSound()
+//     emit("correct")
+//   } else {
+//     if (state.attemptMatch.feedback) {
+//       state.feedback = state.attemptMatch.feedback
+//     }
+//     attemptInput.value!.focus()
+//   }
+// }
 </script>
 
 <template>
-  <div>
+  <!-- <div>
     <Message :from="exercise.from" :flip="flip">
       <form @submit.prevent="checkAnswer">
         <AudioForLine :opts="exercise" ref="audioForLine" :disabled="!state.playingPostAnswerSound" />
         <Sprachdown inline :source="state.parts.before" />
-        <!-- svelte-ignore a11y-autofocus -->
         <input class="fillblank" type="text" ref="attemptInput" v-model="state.attempt" :placeholder="exercise.hint"
           autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" :size="state.inputWidthChars"
           :disabled="complete" />
@@ -132,7 +134,7 @@ async function checkAnswer() {
         </div>
       </template>
     </Message>
-  </div>
+  </div> -->
 </template>
 
 <style scoped>
