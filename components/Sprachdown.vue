@@ -29,6 +29,12 @@ const state = defineState({
 </script>
 
 <template>
-  <div class="Sprachdown" v-html="state.renderedMarkdown" />
+  <div :class="{ Sprachdown: true, inlineSprachdown: inline }" v-html="state.renderedMarkdown" />
   <!-- <SprachdownComponentProvider :key="state.renderedMarkdown" :renderedMarkdown="state.renderedMarkdown" /> -->
 </template>
+
+<style scoped>
+.inlineSprachdown {
+  display: inline;
+}
+</style>

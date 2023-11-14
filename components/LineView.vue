@@ -43,10 +43,12 @@ function onCorrect() {
     </figure>
     <Message v-if="line.message" :flip="flip" :from="line.from" :tooltip="line.translation">
       <AudioForLine :opts="line" playImmediately @finished="state.choiceAudioReady = true" />
-      <template v-for="part in line.parts">
-        <Sprachdown v-if="part.type === 'text'" inline :source="part.text" />
-        <Blank v-if="part.type === 'blank'" :source="part.answer" :filled="state.correct" />
-      </template>
+      <div>
+        <template v-for="part in line.parts">
+          <Sprachdown v-if="part.type === 'text'" inline :source="part.text" />
+          <Blank v-if="part.type === 'blank'" :source="part.answer" :filled="state.correct" />
+        </template>
+      </div>
     </Message>
     <!-- <div v-else-if="line.message"
       class="hover-translate question text-center mt-2 mb-2"
