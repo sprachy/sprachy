@@ -81,11 +81,11 @@ function onCorrect() {
 figure {
   display: flex;
   justify-content: center;
+  margin: 0;
 }
 
 img {
   max-height: 50vh;
-  margin-bottom: 1rem;
 }
 
 .hint {
