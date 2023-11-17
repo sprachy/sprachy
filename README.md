@@ -68,16 +68,3 @@ dev environment is configured correctly.
 For writing tests, it's important to note that the server runs in a
 separate process to the test code, so you can't share global variables
 between them.
-
-### Adding images
-
-First install the cwebp tool to optimize images in webp format.
-
-```sh
-brew install webp
-```
-
-Then you can add images with the little script.
-
-`scripts/add-image.sh <path-to-input-image> <output-image-name>`
-
