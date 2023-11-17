@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { preloadDialogueAssets } from '~/lib/preloading'
+
 definePageMeta({
   layout: false
 })
@@ -21,6 +23,7 @@ watch(currentLearnable, async (learnable) => {
       learnable.data = await sprachdex.fetchPatterns({ id: { $in: learnable.patterns.map(p => p.id) } })
     } else {
       learnable.data = await sprachdex.fetchPatternById(learnable.pattern.id)
+      preloadDialogueAssets(learnable.data!.dialogue)
     }
   }
 

@@ -17,7 +17,7 @@ export async function preloadImage(href: string) {
 
 export async function preloadLineAssets(lines: Line[]) {
   for (const line of lines) {
-    if ('image' in line && line.image) {
+    if (line.image) {
       preloadImage(getUploadedImageUrl(line.image))
     }
     if (line.message) {

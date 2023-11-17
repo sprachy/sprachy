@@ -1,4 +1,4 @@
-import { omit } from "lodash-es"
+import { omit, sampleSize, shuffle } from "lodash-es"
 
 type LineWithMessageDef = {
   from: string
@@ -34,10 +34,29 @@ export type LinePart = {
 export class Line {
   constructor(readonly def: LineDef) {
     Object.assign(this, omit(def, 'translation'))
+
+    if (this.hasBlanks && !this.choices) {
+      // XXX temporary hack to keep old fillblanks working
+      const germanWords = ["Haus", "Baum", "Weg", "Auto", "Buch", "Hund", "Katze", "Licht", "Sonne", "Mond"]
+      this.choices = sampleSize(germanWords, 3).map((word) => ({
+        text: word
+      }))
+
+      for (const part of this.parts) {
+        if (part.type === 'blank') {
+          this.choices.push({
+            text: part.answer,
+            correct: true
+          })
+        }
+      }
+
+      this.choices = shuffle(this.choices)
+    }
   }
 
   get parts(): LinePart[] {
-    return this.message.split(/(\[.+?\])/).map(part => {
+    return this.message?.split(/(\[.+?\])/).map(part => {
       const m = part.match(/\[(.+?)\]/)
       if (m) {
         return {
@@ -50,7 +69,11 @@ export class Line {
           text: part,
         }
       }
-    })
+    }) || []
+  }
+
+  get hasBlanks() {
+    return this.parts.length > 1
   }
 
   // How many characters we expect to go in the input
