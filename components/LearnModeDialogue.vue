@@ -25,7 +25,11 @@ async function completeDialogue() {
 
 <template>
   <div class="dialogueContainer">
-    <InteractiveSequence :lines="learnable.data.dialogue.lines" @complete="completeDialogue" />
+    <div v-if="state.promptToBegin" class="d-flex flex-column align-items-center">
+      <h1>Dialogue: {{ learnable.data.dialogue.title }}</h1>
+      <button class="btn btn-primary" @click="state.promptToBegin = false">Start</button>
+    </div>
+    <InteractiveSequence v-else :lines="learnable.data.dialogue.lines" @complete="completeDialogue" />
   </div>
 </template>
 

@@ -14,6 +14,8 @@ export type PatternDef = {
 
 export type Pattern = Omit<PatternDef, 'exercises' | 'dialogue'> & { slug: string, exercises: Exercise[], dialogue: Dialogue }
 
+export type PatternId = string
+
 export function parsePattern(obj: unknown): Pattern {
   const def = obj as PatternDef
 

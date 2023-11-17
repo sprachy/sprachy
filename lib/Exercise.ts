@@ -18,6 +18,10 @@ export class Exercise {
       this.lines.push(new Line(def))
     }
   }
+
+  get experience() {
+    return 200
+  }
 }
 
 export function parseExercise(def: ExerciseDef) {

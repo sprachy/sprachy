@@ -88,7 +88,7 @@ function nextExercise() {
         </div>
         <div>
           <h4>Review complete!</h4>
-          <LevelReport :experienceByPatternId="state.experienceByPatternId" @animEnd="state.showNext = true" />
+          <!-- <LevelReport :experienceByPatternId="state.experienceByPatternId" @animEnd="state.showNext = true" /> -->
           <button class="btn btn-primary mt-2" @click="emit('complete')"
             :class="{ opacity: state.showNext ? 1 : 0 }">Continue</button>
         </div>

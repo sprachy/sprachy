@@ -9,8 +9,8 @@ const learnable = toRefs(progressStore).currentLearnable
       <div>{{ learnable.why }}</div>
       <LevelBar v-if="'pattern' in learnable" :key="learnable.pattern.id"
         :experience="learnable.pattern.progress.experience" />
-      <small v-if="learnable.type === 'dialogue'" class="text-secondary">&lt;&lt; Press Enter to continue dialogue
-        &gt;&gt;</small>
+      <!-- <small v-if="learnable.type === 'dialogue'" class="text-secondary">&lt;&lt; Press Enter to continue dialogue
+        &gt;&gt;</small> -->
     </div>
 
     <LearnDevPanel v-if="dev" />

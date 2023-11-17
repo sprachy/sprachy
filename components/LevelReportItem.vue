@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// import { tweened } from "svelte/motion"
-// import { cubicInOut } from "svelte/easing"
-
 const props = defineProps<{
   title: string
   expStart: number
@@ -23,11 +20,6 @@ const state = defineState({
     return (state.renderExp % 1000) / 1000
   }
 })
-
-// let renderExp = tweened(expStart, {
-//   duration: expGained,
-//   easing: cubicInOut,
-// })
 
 watchEffect(() => {
   if (state.renderLevel > state.initialLevel) {
