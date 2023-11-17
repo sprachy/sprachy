@@ -35,7 +35,7 @@ const state = defineState({
     let flip = false
     let prevFlippableLine: Line | null = null
     return props.lines.map((line) => {
-      if (line.from === "narrator" || !line.message) {
+      if (!line.from || !line.message || line.from === "narrator") {
         return false
       } else {
         if (prevFlippableLine && prevFlippableLine.from !== line.from) {
