@@ -8,7 +8,6 @@ const props = withDefaults(defineProps<{
   responder?: string
   choices: Choice[]
   complete?: boolean
-  hint?: string
   muted?: boolean
 }>(), {
   responder: "narrator",

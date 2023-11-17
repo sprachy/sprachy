@@ -57,10 +57,11 @@ function onCorrect() {
       <span class="me-1" />
       <Sprachdown inline :source="line.message" />
     </div> -->
-    <Choices v-if="line.choices" :choices="line.choices" :hint="line.hint" @correct="onCorrect"
+    <Choices v-if="line.choices" :choices="line.choices" @correct="onCorrect"
       @incorrect="state.showHint = true" :muted="!state.choiceAudioReady" :complete="!props.current"
       :responder="line.responder" />
-    <Sprachdown class="hint" v-if="state.showHint && line.hint" :source="'Hint: ' + line.hint" />
+    <Sprachdown class="correct" v-if="state.correct && line.correct" :source="line.correct" />
+    <Sprachdown class="hint" v-else-if="state.showHint && line.hint" :source="'Hint: ' + line.hint" />
   </div>
 </template>
 
@@ -86,9 +87,11 @@ figure {
 
 img {
   max-height: 50vh;
+  max-width: 100%;
 }
 
+.correct,
 .hint {
-  margin-top: 1rem;
+  text-align: center;
 }
 </style>
