@@ -34,4 +34,12 @@ async function completeDialogue() {
   margin-top: 2rem;
   padding-bottom: calc(50vh - 61px);
 }
+
+:deep(img) {
+  max-height: 300px;
+}
+
+:deep(figure) {
+  justify-content: flex-start;
+}
 </style>
