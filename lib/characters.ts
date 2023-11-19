@@ -15,7 +15,7 @@ import nils from "~/assets/nils.webp"
 import fox from "~/assets/fox.webp"
 import harald from "~/assets/harald.webp"
 import klaus from "~/assets/klaus.webp"
-import orbInPark from "~/assets/1-orb-in-park.webp"
+import orbInPark from "~/assets/orb.webp"
 import type { VoiceSynthesisSchema } from "~/server/api/synthesize.post"
 
 export type Character = {
