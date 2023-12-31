@@ -1,4 +1,5 @@
 import { delay as _delay } from 'lodash-es'
+import canAutoPlay from 'can-autoplay'
 
 /** 
  * This is just a reimplementation of default template literals
@@ -23,17 +24,8 @@ export async function delay(amount: number) {
  * can play audio.
  */
 export async function checkAudioPlayability(): Promise<boolean> {
-  const audio = new Audio()
-
-  // Use a short silent audio data as the source.
-  audio.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA="
-
-  try {
-    await audio.play()
-    return true
-  } catch (err) {
-    return false
-  }
+  const { result } = await canAutoPlay.audio()
+  return result
 }
 
 /** Prompt the user to choose a file for upload. */
