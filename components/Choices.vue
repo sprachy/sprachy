@@ -45,9 +45,7 @@ async function choose(choice: Choice) {
   if (!props.complete) {
     state.chosen.add(choice)
     if (choice.correct) {
-      if (speech.currentlySaying?.audioContent !== await speech.get({ from: props.responder, message: choice.text })) {
-        speakChoice(choice, true)
-      }
+      speakChoice(choice, true)
       effects.confetti.spawnAt(
         choicesUl.value!.children[props.choices.indexOf(choice)] as HTMLElement
       )
@@ -67,9 +65,13 @@ function onKeydown(ev: KeyboardEvent) {
   }
 }
 
-function speakChoice(choice: Choice, force: boolean = false) {
+async function speakChoice(choice: Choice, force: boolean = false) {
   if (!props.muted || force) {
-    speech.say({ from: props.responder, message: choice.text })
+    const audio = speech.tryGetCached({ from: props.responder, message: choice.text })
+
+    if (audio && speech.currentlySaying?.audioContent !== audio) {
+      speech.playAudioContent(audio)
+    }
   }
 }
 </script>

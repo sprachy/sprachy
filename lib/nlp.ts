@@ -62,3 +62,7 @@ export function getMultipleChoiceAnswerType(qatext: string): MultipleChoiceAnswe
   // See https://github.com/dariusk/pos-js for possibilities
   return taggedWords[taggedWords.length - 1][1]
 }
+
+export function splitSentences(text: string): string[] {
+  return text.split(/(?<=[\.\?!])\s+/).filter(Boolean)
+}

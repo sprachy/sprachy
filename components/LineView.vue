@@ -42,7 +42,8 @@ function onCorrect() {
       <img :src="getUploadedImageUrl(line.image)" :alt="line.imageAlt" />
     </figure>
     <Message v-if="line.message" :flip="flip" :from="line.from" :tooltip="line.translation">
-      <AudioForLine :opts="line" playImmediately @finished="state.choiceAudioReady = true" />
+      <AudioForLine :key="line.message" :line="line" playImmediately :completed="state.correct"
+        @finished="state.choiceAudioReady = true" />
       <div>
         <template v-for="part in line.parts">
           <Sprachdown v-if="part.type === 'text'" inline :source="part.text" />
@@ -50,13 +51,6 @@ function onCorrect() {
         </template>
       </div>
     </Message>
-    <!-- <div v-else-if="line.message"
-      class="hover-translate question text-center mt-2 mb-2"
-      :data-tooltip="line.translation">
-      <AudioForLine :opts="{ from: 'narrator', message: line.message }" playImmediately />
-      <span class="me-1" />
-      <Sprachdown inline :source="line.message" />
-    </div> -->
     <Choices v-if="line.choices" :choices="line.choices" @correct="onCorrect"
       @incorrect="state.showHint = true" :muted="!state.choiceAudioReady" :complete="!props.current"
       :responder="line.responder" />

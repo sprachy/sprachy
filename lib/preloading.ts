@@ -20,8 +20,11 @@ export async function preloadLineAssets(lines: Line[]) {
     if (line.image) {
       preloadImage(getUploadedImageUrl(line.image))
     }
-    if (line.message) {
-      speech.preload({ from: line.from || 'narrator', message: line.message })
+    if (line.speechDef) {
+      speech.preload(line.speechDef)
+    }
+    if (line.hasBlanks && line.speechDefWhenCompleted) {
+      speech.preload(line.speechDefWhenCompleted)
     }
     if (line.from) {
       preloadImage(sprachdex.getCharacter(line.from).avatar)

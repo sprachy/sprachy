@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import type { SpeechSystem, Base64Audio } from "~/composables/speech"
+import type { Base64Audio } from "~/composables/speech"
 import SoundIndicator from "~/components/SoundIndicator.vue"
+import type { Line } from "~/lib/Line"
 
 const props = withDefaults(defineProps<{
-  opts: Partial<Parameters<SpeechSystem["get"]>[0]>
+  line: Line
   playImmediately?: boolean,
+  completed?: boolean,
   disabled?: boolean,
 }>(), {
   playImmediately: false,
+  completed: false,
   disabled: false
 })
 
@@ -15,64 +18,77 @@ const emit = defineEmits<{
   (e: "finished"): void
 }>()
 
-defineExpose({
-  playSound
-})
-
 const state = defineState({
-  playingSound: false,
   loading: true,
+  currentlyPlayingAudio: false,
+  playedImmediateAudio: false,
   audio: undefined as Base64Audio | undefined,
+  audioWhenCompleted: undefined as Base64Audio | undefined,
 
-  get audioOpts() {
-    return props.opts.from && props.opts.message
-      ? { from: props.opts.from, message: props.opts.message }
-      : undefined
+  get targetAudio() {
+    return props.completed ? state.audioWhenCompleted : state.audio
+  }
+})
+
+// Grab the audio for the line
+// Ideally audio was preloaded already, but we don't assume it was
+watch(
+  () => speech.enabled && props.line,
+  async () => {
+    state.loading = true
+    try {
+      const [audio, audioWhenCompleted] = await Promise.all([
+        speech.get(props.line.speechDef),
+        speech.get(props.line.speechDefWhenCompleted)
+      ])
+      state.audio = audio
+      state.audioWhenCompleted = audioWhenCompleted
+    } finally {
+      state.loading = false
+    }
   },
+  { immediate: true }
+)
 
-  get enabled() {
-    return speech.enabled && this.audioOpts
+// If requested, play audio immediately after load
+watch(
+  () => state.audio,
+  () => {
+    if (state.audio && props.playImmediately && !state.playedImmediateAudio) {
+      state.playedImmediateAudio = true
+      playSound(state.audio)
+    }
+  },
+  { immediate: true }
+)
+
+watch(
+  () => props.completed,
+  () => {
+    if (props.completed && props.line.hasBlanks && state.audioWhenCompleted) {
+      console.log("Playing completion")
+      playSound(state.audioWhenCompleted)
+    }
   }
-})
+)
 
-async function loadAudio() {
-  state.loading = true
+async function playSound(audio: Base64Audio) {
+  state.currentlyPlayingAudio = true
   try {
-    state.audio = await speech.get(state.audioOpts!)
+    await speech.playAudioContent(audio)
   } finally {
-    state.loading = false
-  }
-
-  if (props.playImmediately) {
-    playSound()
-  }
-}
-
-watchEffect(() => {
-  if (state.enabled && state.audioOpts) {
-    loadAudio()
-  }
-})
-
-async function playSound() {
-  if (!state.audio) return
-
-  state.playingSound = true
-  try {
-    await speech.playAudioContent(state.audio)
-  } finally {
-    state.playingSound = false
+    state.currentlyPlayingAudio = false
     emit("finished")
   }
 }
 
 onUnmounted(() => {
   // User muted the sound or went to another page, stop playing
-  if (state.playingSound) speech.skip()
+  if (state.currentlyPlayingAudio) speech.skip()
 })
 </script>
 
 <template>
-  <SoundIndicator v-if="state.enabled" :loading="state.loading" :playing="state.playingSound"
-    @click.prevent="props.disabled ? () => null : playSound()" />
+  <SoundIndicator v-if="speech.enabled" :loading="state.loading" :playing="state.currentlyPlayingAudio"
+    @click.prevent="() => (props.disabled || !state.targetAudio) ? null : playSound(state.targetAudio)" />
 </template>

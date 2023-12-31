@@ -25,7 +25,7 @@ onMounted(() => {
       <div class="pixel" />
     </div>
     <Message v-else from="squirrel" :flip="flip" :tooltip="line.translation">
-      <AudioForLine :opts="line" :playImmediately="!staticMode" />
+      <AudioForLine :line="line" :playImmediately="!staticMode" />
       <Sprachdown inline :source="line.message!" />
     </Message>
   </div>

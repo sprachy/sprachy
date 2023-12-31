@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { getMultipleChoiceAnswerType, numToWord } from '~/lib/nlp'
+import { getMultipleChoiceAnswerType, numToWord, splitSentences } from '~/lib/nlp'
 
 test('numToWord', () => {
   expect(numToWord(0)).toBe('Null')
@@ -14,4 +14,13 @@ test('getMultipleChoiceAnswerType', () => {
   expect(getMultipleChoiceAnswerType("How many fish are there? 10")).toBe("numeric")
   expect(getMultipleChoiceAnswerType("What are the people doing? laughing")).toBe("VBG")
   expect(getMultipleChoiceAnswerType("What is in front of the fish? food")).toBe("NN")
+})
+
+
+test('splitSentences', () => {
+  expect(splitSentences("Das ist die Eichel! Die Eichel sieht lecker aus. Kann ich die Eichel essen?")).toEqual([
+    "Das ist die Eichel!",
+    "Die Eichel sieht lecker aus.",
+    "Kann ich die Eichel essen?"
+  ])
 })

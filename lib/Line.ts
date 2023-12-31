@@ -1,4 +1,5 @@
 import { omit, sampleSize, shuffle } from "lodash-es"
+import { splitSentences } from "./nlp"
 
 type LineWithMessageDef = {
   from: string
@@ -74,6 +75,49 @@ export class Line {
 
   get hasBlanks() {
     return this.parts.length > 1
+  }
+
+  get textBeforeBlank() {
+    const partsBeforeBlank = []
+    for (const part of this.parts) {
+      if (part.type === 'text') {
+        partsBeforeBlank.push(part.text)
+      } else {
+        break
+      }
+    }
+
+    console.log(this.parts, partsBeforeBlank)
+
+    return partsBeforeBlank.join('')
+  }
+
+  get speakableTextBeforeBlank() {
+    const fullSentences: string[] = []
+
+    for (const sent of splitSentences(this.textBeforeBlank)) {
+      if (sent.match(/[\.\?!]$/)) {
+        fullSentences.push(sent)
+      } else {
+        break
+      }
+    }
+
+    return fullSentences.join(' ')
+  }
+
+  get speechDef() {
+    return {
+      from: this.from,
+      message: this.hasBlanks ? this.speakableTextBeforeBlank : this.message
+    }
+  }
+
+  get speechDefWhenCompleted() {
+    return {
+      from: this.from,
+      message: this.message
+    }
   }
 
   // How many characters we expect to go in the input

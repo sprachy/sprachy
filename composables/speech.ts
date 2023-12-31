@@ -9,9 +9,15 @@ export type VoiceSynthesisOptions = {
 
 export type Base64Audio = string
 
+export type SpeechDef = {
+  from: string
+  message: string
+}
+
 export class SpeechSystem {
   enabled: boolean = false
-  audioCache: Record<string, Promise<Base64Audio>> = {}
+  audioRequests: Record<string, Promise<Base64Audio>> = {}
+  audioCache: Record<string, Base64Audio> = {}
   currentlySaying: {
     audioContent: Base64Audio,
     el: HTMLAudioElement
@@ -101,30 +107,36 @@ export class SpeechSystem {
   async preload(opts: { from: string, message: string }) {
     const key = opts.from + ' ' + opts.message
 
-    let audioPromise = this.audioCache[key]
-    if (audioPromise) {
-      return audioPromise
-    } else {
-      audioPromise = this.synthesizeFromCharacter(opts.from, opts.message)
-      this.audioCache[key] = audioPromise
-      return audioPromise
-    }
+    const cachedAudio = this.audioCache[key]
+    if (cachedAudio)
+      return cachedAudio
+
+    let pendingAudio = this.audioRequests[key]
+    if (pendingAudio)
+      return pendingAudio
+
+    pendingAudio = this.synthesizeFromCharacter(opts.from, opts.message)
+    this.audioRequests[key] = pendingAudio
+    pendingAudio.then(v => {
+      this.audioCache[key] = v
+      delete this.audioRequests[key]
+    })
+    return pendingAudio
   }
 
-  async get(opts: { from: string, message: string }) {
-    const key = opts.from + ' ' + opts.message
-    const promise = this.audioCache[key]
-    if (promise) {
-      return promise
+  tryGetCached(def: SpeechDef) {
+    return this.audioCache[def.from + ' ' + def.message]
+  }
+
+  async get(def: SpeechDef) {
+    const key = def.from + ' ' + def.message
+    const audio = this.audioCache[key]
+    if (audio) {
+      return audio
     } else {
       console.warn("Audio \"" + key + "\" has not been preloaded.")
-      return this.preload(opts)
+      return this.preload(def)
     }
-  }
-
-  async say(opts: { from: string, message: string }) {
-    const audioContent = await this.get(opts)
-    return this.playAudioContent(audioContent)
   }
 
   /**

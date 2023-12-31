@@ -1,7 +1,7 @@
 import * as z from 'zod'
 import { getDatabase, schema, type DrizzleSqliteDB } from '~/db'
 import { and, eq } from 'drizzle-orm'
-import { keyBy, omit } from 'lodash-es'
+import { keyBy } from 'lodash-es'
 import { combineProgress } from '~/lib/progress'
 
 export const progressItemSchema = z.object({
