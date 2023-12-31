@@ -15,27 +15,26 @@ export type SpeechDef = {
 }
 
 export class SpeechSystem {
-  enabled: boolean = false
   audioRequests: Record<string, Promise<Base64Audio>> = {}
   audioCache: Record<string, Base64Audio> = {}
   currentlySaying: {
     audioContent: Base64Audio,
     el: HTMLAudioElement
   } | null = null
+  volume: number = 0
 
   constructor() { }
 
-  loadMute() {
-    this.enabled = !clientStorage.getJSON('muteAudio')
+  get enabled() {
+    return this.volume > 0
   }
 
-  toggleMute() {
-    this.enabled = !this.enabled
-    if (this.enabled) {
-      clientStorage.deleteJSON('muteAudio')
-    } else {
-      clientStorage.setJSON('muteAudio', true)
-    }
+  saveVolume() {
+    clientStorage.setJSON('speechVolume', this.volume)
+  }
+
+  loadVolume() {
+    this.volume = clientStorage.getJSON<number>('speechVolume') ?? 0
   }
 
   async synthesizeFromCharacter(characterId: string, text: string): Promise<Base64Audio> {
@@ -81,6 +80,8 @@ export class SpeechSystem {
     if (!this.enabled) return
 
     const snd = new Audio("data:audio/wav;base64," + audioContent)
+
+    snd.volume = this.volume
 
     if (this.currentlySaying) {
       // Skip any current speech in favor of new one, so we're not

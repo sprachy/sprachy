@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// import defaultProfileImage from "$"
-// import MuteToggle from "./MuteToggle.svelte"
-
 defineProps<{
   fixed?: boolean
 }>()
@@ -36,9 +33,7 @@ const route = useRoute()
               <NuxtLink class="nav-link" aria-current="page" href="/faq">FAQ</NuxtLink>
             </li>
 
-            <li class="nav-item d-flex">
-              <MuteToggle />
-            </li>
+            <VolumeControl />
 
             <li v-if="user?.isAdmin" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
