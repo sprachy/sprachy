@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   },
   modules: [
     '@nuxt/content',
-    'nuxt-vitest'
+    '@nuxt/test-utils/module'
   ],
   app: {
     head: {
