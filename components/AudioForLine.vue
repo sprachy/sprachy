@@ -66,7 +66,6 @@ watch(
   () => props.completed,
   () => {
     if (props.completed && props.line.hasBlanks && state.audioWhenCompleted) {
-      console.log("Playing completion")
       playSound(state.audioWhenCompleted)
     }
   }

@@ -87,8 +87,6 @@ export class Line {
       }
     }
 
-    console.log(this.parts, partsBeforeBlank)
-
     return partsBeforeBlank.join('')
   }
 

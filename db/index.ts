@@ -17,7 +17,6 @@ export async function getDatabase(event: Parameters<Parameters<typeof defineEven
       db = drizzle(sqlite, { schema })
     } else {
       const { cloudflare } = event.context
-      console.log(cloudflare.env.D1)
       db = drizzleD1(cloudflare.env.D1, { schema })
     }
   }
