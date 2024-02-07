@@ -4,6 +4,14 @@ import { md } from "~/lib/util"
 const faq = md`
 # Frequently asked questions
 
+### Isn't it harder to learn a foreign language as an adult?
+
+Actually, no! Adults generally [learn faster](https://en.wikipedia.org/wiki/List_of_common_misconceptions_about_language_learning) by making use of their advanced cognition and knowledge of their native language.  
+
+This misconception probably arises because the many years kids spend mastering their native language are part of the expected educational process for everyone, whereas adults have to go out of their way a bit to learn a new language.
+
+One area where children do have a clear advantage is in pronunciation. If you want to reach native level pronunciation as an adult, you'll need to work a bit harder at it than a bilingual kid. Fortunately, many people consider a light accent to be charming!
+
 ### What will the pricing model be?
 
 Sprachy is free to use while it is in early development. After we add sufficient
