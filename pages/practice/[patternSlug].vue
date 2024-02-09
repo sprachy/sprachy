@@ -40,7 +40,8 @@ function nextExercise() {
 <template>
   <main class="container" v-if="pattern">
     <h1 class="text-center">Practice: {{ pattern.title }}</h1>
-    <ExerciseView @correct="nextExercise" v-if="state.exercise" :exercise="state.exercise" :pattern="pattern" />
+    <ExerciseView :key="state.exerciseIndex" @correct="nextExercise" v-if="state.exercise" :exercise="state.exercise"
+      :pattern="pattern" />
     <p v-else>
       All exercises complete!
     </p>
