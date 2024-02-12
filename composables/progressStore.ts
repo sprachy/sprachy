@@ -76,6 +76,11 @@ export class ProgressStore {
       p.progress.item && p.progress.level > 0 && p.progress.level < 9 && p.progress.item.lastExperienceGainAt < Date.now() - time.toNextSRSLevel(p.progress.level))
   }
 
+  /** Get the last learned pattern in the sequence */
+  get furthestLearnedPattern() {
+    return this.progressablePatterns.toReversed().find(p => p.progress.level > 0)
+  }
+
   get nextThingToLearn() {
     // First review anything that's ready for review
     if (this.patternsToReview.length) {
