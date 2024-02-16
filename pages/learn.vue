@@ -41,8 +41,7 @@ function finishExplanation() {
 </script>
 
 <template>
-  <NuxtLayout name="default" fixedHeader>
-    <LearnSidebar />
+  <NuxtLayout name="toc">
     <main class="learnable">
       <template v-if="loadedLearnable">
         <LearnModeDialogue v-if="loadedLearnable.type === 'dialogue'" :learnable="loadedLearnable"

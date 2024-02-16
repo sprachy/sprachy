@@ -13,7 +13,7 @@ watchEffect(() => {
   <ul class="steps">
     <template v-for="pattern in progressStore.progressablePatterns" :key="pattern.id">
       <li :class="{ step: true, complete: pattern.progress.level > 0 }">
-        <NuxtLink :href="`/${pattern.id}`">
+        <NuxtLink :href="`/${pattern.slug}`">
           <div class="marker">
             <FontAwesomeIcon :icon="faBook" size="sm" />
           </div>

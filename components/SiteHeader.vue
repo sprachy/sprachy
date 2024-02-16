@@ -96,10 +96,6 @@ const route = useRoute()
 </template>
 
 <style scoped>
-:root {
-  --site-header-height: 62px;
-}
-
 .collapsing {
   transition: none !important;
 }

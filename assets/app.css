@@ -8,6 +8,8 @@
   /* Stop weird outlines around buttons */
   --bs-btn-hover-border-color: transparent;
   --bs-btn-active-border-color: transparent;
+
+  --site-header-height: 62px;
 }
 
 main.container {

@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'toc'
+})
+
 import { parsePattern } from '~/lib/Pattern'
 import { preloadExerciseAssets } from '~/lib/preloading'
 

@@ -1,5 +1,9 @@
 
 <script setup lang="ts">
+definePageMeta({
+  layout: 'toc'
+})
+
 import { parsePattern } from '~/lib/Pattern'
 
 const { patternSlug } = useRoute().params
