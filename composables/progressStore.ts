@@ -9,6 +9,7 @@ export type LearnableDialogue = {
   pattern: ProgressablePattern
   why: string
   data?: Pattern
+  href: string
 }
 
 export type LearnablePattern = {
@@ -17,6 +18,7 @@ export type LearnablePattern = {
   why: string
   readExplanation: boolean
   data?: Pattern
+  href: string
 }
 
 export type LearnableReviews = {
@@ -24,6 +26,7 @@ export type LearnableReviews = {
   patterns: ProgressablePattern[]
   why: string
   data?: Pattern[]
+  href: string
 }
 
 export type Learnable = LearnableReviews | LearnableDialogue | LearnablePattern
@@ -87,7 +90,8 @@ export class ProgressStore {
       return {
         type: 'review',
         patterns: this.patternsToReview,
-        why: `Reviewing ${this.patternsToReview.length} patterns`
+        why: `Reviewing ${this.patternsToReview.length} patterns`,
+        href: '/review'
       } as Learnable
     }
 
@@ -98,7 +102,8 @@ export class ProgressStore {
         type: 'pattern',
         pattern: pattern,
         why: `${pattern.title}`,
-        readExplanation: false
+        readExplanation: false,
+        href: `/${pattern.slug}`
       } as Learnable
     }
 
@@ -108,12 +113,17 @@ export class ProgressStore {
       return {
         type: 'dialogue',
         pattern: pattern,
-        why: `${pattern.title}`
+        why: `${pattern.title}`,
+        href: `/dialogue/${pattern.slug}`
       } as Learnable
     }
 
     // Nothing left to learn!
     return null
+  }
+
+  get nextHref() {
+    return this.nextThingToLearn?.href || '/learn'
   }
 
   async syncProgressWithServer() {

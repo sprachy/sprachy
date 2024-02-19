@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { flatten, shuffle } from "lodash-es"
-import ExerciseView from "./ExerciseView.vue"
-import LevelReport from "./LevelReport.vue"
+import ExerciseView from "~/components/ExerciseView.vue"
 import successImg from "~/assets/success.webp"
 import type { LearnableReviews } from "~/composables/progressStore"
 import { preloadExerciseAssets } from "~/lib/preloading"
+import type { Pattern } from "~/lib/Pattern"
 
-const props = defineProps<{
-  learnable: Required<LearnableReviews>
-}>()
+definePageMeta({
+  layout: 'toc'
+})
 
 const emit = defineEmits<{
   (e: "complete"): void
@@ -20,10 +20,7 @@ const state = defineState({
   showNext: false,
   experienceByPatternId: {} as { [patternId: string]: number },
   reviewIndex: 0,
-
-  get patterns() {
-    return props.learnable.data
-  },
+  patterns: [] as Pattern[],
 
   get reviews() {
     return shuffle(
@@ -40,18 +37,27 @@ const state = defineState({
   },
 })
 
-watch(
-  () => props.learnable,
-  () => {
-    state.startedReview = false
-    state.completedReview = false
-    state.showNext = false
-    state.experienceByPatternId = {}
-    state.reviewIndex = 0
-    preloadExerciseAssets(state.reviews.map(r => r.exercise))
-  },
-  { immediate: true }
-)
+async function loadPatternsToReview() {
+  state.patterns = await sprachdex.fetchPatterns({ id: { $in: progressStore.patternsToReview.map(p => p.id) } })
+  preloadExerciseAssets(state.reviews.map(r => r.exercise))
+}
+
+onMounted(() => {
+  loadPatternsToReview()
+})
+
+// watch(
+//   () => props.learnable,
+//   () => {
+//     state.startedReview = false
+//     state.completedReview = false
+//     state.showNext = false
+//     state.experienceByPatternId = {}
+//     state.reviewIndex = 0
+//     preloadExerciseAssets(state.reviews.map(r => r.exercise))
+//   },
+//   { immediate: true }
+// )
 
 function nextExercise() {
   // Completed an exercise, gain experience
@@ -88,9 +94,11 @@ function nextExercise() {
         </div>
         <div>
           <h4>Review complete!</h4>
-          <!-- <LevelReport :experienceByPatternId="state.experienceByPatternId" @animEnd="state.showNext = true" /> -->
-          <button class="btn btn-primary mt-2" @click="emit('complete')"
-            :class="{ opacity: state.showNext ? 1 : 0 }">Continue</button>
+          <ClientOnly>
+            <LevelReport :experienceByPatternId="state.experienceByPatternId" @animEnd="state.showNext = true" />
+          </ClientOnly>
+          <NuxtLink :href="progressStore.nextHref" class="btn btn-primary mt-2" @click="emit('complete')"
+            :class="{ opacity: state.showNext ? 1 : 0 }">Continue</NuxtLink>
         </div>
       </div>
     </template>

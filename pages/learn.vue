@@ -1,48 +1,17 @@
 <script setup lang="ts">
-import { preloadDialogueAssets } from '~/lib/preloading'
-
 definePageMeta({
-  layout: false
+  layout: 'toc'
 })
 
 onMounted(() => {
   progressStore.updateCurrentLearnable()
+  if (progressStore.currentLearnable)
+    navigateTo(progressStore.currentLearnable.href)
 })
-
-const { currentLearnable } = toRefs(progressStore)
-
-const loadedLearnable = ref(null as Required<Learnable> | null)
-
-// Load any needed data for the current learnable when we get a new one
-watch(currentLearnable, async (learnable) => {
-  if (!learnable?.data) {
-    loadedLearnable.value = null
-    if (!learnable) return
-
-    if (learnable.type === 'review') {
-      learnable.data = await sprachdex.fetchPatterns({ id: { $in: learnable.patterns.map(p => p.id) } })
-    } else {
-      learnable.data = await sprachdex.fetchPatternById(learnable.pattern.id)
-      preloadDialogueAssets(learnable.data!.dialogue)
-    }
-  }
-
-  loadedLearnable.value = learnable as Required<Learnable>
-}, { immediate: true })
-
-function nextLearnable() {
-  progressStore.updateCurrentLearnable()
-}
-
-function finishExplanation() {
-  if (progressStore.currentLearnable?.type !== 'pattern') return
-  progressStore.currentLearnable.readExplanation = true
-}
 </script>
 
 <template>
-  <NuxtLayout name="toc">
-    <main class="learnable">
+  <!-- <main class="learnable">
       <template v-if="loadedLearnable">
         <LearnModeDialogue v-if="loadedLearnable.type === 'dialogue'" :learnable="loadedLearnable"
           @complete="nextLearnable" />
@@ -61,14 +30,7 @@ function finishExplanation() {
           <LoadingIndicator />
         </div>
       </template>
-    </main>
-  </NuxtLayout>
+    </main> -->
 </template>
 
-<style scoped>
-.learnable {
-  padding-top: 5rem;
-  padding-left: 300px;
-  height: 100%;
-}
-</style>
+<style scoped></style>

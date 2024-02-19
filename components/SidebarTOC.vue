@@ -23,7 +23,7 @@ watchEffect(() => {
       <li
         class="step"
         v-if="progressStore.currentLearnable?.type === 'review' && pattern.id === progressStore.furthestLearnedPattern?.id">
-        Review
+        <NuxtLink href="/review">Review</NuxtLink>
       </li>
     </template>
   </ul>

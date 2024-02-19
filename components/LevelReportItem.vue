@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import gsap from 'gsap'
+
 const props = defineProps<{
   title: string
   expStart: number
@@ -30,7 +32,7 @@ watchEffect(() => {
 const endpointRef = ref<HTMLDivElement>()
 
 onMounted(() => {
-  testProgress()
+  gsap.to(state, { duration: 0.5, renderExp: props.expStart + props.expGained })
 })
 
 async function testProgress() {

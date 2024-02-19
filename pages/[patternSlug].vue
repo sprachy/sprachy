@@ -24,8 +24,8 @@ if (error.value) {
     <article>
       <h1>{{ pattern.title }}</h1>
       <PatternExplanation :pattern="pattern" />
-      <NuxtLink class="btn btn-sprachy" :href="`/practice/${pattern.slug}`">
-        Practice
+      <NuxtLink class="btn btn-success" :href="`/practice/${pattern.slug}`">
+        Continue to exercises
       </NuxtLink>
     </article>
   </main>
