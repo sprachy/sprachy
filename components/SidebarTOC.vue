@@ -3,10 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 import {
   faBook,
 } from "@fortawesome/free-solid-svg-icons"
-
-watchEffect(() => {
-  console.log(progressStore.furthestLearnedPattern)
-})
 </script>
 
 <template>
