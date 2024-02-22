@@ -13,6 +13,8 @@ export async function setup() {
 
   devServerProcess = shell.exec(`TESTING=1 ./node_modules/.bin/nuxt dev --port=5998 --no-clear --no-fork`, { async: true })
 
+  console.log("Waiting for test server to start")
+
   await waitOn({
     resources: [
       'http://localhost:5998'
