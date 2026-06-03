@@ -4,7 +4,15 @@
   "pnpm": {
     "overrides": {
       "vue": "3.4.8"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "workerd",
+      "better-sqlite3",
+      "@parcel/watcher",
+      "vue-demi"
+    ]
   },
   "scripts": {
     "build": "nuxt build",

@@ -35,9 +35,9 @@ export default defineNuxtConfig({
       fields: ['id', 'shortdesc']
     }
   },
+  telemetry: false,
   modules: [
     '@nuxt/content',
-    '@nuxt/test-utils/module'
   ],
   app: {
     head: {
@@ -52,6 +52,7 @@ export default defineNuxtConfig({
       ]
     }
   },
+  compatibilityDate: '2024-04-03',
   alias: {
     '~': __dirname
   },
